@@ -65,10 +65,10 @@
     :hasTargetField "nameRaw" ;
     :hasSelectQuery """
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-		SELECT ?label
-		WHERE {
-			?uri rdfs:label ?label .
-	    }
+    SELECT ?label
+    WHERE {
+      ?uri rdfs:label ?label .
+      }
         """ .
 
 :documentModifier_name_label
@@ -77,10 +77,10 @@
     :hasTargetField "name_label" ;
     :hasSelectQuery """
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-		SELECT DISTINCT ?label
-		WHERE {
-			?uri rdfs:label ?label .
-	    }
+    SELECT DISTINCT ?label
+    WHERE {
+      ?uri rdfs:label ?label .
+    }
         """ .
 
 :documentModifier_type_label
@@ -90,11 +90,11 @@
     :hasSelectQuery """
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
         PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
-		SELECT ?title
-		WHERE {
-			?uri vitro:mostSpecificType ?type .
+    SELECT ?title
+    WHERE {
+      ?uri vitro:mostSpecificType ?type .
       ?type rdfs:label ?title .
-		}
+    }
         """ .
 
 :documentModifier_position
@@ -103,11 +103,11 @@
     :hasTargetField "position" ;
     :hasSelectQuery """
         PREFIX vivo: <http://vivoweb.org/ontology/core#>
-		SELECT ?position
+    SELECT ?position
     WHERE {
-    	?position a vivo:Position .
+      ?position a vivo:Position .
       ?position vivo:relates ?uri .
-		}
+    }
         """ .
 
 :documentModifier_position_label
@@ -117,12 +117,12 @@
     :hasSelectQuery """
         PREFIX vivo: <http://vivoweb.org/ontology/core#>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-		SELECT ?label
+    SELECT ?label
     WHERE {
-    	?position a vivo:Position .
+      ?position a vivo:Position .
       ?position vivo:relates ?uri .
       ?position rdfs:label ?label .
-		}
+    }
         """ .
 
 :documentModifier_position_start_label
@@ -134,11 +134,11 @@
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     select ?start
     WHERE {
-	      ?position a vivo:Position .
-	      ?position vivo:relates ?uri .
-  	    ?position vivo:dateTimeInterval ?date .
+        ?position a vivo:Position .
+        ?position vivo:relates ?uri .
+        ?position vivo:dateTimeInterval ?date .
         ?date vivo:start ?time .
-	      ?time vivo:dateTime ?obj .
+        ?time vivo:dateTime ?obj .
         BIND(year(?obj) as ?start) .
     }
         """ .
@@ -152,11 +152,11 @@
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     select ?end
     WHERE {
-	      ?position a vivo:Position .
-	      ?position vivo:relates ?uri .
-  	    ?position vivo:dateTimeInterval ?date .
+        ?position a vivo:Position .
+        ?position vivo:relates ?uri .
+        ?position vivo:dateTimeInterval ?date .
         ?date vivo:end ?time .
-	      ?time vivo:dateTime ?obj .
+        ?time vivo:dateTime ?obj .
         BIND(year(?obj) as ?end) .
     }
         """ .
@@ -168,13 +168,13 @@
     :hasSelectQuery """
         PREFIX foaf: <http://xmlns.com/foaf/0.1/>
         PREFIX vivo: <http://vivoweb.org/ontology/core#>
-		SELECT ?org
+    SELECT ?org
     WHERE {
-    	?position a vivo:Position .
+      ?position a vivo:Position .
       ?position vivo:relates ?uri .
       ?position vivo:relates ?org .
       ?org a foaf:Organization .
-		}
+    }
         """ .
 
 :documentModifier_position_org_label
@@ -185,14 +185,14 @@
         PREFIX foaf: <http://xmlns.com/foaf/0.1/>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
         PREFIX vivo: <http://vivoweb.org/ontology/core#>
-		SELECT ?label
+    SELECT ?label
     WHERE {
-    	?position a vivo:Position .
+      ?position a vivo:Position .
       ?position vivo:relates ?uri .
       ?position vivo:relates ?org .
       ?org a foaf:Organization .
       ?org rdfs:label ?label .
-		}
+    }
         """ .
 
 :documentModifier_url
