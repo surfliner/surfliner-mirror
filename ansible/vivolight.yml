@@ -1,0 +1,14 @@
+---
+- name: Provision a RHEL/CentOS server for VIVO + custom Blacklight
+  remote_user: adrl
+  hosts: all
+
+  vars:
+    database_type: mysql
+
+    db_name: vivo_db
+    db_user: vivo_user
+
+  roles:
+    - role: ucsblibrary.vivo
+    - role: vivolight
