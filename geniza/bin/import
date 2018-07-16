@@ -1,0 +1,49 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+$stdout.sync = true # flush output immediately
+
+require File.expand_path('../config/environment', __dir__)
+require File.expand_path('../lib/importer', __dir__)
+
+# If there are no options given, invoke help
+ARGV << '-h' if ARGV.empty?
+
+options = Trollop.options do
+  banner <<~EOS
+    CLI exhibit import for Spotlight
+
+    Example:
+          RAILS_ENV=development ./bin/import -m /data/mss292.csv
+    Usage:
+          RAILS_ENV=[development|test|production] ./bin/ingest [options]
+    where [options] are:
+
+  EOS
+
+  opt :data, 'Data file(s)/directory', type: :strings
+  opt :metadata, 'Metadata file(s)/directory', type: :strings
+  opt :verbosity,
+      'Log verbosity: DEBUG, INFO, WARN, ERROR',
+      type: :string,
+      default: 'INFO',
+      short: '-v'
+end
+
+logfile = Rails.root.join(
+  'log',
+  "#{options[:format]}-#{Time.zone.now.strftime('%Y-%m-%d_%H.%M.%S')}.log"
+)
+
+if Rails.application.config.active_job.queue_adapter == :resque
+  pid = fork do
+    Importer::CLI.run(options.merge(logfile: logfile))
+  end
+
+  puts "Ingesting in the background with PID #{pid}"
+  puts "Logging to #{logfile}"
+
+  Process.detach pid
+else
+  Importer::CLI.run(options.merge(logfile: $stdout))
+end

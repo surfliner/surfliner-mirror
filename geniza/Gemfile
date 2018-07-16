@@ -16,6 +16,7 @@ gem 'rsolr', '>= 1.0'
 gem 'sass-rails'
 gem 'sitemap_generator'
 gem 'sqlite3'
+gem 'trollop'
 gem 'uglifier', '>= 1.3.0'
 
 group :development, :test do

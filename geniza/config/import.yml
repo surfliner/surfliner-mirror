@@ -1,0 +1,13 @@
+---
+binary_root: /Volumes
+
+exhibit_type_key: type
+exhibit_class: Collection
+
+exhibit_title_key: title
+exhibit_description_key: description
+
+object_title_key: title
+object_description_key: description
+object_attribution_key: creator
+object_date_key: issued_start
