@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # ==> User model
 # Note that your chosen model must include Spotlight::User mixin
 # Spotlight::Engine.config.user_class = '::User'
@@ -53,7 +55,7 @@
 # ]
 # Spotlight::Engine.config.upload_title_field = nil # UploadFieldConfig.new(...)
 # Spotlight::Engine.config.uploader_storage = :file
-# Spotlight::Engine.config.allowed_upload_extensions = %w(jpg jpeg png)
+Spotlight::Engine.config.allowed_upload_extensions = %w[jpg jpeg png tif tiff]
 
 # Spotlight::Engine.config.featured_image_thumb_size = [400, 300]
 # Spotlight::Engine.config.featured_image_square_size = [400, 400]
