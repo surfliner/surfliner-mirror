@@ -22,3 +22,6 @@
 /yarn-error.log
 
 .byebug_history
+
+# site-specific metadata config
+/config/import.yml
