@@ -29,13 +29,15 @@ module Importer::Exhibit
 
       exhibit = Spotlight::Exhibit.create(exhibit_params)
       objects = table.reject { |row| row == exhibit_row }.map do |row|
+
+        data_fields = CONFIG[:resource_keys].map do |key, value|
+          { "spotlight_upload_#{key}_tesim" => row[value.to_sym] }
+        end.reduce(&:merge).merge(
+          'full_title_tesim' => row[CONFIG[:resource_keys][:title].to_sym]
+        )
+
         resource = Spotlight::Resources::Upload.new(
-          data: {
-            'full_title_tesim' => row[CONFIG[:object_title_key].to_sym],
-            'spotlight_upload_description_tesim' => row[CONFIG[:object_description_key].to_sym],
-            'spotlight_upload_attribution_tesim' => row[CONFIG[:object_attribution_key].to_sym],
-            'spotlight_upload_date_tesim' => row[CONFIG[:object_date_key].to_sym].to_s
-          },
+          data: data_fields,
           exhibit: exhibit
         )
 

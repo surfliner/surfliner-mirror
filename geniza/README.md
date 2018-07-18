@@ -6,11 +6,8 @@ and presentation of exhibits.
 This instance has been enhanced with a CLI batch import tool that
 takes CSV metadata files and creates exhibits.
 
-Currently only the default Solr fields are used:
-- title
-- description
-- attribution
-- date
+Additional metadata fields (beyond the defaults provided by Spotlight)
+are set in `config/initializers/spotlight_initializer.rb`.
 
 Which fields in your CSV file correspond to those are configued in
 `config/import.yml` copy the `import.yml.template` file to

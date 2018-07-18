@@ -7,7 +7,15 @@ exhibit_class: Collection
 exhibit_title_key: title
 exhibit_description_key: description
 
-object_title_key: title
-object_description_key: description
-object_attribution_key: creator
-object_date_key: issued_start
+resource_keys:
+  contributor: contributor
+  creator: creator
+  date: issued_start
+  description: description
+  format: form_of_work
+  identifier: accession_number
+  language: language
+  publisher: publisher
+  rights: license
+  subject: lc_subject
+  title: title
