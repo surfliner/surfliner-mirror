@@ -26,9 +26,9 @@ module Parse
   # paths passed using the `-d` flag with the CLI.
   #
   # If the path(s) specified in the metadata, when appended to
-  # {Settings.binary_source_root}, yields an existent file, we use
-  # that.  Otherwise we'll search through the paths given with `-d` in
-  # order to find a match.
+  # binary_root, yields an existent file, we use that.  Otherwise
+  # we'll search through the paths given with `-d` in order to find a
+  # match.
   #
   # @param path [Array<String>]
   # @param data_args [Array<String>]

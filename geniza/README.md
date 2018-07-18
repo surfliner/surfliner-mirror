@@ -1,24 +1,43 @@
-# README
+# Spotlight
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Spotlight is a framework built on Blacklight that allows the creation
+and presentation of exhibits.
 
-Things you may want to cover:
+This instance has been enhanced with a CLI batch import tool that
+takes CSV metadata files and creates exhibits.
 
-* Ruby version
+Currently only the default Solr fields are used:
+- title
+- description
+- attribution
+- date
 
-* System dependencies
+Which fields in your CSV file correspond to those are configued in
+`config/import.yml` copy the `import.yml.template` file to
+`import.yml` and set the appropriate values.  The `binary_root` key
+assumes the `files` column in your metadata contains relative paths,
+since a remote file share might be mounted in different places on
+different systems.  The `exhibit_type_key` and `exhibit_class` keys
+are used to identify which row of the CSV corresponds to the exhibit
+metadata; by default, it looks for the row where the value for the
+`type` column is `Collection`.
 
-* Configuration
+The CLI options are as follows:
+```
+Example:
+      RAILS_ENV=development ./bin/import -m /data/mss292.csv
+Usage:
+      RAILS_ENV=[development|test|production] ./bin/ingest [options]
+where [options] are:
+  -d, --data=<s+>        Data file(s)/directory
+  -m, --metadata=<s+>    Metadata file(s)/directory
+  -v, --verbosity=<s>    Log verbosity: DEBUG, INFO, WARN, ERROR (default: INFO)
+  -h, --help             Show this message
+```
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+The `-d` flag is optional.  We have two indicators of where the
+associated binary data will be: the 'files' attribute from the
+metadata itself, and the set of paths passed using the `-d` flag with
+the CLI.  If the path(s) specified in the metadata, when appended to
+`binary_root`, yields an existent file, we use that.  Otherwise we'll
+search through the paths given with `-d` in order to find a match.
