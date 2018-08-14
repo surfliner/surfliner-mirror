@@ -22,4 +22,8 @@ test:
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  adapter: postgresql
+  database: <%= Rails.application.secrets.psql_db %>
+  host: <%= Rails.application.secrets.psql_host %>
+  password: <%= Rails.application.secrets.psql_pass %>
+  username: <%= Rails.application.secrets.psql_user %>
