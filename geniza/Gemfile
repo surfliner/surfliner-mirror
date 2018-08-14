@@ -1,4 +1,10 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
+
+group :production do
+  gem 'pg', '~> 0.18.4'
+end
 
 gem 'blacklight', ' ~> 6.0'
 gem 'blacklight-gallery', '>= 0.3.0'
@@ -15,14 +21,19 @@ gem 'riiif'
 gem 'rsolr', '>= 1.0'
 gem 'sass-rails'
 gem 'sitemap_generator'
-gem 'sqlite3'
 gem 'trollop'
 gem 'uglifier', '>= 1.3.0'
 
 group :development, :test do
+  gem 'capistrano', '~> 3.8.0'
+  gem 'capistrano-bundler'
+  gem 'capistrano-passenger'
+  gem 'capistrano-rails', '>= 1.1.3'
+  gem 'highline'
+
   gem 'byebug'
-  gem 'capistrano-rails'
   gem 'capybara'
+  gem 'sqlite3'
   gem 'method_source'
   gem 'pry'
   gem 'pry-doc'

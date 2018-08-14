@@ -88,7 +88,7 @@ GEM
     almond-rails (0.1.0)
       rails (>= 4.2, < 6)
     arel (8.0.0)
-    autoprefixer-rails (8.6.5)
+    autoprefixer-rails (9.1.1)
       execjs
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
@@ -105,7 +105,7 @@ GEM
       rails (>= 4.2, < 6)
       rsolr (>= 1.0.6, < 3)
       twitter-typeahead-rails (= 0.11.1.pre.corejavascript)
-    blacklight-gallery (0.10.0)
+    blacklight-gallery (0.11.0)
       blacklight (~> 6.3)
       bootstrap-sass (~> 3.0)
       openseadragon (>= 0.2.0)
@@ -123,7 +123,7 @@ GEM
     builder (3.2.3)
     byebug (10.0.2)
     cancancan (2.2.0)
-    capistrano (3.11.0)
+    capistrano (3.8.2)
       airbrussh (>= 1.0.0)
       i18n
       rake (>= 10.0.0)
@@ -131,10 +131,12 @@ GEM
     capistrano-bundler (1.3.0)
       capistrano (~> 3.1)
       sshkit (~> 1.2)
+    capistrano-passenger (0.2.0)
+      capistrano (~> 3.0)
     capistrano-rails (1.4.0)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
-    capybara (3.3.1)
+    capybara (3.6.0)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
@@ -179,8 +181,9 @@ GEM
     github-markup (2.0.1)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    highline (2.0.0)
     httpauth (0.2.1)
-    i18n (1.0.1)
+    i18n (1.1.0)
       concurrent-ruby (~> 1.0)
     i18n-active_record (0.2.2)
       i18n (>= 0.5.0)
@@ -221,11 +224,11 @@ GEM
     mail (2.7.0)
       mini_mime (>= 0.1.1)
     method_source (0.9.0)
-    mime-types (3.1)
+    mime-types (3.2.2)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2016.0521)
+    mime-types-data (3.2018.0812)
     mini_magick (4.8.0)
-    mini_mime (1.0.0)
+    mini_mime (1.0.1)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
     multi_json (1.13.1)
@@ -248,6 +251,7 @@ GEM
       paper_trail-association_tracking (< 2)
       request_store (~> 1.1)
     paper_trail-association_tracking (1.0.0)
+    pg (0.18.4)
     pry (0.11.3)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -257,7 +261,7 @@ GEM
     public_suffix (3.0.2)
     puma (3.12.0)
     rack (2.0.5)
-    rack-test (1.0.0)
+    rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.1.6)
       actioncable (= 5.1.6)
@@ -313,9 +317,9 @@ GEM
       builder (>= 2.1.2)
       faraday (>= 0.9.0)
     ruby-oembed (0.12.0)
-    ruby-progressbar (1.9.0)
+    ruby-progressbar (1.10.0)
     rubyzip (1.2.1)
-    sass (3.5.6)
+    sass (3.5.7)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -326,7 +330,7 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    selenium-webdriver (3.13.0)
+    selenium-webdriver (3.14.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
     signet (0.8.1)
@@ -379,7 +383,7 @@ GEM
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uber (0.1.0)
-    uglifier (4.1.15)
+    uglifier (4.1.18)
       execjs (>= 0.3.0, < 3)
     underscore-rails (1.8.3)
     unf (0.1.4)
@@ -392,7 +396,7 @@ GEM
     websocket-extensions (0.1.3)
     xpath (3.1.0)
       nokogiri (~> 1.8)
-    yard (0.9.14)
+    yard (0.9.16)
 
 PLATFORMS
   ruby
@@ -403,14 +407,19 @@ DEPENDENCIES
   blacklight-oembed (>= 0.1.0)
   blacklight-spotlight!
   byebug
-  capistrano-rails
+  capistrano (~> 3.8.0)
+  capistrano-bundler
+  capistrano-passenger
+  capistrano-rails (>= 1.1.3)
   capybara
   devise
   devise-guests (~> 0.6)
   devise_invitable
   friendly_id
+  highline
   jquery-rails
   method_source
+  pg (~> 0.18.4)
   pry
   pry-doc
   puma
