@@ -21,6 +21,7 @@ gem 'riiif'
 gem 'rsolr', '>= 1.0'
 gem 'sass-rails'
 gem 'sitemap_generator'
+gem 'therubyracer', platforms: :ruby
 gem 'trollop'
 gem 'uglifier', '>= 1.3.0'
 
