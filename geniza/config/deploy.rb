@@ -27,6 +27,7 @@ set :branch, ENV['REVISION'] || ENV['BRANCH_NAME'] || 'master'
 
 set :linked_files, %w[
   config/secrets.yml
+  config/import.yml
 ]
 
 SSHKit.config.command_map[:rake] = 'bundle exec rake'
