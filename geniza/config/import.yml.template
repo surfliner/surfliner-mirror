@@ -9,13 +9,16 @@ exhibit_description_key: description
 
 resource_keys:
   contributor: contributor
+  coverage: coverage
   creator: creator
-  date: issued_start
+  date: date
   description: description
-  format: form_of_work
-  identifier: accession_number
+  format: format
+  identifier: identifier
   language: language
   publisher: publisher
+  relation: relation
   rights: license
-  subject: lc_subject
+  source: source
+  subject: subject
   title: title
