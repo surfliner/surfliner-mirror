@@ -23,5 +23,6 @@
 
 .byebug_history
 
-# site-specific metadata config
+# site-specific settings
 /config/import.yml
+/config/secrets.yml

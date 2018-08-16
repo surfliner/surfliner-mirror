@@ -11,6 +11,7 @@ module UcsbSpotlight
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 
+    config.action_mailer.default_url_options = { host: Rails.application.secrets.hostname }
     config.action_mailer.smtp_settings =
       YAML.safe_load(
         ERB.new(File.read(Rails.root.join("config", "smtp.yml"))).result,
