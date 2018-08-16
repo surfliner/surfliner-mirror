@@ -37,56 +37,56 @@
 # Spotlight::Engine.config.full_image_field = :full_image_url_ssm
 # Spotlight::Engine.config.thumbnail_field = :thumbnail_url_ssm
 
-Spotlight::Engine.config.upload_fields += [
-  Spotlight::UploadFieldConfig.new(
-    field_name: :spotlight_upload_contributor_tesim,
-    label: -> { I18n.t(:"spotlight.search.fields.spotlight_upload_contributor_tesim") }
-  ),
-  Spotlight::UploadFieldConfig.new(
-    field_name: :spotlight_upload_coverage_tesim,
-    label: -> { I18n.t(:'spotlight.search.fields.spotlight_upload_coverage_tesim') }
-  ),
-  Spotlight::UploadFieldConfig.new(
-    field_name: :spotlight_upload_creator_tesim,
-    label: -> { I18n.t(:'spotlight.search.fields.spotlight_upload_creator_tesim') }
-  ),
-  Spotlight::UploadFieldConfig.new(
-    field_name: :spotlight_upload_format_tesim,
-    label: -> { I18n.t(:'spotlight.search.fields.spotlight_upload_format_tesim') }
-  ),
-  Spotlight::UploadFieldConfig.new(
-    field_name: :spotlight_upload_identifier_tesim,
-    label: -> { I18n.t(:'spotlight.search.fields.spotlight_upload_identifier_tesim') }
-  ),
-  Spotlight::UploadFieldConfig.new(
-    field_name: :spotlight_upload_language_tesim,
-    label: -> { I18n.t(:'spotlight.search.fields.spotlight_upload_language_tesim') }
-  ),
-  Spotlight::UploadFieldConfig.new(
-    field_name: :spotlight_upload_publisher_tesim,
-    label: -> { I18n.t(:'spotlight.search.fields.spotlight_upload_publisher_tesim') }
-  ),
-  Spotlight::UploadFieldConfig.new(
-    field_name: :spotlight_upload_relation_tesim,
-    label: -> { I18n.t(:'spotlight.search.fields.spotlight_upload_relation_tesim') }
-  ),
-  Spotlight::UploadFieldConfig.new(
-    field_name: :spotlight_upload_rights_tesim,
-    label: -> { I18n.t(:'spotlight.search.fields.spotlight_upload_rights_tesim') }
-  ),
-  Spotlight::UploadFieldConfig.new(
-    field_name: :spotlight_upload_source_tesim,
-    label: -> { I18n.t(:'spotlight.search.fields.spotlight_upload_source_tesim') }
-  ),
-  Spotlight::UploadFieldConfig.new(
-    field_name: :spotlight_upload_subject_tesim,
-    label: -> { I18n.t(:'spotlight.search.fields.spotlight_upload_subject_tesim') }
-  ),
-  Spotlight::UploadFieldConfig.new(
-    field_name: :spotlight_upload_type_tesim,
-    label: -> { I18n.t(:'spotlight.search.fields.spotlight_upload_type_tesim') }
-  )
-]
+# Spotlight::Engine.config.upload_fields += [
+#   Spotlight::UploadFieldConfig.new(
+#     field_name: :spotlight_upload_contributor_tesim,
+#     label: -> { I18n.t(:"spotlight.search.fields.spotlight_upload_contributor_tesim") }
+#   ),
+#   Spotlight::UploadFieldConfig.new(
+#     field_name: :spotlight_upload_coverage_tesim,
+#     label: -> { I18n.t(:'spotlight.search.fields.spotlight_upload_coverage_tesim') }
+#   ),
+#   Spotlight::UploadFieldConfig.new(
+#     field_name: :spotlight_upload_creator_tesim,
+#     label: -> { I18n.t(:'spotlight.search.fields.spotlight_upload_creator_tesim') }
+#   ),
+#   Spotlight::UploadFieldConfig.new(
+#     field_name: :spotlight_upload_format_tesim,
+#     label: -> { I18n.t(:'spotlight.search.fields.spotlight_upload_format_tesim') }
+#   ),
+#   Spotlight::UploadFieldConfig.new(
+#     field_name: :spotlight_upload_identifier_tesim,
+#     label: -> { I18n.t(:'spotlight.search.fields.spotlight_upload_identifier_tesim') }
+#   ),
+#   Spotlight::UploadFieldConfig.new(
+#     field_name: :spotlight_upload_language_tesim,
+#     label: -> { I18n.t(:'spotlight.search.fields.spotlight_upload_language_tesim') }
+#   ),
+#   Spotlight::UploadFieldConfig.new(
+#     field_name: :spotlight_upload_publisher_tesim,
+#     label: -> { I18n.t(:'spotlight.search.fields.spotlight_upload_publisher_tesim') }
+#   ),
+#   Spotlight::UploadFieldConfig.new(
+#     field_name: :spotlight_upload_relation_tesim,
+#     label: -> { I18n.t(:'spotlight.search.fields.spotlight_upload_relation_tesim') }
+#   ),
+#   Spotlight::UploadFieldConfig.new(
+#     field_name: :spotlight_upload_rights_tesim,
+#     label: -> { I18n.t(:'spotlight.search.fields.spotlight_upload_rights_tesim') }
+#   ),
+#   Spotlight::UploadFieldConfig.new(
+#     field_name: :spotlight_upload_source_tesim,
+#     label: -> { I18n.t(:'spotlight.search.fields.spotlight_upload_source_tesim') }
+#   ),
+#   Spotlight::UploadFieldConfig.new(
+#     field_name: :spotlight_upload_subject_tesim,
+#     label: -> { I18n.t(:'spotlight.search.fields.spotlight_upload_subject_tesim') }
+#   ),
+#   Spotlight::UploadFieldConfig.new(
+#     field_name: :spotlight_upload_type_tesim,
+#     label: -> { I18n.t(:'spotlight.search.fields.spotlight_upload_type_tesim') }
+#   )
+# ]
 # Spotlight::Engine.config.upload_title_field = nil # Spotlight::UploadFieldConfig.new(...)
 # Spotlight::Engine.config.uploader_storage = :file
 Spotlight::Engine.config.allowed_upload_extensions = %w[jpg jpeg png tif tiff]
