@@ -41,7 +41,7 @@ module Importer::Exhibit
           exhibit: exhibit
         )
 
-        file = Parse.get_binary_paths(Array(row[:files]), data).first
+        file = Parse.get_binary_paths(Array(row[:file]), data).first
         logger.debug "Attaching #{file}"
 
         image = Spotlight::FeaturedImage.new
