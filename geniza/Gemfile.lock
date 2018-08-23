@@ -1,45 +1,3 @@
-GIT
-  remote: git://github.com/projectblacklight/spotlight.git
-  revision: 51dce20ce71543dc781ff2f7b9a852bed9b95820
-  specs:
-    blacklight-spotlight (2.2.0)
-      acts-as-taggable-on (>= 5.0, < 7)
-      almond-rails (~> 0.1)
-      autoprefixer-rails
-      blacklight (~> 6.3)
-      blacklight-oembed (>= 0.0.3)
-      bootstrap_form (~> 2.2)
-      breadcrumbs_on_rails (~> 3.0)
-      cancancan
-      carrierwave
-      clipboard-rails (~> 1.5)
-      devise (>= 3.0)
-      devise_invitable (~> 1.6)
-      faraday
-      faraday_middleware
-      friendly_id (~> 5.2)
-      github-markup
-      i18n (< 1.1)
-      i18n-active_record
-      iiif-presentation
-      iiif_manifest
-      leaflet-rails
-      legato
-      mini_magick
-      nokogiri
-      oauth2
-      openseadragon
-      paper_trail (>= 7.0)
-      rails (~> 5.1)
-      riiif (~> 1.0)
-      roar (~> 1.1)
-      roar-rails
-      signet
-      sir_trevor_rails (~> 0.5)
-      sprockets-es6
-      tophat
-      underscore-rails (~> 1.6)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -89,7 +47,7 @@ GEM
     almond-rails (0.1.0)
       rails (>= 4.2, < 6)
     arel (8.0.0)
-    autoprefixer-rails (9.1.1)
+    autoprefixer-rails (9.1.3)
       execjs
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
@@ -116,6 +74,43 @@ GEM
       bootstrap-sass (~> 3.0)
       rails
       ruby-oembed
+    blacklight-spotlight (2.2.1)
+      acts-as-taggable-on (>= 5.0, < 7)
+      almond-rails (~> 0.1)
+      autoprefixer-rails
+      blacklight (~> 6.3)
+      blacklight-oembed (>= 0.0.3)
+      bootstrap_form (~> 2.2)
+      breadcrumbs_on_rails (~> 3.0)
+      cancancan
+      carrierwave
+      clipboard-rails (~> 1.5)
+      devise (>= 3.0)
+      devise_invitable (~> 1.6)
+      faraday
+      faraday_middleware
+      friendly_id (~> 5.2)
+      github-markup
+      i18n (< 1.1)
+      i18n-active_record
+      iiif-presentation
+      iiif_manifest
+      leaflet-rails
+      legato
+      mini_magick
+      nokogiri
+      oauth2
+      openseadragon
+      paper_trail (>= 7.0)
+      rails (~> 5.1)
+      riiif (~> 1.0)
+      roar (~> 1.1)
+      roar-rails
+      signet
+      sir_trevor_rails (~> 0.5)
+      sprockets-es6
+      tophat
+      underscore-rails (~> 1.6)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -334,7 +329,7 @@ GEM
     selenium-webdriver (3.14.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
-    signet (0.8.1)
+    signet (0.9.0)
       addressable (~> 2.3)
       faraday (~> 0.9)
       jwt (>= 1.5, < 3.0)
@@ -406,7 +401,7 @@ DEPENDENCIES
   blacklight (~> 6.0)
   blacklight-gallery (>= 0.3.0)
   blacklight-oembed (>= 0.1.0)
-  blacklight-spotlight!
+  blacklight-spotlight
   byebug
   capistrano (~> 3.8.0)
   capistrano-bundler
