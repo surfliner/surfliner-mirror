@@ -9,7 +9,9 @@ end
 gem 'blacklight', ' ~> 6.0'
 gem 'blacklight-gallery', '>= 0.3.0'
 gem 'blacklight-oembed', '>= 0.1.0'
-gem 'blacklight-spotlight'
+gem 'blacklight-spotlight',
+    git: 'https://github.com/dunn/spotlight.git',
+    branch: '75th'
 gem 'devise'
 gem 'devise-guests', '~> 0.6'
 gem 'devise_invitable'

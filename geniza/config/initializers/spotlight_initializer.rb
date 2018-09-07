@@ -90,6 +90,7 @@
 # Spotlight::Engine.config.upload_title_field = nil # Spotlight::UploadFieldConfig.new(...)
 # Spotlight::Engine.config.uploader_storage = :file
 Spotlight::Engine.config.allowed_upload_extensions = %w[jpg jpeg png tif tiff]
+Spotlight::Engine.config.upload_dir = Rails.root.join('tmp/cache')
 
 # Spotlight::Engine.config.featured_image_thumb_size = [400, 300]
 # Spotlight::Engine.config.featured_image_square_size = [400, 400]
