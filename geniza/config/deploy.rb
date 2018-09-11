@@ -20,6 +20,7 @@ set :linked_dirs, %w[
   tmp/cache
   tmp/sockets
   public/assets
+  public/uploads
 ]
 
 # Default branch is :master
