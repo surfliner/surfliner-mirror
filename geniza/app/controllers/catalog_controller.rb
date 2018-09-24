@@ -14,6 +14,16 @@ class CatalogController < ApplicationController
 
     # Default parameters to send to solr for all search-like
     # requests. See also SolrHelper#solr_search_params
+    # config.default_solr_params = {
+    #   qf: %w[
+    #     full_title_tesim
+    #     spotlight_upload_source_tesim
+    #   ].join(" "),
+    #   wt: "json",
+    #   qt: "search",
+    #   rows: 10,
+    # }
+
     config.default_solr_params = {
       qt: 'search',
       rows: 10,
@@ -24,6 +34,11 @@ class CatalogController < ApplicationController
     config.document_unique_id_param = 'ids'
 
     config.index.title_field = 'full_title_tesim'
+
+    # This one uses all the defaults set by the solr request
+    # handler. Which solr request handler? The one set in
+    # config[:default_solr_parameters][:qt], since we aren't
+    # specifying it otherwise.
     config.add_search_field(
       'all_fields',
       label: I18n.t('spotlight.search.fields.search.all_fields')
