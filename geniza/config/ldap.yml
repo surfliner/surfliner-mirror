@@ -1,0 +1,23 @@
+default: &default
+  admin_pass: <%= Rails.application.secrets.ldap_pass %>
+  admin_user: <%= Rails.application.secrets.ldap_user %>
+  filter: <%= Rails.application.secrets.ldap_filter %>
+  group_base: <%= Rails.application.secrets.ldap_group_base %>
+  host: <%= Rails.application.secrets.ldap_host %>
+  port: 636
+  ssl: true
+
+development:
+  <<: *default
+
+test:
+  host: localhost
+  port: 3389
+  attribute: cn
+  base: ou=people,dc=test,dc=com
+  admin_user: cn=admin,dc=test,dc=com
+  admin_password: admin_password
+  ssl: simple_tls
+
+production:
+  <<: *default

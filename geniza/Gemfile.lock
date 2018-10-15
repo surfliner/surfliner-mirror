@@ -235,6 +235,7 @@ GEM
     multi_json (1.13.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
+    net-ldap (0.16.1)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (5.0.2)
@@ -421,6 +422,7 @@ DEPENDENCIES
   highline
   jquery-rails
   method_source
+  net-ldap
   optimist
   pg (~> 0.18.4)
   pry
