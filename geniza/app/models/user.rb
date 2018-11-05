@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   include Spotlight::User
   if Blacklight::Utils.needs_attr_accessible?
-    attr_accessible :email, :password, :password_confirmation
+    attr_accessible :email
   end
 
   # Connects this user object to Blacklights Bookmarks.
