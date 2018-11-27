@@ -38,3 +38,19 @@ metadata itself, and the set of paths passed using the `-d` flag with
 the CLI.  If the path(s) specified in the metadata, when appended to
 `binary_root`, yields an existent file, we use that.  Otherwise we'll
 search through the paths given with `-d` in order to find a match.
+
+## Developing locally
+
+### Set up your local development instance
+1. `git clone git@github.com:ucsblibrary/geniza.git`
+1. `bundle install` to install gem dependencies
+1. `rake db:migrate` to run database migrations
+1. `solr_wrapper` to spin up a local copy of solr for development
+1. `cp config/secrets.yml.template config/secrets.yml`
+1. `cp config/import.yml.template config/import.yml`
+1. `rails s` to run rails server
+
+### Set up a local admin account
+1. Self-register in the web ui
+1. Run this rake command: `rake spotlight:admin`
+1. Enter the email address you registered when prompted
