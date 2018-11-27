@@ -172,6 +172,10 @@ GEM
       actionmailer (>= 4.1.0)
       devise (>= 4.0.0)
     diffy (3.2.1)
+    dotenv (2.5.0)
+    dotenv-rails (2.5.0)
+      dotenv (= 2.5.0)
+      railties (>= 3.2, < 6.0)
     erubi (1.7.1)
     execjs (2.7.0)
     faraday (0.15.3)
@@ -420,6 +424,7 @@ DEPENDENCIES
   devise
   devise-guests (~> 0.6)
   devise_invitable
+  dotenv-rails
   friendly_id
   highline
   jquery-rails

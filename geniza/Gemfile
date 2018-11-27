@@ -15,6 +15,7 @@ gem 'blacklight-spotlight',
 gem 'devise'
 gem 'devise-guests', '~> 0.6'
 gem 'devise_invitable'
+gem 'dotenv-rails'
 gem 'friendly_id'
 gem 'jquery-rails'
 gem 'net-ldap'
