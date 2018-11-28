@@ -41,6 +41,8 @@ group :development, :test do
   gem 'method_source'
   gem 'pry'
   gem 'pry-doc'
+  gem 'rspec-rails'
   gem 'selenium-webdriver'
+  gem 'shoulda-matchers'
   gem 'solr_wrapper', '>= 0.3'
 end
