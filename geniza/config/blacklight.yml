@@ -15,7 +15,7 @@ development:
   url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:8983/solr/blacklight-core" %>
 test: &test
   adapter: solr
-  url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:#{ENV['TEST_JETTY_PORT'] || 8983}/solr/blacklight-core" %>
+  url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:#{ENV['TEST_JETTY_PORT'] || 8985}/solr/blacklight-test" %>
 production:
   adapter: solr
   url: <%= "http://#{Rails.application.secrets.solr_host}:8983/solr/collection1" %>
