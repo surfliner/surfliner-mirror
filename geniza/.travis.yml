@@ -1,11 +1,21 @@
+dist: trusty
 language: ruby
+cache: bundler
+sudo: required
+addons:
+  chrome: stable
 rvm:
 - 2.5.1
+before_script:
+  - bin/rails db:test:prepare
 before_install:
 - openssl aes-256-cbc -K $encrypted_4d6950ff1422_key -iv $encrypted_4d6950ff1422_iv
   -in geniza-cd-key.enc -out geniza-cd-key -d
+- google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 after_success:
   - |
     if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then
       bundle exec cap cd deploy
     fi
+script:
+  - bundle exec rake ci
