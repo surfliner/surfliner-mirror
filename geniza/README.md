@@ -54,3 +54,6 @@ search through the paths given with `-d` in order to find a match.
 1. Self-register in the web ui
 1. Run this rake command: `rake spotlight:admin`
 1. Enter the email address you registered when prompted
+
+## Email settings
+1. Set `Rails.application.secrets.email_from_address` to whatever email address alert emails should come from. Default value is 'noreply@library.ucsb.edu'.
