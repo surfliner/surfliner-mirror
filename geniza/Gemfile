@@ -9,9 +9,10 @@ end
 gem 'blacklight', ' ~> 6.0'
 gem 'blacklight-gallery', '>= 0.3.0'
 gem 'blacklight-oembed', '>= 0.1.0'
-gem 'blacklight-spotlight',
-    git: 'https://github.com/dunn/spotlight.git',
-    branch: '75th'
+gem 'blacklight-spotlight'
+# gem 'blacklight-spotlight',
+#     git: 'https://github.com/dunn/spotlight.git',
+#     branch: '75th'
 gem 'devise'
 gem 'devise-guests', '~> 0.6'
 gem 'devise_invitable'
@@ -33,7 +34,10 @@ group :development, :test do
   gem 'capistrano-bundler'
   gem 'capistrano-passenger'
   gem 'capistrano-rails', '>= 1.1.3'
+  gem 'database_cleaner'
+  gem 'factory_bot_rails'
   gem 'highline'
+  gem 'chromedriver-helper'
 
   gem 'byebug'
   gem 'capybara'
