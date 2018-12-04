@@ -27,3 +27,5 @@
 
 # site-specific settings
 /config/import.yml
+
+/spec/examples.txt

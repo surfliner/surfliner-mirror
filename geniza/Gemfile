@@ -46,6 +46,8 @@ group :development, :test do
   gem 'pry'
   gem 'pry-doc'
   gem 'rspec-rails'
+  gem 'rubocop-rails_config'
+  gem 'rubocop-rspec'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'solr_wrapper', '>= 0.3'
