@@ -1,5 +1,102 @@
 require: rubocop-rspec
+inherit_from: .rubocop_todo.yml
 
 AllCops:
   DisplayCopNames: true
   TargetRubyVersion: 2.3
+  Exclude:
+    - '**/*~'
+    - 'db/**/*'
+    - 'tmp/**/*'
+    - 'provisioning/**/*'
+    - 'vendor/bundle/**/*'
+
+Layout/IndentationConsistency:
+  EnforcedStyle: rails
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+Metrics/BlockLength:
+  ExcludedMethods:
+    - before
+    - config
+    - configure
+    - configure_blacklight
+    - context
+    - describe
+    - draw
+    - feature
+    - it
+    - let
+    - namespace
+    - scenario
+    - setup
+    - task
+
+Metrics/ClassLength:
+  # Vocabulary classes are auto-generated so we don't have much
+  # control over length
+  Exclude:
+    - 'lib/vocabularies/*'
+
+Metrics/LineLength:
+  Exclude:
+    - 'lib/vocabularies/*'
+    - 'spec/indexers/image_indexer_spec.rb'
+
+Metrics/ModuleLength:
+  Enabled: false
+
+Naming/HeredocDelimiterNaming:
+  Enabled: false
+
+Rails:
+  Enabled: true
+
+Rails/ActiveRecordAliases:
+  # this class has its own #update_attributes method
+  Exclude:
+    - 'lib/importer/factory/object_factory.rb'
+
+Rails/ApplicationRecord:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+  # Vocabulary classes are auto-generated
+  Exclude:
+    - 'lib/vocabularies/*'
+    - 'config/**/**'
+
+Style/Documentation:
+  # Vocabulary classes are auto-generated
+  Exclude:
+    - 'lib/vocabularies/*'
+    - 'spec/**/*'
+
+Style/Lambda:
+  EnforcedStyle: lambda
+
+# RSpec's `include` method causes this to false-positive
+Style/MixinGrouping:
+  Exclude:
+    - 'spec/**/*'
+
+Style/MultilineBlockChain:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
+
+Style/SymbolArray:
+  EnforcedStyle: brackets
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
