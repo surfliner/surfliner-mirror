@@ -326,8 +326,12 @@ Devise.setup do |config|
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
   #
-  config.warden do |manager|
-    manager.default_strategies(scope: :user).unshift :ldap_authenticatable
+
+  ## Set DATABASE_AUTH=true to use local database authentication instead of LDAP
+  unless ENV['DATABASE_AUTH']
+    config.warden do |manager|
+      manager.default_strategies(scope: :user).unshift :ldap_authenticatable
+    end
   end
 
   # ==> Mountable engine configurations

@@ -50,6 +50,12 @@ search through the paths given with `-d` in order to find a match.
 1. `cp config/import.yml.template config/import.yml`
 1. `rails s` to run rails server
 
+### Use database authentication instead of LDAP
+If you want to use spotlight's built-in database authentication instead of LDAP,
+either for local development or on a DCE server, set an environment variable in
+.env.development or .env.production:
+`DATABASE_AUTH=true`
+
 ### Set up a local admin account
 1. Self-register in the web ui
 1. Run this rake command: `rake spotlight:admin`
