@@ -18,7 +18,7 @@ RSpec.feature 'Import and Display a Work', :clean, js: true do
     it 'creates and populates an exhibit via the UI' do
       expect(Spotlight::Exhibit.count).to eq 0
       visit '/'
-      click_link 'user1@example.com'
+      click_link site_admin.user_key
       click_link 'Create new exhibit'
       fill_in('Title', with: 'Test Exhibit')
       fill_in('Tag list', with: 'testing')
