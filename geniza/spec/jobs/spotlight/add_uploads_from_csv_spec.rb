@@ -6,9 +6,13 @@ RSpec.describe Spotlight::AddUploadsFromCSV do
   let(:exhibit) { FactoryBot.create(:exhibit) }
   let(:user) { FactoryBot.create(:exhibit_curator, exhibit: exhibit) }
 
+  before do
+    ENV['IMPORT_DIR'] = Rails.root.join('spec', 'fixtures').to_s
+  end
+
   # UCSB CSV uploads with local files instead of urls
   context 'with files in the CSV instead of URLs' do
-    let(:filename) { Rails.root.join('spec', 'fixtures', 'blake_image.jpg').to_s }
+    let(:filename) { 'blake_image.jpg' }
     let(:data) do
       [
         { 'file' => filename, 'full_title_tesim' => 'Ednah A. Rich' },
