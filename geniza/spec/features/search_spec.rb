@@ -56,7 +56,12 @@ RSpec.feature 'when searching', :clean, js: true do
       click_link 'Miss Anna S.C. Blake'
       expect(page).to have_content "uarch112-g01650"
 
-      ## Exact title search
+      # IIIF Manifest present on the page
+      expect(page.html).to match(%r{/spotlight/the-anna-s-c-blake-manual-training-school/catalog/1-3/manifest})
+
+      # UV present on the page
+      expect(page).to have_selector '.universal-viewer-iframe'
+
       visit "#{search_url}#{exact_title}"
       expect(page).to have_content item_one
       expect(page).not_to have_content item_two

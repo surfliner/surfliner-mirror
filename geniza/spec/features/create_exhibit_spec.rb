@@ -8,6 +8,7 @@ RSpec.feature 'Import and Display a Work', :clean, js: true do
   let(:csv_file_path)   { File.join(fixture_path, csv_file_name) }
   let(:csv_file_name)   { 'url_single_item_exhibit.csv' }
   let(:site_admin)      { FactoryBot.create(:site_admin) }
+  let(:user) { FactoryBot.create(:user) }
 
   before do
     allow(Spotlight::DefaultThumbnailJob).to receive(:perform_later)
@@ -26,6 +27,9 @@ RSpec.feature 'Import and Display a Work', :clean, js: true do
       expect(page).to have_content 'The exhibit was created.'
       expect(Spotlight::Exhibit.count).to eq 1
       exhibit = Spotlight::Exhibit.first
+      exhibit.published = true
+      exhibit.save
+      exhibit.reindex_later
       expect(exhibit.title).to eq 'Test Exhibit'
       visit('/spotlight/test-exhibit/resources/new')
       click_link 'Upload multiple items'
@@ -34,6 +38,15 @@ RSpec.feature 'Import and Display a Work', :clean, js: true do
       click_button 'Add item'
       visit '/spotlight/test-exhibit/catalog?utf8=%E2%9C%93&exhibit_id=test-exhibit&search_field=all_fields&q='
       expect(page).to have_content 'A Cute Dog'
+
+      # Test that the exhibit page is accessible to non-admin users
+      logout
+      visit '/spotlight/test-exhibit/catalog?utf8=%E2%9C%93&exhibit_id=test-exhibit&search_field=all_fields&q='
+      expect(page).to have_content 'A Cute Dog'
+      click_link 'A Cute Dog'
+      # IIIF Manifest present on the page
+      expect(page.html).to match(%r{/spotlight/.*/manifest})
+      expect(page).to have_selector '.universal-viewer-iframe'
     end
   end
 end
