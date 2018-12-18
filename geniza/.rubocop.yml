@@ -11,6 +11,9 @@ AllCops:
     - 'provisioning/**/*'
     - 'vendor/bundle/**/*'
 
+Capybara/FeatureMethods:
+  Enabled: false
+
 Layout/IndentationConsistency:
   EnforcedStyle: rails
 
@@ -60,6 +63,12 @@ Rails/ActiveRecordAliases:
     - 'lib/importer/factory/object_factory.rb'
 
 Rails/ApplicationRecord:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleExpectations:
   Enabled: false
 
 Style/ClassAndModuleChildren:
