@@ -1,9 +1,16 @@
 dist: trusty
 language: ruby
 cache: bundler
+cache: yarn
 sudo: required
 addons:
   chrome: stable
+  apt:
+    sources:
+      - sourceline: 'deb https://dl.yarnpkg.com/debian/ stable main'
+        key_url: 'https://dl.yarnpkg.com/debian/pubkey.gpg'
+    packages:
+      - yarn
 rvm:
 - 2.5.1
 before_script:
@@ -18,4 +25,5 @@ after_success:
       bundle exec cap cd deploy
     fi
 script:
+  - yarn run install-uv
   - bundle exec rake ci

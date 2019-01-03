@@ -1,5 +1,11 @@
 {
-  "name": "ucsb-spotlight",
+  "name": "geniza",
   "private": true,
-  "dependencies": {}
+  "repository": "git@github.com:ucsblibrary/geniza.git",
+  "scripts": {
+    "install-uv": "yarn install --modules-folder ./public"
+  },
+  "dependencies": {
+    "universalviewer": "^3.0.16"
+  }
 }

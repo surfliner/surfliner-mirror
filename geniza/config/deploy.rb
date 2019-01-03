@@ -32,3 +32,9 @@ set :linked_files, %w[
 ]
 
 SSHKit.config.command_map[:rake] = 'bundle exec rake'
+
+namespace :deploy do
+  after :finishing, :install_uv do
+    invoke 'install_uv'
+  end
+end
