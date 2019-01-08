@@ -1,12 +1,15 @@
 ---
 - name: Provision a RHEL/CentOS server for Spotlight
-  remote_user: root
+  remote_user: adrl
   hosts: all
 
   vars_files:
     - vault/spotlight.yml
 
   vars:
+    # deploy_user: adrl
+    # deploy_group: adrl
+
     ruby_ver: 2.5.3
     rbenv:
       env: system
@@ -35,12 +38,12 @@
   roles:
     - role: geerlingguy.postgresql
       become: yes
-    # - role: solr
-    #   become: yes
+    - role: solr
+      become: yes
     - role: zzet.rbenv
       rbenv_owner: root
       rbenv_group: root
     - role: nginx-passenger
       become: yes
-    # - role: spotlight
-    #   become: yes
+    - role: spotlight
+      become: yes
