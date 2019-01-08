@@ -1,0 +1,78 @@
+---
+- name: download Solr
+  get_url:
+    url: https://archive.apache.org/dist/lucene/solr/{{ SOLR_VER }}/solr-{{ SOLR_VER }}.tgz
+    dest: "{{ install_path }}/solr-{{ SOLR_VER }}.tgz"
+    force: no
+    checksum: sha256:{{ SOLR_256 }}
+
+- name: unpack Solr
+  unarchive:
+    src: "{{ install_path }}/solr-{{ SOLR_VER }}.tgz"
+    dest: "{{ install_path }}/"
+    creates: "{{ install_path }}/solr-{{ SOLR_VER }}/bin/solr"
+    copy: no
+
+- name: check if the correct version of Solr is already installed
+  command: /opt/solr/bin/solr version
+  register: solr_version_output
+  ignore_errors: yes
+
+- name: run Solr service setup
+  command: bash {{ install_path }}/solr-{{ SOLR_VER }}/bin/install_solr_service.sh \
+                {{ install_path }}/solr-{{ SOLR_VER }}.tgz \
+                -n
+  when: (solr_version_output | failed) or (not (solr_version_output.stdout | match(".*{{ SOLR_VER }}.*")))
+
+- name: create solr group
+  group:
+    name: solr
+
+- name: create solr user
+  user:
+    name: solr
+    group: solr
+    createhome: no
+
+- name: change ownership of Solr data directory
+  file:
+    path: /var/solr
+    state: directory
+    owner: solr
+    group: solr
+    recurse: yes
+
+- name: set Solr to restart on reboot, and start server
+  systemd:
+    daemon_reload: yes
+    enabled: yes
+    name: solr
+    state: restarted
+
+- name: wait for Solr to start
+  wait_for:
+    port: 8983
+
+- name: create default Solr collection
+  become_user: solr
+  command: /opt/solr/bin/solr create -c {{ solr_core }}
+  args:
+    creates: /var/solr/data/{{ solr_core }}
+
+- name: install schema
+  become_user: solr
+  copy:
+    src: schema.xml
+    dest: /var/solr/data/{{ solr_core }}/conf/schema.xml
+
+- name: install solrconfig
+  become_user: solr
+  copy:
+    src: solrconfig.xml
+    dest: /var/solr/data/{{ solr_core }}/conf/solrconfig.xml
+
+- name: set Solr to restart on reboot, and start server
+  systemd:
+    enabled: yes
+    name: solr
+    state: restarted

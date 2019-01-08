@@ -1,0 +1,3 @@
+---
+- include: prerequisites.yml
+- include: install.yml

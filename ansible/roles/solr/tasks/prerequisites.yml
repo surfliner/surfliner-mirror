@@ -1,0 +1,19 @@
+---
+- name: update all yum packages
+  yum:
+    name: "*"
+    state: latest
+
+- name: Install Solr dependencies
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - java-1.8.0-openjdk
+    - lsof
+
+- name: Ensure {{ install_path }} is writeable
+  file:
+    path: "{{ install_path }}"
+    state: directory
+    mode: 0777

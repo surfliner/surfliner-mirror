@@ -1,0 +1,10 @@
+---
+project_name: spotlight
+app_root: /opt/{{ project_name }}/current
+
+project_base: /opt
+install_path: "{{ project_base }}/install"
+
+SOLR_VER: 7.4.0
+SOLR_256: a50eac8dece0acb5e6f0d868c7868ce8174e299752356f3424a15aa39bd64407
+solr_core: collection1
