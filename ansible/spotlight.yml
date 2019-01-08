@@ -3,6 +3,9 @@
   remote_user: root
   hosts: all
 
+  vars_files:
+    - vault/spotlight.yml
+
   vars:
     ruby_ver: 2.5.3
     rbenv:
@@ -18,7 +21,8 @@
 
     db_host: localhost
     db_name: spotlight_db
-    db_pass: hecko
+    # set in vault file
+    # db_pass:
     db_user: spotlight
 
     postgresql_databases:
