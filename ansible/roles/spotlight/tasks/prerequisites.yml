@@ -20,4 +20,6 @@
 
 # See https://github.com/zzet/ansible-rbenv-role/issues/12
 - name: install bundler
-  command: /usr/local/rbenv/shims/gem install --no-document bundler
+  gem:
+    name: bundler
+    # user_install: no
