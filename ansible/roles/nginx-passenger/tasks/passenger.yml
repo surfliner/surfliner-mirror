@@ -19,7 +19,7 @@
 
 - name: install systemd script for Nginx
   copy:
-    dest: /etc/systemd/system/multi-user.target.wants/nginx.service
+    dest: /etc/systemd/system/nginx.service
     src: nginx.service
 
 - name: restart Nginx
