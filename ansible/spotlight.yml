@@ -1,0 +1,42 @@
+---
+- name: Provision a RHEL/CentOS server for Spotlight
+  remote_user: root
+  hosts: all
+
+  vars:
+    ruby_ver: 2.5.3
+    rbenv:
+      env: system
+      # required
+      version: v1.1.1
+      default_ruby: "{{ ruby_ver }}"
+      rubies:
+        - version: "{{ ruby_ver }}"
+
+    solr_host: localhost
+    smtp_host:
+
+    db_host: localhost
+    db_name: spotlight_db
+    db_pass: hecko
+    db_user: spotlight
+
+    postgresql_databases:
+      - name: "{{ db_name }}"
+    postgresql_users:
+      - name: "{{ db_user }}"
+        db: "{{ db_name }}"
+        password: "{{ db_pass }}"
+
+  roles:
+    - role: geerlingguy.postgresql
+      become: yes
+    # - role: solr
+    #   become: yes
+    - role: zzet.rbenv
+      rbenv_owner: root
+      rbenv_group: root
+    - role: nginx-passenger
+      become: yes
+    # - role: spotlight
+    #   become: yes

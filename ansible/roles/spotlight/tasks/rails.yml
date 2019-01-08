@@ -1,0 +1,34 @@
+---
+- name: generate key base
+  shell: openssl rand -base64 64 | sha256sum | tr -d '\n\ -'
+  register: rando
+
+- name: set rails secret key base
+  set_fact:
+    rails_secret_key_base: "{{ rando.stdout }}"
+
+- name: add shared directories
+  file:
+    path: "{{ item }}"
+    owner: "{{ deploy_user }}"
+    group: "{{ deploy_group }}"
+    state: directory
+  with_items:
+    - "{{ config_path }}/environments"
+    - "{{ config_path }}/log"
+    - "{{ project_base }}/{{ project_name }}/shared/log"
+    - /var/log/spotlight
+
+- name: create shared config files
+  template:
+    src: "{{ item }}.j2"
+    dest: "{{ config_path }}/{{ item }}"
+    owner: "{{ deploy_user }}"
+    group: "{{ deploy_group }}"
+  with_items:
+    - secrets.yml
+
+- name: add logrotate configuration
+  template:
+    src: rails-logs.conf.j2
+    dest: /etc/logrotate.d/rails-logs.conf

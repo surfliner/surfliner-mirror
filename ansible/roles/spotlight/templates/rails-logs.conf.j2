@@ -1,0 +1,8 @@
+# https://www.linode.com/docs/uptime/logs/use-logrotate-to-manage-log-files/
+{{ project_base }}/{{ project_name }}/current/log/*.log {
+  weekly
+  rotate 6
+  compress
+  compresscmd /bin/xz
+  su {{ deploy_user }} {{ deploy_group }}
+}

@@ -1,0 +1,23 @@
+---
+- name: update all yum packages
+  yum:
+    name: "*"
+    state: latest
+    update_cache: yes
+
+- name: install dependencies
+  yum:
+    name: "{{ item }}"
+  with_items:
+    - ImageMagick
+    # for precompiling es6
+    - nodejs
+    # for nokogiri extensions
+    - libxml2-devel
+    - libxslt-devel
+    # for pg native extensions
+    - postgresql-devel
+
+# See https://github.com/zzet/ansible-rbenv-role/issues/12
+- name: install bundler
+  command: /usr/local/rbenv/shims/gem install --no-document bundler

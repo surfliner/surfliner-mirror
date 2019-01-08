@@ -1,0 +1,21 @@
+---
+- name: add EPEL repo
+  yum:
+    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
+- name: update all yum packages
+  yum:
+    name: "*"
+    state: latest
+    update_cache: yes
+
+- name: install prerequisites
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - curl-devel
+    - gcc-c++
+    - openssl-devel
+    # https://www.phusionpassenger.com/library/walkthroughs/deploy/nodejs/ownserver/nginx/oss/el7/install_passenger.html
+    - pygpgme

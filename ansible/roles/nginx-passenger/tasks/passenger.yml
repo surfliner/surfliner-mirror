@@ -1,0 +1,30 @@
+---
+- name: install Ruby dependencies
+  gem:
+    name: "{{ item }}"
+  with_items:
+    - bundler
+    - rack
+
+- name: install Passenger
+  gem:
+    name: passenger
+    version: "{{ passenger_ver }}"
+    user_install: no
+
+- name: install passenger-install-nginx-module
+  command: passenger-install-nginx-module --auto
+  args:
+    creates: /opt/nginx/conf/nginx.conf
+
+- name: install systemd script for Nginx
+  copy:
+    dest: /etc/systemd/system/multi-user.target.wants/nginx.service
+    src: nginx.service
+
+- name: restart Nginx
+  systemd:
+    daemon_reload: true
+    enabled: yes
+    name: nginx
+    state: restarted

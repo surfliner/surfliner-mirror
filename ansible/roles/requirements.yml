@@ -1,3 +1,6 @@
 ---
-- src: ucsblibrary.vivo
-  version: '1'
+- src: geerlingguy.postgresql
+  version: '1.4.5'
+
+- src: zzet.rbenv
+  version: '3.4.2'
