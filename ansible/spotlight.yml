@@ -42,9 +42,8 @@
     - role: solr
       become: yes
     - role: zzet.rbenv
-      rbenv_owner: root
-      rbenv_group: root
+      rbenv_owner: adrl
+      rbenv_group: adrl
     - role: nginx-passenger
-      become: yes
     - role: spotlight
       become: yes
