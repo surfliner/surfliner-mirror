@@ -10,6 +10,7 @@
     # deploy_user: adrl
     # deploy_group: adrl
 
+    ruby_bin_root: /usr/local/rbenv/shims
     ruby_ver: 2.5.3
     rbenv:
       env: system

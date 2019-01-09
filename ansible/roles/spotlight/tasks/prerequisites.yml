@@ -20,6 +20,6 @@
 
 # See https://github.com/zzet/ansible-rbenv-role/issues/12
 - name: install bundler
-  gem:
+  command: "{{ ruby_bin_root }}/gem install --no-document {{ item }}"
+  with_items:
     name: bundler
-    # user_install: no

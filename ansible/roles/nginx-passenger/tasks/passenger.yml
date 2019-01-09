@@ -1,26 +1,23 @@
 ---
 - name: install Ruby dependencies
-  gem:
-    name: "{{ item }}"
+  command: "{{ ruby_bin_root }}/gem install --no-document {{ item }}"
   with_items:
     - bundler
     - rack
-
-- name: install Passenger
-  gem:
-    name: passenger
-    version: "{{ passenger_ver }}"
-    user_install: no
+    - passenger
+  become: yes
 
 - name: install passenger-install-nginx-module
-  command: passenger-install-nginx-module --auto
+  command: "{{ ruby_bin_root }}/passenger-install-nginx-module --auto"
   args:
     creates: /opt/nginx/conf/nginx.conf
+  become: yes
 
 - name: install systemd script for Nginx
   copy:
     dest: /etc/systemd/system/nginx.service
     src: nginx.service
+  become: yes
 
 - name: restart Nginx
   systemd:
@@ -28,3 +25,4 @@
     enabled: yes
     name: nginx
     state: restarted
+  become: yes
