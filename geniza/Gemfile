@@ -36,7 +36,7 @@ group :development, :test do
   gem 'capistrano-passenger'
   gem 'capistrano-rails', '>= 1.1.3'
   gem 'capistrano-rbenv'
-  gem 'capistrano-yarn'
+  gem 'capistrano-npm'
   gem 'capybara'
   gem 'chromedriver-helper'
   gem 'database_cleaner'

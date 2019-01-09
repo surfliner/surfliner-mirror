@@ -10,7 +10,7 @@ require 'capistrano/rbenv'
 require 'capistrano/bundler'
 require 'capistrano/rails'
 require 'capistrano/passenger'
-require 'capistrano/yarn'
+require 'capistrano/npm'
 
 # https://github.com/capistrano/capistrano/blob/v3.7.0/UPGRADING-3.7.md#the-scm-variable-is-deprecated
 require 'capistrano/scm/git'
