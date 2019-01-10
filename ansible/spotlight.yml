@@ -48,3 +48,5 @@
     - role: nginx-passenger
     - role: spotlight
       become: yes
+    - role: geniza
+      become: yes
