@@ -1,0 +1,22 @@
+worker_processes  1;
+
+events {
+    worker_connections  1024;
+}
+
+http {
+  passenger_root /usr/local/rbenv/versions/{{ ruby_ver }}/lib/ruby/gems/{{ ruby_abi }}/gems/passenger-{{ passenger_ver }};
+  passenger_ruby /usr/local/rbenv/versions/{{ ruby_ver }}/bin/ruby;
+  passenger_enabled on;
+
+  include       mime.types;
+  default_type  application/octet-stream;
+
+  server {
+    listen 80;
+    listen [::]:80;
+    server_name  localhost {{ ansible_ssh_host }};
+
+    root {{ app_root }}/public;
+  }
+}

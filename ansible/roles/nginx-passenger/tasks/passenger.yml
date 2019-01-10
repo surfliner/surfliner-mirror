@@ -19,10 +19,10 @@
     src: nginx.service
   become: yes
 
-- name: restart Nginx
+- name: start Nginx
   systemd:
     daemon_reload: true
     enabled: yes
     name: nginx
-    state: restarted
+    state: started
   become: yes

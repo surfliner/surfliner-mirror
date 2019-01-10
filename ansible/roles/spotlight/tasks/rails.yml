@@ -28,6 +28,18 @@
   with_items:
     - secrets.yml
 
+- name: install new Nginx configuration
+  template:
+    backup: yes
+    dest: /opt/nginx/conf/nginx.conf
+    src: nginx.conf.j2
+
+- name: restart Nginx
+  systemd:
+    enabled: yes
+    name: nginx
+    state: restarted
+
 - name: add logrotate configuration
   template:
     src: rails-logs.conf.j2

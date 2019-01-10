@@ -7,10 +7,11 @@
     - vault/spotlight.yml
 
   vars:
-    # deploy_user: adrl
-    # deploy_group: adrl
+    project_name: spotlight
+    app_root: /opt/{{ project_name }}/current
 
     ruby_bin_root: /usr/local/rbenv/shims
+    ruby_abi: 2.5.0
     ruby_ver: 2.5.3
     rbenv:
       env: system
