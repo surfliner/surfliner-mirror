@@ -5,3 +5,7 @@ config_path: "{{ project_base }}/{{ project_name }}/shared/config"
 
 deploy_user: adrl
 deploy_group: adrl
+
+node_major_ver: 10
+node_ver: 10.15.0
+node_sha: c0e7f1274b681ea3a6b314f30b69acfba1585febe8b72f9e4a4b97eebfb8cb2c

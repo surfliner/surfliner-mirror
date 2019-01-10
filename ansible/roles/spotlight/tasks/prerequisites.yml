@@ -1,4 +1,14 @@
 ---
+- name: download NodeSource repo
+  get_url:
+    url: https://rpm.nodesource.com/pub_{{ node_major_ver }}.x/el/7/x86_64/nodejs-devel-{{ node_ver }}-1nodesource.x86_64.rpm
+    checksum: sha256:{{ node_sha }}
+    dest: /tmp/nodejs-devel-{{ node_ver }}-1nodesource.x86_64.rpm
+
+- name: install NodeSource repo
+  yum:
+    name: /tmp/nodejs-devel-{{ node_ver }}-1nodesource.x86_64.rpm
+
 - name: update all yum packages
   yum:
     name: "*"
@@ -23,3 +33,9 @@
   command: "{{ ruby_bin_root }}/gem install --no-document {{ item }}"
   with_items:
     name: bundler
+
+- name: install yarn
+  npm:
+    global: yes
+    name: yarn
+    state: latest
