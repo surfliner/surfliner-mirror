@@ -22,7 +22,8 @@
         - version: "{{ ruby_ver }}"
 
     solr_host: localhost
-    smtp_host:
+    # set in vault file
+    # smtp_host:
 
     db_host: localhost
     db_name: spotlight_db
