@@ -59,10 +59,10 @@ search through the paths given with `-d` in order to find a match.
 ## Developing locally
 
 ### Set up your local development instance
-1. `git clone git@github.com:ucsblibrary/geniza.git`
+1. `git clone https://github.com/ucsblibrary/geniza.git`
 1. `bundle install` to install gem dependencies
 1. `rake db:migrate` to run database migrations
-1. `yarn run install-uv` to install UniversalViewer
+1. `yarn install` to install UniversalViewer
 1. `solr_wrapper` to spin up a local copy of solr for development
 1. `cp config/secrets.yml.template config/secrets.yml`
 1. `cp config/import.yml.template config/import.yml`
