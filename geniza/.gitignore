@@ -18,9 +18,6 @@
 !/tmp/.keep
 /public/uploads
 
-/node_modules
-/yarn-error.log
-
 .byebug_history
 
 /public/uploads
@@ -31,11 +28,9 @@
 
 /spec/examples.txt
 
-# Don't check in JS from yarn
-/node_modules
-/public/packs
-/public/packs-test
-/node_modules
-yarn-debug.log*
+# Don't check in vendored JS
 .yarn-integrity
-/public/universalviewer
+node_modules
+public/yarn
+yarn-debug.log*
+yarn-error.log
