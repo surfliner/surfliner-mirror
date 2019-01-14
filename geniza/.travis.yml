@@ -1,30 +1,29 @@
 dist: trusty
 language: ruby
-cache: bundler
-cache: yarn
 sudo: required
+
+cache:
+  bundler: true
 addons:
   chrome: stable
-  apt:
-    sources:
-      - sourceline: 'deb https://dl.yarnpkg.com/debian/ stable main'
-        key_url: 'https://dl.yarnpkg.com/debian/pubkey.gpg'
-    packages:
-      - yarn
+
 rvm:
-- 2.5.1
-before_script:
-  - cp config/secrets.yml.template config/secrets.yml
-  - bin/rails db:test:prepare
-before_install:
+  - 2.5.1
+
+install:
 - openssl aes-256-cbc -K $encrypted_4d6950ff1422_key -iv $encrypted_4d6950ff1422_iv
   -in geniza-cd-key.enc -out geniza-cd-key -d
 - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
+- npm install
+
+before_script:
+  - cp config/secrets.yml.template config/secrets.yml
+
+script:
+  - bundle exec rake ci
+
 after_success:
   - |
     if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then
       bundle exec cap cd deploy
     fi
-script:
-  - yarn run install-uv
-  - bundle exec rake ci
