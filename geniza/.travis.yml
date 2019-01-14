@@ -10,7 +10,7 @@ addons:
 rvm:
   - 2.5.1
 
-install:
+before_install:
 - openssl aes-256-cbc -K $encrypted_4d6950ff1422_key -iv $encrypted_4d6950ff1422_iv
   -in geniza-cd-key.enc -out geniza-cd-key -d
 - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
