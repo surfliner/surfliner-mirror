@@ -14,6 +14,7 @@ addons:
 rvm:
 - 2.5.1
 before_script:
+  - cp config/secrets.yml.template config/secrets.yml
   - bin/rails db:test:prepare
 before_install:
 - openssl aes-256-cbc -K $encrypted_4d6950ff1422_key -iv $encrypted_4d6950ff1422_iv
