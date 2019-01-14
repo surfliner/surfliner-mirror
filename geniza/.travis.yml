@@ -18,6 +18,7 @@ before_install:
 
 before_script:
   - cp config/secrets.yml.template config/secrets.yml
+  - bin/rails db:test:prepare
 
 script:
   - bundle exec rake ci
