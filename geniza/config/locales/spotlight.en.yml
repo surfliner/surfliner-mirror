@@ -1,0 +1,20 @@
+---
+en:
+  spotlight:
+    search:
+      fields:
+        spotlight_upload_contributor_tesim: Contributor(s)
+        spotlight_upload_coverage_tesim: Coverage
+        spotlight_upload_creator_tesim: Creator
+        # spotlight_upload_date_tesim: Date
+        # spotlight_upload_description_tesim: Description
+        spotlight_upload_format_tesim: Format
+        spotlight_upload_identifier_tesim: Identifier
+        spotlight_upload_language_tesim: Language
+        spotlight_upload_publisher_tesim: Publisher
+        spotlight_upload_relation_tesim: Relation
+        spotlight_upload_rights_tesim: Creator
+        spotlight_upload_source_tesim: Source
+        spotlight_upload_subject_tesim: Subject
+        # spotlight_upload_title_tesim: Title
+        spotlight_upload_type_tesim: Type

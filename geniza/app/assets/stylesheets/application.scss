@@ -1,0 +1,130 @@
+/*
+ *= require_tree .
+ *= require_self
+ *= require bootstrap-tagsinput
+ *= require openseadragon/openseadragon
+*/
+
+$logo-image: image_url('library-logo.png');
+
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+
+@import 'blacklight/blacklight';
+@import 'spotlight/spotlight';
+@import 'spotlight/variables_bootstrap';
+
+@import 'sir-trevor/main';
+@import 'leaflet';
+
+@mixin hide {
+  position: absolute;
+  left: -999em;
+  /* http://css-tricks.com/snippets/css/accessibilityseo-friendly-css-hiding/ */
+  top: -999px;
+}
+
+// These are the numbers used by Bootstrap
+$breakpoint1: 1200px;
+$breakpoint2: 992px;
+$breakpoint3: 768px;
+$breakpoint4: 480px;
+
+// -------
+// General
+// -------
+
+body {
+  font-size: 12pt;
+}
+
+h1 {
+  font-size: 171.5%;
+}
+
+h2 {
+  font-size: 150%;
+}
+
+h3 {
+  font-size: 128.5%;
+}
+
+h4,
+h5,
+h6 {
+  font-size: 114.3%;
+}
+
+h6 {
+  font-style: italic;
+}
+
+.invisible {
+  @include hide;
+}
+
+// ------
+// Header
+// ------
+#header-navbar .navbar-brand {
+  width: 260px;
+  height: 60px;
+}
+
+.navbar-nav > li > a {
+  padding-top: 20px;
+}
+
+// ------
+// Footer
+// ------
+
+footer {
+  padding: 1em;
+  overflow: hidden;
+  min-height: 8em;
+
+  font: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+  color: white;
+  background-color: #222;
+
+  a, a:hover {
+    color: white;
+    text-decoration: none;
+  }
+}
+.meta-adrl {
+  padding-bottom: 1em;
+}
+.copyright {
+  font-size: 82.5%;
+}
+
+.ucsb-small {
+  float: left;
+  clear: right;
+  padding: .5em 1em 0 0;
+}
+
+@media screen and (min-width: $breakpoint3) {
+  footer {
+    position: relative;
+  }
+  .meta-adrl {
+    float: left;
+    max-width: 50%;
+  }
+  .meta-ucsb {
+    min-width: 20em;
+    position: absolute;
+    right: 0;
+  }
+}
+
+// ----
+// Main
+// ----
+#main-container {
+  margin-bottom: 20px;
+}
