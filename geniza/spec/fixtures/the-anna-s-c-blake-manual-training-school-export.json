@@ -1,0 +1,411 @@
+{
+  "title": "The Anna S. C. Blake Manual Training School",
+  "subtitle": "The Remarkable Antecedent of UC Santa Barbara",
+  "description": "",
+  "created_at": "2018-12-05T16:18:25.279Z",
+  "updated_at": "2018-12-05T16:23:38.754Z",
+  "published": false,
+  "weight": 50,
+  "site_id": 1,
+  "tag_list": [
+    "testing"
+  ],
+  "searches": [
+    {
+      "title": "All Exhibit Items",
+      "slug": "all-exhibit-items",
+      "long_description": "All items in this exhibit.",
+      "query_params": {
+      },
+      "created_at": "2018-12-05T16:18:25.397Z",
+      "updated_at": "2018-12-05T16:18:25.397Z",
+      "search_box": false
+    }
+  ],
+  "about_pages": [
+
+  ],
+  "feature_pages": [
+
+  ],
+  "home_page": {
+    "title": "Exhibit Home",
+    "type": "Spotlight::HomePage",
+    "weight": 50,
+    "published": true,
+    "created_at": "2018-12-05T16:18:25.444Z",
+    "updated_at": "2018-12-05T16:18:25.444Z",
+    "display_sidebar": true,
+    "locale": "en"
+  },
+  "main_navigations": [
+    {
+      "weight": 0,
+      "nav_type": "curated_features",
+      "created_at": "2018-12-05T16:18:25.424Z",
+      "updated_at": "2018-12-05T16:18:25.424Z",
+      "display": true
+    },
+    {
+      "weight": 1,
+      "nav_type": "browse",
+      "created_at": "2018-12-05T16:18:25.425Z",
+      "updated_at": "2018-12-05T16:18:25.425Z",
+      "display": true
+    },
+    {
+      "weight": 2,
+      "nav_type": "about",
+      "created_at": "2018-12-05T16:18:25.428Z",
+      "updated_at": "2018-12-05T16:18:25.428Z",
+      "display": true
+    }
+  ],
+  "blacklight_configuration": {
+    "facet_fields": {
+    },
+    "index_fields": {
+      "spotlight_upload_description_tesim": {
+        "label": "Description",
+        "list": true,
+        "gallery": true,
+        "masonry": true,
+        "slideshow": true,
+        "show": true,
+        "enabled": true
+      },
+      "spotlight_upload_attribution_tesim": {
+        "label": "Attribution",
+        "list": true,
+        "gallery": true,
+        "masonry": true,
+        "slideshow": true,
+        "show": true,
+        "enabled": true
+      },
+      "spotlight_upload_date_tesim": {
+        "label": "Date",
+        "list": true,
+        "gallery": true,
+        "masonry": true,
+        "slideshow": true,
+        "show": true,
+        "enabled": true
+      },
+      "creator_tesim": {
+        "label": "Creator",
+        "list": false,
+        "gallery": false,
+        "masonry": false,
+        "slideshow": false,
+        "show": true,
+        "enabled": true
+      },
+      "subject_tesim": {
+        "label": "Subject",
+        "list": false,
+        "gallery": false,
+        "masonry": false,
+        "slideshow": false,
+        "show": true,
+        "enabled": true
+      },
+      "publisher_tesim": {
+        "label": "Publisher",
+        "list": false,
+        "gallery": false,
+        "masonry": false,
+        "slideshow": false,
+        "show": true,
+        "enabled": true
+      },
+      "contributor_tesim": {
+        "label": "Contributor",
+        "list": false,
+        "gallery": false,
+        "masonry": false,
+        "slideshow": false,
+        "show": true,
+        "enabled": true
+      },
+      "type_tesim": {
+        "label": "Type",
+        "list": false,
+        "gallery": false,
+        "masonry": false,
+        "slideshow": false,
+        "show": true,
+        "enabled": true
+      },
+      "format_tesim": {
+        "label": "Format",
+        "list": false,
+        "gallery": false,
+        "masonry": false,
+        "slideshow": false,
+        "show": true,
+        "enabled": true
+      },
+      "identifier_tesim": {
+        "label": "Identifier",
+        "list": false,
+        "gallery": false,
+        "masonry": false,
+        "slideshow": false,
+        "show": true,
+        "enabled": true
+      },
+      "source_tesim": {
+        "label": "Source",
+        "list": false,
+        "gallery": false,
+        "masonry": false,
+        "slideshow": false,
+        "show": true,
+        "enabled": true
+      },
+      "language_tesim": {
+        "label": "Language",
+        "list": false,
+        "gallery": false,
+        "masonry": false,
+        "slideshow": false,
+        "show": true,
+        "enabled": true
+      },
+      "relation_tesim": {
+        "label": "Relation",
+        "list": false,
+        "gallery": false,
+        "masonry": false,
+        "slideshow": false,
+        "show": true,
+        "enabled": true
+      },
+      "coverage_tesim": {
+        "label": "Coverage",
+        "list": false,
+        "gallery": false,
+        "masonry": false,
+        "slideshow": false,
+        "show": true,
+        "enabled": true
+      },
+      "rights_tesim": {
+        "label": "Rights",
+        "list": false,
+        "gallery": false,
+        "masonry": false,
+        "slideshow": false,
+        "show": true,
+        "enabled": true
+      },
+      "exhibit_tags": {
+        "label": "Exhibit Tags",
+        "list": false,
+        "gallery": false,
+        "masonry": false,
+        "slideshow": false,
+        "show": true,
+        "enabled": true
+      }
+    },
+    "search_fields": {
+      "all_fields": {
+        "enabled": true,
+        "label": "Everything"
+      }
+    },
+    "sort_fields": {
+      "relevance": {
+        "enabled": true,
+        "label": "Relevance"
+      }
+    },
+    "default_solr_params": {
+    },
+    "show": {
+    },
+    "index": {
+    },
+    "default_per_page": 10,
+    "per_page": [
+
+    ],
+    "document_index_view_types": [
+      "list",
+      "atom",
+      "rss",
+      "gallery",
+      "masonry",
+      "slideshow"
+    ],
+    "created_at": "2018-12-05T16:18:25.320Z",
+    "updated_at": "2018-12-05T16:22:57.018Z",
+    "skip_default_configuration": true
+  },
+  "custom_fields": [
+    {
+      "slug": "creator",
+      "field": "creator_tesim",
+      "configuration": {
+        "label": "Creator",
+        "short_description": ""
+      },
+      "created_at": "2018-12-05T16:19:04.432Z",
+      "updated_at": "2018-12-05T16:21:59.541Z",
+      "field_type": "text",
+      "readonly_field": false
+    },
+    {
+      "slug": "subject",
+      "field": "subject_tesim",
+      "configuration": {
+        "label": "Subject",
+        "short_description": ""
+      },
+      "created_at": "2018-12-05T16:19:17.025Z",
+      "updated_at": "2018-12-05T16:21:47.210Z",
+      "field_type": "text",
+      "readonly_field": false
+    },
+    {
+      "slug": "publisher",
+      "field": "publisher_tesim",
+      "configuration": {
+        "label": "Publisher",
+        "short_description": ""
+      },
+      "created_at": "2018-12-05T16:19:37.661Z",
+      "updated_at": "2018-12-05T16:22:11.689Z",
+      "field_type": "text",
+      "readonly_field": false
+    },
+    {
+      "slug": "contributor",
+      "field": "contributor_tesim",
+      "configuration": {
+        "label": "Contributor",
+        "short_description": ""
+      },
+      "created_at": "2018-12-05T16:19:48.808Z",
+      "updated_at": "2018-12-05T16:19:48.808Z",
+      "field_type": "text",
+      "readonly_field": false
+    },
+    {
+      "slug": "type",
+      "field": "type_tesim",
+      "configuration": {
+        "label": "Type",
+        "short_description": ""
+      },
+      "created_at": "2018-12-05T16:20:02.855Z",
+      "updated_at": "2018-12-05T16:20:02.855Z",
+      "field_type": "text",
+      "readonly_field": false
+    },
+    {
+      "slug": "format",
+      "field": "format_tesim",
+      "configuration": {
+        "label": "Format",
+        "short_description": ""
+      },
+      "created_at": "2018-12-05T16:20:15.584Z",
+      "updated_at": "2018-12-05T16:20:15.584Z",
+      "field_type": "text",
+      "readonly_field": false
+    },
+    {
+      "slug": "identifier",
+      "field": "identifier_tesim",
+      "configuration": {
+        "label": "Identifier",
+        "short_description": ""
+      },
+      "created_at": "2018-12-05T16:20:28.754Z",
+      "updated_at": "2018-12-05T16:20:28.754Z",
+      "field_type": "text",
+      "readonly_field": false
+    },
+    {
+      "slug": "source",
+      "field": "source_tesim",
+      "configuration": {
+        "label": "Source",
+        "short_description": ""
+      },
+      "created_at": "2018-12-05T16:20:41.399Z",
+      "updated_at": "2018-12-05T16:20:41.399Z",
+      "field_type": "text",
+      "readonly_field": false
+    },
+    {
+      "slug": "language",
+      "field": "language_tesim",
+      "configuration": {
+        "label": "Language",
+        "short_description": ""
+      },
+      "created_at": "2018-12-05T16:20:50.482Z",
+      "updated_at": "2018-12-05T16:20:50.482Z",
+      "field_type": "text",
+      "readonly_field": false
+    },
+    {
+      "slug": "relation",
+      "field": "relation_tesim",
+      "configuration": {
+        "label": "Relation",
+        "short_description": ""
+      },
+      "created_at": "2018-12-05T16:21:00.176Z",
+      "updated_at": "2018-12-05T16:21:00.176Z",
+      "field_type": "text",
+      "readonly_field": false
+    },
+    {
+      "slug": "coverage",
+      "field": "coverage_tesim",
+      "configuration": {
+        "label": "Coverage",
+        "short_description": ""
+      },
+      "created_at": "2018-12-05T16:21:09.896Z",
+      "updated_at": "2018-12-05T16:21:09.896Z",
+      "field_type": "text",
+      "readonly_field": false
+    },
+    {
+      "slug": "rights",
+      "field": "rights_tesim",
+      "configuration": {
+        "label": "Rights",
+        "short_description": ""
+      },
+      "created_at": "2018-12-05T16:21:19.469Z",
+      "updated_at": "2018-12-05T16:21:19.469Z",
+      "field_type": "text",
+      "readonly_field": false
+    }
+  ],
+  "contacts": [
+
+  ],
+  "contact_emails": [
+
+  ],
+  "solr_document_sidecars": [
+
+  ],
+  "owned_taggings": [
+
+  ],
+  "attachments": [
+
+  ],
+  "resources": [
+
+  ]
+}

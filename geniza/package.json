@@ -1,0 +1,26 @@
+{
+  "name": "geniza",
+  "version": "1.0.0",
+  "description": "Spotlight is a framework built on Blacklight that allows the creation and presentation of exhibits.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ucsblibrary/geniza.git"
+  },
+  "author": "UCSB Library",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/ucsblibrary/geniza/issues"
+  },
+  "homepage": "https://github.com/ucsblibrary/geniza#readme",
+  "dependencies": {
+    "universalviewer": "^3.0.16"
+  }
+}

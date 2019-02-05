@@ -1,0 +1,24 @@
+---
+binary_root: /Volumes
+
+exhibit_type_key: type
+exhibit_class: Collection
+
+exhibit_title_key: title
+exhibit_description_key: description
+
+resource_keys:
+  contributor: contributor
+  coverage: coverage
+  creator: creator
+  date: date
+  description: description
+  format: format
+  identifier: identifier
+  language: language
+  publisher: publisher
+  relation: relation
+  rights: license
+  source: source
+  subject: subject
+  title: title
