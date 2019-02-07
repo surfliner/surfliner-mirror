@@ -28,15 +28,34 @@ require 'database_cleaner'
 # Uses faster rack_test driver when JavaScript support not needed
 Capybara.default_driver = :rack_test
 
-Capybara.register_driver :chrome do |app|
-  browser_options = ::Selenium::WebDriver::Chrome::Options.new
-  browser_options.args << '--headless'
-  browser_options.args << '--disable-gpu'
-  browser_options.args << '--no-sandbox'
+# docker-compose tests run using a dedicated remote selenium chrome container
+if ENV['REMOTE_SELENIUM_TESTS']
+  Capybara.app_host = "http://#{ENV["TEST_APP_HOST"]}:#{ENV["TEST_PORT"]}"
+  Capybara.run_server = false
+
+  # Configure the Chrome driver capabilities & register
+  args = ['--disable-gpu', '--nosandbox', '--headless']
+  caps = Selenium::WebDriver::Remote::Capabilities.chrome("chromeOptions" => { "args" => args })
+  Capybara.register_driver :selenium do |app|
+    Capybara::Selenium::Driver.new(
+      app,
+      browser: :remote,
+      url: "http://#{ENV["SELENIUM_HOST"]}:#{ENV["SELENIUM_PORT"]}/wd/hub",
+      desired_capabilities: caps
+    )
+  end
+  Capybara.javascript_driver = :selenium
+else
+  Capybara.register_driver :chrome do |app|
+    browser_options = ::Selenium::WebDriver::Chrome::Options.new
+    browser_options.args << '--headless'
+    browser_options.args << '--disable-gpu'
+    browser_options.args << '--no-sandbox'
+  end
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
+  Capybara.javascript_driver = :chrome
 end
 
-Capybara.javascript_driver = :chrome
 
 Capybara.default_max_wait_time = 10
 
@@ -81,6 +100,7 @@ RSpec.configure do |config|
 
   config.after do
     DatabaseCleaner.clean
+    Warden.test_reset!
   end
 
   # RSpec Rails can automatically mix in different behaviours to your tests

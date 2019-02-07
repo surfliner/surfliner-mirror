@@ -1,0 +1,53 @@
+version: '3.7'
+services:
+  web:
+    build: ../../.
+    env_file:
+      - ../.env.docker.test
+    volumes:
+      - ../../.:/data
+    working_dir: /data
+    command: sh -c 'bundle exec rails db:create db:schema:load && bundle exec puma -b tcp://0.0.0.0:3001'
+    ports:
+      - "3001:3001"
+    depends_on:
+      - database
+      - solr
+    stdin_open: true
+    tty: true
+
+  selenium:
+    image: selenium/standalone-chrome-debug
+    volumes:
+      - /dev/shm:/dev/shm
+    ports:
+      - "4444:4444"
+    logging:
+      driver: none
+    stdin_open: true
+    tty: true
+
+  database:
+    image: postgres:10.6-alpine
+    volumes:
+      - starlight_database:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  solr:
+    image: solr:7.1-alpine
+    ports:
+      - "8985:8983"
+    volumes:
+      - starlight_solr:/opt/solr/server/solr/mycores
+      - '../../solr/config:/opt/config'
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - blacklight-test
+      - /opt/config
+
+volumes:
+  starlight_database:
+  starlight_solr:
+
