@@ -210,6 +210,7 @@ GEM
       json
     iiif_manifest (0.5.0)
       activesupport (>= 4)
+    interception (0.5)
     io-like (0.3.0)
     jaro_winkler (1.5.2)
     jbuilder (2.8.0)
@@ -281,9 +282,17 @@ GEM
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
+    pry-byebug (3.6.0)
+      byebug (~> 10.0)
+      pry (~> 0.10)
     pry-doc (1.0.0)
       pry (~> 0.11)
       yard (~> 0.9.11)
+    pry-rails (0.3.9)
+      pry (>= 0.10.4)
+    pry-rescue (1.5.0)
+      interception (>= 0.5)
+      pry (>= 0.12.0)
     public_suffix (3.0.3)
     puma (3.12.0)
     rack (2.0.6)
@@ -491,8 +500,10 @@ DEPENDENCIES
   net-ldap
   optimist
   pg (~> 0.18.4)
-  pry
+  pry-byebug
   pry-doc
+  pry-rails
+  pry-rescue
   puma
   rails (~> 5.1.6)
   riiif
