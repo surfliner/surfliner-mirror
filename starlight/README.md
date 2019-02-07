@@ -1,12 +1,12 @@
-# Spotlight
+# Starlight
 
-Spotlight is a framework built on Blacklight that allows the creation
-and presentation of exhibits.
+Starlight is baed on Spotlight, a framework for the creation and presentation of
+exhibits.
 
 ## Importing Data
 
 ### Via the UI
-The preferred way to import data into geniza is via the UI. Images can be specified
+The preferred way to import data into Starlight is via the UI. Images can be specified
 either via a url or via a filename. A CSV import file must use either urls or files, not a mixture of both.
 Files will be loaded relative to an optional environment variable, IMPORT_DIR.
 
@@ -18,7 +18,7 @@ Files will be loaded relative to an optional environment variable, IMPORT_DIR.
 
 ### Via the command line
 **Note:** The command line import is not being actively developed and should not
-be used without consultation with the geniza development team.
+be used without consultation with the Starlight development team.
 
 This instance has been enhanced with a CLI batch import tool that
 takes CSV metadata files and creates exhibits.
@@ -59,7 +59,8 @@ search through the paths given with `-d` in order to find a match.
 ## Developing locally
 
 ### Set up your local development instance
-1. `git clone https://github.com/ucsblibrary/geniza.git`
+1. `git clone https://gitlab.com/surfliner/surfliner.git`
+1. `cd surfliner/starlight`
 1. `bundle install` to install gem dependencies
 1. `rake db:migrate` to run database migrations
 1. `yarn install` to install UniversalViewer

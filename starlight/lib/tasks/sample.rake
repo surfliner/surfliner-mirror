@@ -1,4 +1,4 @@
-namespace :geniza do
+namespace :starlight do
   namespace :sample do
     desc 'Load Blake exhibit and content'
     task blake: [:environment] do
