@@ -1,0 +1,51 @@
+image: registry.gitlab.com/surfliner/surfliner/builder
+
+stages:
+  - prebuild
+  - build
+  - test
+
+variables:
+  DOCKER_DRIVER: overlay
+
+rebuild-base:
+  stage: prebuild
+  services:
+    - name: docker:dind
+  script:
+    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
+    - docker build -t registry.gitlab.com/surfliner/surfliner/builder .
+    - docker push registry.gitlab.com/surfliner/surfliner/builder
+  when: manual
+
+starlight-build:
+  stage: build
+  services:
+    - name: docker:dind
+  script:
+    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
+    - cd starlight
+    - ./bin/docker-build.sh -e test
+    - docker tag test_web registry.gitlab.com/surfliner/surfliner/starlight_web:$CI_COMMIT_SHA
+    - docker push registry.gitlab.com/surfliner/surfliner/starlight_web:$CI_COMMIT_SHA
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - Dockerfile
+      - starlight/**/*
+
+starlight-test:
+  image: registry.gitlab.com/surfliner/surfliner/starlight_web:$CI_COMMIT_SHA
+  stage: test
+  services:
+    - name: solr:7.1-alpine
+      alias: solr
+      entrypoint: ["docker-entrypoint.sh", "solr-precreate", "starlight-test", "/opt/config"]
+  script:
+    - cd starlight && bundle exec rspec
+  allow_failure: true
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - Dockerfile
+      - starlight/**/*
