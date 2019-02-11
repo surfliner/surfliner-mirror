@@ -3,14 +3,18 @@ class CatalogController < ApplicationController
 
   configure_blacklight do |config|
     config.show.oembed_field = :oembed_url_ssm
-    config.show.partials.insert(1, :oembed)
+    config.show.tile_source_field = :content_metadata_image_iiif_info_ssm
 
     config.view.gallery.partials = [:index_header, :index]
     config.view.masonry.partials = [:index]
     config.view.slideshow.partials = [:index]
 
-    config.show.tile_source_field = :content_metadata_image_iiif_info_ssm
-    config.show.partials.insert(1, :universal_viewer)
+    config.show.partials = [
+      :show_header,
+      :show,
+      :oembed,
+      :universal_viewer,
+    ]
 
     # Default parameters to send to solr for all search-like
     # requests. See also SolrHelper#solr_search_params
