@@ -13,7 +13,7 @@ class CatalogController < ApplicationController
       :show_header,
       :show,
       :oembed,
-      :universal_viewer,
+      :media,
     ]
 
     # Default parameters to send to solr for all search-like
