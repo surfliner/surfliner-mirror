@@ -1,0 +1,41 @@
+version: '3.7'
+services:
+  web:
+    build: ../../.
+    env_file:
+      - ../.env.docker
+    volumes:
+      - ../../.:/data
+    working_dir: /data
+    command: 'puma'
+    ports:
+      - "3000:3000"
+    depends_on:
+      - database
+      - solr
+    stdin_open: true
+    tty: true
+
+  database:
+    image: postgres:10.6-alpine
+    volumes:
+      - starlight_database:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  solr:
+    image: solr:7.1-alpine
+    ports:
+      - "8983:8983"
+    volumes:
+      - starlight_solr:/opt/solr/server/solr/mycores
+      - '../../solr/config:/opt/config'
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - starlight
+      - /opt/config
+
+volumes:
+  starlight_solr:
+  starlight_database:

@@ -69,6 +69,26 @@ search through the paths given with `-d` in order to find a match.
 1. `cp config/import.yml.template config/import.yml`
 1. `rails s` to run rails server
 
+### With Docker
+
+You will need Docker and Docker Compose installed on your host/local system.
+
+There are two docker-compose files, which allow you to run development and test
+instances of the application if you would like.
+
+To setup a development environment:
+1. `git clone https://gitlab.com/surfliner/surfliner.git`
+1. `cd surfliner/starlight`
+1. `./bin/docker-build.sh`  to build images
+1. `./bin/docker-up.sh`  to run dev environment
+   run database migrations
+1. Browse to http://localhost:3000
+
+For running tests:
+1. `./bin/docker-build.sh -e test`  to build images
+1. `./bin/docker-up.sh -e test`  to run dev environment
+1. `./bin/docker-spec.sh -e test` to run test suite
+
 ### Use database authentication instead of LDAP
 If you want to use spotlight's built-in database authentication instead of LDAP,
 either for local development or on a DCE server, set an environment variable in

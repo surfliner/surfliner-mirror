@@ -1,6 +1,8 @@
 FROM ruby:2.5.3
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
-RUN apt-get update -qq && \
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    apt-get update -qq && \
     apt-get install -qq -y --no-install-recommends \
     build-essential \
     nodejs \
@@ -10,14 +12,17 @@ RUN apt-get update -qq && \
     libxml2-dev \
     libxslt-dev \
     ssh \
-    libsqlite3-dev \
-    sqlite3 \
+    yarn \
     && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /data
 WORKDIR /data
-ADD . /data
+COPY Gemfile* ./
 ENV BUNDLE_JOBS=4
+RUN gem update bundler
 RUN bundle install
-RUN bundle exec rake db:migrate
-EXPOSE 3000
+COPY . ./
+
+RUN yarn install
+
+CMD ["rails", "server"]
