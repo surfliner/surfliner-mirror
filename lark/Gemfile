@@ -6,3 +6,4 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
 gem 'rack-test', group: 'test'
 gem 'rspec',     group: 'test'
+gem 'sinatra',   '~> 2.0.5'
