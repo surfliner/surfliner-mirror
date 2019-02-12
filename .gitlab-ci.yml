@@ -1,4 +1,4 @@
-image: registry.gitlab.com/surfliner/surfliner/builder
+image: $CI_REGISTRY_IMAGE/builder
 
 stages:
   - prebuild
@@ -14,8 +14,8 @@ rebuild-base:
     - name: docker:dind
   script:
     - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
-    - docker build -t registry.gitlab.com/surfliner/surfliner/builder .
-    - docker push registry.gitlab.com/surfliner/surfliner/builder
+    - docker build -t $CI_REGISTRY_IMAGE/builder .
+    - docker push $CI_REGISTRY_IMAGE/builder
   when: manual
 
 starlight-build:
@@ -26,8 +26,8 @@ starlight-build:
     - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
     - cd starlight
     - ./bin/docker-build.sh -e test
-    - docker tag test_web registry.gitlab.com/surfliner/surfliner/starlight_web:$CI_COMMIT_SHA
-    - docker push registry.gitlab.com/surfliner/surfliner/starlight_web:$CI_COMMIT_SHA
+    - docker tag starlight_web $CI_REGISTRY_IMAGE/starlight_web:$CI_COMMIT_SHA
+    - docker push $CI_REGISTRY_IMAGE/starlight_web:$CI_COMMIT_SHA
   only:
     changes:
       - .gitlab-ci.yml
@@ -35,7 +35,7 @@ starlight-build:
       - starlight/**/*
 
 starlight-test:
-  image: registry.gitlab.com/surfliner/surfliner/starlight_web:$CI_COMMIT_SHA
+  image: $CI_REGISTRY_IMAGE/starlight_web:$CI_COMMIT_SHA
   stage: test
   services:
     - name: solr:7.1-alpine
