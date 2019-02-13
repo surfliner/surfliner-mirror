@@ -18,13 +18,16 @@ RSpec.describe 'GET /{id}' do
   end
 
   context 'with an existing object' do
-    let(:prefLabel) { 'Moomin' }
+    let(:persister)  { adapter.persister }
+    let(:pref_label) { 'Moomin' }
+    let(:resource)   { Concept.new(id: id, pref_label: pref_label) }
 
-    before do
-      # setup a dummy object with:
-      #   id        = id
-      #   prefLabel = prefLabel
+    let(:adapter) do
+      Valkyrie::MetadataAdapter.find(Lark.config.index_adapter)
     end
+
+    before { persister.save(resource: resource) }
+    after  { persister.wipe! }
 
     it 'gives a 200' do
       get "/#{id}"
@@ -36,7 +39,7 @@ RSpec.describe 'GET /{id}' do
       get "/#{id}"
 
       expect(last_response.body)
-        .to eq JSON.dump(id: id, prefLabel: prefLabel)
+        .to eq JSON.dump(id: id, pref_label: pref_label)
     end
   end
 end

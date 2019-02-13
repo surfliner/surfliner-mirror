@@ -4,6 +4,7 @@ require 'valkyrie'
 # TODO: fix these up later with https://dry-rb.org/gems/dry-system/
 require_relative '../lib/lark'
 require_relative '../app/controllers/record_controller'
+require_relative '../app/models/concept'
 
 ##
 # Lark is an authority control platform.

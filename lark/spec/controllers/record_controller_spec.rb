@@ -7,7 +7,7 @@ RSpec.describe RecordController do
 
   describe '#call' do
     it 'returns a rack response object' do
-      expect(subject.call).to eq [404, {}, ['']]
+      expect(subject.call.first).to eq 404
     end
   end
 end
