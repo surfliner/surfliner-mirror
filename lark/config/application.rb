@@ -1,4 +1,5 @@
 require 'sinatra'
+require_relative '../app/controllers/record_controller'
 
 ##
 # Lark is an authority control platform.
@@ -14,7 +15,7 @@ module Lark
   # @see https://rack.github.io/
   class Application < Sinatra::Base
     get '/:id' do
-      [404, {}, ['']]
+      RecordController.new(params).call
     end
   end
 

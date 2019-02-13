@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
+gem 'pry',       group: %w[development test]
 gem 'rack-test', group: 'test'
 gem 'rspec',     group: 'test'
 gem 'sinatra',   '~> 2.0.5'
