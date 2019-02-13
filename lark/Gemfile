@@ -8,3 +8,4 @@ gem 'pry',       group: %w[development test]
 gem 'rack-test', group: 'test'
 gem 'rspec',     group: 'test'
 gem 'sinatra',   '~> 2.0.5'
+gem 'valkyrie',  '~> 1.5.1'

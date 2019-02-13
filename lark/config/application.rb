@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'valkyrie'
 require_relative '../app/controllers/record_controller'
 
 ##
