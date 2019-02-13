@@ -1,4 +1,1 @@
-<% upload_path = Spotlight::Resources::Upload.find(document.id.split('-').last).upload.image.to_s %>
-<% is_pdf = (File.extname(upload_path) == '.pdf') %>
-
-<%= render (is_pdf ? "pdf" : "universal_viewer"), document: document, upload_path: upload_path %>
+<%= render resource_render_type(document), document: document, upload_path: resource_upload_path(document) %>
