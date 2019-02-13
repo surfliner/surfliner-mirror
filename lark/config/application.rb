@@ -1,5 +1,8 @@
 require 'sinatra'
 require 'valkyrie'
+
+# TODO: fix these up later with https://dry-rb.org/gems/dry-system/
+require_relative '../lib/lark'
 require_relative '../app/controllers/record_controller'
 
 ##
