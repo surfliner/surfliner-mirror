@@ -18,6 +18,18 @@ rebuild-base:
     - docker push registry.gitlab.com/surfliner/surfliner/builder
   when: manual
 
+lark-unit-tests:
+  stage: test
+  image: ruby:2.6-alpine
+  script:
+    - gem update bundler
+    - cd lark && bundle && bundle exec rspec
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - Dockerfile
+      - lark/**/*
+
 starlight-build:
   stage: build
   services:
