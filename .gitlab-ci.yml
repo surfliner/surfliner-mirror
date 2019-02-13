@@ -20,8 +20,10 @@ rebuild-base:
 
 lark-unit-tests:
   stage: test
+  image: ruby:2.6-alpine
   script:
-    - cd lark && bundle exec rspec
+    - gem update bundler
+    - cd lark && bundle && bundle exec rspec
   only:
     changes:
       - .gitlab-ci.yml
