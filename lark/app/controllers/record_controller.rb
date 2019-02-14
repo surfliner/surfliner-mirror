@@ -1,26 +1,61 @@
 ##
 # A simple controller that resolves requests for authority records.
 class RecordController
-  attr_accessor :params
+  ##
+  # @!attribute [r] params
+  #   @deprecated
+  # @!attribute [r] request
+  #   @return [Rack::Request]
+  attr_reader :params, :request
 
-  def initialize(params)
-    self.params = params
+  ##
+  # @param request [Rack::Request]
+  def initialize(params = nil, request: nil)
+    self.params  = params || request.params
+    self.request = request
+  end
+
+  ##
+  # Creates a new authority record from the request
+  def create
+    persister.save(resource: Concept.new(parsed_body))
+    [201, {}, ['']]
   end
 
   ##
   # https://dry-rb.org/gems/dry-view/
-  def call
-    record = adapter.query_service.find_by(id: params['id'])
+  def show
+    record = query_service.find_by(id: params['id'])
     json   = { id: record.id.to_s, pref_label: record.pref_label.first }.to_json
 
     [200, {}, [json]]
   rescue Valkyrie::Persistence::ObjectNotFoundError => err
     [404, {}, [err.message]]
   end
+  alias call show
 
   private
 
   def adapter
     Valkyrie::MetadataAdapter.find(Lark.config.index_adapter)
   end
+
+  def parsed_body(format: :json)
+    case format
+    when :json
+      JSON.parse(request.body.read).symbolize_keys
+    else
+      raise UnknownFormatError, request.to_s
+    end
+  end
+
+  def persister
+    adapter.persister
+  end
+
+  def query_service
+    adapter.query_service
+  end
+
+  class UnknownFormatError < ArgumentError; end
 end
