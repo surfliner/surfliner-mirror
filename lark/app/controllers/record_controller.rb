@@ -10,9 +10,10 @@ class RecordController
   ##
   # https://dry-rb.org/gems/dry-view/
   def call
-    resource = adapter.query_service.find_by(id: params['id'])
+    record = adapter.query_service.find_by(id: params['id'])
+    json   = { id: record.id.to_s, pref_label: record.pref_label.first }.to_json
 
-    [200, {}, [resource.to_json]]
+    [200, {}, [json]]
   rescue Valkyrie::Persistence::ObjectNotFoundError => err
     [404, {}, [err.message]]
   end
