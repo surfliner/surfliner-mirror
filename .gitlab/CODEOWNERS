@@ -1,0 +1,9 @@
+# Code Owners file for Surfliner
+# This can be customized as needed:
+#   https://gitlab.com/help/user/project/code_owners
+
+# Starlight
+/starlight/ @no_reply @jhriv @welp @mcritchlow1 @chrissyrissmeyer
+
+# Lark
+/lark/ @no_reply @hweng @lsitu @soops @tchu1 @jhilt
