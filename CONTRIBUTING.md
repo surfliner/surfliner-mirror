@@ -9,7 +9,7 @@ Community][principles].
 
 ### Project Structure
 
-The Surfliner project is structure as a monorepo. If this is a new
+The Surfliner project is structured as a monorepo. If this is a new
 concept to you, please read the [monorepo documentation][monorepo] as well as
 this [comparison of monorepo versus multirepo][mono-vs-multi] configuration.
 
@@ -159,7 +159,7 @@ This is your chance for a mentoring moment of another developer. Take time to gi
 
 If you are uncertain, bring other contributors into the conversation by assigning them as a reviewer.
 
-[principles]: https://ucsd.edu/about/principles-overview.html
+[principles]: https://ucnet.universityofcalifornia.edu/working-at-uc/our-values/principles-of-community.html
 [monorepo]: https://trunkbaseddevelopment.com/monorepos/
 [mono-vs-multi]: http://www.gigamonkeys.com/mono-vs-multi/
 [trunk]: https://trunkbaseddevelopment.com/
