@@ -2,12 +2,12 @@ require 'spec_helper'
 require_relative '../../config/environment'
 
 RSpec.describe RecordController do
-  subject(:controller) { described_class.new(params) }
+  subject(:controller) { described_class.new(params: params) }
   let(:params)         { { 'id' => 'a_fake_id' } }
 
-  describe '#call' do
+  describe '#show' do
     it 'returns a rack response object' do
-      expect(subject.call.first).to eq 404
+      expect(subject.show.first).to eq 404
     end
   end
 end

@@ -3,16 +3,17 @@
 class RecordController
   ##
   # @!attribute [r] params
-  #   @deprecated
+  #   @return [Hash<String, String>]
   # @!attribute [r] request
   #   @return [Rack::Request]
   attr_reader :params, :request
 
   ##
+  # @param params  [Hash<String, String>]
   # @param request [Rack::Request]
-  def initialize(params = nil, request: nil)
-    self.params  = params || request.params
-    self.request = request
+  def initialize(params: nil, request: nil)
+    @params  = params
+    @request = request
   end
 
   ##
@@ -32,7 +33,6 @@ class RecordController
   rescue Valkyrie::Persistence::ObjectNotFoundError => err
     [404, {}, [err.message]]
   end
-  alias call show
 
   private
 

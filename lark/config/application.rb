@@ -18,7 +18,7 @@ module Lark
   # @see https://rack.github.io/
   class Application < Sinatra::Base
     get '/:id' do
-      RecordController.new(params).call
+      RecordController.new(params: params).show
     end
 
     post '/' do
