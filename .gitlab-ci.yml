@@ -62,9 +62,23 @@ starlight-code-quality:
     variables:
       - $CODE_QUALITY_DISABLED
 
+lark-ruby-build:
+  stage: build
+  services:
+    - name: docker:dind
+  script:
+    - cd lark
+    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
+    - docker build -t $CI_REGISTRY_IMAGE/lark_web .
+    - docker push $CI_REGISTRY_IMAGE/lark_web
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - lark/Dockerfile
+
 lark-unit-tests:
   stage: test
-  image: ruby:2.6-alpine
+  image: $CI_REGISTRY_IMAGE/lark_web
   script:
     - gem update bundler
     - cd lark && bundle && bundle exec rspec
