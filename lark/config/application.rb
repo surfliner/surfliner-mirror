@@ -1,14 +1,12 @@
 require 'sinatra'
 require 'valkyrie'
-
-# TODO: fix these up later with https://dry-rb.org/gems/dry-system/
 require_relative '../lib/lark'
-require_relative '../app/controllers/record_controller'
-require_relative '../app/models/concept'
 
 ##
 # Lark is an authority control platform.
 module Lark
+  Core.finalize! # load the application dependencies
+
   ##
   # The Lark application is a basic Rack application implementing the Lark API.
   # It uses `Sinatra` to provide simple routing.
