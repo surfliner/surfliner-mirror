@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 module Parse
-  CONFIG = YAML.safe_load(
-    ERB.new(File.read(Rails.root.join('config', 'import.yml'))).result
-  ).with_indifferent_access.freeze
-
   def self.find_paths(params, extension = nil)
     return [] if params.blank?
 
