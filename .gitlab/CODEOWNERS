@@ -2,6 +2,12 @@
 # This can be customized as needed:
 #   https://gitlab.com/help/user/project/code_owners
 
+# Default entry - both product teams
+* @no_reply @jhriv @welp @mcritchlow1 @chrissyrissmeyer @jhilt @jhriv @hweng @lsitu @soops @tchu1
+
+# Lark
+/lark/ @no_reply @hweng @lsitu @soops @tchu1 @jhilt
+
 # Starlight
 /starlight/ @no_reply @jhriv @welp @mcritchlow1 @chrissyrissmeyer
 
