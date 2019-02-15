@@ -8,6 +8,10 @@ This is a product of the [Surfliner](https://gitlab.com/surfliner/surfliner) col
 
 `rackup config.ru`
 
+Or run shotgun to start a server so that the code change is automatic reloaded in development:
+
+`shotgun config.ru`
+
 ## Development
 
 ```sh
