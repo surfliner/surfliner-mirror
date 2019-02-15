@@ -1,23 +1,25 @@
   - "prefLabel":
-      defintiion: "preferred label from the external authority identified as exact match.  For local authorities (those with no exactMatch) the preflabel provided by user creating the authority."
+      defintiion: "Preferred label from the external authority identified as exact match.  For local authorities (those with no exactMatch) the preflabel provided by user creating the authority."
       predicate : "http://www.w3.org/2008/05/skos-xl#prefLabel"
       range: 
-        uri: "xsd:string, skos-xl:Label"
+        uri: ["xsd:string", "skos-xl:Label"]
       cardinality: 1
 
   - "alternateLabel":
-      defintiion: "alternative labels which may be displayed - e.g. language variants, campus variants"
+      defintiion: "Alternative labels which may be displayed - e.g. language variants, campus variants"
       predicate : "http://www.w3.org/2008/05/skos-xl#altLabel"
       range: 
-        uri: "xsd:string, skos-xl:Label"
+        uri: ["xsd:string", "skos-xl:Label"]
       cardinality: "0..*"
     
   - "hiddenLabel":
-      defintiion: "\"character string to be accessible to applications performing text-based indexing and search operations, but would not like that label to be visible otherwise\"; may not need xl extended label for this"
+      defintiion: "Character string to be accessible to applications performing text-based indexing and search operations, but would not like that label to be visible otherwise."
       predicate : "http://www.w3.org/2004/02/skos/core#hiddenLabel"
       range: 
-        uri: "xsd:string\n"
+        uri: "xsd:string"
       cardinality: "0..*"
+      
+      #We didn't think we needed skos:xl for this.
 
   - "exactMatch":
       defintiion: "Reference(s) to an external vocabulary term (FAST, LCSH, etc.) which has an equivilant meaning, relationships are transitive so exact matches on the linked terms can also be applied to the skos:Concept"
@@ -26,7 +28,9 @@
         uri: "xsd:anyURI"
       cardinality: "0..*"
     
-     #"From skos:Primer \"note on skos:exactMatch vs. owl:sameAs: SKOS provides skos:exactMatch to map concepts with equivalent meaning, and intentionally does not use owl:sameAs from the OWL ontology language [OWL]. When two resources are linked with owl:sameAs they are considered to be the same resource, and triples involving these resources are merged. This does not fit what is needed in most SKOS applications. In the above example, ex1:animal is said to be equivalent to ex2:animals. If this equivalence relation were represented using owl:sameAs, the following statements would hold for ex:animal:\"\n\nMay want to restrict the addition of multiple exact matches to those brought programmatically (e.g., an LCSH term includes an exactMatch)"
+     #From skos:Primer "note on skos:exactMatch vs. owl:sameAs: SKOS provides skos:exactMatch to map concepts with equivalent meaning, and intentionally does not use owl:sameAs from the OWL ontology language [OWL]. When two resources are linked with owl:sameAs they are considered to be the same resource, and triples involving these resources are merged. This does not fit what is needed in most SKOS applications. In the above example, ex1:animal is said to be equivalent to ex2:animals. If this equivalence relation were represented using owl:sameAs, the following statements would hold for ex:animal"
+     
+     #May want to restrict the addition of multiple exact matches to those brought in programmatically (e.g., an exact match to an LCSH term that includes an exactMatch)"
 
   - "closeMatch":
       defintiion: "Reference(s) to an external vocabulary term (FAST, LCSH, etc.) skos:closeMatch is used to link two concepts that are sufficiently similar that they can be used interchangeably in some information retrieval applications. In order to avoid the possibility of \"compound errors\" when combining mappings across more than two concept schemes, skos:closeMatch is not declared to be a transitive property. "
@@ -98,7 +102,7 @@
         uri: "rdfs:Literal"
       cardinality: "0..*"
     
-     #"this could be either a URI or a controlled value list --> whatever is easier to implement"
+     #This could be either a URI or a controlled value list --> whatever is easier to implement
 
   - "annotation":
       defintiion: "Admin note for information on reason for creating or using an alternative label, i.e., cultural sensitivity"
