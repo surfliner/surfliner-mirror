@@ -62,6 +62,50 @@ starlight-code-quality:
     variables:
       - $CODE_QUALITY_DISABLED
 
+starlight-dependency-scanning:
+  stage: test
+  image: docker:stable
+  allow_failure: true
+  services:
+    - docker:stable-dind
+  script:
+    - setup_docker
+    - cd starlight
+    - dependency_scanning
+  artifacts:
+    reports:
+      dependency_scanning: gl-dependency-scanning-report.json
+  only:
+    changes:
+      - starlight/**/*
+    variables:
+      - $GITLAB_FEATURES =~ /\bdependency_scanning\b/
+  except:
+    variables:
+      - $DEPENDENCY_SCANNING_DISABLED
+
+lark-dependency-scanning:
+  stage: test
+  image: docker:stable
+  allow_failure: true
+  services:
+    - docker:stable-dind
+  script:
+    - setup_docker
+    - cd lark
+    - dependency_scanning
+  artifacts:
+    reports:
+      dependency_scanning: gl-dependency-scanning-report.json
+  only:
+    changes:
+      - lark/**/*
+    variables:
+      - $GITLAB_FEATURES =~ /\bdependency_scanning\b/
+  except:
+    variables:
+      - $DEPENDENCY_SCANNING_DISABLED
+
 lark-ruby-build:
   stage: build
   services:
@@ -119,6 +163,7 @@ starlight-test:
       - Dockerfile
       - starlight/**/*
 
+
 # ---------------------------------------------------------------------------
 
 .auto_devops: &auto_devops |
@@ -148,6 +193,20 @@ starlight-test:
                --volume "$PWD":/code \
                --volume /var/run/docker.sock:/var/run/docker.sock \
                "registry.gitlab.com/gitlab-org/security-products/codequality:$SP_VERSION" /code
+  }
+
+  function dependency_scanning() {
+    case "$CI_SERVER_VERSION" in
+      *-ee)
+        docker run --env DEP_SCAN_DISABLE_REMOTE_CHECKS="${DEP_SCAN_DISABLE_REMOTE_CHECKS:-false}" \
+                   --volume "$PWD:/code" \
+                   --volume /var/run/docker.sock:/var/run/docker.sock \
+                   "registry.gitlab.com/gitlab-org/security-products/dependency-scanning:$SP_VERSION" /code
+        ;;
+      *)
+        echo "GitLab EE is required"
+        ;;
+    esac
   }
 
 before_script:
