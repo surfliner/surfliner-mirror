@@ -13,7 +13,7 @@ rebuild-base:
   services:
     - name: docker:dind
   script:
-    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
+    - registry_login
     - docker build -t $CI_REGISTRY_IMAGE/builder .
     - docker push $CI_REGISTRY_IMAGE/builder
   when: manual
@@ -68,7 +68,7 @@ lark-ruby-build:
     - name: docker:dind
   script:
     - cd lark
-    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
+    - registry_login
     - docker build -t $CI_REGISTRY_IMAGE/lark_web .
     - docker push $CI_REGISTRY_IMAGE/lark_web
   only:
@@ -93,7 +93,7 @@ starlight-build:
   services:
     - name: docker:dind
   script:
-    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
+    - registry_login
     - cd starlight
     - docker build -t $CI_REGISTRY_IMAGE/starlight_web:$CI_COMMIT_SHA .
     - docker push $CI_REGISTRY_IMAGE/starlight_web:$CI_COMMIT_SHA
@@ -126,6 +126,14 @@ starlight-test:
   [[ "$TRACE" ]] && set -x
   # Extract "MAJOR.MINOR" from CI_SERVER_VERSION and generate "MAJOR-MINOR-stable" for Security Products
   export SP_VERSION=$(echo "$CI_SERVER_VERSION" | sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
+
+  function registry_login() {
+    if [[ -n "$CI_REGISTRY_USER" ]]; then
+      echo "Logging to GitLab Container Registry with CI credentials..."
+      docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+      echo ""
+    fi
+  }
 
   function setup_docker() {
     if ! docker info &>/dev/null; then
