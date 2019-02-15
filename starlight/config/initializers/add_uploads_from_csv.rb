@@ -16,8 +16,16 @@ class Spotlight::AddUploadsFromCSV
         exhibit: exhibit
       )
 
-      resource.build_upload(remote_image_url: url) if url
-      resource.upload = fetch_image_from_local_disk(file) if file
+      if url
+        resource.build_upload(remote_image_url: url)
+      elsif file
+        full_path = Pathname.new(
+          ENV['BINARY_ROOT'] || CONFIG[:binary_root]
+        ).join(file)
+
+        resource.upload = fetch_image_from_local_disk(full_path)
+      end
+
       resource.save_and_index
     end
   end
