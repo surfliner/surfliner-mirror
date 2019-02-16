@@ -20,7 +20,7 @@ class RecordController
   ##
   # Creates a new authority record from the request
   def create
-    event_stream << Event.new(type: :create, data: parsed_body)
+    event_stream << Event.new(type: :create, data: parsed_body(format: ctype))
 
     [201, {}, ['']]
   end
@@ -46,18 +46,17 @@ class RecordController
     @config.event_stream
   end
 
-  def parsed_body(format: :json)
-    case format
-    when :json
-      JSON.parse(request.body.read).symbolize_keys
-    else
-      raise UnknownFormatError, request.to_s
-    end
+  def ctype
+    request.env['CONTENT_TYPE']
+  end
+
+  def parsed_body(format:)
+    Lark::RecordParser
+      .for(content_type: format)
+      .parse(request.body)
   end
 
   def query_service
     adapter.query_service
   end
-
-  class UnknownFormatError < ArgumentError; end
 end
