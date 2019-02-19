@@ -19,7 +19,7 @@ Bundler/OrderedGems:
 # Configuration parameters: EnabledMethods.
 Capybara/FeatureMethods:
   Exclude:
-    - 'spec/features/create_exhibit_spec.rb'
+    - 'spec/system/create_exhibit_spec.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
@@ -92,13 +92,13 @@ Naming/MemoizedInstanceVariableName:
 # Prefixes: when, with, without
 RSpec/ContextWording:
   Exclude:
-    - 'spec/features/create_exhibit_spec.rb'
+    - 'spec/system/create_exhibit_spec.rb'
 
 # Offense count: 1
 # Configuration parameters: Max.
 RSpec/ExampleLength:
   Exclude:
-    - 'spec/features/create_exhibit_spec.rb'
+    - 'spec/system/create_exhibit_spec.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
@@ -180,6 +180,10 @@ Style/SignalException:
 # SupportedStyles: single_quotes, double_quotes
 Style/StringLiterals:
   Enabled: false
+
+Style/StderrPuts:
+  Exclude:
+    - 'bin/yarn'
 
 # Offense count: 4
 # Cop supports --auto-correct.
