@@ -188,8 +188,8 @@ starlight-test:
     reports:
       junit: rspec.xml
     when: on_failure
-      paths:
-        - tmp/screenshots
+    paths:
+      - tmp/screenshots
   only:
     changes:
       - .gitlab-ci.yml
