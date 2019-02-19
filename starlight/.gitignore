@@ -34,3 +34,6 @@ node_modules
 public/yarn
 yarn-debug.log*
 yarn-error.log
+
+# rspec
+rspec.xml

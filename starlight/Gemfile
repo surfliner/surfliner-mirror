@@ -47,6 +47,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-rescue'
   gem 'rspec-rails'
+  gem 'rspec_junit_formatter'
   gem 'rubocop-rails_config'
   gem 'rubocop-rspec'
   gem 'selenium-webdriver'

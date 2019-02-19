@@ -176,12 +176,20 @@ starlight-test:
   image: $CI_REGISTRY_IMAGE/starlight_web:$CI_COMMIT_SHA
   stage: test
   services:
-    - name: solr:7.1-alpine
-      alias: solr
-      entrypoint: ["docker-entrypoint.sh", "solr-precreate", "starlight-test", "/opt/config"]
+    - name: selenium/standalone-chrome-debug
   script:
-    - cd starlight && bundle exec rspec
+    - cd starlight
+    - export SELENIUM_URL="http://selenium__standalone-chrome:4444/wd/hub/"
+    - export RAILS_ENV="test"
+    - bin/rails db:test:prepare
+    - bundle exec rake ci
   allow_failure: true
+  artifacts:
+    reports:
+      junit: rspec.xml
+    when: on_failure
+      paths:
+        - tmp/screenshots
   only:
     changes:
       - .gitlab-ci.yml

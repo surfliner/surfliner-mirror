@@ -12,9 +12,15 @@ unless Rails.env.production?
     }
     SolrWrapper.wrap(solr_params) do |solr|
       solr.with_collection(name: 'blacklight-test', persist: false, dir: Rails.root.join('solr', 'config')) do
-        # run the tests
-        # Rake::Task['spotlight:seed'].invoke
-        Rake::Task['spec'].invoke
+        begin
+          require 'rspec/core/rake_task'
+          RSpec::Core::RakeTask.new(:spec) do |t|
+            t.rspec_opts = "--format RspecJunitFormatter --out rspec.xml"
+          end
+          Rake::Task['spec'].invoke
+        rescue LoadError
+          raise 'No RSpec available'
+        end
       end
     end
   end
