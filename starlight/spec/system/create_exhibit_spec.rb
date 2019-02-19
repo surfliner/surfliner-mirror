@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.feature 'Import and Display a Work', :clean, js: true do
+RSpec.describe 'Import and Display a Work', :clean, type: :system, js: true do
   include Warden::Test::Helpers
 
   let(:csv_file_path)   { File.join(fixture_path, csv_file_name) }

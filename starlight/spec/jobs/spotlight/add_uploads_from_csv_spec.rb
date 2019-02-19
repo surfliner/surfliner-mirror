@@ -8,6 +8,7 @@ RSpec.describe Spotlight::AddUploadsFromCSV do
 
   before do
     ENV['IMPORT_DIR'] = Rails.root.join('spec', 'fixtures').to_s
+    ENV['BINARY_ROOT'] = ''
   end
 
   # UCSB CSV uploads with local files instead of urls

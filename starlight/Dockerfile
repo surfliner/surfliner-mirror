@@ -24,5 +24,3 @@ RUN bundle install
 COPY . ./
 
 RUN yarn install
-
-CMD ["rails", "server"]

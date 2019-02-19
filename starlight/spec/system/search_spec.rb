@@ -14,7 +14,7 @@ require 'rails_helper'
 # Identifier
 # Publisher
 # Subject
-RSpec.feature 'when searching', :clean, js: true do
+RSpec.describe 'when searching', :clean, type: :system, js: true do
   include Warden::Test::Helpers
 
   let(:item_one)        { "Ednah A. Rich" }
@@ -33,6 +33,7 @@ RSpec.feature 'when searching', :clean, js: true do
 
   before do
     ENV['IMPORT_DIR'] = Rails.root.join('spec', 'fixtures', 'images').to_s
+    ENV['BINARY_ROOT'] = ''
     allow(Spotlight::DefaultThumbnailJob).to receive(:perform_later)
     login_as site_admin
   end

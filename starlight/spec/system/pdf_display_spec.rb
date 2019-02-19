@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.feature "Display embedded PDFs", :clean, js: true do
+RSpec.describe "Display embedded PDFs", :clean, type: :system, js: true do
   include Warden::Test::Helpers
 
   let!(:exhibit) do

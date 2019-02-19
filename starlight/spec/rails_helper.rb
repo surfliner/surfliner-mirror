@@ -1,4 +1,5 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
+require 'capybara'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
@@ -7,9 +8,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'rspec/matchers'
-require 'capybara/rspec'
-require 'capybara/rails'
-require 'database_cleaner'
+# require 'database_cleaner'
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -23,52 +22,7 @@ require 'database_cleaner'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
-
-# Uses faster rack_test driver when JavaScript support not needed
-Capybara.default_driver = :rack_test
-
-# docker-compose tests run using a dedicated remote selenium chrome container
-if ENV['REMOTE_SELENIUM_TESTS']
-  Capybara.app_host = "http://#{ENV["TEST_APP_HOST"]}:#{ENV["TEST_PORT"]}"
-  Capybara.run_server = false
-
-  # Configure the Chrome driver capabilities & register
-  args = ['--disable-gpu', '--nosandbox', '--headless']
-  caps = Selenium::WebDriver::Remote::Capabilities.chrome("chromeOptions" => { "args" => args })
-  Capybara.register_driver :selenium do |app|
-    Capybara::Selenium::Driver.new(
-      app,
-      browser: :remote,
-      url: "http://#{ENV["SELENIUM_HOST"]}:#{ENV["SELENIUM_PORT"]}/wd/hub",
-      desired_capabilities: caps
-    )
-  end
-  Capybara.javascript_driver = :selenium
-else
-  Capybara.register_driver :chrome do |app|
-    browser_options = ::Selenium::WebDriver::Chrome::Options.new
-    browser_options.args << '--headless'
-    browser_options.args << '--disable-gpu'
-    browser_options.args << '--no-sandbox'
-  end
-  Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
-  Capybara.javascript_driver = :chrome
-end
-
-
-Capybara.default_max_wait_time = 10
-
-
-# These settings spin up a local browser and let you watch the tests in the browser
-# Capybara.register_driver :selenium do |app|
-#   Capybara::Selenium::Driver.new(app, browser: :chrome)
-# end
-#
-# Capybara.configure do |config|
-#   config.default_max_wait_time = 10 # seconds
-#   config.default_driver        = :selenium
-# end
+Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
@@ -88,18 +42,18 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
 
-  config.before :suite do
-    DatabaseCleaner.clean
-  end
+  # config.before :suite do
+  #   DatabaseCleaner.clean
+  # end
 
   config.before :each do
-    DatabaseCleaner.strategy = :truncation
-    DatabaseCleaner.start
+    # DatabaseCleaner.strategy = :truncation
+    # DatabaseCleaner.start
     Blacklight.default_index.connection.delete_by_query('*:*', params: { 'softCommit' => true })
   end
 
   config.after do
-    DatabaseCleaner.clean
+    # DatabaseCleaner.clean
     Warden.test_reset!
   end
 
