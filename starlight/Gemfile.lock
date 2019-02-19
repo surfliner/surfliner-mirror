@@ -166,7 +166,6 @@ GEM
     coderay (1.1.2)
     concurrent-ruby (1.1.4)
     crass (1.0.4)
-    database_cleaner (1.7.0)
     declarative (0.0.10)
     declarative-option (0.1.0)
     deprecation (1.0.0)
@@ -501,7 +500,6 @@ DEPENDENCIES
   capistrano-yarn
   capybara
   chromedriver-helper
-  database_cleaner
   devise
   devise-guests (~> 0.6)
   devise_invitable

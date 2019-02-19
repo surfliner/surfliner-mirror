@@ -8,7 +8,6 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'rspec/matchers'
-# require 'database_cleaner'
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -43,17 +42,13 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
 
   # config.before :suite do
-  #   DatabaseCleaner.clean
   # end
 
   config.before :each do
-    # DatabaseCleaner.strategy = :truncation
-    # DatabaseCleaner.start
     Blacklight.default_index.connection.delete_by_query('*:*', params: { 'softCommit' => true })
   end
 
   config.after do
-    # DatabaseCleaner.clean
     Warden.test_reset!
   end
 
