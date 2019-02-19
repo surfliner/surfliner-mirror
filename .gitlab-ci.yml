@@ -181,6 +181,9 @@ starlight-test:
     - cd starlight
     - cp config/import.yml.template config/import.yml
     - cp config/secrets.yml.template config/secrets.yml
+    - apt-get update -qq
+    - apt-get install -qq -y default-jre
+    - java -version
     - export SELENIUM_URL="http://selenium__standalone-chrome:4444/wd/hub/"
     - export RAILS_ENV="test"
     - bin/rails db:test:prepare
