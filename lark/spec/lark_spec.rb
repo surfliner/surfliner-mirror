@@ -15,5 +15,10 @@ RSpec.describe Lark do
         .to change { Lark.config.index_adapter }
         .to :moomin
     end
+
+    it 'has an event stream' do
+      expect(Lark.config.event_stream).to respond_to :<<
+      expect(Lark.config.event_stream).to respond_to :subscribe
+    end
   end
 end

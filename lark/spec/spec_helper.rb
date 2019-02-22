@@ -1,3 +1,6 @@
+require 'factory_bot'
+require 'fakes/fake_listener'
+
 RSpec.configure do |config|
   config.disable_monkey_patching!
 
@@ -11,6 +14,10 @@ RSpec.configure do |config|
   # unless a formatter has already been configured
   # (e.g. via a command-line flag).
   config.default_formatter = 'doc' if config.files_to_run.one?
+
+  config.before(:suite) do
+    FactoryBot.find_definitions
+  end
 
   Kernel.srand config.seed
 end

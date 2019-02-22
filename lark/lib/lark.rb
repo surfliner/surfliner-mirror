@@ -1,5 +1,6 @@
 require 'dry/configurable'
 require 'dry/system/container'
+require 'lark/event_stream'
 
 ##
 # The top-level module for the Lark project.
@@ -10,7 +11,9 @@ require 'dry/system/container'
 module Lark
   extend Dry::Configurable
 
+  setting :event_adapter, :sql
   setting :index_adapter, :solr
+  setting :event_stream,  EventStream.instance
 
   ##
   # The core container for the application.
