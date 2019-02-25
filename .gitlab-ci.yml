@@ -193,7 +193,9 @@ starlight-test:
     - cd starlight
     - cp config/import.yml.template config/import.yml
     - cp config/secrets.yml.template config/secrets.yml
-    - bin/rails db:test:prepare
+    - gem update bundler
+    - bundle install
+    - bundle exec rails db:test:prepare
     - bundle exec rspec spec
   allow_failure: true
   artifacts:
