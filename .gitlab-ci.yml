@@ -178,11 +178,11 @@ starlight-test:
   variables:
     SOLR_CORE_NAME: "starlight-test"
     SOLR_CONFIG_DIR: "starlight/solr/config"
+    SOLR_URL: "http://solr:8983/solr/starlight-test"
     SELENIUM_URL: "http://chrome:4444/wd/hub/"
     RAILS_ENV: "test"
     DATABASE_AUTH: "true"
-    DATABASE_URL: "postgres://postgres@postgres/starlight-test"
-    SOLR_URL: "http://solr:8983/solr/starlight"
+    DATABASE_URL: "postgres://postgres@postgres/starlight_test"
   services:
     - name: $CI_REGISTRY_IMAGE/solr
       alias: solr
@@ -196,8 +196,9 @@ starlight-test:
     - gem update bundler
     - bundle install --jobs $(nproc) --path=vendor
     - yarn install
-    - bundle exec rake db:create db:migrate
-    - bundle exec rspec spec
+    - RAILS_ENV=test bundle exec rake db:create
+    - RAILS_ENV=test bundle exec rake db:schema:load
+    - RAILS_ENV=test bundle exec rspec spec
   allow_failure: true
   artifacts:
     reports:
