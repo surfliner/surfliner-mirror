@@ -194,7 +194,8 @@ starlight-test:
     - cp config/import.yml.template config/import.yml
     - cp config/secrets.yml.template config/secrets.yml
     - gem update bundler
-    - bundle install
+    - bundle install --jobs $(nproc) --path=vendor
+    - yarn install
     - bundle exec rake db:create db:migrate
     - bundle exec rspec spec
   allow_failure: true
@@ -204,6 +205,11 @@ starlight-test:
     when: on_failure
     paths:
       - tmp/screenshots
+  cache:
+    key: starlight-deps
+    paths:
+      - vendor/
+      - public/
   only:
     changes:
       - .gitlab-ci.yml
