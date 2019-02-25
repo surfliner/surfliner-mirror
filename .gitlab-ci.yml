@@ -186,7 +186,7 @@ starlight-test:
   services:
     - name: $CI_REGISTRY_IMAGE/solr
       alias: solr
-    - name: selenium/standalone-chrome-debug
+    - name: selenium/standalone-chrome:latest
       alias: chrome
     - name: postgres:alpine
   script:
