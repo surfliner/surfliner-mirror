@@ -3,6 +3,7 @@ FROM ruby:2.6.1-alpine
 RUN apk --no-cache upgrade && \
   apk add --no-cache \
   build-base \
+  git \
   postgresql-dev \
   nodejs-current \
   yarn \
