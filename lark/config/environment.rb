@@ -5,4 +5,7 @@ Valkyrie::MetadataAdapter.register(
   :memory
 )
 
+Lark.config.event_adapter = :memory
 Lark.config.index_adapter = :memory
+
+Lark.config.event_stream.subscribe(IndexListener.new)

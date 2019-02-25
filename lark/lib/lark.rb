@@ -1,6 +1,7 @@
 require 'dry/configurable'
 require 'dry/system/container'
 require 'lark/event_stream'
+require 'lark/indexer'
 
 ##
 # The top-level module for the Lark project.

@@ -11,7 +11,8 @@ class RecordController
   ##
   # @param params  [Hash<String, String>]
   # @param request [Rack::Request]
-  def initialize(params: nil, request: nil)
+  def initialize(params: nil, request: nil, config: Lark.config)
+    @config  = config
     @params  = params
     @request = request
   end
@@ -19,7 +20,8 @@ class RecordController
   ##
   # Creates a new authority record from the request
   def create
-    persister.save(resource: Concept.new(parsed_body))
+    event_stream << Event.new(type: :Create, data: parsed_body)
+
     [201, {}, ['']]
   end
 
@@ -37,7 +39,11 @@ class RecordController
   private
 
   def adapter
-    Valkyrie::MetadataAdapter.find(Lark.config.index_adapter)
+    Valkyrie::MetadataAdapter.find(@config.index_adapter)
+  end
+
+  def event_stream
+    @config.event_stream
   end
 
   def parsed_body(format: :json)
@@ -47,10 +53,6 @@ class RecordController
     else
       raise UnknownFormatError, request.to_s
     end
-  end
-
-  def persister
-    adapter.persister
   end
 
   def query_service
