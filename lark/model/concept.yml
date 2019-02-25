@@ -2,14 +2,14 @@
       defintiion: "Preferred label from the external authority identified as exact match.  For local authorities (those with no exactMatch) the preflabel provided by user creating the authority."
       predicate : "http://www.w3.org/2008/05/skos-xl#prefLabel"
       range: 
-        uri: ["xsd:string", "skos-xl:Label"]
+        uri: "skos-xl:Label"
       cardinality: 1
 
   - "alternateLabel":
       defintiion: "Alternative labels which may be displayed - e.g. language variants, campus variants"
       predicate : "http://www.w3.org/2008/05/skos-xl#altLabel"
       range: 
-        uri: ["xsd:string", "skos-xl:Label"]
+        uri: "skos-xl:Label"
       cardinality: "0..*"
     
   - "hiddenLabel":
