@@ -37,6 +37,7 @@ group :development, :test do
   gem 'capistrano-rbenv'
   gem 'capistrano-yarn'
   gem 'capybara'
+  gem 'capybara-screenshot'
   gem 'chromedriver-helper'
   gem 'factory_bot_rails'
   gem 'highline'

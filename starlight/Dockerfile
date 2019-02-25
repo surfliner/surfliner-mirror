@@ -1,26 +1,39 @@
-FROM ruby:2.5.3
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    apt-get update -qq && \
-    apt-get install -qq -y --no-install-recommends \
-    build-essential \
-    nodejs \
-    libpq-dev \
-    git \
-    tzdata \
-    libxml2-dev \
-    libxslt-dev \
-    ssh \
-    yarn \
-    && rm -rf /var/lib/apt/lists/*
+FROM ruby:2.6.1-alpine as builder
 
-RUN mkdir /data
-WORKDIR /data
+RUN apk --no-cache upgrade && \
+  apk add --no-cache \
+  build-base \
+  postgresql-dev \
+  nodejs-current \
+  yarn \
+  libxml2-dev \
+  libxslt-dev \
+  sqlite-dev \
+  tzdata
+
+RUN mkdir -p /build-src
+WORKDIR /build-src
 COPY Gemfile* ./
-ENV BUNDLE_JOBS=4
 RUN gem update bundler
-RUN bundle install
-COPY . ./
+RUN bundle install --jobs $(nproc) --retry 2
 
+FROM ruby:2.6.1-alpine
+
+RUN apk --no-cache upgrade && \
+  apk add --no-cache \
+  git \
+  postgresql-dev \
+  nodejs-current \
+  sqlite-dev \
+  yarn \
+  tzdata
+
+RUN addgroup -g 1000 -S starlight && \
+    adduser -u 1000 -S starlight -G starlight
+USER starlight
+
+RUN mkdir -p /home/starlight/app
+WORKDIR /home/starlight/app
+COPY --from=builder /usr/local/bundle /usr/local/bundle
+COPY --chown=starlight:starlight . /home/starlight/app/
 RUN yarn install
