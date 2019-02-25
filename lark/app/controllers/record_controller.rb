@@ -20,7 +20,7 @@ class RecordController
   ##
   # Creates a new authority record from the request
   def create
-    event_stream << Event.new(type: :Create, data: parsed_body)
+    event_stream << Event.new(type: :create, data: parsed_body)
 
     [201, {}, ['']]
   end

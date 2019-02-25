@@ -10,10 +10,10 @@ RSpec.describe Event do
   it_behaves_like 'a Valkyrie::Resource'
 
   describe '#type' do
-    it 'accepts :Create' do
-      expect { event.type = :Create }
+    it 'accepts :create' do
+      expect { event.type = :create }
         .to change { event.type }
-        .to :Create
+        .to :create
     end
   end
 
