@@ -3,6 +3,7 @@ image: $CI_REGISTRY_IMAGE/builder
 stages:
   - prebuild
   - build
+  - lint
   - test
 
 variables:
@@ -131,6 +132,17 @@ lark-ruby-build:
     changes:
       - .gitlab-ci.yml
       - lark/Dockerfile
+
+lark-lint:
+  stage: lint
+  image: $CI_REGISTRY_IMAGE/lark_web
+  script:
+    - cd lark
+    - bundle check || bundle
+    - bundle exec rubocop
+  only:
+    changes:
+      - lark/**/*
 
 lark-unit-tests:
   stage: test
