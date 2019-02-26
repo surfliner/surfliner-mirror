@@ -1,0 +1,11 @@
+AllCops:
+  TargetRubyVersion: 2.5
+  DisplayCopNames: true
+  Exclude:
+    - 'db/**/*'
+    - 'script/**/*'
+    - 'tmp/**/*'
+    - 'vendor/**/*'
+
+Style/AccessModifierDeclarations:
+  Enabled: false

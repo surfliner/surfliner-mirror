@@ -1,0 +1,16 @@
+require: rubocop-rspec
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+
+# allow developers to use their judgement about before/after scopes
+RSpec/BeforeAfterAll:
+  Enabled: false
+
+# specs in designated integration test directories don't need to test a
+# specific unit
+RSpec/DescribeClass:
+  Exclude:
+    - 'spec/api/**/*'
+    - 'spec/integration/**/*'
