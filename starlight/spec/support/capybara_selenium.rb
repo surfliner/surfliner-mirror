@@ -21,7 +21,7 @@ RSpec.configure do |config|
       if ENV["TEST_APP_URL"].present?
         Capybara.app_host = ENV["TEST_APP_URL"]
       else
-        Capybara.app_host = "#{ip}:#{Capybara.server_port}"
+        # Capybara.app_host = "#{ip}:#{Capybara.server_port}"
         driven_by :selenium,
                   using: :chrome,
                   options: { browser: :remote,
