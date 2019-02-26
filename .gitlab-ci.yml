@@ -136,8 +136,9 @@ lark-unit-tests:
   stage: test
   image: $CI_REGISTRY_IMAGE/lark_web
   script:
-    - gem update bundler
-    - cd lark && bundle && bundle exec rspec
+    - cd lark
+    - bundle check || bundle
+    - bundle exec rspec
   only:
     changes:
       - .gitlab-ci.yml
