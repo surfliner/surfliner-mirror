@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'lark/record_parsers/json_parser'
+require_relative 'record_parsers/json_parser'
 
 module Lark
   ##
