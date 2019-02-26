@@ -46,6 +46,7 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (9.0.0)
+    ast (2.4.0)
     builder (3.2.3)
     coderay (1.1.2)
     concurrent-ruby (1.1.4)
@@ -128,6 +129,7 @@ GEM
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
     inflecto (0.0.2)
+    jaro_winkler (1.5.2)
     json (2.1.0)
     json-ld (3.0.2)
       multi_json (~> 1.12)
@@ -154,10 +156,15 @@ GEM
     mustermann (1.0.3)
     nokogiri (1.10.1)
       mini_portile2 (~> 2.4.0)
+    parallel (1.14.0)
+    parser (2.6.0.0)
+      ast (~> 2.4.0)
     pg (1.1.4)
+    powerpack (0.1.2)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
+    psych (3.1.0)
     rack (2.0.6)
     rack-protection (2.0.5)
       rack
@@ -174,6 +181,7 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.19.0, < 2.0)
+    rainbow (3.0.0)
     rake (12.3.2)
     rdf (3.0.10)
       hamster (~> 3.0)
@@ -213,6 +221,17 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.8.0)
     rspec-support (3.8.0)
+    rubocop (0.65.0)
+      jaro_winkler (~> 1.5.1)
+      parallel (~> 1.10)
+      parser (>= 2.5, != 2.5.1.1)
+      powerpack (~> 0.1)
+      psych (>= 3.1.0)
+      rainbow (>= 2.2.2, < 4.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (~> 1.4.0)
+    rubocop-rspec (1.32.0)
+      rubocop (>= 0.60.0)
     ruby-progressbar (1.10.0)
     shotgun (0.9.2)
       rack (>= 1.0)
@@ -234,6 +253,7 @@ GEM
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uber (0.1.0)
+    unicode-display_width (1.4.1)
     valkyrie (1.5.1)
       active-fedora
       active-triples
@@ -263,6 +283,8 @@ DEPENDENCIES
   pry
   rack-test
   rspec
+  rubocop
+  rubocop-rspec
   shotgun
   sinatra (~> 2.0.5)
   valkyrie (~> 1.5.1)

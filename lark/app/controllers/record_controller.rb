@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ##
 # A simple controller that resolves requests for authority records.
 class RecordController

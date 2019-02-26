@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ##
 # An event in a Record's lifecycle. Events are "append-only" and should never
 # be deleted.

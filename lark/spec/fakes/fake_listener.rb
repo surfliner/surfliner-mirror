@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ##
 # A spy listener. stores events published to subscribed streams in
 # `#events` for later inspection

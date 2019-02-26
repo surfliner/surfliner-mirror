@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require_relative '../../config/environment'
 
@@ -5,9 +7,9 @@ RSpec.describe RecordController do
   let(:headers) { { 'CONTENT_TYPE' => 'application/json' } }
 
   let(:request) do
-    double(Rack::Request,
-           body: StringIO.new('{}'),
-           env: headers)
+    instance_double(Rack::Request,
+                    body: StringIO.new('{}'),
+                    env: headers)
   end
 
   describe '#create' do
@@ -20,6 +22,7 @@ RSpec.describe RecordController do
 
   describe '#create' do
     subject(:controller) { described_class.new(request: request) }
+
     let(:event)          { FactoryBot.create(:create_event) }
     let(:listener)       { FakeListener.new }
 
@@ -34,10 +37,11 @@ RSpec.describe RecordController do
 
   describe '#show' do
     subject(:controller) { described_class.new(params: params) }
+
     let(:params)         { { 'id' => 'a_fake_id' } }
 
     it 'returns a rack response object' do
-      expect(subject.show.first).to eq 404
+      expect(controller.show.first).to eq 404
     end
   end
 end

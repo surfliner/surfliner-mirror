@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ##
 # Listens for events on the event stream, and handles updates to the index as
 # needed.

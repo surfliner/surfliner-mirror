@@ -11,6 +11,8 @@ gem 'factory_bot',      group: 'test'
 gem 'pry',              group: %w[development test]
 gem 'rack-test',        group: 'test'
 gem 'rspec',            group: 'test'
+gem 'rubocop',          group: %w[development test]
+gem 'rubocop-rspec',    group: %w[development test]
 gem 'shotgun',          group: 'development'
 gem 'sinatra',          '~> 2.0.5'
 gem 'valkyrie',         '~> 1.5.1'

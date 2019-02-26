@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ##
 # A full Concept record built from/saved to the index.
 #

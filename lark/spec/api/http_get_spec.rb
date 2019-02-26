@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'rack/test'
 
@@ -27,6 +29,7 @@ RSpec.describe 'GET /{id}' do
     end
 
     before { persister.save(resource: resource) }
+
     after  { persister.wipe! }
 
     it 'gives a 200' do
