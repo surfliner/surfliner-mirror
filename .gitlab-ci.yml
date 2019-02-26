@@ -195,7 +195,7 @@ starlight-test:
     - bundle install --jobs $(nproc) --path=vendor
     - yarn install
     - RAILS_ENV=test bundle exec rake db:test:prepare
-    - RAILS_ENV=test bundle exec rspec spec --format RspecJunitFormatter --out rspec.xml
+    - RAILS_ENV=test bundle exec rspec --format progress --format RspecJunitFormatter --out rspec.xml
   allow_failure: true
   artifacts:
     reports:
