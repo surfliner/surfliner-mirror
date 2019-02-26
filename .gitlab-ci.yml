@@ -182,13 +182,11 @@ starlight-test:
     SELENIUM_URL: "http://chrome:4444/wd/hub/"
     RAILS_ENV: "test"
     DATABASE_AUTH: "true"
-    DATABASE_URL: "postgres://postgres@postgres/starlight_test"
   services:
     - name: $CI_REGISTRY_IMAGE/solr
       alias: solr
     - name: selenium/standalone-chrome:latest
       alias: chrome
-    - name: postgres:alpine
   script:
     - cd starlight
     - cp config/import.yml.template config/import.yml
@@ -196,8 +194,7 @@ starlight-test:
     - gem update bundler
     - bundle install --jobs $(nproc) --path=vendor
     - yarn install
-    - RAILS_ENV=test bundle exec rake db:create
-    - RAILS_ENV=test bundle exec rake db:schema:load
+    - RAILS_ENV=test bundle exec rake db:test:prepare
     - RAILS_ENV=test bundle exec rspec spec
   allow_failure: true
   artifacts:
