@@ -199,15 +199,15 @@ starlight-test:
   allow_failure: true
   artifacts:
     reports:
-      junit: rspec.xml
+      junit: starlight/rspec.xml
     when: on_failure
     paths:
-      - tmp/screenshots
+      - starlight/tmp/screenshots
   cache:
     key: starlight-deps
     paths:
-      - vendor/
-      - public/
+      - starlight/vendor/
+      - starlight/public/
   only:
     changes:
       - .gitlab-ci.yml
