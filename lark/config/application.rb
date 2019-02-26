@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'dry/transaction'
 require 'sinatra'
 require 'valkyrie'
 require_relative '../lib/lark'

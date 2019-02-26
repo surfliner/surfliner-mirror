@@ -22,9 +22,12 @@ class RecordController
   ##
   # Creates a new authority record from the request
   def create
-    event_stream << Event.new(type: :create, data: parsed_body(format: ctype))
+    authority = Lark::Transactions::CreateAuthority
+                .new(event_stream: event_stream)
+                .call(attributes: parsed_body(format: ctype))
+                .value!
 
-    [201, {}, ['']]
+    [201, response_headers, [{ id: authority.id.to_s }.to_json]]
   end
 
   ##
@@ -56,6 +59,10 @@ class RecordController
     Lark::RecordParser
       .for(content_type: format)
       .parse(request.body)
+  end
+
+  def response_headers
+    { 'Content-Type' => 'application/json' }
   end
 
   def query_service
