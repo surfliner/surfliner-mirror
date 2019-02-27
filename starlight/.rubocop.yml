@@ -1,15 +1,7 @@
-require: rubocop-rspec
-inherit_from: .rubocop_todo.yml
-
-AllCops:
-  DisplayCopNames: true
-  TargetRubyVersion: 2.3
-  Exclude:
-    - '**/*~'
-    - 'db/**/*'
-    - 'tmp/**/*'
-    - 'provisioning/**/*'
-    - 'vendor/bundle/**/*'
+inherit_from:
+  - ../.styles/rubocop_surfliner.yml
+  - ../.styles/rubocop_rspec_surfliner.yml
+  - .rubocop_todo.yml
 
 Capybara/FeatureMethods:
   Enabled: false
@@ -94,6 +86,10 @@ Style/MixinGrouping:
 
 Style/MultilineBlockChain:
   Enabled: false
+
+Style/RedundantBegin:
+  Exclude:
+    - 'bin/yarn'
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
