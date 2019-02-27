@@ -2,7 +2,9 @@
 
 set :application, 'spotlight'
 
-set :repo_url, 'https://github.com/ucsblibrary/geniza.git'
+set :repo_url, 'https://gitlab.com/surfliner/surfliner.git'
+set :repo_tree, 'starlight'
+
 set :deploy_to, ENV.fetch('TARGET', '/opt/spotlight')
 set :stages, %w[production]
 
