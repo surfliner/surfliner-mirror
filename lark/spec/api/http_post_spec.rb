@@ -45,4 +45,15 @@ RSpec.describe 'POST /' do
         .by 1
     end
   end
+
+  context 'when posting unknown formats' do
+    let(:ctype) { 'application/fake' }
+    let(:data)  { '' }
+
+    it 'responds with a 415 status code' do
+      post '/', data, 'CONTENT_TYPE' => ctype
+
+      expect(last_response.status).to eq 415
+    end
+  end
 end

@@ -16,7 +16,7 @@ module Lark
       when 'application/json'
         RecordParsers::JSONParser.new
       else
-        raise UnknownFormatError, content_type
+        raise UnsupportedMediaType, content_type
       end
     end
 

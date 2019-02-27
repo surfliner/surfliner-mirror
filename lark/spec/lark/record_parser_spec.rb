@@ -11,6 +11,11 @@ RSpec.describe Lark::RecordParser do
       expect(described_class.for(content_type: 'application/json'))
         .to respond_to :parse
     end
+
+    it 'raises UnsupportedMediaType for unknown formats' do
+      expect { described_class.for(content_type: 'application/fake') }
+        .to raise_error Lark::UnsupportedMediaType
+    end
   end
 
   describe '#parse' do

@@ -28,6 +28,8 @@ class RecordController
                 .value!
 
     [201, response_headers, [{ id: authority.id.to_s }.to_json]]
+  rescue Lark::RequestError => err
+    [err.status, {}, [err.message]]
   end
 
   ##

@@ -18,20 +18,25 @@ RSpec.describe RecordController do
     it 'gives a 201 status' do
       expect(controller.create.first).to eq 201
     end
-  end
 
-  describe '#create' do
-    subject(:controller) { described_class.new(request: request) }
+    context 'with a listener' do
+      let(:listener) { FakeListener.new }
 
-    let(:event)          { FactoryBot.create(:create_event) }
-    let(:listener)       { FakeListener.new }
+      before { Lark.config.event_stream.subscribe(listener) }
 
-    before { Lark.config.event_stream.subscribe(listener) }
+      it 'adds an event to the stream' do
+        expect { controller.create }
+          .to change { listener.events.count }
+          .by 1
+      end
+    end
 
-    it 'adds an event to the stream' do
-      expect { controller.create }
-        .to change { listener.events.count }
-        .by 1
+    context 'with an unknown media type' do
+      let(:headers) { { 'CONTENT_TYPE' => 'application/fake' } }
+
+      it 'gives a 415 status' do
+        expect(controller.create.first).to eq 415
+      end
     end
   end
 

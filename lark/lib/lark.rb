@@ -34,4 +34,23 @@ module Lark
 
     load_paths!('lib', 'app')
   end
+
+  ##
+  # A generic HTTP error. This error can be handled by a Controller or a Rack
+  # middleware to emit appropriate HTTP response codes and messages.
+  class RequestError < RuntimeError
+    STATUS = 500
+
+    ##
+    # @return [Integer] an HTTP status code for this error
+    def status
+      self.class::STATUS
+    end
+  end
+
+  ##
+  # @see RequestError
+  class UnsupportedMediaType < RequestError
+    STATUS = 415
+  end
 end
