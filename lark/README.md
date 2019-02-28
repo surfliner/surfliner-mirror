@@ -68,8 +68,12 @@ development. It can be started with:
 $ bundle exec rspec
 ```
 
+## License
+
+Lark is made available under the [MIT License][license].
 
 [contributing]: ../CONTRIBUTING.md
 [principles]: https://ucnet.universityofcalifornia.edu/working-at-uc/our-values/principles-of-community.html
 [rack]: https://rack.github.io/
 [webrick]: https://ruby-doc.org/stdlib-2.5.0/libdoc/webrick/rdoc/WEBrick.html
+[license]: ../LICENSE
