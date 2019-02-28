@@ -5,9 +5,10 @@
 # be deleted.
 #
 # Events have:
-#   - id:        a system-wide unique identifier
-#   - data:      a symbol-keyed `Hash` representing the event data
-#   - type:      an eventtype `Symbol`
+#   - id:         a system-wide unique identifier
+#   - data:       a symbol-keyed `Hash` representing the event data
+#   - type:       an event type `Symbol`
+#   - created_at  a DateTime timestamp of event creation
 class Event < Valkyrie::Resource
   ##
   # @!attribute [rw] data
@@ -16,6 +17,9 @@ class Event < Valkyrie::Resource
   #   @return [Valkyrie::ID]
   # @!attribute [rw] type
   #   @return [Symbol]
+  # @!attribute [rw] created_at
+  #   @return [DateTime]
   attribute :data, Valkyrie::Types::Hash.default({})
   attribute :type, Valkyrie::Types::Symbol
+  attribute :created_at, Valkyrie::Types::DateTime
 end
