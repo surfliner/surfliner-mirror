@@ -155,7 +155,7 @@ This is your chance for a mentoring moment of another developer. Take time to gi
   * Do new or changed methods, modules, and classes have documentation?
   * Does the commit contain more than it should? Are two separate concerns being addressed in one commit?
   * Does the description of the new/changed specs match your understanding of what the spec is doing?
-  * Did the Travis tests complete successfully?
+  * Did the CI pipeline complete successfully?
 
 If you are uncertain, bring other contributors into the conversation by assigning them as a reviewer.
 
