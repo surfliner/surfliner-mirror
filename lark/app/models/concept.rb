@@ -22,27 +22,27 @@ class Concept < Valkyrie::Resource
   ##
   # @!attribute [rw] alternate_label
   #   @return [Array<Object>]
-  attribute :alternate_label, Valkyrie::Types::Array
+  attribute :alternate_label, Valkyrie::Types::Set
 
   ##
   # @!attribute [rw] hidden_label
   #   @return [Array<Object>]
-  attribute :hidden_label, Valkyrie::Types::Array
+  attribute :hidden_label, Valkyrie::Types::Set
 
   ##
   # @!attribute [rw] exact_match
   #   @return [Array<Valkyrie::Types::URI>]
-  attribute :exact_match, Valkyrie::Types::Array.of(Valkyrie::Types::URI)
+  attribute :exact_match, Valkyrie::Types::Set.of(Valkyrie::Types::URI)
 
   ##
   # @!attribute [rw] close_match
   #   @return [Array<Valkyrie::Types::URI>]
-  attribute :close_match, Valkyrie::Types::Array.of(Valkyrie::Types::URI)
+  attribute :close_match, Valkyrie::Types::Set.of(Valkyrie::Types::URI)
 
   ##
   # @!attribute [rw] note
   #   @return [Array<Object>]
-  attribute :note, Valkyrie::Types::Array
+  attribute :note, Valkyrie::Types::Set
 
   ##
   # @!attribute [rw] scope_note
@@ -52,12 +52,12 @@ class Concept < Valkyrie::Resource
   ##
   # @!attribute [rw] editorial_note
   #   @return [Array<Object>]
-  attribute :editorial_note, Valkyrie::Types::Array
+  attribute :editorial_note, Valkyrie::Types::Set
 
   ##
   # @!attribute [rw] history_note
   #   @return [Array<Object>]
-  attribute :history_note, Valkyrie::Types::Array
+  attribute :history_note, Valkyrie::Types::Set
 
   ##
   # @!attribute [rw] definition
@@ -72,22 +72,22 @@ class Concept < Valkyrie::Resource
   ##
   # @!attribute [rw] literal_form
   #   @return [Array<Object>]
-  attribute :literal_form, Valkyrie::Types::Array
+  attribute :literal_form, Valkyrie::Types::Set
 
   ##
   # @!attribute [rw] label_source
   #   @return [Array<Valkyrie::Types::URI>]
-  attribute :label_source, Valkyrie::Types::Array.of(Valkyrie::Types::URI)
+  attribute :label_source, Valkyrie::Types::Set.of(Valkyrie::Types::URI)
 
   ##
   # @!attribute [rw] campus
   #   @return [Array<Object>]
-  attribute :campus, Valkyrie::Types::Array
+  attribute :campus, Valkyrie::Types::Set
 
   ##
   # @!attribute [rw] annotation
   #   @return [Array<Object>]
-  attribute :annotation, Valkyrie::Types::Array
+  attribute :annotation, Valkyrie::Types::Set
 
   ##
   # @return [String] constant
