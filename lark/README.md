@@ -68,12 +68,26 @@ development. It can be started with:
 $ bundle exec rspec
 ```
 
+### Architecture
+
+#### Event Log
+
+Lark tracks all state-changing activity in an append-only event log. Most
+application behavior is triggered by listeners observing this log via
+[`dry-events`][dry-events].
+
+The specification for this log, including details about event types and their
+semantics, is given in [`EVENT_LOG.md`][event-log]
+
 ## License
 
 Lark is made available under the [MIT License][license].
+
 
 [contributing]: ../CONTRIBUTING.md
 [principles]: https://ucnet.universityofcalifornia.edu/working-at-uc/our-values/principles-of-community.html
 [rack]: https://rack.github.io/
 [webrick]: https://ruby-doc.org/stdlib-2.5.0/libdoc/webrick/rdoc/WEBrick.html
+[dry-events]: https://dry-rb.org/gems/dry-events/
+[event-log]: ./EVENT_LOG.md
 [license]: ../LICENSE
