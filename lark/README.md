@@ -1,8 +1,12 @@
 # Lark
 
-Lark is an authority control platform.
+Lark is an authority control platform and API. It is a product of the
+[Surfliner](https://gitlab.com/surfliner/surfliner) collaboration at the
+University of California.
 
-This is a product of the [Surfliner](https://gitlab.com/surfliner/surfliner) collaboration.
+Please see [CONTRIBUTING.md][contributing] for information about contributing to
+this project. By participating, you agree to abide by the
+[UC Principles of Community][principles].
 
 ## Starting Up
 
@@ -24,3 +28,6 @@ bundle install
 ### Running the test suite
 
 `bundle exec rspec`
+
+[contributing]: ../CONTRIBUTING.md
+[principles]: https://ucnet.universityofcalifornia.edu/working-at-uc/our-values/principles-of-community.html
