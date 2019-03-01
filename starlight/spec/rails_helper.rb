@@ -48,10 +48,6 @@ RSpec.configure do |config|
     Blacklight.default_index.connection.delete_by_query('*:*', params: { 'softCommit' => true })
   end
 
-  config.after do
-    Warden.test_reset!
-  end
-
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
   # `post` in specs under `spec/controllers`.

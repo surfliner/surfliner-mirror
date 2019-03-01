@@ -15,15 +15,13 @@ require 'rails_helper'
 # Publisher
 # Subject
 RSpec.describe 'when searching', :clean, type: :system, js: true do
-  include Warden::Test::Helpers
-
   let(:item_one)        { "Ednah A. Rich" }
   let(:item_two)        { "Group photograph in front of Anna S. C. Blake Manual Training School" }
   let(:item_three)      { "Miss Anna S.C. Blake" }
 
   let(:csv_file_path)   { File.join(fixture_path, csv_file_name) }
   let(:csv_file_name)   { 'blake_search_test.csv' }
-  let(:site_admin)      { FactoryBot.create(:site_admin) }
+  let(:site_admin)      { FactoryBot.create(:omniauth_site_admin) }
   let(:exhibit_slug)    { 'the-anna-s-c-blake-manual-training-school' }
   let(:search_url)      { "/spotlight/#{exhibit_slug}/catalog?utf8=%E2%9C%93&exhibit_id=#{exhibit_slug}&search_field=all_fields&q=" }
   let(:exact_title)     { "Ednah A. Rich" }
@@ -35,7 +33,8 @@ RSpec.describe 'when searching', :clean, type: :system, js: true do
     ENV['IMPORT_DIR'] = Rails.root.join('spec', 'fixtures', 'images').to_s
     ENV['BINARY_ROOT'] = ''
     allow(Spotlight::DefaultThumbnailJob).to receive(:perform_later)
-    login_as site_admin
+    omniauth_setup_shibboleth
+    sign_in
   end
 
   context 'when searching specified fields' do

@@ -322,13 +322,12 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   if Rails.configuration.shibboleth
-    config.omniauth :shibboleth, {
-      uid_field: 'ADUSERNAME',
-      shib_session_id_field: "Shib-Session-ID",
-      shib_application_id_field: "Shib-Application-ID",
-      debug: false,
-      info_fields: { email: 'LONG_EMAIL' },
-    }
+    config.omniauth :shibboleth,
+                    uid_field: 'ADUSERNAME',
+                    shib_session_id_field: "Shib-Session-ID",
+                    shib_application_id_field: "Shib-Application-ID",
+                    debug: false,
+                    info_fields: { email: 'LONG_EMAIL' }
   else
     config.omniauth :developer
   end

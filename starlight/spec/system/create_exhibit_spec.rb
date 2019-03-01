@@ -3,16 +3,15 @@
 require 'rails_helper'
 
 RSpec.describe 'Import and Display a Work', :clean, type: :system, js: true do
-  include Warden::Test::Helpers
-
   let(:csv_file_path)   { File.join(fixture_path, csv_file_name) }
   let(:csv_file_name)   { 'url_single_item_exhibit.csv' }
-  let(:site_admin)      { FactoryBot.create(:site_admin) }
-  let(:user) { FactoryBot.create(:user) }
+  let(:site_admin)      { FactoryBot.create(:omniauth_site_admin) }
+  let(:user) { FactoryBot.create(:omniauth_user) }
 
   before do
+    omniauth_setup_shibboleth
+    sign_in
     allow(Spotlight::DefaultThumbnailJob).to receive(:perform_later)
-    login_as site_admin
   end
 
   context 'Create an exhibit' do

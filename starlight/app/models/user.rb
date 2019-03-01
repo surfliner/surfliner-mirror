@@ -24,12 +24,15 @@ class User < ApplicationRecord
 
   # Create a user given a set of omniauth-shibboleth credentials
   # We are persisting: 'uid', 'provider', and 'email' properties
+  # See: https://github.com/omniauth/omniauth/wiki/Auth-Hash-Schema
   # @param auth [OmniAuth::AuthHash]
   # @return [User] user found or created with `auth` properties
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
     end
+  rescue StandardError => e
+    logger.error e && return
   end
 
   # Create a developer/user

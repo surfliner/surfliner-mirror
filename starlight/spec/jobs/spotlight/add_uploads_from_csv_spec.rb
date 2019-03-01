@@ -4,7 +4,7 @@ RSpec.describe Spotlight::AddUploadsFromCSV do
   subject(:job) { described_class.new(data, exhibit, user) }
 
   let(:exhibit) { FactoryBot.create(:exhibit) }
-  let(:user) { FactoryBot.create(:exhibit_curator, exhibit: exhibit) }
+  let(:user) { FactoryBot.create(:omniauth_exhibit_curator, exhibit: exhibit) }
 
   before do
     ENV['IMPORT_DIR'] = Rails.root.join('spec', 'fixtures').to_s

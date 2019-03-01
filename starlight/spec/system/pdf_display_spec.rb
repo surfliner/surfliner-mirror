@@ -3,8 +3,6 @@
 require "rails_helper"
 
 RSpec.describe "Display embedded PDFs", :clean, type: :system, js: true do
-  include Warden::Test::Helpers
-
   let!(:exhibit) do
     Spotlight::Exhibit.create(title: 'test')
   end
@@ -22,10 +20,12 @@ RSpec.describe "Display embedded PDFs", :clean, type: :system, js: true do
     resource
   end
 
-  let(:site_admin) { FactoryBot.create(:site_admin) }
+  let(:site_admin) { FactoryBot.create(:omniauth_site_admin) }
 
   before do
-    login_as site_admin
+    # login_as site_admin
+    omniauth_setup_shibboleth
+    sign_in
   end
 
   context "when viewing a PDF" do
