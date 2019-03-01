@@ -26,9 +26,9 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe ".from_omniauth" do
+  describe ".from_shibboleth" do
     it "creates a User when a user is first authenticated" do
-      user = User.from_omniauth(auth_hash)
+      user = User.from_shibboleth(auth_hash)
       expect(user).to be_persisted
       expect(user.provider).to eq("shibboleth")
       expect(user.uid).to eq("drseuss")
@@ -36,7 +36,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'does not persist a shib response with bad or missing information' do
-      User.from_omniauth(invalid_auth_hash_missing_info)
+      User.from_shibboleth(invalid_auth_hash_missing_info)
       expect(User.find_by(uid: 'test', provider: 'shibboleth')).to be nil
     end
   end

@@ -27,7 +27,7 @@ class User < ApplicationRecord
   # See: https://github.com/omniauth/omniauth/wiki/Auth-Hash-Schema
   # @param auth [OmniAuth::AuthHash]
   # @return [User] user found or created with `auth` properties
-  def self.from_omniauth(auth)
+  def self.from_shibboleth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
     end
