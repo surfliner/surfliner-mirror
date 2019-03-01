@@ -19,7 +19,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     logger.debug "#{auth_type} :: #{current_user.inspect}"
 
     auth_strategy_method = "from_#{auth_type.downcase}".to_sym
-    User.send(auth_strategy_method, request.env["omniauth.auth"])
+    @user = User.send(auth_strategy_method, request.env["omniauth.auth"])
     if @user.persisted?
       flash[:success] = I18n.t "devise.omniauth_callbacks.success", kind: auth_type.capitalize
       sign_in @user, event: :authentication

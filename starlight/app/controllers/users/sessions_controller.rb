@@ -1,7 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
   # /users/sign_in
   def new
-    # redirect_to user_omniauth_authorize_path(Devise.omniauth_configs.keys.first)
     redirect_to user_shibboleth_omniauth_authorize_path
   end
 
