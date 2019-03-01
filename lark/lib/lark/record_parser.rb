@@ -6,6 +6,9 @@ module Lark
   ##
   # @abstract A parser for input authority records. Implementing classes should
   #   provide `#parse(inupt)`, giving a data structure representing the input.
+  #   This is the inverse of `Lark::RecordSerializer`. A parser/serializer pair
+  #   with the same `content_type` should be capable of round-tripping records.
+  #
   class RecordParser
     ##
     # @param content_type [String]

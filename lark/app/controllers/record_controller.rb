@@ -22,12 +22,12 @@ class RecordController
   ##
   # Creates a new authority record from the request
   def create
-    authority = Lark::Transactions::CreateAuthority
-                .new(event_stream: event_stream)
-                .call(attributes: parsed_body(format: ctype))
-                .value!
+    record = Lark::Transactions::CreateAuthority
+             .new(event_stream: event_stream)
+             .call(attributes: parsed_body(format: ctype))
+             .value!
 
-    [201, response_headers, [{ id: authority.id.to_s }.to_json]]
+    [201, response_headers, [serialize(record: record, format: ctype)]]
   rescue Lark::RequestError => err
     [err.status, {}, [err.message]]
   end
@@ -36,9 +36,8 @@ class RecordController
   # https://dry-rb.org/gems/dry-view/
   def show
     record = query_service.find_by(id: params['id'])
-    json   = { id: record.id.to_s, pref_label: record.pref_label.first }.to_json
 
-    [200, {}, [json]]
+    [200, {}, [serialize(record: record, format: 'application/json')]]
   rescue Valkyrie::Persistence::ObjectNotFoundError => err
     [404, {}, [err.message]]
   end
@@ -65,6 +64,12 @@ class RecordController
 
   def response_headers
     { 'Content-Type' => 'application/json' }
+  end
+
+  def serialize(record:, format:)
+    Lark::RecordSerializer
+      .for(content_type: format)
+      .serialize(record: record)
   end
 
   def query_service

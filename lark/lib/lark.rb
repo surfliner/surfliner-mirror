@@ -6,6 +6,7 @@ require 'dry/system/container'
 require_relative 'lark/event_stream'
 require_relative 'lark/indexer'
 require_relative 'lark/record_parser'
+require_relative 'lark/record_serializer'
 
 ##
 # The top-level module for the Lark project.

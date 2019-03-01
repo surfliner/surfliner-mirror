@@ -36,7 +36,7 @@ RSpec.describe 'POST /' do
       post '/', data, 'CONTENT_TYPE' => ctype
 
       expect(JSON.parse(last_response.body))
-        .to match 'id' => an_instance_of(String)
+        .to include 'id' => an_instance_of(String)
     end
 
     it 'creates a concept' do
