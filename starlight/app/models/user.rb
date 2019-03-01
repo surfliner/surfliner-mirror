@@ -21,4 +21,22 @@ class User < ApplicationRecord
   def to_s
     email
   end
+
+  # Create a user given a set of omniauth-shibboleth credentials
+  # We are persisting: 'uid', 'provider', and 'email' properties
+  # @param OmniAuth hash
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+    end
+  end
+
+  # Create a developer/user
+  # We are persisting: 'uid', 'provider', and 'email' properties
+  # @param Ignoring.
+  def self.from_developer(_auth)
+    where(provider: 'developer', uid: 'developer').first_or_create do |user|
+      user.email = 'developer@uc.edu'
+    end
+  end
 end
