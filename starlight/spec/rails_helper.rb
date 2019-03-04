@@ -46,6 +46,11 @@ RSpec.configure do |config|
 
   config.before :each do
     Blacklight.default_index.connection.delete_by_query('*:*', params: { 'softCommit' => true })
+    OmniAuth.config.mock_auth[:shibboleth] = nil
+  end
+
+  config.after do
+    User.destroy_all
   end
 
   # RSpec Rails can automatically mix in different behaviours to your tests

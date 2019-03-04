@@ -6,7 +6,6 @@ RSpec.describe 'Import and Display a Work', :clean, type: :system, js: true do
   let(:csv_file_path)   { File.join(fixture_path, csv_file_name) }
   let(:csv_file_name)   { 'url_single_item_exhibit.csv' }
   let(:site_admin)      { FactoryBot.create(:omniauth_site_admin) }
-  let(:user) { FactoryBot.create(:omniauth_user) }
 
   before do
     omniauth_setup_shibboleth_for(site_admin)

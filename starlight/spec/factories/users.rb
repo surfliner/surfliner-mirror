@@ -7,6 +7,7 @@ FactoryBot.define do
     end
     sequence(:email) { |n| "user#{n}@example.com" }
     sequence(:uid) { |n| "user#{n}" }
+    provider { 'shibboleth' }
 
     factory :omniauth_site_admin do
       after(:create) do |user, _evaluator|
