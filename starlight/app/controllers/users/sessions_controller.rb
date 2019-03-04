@@ -1,7 +1,8 @@
 class Users::SessionsController < Devise::SessionsController
   # /users/sign_in
+  # use of Devise.omniauth_configs.keys allows us to dynamically switch between :developer and :shibboleth environments
   def new
-    redirect_to user_shibboleth_omniauth_authorize_path
+    redirect_to omniauth_authorize_path(User, Devise.omniauth_configs.keys.first)
   end
 
   # DELETE /users/sign_out
