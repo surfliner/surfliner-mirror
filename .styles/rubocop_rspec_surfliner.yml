@@ -15,3 +15,19 @@ RSpec/DescribeClass:
     - 'spec/api/**/*'
     - 'spec/integration/**/*'
     - 'spec/system/**/*'
+
+# specs in designated integration test directories can reasonably be quite long.
+# authors should use discretion!
+RSpec/ExampleLength:
+  Exclude:
+    - 'spec/api/**/*'
+    - 'spec/integration/**/*'
+    - 'spec/system/**/*'
+
+# specs in designated integration test directories don't need to use the normal
+# path conventions
+RSpec/FilePath:
+  Exclude:
+    - 'spec/api/**/*'
+    - 'spec/integration/**/*'
+    - 'spec/system/**/*'

@@ -4,16 +4,17 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem 'dry-configurable', '~> 0.8.1'
-gem 'dry-events',       '~> 0.1.0'
-gem 'dry-system',       '~> 0.9.2'
-gem 'dry-transaction',  '~> 0.13.0'
-gem 'factory_bot',      group: 'test'
-gem 'pry',              group: %w[development test]
-gem 'rack-test',        group: 'test'
-gem 'rspec',            group: 'test'
-gem 'rubocop',          group: %w[development test]
-gem 'rubocop-rspec',    group: %w[development test]
-gem 'shotgun',          group: 'development'
-gem 'sinatra',          '~> 2.0.5'
-gem 'valkyrie',         '~> 1.5.1'
+gem 'capybara_discoball', '~> 0.1.0', group: 'test'
+gem 'dry-configurable',   '~> 0.8.1'
+gem 'dry-events',         '~> 0.1.0'
+gem 'dry-system',         '~> 0.9.2'
+gem 'dry-transaction',    '~> 0.13.0'
+gem 'factory_bot',        group: 'test'
+gem 'pry',                group: %w[development test]
+gem 'rack-test',          group: 'test'
+gem 'rspec',              group: 'test'
+gem 'rubocop',            group: %w[development test]
+gem 'rubocop-rspec',      group: %w[development test]
+gem 'shotgun',            group: 'development'
+gem 'sinatra',            '~> 2.0.5'
+gem 'valkyrie',           '~> 1.5.1'
