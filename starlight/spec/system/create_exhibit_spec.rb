@@ -9,7 +9,7 @@ RSpec.describe 'Import and Display a Work', :clean, type: :system, js: true do
   let(:user) { FactoryBot.create(:omniauth_user) }
 
   before do
-    omniauth_setup_shibboleth
+    omniauth_setup_shibboleth_for(site_admin)
     sign_in
     allow(Spotlight::DefaultThumbnailJob).to receive(:perform_later)
   end
@@ -39,7 +39,7 @@ RSpec.describe 'Import and Display a Work', :clean, type: :system, js: true do
       expect(page).to have_content 'A Cute Dog'
 
       # Test that the exhibit page is accessible to non-admin users
-      logout
+      sign_out
       visit '/spotlight/test-exhibit/catalog?utf8=%E2%9C%93&exhibit_id=test-exhibit&search_field=all_fields&q='
       expect(page).to have_content 'A Cute Dog'
       click_link 'A Cute Dog'

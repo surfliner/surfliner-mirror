@@ -6,6 +6,7 @@ FactoryBot.define do
       exhibit { FactoryBot.create(:exhibit) }
     end
     sequence(:email) { |n| "user#{n}@example.com" }
+    sequence(:uid) { |n| "user#{n}" }
 
     factory :omniauth_site_admin do
       after(:create) do |user, _evaluator|

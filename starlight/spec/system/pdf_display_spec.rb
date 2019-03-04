@@ -23,8 +23,7 @@ RSpec.describe "Display embedded PDFs", :clean, type: :system, js: true do
   let(:site_admin) { FactoryBot.create(:omniauth_site_admin) }
 
   before do
-    # login_as site_admin
-    omniauth_setup_shibboleth
+    omniauth_setup_shibboleth_for(site_admin)
     sign_in
   end
 

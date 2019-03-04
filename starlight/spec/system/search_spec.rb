@@ -33,7 +33,7 @@ RSpec.describe 'when searching', :clean, type: :system, js: true do
     ENV['IMPORT_DIR'] = Rails.root.join('spec', 'fixtures', 'images').to_s
     ENV['BINARY_ROOT'] = ''
     allow(Spotlight::DefaultThumbnailJob).to receive(:perform_later)
-    omniauth_setup_shibboleth
+    omniauth_setup_shibboleth_for(site_admin)
     sign_in
   end
 
