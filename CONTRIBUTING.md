@@ -159,6 +159,16 @@ This is your chance for a mentoring moment of another developer. Take time to gi
 
 If you are uncertain, bring other contributors into the conversation by assigning them as a reviewer.
 
+#### Code Style
+
+We attempt to follow consistent code styles throughout the project. Information about our style guide is at
+[`.styles`][styles], and normally takes the form of configuration for automated linters. Suggestions for changes
+to the style guide are welcome as _stand-alone_ merge requests suggesting the appropriate changes. Please describe
+the motivation for the change in your commit message.
+
+For Ruby, we have a project-wide `rubocop` configuration at [`.styles/rubocop_surfliner.yml`][rubocop].
+To run automated style checks, do `bundle exec rubocop` from any product directory.
+
 [principles]: https://ucnet.universityofcalifornia.edu/working-at-uc/our-values/principles-of-community.html
 [monorepo]: https://trunkbaseddevelopment.com/monorepos/
 [mono-vs-multi]: http://www.gigamonkeys.com/mono-vs-multi/
@@ -172,3 +182,5 @@ If you are uncertain, bring other contributors into the conversation by assignin
 [merge-overview]: https://docs.gitlab.com/ee/user/project/merge_requests/index.html
 [rebase]: https://docs.gitlab.com/ee/workflow/gitlab_flow.html#squashing-commits-with-rebase
 [devops]: https://docs.gitlab.com/ee/topics/autodevops/
+[styles]: ./.styles
+[rubocop]: ./.styles/rubocop_surfliner.yml
