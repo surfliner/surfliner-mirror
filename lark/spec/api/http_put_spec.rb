@@ -11,13 +11,8 @@ RSpec.describe 'PUT /{id}' do
   let(:app) { Lark.application }
 
   context 'when putting JSON' do
-    let(:adapter) do
-      Valkyrie::MetadataAdapter.find(Lark.config.index_adapter)
-    end
-    let(:persister) { adapter.persister }
-
     let(:authority) do
-      persister.save(resource: Concept.new(pref_label: 'PrefLabel'))
+      FactoryBot.create(:concept, pref_label: ['PrefLabel'])
     end
 
     let(:id)            { authority.id.to_s }

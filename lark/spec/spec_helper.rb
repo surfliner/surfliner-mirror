@@ -2,6 +2,9 @@
 
 require 'factory_bot'
 require 'fakes/fake_listener'
+require 'support/build_strategies/valkyrie_create'
+
+FactoryBot.register_strategy(:create, ValkyrieCreate)
 
 RSpec.configure do |config|
   config.disable_monkey_patching!
