@@ -46,10 +46,10 @@ class RecordController
   # Update an existing authority record from the request
   def update
     attrs = parsed_body(format: ctype)
-    Lark::Transactions::UpdateAuthority.new(event_stream: event_stream)
-                                       .call(id: params['id'],
-                                             attributes: attrs,
-                                             adapter: adapter)
+
+    Lark::Transactions::UpdateAuthority
+      .new(event_stream: event_stream, adapter: adapter)
+      .call(id: params['id'], attributes: attrs)
 
     [204, response_headers, []]
   rescue Valkyrie::Persistence::ObjectNotFoundError => err
