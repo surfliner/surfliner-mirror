@@ -323,11 +323,11 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   if Rails.configuration.shibboleth
     config.omniauth :shibboleth,
-                    uid_field: 'ADUSERNAME',
-                    shib_session_id_field: "Shib-Session-ID",
-                    shib_application_id_field: "Shib-Application-ID",
+                    uid_field: Rails.application.secrets.shib_uid_field,
+                    shib_session_id_field: Rails.application.secrets.shib_session_id_field,
+                    shib_application_id_field: Rails.application.secrets.shib_application_id_field,
                     debug: false,
-                    info_fields: { email: 'LONG_EMAIL' }
+                    info_fields: { email: Rails.application.secrets.shib_email_field }
   else
     config.omniauth :developer
   end
