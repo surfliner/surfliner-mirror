@@ -303,7 +303,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  capybara_discoball
+  capybara_discoball (~> 0.1.0)
   dry-configurable (~> 0.8.1)
   dry-events (~> 0.1.0)
   dry-system (~> 0.9.2)
