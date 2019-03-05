@@ -24,4 +24,13 @@ class IndexListener
   def on_created(event)
     indexer.index(data: event)
   end
+
+  ##
+  # Index an update event
+  # @param event [Hash<Symbol, Object>]
+  #
+  # @return [void]
+  def on_updated(event)
+    indexer.index(data: event)
+  end
 end

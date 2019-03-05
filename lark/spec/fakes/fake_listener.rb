@@ -13,4 +13,8 @@ class FakeListener
   def on_created(event)
     events << event
   end
+
+  def on_updated(event)
+    events << event
+  end
 end

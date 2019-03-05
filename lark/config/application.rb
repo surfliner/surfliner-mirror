@@ -27,6 +27,10 @@ module Lark
     post '/' do
       RecordController.new(request: request).create
     end
+
+    put '/:id' do
+      RecordController.new(request: request, params: params).update
+    end
   end
 
   def application

@@ -42,6 +42,20 @@ class RecordController
     [404, {}, [err.message]]
   end
 
+  ##
+  # Update an existing authority record from the request
+  def update
+    attrs = parsed_body(format: ctype)
+    Lark::Transactions::UpdateAuthority.new(event_stream: event_stream)
+                                       .call(id: params['id'],
+                                             attributes: attrs,
+                                             adapter: adapter)
+
+    [204, response_headers, []]
+  rescue Valkyrie::Persistence::ObjectNotFoundError => err
+    [404, {}, [err.message]]
+  end
+
   private
 
   def adapter
