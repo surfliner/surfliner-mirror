@@ -52,8 +52,8 @@ class RecordController
       .call(id: params['id'], attributes: attrs)
 
     [204, response_headers, []]
-  rescue Valkyrie::Persistence::ObjectNotFoundError => err
-    [404, {}, [err.message]]
+  rescue Lark::RequestError => err
+    [err.status, {}, [err.message]]
   end
 
   ##

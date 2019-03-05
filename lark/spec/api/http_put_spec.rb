@@ -48,16 +48,19 @@ RSpec.describe 'PUT /{id}' do
           .to eq JSON.dump(id: id, pref_label: new_label)
       end
     end
-  end
 
-  context 'when putting unknown formats' do
-    let(:ctype) { 'application/fake' }
-    let(:data)  { '' }
+    context 'when putting unknown formats' do
+      let(:ctype) { 'application/fake' }
+      let(:data)  { '' }
+      let(:authority) do
+        persister.save(resource: Concept.new(pref_label: 'PrefLabel'))
+      end
 
-    it 'responds with a 415 status code' do
-      post '/', data, 'CONTENT_TYPE' => ctype
+      it 'responds with a 415 status code' do
+        put "/#{authority.id}", data, 'CONTENT_TYPE' => ctype
 
-      expect(last_response.status).to eq 415
+        expect(last_response.status).to eq 415
+      end
     end
   end
 
