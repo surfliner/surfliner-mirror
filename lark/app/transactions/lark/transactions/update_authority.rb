@@ -25,16 +25,17 @@ module Lark
         super
       end
 
-      step :log_create_event
+      step :log_change_properties_event
       step :update_authority
 
       ##
       # create event
       # @param attributes [Hash]
       # @param adapter [MetadataAdapter]
-      def log_create_event(id:, attributes:)
-        @event_stream << Event.new(type: :update, data: { id: id })
-
+      def log_change_properties_event(id:, attributes:)
+        @event_stream <<
+          Event.new(type: :change_properties,
+                    data: { id: id, changes: attributes })
         Success(id: id, attributes: attributes)
       end
 

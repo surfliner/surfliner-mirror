@@ -52,15 +52,24 @@ Record_.
 
 __Data__:
 
-`:create` _Events_ __MUST__ have an `id`. The value of this attribute is the
-identifier for the created record.
+`:create` _Events_ __MUST__ have an `id`. The value of this attribute is a
+string identifier for the created record.
 
-`:create` events with an `id` corresponding to a record that already exists
-__MUST__ be ignored.
+| Key       | Requirement |                             Description                              |
+|-----------|-------------|----------------------------------------------------------------------|
+| `id`      | __MUST__    | The identifier of the record created by the event.                   |
 
-### Change Property
+### Change Properties
 
-%TK
+A `:change_property` _Event_ updates the properties of an _Authority
+Record_.
+
+__Data__:
+
+| Key       | Requirement |                             Description                              |
+|-----------|-------------|----------------------------------------------------------------------|
+| `id`      | __MUST__    | The identifier of the record to which changes are applied.           |
+| `changes` | __MUST__    | A data structure containing the changes to be applied to the record. |
 
 [dry-schema]: https://dry-rb.org/gems/dry-schema/
 [dry-types]: https://dry-rb.org/gems/dry-types/

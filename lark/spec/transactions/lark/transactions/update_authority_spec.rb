@@ -24,10 +24,10 @@ RSpec.describe Lark::Transactions::UpdateAuthority do
     let(:id) { authority.id }
     let(:label) { ['Label edited'] }
 
-    it 'adds :update to the event stream' do
+    it 'adds :update_attributes to the event stream' do
       expect { update }
         .to change { event_stream }
-        .to contain_exactly have_attributes(type: :update)
+        .to contain_exactly have_attributes(type: :change_properties)
     end
 
     it 'returns an updated authority' do

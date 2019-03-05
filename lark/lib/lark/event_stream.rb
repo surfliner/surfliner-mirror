@@ -69,7 +69,10 @@ module Lark
     class Publisher
       include Dry::Events::Publisher[:lark]
 
-      EVENT_TYPES = { create: 'created', update: 'updated' }.freeze
+      EVENT_TYPES = {
+        create: 'created',
+        change_properties: 'properties_changed'
+      }.freeze
 
       EVENT_TYPES.each_value { |name| register_event(name) }
 

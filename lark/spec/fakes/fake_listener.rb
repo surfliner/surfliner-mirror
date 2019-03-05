@@ -14,7 +14,7 @@ class FakeListener
     events << event
   end
 
-  def on_updated(event)
+  def on_properties_changed(event)
     events << event
   end
 end
