@@ -24,12 +24,12 @@ module Lark
       RecordController.new(params: params).show
     end
 
-    post '/' do
-      RecordController.new(request: request).create
+    post '/batch_edit' do
+      BatchController.new(request: request).batch_update
     end
 
-    put '/batch_edit' do
-      RecordController.new(request: request).batch_update
+    post '/' do
+      RecordController.new(request: request).create
     end
 
     put '/:id' do
