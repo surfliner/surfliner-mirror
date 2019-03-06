@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ##
-# base module for resolving requests for authority records.
+# A base module for resolving requests for authority records.
 module RecordControllerBehavior
   ##
   # @!attribute [r] params
