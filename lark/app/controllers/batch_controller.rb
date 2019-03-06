@@ -8,10 +8,10 @@ class BatchController < BaseController
   def batch_update
     authorities = parsed_body(format: ctype)
     authorities.each do |attrs|
-      Lark::Transactions::UpdateAuthority.new(event_stream: event_stream)
-                                         .call(id: attrs[:id],
-                                               attributes: attrs,
-                                               adapter: adapter)
+      Lark::Transactions::UpdateAuthority
+        .new(event_stream: event_stream, adapter: adapter)
+        .call(id: attrs[:id],
+              attributes: attrs)
     end
 
     [204, response_headers, []]
