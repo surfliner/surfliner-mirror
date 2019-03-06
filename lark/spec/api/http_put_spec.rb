@@ -53,7 +53,7 @@ RSpec.describe 'PUT /{id}' do
       let(:ctype) { 'application/fake' }
       let(:data)  { '' }
       let(:authority) do
-        persister.save(resource: Concept.new(pref_label: 'PrefLabel'))
+        FactoryBot.create(:concept, pref_label: ['PrefLabel'])
       end
 
       it 'responds with a 415 status code' do
