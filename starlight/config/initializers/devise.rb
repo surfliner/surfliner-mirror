@@ -321,15 +321,17 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-  if Rails.configuration.shibboleth
-    config.omniauth :shibboleth,
-                    uid_field: Rails.application.secrets.shib_uid_field,
-                    shib_session_id_field: Rails.application.secrets.shib_session_id_field,
-                    shib_application_id_field: Rails.application.secrets.shib_application_id_field,
-                    debug: false,
-                    info_fields: { email: Rails.application.secrets.shib_email_field }
-  else
-    config.omniauth :developer
+  unless ENV['DATABASE_AUTH']
+    if Rails.configuration.shibboleth
+      config.omniauth :shibboleth,
+                      uid_field: Rails.application.secrets.shib_uid_field,
+                      shib_session_id_field: Rails.application.secrets.shib_session_id_field,
+                      shib_application_id_field: Rails.application.secrets.shib_application_id_field,
+                      debug: false,
+                      info_fields: { email: Rails.application.secrets.shib_email_field }
+    else
+      config.omniauth :developer
+    end
   end
 
   # ==> Warden configuration

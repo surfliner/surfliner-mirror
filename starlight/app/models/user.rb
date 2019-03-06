@@ -7,7 +7,16 @@ class User < ApplicationRecord
   # Connects this user object to Blacklights Bookmarks.
   include Blacklight::User
 
-  devise :trackable, :omniauthable, omniauth_providers: [:shibboleth]
+  if ENV['DATABASE_AUTH']
+    devise :database_authenticatable,
+           :registerable,
+           :recoverable,
+           :rememberable,
+           :trackable,
+           :validatable
+  else
+    devise :trackable, :omniauthable, omniauth_providers: [:shibboleth]
+  end
 
   # Override this Spotlight method since we're using LDAP for auth and don't
   # need to invite people to create accounts
