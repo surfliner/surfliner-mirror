@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
+require_relative 'concerns/record_controller_behavior'
 ##
 # A simple controller that resolves requests for authority records.
-class BatchController < BaseController
+class BatchController
+  include RecordControllerBehavior
+
   ##
   # Update an existing authority record from the request
   def batch_update

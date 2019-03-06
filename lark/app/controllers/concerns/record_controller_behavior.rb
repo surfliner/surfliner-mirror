@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 ##
-# A simple controller that resolves requests for authority records.
-class BaseController
+# base module for resolving requests for authority records.
+module RecordControllerBehavior
   ##
   # @!attribute [r] params
   #   @return [Hash<String, String>]
