@@ -8,5 +8,5 @@ set :rails_env, 'production'
 #     'http_proxy' => 'http://10.3.100.201:3128',
 #     'https_proxy' => 'http://10.3.100.201:3128'
 
-server ENV['SERVER'], user: 'adrl', roles: [:web, :app, :db]
+server ENV['SERVER'], user: ENV['CAP_USER'], roles: [:web, :app, :db]
 set :ssh_options, port: 22, keys: [ENV.fetch('KEYFILE', '~/.ssh/id_rsa')]
