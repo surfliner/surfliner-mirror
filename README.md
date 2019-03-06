@@ -40,8 +40,10 @@ Every other Thursday, 11am-12pm (*starting March 7, 2019*)<br/>
 
 ### Lark Product Team
 **Lark Sprint Review**<br/>
-Every other Friday, 9-10am (*starting March 8, 2019*)<br/>
+Every other Friday, 9-10am (*starting March 22, 2019*)<br/>
 [https://ucsd.zoom.us/j/878403933](https://ucsd.zoom.us/j/878403933)
+
+*NOTE: The March 8, 2019 Lark Sprint Review will be combined with the 10am Starlight Sprint Review* ([https://ucsb.zoom.us/j/396755119](https://ucsb.zoom.us/j/396755119)).
 
 ### Starlight Product Team
 **Starlight Sprint Planning**<br/>
