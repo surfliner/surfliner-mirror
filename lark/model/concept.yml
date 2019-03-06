@@ -109,4 +109,11 @@
       predicate : "lark:annotation"
       range: 
         uri: "rdfs:Literal"
+      cardinality: "0..*"
+      
+  - "identifier":
+      defintiion: "Reference to an external or internal identifier that is not a URI. Value should include an indication of the identifier source"
+      predicate : "dc:identifier"
+      range: 
+        uri: "rdfs:Literal"
       cardinality: "0..*" 
