@@ -41,11 +41,10 @@ lark-code-quality:
     - docker:stable-dind
   script:
     - setup_docker
-    - cd lark
-    - code_quality
+    - code_quality "lark"
   artifacts:
     reports:
-      codequality: gl-code-quality-report.json
+      codequality: lark/gl-code-quality-report.json
   only:
     changes:
       - lark/**/*
@@ -63,11 +62,10 @@ starlight-code-quality:
     - docker:stable-dind
   script:
     - setup_docker
-    - cd starlight
-    - code_quality
+    - code_quality "starlight"
   artifacts:
     reports:
-      codequality: gl-code-quality-report.json
+      codequality: starlight/gl-code-quality-report.json
   only:
     changes:
       - starlight/**/*
@@ -243,7 +241,7 @@ starlight-test:
     docker run --env SOURCE_CODE="$PWD" \
                --volume "$PWD":/code \
                --volume /var/run/docker.sock:/var/run/docker.sock \
-               "registry.gitlab.com/gitlab-org/security-products/codequality:$SP_VERSION" /code
+               "registry.gitlab.com/gitlab-org/security-products/codequality:$SP_VERSION" /code/$1
   }
 
   function dependency_scanning() {
