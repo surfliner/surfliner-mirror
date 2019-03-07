@@ -176,7 +176,9 @@ starlight-test:
   variables:
     SOLR_CORE_NAME: "starlight-test"
     SOLR_CONFIG_DIR: "starlight/solr/config"
+    SOLR_CONFIG_COMMIT_SHA: $CI_COMMIT_SHA
     SOLR_URL: "http://solr:8983/solr/starlight-test"
+    REPOSITORY_URL: $CI_REPOSITORY_URL
     SELENIUM_URL: "http://chrome:4444/wd/hub/"
     RAILS_ENV: "test"
     DATABASE_AUTH: "true"
