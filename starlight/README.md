@@ -56,6 +56,19 @@ the CLI.  If the path(s) specified in the metadata, when appended to
 `binary_root`, yields an existent file, we use that.  Otherwise we'll
 search through the paths given with `-d` in order to find a match.
 
+## Google Analytics
+
+Starlight supports using Google Analytics for your exhibits. To prepare your
+application for leveraging analytics, you will need to create a Project
+following the [instructions provided by Google.](https://developers.google.com/api-client-library/ruby/start/get_started)
+
+You will need to provide the information/configuration properties you receive as
+part of the Project setup process as environment variables described below:
+
+- `GA_PKCS12_KEY_PATH` - full path to your private key
+- `GA_WEB_PROPERTY_ID` - typically of the form `UA-99999999-1`
+- `GA_EMAIL` - email address/service account ID associated with the account
+
 ## Developing locally
 
 ### Set up your local development instance
