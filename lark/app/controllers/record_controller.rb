@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'concerns/record_controller_behavior'
+
 ##
 # A simple controller that resolves requests for authority records.
 class RecordController
@@ -15,6 +16,8 @@ class RecordController
              .value!
 
     [201, response_headers, [serialize(record: record, format: ctype)]]
+  rescue JSON::ParserError => err
+    [400, {}, [err.message]]
   rescue Lark::RequestError => err
     [err.status, {}, [err.message]]
   end

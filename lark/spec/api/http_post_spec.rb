@@ -109,4 +109,20 @@ RSpec.describe 'POST /' do
       end
     end
   end
+
+  context 'when posting malformed JSON' do
+    let(:ctype)         { 'application/json' }
+    let(:data)          { 'invalid json' }
+    let(:message)       { '767: unexpected token at \'invalid json\'' }
+
+    before { post '/', data, 'CONTENT_TYPE' => ctype }
+
+    it 'responds with a 400 status code' do
+      expect(last_response.status).to eq 400
+    end
+
+    it 'responds with a simple message' do
+      expect(last_response.body).to eq message
+    end
+  end
 end
