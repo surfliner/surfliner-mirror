@@ -1,7 +1,9 @@
 require 'sitemap_generator'
 
-# TODO: Update the default host to match your deployment environment
-SitemapGenerator::Sitemap.default_host = 'http://localhost/'
+SitemapGenerator::Sitemap.default_host = Rails.application.secrets.sitemap_default_host
+
+# Use /public/sitemaps to reuse directory across capistrano deploys
+SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'
 
 SitemapGenerator::Interpreter.send :include, Rails.application.routes.url_helpers
 SitemapGenerator::Interpreter.send :include, Spotlight::Engine.routes.url_helpers

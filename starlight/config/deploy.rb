@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-set :application, 'spotlight'
+set :application, 'starlight'
 
 set :repo_url, 'https://gitlab.com/surfliner/surfliner.git'
 set :repo_tree, 'starlight'
@@ -24,6 +24,7 @@ set :linked_dirs, %w[
   tmp/sockets
   public/assets
   public/uploads
+  public/sitemaps
 ]
 
 # Default branch is :master
