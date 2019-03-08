@@ -1,0 +1,2 @@
+# Normalize line feeds to CRLF for text files
+*  text=auto
