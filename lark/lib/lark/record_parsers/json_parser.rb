@@ -12,6 +12,8 @@ module Lark
         return json.map(&:symbolize_keys) if json.is_a?(Array)
 
         json.symbolize_keys
+      rescue JSON::ParserError => error
+        raise Lark::BadRequest, error.message
       end
     end
   end

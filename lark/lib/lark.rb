@@ -54,4 +54,10 @@ module Lark
   class UnsupportedMediaType < RequestError
     STATUS = 415
   end
+
+  ##
+  # @see RequestError
+  class BadRequest < RequestError
+    STATUS = 400
+  end
 end

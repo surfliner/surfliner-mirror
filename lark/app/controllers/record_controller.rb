@@ -16,8 +16,6 @@ class RecordController
              .value!
 
     [201, response_headers, [serialize(record: record, format: ctype)]]
-  rescue JSON::ParserError => err
-    [400, {}, [err.message]]
   rescue Lark::RequestError => err
     [err.status, {}, [err.message]]
   end
