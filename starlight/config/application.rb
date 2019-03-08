@@ -20,7 +20,6 @@ module UcsbSpotlight
         [], [], true
       )[Rails.env] || {}
 
-    config.active_job.queue_adapter = ENV['RAILS_QUEUE']&.to_sym || :inline
     config.action_mailer.default_options = { from: Rails.application.secrets.email_from_address || ENV['FROM_EMAIL'] || 'noreply@library.ucsb.edu' }
   end
 end
