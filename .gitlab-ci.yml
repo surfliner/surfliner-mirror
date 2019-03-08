@@ -85,7 +85,7 @@ starlight-dependency-scanning:
     - dependency_scanning
   artifacts:
     reports:
-      dependency_scanning: gl-dependency-scanning-report.json
+      dependency_scanning: starlight/gl-dependency-scanning-report.json
   only:
     changes:
       - starlight/**/*
@@ -107,7 +107,7 @@ lark-dependency-scanning:
     - dependency_scanning
   artifacts:
     reports:
-      dependency_scanning: gl-dependency-scanning-report.json
+      dependency_scanning: lark/gl-dependency-scanning-report.json
   only:
     changes:
       - lark/**/*
