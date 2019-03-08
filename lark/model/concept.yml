@@ -1,119 +1,119 @@
   - "prefLabel":
       defintiion: "Preferred label from the external authority identified as exact match.  For local authorities (those with no exactMatch) the preflabel provided by user creating the authority."
       predicate : "http://www.w3.org/2008/05/skos-xl#prefLabel"
-      range: 
+      range:
         uri: "skos-xl:Label"
       cardinality: 1
 
   - "alternateLabel":
       defintiion: "Alternative labels which may be displayed - e.g. language variants, campus variants"
       predicate : "http://www.w3.org/2008/05/skos-xl#altLabel"
-      range: 
+      range:
         uri: "skos-xl:Label"
       cardinality: "0..*"
-    
+
   - "hiddenLabel":
       defintiion: "Character string to be accessible to applications performing text-based indexing and search operations, but would not like that label to be visible otherwise."
       predicate : "http://www.w3.org/2004/02/skos/core#hiddenLabel"
-      range: 
+      range:
         uri: "xsd:string"
       cardinality: "0..*"
-      
+
       #We didn't think we needed skos:xl for this.
 
   - "exactMatch":
       defintiion: "Reference(s) to an external vocabulary term (FAST, LCSH, etc.) which has an equivilant meaning, relationships are transitive so exact matches on the linked terms can also be applied to the skos:Concept"
       predicate : "http://www.w3.org/2004/02/skos/core#exactMatch"
-      range: 
+      range:
         uri: "xsd:anyURI"
       cardinality: "0..*"
-    
+
      #From skos:Primer "note on skos:exactMatch vs. owl:sameAs: SKOS provides skos:exactMatch to map concepts with equivalent meaning, and intentionally does not use owl:sameAs from the OWL ontology language [OWL]. When two resources are linked with owl:sameAs they are considered to be the same resource, and triples involving these resources are merged. This does not fit what is needed in most SKOS applications. In the above example, ex1:animal is said to be equivalent to ex2:animals. If this equivalence relation were represented using owl:sameAs, the following statements would hold for ex:animal"
-     
+
      #May want to restrict the addition of multiple exact matches to those brought in programmatically (e.g., an exact match to an LCSH term that includes an exactMatch)"
 
   - "closeMatch":
       defintiion: "Reference(s) to an external vocabulary term (FAST, LCSH, etc.) skos:closeMatch is used to link two concepts that are sufficiently similar that they can be used interchangeably in some information retrieval applications. In order to avoid the possibility of \"compound errors\" when combining mappings across more than two concept schemes, skos:closeMatch is not declared to be a transitive property. "
       predicate : "http://www.w3.org/2004/02/skos/core#exactMatch"
-      range: 
+      range:
         uri: "xsd:anyURI"
       cardinality: "0..*"
 
   - "note":
       defintiion: "A general note, for any purpose."
       predicate : "http://www.w3.org/2004/02/skos/core#note"
-      range: 
+      range:
         uri: "rdfs:Literal"
       cardinality: "0..*"
 
   - "scopeNote":
       defintiion: "A note that helps to clarify the meaning and/or the use of a concept."
       predicate : "http://www.w3.org/2004/02/skos/core#scopeNote"
-      range: 
+      range:
         uri: "rdfs:Literal"
       cardinality: "0..1"
 
   - "editorialNote":
       defintiion: "Used for information about the entity/concept, possibly documenting information that would help establish a heading, distinguish from similar but non-matching ideas."
       predicate : "http://www.w3.org/2004/02/skos/core#editorialNote"
-      range: 
+      range:
         uri: "rdfs:Literal"
       cardinality: "0..*"
 
   - "historyNote":
       defintiion: "A note that provides information related to the the context a concept record was created for, e.g. collection context, fields, etc, or how it was modified over time."
       predicate : "http://www.w3.org/2004/02/skos/core#historyNote"
-      range: 
+      range:
         uri: "rdfs:Literal"
       cardinality: "0..*"
 
   - "defintion":
       defintiion: "A statement or formal explanation of the meaning of a concept."
       predicate : "http://www.w3.org/2004/02/skos/core#definition"
-      range: 
+      range:
         uri: "rdfs:Literal"
       cardinality: "0..1"
 
   - "scheme":
       defintiion: "include this for others consuming our data. The scheme being something like <lark..../authorities/concepts>?"
       predicate : "http://www.w3.org/2004/02/skos/core#inScheme"
-      range: 
+      range:
         uri: "skos:ConceptScheme"
       cardinality: 1
 
   - "literalForm":
       defintiion: "String value of the skos-xl Label.  Can include language qualifier, e.g., \"photographs\"@en-US"
       predicate : "http://www.w3.org/2008/05/skos-xl#literalForm"
-      range: 
+      range:
         uri: "rdfs:Literal"
       cardinality: 1
 
   - "label_source":
       defintiion: "Reference to the external source of the label.  Used to select display label (\"We always want the FAST label, if there is one\") and automatically update label from source vocabulary"
       predicate : "lark:label_source"
-      range: 
+      range:
         uri: "xsd:anyURI"
       cardinality: "0..1"
 
   - "campus":
       defintiion: "Used to indicate campus preference for display label "
       predicate : "lark:campus"
-      range: 
+      range:
         uri: "rdfs:Literal"
       cardinality: "0..*"
-    
+
      #This could be either a URI or a controlled value list --> whatever is easier to implement
 
   - "annotation":
       defintiion: "Admin note for information on reason for creating or using an alternative label, i.e., cultural sensitivity"
       predicate : "lark:annotation"
-      range: 
+      range:
         uri: "rdfs:Literal"
       cardinality: "0..*"
-      
+
   - "identifier":
       defintiion: "Reference to an external or internal identifier that is not a URI. Value should include an indication of the identifier source"
       predicate : "dc:identifier"
-      range: 
+      range:
         uri: "rdfs:Literal"
-      cardinality: "0..*" 
+      cardinality: "0..*"
