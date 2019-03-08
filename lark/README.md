@@ -30,9 +30,35 @@ Lark aims to support a variety of media types.
 
 Currently we support:
 
-| Format |       CType        | Documentation |
-|--------|--------------------|---------------|
-| JSON   | `application/json` | %TK           |
+| Format |       CType        |                      Documentation                     |
+|--------|--------------------|--------------------------------------------------------|
+| JSON   | `application/json` | Key/value string representing of the authority record. |
+
+### Serializers
+
+#### JSON Serializer
+All attributes present in the mode, as well as ID, will be serialized in order, while those internal attributes added by Valkyrie will be ignored.
+
+A. Concept
+```
+  JSON Output:
+   { "pref_label": ["..."],
+     "alternate_label": [],
+     "hidden_label": [],
+     "exact_match": [],
+     "close_match": [],
+     "note": [],
+     "scope_note": [],
+     "editorial_note": [],
+     "history_note": [],
+     "definition": [],
+     "scheme": "http://www.w3.org/2004/02/skos/core#ConceptScheme",
+     "literal_form": [],
+     "label_source": [],
+     "campus": [],
+     "annotation": [],
+     "id": "..." }
+```
 
 ## Development
 

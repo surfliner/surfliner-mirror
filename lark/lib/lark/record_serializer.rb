@@ -27,7 +27,11 @@ module Lark
     #
     # @return [String] a serialized string representing the record
     def serialize(record:)
-      { id: record.id.to_s, pref_label: record.pref_label.first }.to_json
+      reserved_attributes = record.class.reserved_attributes
+      record.attributes
+            .except(*reserved_attributes)
+            .merge(id: record.id.to_s)
+            .to_json
     end
   end
 end

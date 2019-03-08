@@ -86,15 +86,15 @@ RSpec.describe 'POST /' do
       it 'update the Label for authority_1' do
         get "/#{authority_1.id}"
 
-        expect(last_response.body)
-          .to eq JSON.dump(id: authority_1.id, pref_label: 'new_label_1')
+        expect(JSON.parse(last_response.body).symbolize_keys)
+          .to include(id: authority_1.id.to_s, pref_label: ['new_label_1'])
       end
 
       it 'update the Label for authority_2' do
         get "/#{authority_2.id}"
 
-        expect(last_response.body)
-          .to eq JSON.dump(id: authority_2.id, pref_label: 'new_label_2')
+        expect(JSON.parse(last_response.body).symbolize_keys)
+          .to include(id: authority_2.id.to_s, pref_label: ['new_label_2'])
       end
     end
 

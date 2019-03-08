@@ -16,4 +16,32 @@ RSpec.describe Lark::RecordSerializer do
         .to raise_error Lark::UnsupportedMediaType
     end
   end
+
+  describe '.serialize' do
+    subject(:json) do
+      described_class.for(content_type: 'application/json')
+                     .serialize(record: record)
+    end
+
+    before do
+      class Resource < Valkyrie::Resource
+        attribute :label, Valkyrie::Types::Set
+        attribute :note, Valkyrie::Types::Set
+
+        def primary_terms
+          %i[label note]
+        end
+      end
+    end
+
+    after do
+      Object.send(:remove_const, :Resource)
+    end
+
+    let(:record) { Resource.new(label: 'Label') }
+
+    it 'return json string' do
+      expect(json).to eq JSON.dump(label: ['Label'], note: [], id: '')
+    end
+  end
 end

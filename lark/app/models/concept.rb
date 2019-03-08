@@ -94,10 +94,4 @@ class Concept < Valkyrie::Resource
   def scheme
     SCHEMA
   end
-
-  def primary_terms
-    %i[pref_label alternate_label hidden_label exact_match close_match
-       note scope_note editorial_note history_note definition scheme
-       literal_form label_source campus annotation]
-  end
 end

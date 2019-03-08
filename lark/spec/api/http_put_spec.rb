@@ -24,8 +24,8 @@ RSpec.describe 'PUT /{id}' do
     it 'verify concept with PrefLabel exists' do
       get "/#{id}"
 
-      expect(last_response.body)
-        .to eq JSON.dump(id: id, pref_label: 'PrefLabel')
+      expect(JSON.parse(last_response.body).symbolize_keys)
+        .to include(id: id, pref_label: ['PrefLabel'])
     end
 
     it 'with PUT responds 204 no_content status' do
@@ -35,7 +35,7 @@ RSpec.describe 'PUT /{id}' do
     end
 
     context 'with PUT to update the concept' do
-      let(:new_label) { 'Label edited' }
+      let(:new_label) { ['Label edited'] }
 
       before do
         put "/#{id}", data, 'CONTENT_TYPE' => ctype
@@ -44,8 +44,8 @@ RSpec.describe 'PUT /{id}' do
       it 'update the prefLabel' do
         get "/#{id}"
 
-        expect(last_response.body)
-          .to eq JSON.dump(id: id, pref_label: new_label)
+        expect(JSON.parse(last_response.body).symbolize_keys)
+          .to include(id: id, pref_label: new_label)
       end
     end
 

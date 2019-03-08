@@ -21,8 +21,26 @@ RSpec.describe 'GET /{id}' do
 
   context 'with an existing object' do
     let(:persister)  { adapter.persister }
-    let(:pref_label) { 'Moomin' }
+    let(:pref_label) { ['Moomin'] }
     let(:resource)   { Concept.new(id: id, pref_label: pref_label) }
+    let(:response_expected) do
+      JSON.dump(pref_label: pref_label,
+                alternate_label: [],
+                hidden_label: [],
+                exact_match: [],
+                close_match: [],
+                note: [],
+                scope_note: [],
+                editorial_note: [],
+                history_note: [],
+                definition: [],
+                scheme: 'http://www.w3.org/2004/02/skos/core#ConceptScheme',
+                literal_form: [],
+                label_source: [],
+                campus: [],
+                annotation: [],
+                id: id)
+    end
 
     let(:adapter) do
       Valkyrie::MetadataAdapter.find(Lark.config.index_adapter)
@@ -42,7 +60,7 @@ RSpec.describe 'GET /{id}' do
       get "/#{id}"
 
       expect(last_response.body)
-        .to eq JSON.dump(id: id, pref_label: pref_label)
+        .to eq response_expected
     end
   end
 end
