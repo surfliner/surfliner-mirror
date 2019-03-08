@@ -145,6 +145,14 @@ lark-lint:
 lark-unit-tests:
   stage: test
   image: $CI_REGISTRY_IMAGE/lark_web
+  variables:
+    SOLR_CORE_NAME: lark-test
+    SOLR_CONFIG_DIR: lark/solr/config
+    REPOSITORY_URL: $CI_REPOSITORY_URL
+    SOLR_CONFIG_COMMIT_SHA: $CI_COMMIT_SHA
+  services:
+    - name: $CI_REGISTRY_IMAGE/solr
+      alias: solr
   script:
     - cd lark
     - bundle check || bundle

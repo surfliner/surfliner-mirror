@@ -36,12 +36,41 @@ Currently we support:
 
 ## Development
 
+Checkout the `surfliner` repository with and `cd` into the `lark` product
+directory.
+
 ```sh
 git clone git@gitlab.com:surfliner/surfliner.git
 cd surfliner/lark
+```
 
+### Dependencies
+
+#### Gems
+
+To install the Ruby dependencies for the project, do:
+
+```sh
 bundle install
 ```
+
+#### Index
+
+Lark requires an index to back its API's read and search functionality. We
+communicate to this index using a Ruby data mapper library called
+[`Valkyrie`][valkyrie]. This means that backend for the index is swappable;
+presently, it supports [Apache Solr][solr] and an in-memory only backend
+useful mainly for unit testing.
+
+The index can be selected before startup by setting the `INDEX_ADAPTER` env
+variable (choose `solr` or `memory`).
+
+For non-trivial development tasks, it's advisable to setup and configure Solr
+in the development environment. The easiest way to do this is to use the
+included Docker Compose configuration; see [Running with Docker][#running-with-docker].
+If you want to run Solr directly on your local system, you'll need to setup a
+core with the configuration in `solr/config` and point Lark to it by setting
+the `SOLR_URL` env variable.
 
 ### Starting Up
 
@@ -62,10 +91,20 @@ $ shotgun config.ru
 
 We maintain robust unit and integration tests. The full test suite currently
 runs in a fraction of a second. We recommend running it frequently during
-development. It can be started with:
+development.
+
+If you have a properly [configured Solr index][#index], you can run the
+entire test suite with:
 
 ```sh
 $ bundle exec rspec
+```
+
+If you want to avoid setting up a Solr backend, you can run the test suite
+using in-memory data stores, do:
+
+```sh
+$ INDEX_ADAPTER=memory bundle exec rspec
 ```
 
 ### Architecture
@@ -86,8 +125,25 @@ Lark is made available under the [MIT License][license].
 
 [contributing]: ../CONTRIBUTING.md
 [principles]: https://ucnet.universityofcalifornia.edu/working-at-uc/our-values/principles-of-community.html
+[solr]: http://lucene.apache.org/solr/
+[valkyrie]: https://github.com/samvera-labs/valkyrie
 [rack]: https://rack.github.io/
 [webrick]: https://ruby-doc.org/stdlib-2.5.0/libdoc/webrick/rdoc/WEBrick.html
 [dry-events]: https://dry-rb.org/gems/dry-events/
 [event-log]: ./EVENT_LOG.md
 [license]: ../LICENSE
+
+### Running with Docker
+You will need Docker and Docker Compose installed on your host/local system.
+
+There are two docker-compose files, which allow you to run development and test
+instances of the application if you would like.
+
+To setup a development environment:
+1. `./bin/docker-build.sh`  to build images
+1. `./bin/docker-up.sh`  to run dev environment
+
+For running tests:
+1. `./bin/docker-build.sh -e test`  to build images
+1. `./bin/docker-up.sh -e test`  to run test environment
+1. `./bin/docker-spec.sh -e test` to run test suite

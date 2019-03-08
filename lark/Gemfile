@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem 'capybara_discoball', '~> 0.1.0', group: 'test'
+gem 'dotenv',             group: %w[development test]
 gem 'dry-configurable',   '~> 0.8.1'
 gem 'dry-events',         '~> 0.1.0'
 gem 'dry-system',         '~> 0.9.2'
@@ -12,6 +13,7 @@ gem 'dry-transaction',    '~> 0.13.0'
 gem 'factory_bot',        group: 'test'
 gem 'pry',                group: %w[development test]
 gem 'rack-test',          group: 'test'
+gem 'rsolr',              '~> 2.2.1'
 gem 'rspec',              group: 'test'
 gem 'rubocop',            group: %w[development test]
 gem 'rubocop-rspec',      group: %w[development test]

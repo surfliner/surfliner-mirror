@@ -76,6 +76,7 @@ GEM
       declarative-option (< 0.2.0)
       representable (>= 2.4.0, <= 3.1.0)
       uber (< 0.2.0)
+    dotenv (2.7.1)
     draper (3.0.1)
       actionpack (~> 5.0)
       activemodel (~> 5.0)
@@ -304,6 +305,7 @@ PLATFORMS
 
 DEPENDENCIES
   capybara_discoball (~> 0.1.0)
+  dotenv
   dry-configurable (~> 0.8.1)
   dry-events (~> 0.1.0)
   dry-system (~> 0.9.2)
@@ -311,6 +313,7 @@ DEPENDENCIES
   factory_bot
   pry
   rack-test
+  rsolr (~> 2.2.1)
   rspec
   rubocop
   rubocop-rspec

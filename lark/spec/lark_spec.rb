@@ -5,6 +5,10 @@ require_relative '../lib/lark'
 
 RSpec.describe Lark do
   describe 'configuration' do
+    let(:adapter) do
+      Valkyrie::MetadataAdapter.find(described_class.config.index_adapter)
+    end
+
     it 'has an index adapter' do
       expect(described_class.config.index_adapter).to be_a Symbol
     end
@@ -21,6 +25,10 @@ RSpec.describe Lark do
 
     it 'has an event stream' do
       expect(described_class.config.event_stream).to respond_to :<<
+    end
+
+    it 'is a metadata adapter' do
+      expect(adapter).to respond_to :persister
     end
   end
 end

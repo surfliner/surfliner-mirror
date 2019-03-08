@@ -1,0 +1,21 @@
+version: '3.5'
+services:
+  web:
+    build: ../../.
+    env_file:
+      - ../../.env
+    volumes:
+      - ../../.:/data
+    working_dir: /data
+    command: rackup config.ru
+    depends_on:
+      - solr
+    stdin_open: true
+    tty: true
+
+  solr:
+    build: ../../../docker/solr
+    env_file:
+      - ../../.env
+    ports:
+     - '8983:8983'
