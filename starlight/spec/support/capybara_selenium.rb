@@ -16,18 +16,18 @@ RSpec.configure do |config|
       # Capybara setup to allow for docker
       net = Socket.ip_address_list.detect(&:ipv4_private?)
       ip = net.nil? ? 'localhost' : net.ip_address
-      Capybara.server_port = 55_555
-      Capybara.server_host = ip
-      if ENV["TEST_APP_URL"].present?
-        Capybara.app_host = ENV["TEST_APP_URL"]
-      else
-        # Capybara.app_host = "#{ip}:#{Capybara.server_port}"
-        driven_by :selenium,
-                  using: :chrome,
-                  options: { browser: :remote,
-                             url: ENV["SELENIUM_URL"],
-                             desired_capabilities: :chrome, }
-      end
+
+      # Get the application container's IP
+      host! "http://#{ip}:#{Capybara.server_port}"
+
+      # make test app listen to outside requests (selenium container)
+      Capybara.server_host = '0.0.0.0'
+
+      driven_by :selenium,
+                using: :chrome,
+                options: { browser: :remote,
+                           url: ENV["SELENIUM_URL"],
+                           desired_capabilities: :chrome, }
     else
       driven_by :selenium_chrome_headless
     end
