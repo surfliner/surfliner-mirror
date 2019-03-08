@@ -189,7 +189,6 @@ starlight-test:
     REPOSITORY_URL: $CI_REPOSITORY_URL
     SELENIUM_URL: "http://chrome:4444/wd/hub/"
     RAILS_ENV: "test"
-    DATABASE_AUTH: "true"
   services:
     - name: $CI_REGISTRY_IMAGE/solr
       alias: solr
