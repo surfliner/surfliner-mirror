@@ -1,0 +1,26 @@
+---
+- name: install Redis
+  yum:
+    name: redis
+    update_cache: true
+  become: yes
+
+- name: install systemd script for Sidekiq
+  template:
+    dest: /etc/systemd/system/sidekiq.service
+    src: sidekiq.service.j2
+  become: yes
+
+- name: start Redis
+  systemd:
+    daemon_reload: true
+    enabled: yes
+    name: redis
+    state: restarted
+  become: yes
+
+- name: enable Sidekiq
+  systemd:
+    enabled: yes
+    name: sidekiq
+  become: yes
