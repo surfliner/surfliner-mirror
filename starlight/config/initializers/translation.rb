@@ -3,7 +3,9 @@ require 'i18n/backend/fallbacks'
 
 Translation = I18n::Backend::ActiveRecord::Translation
 
-if Translation.table_exists?
+# Don't allow initializer to break if DB doesn't exist yet
+# see: https://github.com/projectblacklight/spotlight/issues/2133
+begin
   ##
   # Sets up the new Spotlight Translation backend, backed by ActiveRecord. To
   # turn on the ActiveRecord backend, uncomment the following lines.
