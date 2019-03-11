@@ -1,6 +1,6 @@
 ---
 - name: Provision a RHEL/CentOS server for Spotlight
-  remote_user: adrl
+  remote_user: deploy
   hosts: all
 
   vars_files:
