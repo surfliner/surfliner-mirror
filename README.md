@@ -39,6 +39,14 @@ Every other Thursday, 11am-12pm (*starting March 7, 2019*)<br/>
 [https://ucsb.zoom.us/j/352799530](https://ucsb.zoom.us/j/352799530)
 
 ### Lark Product Team
+**Lark Sprint Planning**<br/>
+Every other Thursday, 2-3pm (*starting March 21, 2019*)<br/>
+[https://ucsd.zoom.us/j/929943163](https://ucsd.zoom.us/j/929943163)
+
+**Lark Backlog Refinement**<br/>
+Every other Thursday, 2-3pm (*starting March 28, 2019*)<br/>
+[https://ucsd.zoom.us/j/889736855](https://ucsd.zoom.us/j/889736855)
+
 **Lark Sprint Review**<br/>
 Every other Friday, 9-10am (*starting March 22, 2019*)<br/>
 [https://ucsd.zoom.us/j/878403933](https://ucsd.zoom.us/j/878403933)
