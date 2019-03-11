@@ -9,3 +9,7 @@ AllCops:
 
 Style/AccessModifierDeclarations:
   Enabled: false
+
+# we use .gitattributes to manage line feed styles
+Layout/EndOfLine:
+  Enabled: false
