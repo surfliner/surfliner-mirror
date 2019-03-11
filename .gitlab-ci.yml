@@ -178,6 +178,7 @@ starlight-test:
   image: $CI_REGISTRY_IMAGE/starlight_web:$CI_COMMIT_SHA
   stage: test
   variables:
+    DATABASE_URL: "postgres://postgres@postgres/starlight-test"
     SOLR_CORE_NAME: "starlight-test"
     SOLR_CONFIG_DIR: "starlight/solr/config"
     SOLR_CONFIG_COMMIT_SHA: $CI_COMMIT_SHA
@@ -190,6 +191,7 @@ starlight-test:
       alias: solr
     - name: selenium/standalone-chrome:latest
       alias: chrome
+    - postgres:11-alpine
   script:
     - cd starlight
     - cp config/import.yml.template config/import.yml
@@ -197,7 +199,7 @@ starlight-test:
     - gem update bundler
     - bundle install --jobs $(nproc) --path=vendor
     - yarn install
-    - RAILS_ENV=test bundle exec rake db:test:prepare
+    - RAILS_ENV=test bundle exec rake db:create db:schema:load
     - RAILS_ENV=test bundle exec rspec --format progress --format RspecJunitFormatter --out rspec.xml
   allow_failure: true
   artifacts:
