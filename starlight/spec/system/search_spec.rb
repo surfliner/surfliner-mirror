@@ -57,7 +57,7 @@ RSpec.describe 'when searching', :clean, type: :system, js: true do
       expect(page).to have_content "uarch112-g01650"
 
       # IIIF Manifest present on the page
-      expect(page.html).to match(%r{/spotlight/the-anna-s-c-blake-manual-training-school/catalog/1-3/manifest})
+      expect(page.html).to match(%r{/spotlight/the-anna-s-c-blake-manual-training-school/catalog/[[:digit:]]-[[:digit:]]/manifest})
 
       # UV present on the page
       expect(page).to have_selector '.universal-viewer-iframe'
