@@ -217,7 +217,6 @@ starlight-test:
     - yarn install
     - RAILS_ENV=test bundle exec rake db:create db:schema:load
     - RAILS_ENV=test bundle exec rspec --format progress --format RspecJunitFormatter --out rspec.xml
-  allow_failure: true
   artifacts:
     reports:
       junit: starlight/rspec.xml
