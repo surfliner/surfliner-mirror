@@ -30,8 +30,7 @@ RSpec.describe 'when searching', :clean, type: :system, js: true do
   let(:attribution)     { "Whitman" }
 
   before do
-    ENV['IMPORT_DIR'] = Rails.root.join('spec', 'fixtures', 'images').to_s
-    ENV['BINARY_ROOT'] = ''
+    ENV['BINARY_ROOT'] = Rails.root.join('spec', 'fixtures', 'images').to_s
     allow(Spotlight::DefaultThumbnailJob).to receive(:perform_later)
     omniauth_setup_shibboleth_for(site_admin)
     sign_in

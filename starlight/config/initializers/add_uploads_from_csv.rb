@@ -32,11 +32,10 @@ class Spotlight::AddUploadsFromCSV
 
   ##
   # Given a filepath, ensure the file exists and make a Spotlight::FeaturedImage object
+  # @param file [Pathname] full path to the file to upload
   def fetch_image_from_local_disk(file)
     image = Spotlight::FeaturedImage.new
-    import_dir = ENV['IMPORT_DIR'] || ''
-    filepath = File.join(import_dir, file)
-    image.image.store!(File.open(filepath))
+    image.image.store!(File.open(file))
     image
   end
 end

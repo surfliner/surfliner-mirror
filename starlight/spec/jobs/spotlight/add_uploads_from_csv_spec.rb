@@ -7,8 +7,7 @@ RSpec.describe Spotlight::AddUploadsFromCSV do
   let(:user) { FactoryBot.create(:omniauth_exhibit_curator, exhibit: exhibit) }
 
   before do
-    ENV['IMPORT_DIR'] = Rails.root.join('spec', 'fixtures').to_s
-    ENV['BINARY_ROOT'] = ''
+    ENV['BINARY_ROOT'] = Rails.root.join('spec', 'fixtures').to_s
   end
 
   # UCSB CSV uploads with local files instead of urls
