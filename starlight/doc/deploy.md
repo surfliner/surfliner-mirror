@@ -16,7 +16,11 @@ Puppet, or whatever works best in your local environment and practices.
 | ------------ | ----------- |
 | `BINARY_ROOT` | Mounted share for local file ingestion |
 | `CAP_USER` | User for capistrano to use during deployment |
+| `DATABASE_AUTH` | Set this if you cannot use Shibboleth |
+| `DATABASE_URL` | Setup your [database connection information][db] |
 | `FROM_EMAIL` | Application email address to use with ActionMailer |
+| `KEYFILE` | Path to ssh key for capistrano. E.g. '~/.ssh/id_rsa' |
+| `HOSTNAME` | Hostname to use for ActionMailer |
 | `GA_EMAIL` | see [GA section in README](../README.md#google-analytics) |
 | `GA_PKCS12_KEY_PATH` | see [GA section in README](../README.md#google-analytics) |
 | `GA_WEB_PROPERTY_ID` | see [GA section in README](../README.md#google-analytics) |
@@ -32,8 +36,10 @@ Puppet, or whatever works best in your local environment and practices.
 | `SHIB_SESSION_ID_FIELD` | E.g. 'Shib-Session-ID' |
 | `SHIB_UID_FIELD` | Shib attribute that contains usernames. E.g. 'ADUSERNAME' |
 | `SITEMAP_DEFAULT_HOST` | Hostname for production application. E.g. 'http://localhost' |
+| `SITEMAP_REFRESH` | Set this to any value to refresh sitemaps on deploy. |
 | `SMTP_HOST` | SMPT host for use with ActionMailer. E.g 'localhost' |
 | `SOLR_URL` | URL of your Solr instance. E.g 'http://solr:8983/solr/starlight-core' |
 | `TARGET` | Path for Capistrano to place your application. E.g. '/opt/starlight' |
 
 [12-factor]: https://12factor.net/
+[db]: https://edgeguides.rubyonrails.org/configuring.html#configuring-a-database
