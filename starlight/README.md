@@ -1,6 +1,6 @@
 # Starlight
 
-Starlight is baed on Spotlight, a framework for the creation and presentation of
+Starlight is based on Spotlight, a framework for the creation and presentation of
 exhibits.
 
 ## Importing Data
