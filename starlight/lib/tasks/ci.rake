@@ -4,16 +4,16 @@ unless Rails.env.production?
   desc 'Run tests with blacklight-test solr instance running'
   task spec_with_server: [:environment] do
     require 'solr_wrapper'
-    ENV['environment'] = 'test'
     solr_params = {
       port: 8985,
       verbose: true,
-      managed: true
+      managed: true,
+      instance_dir: Rails.root.join('tmp', 'solr-test')
     }
     SolrWrapper.wrap(solr_params) do |solr|
-      solr.with_collection(name: 'blacklight-test', persist: false, dir: Rails.root.join('solr', 'config')) do
-        # run the tests
-        # Rake::Task['spotlight:seed'].invoke
+      solr.with_collection(name: 'blacklight-core',
+                           persist: false,
+                           dir: Rails.root.join('solr', 'config')) do
         Rake::Task['spec'].invoke
       end
     end
