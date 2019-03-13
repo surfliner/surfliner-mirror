@@ -11,7 +11,7 @@ module Starlight
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
-    config.action_mailer.default_url_options = { host: Rails.application.secrets.hostname }
+    config.action_mailer.default_url_options = { host: ENV.fetch('HOSTNAME') }
     config.action_mailer.smtp_settings =
       YAML.safe_load(
         ERB.new(File.read(Rails.root.join("config", "smtp.yml"))).result,
@@ -20,6 +20,6 @@ module Starlight
         [], [], true
       )[Rails.env] || {}
 
-    config.action_mailer.default_options = { from: Rails.application.secrets.email_from_address || ENV['FROM_EMAIL'] || 'noreply@library.ucsb.edu' }
+    config.action_mailer.default_options = { from: ENV.fetch('FROM_EMAIL') }
   end
 end

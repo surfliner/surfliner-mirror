@@ -12,13 +12,10 @@
 
 development:
   adapter: solr
-  url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:8983/solr/blacklight-core" %>
+  url: <%= ENV.fetch('SOLR_URL') %>
 test: &test
   adapter: solr
   url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:#{ENV['TEST_JETTY_PORT'] || 8985}/solr/blacklight-test" %>
-staging:
-  adapter: solr
-  url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:8983/solr/starlight" %>
 production:
   adapter: solr
-  url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:8983/solr/starlight" %>
+  url: <%= ENV.fetch('SOLR_URL') %>

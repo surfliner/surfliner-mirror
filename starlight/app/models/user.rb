@@ -7,7 +7,7 @@ class User < ApplicationRecord
   # Connects this user object to Blacklights Bookmarks.
   include Blacklight::User
 
-  if ENV['DATABASE_AUTH']
+  if ENV['DATABASE_AUTH'].present?
     devise :database_authenticatable,
            :registerable,
            :recoverable,

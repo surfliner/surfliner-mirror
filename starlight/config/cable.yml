@@ -4,12 +4,7 @@ development:
 test:
   adapter: async
 
-staging:
-  adapter: redis
-  url: <%= "redis://#{Rails.application.secrets.redis_url}/1" %>
-  channel_prefix: starlight-spotlight_staging
-
 production:
   adapter: redis
-  url: <%= "redis://#{Rails.application.secrets.redis_url}/1" %>
+  url: <%= "redis://#{ENV.fetch("REDIS_URL")}/1" %>
   channel_prefix: starlight-spotlight_production
