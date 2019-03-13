@@ -22,7 +22,72 @@ Lark supports a REST API for managing and consuming authority records.
 
 ### Create (HTTP POST)
 
-%TK
+Create a new authority record
+
+```sh
+curl -v --data '{"pref_label":"moomin"}' -H "Content-Type: application/json" http://localhost:9292/
+```
+
+Response
+
+```sh
+Status: 201 Created
+
+Headers:
+Content-Type: application/json
+Content-Length: 347
+X-Content-Type-Options: nosniff
+
+Body:
+{"pref_label":["moomin"],"alternate_label":[],"hidden_label":[],"exact_match":[],"close_match":[],"note":[],"scope_note":[],"editorial_note":[],"history_note":[],"definition":[],"scheme":"http://www.w3.org/2004/02/skos/core#ConceptScheme","literal_form":[],"label_source":[],"campus":[],"annotation":[],"id":"537ebbd2-b3f8-433f-91e8-494d8a0e927a"}
+```
+
+#### Error Cases
+
+Create an unsupported format authority record
+
+```sh
+curl -v --data '{"pref_label":"moomin"}' -H "Content-Type: application/fake" http://localhost:9292/
+```
+
+Response
+
+```sh
+Status: 415 Unsupported Media Type
+
+Headers:
+Content-Type: text/html;charset=utf-8
+Content-Length: 16
+X-Content-Type-Options: nosniff
+```
+
+Create a malformed JSON authority record
+
+```sh
+curl -v --data "malformed json" -H "Content-Type: application/json" http://localhost:9292/
+```
+
+Response
+
+```sh
+Status: 400 Bad Request
+
+Headers:
+Content-Type: text/html;charset=utf-8
+Content-Length: 41
+X-Content-Type-Options: nosniff
+```
+
+#### Status
+
+`201` Created
+
+`400` Bad Request
+
+`415` Unsupported Media Type
+
+Please see [Data Model](#data-model) and 
+[List of Supported Media Types](#supported-media-types) section for more information.
 
 ### Supported Media Types
 
