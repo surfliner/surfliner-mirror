@@ -210,7 +210,6 @@ starlight-test:
   script:
     - cd starlight
     - cp config/import.yml.template config/import.yml
-    - cp config/secrets.yml.template config/secrets.yml
     - gem update bundler
     - bundle install --jobs $(nproc) --path=vendor
     - yarn install

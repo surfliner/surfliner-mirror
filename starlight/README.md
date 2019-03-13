@@ -43,7 +43,6 @@ part of the Project setup process as environment variables described below:
 1. `rake db:migrate` to run database migrations
 1. `yarn install` to install UniversalViewer
 1. `solr_wrapper` to spin up a local copy of solr for development
-1. `cp config/secrets.yml.template config/secrets.yml`
 1. `cp config/import.yml.template config/import.yml`
 1. `rails s` to run rails server
 
@@ -79,4 +78,4 @@ either for local development or on a DCE server, set an environment variable in
 1. Enter the email address you registered when prompted
 
 ## Email settings
-1. Set `Rails.application.secrets.email_from_address` to whatever email address alert emails should come from. Default value is 'noreply@library.ucsb.edu'.
+1. Set `ENV['FROM_EMAIL']` to whatever email address alert emails should come from.

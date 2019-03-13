@@ -34,7 +34,6 @@ set :linked_dirs, %w[
 set :branch, ENV['REVISION'] || ENV['BRANCH_NAME'] || 'master'
 
 set :linked_files, %w[
-  config/secrets.yml
   config/import.yml
 ]
 
