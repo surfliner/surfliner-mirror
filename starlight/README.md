@@ -15,6 +15,12 @@ relative to an optional environment variable, `BINARY_ROOT`.
 1. Populate the CSV as appropriate. If you want to use local files instead of urls, change the `url` column heading to say `file` instead. File paths will load relative to whatever value is set for `BINARY_ROOT`. e.g., if `BINARY_ROOT=/opt/ingest` and `file=images/sample.jpg` the file will load from `/opt/ingest/images/sample.jpg`
 1. Click `choose file` and upload your populated CSV file.
 
+## Deploying Starlight
+
+Please see our [Deploy](doc/deploy.md) documentation for details on how to
+deploy a Starlight application to staging or production environments. For local
+development and testing, please see [Developing Locally](README.md#developing-locally)
+
 ## Google Analytics
 
 Starlight supports using Google Analytics for your exhibits. To prepare your
