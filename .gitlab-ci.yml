@@ -136,6 +136,8 @@ lark-lint:
     - bundle exec rubocop
   only:
     changes:
+      - .gitlab-ci.yml
+      - .styles/**/*
       - lark/**/*
 
 lark-unit-tests:
@@ -184,6 +186,8 @@ starlight-lint:
     - bundle exec rubocop
   only:
     changes:
+      - .gitlab-ci.yml
+      - .styles/**/*
       - starlight/**/*
 
 starlight-test:
