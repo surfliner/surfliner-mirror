@@ -1,4 +1,4 @@
-FROM solr:alpine
+FROM solr:7.1-alpine
 
 USER root
 
