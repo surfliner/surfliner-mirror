@@ -4,5 +4,5 @@ project_base: /opt
 install_path: "{{ project_base }}/install"
 
 SOLR_VER: 7.7.1
-SOLR_256: 2cb425a0b30ff153465d306803e514e53e41924d74f28d842cb3a07cace759d5
+SOLR_256: 4fb85f12af045b28f6cb935b2f3739d59ec61ad1288ffe44c7ede64e614f28c4
 solr_core: collection1
