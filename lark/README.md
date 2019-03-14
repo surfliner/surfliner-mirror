@@ -18,7 +18,45 @@ Lark supports a REST API for managing and consuming authority records.
 
 ### Retrieve (HTTP GET)
 
-%TK
+Retrieve the content of an authority record with a matching id
+
+```sh
+curl -H "Accept: application/json" http://localhost:9292/3f707b6e-2589-476c-9d5c-ce39bec637f6
+```
+
+Response
+
+```sh
+Status: 200 OK
+
+Body:
+{"pref_label":["test"],"alternate_label":[],"hidden_label":[],"exact_match":[],"close_match":[],"note":[],"scope_note":[],"editorial_note":[],"history_note":[],"definition":[],"scheme":"http://www.w3.org/2004/02/skos/core#ConceptScheme","literal_form":[],"label_source":[],"campus":[],"annotation":[],"id":"3f707b6e-2589-476c-9d5c-ce39bec637f6"}
+```
+
+#### Error Case
+
+Retrieve the content of an authority record with no matching id
+
+```sh
+curl -H "Accept: application/json" http://localhost:9292/fake-id
+```
+
+Response
+
+```sh
+Status: 404 Not Found
+
+Body: Valkyrie::Persistence::ObjectNotFoundError
+```
+
+#### Status
+
+`200` OK
+
+`404` Not Found
+
+Please see [Data Model](#data-model) and 
+[List of Supported Media Types](#supported-media-types) section for more information.
 
 ### Create (HTTP POST)
 
