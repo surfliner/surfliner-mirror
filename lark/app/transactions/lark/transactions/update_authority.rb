@@ -18,6 +18,7 @@ module Lark
       include Dry::Transaction
 
       ##
+      # @param adapter [Valkyrie::MetadataAdapter]
       # @param event_stream [#<<]
       def initialize(event_stream:, adapter:, **_opts)
         @adapter      = adapter
@@ -26,12 +27,13 @@ module Lark
       end
 
       step :log_change_properties_event
-      step :update_authority
+      step :build_authority
 
       ##
-      # create event
+      # Log changes to properties
+      #
+      # @param id [String]
       # @param attributes [Hash]
-      # @param adapter [MetadataAdapter]
       def log_change_properties_event(id:, attributes:)
         @event_stream <<
           Event.new(type: :change_properties,
@@ -39,21 +41,8 @@ module Lark
         Success(id: id, attributes: attributes)
       end
 
-      ##
-      # update an existing authority record
-      # @param id [String]
-      # @param attributes [Hash]
-      # @param adapter [MetadataAdapter]
-      def update_authority(id:, attributes:)
-        authority = @adapter.query_service.find_by(id: Valkyrie::ID.new(id))
-
-        attributes.each do |k, v|
-          if authority.has_attribute?(k.to_s) && authority.send(k.to_s) != v
-            authority.send("#{k}=", attributes[k])
-          end
-        end
-
-        Success(@adapter.persister.save(resource: authority))
+      def build_authority(attributes:, id:)
+        Success(Concept.new(id: id, **attributes))
       end
     end
   end

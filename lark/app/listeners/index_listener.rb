@@ -22,7 +22,7 @@ class IndexListener
   #
   # @return [void]
   def on_created(event)
-    indexer.index(data: event)
+    indexer.index(data: Concept.new(event.payload))
   end
 
   ##
@@ -30,7 +30,13 @@ class IndexListener
   # @param event [Hash<Symbol, Object>]
   #
   # @return [void]
-  def on_updated(event)
-    indexer.index(data: event)
+  def on_properties_changed(event)
+    resource = indexer.find(event.payload[:id])
+
+    event.payload[:changes].each do |attribute, value|
+      resource.set_value(attribute, value)
+    end
+
+    indexer.index(data: resource)
   end
 end

@@ -26,13 +26,13 @@ RSpec.describe Lark::Application do
   end
 
   it 'round-trips new Authorities' do
-    data    = { some: :data }.to_json
+    data    = { pref_label: 'Moomin' }.to_json
     headers = { 'Content-Type' => 'application/json' }
 
     body          = Net::HTTP.post(app_uri, data, headers).body
     new_record_id = JSON.parse(body)['id']
 
     expect(Net::HTTP.get(app_uri + new_record_id))
-      .to be_json_for(id: new_record_id)
+      .to be_json_for(id: new_record_id, pref_label: ['Moomin'])
   end
 end

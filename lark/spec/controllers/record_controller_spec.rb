@@ -33,8 +33,8 @@ RSpec.describe RecordController do
 
       it 'adds an event to the stream' do
         expect { controller.create }
-          .to change { listener.events.count }
-          .by 1
+          .to change(listener, :events)
+          .to include have_attributes(id: 'created')
       end
     end
 

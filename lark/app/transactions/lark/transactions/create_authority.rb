@@ -25,12 +25,25 @@ module Lark
 
       step :mint_id
       step :log_create_event
+      step :log_change_properties_event
       step :build_authority
 
       private
 
       def mint_id(attributes:, id: SecureRandom.uuid)
         Success(attributes: attributes, id: id)
+      end
+
+      ##
+      # Log changes to properties
+      #
+      # @param id [String]
+      # @param attributes [Hash]
+      def log_change_properties_event(id:, attributes:)
+        @event_stream <<
+          Event.new(type: :change_properties,
+                    data: { id: id, changes: attributes })
+        Success(id: id, attributes: attributes)
       end
 
       def log_create_event(attributes:, id:)

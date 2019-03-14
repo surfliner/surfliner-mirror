@@ -11,7 +11,7 @@ RSpec.describe Lark::Transactions::CreateAuthority do
     it 'adds :create to the event stream' do
       expect { transaction.call(attributes: {}) }
         .to change { event_stream }
-        .to contain_exactly have_attributes(type: :create)
+        .to include have_attributes(type: :create)
     end
 
     it 'returns an authority with an id' do
