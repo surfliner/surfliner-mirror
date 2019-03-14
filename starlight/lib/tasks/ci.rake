@@ -5,10 +5,11 @@ unless Rails.env.production?
   task spec_with_server: [:environment] do
     require 'solr_wrapper'
     solr_params = {
+      instance_dir: Rails.root.join('tmp', 'solr-test'),
+      managed: true,
       port: 8985,
       verbose: true,
-      managed: true,
-      instance_dir: Rails.root.join('tmp', 'solr-test')
+      version: '7.7.1'
     }
     SolrWrapper.wrap(solr_params) do |solr|
       solr.with_collection(name: 'blacklight-core',
