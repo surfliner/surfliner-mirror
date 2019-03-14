@@ -3,6 +3,6 @@ project_name: spotlight
 project_base: /opt
 install_path: "{{ project_base }}/install"
 
-SOLR_VER: 7.6.0
+SOLR_VER: 7.7.1
 SOLR_256: 2cb425a0b30ff153465d306803e514e53e41924d74f28d842cb3a07cace759d5
 solr_core: collection1
