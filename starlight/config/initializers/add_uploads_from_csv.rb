@@ -21,14 +21,11 @@ class Spotlight::AddUploadsFromCSV
       if url
         resource.build_upload(remote_image_url: url)
       elsif file
-        full_path = Pathname.new(
-          ENV["BINARY_ROOT"] || CONFIG[:binary_root]
-        ).join(file)
-
-        resource.upload = fetch_image_from_local_disk(full_path)
+        full_path = Pathname.new(ENV["BINARY_ROOT"] || "").join(file)
+        resource.upload = fetch_image_from_local_disk(full_path) if full_path.exist?
       end
 
-      resource.save_and_index
+      resource.save_and_index if resource.upload.present?
     end
   end
 
