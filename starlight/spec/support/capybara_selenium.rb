@@ -13,6 +13,7 @@ RSpec.configure do |config|
   end
   config.before(:each, type: :system, js: true) do
     if ENV["SELENIUM_URL"].present?
+      # TODO: Get this to work for docker-compose test environment
       # Capybara setup to allow for docker
       net = Socket.ip_address_list.detect(&:ipv4_private?)
       ip = net.nil? ? "localhost" : net.ip_address

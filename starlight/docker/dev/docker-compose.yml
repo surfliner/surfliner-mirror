@@ -5,9 +5,10 @@ services:
     env_file:
       - ../.env.docker
     volumes:
-      - ../../.:/data
-    working_dir: /data
-    command: 'puma'
+      - ../../.:/app
+      - starlight_gems:/app/vendor
+    working_dir: /app
+    entrypoint: sh docker/setup.sh
     ports:
       - "3000:3000"
     depends_on:
@@ -17,25 +18,19 @@ services:
     tty: true
 
   database:
-    image: postgres:10.6-alpine
+    image: postgres:11-alpine
     volumes:
       - starlight_database:/var/lib/postgresql/data
     ports:
       - "5432:5432"
 
   solr:
-    image: solr:7.1-alpine
+    build: ../../../docker/solr
+    env_file:
+      - ../.env.docker
     ports:
-      - "8983:8983"
-    volumes:
-      - starlight_solr:/opt/solr/server/solr/mycores
-      - '../../solr/config:/opt/config'
-    entrypoint:
-      - docker-entrypoint.sh
-      - solr-precreate
-      - starlight
-      - /opt/config
+     - '8983:8983'
 
 volumes:
-  starlight_solr:
+  starlight_gems:
   starlight_database:
