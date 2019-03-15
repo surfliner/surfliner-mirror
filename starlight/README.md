@@ -43,7 +43,6 @@ part of the Project setup process as environment variables described below:
 1. `rake db:migrate` to run database migrations
 1. `yarn install` to install UniversalViewer
 1. `solr_wrapper` to spin up a local copy of solr for development
-1. `cp config/import.yml.template config/import.yml`
 1. `rails s` to run rails server
 
 ### With Docker

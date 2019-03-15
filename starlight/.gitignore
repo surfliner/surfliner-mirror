@@ -22,10 +22,6 @@
 
 /public/uploads
 
-# site-specific settings
-/config/import.yml
-/config/secrets.yml
-
 /spec/examples.txt
 
 # Don't check in vendored JS

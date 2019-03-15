@@ -209,7 +209,6 @@ starlight-test:
     - postgres:11-alpine
   script:
     - cd starlight
-    - cp config/import.yml.template config/import.yml
     - gem update bundler
     - bundle install --jobs $(nproc) --path=vendor
     - yarn install

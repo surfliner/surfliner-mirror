@@ -33,8 +33,4 @@ set :linked_dirs, %w[
 # Default branch is :master
 set :branch, ENV["REVISION"] || ENV["BRANCH_NAME"] || "master"
 
-set :linked_files, %w[
-  config/import.yml
-]
-
 SSHKit.config.command_map[:rake] = "bundle exec rake"
