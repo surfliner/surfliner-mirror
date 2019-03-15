@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # Matches omniauth 'developer' strategy set in config/devise.yml
   # This is used for local testing and development
   def developer
-    find_or_create_user('developer')
+    find_or_create_user("developer")
   end
 
   # Matches omniauth 'shibboleth' strategy set in config/devise.yml
   # This is used for staging and production envirnoments
   def shibboleth
-    find_or_create_user('shibboleth')
+    find_or_create_user("shibboleth")
   end
 
   # Responsible for handling the authentication callback for omniauth strategies
@@ -26,7 +28,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     else
       session["devise.#{auth_type.downcase}_data"] = request.env["omniauth.auth"]
     end
-    redirect_to request.env['omniauth.origin'] || root_url
+    redirect_to request.env["omniauth.origin"] || root_url
   end
 
   def failure

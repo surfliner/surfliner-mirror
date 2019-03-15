@@ -8,7 +8,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  config.secret_key = 'fd72c74c87273374c345df6cd6dbaad9012a8211a5d0bc77aa59f918c3c6ca9d10f553c21ac5691c94c3cf08ea7deaedaab8398f81721e105c716cd7d8cdcce2'
+  config.secret_key = "fd72c74c87273374c345df6cd6dbaad9012a8211a5d0bc77aa59f918c3c6ca9d10f553c21ac5691c94c3cf08ea7deaedaab8398f81721e105c716cd7d8cdcce2"
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -18,7 +18,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = "please-change-me-at-config-initializers-devise@example.com"
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -30,7 +30,7 @@ Devise.setup do |config|
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
-  require 'devise/orm/active_record'
+  require "devise/orm/active_record"
 
   # ==> Configuration for any authentication mechanism Configure which
   # keys are used when authenticating a user. The default is just
@@ -321,14 +321,14 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-  if ENV['DATABASE_AUTH'].blank?
+  if ENV["DATABASE_AUTH"].blank?
     if Rails.configuration.shibboleth
       config.omniauth :shibboleth,
-                      uid_field: ENV.fetch('SHIB_UID_FIELD'),
-                      shib_session_id_field: ENV.fetch('SHIB_SESSION_ID_FIELD'),
-                      shib_application_id_field: ENV.fetch('SHIB_APPLICATION_ID_FIELD'),
+                      uid_field: ENV.fetch("SHIB_UID_FIELD"),
+                      shib_session_id_field: ENV.fetch("SHIB_SESSION_ID_FIELD"),
+                      shib_application_id_field: ENV.fetch("SHIB_APPLICATION_ID_FIELD"),
                       debug: false,
-                      info_fields: { email: ENV.fetch('SHIB_EMAIL_FIELD') }
+                      info_fields: { email: ENV.fetch("SHIB_EMAIL_FIELD") }
     else
       config.omniauth :developer
     end

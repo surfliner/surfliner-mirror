@@ -1,9 +1,11 @@
-require 'sitemap_generator'
+# frozen_string_literal: true
 
-SitemapGenerator::Sitemap.default_host = ENV.fetch('SITEMAP_DEFAULT_HOST')
+require "sitemap_generator"
+
+SitemapGenerator::Sitemap.default_host = ENV.fetch("SITEMAP_DEFAULT_HOST")
 
 # Use /public/sitemaps to reuse directory across capistrano deploys
-SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'
+SitemapGenerator::Sitemap.sitemaps_path = "sitemaps/"
 
 SitemapGenerator::Interpreter.send :include, Rails.application.routes.url_helpers
 SitemapGenerator::Interpreter.send :include, Spotlight::Engine.routes.url_helpers

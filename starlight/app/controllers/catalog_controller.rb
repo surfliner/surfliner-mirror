@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CatalogController < ApplicationController
   include Blacklight::Catalog
 
@@ -29,28 +31,28 @@ class CatalogController < ApplicationController
     # }
 
     config.default_solr_params = {
-      qt: 'search',
+      qt: "search",
       rows: 10,
-      fl: '*'
+      fl: "*",
     }
 
-    config.document_solr_path = 'get'
-    config.document_unique_id_param = 'ids'
+    config.document_solr_path = "get"
+    config.document_unique_id_param = "ids"
 
-    config.index.title_field = 'full_title_tesim'
+    config.index.title_field = "full_title_tesim"
 
     # This one uses all the defaults set by the solr request
     # handler. Which solr request handler? The one set in
     # config[:default_solr_parameters][:qt], since we aren't
     # specifying it otherwise.
     config.add_search_field(
-      'all_fields',
-      label: I18n.t('spotlight.search.fields.search.all_fields')
+      "all_fields",
+      label: I18n.t("spotlight.search.fields.search.all_fields")
     )
     config.add_sort_field(
-      'relevance',
-      sort: 'score desc',
-      label: I18n.t('spotlight.search.fields.sort.relevance')
+      "relevance",
+      sort: "score desc",
+      label: I18n.t("spotlight.search.fields.sort.relevance")
     )
 
     config.add_field_configuration_to_solr_request!

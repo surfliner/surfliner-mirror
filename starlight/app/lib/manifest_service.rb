@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Service that is initilized with a SolrDocument from an item in spotlight and
 # returns the IIIF manifest URL
 class ManifestService

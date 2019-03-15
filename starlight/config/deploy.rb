@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-set :application, 'starlight'
+set :application, "starlight"
 
-set :repo_url, 'https://gitlab.com/surfliner/surfliner.git'
-set :repo_tree, 'starlight'
+set :repo_url, "https://gitlab.com/surfliner/surfliner.git"
+set :repo_tree, "starlight"
 
-set :deploy_to, ENV.fetch('TARGET', '/opt/starlight')
+set :deploy_to, ENV.fetch("TARGET", "/opt/starlight")
 
 set :rbenv_type, :system
 
 set :log_level, :debug
-set :bundle_flags, '--without=development test'
+set :bundle_flags, "--without=development test"
 set :bundle_env_variables, nokogiri_use_system_libraries: 1
 
 set :keep_releases, 2
@@ -31,10 +31,10 @@ set :linked_dirs, %w[
 ]
 
 # Default branch is :master
-set :branch, ENV['REVISION'] || ENV['BRANCH_NAME'] || 'master'
+set :branch, ENV["REVISION"] || ENV["BRANCH_NAME"] || "master"
 
 set :linked_files, %w[
   config/import.yml
 ]
 
-SSHKit.config.command_map[:rake] = 'bundle exec rake'
+SSHKit.config.command_map[:rake] = "bundle exec rake"

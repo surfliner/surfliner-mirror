@@ -29,17 +29,6 @@ Metrics/BlockLength:
     - setup
     - task
 
-Metrics/ClassLength:
-  # Vocabulary classes are auto-generated so we don't have much
-  # control over length
-  Exclude:
-    - 'lib/vocabularies/*'
-
-Metrics/LineLength:
-  Exclude:
-    - 'lib/vocabularies/*'
-    - 'spec/indexers/image_indexer_spec.rb'
-
 Metrics/ModuleLength:
   Enabled: false
 
@@ -49,14 +38,6 @@ Naming/HeredocDelimiterNaming:
 Rails:
   Enabled: true
 
-Rails/ActiveRecordAliases:
-  # this class has its own #update_attributes method
-  Exclude:
-    - 'lib/importer/factory/object_factory.rb'
-
-Rails/ApplicationRecord:
-  Enabled: false
-
 RSpec/ExampleLength:
   Enabled: false
 
@@ -65,16 +46,8 @@ RSpec/MultipleExpectations:
 
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact
-  # Vocabulary classes are auto-generated
   Exclude:
-    - 'lib/vocabularies/*'
     - 'config/**/**'
-
-Style/Documentation:
-  # Vocabulary classes are auto-generated
-  Exclude:
-    - 'lib/vocabularies/*'
-    - 'spec/**/*'
 
 Style/Lambda:
   EnforcedStyle: lambda

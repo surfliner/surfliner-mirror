@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def sign_in
   visit new_user_session_path
 end
@@ -13,10 +15,10 @@ def omniauth_setup_shibboleth_for(user)
   Rails.configuration.shibboleth = true
   OmniAuth.config.test_mode = true
   OmniAuth.config.mock_auth[:shibboleth] = OmniAuth::AuthHash.new(
-    provider: 'shibboleth',
+    provider: "shibboleth",
     uid: user.uid,
-    info: { 'email' => user.email }
+    info: { "email" => user.email }
   )
   Rails.application.env_config["devise.mapping"] = Devise.mappings[:user]
-  Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:shibboleth]
+  Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:shibboleth]
 end

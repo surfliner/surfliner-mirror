@@ -1,13 +1,13 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   include Spotlight::User
-  if Blacklight::Utils.needs_attr_accessible?
-    attr_accessible :email
-  end
+  attr_accessible :email if Blacklight::Utils.needs_attr_accessible?
 
   # Connects this user object to Blacklights Bookmarks.
   include Blacklight::User
 
-  if ENV['DATABASE_AUTH'].present?
+  if ENV["DATABASE_AUTH"].present?
     devise :database_authenticatable,
            :registerable,
            :recoverable,
@@ -49,8 +49,8 @@ class User < ApplicationRecord
   # @param auth [OmniAuth::AuthHash] Ignored by this method
   # @return [User] user found or created for local development
   def self.from_developer(_auth)
-    where(provider: 'developer', uid: 'developer').first_or_create do |user|
-      user.email = 'developer@uc.edu'
+    where(provider: "developer", uid: "developer").first_or_create do |user|
+      user.email = "developer@uc.edu"
     end
   end
 end

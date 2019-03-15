@@ -1,4 +1,6 @@
-require 'spotlight/add_uploads_from_csv'
+# frozen_string_literal: true
+
+require "spotlight/add_uploads_from_csv"
 
 class Spotlight::AddUploadsFromCSV
   ##
@@ -7,8 +9,8 @@ class Spotlight::AddUploadsFromCSV
   def perform(csv_data, exhibit, _user)
     encoded_csv(csv_data).each do |row|
       # The CSV row must have either a url or a file
-      url = row.delete('url')
-      file = row.delete('file')
+      url = row.delete("url")
+      file = row.delete("file")
       next unless url.present? || file.present?
 
       resource = Spotlight::Resources::Upload.new(
@@ -20,7 +22,7 @@ class Spotlight::AddUploadsFromCSV
         resource.build_upload(remote_image_url: url)
       elsif file
         full_path = Pathname.new(
-          ENV['BINARY_ROOT'] || CONFIG[:binary_root]
+          ENV["BINARY_ROOT"] || CONFIG[:binary_root]
         ).join(file)
 
         resource.upload = fetch_image_from_local_disk(full_path)

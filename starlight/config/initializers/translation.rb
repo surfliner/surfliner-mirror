@@ -1,5 +1,7 @@
-require 'i18n/backend/active_record'
-require 'i18n/backend/fallbacks'
+# frozen_string_literal: true
+
+require "i18n/backend/active_record"
+require "i18n/backend/fallbacks"
 
 Translation = I18n::Backend::ActiveRecord::Translation
 

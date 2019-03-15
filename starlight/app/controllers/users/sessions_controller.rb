@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Users::SessionsController < Devise::SessionsController
   # /users/sign_in
   # use of Devise.omniauth_configs.keys allows us to dynamically switch between :developer and :shibboleth environments
@@ -11,7 +13,7 @@ class Users::SessionsController < Devise::SessionsController
     signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
 
     if signed_out && is_navigational_format?
-      flash[:alert] = 'You have been logged out of Starlight!'
+      flash[:alert] = "You have been logged out of Starlight!"
     else
       logger.warn "Sign out failed for #{resource_name}"
     end

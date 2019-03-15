@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe ApplicationHelper, type: :helper do
   let(:resource) { FactoryBot.create(:uploaded_resource) }
   let(:document) { SolrDocument.new }
-  let(:manifest_url) { 'https://example.com/manifest' }
+  let(:manifest_url) { "https://example.com/manifest" }
   let(:response) { { docs: [iiif_manifest_url_ssi: manifest_url] } }
   let(:manifest_service) { ManifestService.new(document: document) }
 
