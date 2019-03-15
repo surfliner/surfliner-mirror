@@ -49,5 +49,16 @@ RSpec.describe BatchController do
         expect(controller.batch_update.first).to eq 204
       end
     end
+
+    context 'with non-existing authority record' do
+      let(:data)  do
+        [{ id: 'a_fade_id', pref_label: 'new_label_1' }].to_json
+      end
+      let(:body) { StringIO.new(data) }
+
+      it 'gives a 404 status' do
+        expect(controller.batch_update.first).to eq 404
+      end
+    end
   end
 end

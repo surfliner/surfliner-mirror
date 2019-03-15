@@ -60,4 +60,10 @@ module Lark
   class BadRequest < RequestError
     STATUS = 400
   end
+
+  ##
+  # @see RequestError
+  class NotFound < RequestError
+    STATUS = 404
+  end
 end

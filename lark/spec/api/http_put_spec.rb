@@ -49,6 +49,17 @@ RSpec.describe 'PUT /{id}' do
       end
     end
 
+    context 'with putting to update non-existing record' do
+      let(:id)        { 'a_fake_id' }
+      let(:new_label) { ['Label edited'] }
+
+      it 'update the prefLabel' do
+        get "/#{id}"
+
+        expect(last_response.status).to eq 404
+      end
+    end
+
     context 'when putting unknown formats' do
       let(:ctype) { 'application/fake' }
       let(:data)  { '' }

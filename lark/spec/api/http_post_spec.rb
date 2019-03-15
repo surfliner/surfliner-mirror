@@ -98,6 +98,16 @@ RSpec.describe 'POST /' do
       end
     end
 
+    context 'with POSTing to update a non existing concepts' do
+      let(:data) { [{ id: 'a_fade_id', pref_label: 'new_label_1' }].to_json }
+
+      it 'returns status 404' do
+        post '/batch_edit', data, 'CONTENT_TYPE' => ctype
+
+        expect(last_response.status).to eq 404
+      end
+    end
+
     context 'when posting unknown formats' do
       let(:ctype) { 'application/fake' }
       let(:data)  { '' }
