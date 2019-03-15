@@ -1,6 +1,5 @@
 ---
 - name: Provision a RHEL/CentOS server for Spotlight
-  remote_user: deploy
   hosts: all
 
   vars_files:
@@ -48,6 +47,4 @@
       rbenv_group: root
     - role: nginx-passenger
     - role: spotlight
-      become: yes
-    - role: geniza
       become: yes
