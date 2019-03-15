@@ -1,13 +1,17 @@
 ---
 - name: download NodeSource repo
   get_url:
-    url: https://rpm.nodesource.com/pub_{{ node_major_ver }}.x/el/7/x86_64/nodejs-devel-{{ node_ver }}-1nodesource.x86_64.rpm
-    checksum: sha256:{{ node_sha }}
-    dest: /tmp/nodejs-devel-{{ node_ver }}-1nodesource.x86_64.rpm
+    url: https://rpm.nodesource.com/pub_{{ node_major_ver }}.x/el/7/x86_64/{{ item.rpm }}-{{ node_ver }}-1nodesource.x86_64.rpm
+    checksum: sha256:{{ item.sha }}
+    dest: /tmp/{{ item.rpm }}-{{ node_ver }}-1nodesource.x86_64.rpm
+  loop:
+    '{{ node_rpms }}'
 
 - name: install NodeSource repo
   yum:
-    name: /tmp/nodejs-devel-{{ node_ver }}-1nodesource.x86_64.rpm
+    name: /tmp/{{ item.rpm }}-{{ node_ver }}-1nodesource.x86_64.rpm
+  loop:
+    '{{ node_rpms }}'
 
 - name: update all yum packages
   yum:
