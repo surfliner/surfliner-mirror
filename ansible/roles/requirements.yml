@@ -4,3 +4,6 @@
 
 - src: zzet.rbenv
   version: '3.4.2'
+
+- src: cscfi.shibboleth-sp
+  version: 'v1.0.7'
