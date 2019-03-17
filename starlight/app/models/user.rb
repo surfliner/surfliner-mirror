@@ -15,7 +15,7 @@ class User < ApplicationRecord
            :trackable,
            :validatable
   else
-    devise :trackable, :omniauthable, omniauth_providers: [:shibboleth]
+    devise :trackable, :omniauthable, omniauth_providers: [:shibboleth, :developer]
   end
 
   # Override this Spotlight method since we're using LDAP for auth and don't
@@ -31,26 +31,18 @@ class User < ApplicationRecord
     email
   end
 
-  # Create a user given a set of omniauth-shibboleth credentials
+  # Create a user given a set of omniauth credentials
   # We are persisting: 'uid', 'provider', and 'email' properties
   # See: https://github.com/omniauth/omniauth/wiki/Auth-Hash-Schema
+  # See: https://github.com/toyokazu/omniauth-shibboleth/#setup-shibboleth-strategy (Shibboleth Strategy)
+  # See: https://github.com/omniauth/omniauth/blob/master/lib/omniauth/strategies/developer.rb (Dev Strategy)
   # @param auth [OmniAuth::AuthHash]
   # @return [User] user found or created with `auth` properties
-  def self.from_shibboleth(auth)
+  def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
     end
   rescue StandardError => e
     logger.error e && return
-  end
-
-  # Create a developer/user
-  # We are persisting: 'uid', 'provider', and 'email' properties
-  # @param auth [OmniAuth::AuthHash] Ignored by this method
-  # @return [User] user found or created for local development
-  def self.from_developer(_auth)
-    where(provider: "developer", uid: "developer").first_or_create do |user|
-      user.email = "developer@uc.edu"
-    end
   end
 end
