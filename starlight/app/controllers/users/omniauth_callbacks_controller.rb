@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  # This necessary to prevent CSRF errors on the developer strategy callback
+  # see: https://github.com/omniauth/omniauth/wiki/FAQ#rails-session-is-clobbered-after-callback-on-developer-strategy
+  skip_before_action :verify_authenticity_token, only: :developer
+
   # Matches omniauth 'developer' strategy set in config/devise.yml
   # This is used for local testing and development
   def developer
@@ -19,9 +23,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # @param auth_type [String] Current options 'developer' and 'shibboleth'
   def find_or_create_user(auth_type)
     logger.debug "#{auth_type} :: #{current_user.inspect}"
-
-    auth_strategy_method = "from_#{auth_type.downcase}".to_sym
-    @user = User.send(auth_strategy_method, request.env["omniauth.auth"])
+    @user = User.from_omniauth(request.env["omniauth.auth"])
     if @user.persisted?
       flash[:success] = I18n.t "devise.omniauth_callbacks.success", kind: auth_type.capitalize
       sign_in @user, event: :authentication
