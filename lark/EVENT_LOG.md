@@ -1,11 +1,12 @@
 # The Lark Event Log
 
-Lark's state is maintained by a single append-only event log. This document
-provides the abstract specification for that log, as well as some notes about
-its implementation.
+An excellent way to add visibility to what is happening within LARK service is through Event Logging. 
+The fundamental concept is that every change to the state of Lark is encapsulated in an event object and 
+stored sequentially. This document provides the abstract specification for that log, 
+as well as some notes about its implementation.
 
 In principle, the full internal state of the application and its records can be
-reconstructed from the events on the log.
+reconstructed from the events on the stream.
 
 ## Events
 
@@ -19,17 +20,6 @@ _Events_ are simple data structures holding:
 >
 > Events are implemented as `Valkyrie::Resource` objects. This means they use
 > [`dry-schema`][dry-schema] and [`dry-types`][dry-types].
-
-## The Log
-
-The _Event Log_ is a totally-ordered and persistent stream of _Events_. The log
-is _append only_, meaning events can only be added (never destroyed), and each
-event is added to the end of the log (i.e. after the previous event).
-
-The log is primarily for internal use, though aspects of it __MAY__ be exposed
-via the API, especially for expressing record history/provenance.
-
-_Events_ added to the log are published to listeners/subscribers.
 
 ## Event Types
 
@@ -73,3 +63,58 @@ __Data__:
 
 [dry-schema]: https://dry-rb.org/gems/dry-schema/
 [dry-types]: https://dry-rb.org/gems/dry-types/
+
+
+## The Event Log
+
+The _EventStream_ is a totally-ordered and persistent stream of _Events_. The log
+is _append only_, meaning events can only be added (never destroyed), and each
+event is added to the end of the log (i.e. after the previous event).
+
+The log is primarily for internal use, though aspects of it __MAY__ be exposed
+via the API, especially for expressing record history/provenance.
+
+_Events_ added to the log are published to listeners/subscribers.
+
+## The EventStream
+  
+Lark implements a [dry-events](https://dry-rb.org/gems/dry-events/) publisher/subscriber API to define the flow 
+for event logging. This allows for the creation of event publishers and a convenient way to subscribe/listen
+to the events.
+
+Each time a valid request to resolve authority records is received through the `RecordController` or `BatchController`, 
+an _Event_ gets generated and appended into the _Event Log_ in a sequential manner.
+
+Lark's system-wide events are tracked by the _EventStream_. This is a `Singleton`, meaning there
+is exactly one `.instance` and `EventStream.new` is private.
+
+For example: 
+An event can get added to the stream by doing
+``` 
+  EventStream.instance << event
+```
+
+A block listener can subscribe to the stream as below
+```
+  EventStream.instance.subscribe('created') do |event|
+    # do something with the event
+  end
+```
+
+A listener class can subscribe to the stream as follows
+```
+  class MyListener
+    def on_created(event)
+      # do something with the event
+    end
+  end
+  listener = MyListener.new
+  EventStream.instance.subscribe(listener)
+```
+
+The _Publisher_ is created using `Dry::Events::Publisher` extension, by providing a unique identifier. 
+Whenever an _Event_ is persisted to the _EventStream_, the _Publisher_ interprets the _Event_ `type` and publishes it to subscribers.
+
+An event listener _IndexListener_ listens for events on the _EventStream_. This class 
+implements methods that correspond to the _Event`types` following the `dry-events` naming convention, 
+and handles updates to the index as needed.
