@@ -8,6 +8,7 @@ Please see [CONTRIBUTING.md][contributing] for information about contributing to
 this project. By participating, you agree to abide by the
 [UC Principles of Community][principles].
 
+
 ## Data Model
 
 %TK
@@ -334,7 +335,7 @@ A. Concept
      "id": "..." }
 ```
 
-## Development
+## Developer Setup
 
 Checkout the `surfliner` repository with and `cd` into the `lark` product
 directory.
@@ -353,24 +354,6 @@ To install the Ruby dependencies for the project, do:
 ```sh
 bundle install
 ```
-
-#### Index
-
-Lark requires an index to back its API's read and search functionality. We
-communicate to this index using a Ruby data mapper library called
-[`Valkyrie`][valkyrie]. This means that backend for the index is swappable;
-presently, it supports [Apache Solr][solr] and an in-memory only backend
-useful mainly for unit testing.
-
-The index can be selected before startup by setting the `INDEX_ADAPTER` env
-variable (choose `solr` or `memory`).
-
-For non-trivial development tasks, it's advisable to setup and configure Solr
-in the development environment. The easiest way to do this is to use the
-included Docker Compose configuration; see [Running with Docker][#running-with-docker].
-If you want to run Solr directly on your local system, you'll need to setup a
-core with the configuration in `solr/config` and point Lark to it by setting
-the `SOLR_URL` env variable.
 
 ### Starting Up
 
@@ -408,6 +391,29 @@ $ INDEX_ADAPTER=memory bundle exec rspec
 ```
 
 ### Architecture
+
+#### Index
+
+Lark requires an index to back its API's read and search functionality. We
+communicate to this index using a Ruby data mapper library called
+[`Valkyrie`][valkyrie]. This means that backend for the index is swappable;
+presently, it supports [Apache Solr][solr] and an in-memory only backend
+useful mainly for unit testing.
+
+Solr runs as a docker service in the development and test environments. The 
+valkyrie `solr` adapter is in use as the Lark index_adapter. The 
+index can be selected before startup by setting the `INDEX_ADAPTER` env
+variable (choose `solr` or `memory`).
+
+For non-trivial development tasks, it's advisable to setup and configure Solr
+in the development environment. The easiest way to do this is to use the
+included Docker Compose configuration; see [Running with Docker][#running-with-docker].
+If you want to run Solr directly on your local system, you'll need to setup a
+core with the configuration in `lark/solr/config` and point Lark to it by setting
+the `SOLR_URL` env variable.
+
+ENV-driven configuration options are introduced through 
+[dotenv](https://github.com/bkeepers/dotenv) for non-production environments.
 
 #### Event Log
 
