@@ -5,6 +5,7 @@
 * [Products](#products)
   * [Lark](#lark)
   * [Starlight](#starlight)
+* [Developer Setup](#developer-setup)
 * [Team](#team)
   * [Team Roles](#team-roles)
   * [Team Meetings](#team-meetings)
@@ -25,6 +26,14 @@ Lark is a shared authority control platform and API. See the [Lark README](https
 
 ### Starlight
 Starlight is an exhibits platform based on [Spotlight](https://github.com/projectblacklight/spotlight). See the [Starlight README](https://gitlab.com/surfliner/surfliner/blob/master/starlight/README.md) for more information. Starlight was named after Southern Pacific Starlight Train that operated overnight between Los Angeles and San Francisco from October 1949 - July 1957.
+
+## Developer Setup
+* Start by getting yourself an account on GitLab.
+* Once you have that, be sure to [add an SSH key to your GitLab account](https://docs.gitlab.com/ee/ssh/#adding-an-ssh-key-to-your-gitlab-account)
+* Change to your working directory for new projects `cd .`
+* Clone Surfliner's monorepo `git@gitlab.com:surfliner/surfliner.git`
+* Change to the application directory `cd surfliner`
+* For Lark specific setup see [Lark README](https://gitlab.com/surfliner/surfliner/blob/master/lark/README.md)
 
 ## Team
 
@@ -49,7 +58,6 @@ While not involved in daily development work, the project also includes these tw
   * Administration;
   * Peer Institutions;
   * etc...
-
 
 ### Team Meetings
 #### Project-wide
