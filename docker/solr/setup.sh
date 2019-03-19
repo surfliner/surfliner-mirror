@@ -8,6 +8,12 @@ for var in SOLR_CORE_NAME SOLR_CONFIG_DIR REPOSITORY_URL ; do
   fi
 done
 
+# Check if Solr core already exists
+# Common in local testing w/ docker-compose
+if [ -d "/opt/solr/server/solr/mycores/$SOLR_CORE_NAME" ]; then
+  skip_solr_ci="true"
+fi
+
 if [ -z "$skip_solr_ci" ] ; then
   git clone "$REPOSITORY_URL" /tmp/repo
   cd /tmp/repo
