@@ -123,7 +123,7 @@ RSpec.describe 'POST /' do
   context 'when posting malformed JSON' do
     let(:ctype)         { 'application/json' }
     let(:data)          { 'invalid json' }
-    let(:message)       { '765: unexpected token at \'invalid json\'' }
+    let(:message)       { '767: unexpected token at \'invalid json\'' }
 
     before { post '/', data, 'CONTENT_TYPE' => ctype }
 
