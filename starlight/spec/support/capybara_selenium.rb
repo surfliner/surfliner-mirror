@@ -5,7 +5,7 @@ require "capybara/rails"
 require "selenium-webdriver"
 
 Capybara.server = :puma
-Capybara.default_max_wait_time = 10
+Capybara.default_max_wait_time = 20
 
 RSpec.configure do |config|
   config.before(:each, type: :system) do
