@@ -50,6 +50,8 @@ group :development, :test do
   gem "rspec_junit_formatter"
   gem "rubocop-rails_config"
   gem "rubocop-rspec"
+  gem "scss_lint", require: false
+  gem "scss_lint_reporter_checkstyle", require: false
   gem "selenium-webdriver"
   gem "shoulda-matchers"
   gem "solr_wrapper", ">= 0.3"
