@@ -161,6 +161,20 @@ lark-unit-tests:
       - Dockerfile
       - lark/**/*
 
+lark-client-lint:
+  stage: lint
+  # reuse the lark_web image; ruby alpine images are missing system dependencies
+  image: $CI_REGISTRY_IMAGE/lark_web:latest
+  script:
+    - cd lark-client
+    - bundle check || bundle
+    - bundle exec rubocop
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - .styles/**/*
+      - lark-client/**/*
+
 lark-client-unit:
   stage: test
   image: ruby:2.5-alpine
