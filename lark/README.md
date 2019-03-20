@@ -127,6 +127,65 @@ X-Content-Type-Options: nosniff
 Please see [Data Model](#data-model) and 
 [List of Supported Media Types](#supported-media-types) section for more information.
 
+### Batch Update (HTTP POST)
+
+Update authority records in batch.
+
+```sh
+curl -i -XPOST --data '[{"pref_label":"moomin updated", "id":"8e3e04fc-24c7-4ee2-b381-c4229b54ca2f"}, {"pref_label":"PrefLabel updated", "id":"b27415f4-0fdc-433e-a9f5-91fd1448880a"}]' -H "Content-Type: application/json" http://localhost:9292/batch_edit
+```
+
+Response
+```
+HTTP/1.1 204 No Content 
+
+```
+
+#### Error Cases
+
+##### With non-existing authority record
+```sh
+$ curl -i -XPOST --data '[{"pref_label":"moomin updated", "id":"a_fade_id"}]' -H "Content-Type: application/json" http://localhost:9292/batch_edit
+```
+
+Response
+```
+HTTP/1.1 404 Not Found 
+Content-Type: text/html;charset=utf-8
+Content-Length: 42
+
+Valkyrie::Persistence::ObjectNotFoundError
+```
+
+##### With unsupported format
+```sh
+curl -i -XPOST --data '[{"pref_label":"moomin updated", "id":"8e3e04fc-24c7-4ee2-b381-c4229b54ca2f"}]' -H "Content-Type: application/fake" http://localhost:9292/batch_edit
+```
+
+```
+HTTP/1.1 415 Unsupported Media Type 
+Content-Type: text/html;charset=utf-8
+Content-Length: 16
+
+```
+
+##### With malformed data
+
+```sh
+curl -i -XPOST --data 'some data' -H "Content-Type: application/json" http://localhost:9292/batch_edit
+```
+
+Response
+
+```
+HTTP/1.1 400 Bad Request 
+Content-Type: text/html;charset=utf-8
+Content-Length: 35
+
+767: unexpected token at 'any data'
+```
+
+
 ### Supported Media Types
 
 Lark aims to support a variety of media types.
