@@ -1,0 +1,67 @@
+/*
+ *= require blacklight_oembed.css.scss
+ *= require blacklight_gallery.css.scss
+ *= require openseadragon.css
+ *= require openseadragon/openseadragon
+*/
+
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+
+@import 'blacklight/blacklight';
+@import 'spotlight/spotlight';
+
+@import 'sir-trevor/main';
+@import 'leaflet';
+
+@import 'themes/ucsb/default-variables';
+@import 'themes/ucsb/overrides';
+
+// ------
+// Header
+// ------
+.navbar-header::after {
+  clear: none !important;
+}
+
+.navbar-brand {
+  background-image: image-url('ucsb/ucsb-header-navy.png') !important;
+  height: 17px !important;
+  width: 216px !important;
+
+  margin-top: 15px;
+}
+
+.exhibit-navbar {
+  background-color: $base-lightgray !important;
+  border-color: $base-lightgray !important;
+}
+
+.navbar {
+  li > a {
+    padding: 18px 0 6px !important;
+  }
+}
+
+#sidebar {
+  padding-left: 2em;
+}
+
+footer {
+  background-color: $base-navy;
+  color: white;
+  min-height: 8em;
+  overflow: hidden;
+  padding: 1em;
+}
+
+// -------------------------
+// override override.scss :)
+// -------------------------
+.btn {
+  padding: 10px 20px !important;
+}
+
+.form-control {
+  padding: 10px !important;
+}
