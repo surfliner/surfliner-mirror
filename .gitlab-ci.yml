@@ -5,6 +5,7 @@ stages:
   - build
   - lint
   - test
+  - integration
 
 variables:
   DOCKER_DRIVER: overlay
@@ -177,11 +178,25 @@ lark-client-lint:
 
 lark-client-unit:
   stage: test
-  image: ruby:2.5-alpine
+  # reuse the lark_web image; ruby alpine images are missing system dependencies
+  image: $CI_REGISTRY_IMAGE/lark_web:latest
   script:
     - cd lark-client
     - bundle check || bundle
-    - bundle exec rspec
+    - bundle exec rspec --tag ~integration
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - lark-client/**/*
+
+lark-client-integration:
+  stage: integration
+  # reuse the lark_web image; ruby alpine images are missing system dependencies
+  image: $CI_REGISTRY_IMAGE/lark_web:latest
+  script:
+    - cd lark-client
+    - bundle check || bundle
+    - bundle exec rspec --tag @integration
   only:
     changes:
       - .gitlab-ci.yml
