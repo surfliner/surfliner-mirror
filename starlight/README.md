@@ -34,6 +34,26 @@ part of the Project setup process as environment variables described below:
 - `GA_WEB_PROPERTY_ID` - typically of the form `UA-99999999-1`
 - `GA_EMAIL` - email address/service account ID associated with the account
 
+## Custom themes
+
+Spotlight supports custom CSS themes for exhibits: <https://github.com/projectblacklight/spotlight/wiki/Creating-a-theme>
+
+To add a custom theme to your Starlight installation, follow these steps:
+
+1. Create `app/assets/stylesheets/application_theme-name.scss`, where
+   `theme-name` is the name of your theme.
+1. Create a square PNG that identifies your theme at
+   `app/assets/images/spotlight/themes/theme-name_preview.png`.
+1. Add `theme-name` to the end of the
+   `Spotlight::Engine.config.exhibit_themes` array in
+   `config/initializers/spotlight_initialier.rb`.
+1. Add `application_theme-name.scss` to the
+   `Rails.application.config.assets.precompile` array in
+   `config/initializers/assets.rb`.
+1. If you have any theme-specific image assets, create a subdirectory for them:
+   `app/assets/images/themes/theme-name`.  Likewise for additional stylesheets:
+   `app/assets/stylesheets/themes/theme-name`.
+
 ## Developing locally
 
 ### Set up your local development instance
