@@ -161,6 +161,19 @@ lark-unit-tests:
       - Dockerfile
       - lark/**/*
 
+lark-client-unit:
+  stage: test
+  image: ruby:2.5-alpine
+  script:
+    - cd lark-client
+    - bundle check || bundle
+    - bundle exec rspec
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - lark-client/**/*
+      - lark/**/*
+
 starlight-build:
   stage: build
   services:
