@@ -1,0 +1,26 @@
+---
+- name: Provision a RHEL/CentOS server for Spotlight
+  hosts: all
+  environment:
+    - https_proxy: '{{ proxy | default("") }}'
+
+  roles:
+    - role: apache-passenger
+      become: true
+    - role: cscfi.shibboleth-sp
+      become: true
+
+  tasks:
+    - name: Flush outstanding role handlers
+      meta: flush_handlers
+
+    - name: Verify Shibboleth.sso/Metadata
+      uri:
+        url: 'https://localhost/Shibboleth.sso/Metadata'
+        return_content: true
+        validate_certs: false
+      register: metadata
+
+    - name: Display Metadata
+      debug:
+        var: metadata
