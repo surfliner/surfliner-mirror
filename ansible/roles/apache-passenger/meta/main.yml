@@ -1,0 +1,21 @@
+galaxy_info:
+  author: John H. Robinson, IV
+  description: Apache + Passenger for Rails
+  company: Univeristy of California San Diego
+
+  # If the issue tracker for your role is not on github, uncomment the
+  # next line and provide a value
+  # issue_tracker_url: http://example.com/issue/tracker
+
+  license: BSD
+
+  min_ansible_version: 2.4
+  # tested on 2.7.8
+
+  platforms:
+    - name: EL
+      versions: 7
+
+  galaxy_tags: []
+
+dependencies: []
