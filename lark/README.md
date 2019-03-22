@@ -396,6 +396,7 @@ instances of the application if you would like.
 To setup a development environment:
 1. `./bin/docker-build.sh`  to build images
 1. `./bin/docker-up.sh`  to run dev environment
+1. Access the `lark` API on `http://localhost:5000`
 
 For running tests:
 1. `./bin/docker-build.sh -e test`  to build images
