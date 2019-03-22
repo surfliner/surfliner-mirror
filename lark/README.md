@@ -185,6 +185,43 @@ Content-Length: 35
 767: unexpected token at 'any data'
 ```
 
+### Basic Term Search (HTTP GET /search)
+Retrieve authority records that match the basic term pref-label or alternate-label (exact matching).
+
+```sh
+$ curl -i http://localhost:9292/search?pref_label=A+label
+```
+
+Response
+```
+HTTP/1.1 200 OK 
+Content-Type: application/json
+Content-Length: 361
+...
+
+[{ "pref_label":["A label"],"alternate_label":[],"hidden_label":[],"exact_match":[], ...}]
+```
+
+#### No Results
+
+```sh
+$ curl -i http://localhost:9292/search?pref_label=any+label
+```
+
+Response
+```
+HTTP/1.1 404 Not Found 
+Content-Type: text/html;charset=utf-8
+Content-Length: 0
+
+```
+
+#### Status
+
+`200` OK
+
+`404` Not Found
+
 
 ### Supported Media Types
 

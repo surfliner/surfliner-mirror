@@ -63,4 +63,75 @@ RSpec.describe 'GET /{id}' do
         .to eq response_expected
     end
   end
+
+  context 'with basic term search exact match' do
+    let(:adapter) do
+      Valkyrie::MetadataAdapter.find(Lark.config.index_adapter)
+    end
+    let(:persister) { adapter.persister }
+    let(:pref_label_1) { 'authority 1' }
+    let(:pref_label_alternate) { 'alternate authority' }
+    let(:alternate_label) { 'alternate label' }
+
+    before do
+      FactoryBot.create(:concept, pref_label: ['authority 1'])
+      FactoryBot.create(:concept, pref_label: ['alternate authority'],
+                                  alternate_label: ['alternate label'])
+    end
+
+    after { persister.wipe! }
+
+    context 'with unsupported search term' do
+      it 'gives a 400 bad request' do
+        get '/search', any_term: 'any term'
+
+        expect(last_response.status).to eq 400
+      end
+    end
+
+    context 'with no results' do
+      it 'gives a 404 with term pref_label' do
+        get '/search', pref_label: 'authority'
+
+        expect(last_response.status).to eq 404
+      end
+
+      it 'gives a 404 with term alternate_label' do
+        get '/search', alternate_label: 'authority'
+
+        expect(last_response.status).to eq 404
+      end
+    end
+
+    context 'with term matched pref_label' do
+      it 'gives a 200' do
+        get '/search', pref_label: pref_label_1
+
+        expect(last_response.status).to eq 200
+      end
+
+      it 'contains the existing authority with pre_label matched' do
+        get '/search', pref_label: pref_label_1
+
+        expect(JSON.parse(last_response.body).first.symbolize_keys)
+          .to include(pref_label: [pref_label_1], alternate_label: [])
+      end
+    end
+
+    context 'with term match alternate_label' do
+      it 'gives a 200' do
+        get '/search', alternate_label: alternate_label
+
+        expect(last_response.status).to eq 200
+      end
+
+      it 'contains the existing authority with alternate_label matched' do
+        get '/search', alternate_label: alternate_label
+
+        expect(JSON.parse(last_response.body).first.symbolize_keys)
+          .to include(pref_label: [pref_label_alternate],
+                      alternate_label: [alternate_label])
+      end
+    end
+  end
 end

@@ -20,6 +20,10 @@ module Lark
   # @see http://sinatrarb.com/intro.html
   # @see https://rack.github.io/
   class Application < Sinatra::Base
+    get '/search' do
+      SearchController.new(params: params).exact_search
+    end
+
     get '/:id' do
       RecordController.new(params: params).show
     end
