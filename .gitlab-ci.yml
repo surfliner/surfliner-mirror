@@ -142,7 +142,8 @@ lark-staging:
     - docker push $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_SHA
     - docker push $CI_REGISTRY_IMAGE/lark_web:stable
   only:
-    refs: master
+    refs:
+      - master
     changes:
       - lark/**/*
 
