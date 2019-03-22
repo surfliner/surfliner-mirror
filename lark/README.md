@@ -127,6 +127,81 @@ X-Content-Type-Options: nosniff
 Please see [Data Model](#data-model) and 
 [List of Supported Media Types](#supported-media-types) section for more information.
 
+### Update (HTTP PUT)
+
+Update an existing authority record.
+
+Create an authority record
+```sh
+curl -i -XPOST --data '{"pref_label":"moomin"}' -H "Content-Type: application/json" http://localhost:9292/
+```
+
+Update the authority with the ID of the record created
+```sh
+curl -i -XPUT --data '{"pref_label":"moomin updated"}' -H "Content-Type: application/json" http://localhost:9292/c7be4834-929e-43b6-a418-a708f3eceade
+```
+
+Response
+```
+HTTP/1.1 204 No Content 
+
+```
+
+#### Error Cases
+
+##### With non-existing authority record
+```sh
+$ curl -i -XPUT --data '{"pref_label":"moomin updated"}' -H "Content-Type: application/json" http://localhost:9292/a_fade_id
+```
+
+Response
+```
+HTTP/1.1 404 Not Found 
+Content-Type: text/html;charset=utf-8
+Content-Length: 42
+
+Valkyrie::Persistence::ObjectNotFoundError
+```
+
+##### With unsupported format
+
+```sh
+curl -i -XPUT --data '{"pref_label":"moomin updated"}' -H "Content-Type: application/fake" http://localhost:9292/c7be4834-929e-43b6-a418-a708f3eceade
+```
+
+```
+HTTP/1.1 415 Unsupported Media Type 
+Content-Type: text/html;charset=utf-8
+Content-Length: 16
+
+```
+
+##### With malformed data
+
+```sh
+curl -i -XPUT --data 'some data' -H "Content-Type: application/json" http://localhost:9292/c7be4834-929e-43b6-a418-a708f3eceade
+```
+
+Response
+
+```
+HTTP/1.1 400 Bad Request 
+Content-Type: text/html;charset=utf-8
+Content-Length: 36
+
+767: unexpected token at 'some data'
+```
+
+#### Status
+
+`204` Created
+
+`400` Bad Request
+
+`404` Not Found
+
+`415` Unsupported Media Type
+
 ### Batch Update (HTTP POST)
 
 Update authority records in batch.
