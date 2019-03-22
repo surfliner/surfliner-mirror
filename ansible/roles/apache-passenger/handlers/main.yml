@@ -1,8 +1,0 @@
----
-# handlers file for apache-passenger
-
-- name: Enable Apache
-  service:
-    name: '{{ apache_daemon }}'
-    enabled: true
-    state: started
