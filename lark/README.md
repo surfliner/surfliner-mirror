@@ -143,7 +143,7 @@ curl -i -XPUT --data '{"pref_label":"moomin updated"}' -H "Content-Type: applica
 
 Response
 ```
-HTTP/1.1 204 No Content 
+HTTP/1.1 204 No Content
 
 ```
 
@@ -156,7 +156,7 @@ $ curl -i -XPUT --data '{"pref_label":"moomin updated"}' -H "Content-Type: appli
 
 Response
 ```
-HTTP/1.1 404 Not Found 
+HTTP/1.1 404 Not Found
 Content-Type: text/html;charset=utf-8
 Content-Length: 42
 
@@ -170,7 +170,7 @@ curl -i -XPUT --data '{"pref_label":"moomin updated"}' -H "Content-Type: applica
 ```
 
 ```
-HTTP/1.1 415 Unsupported Media Type 
+HTTP/1.1 415 Unsupported Media Type
 Content-Type: text/html;charset=utf-8
 Content-Length: 16
 
@@ -185,7 +185,7 @@ curl -i -XPUT --data 'some data' -H "Content-Type: application/json" http://loca
 Response
 
 ```
-HTTP/1.1 400 Bad Request 
+HTTP/1.1 400 Bad Request
 Content-Type: text/html;charset=utf-8
 Content-Length: 36
 
@@ -269,7 +269,7 @@ $ curl -i http://localhost:9292/search?pref_label=A+label
 
 Response
 ```
-HTTP/1.1 200 OK 
+HTTP/1.1 200 OK
 Content-Type: application/json
 Content-Length: 361
 ...
@@ -285,7 +285,7 @@ $ curl -i http://localhost:9292/search?pref_label=any+label
 
 Response
 ```
-HTTP/1.1 404 Not Found 
+HTTP/1.1 404 Not Found
 Content-Type: text/html;charset=utf-8
 Content-Length: 0
 
