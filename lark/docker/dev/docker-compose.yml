@@ -7,11 +7,12 @@ services:
     volumes:
       - ../../.:/data
     working_dir: /data
-    command: rackup config.ru
     depends_on:
       - solr
     stdin_open: true
     tty: true
+    ports:
+     - '5000:5000'
 
   solr:
     build: ../../../docker/solr
