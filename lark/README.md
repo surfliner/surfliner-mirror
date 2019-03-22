@@ -55,7 +55,7 @@ Body: Valkyrie::Persistence::ObjectNotFoundError
 
 `404` Not Found
 
-Please see [Data Model](#data-model) and 
+Please see [Data Model](#data-model) and
 [List of Supported Media Types](#supported-media-types) section for more information.
 
 ### Create (HTTP POST)
@@ -124,7 +124,7 @@ X-Content-Type-Options: nosniff
 
 `415` Unsupported Media Type
 
-Please see [Data Model](#data-model) and 
+Please see [Data Model](#data-model) and
 [List of Supported Media Types](#supported-media-types) section for more information.
 
 ### Update (HTTP PUT)
@@ -212,7 +212,7 @@ curl -i -XPOST --data '[{"pref_label":"moomin updated", "id":"8e3e04fc-24c7-4ee2
 
 Response
 ```
-HTTP/1.1 204 No Content 
+HTTP/1.1 204 No Content
 
 ```
 
@@ -225,7 +225,7 @@ $ curl -i -XPOST --data '[{"pref_label":"moomin updated", "id":"a_fade_id"}]' -H
 
 Response
 ```
-HTTP/1.1 404 Not Found 
+HTTP/1.1 404 Not Found
 Content-Type: text/html;charset=utf-8
 Content-Length: 42
 
@@ -238,7 +238,7 @@ curl -i -XPOST --data '[{"pref_label":"moomin updated", "id":"8e3e04fc-24c7-4ee2
 ```
 
 ```
-HTTP/1.1 415 Unsupported Media Type 
+HTTP/1.1 415 Unsupported Media Type
 Content-Type: text/html;charset=utf-8
 Content-Length: 16
 
@@ -253,7 +253,7 @@ curl -i -XPOST --data 'some data' -H "Content-Type: application/json" http://loc
 Response
 
 ```
-HTTP/1.1 400 Bad Request 
+HTTP/1.1 400 Bad Request
 Content-Type: text/html;charset=utf-8
 Content-Length: 35
 
@@ -387,6 +387,21 @@ Or run `shotgun` to start a server that automatically reloads code changes durin
 $ shotgun config.ru
 ```
 
+### Running with Docker
+You will need Docker and Docker Compose installed on your host/local system.
+
+There are two docker-compose files, which allow you to run development and test
+instances of the application if you would like.
+
+To setup a development environment:
+1. `./bin/docker-build.sh`  to build images
+1. `./bin/docker-up.sh`  to run dev environment
+
+For running tests:
+1. `./bin/docker-build.sh -e test`  to build images
+1. `./bin/docker-up.sh -e test`  to run test environment
+1. `./bin/docker-spec.sh -e test` to run test suite
+
 ### Running the Test Suite
 
 We maintain robust unit and integration tests. The full test suite currently
@@ -432,18 +447,3 @@ Lark is made available under the [MIT License][license].
 [dry-events]: https://dry-rb.org/gems/dry-events/
 [event-log]: ./EVENT_LOG.md
 [license]: ../LICENSE
-
-### Running with Docker
-You will need Docker and Docker Compose installed on your host/local system.
-
-There are two docker-compose files, which allow you to run development and test
-instances of the application if you would like.
-
-To setup a development environment:
-1. `./bin/docker-build.sh`  to build images
-1. `./bin/docker-up.sh`  to run dev environment
-
-For running tests:
-1. `./bin/docker-build.sh -e test`  to build images
-1. `./bin/docker-up.sh -e test`  to run test environment
-1. `./bin/docker-spec.sh -e test` to run test suite
