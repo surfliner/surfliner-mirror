@@ -6,6 +6,7 @@ stages:
   - lint
   - test
   - integration
+  - staging
 
 variables:
   DOCKER_DRIVER: overlay
@@ -128,6 +129,22 @@ lark-ruby-build:
     changes:
       - .gitlab-ci.yml
       - lark/Dockerfile
+
+lark-staging:
+  stage: staging
+  services:
+    - name: docker:dind
+  script:
+    - cd lark
+    - registry_login
+    - docker build -t $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_SHA .
+    - docker tag $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_SHA $CI_REGISTRY_IMAGE/lark_web:stable
+    - docker push $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_SHA
+    - docker push $CI_REGISTRY_IMAGE/lark_web:stable
+  only:
+    refs: master
+    changes:
+      - lark/**/*
 
 lark-lint:
   stage: lint
