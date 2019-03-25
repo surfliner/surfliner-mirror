@@ -1,3 +1,4 @@
+inventory
 /roles/*\.*
 !/roles/requirements.yml
 *.retry
