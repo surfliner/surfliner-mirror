@@ -20,7 +20,7 @@ Gem::Specification.new do |gem|
   gem.required_ruby_version = '>= 2.5.0'
   gem.requirements          = []
 
-  gem.add_development_dependency 'dry-struct',         '~> 0.6.0'
+  gem.add_development_dependency 'dry-struct',         '~> 0.6'
   gem.add_development_dependency 'rake',               '~> 12.0'
   gem.add_development_dependency 'rspec',              '~> 3.7'
   gem.add_development_dependency 'rubocop',            '0.66.0'
