@@ -5,6 +5,7 @@
     dest: "{{ install_path }}/solr-{{ SOLR_VER }}.tgz"
     force: no
     checksum: sha256:{{ SOLR_256 }}
+  become: yes
 
 - name: unpack Solr
   unarchive:
@@ -12,27 +13,32 @@
     dest: "{{ install_path }}/"
     creates: "{{ install_path }}/solr-{{ SOLR_VER }}/bin/solr"
     copy: no
+  become: yes
 
 - name: check if the correct version of Solr is already installed
   command: /opt/solr/bin/solr version
   register: solr_version_output
   ignore_errors: yes
+  become: yes
 
 - name: run Solr service setup
   command: bash {{ install_path }}/solr-{{ SOLR_VER }}/bin/install_solr_service.sh \
                 {{ install_path }}/solr-{{ SOLR_VER }}.tgz \
                 -n
   when: (solr_version_output | failed) or (not (solr_version_output.stdout | match(".*{{ SOLR_VER }}.*")))
+  become: yes
 
 - name: create solr group
   group:
     name: solr
+  become: yes
 
 - name: create solr user
   user:
     name: solr
     group: solr
     createhome: no
+  become: yes
 
 - name: change ownership of Solr data directory
   file:
@@ -41,6 +47,7 @@
     owner: solr
     group: solr
     recurse: yes
+  become: yes
 
 - name: set Solr to restart on reboot, and start server
   systemd:
@@ -48,6 +55,7 @@
     enabled: yes
     name: solr
     state: restarted
+  become: yes
 
 - name: wait for Solr to start
   wait_for:
@@ -58,18 +66,21 @@
   command: /opt/solr/bin/solr create -c {{ solr_core }}
   args:
     creates: /var/solr/data/{{ solr_core }}
+  become: yes
 
 - name: install schema
   become_user: solr
   copy:
     src: schema.xml
     dest: /var/solr/data/{{ solr_core }}/conf/schema.xml
+  become: yes
 
 - name: install solrconfig
   become_user: solr
   copy:
     src: solrconfig.xml
     dest: /var/solr/data/{{ solr_core }}/conf/solrconfig.xml
+  become: yes
 
 - name: set Solr to restart on reboot, and start server
   systemd:
@@ -77,3 +88,4 @@
     enabled: yes
     name: solr
     state: restarted
+  become: yes

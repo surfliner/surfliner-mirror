@@ -3,6 +3,8 @@
   yum:
     name: "*"
     state: latest
+    update_cache: yes
+  become: yes
 
 - name: Install Solr dependencies
   yum:
@@ -11,9 +13,11 @@
   with_items:
     - java-1.8.0-openjdk
     - lsof
+  become: yes
 
 - name: Ensure {{ install_path }} is writeable
   file:
     path: "{{ install_path }}"
     state: directory
     mode: 0777
+  become: yes
