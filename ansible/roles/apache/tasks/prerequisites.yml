@@ -1,0 +1,17 @@
+---
+- name: update all yum packages
+  yum:
+    name: "*"
+    state: latest
+    update_cache: yes
+  become: yes
+
+- name: install dependencies
+  yum:
+    name: "{{ item }}"
+  with_items:
+    - gcc-c++
+    - httpd-devel
+    - libcurl-devel
+    - mod_xsendfile
+  become: yes

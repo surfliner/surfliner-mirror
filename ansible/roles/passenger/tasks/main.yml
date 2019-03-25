@@ -1,0 +1,38 @@
+---
+# adapted from
+# https://github.com/akishin/ansible-playbooks/blob/master/lokka/roles/passenger/tasks/main.yml
+
+- name: install Ruby dependencies
+  command: "{{ ruby_bin_root }}/gem install --no-document {{ item }}"
+  with_items:
+    - bundler
+    - rack
+  become: yes
+
+- name: install Passenger
+  command: "{{ ruby_bin_root }}/gem install --no-document passenger --version {{ passenger_ver }}"
+  become: yes
+
+- name: install passenger-install-apache2-module
+  command: "{{ ruby_bin_root }}/passenger-install-apache2-module --auto"
+  args:
+    creates: "/usr/local/rbenv/versions/{{ ruby_ver }}/lib/ruby/gems/{{ ruby_abi }}/gems/passenger-{{ passenger_ver }}/buildout/apache2/mod_passenger.so"
+  become: yes
+
+- name: generate passenger.conf for  Apache
+  command: "{{ ruby_bin_root }}/passenger-install-apache2-module --snippet"
+  register: passenger_conf
+  become: yes
+
+- name: write passenger.conf
+  copy:
+    content: "{{ passenger_conf.stdout }}"
+    dest: /etc/httpd/conf.d/passenger.conf
+  become: yes
+
+- name: restart Apache
+  systemd:
+    enabled: yes
+    name: httpd
+    state: restarted
+  become: yes

@@ -1,12 +1,4 @@
 ---
-- name: generate key base
-  shell: openssl rand -base64 64 | sha256sum | tr -d '\n\ -'
-  register: rando
-
-- name: set rails secret key base
-  set_fact:
-    rails_secret_key_base: "{{ rando.stdout }}"
-
 - name: add shared directories
   file:
     path: "{{ item }}"
@@ -18,27 +10,6 @@
     - "{{ config_path }}/log"
     - "{{ project_base }}/{{ project_name }}/shared/log"
     - /var/log/spotlight
-
-- name: create shared config files
-  template:
-    src: "{{ item }}.j2"
-    dest: "{{ config_path }}/{{ item }}"
-    owner: "{{ deploy_user }}"
-    group: "{{ deploy_group }}"
-  with_items:
-    - secrets.yml
-
-- name: install new Nginx configuration
-  template:
-    backup: yes
-    dest: /opt/nginx/conf/nginx.conf
-    src: nginx.conf.j2
-
-- name: restart Nginx
-  systemd:
-    enabled: yes
-    name: nginx
-    state: restarted
 
 - name: add logrotate configuration
   template:

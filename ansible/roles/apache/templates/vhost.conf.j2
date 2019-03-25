@@ -1,0 +1,15 @@
+<VirtualHost *:80>
+ServerName {{ ansible_ssh_host }}
+# !!! Be sure to point DocumentRoot to 'public'!
+DocumentRoot {{ project_base }}/{{ project_name }}/current/public
+# allows forward slashes for IIIF
+AllowEncodedSlashes NoDecode
+# uses xsendfile for browser downloads
+XSendFile on
+XSendFilePath {{ project_base }}/{{ project_name }}/derivatives
+  <Directory {{ project_base }}/{{ project_name }}/current/public>
+        # MultiViews must be turned off.
+        Options -MultiViews
+        Require all granted
+  </Directory>
+</VirtualHost>

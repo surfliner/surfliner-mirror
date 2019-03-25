@@ -1,7 +1,4 @@
 ---
-project_name: spotlight
+project_name: starlight
 project_base: /opt
 config_path: "{{ project_base }}/{{ project_name }}/shared/config"
-
-deploy_user: deploy
-deploy_group: deploy

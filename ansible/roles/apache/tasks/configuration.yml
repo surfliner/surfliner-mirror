@@ -1,0 +1,19 @@
+---
+- name: remove default Apache site
+  file:
+    path: /etc/httpd/conf.d/welcome.conf
+    state: absent
+  become: yes
+
+- name: install vhost configuration
+  template:
+    src: vhost.conf.j2
+    dest: /etc/httpd/conf.d/{{ project_name }}.conf
+  become: yes
+
+- name: set Apache to restart on reboot
+  systemd:
+    daemon_reload: yes
+    enabled: yes
+    name: httpd
+  become: yes

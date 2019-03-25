@@ -2,9 +2,6 @@
 - src: geerlingguy.postgresql
   version: '1.4.5'
 
-- src: geerlingguy.apache
-  version: '3.0.3'
-
 - src: zzet.rbenv
   version: '3.4.2'
 

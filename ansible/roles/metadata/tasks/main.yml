@@ -1,0 +1,19 @@
+---
+- name: ensure Shibboleth is running
+  systemd:
+    daemon_reload: yes
+    enabled: yes
+    name: shibd
+    state: restarted
+  become: yes
+
+- name: Verify Shibboleth.sso/Metadata
+  uri:
+    url: 'http://localhost/Shibboleth.sso/Metadata'
+    return_content: true
+    validate_certs: false
+  register: metadata
+
+- name: Display metadata
+  debug:
+    var: metadata

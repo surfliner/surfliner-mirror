@@ -1,12 +1,18 @@
 ---
-- name: Provision a RHEL/CentOS server for Spotlight
+- name: Provision a RHEL/CentOS server for Spotlight/Starlight
   hosts: all
+  environment:
+    - http_proxy: "{{ proxy | default('') }}"
+    - https_proxy: "{{ proxy | default('') }}"
 
   vars_files:
     - vault/spotlight.yml
 
   vars:
-    project_name: spotlight
+    deploy_user: "{{ ansible_ssh_user }}"
+    deploy_group: "{{ ansible_ssh_user }}"
+
+    project_name: starlight
     app_root: /opt/{{ project_name }}/current
 
     ruby_bin_root: /usr/local/rbenv/shims
@@ -44,6 +50,17 @@
     - role: zzet.rbenv
       rbenv_owner: root
       rbenv_group: root
-    - role: nginx-passenger
+    - role: apache
+    - role: passenger
+    - role: cscfi.shibboleth-sp
+      vars:
+        shibbolethsp_saml_crt: sp-encrypt-cert.pem
+        shibbolethsp_saml_key: sp-encrypt-key.pem
+        configurables:
+          - certs
+      become: true
     - role: spotlight
       become: yes
+    - role: starlight
+      become: yes
+    - role: metadata

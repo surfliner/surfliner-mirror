@@ -1,3 +1,2 @@
 ---
-- include: secrets.yml
 - include: sidekiq.yml
