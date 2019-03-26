@@ -12,8 +12,9 @@
     deploy_user: "{{ ansible_ssh_user }}"
     deploy_group: "{{ ansible_ssh_user }}"
 
+    project_base: /opt
     project_name: starlight
-    app_root: /opt/{{ project_name }}/current
+    app_root: "{{ project_base }}/{{ project_name }}/current"
 
     ruby_bin_root: /usr/local/rbenv/shims
     ruby_abi: 2.5.0
