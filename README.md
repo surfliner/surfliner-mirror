@@ -68,6 +68,8 @@ Daily, 10:30-10:45am (*except last day of each sprint*)<br/>
 *Purpose*: Daily meeting during the sprint to discuss ongoing work and blockers.<br/>
 *Required*: Project Team<br/>
 
+=======
+>>>>>>> 404fa2c5b0931e746527b31c74764995cdd384c1
 ## Team Meetings
 ### Project-wide
 **Project Surfliner Daily Standup**<br/>
