@@ -67,12 +67,6 @@ Daily, 10:30-10:45am (*except last day of each sprint*)<br/>
 *Purpose*: Daily meeting during the sprint to discuss ongoing work and blockers.<br/>
 *Required*: Project Team<br/>
 
-## Team Meetings
-### Project-wide
-**Project Surfliner Daily Standup**<br/>
-Daily, 10:30-10:45am<br/>
-[https://ucsd.zoom.us/j/306296343](https://ucsd.zoom.us/j/306296343)
-
 **Project Surfliner Public Standup** (*open to anyone*)<br/>
 Weekly on Wednesdays, 9:30-9:45 am<br/>
 [https://ucsb.zoom.us/j/130912310](https://ucsb.zoom.us/j/130912310)<br/>
