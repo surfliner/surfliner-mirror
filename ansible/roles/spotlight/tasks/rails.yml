@@ -1,11 +1,12 @@
 ---
-- name: add shared directories
+- name: add shared directories, ensure ownership
   file:
     path: "{{ item }}"
     owner: "{{ deploy_user }}"
     group: "{{ deploy_group }}"
     state: directory
   with_items:
+    - "{{ project_base }}/{{ project_name }}"
     - "{{ config_path }}/environments"
     - "{{ config_path }}/log"
     - "{{ project_base }}/{{ project_name }}/shared/log"
