@@ -24,3 +24,10 @@
     enabled: yes
     name: sidekiq
   become: yes
+
+- name: allow Capistrano to restart Sidekiq
+  template:
+    src: sudoers-sidekiq.j2
+    dest: /etc/sudoers.d/sidekiq
+    mode: 0440
+    validate: visudo -c -f %s
