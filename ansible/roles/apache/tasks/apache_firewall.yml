@@ -1,0 +1,19 @@
+---
+- name: start firewalld
+  systemd:
+    name: firewalld
+    state: started
+    enabled: yes
+  become: yes
+
+  # https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Security_Guide/sec-Using_Firewalls.html
+- name: Open HTTP ports
+  command: firewall-cmd --add-port={{ item }}/tcp --permanent --zone=internal
+  with_items:
+    - 80
+    - 443
+  become: yes
+
+- name: reload firewalld
+  command: firewall-cmd --reload
+  become: yes
