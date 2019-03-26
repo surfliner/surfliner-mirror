@@ -31,6 +31,8 @@
     - libxslt-devel
     # for pg native extensions
     - postgresql-devel
+    # for Sidekiq
+    - redis
 
 # See https://github.com/zzet/ansible-rbenv-role/issues/12
 - name: install bundler
@@ -43,3 +45,11 @@
     global: yes
     name: yarn
     state: latest
+
+- name: start Redis
+  systemd:
+    daemon_reload: true
+    enabled: yes
+    name: redis
+    state: started
+  become: yes

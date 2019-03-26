@@ -573,7 +573,7 @@ DEPENDENCIES
   scss_lint_reporter_checkstyle
   selenium-webdriver
   shoulda-matchers
-  sidekiq (~> 5.2)
+  sidekiq (< 6)
   sitemap_generator
   solr_wrapper (>= 0.3)
   sqlite3
