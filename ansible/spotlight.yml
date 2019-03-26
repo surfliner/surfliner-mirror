@@ -9,12 +9,15 @@
     - vault/spotlight.yml
 
   vars:
+    # fqdn: spotlight.library.ucsb.edu
+
     deploy_user: "{{ ansible_ssh_user }}"
     deploy_group: "{{ ansible_ssh_user }}"
 
     project_base: /opt
     project_name: starlight
     app_root: "{{ project_base }}/{{ project_name }}/current"
+    binary_root: "{{ project_base }}/ingest"
 
     ruby_bin_root: /usr/local/rbenv/shims
     ruby_abi: 2.5.0
@@ -28,6 +31,8 @@
         - version: "{{ ruby_ver }}"
 
     solr_host: localhost
+    solr_core: collection1
+
     # set in vault file
     # smtp_host:
 
