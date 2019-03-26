@@ -63,4 +63,4 @@
       become: yes
     - role: starlight
       become: yes
-    - role: metadata
+    - role: shibboleth-metadata
