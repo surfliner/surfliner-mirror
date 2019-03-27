@@ -1,144 +1,144 @@
 - "prefLabel":
-  definition: "preferred label from the external authority identified as exact match.  For local authorities (those with no exactMatch) the preflabel provided by user creating the authority."
-  predicate: "http://www.w3.org/2008/05/skos-xl#prefLabel"
-  range: 
-    uri: "skos-xl:Label"
-  cardinality: 1
+    definition: "preferred label from the external authority identified as exact match.  For local authorities (those with no exactMatch) the preflabel provided by user creating the authority."
+    predicate: "http://www.w3.org/2008/05/skos-xl#prefLabel"
+    range: 
+      uri: "skos-xl:Label"
+    cardinality: 1
     
 - "alternateLabel":
-  definition: "alternative labels which may be displayed - e.g. language variants, campus variants"
-  predicate: "http://www.w3.org/2008/05/skos-xl#altLabel"
-  range: 
-    uri: "skos-xl:Label"
-  cardinality: "0..*"
+    definition: "alternative labels which may be displayed - e.g. language variants, campus variants"
+    predicate: "http://www.w3.org/2008/05/skos-xl#altLabel"
+    range: 
+      uri: "skos-xl:Label"
+    cardinality: "0..*"
     
 - "hiddenLabel":
-  definition: "\"character string to be accessible to applications performing text-based indexing and search operations, but would not like that label to be visible otherwise\"; may not need xl extended label for this"
-  predicate: "http://www.w3.org/2004/02/skos/core#hiddenLabel"
-  range: 
-    uri: "xsd:string\n"
-  cardinality: "0..*"
+    definition: "\"character string to be accessible to applications performing text-based indexing and search operations, but would not like that label to be visible otherwise\"; may not need xl extended label for this"
+    predicate: "http://www.w3.org/2004/02/skos/core#hiddenLabel"
+    range: 
+      uri: "xsd:string\n"
+    cardinality: "0..*"
     
 - "exactMatch":
-  definition: "Reference(s) to an external vocabulary term (FAST, LCSH, etc.) which has an equivilant meaning, relationships are transitive so exact matches on the linked terms can also be applied to the skos:Concept"
-  predicate: "http://www.w3.org/2004/02/skos/core#exactMatch"
-  range: 
-    uri: "xsd:anyURI"
-  cardinality: "0..*"
+    definition: "Reference(s) to an external vocabulary term (FAST, LCSH, etc.) which has an equivilant meaning, relationships are transitive so exact matches on the linked terms can also be applied to the skos:Concept"
+    predicate: "http://www.w3.org/2004/02/skos/core#exactMatch"
+    range: 
+      uri: "xsd:anyURI"
+    cardinality: "0..*"
     
 - "closeMatch":
-  definition: "Reference(s) to an external vocabulary term (FAST, LCSH, etc.) skos:closeMatch is used to link two concepts that are sufficiently similar that they can be used interchangeably in some information retrieval applications. In order to avoid the possibility of \"compound errors\" when combining mappings across more than two concept schemes, skos:closeMatch is not declared to be a transitive property. "
-  predicate: "http://www.w3.org/2004/02/skos/core#exactMatch"
-  range: 
-    uri: "xsd:anyURI"
-  cardinality: "0..*"
-    
+    definition: "Reference(s) to an external vocabulary term (FAST, LCSH, etc.) skos:closeMatch is used to link two concepts that are sufficiently similar that they can be used interchangeably in some information retrieval applications. In order to avoid the possibility of \"compound errors\" when combining mappings across more than two concept schemes, skos:closeMatch is not declared to be a transitive property. "
+    predicate: "http://www.w3.org/2004/02/skos/core#exactMatch"
+    range: 
+      uri: "xsd:anyURI"
+    cardinality: "0..*"
+
 - "scopeNote":
-  definition: "A note that helps to clarify the identity of the agent."
-  predicate: "http://www.w3.org/2004/02/skos/core#scopeNote"
-  range: 
-    uri: "rdfs:Literal"
-  cardinality: "0..1"
-    
+    definition: "A note that helps to clarify the identity of the agent."
+    predicate: "http://www.w3.org/2004/02/skos/core#scopeNote"
+    range: 
+      uri: "rdfs:Literal"
+    cardinality: "0..1"
+
 - "note":
-  definition: "A general note, for any purpose."
-  predicate: "http://www.w3.org/2004/02/skos/core#note"
-  range: 
-    uri: "rdfs:Literal"
-  cardinality: "0..*"
-    
+    definition: "A general note, for any purpose."
+    predicate: "http://www.w3.org/2004/02/skos/core#note"
+    range: 
+      uri: "rdfs:Literal"
+    cardinality: "0..*"
+
 - "editorialNote":
-  definition: "Used for information about the entity/concept, possibly documenting information that would help establish a heading, distinguish from similar but non-matching ideas."
-  predicate: "http://www.w3.org/2004/02/skos/core#editorialNote"
-  range: 
-    uri: "rdfs:Literal"
-  cardinality: "0..*"
-    
+    definition: "Used for information about the entity/concept, possibly documenting information that would help establish a heading, distinguish from similar but non-matching ideas."
+    predicate: "http://www.w3.org/2004/02/skos/core#editorialNote"
+    range: 
+      uri: "rdfs:Literal"
+    cardinality: "0..*"
+
 - "historyNote":
-  definition: "A note that provides information related to the the context a concept record was created for, e.g. collection context, fields, etc, or how it was modified over time."
-  predicate: "http://www.w3.org/2004/02/skos/core#historyNote"
-  range: 
-    uri: "rdfs:Literal"
-  cardinality: "0..*"
-    
+    definition: "A note that provides information related to the the context a concept record was created for, e.g. collection context, fields, etc, or how it was modified over time."
+    predicate: "http://www.w3.org/2004/02/skos/core#historyNote"
+    range: 
+      uri: "rdfs:Literal"
+    cardinality: "0..*"
+
 - "scheme":
-  definition: "include this for others consuming our data. The scheme being something like <lark..../authorities/concepts>?"
-  predicate: "http://www.w3.org/2004/02/skos/core#inScheme"
-  range: 
-    uri: "skos:ConceptScheme"
-  cardinality: 1
-    
+    definition: "include this for others consuming our data. The scheme being something like <lark..../authorities/concepts>?"
+    predicate: "http://www.w3.org/2004/02/skos/core#inScheme"
+    range: 
+      uri: "skos:ConceptScheme"
+    cardinality: 1
+
 - "literalForm":
-  definition: "String value of the skos-xl Label.  Can include language qualifier, e.g., \"Picasso, Pablo\"@en-US"
-  predicate: "http://www.w3.org/2008/05/skos-xl#literalForm"
-  range: 
-    uri: "rdfs:Literal"
-  cardinality: 1
-    
+    definition: "String value of the skos-xl Label.  Can include language qualifier, e.g., \"Picasso, Pablo\"@en-US"
+    predicate: "http://www.w3.org/2008/05/skos-xl#literalForm"
+    range: 
+      uri: "rdfs:Literal"
+    cardinality: 1
+
 - "agentType":
-  definition: "Used for encoding what kind of agent is represented (person, organization, group, family, etc.)"
-  predicate: 
-  range: 
-    uri: "rdfs:Literal"
-  cardinality: 1
-      # needs Lark predicate
-    
+    definition: "Used for encoding what kind of agent is represented (person, organization, group, family, etc.)"
+    predicate: 
+    range: 
+      uri: "rdfs:Literal"
+    cardinality: 1
+        # needs Lark predicate
+
 - "identifier":
-  definition: "Reference to an external (or internal identifier) that is not a URI"
-  predicate: "http://purl.org/dc/elements/1.1/"
-  range: 
-    uri: "rdfs:Literal"
-  cardinality: "0..*"
-    
+    definition: "Reference to an external (or internal identifier) that is not a URI"
+    predicate: "http://purl.org/dc/elements/1.1/"
+    range: 
+      uri: "rdfs:Literal"
+    cardinality: "0..*"
+
      #"entry guideline: include an indication of the id source"
 - "begin":
-  definition: "The beginning date of the entity (e.g. birth, founding, establishment, etc.)"
-  predicate: "http://www.europeana.eu/schemas/edm/"
-  range: 
-    uri: "rdfs:Literal"
-  cardinality: "0..1"
-    
+    definition: "The beginning date of the entity (e.g. birth, founding, establishment, etc.)"
+    predicate: "http://www.europeana.eu/schemas/edm/"
+    range: 
+      uri: "rdfs:Literal"
+    cardinality: "0..1"
+
 - "end":
-  definition: "The ending date of the entity (e.g. death, dissolution, etc.)"
-  predicate: "http://www.europeana.eu/schemas/edm/"
-  range: 
-    uri: "rdfs:Literal"
-  cardinality: "0..1"
-    
+    definition: "The ending date of the entity (e.g. death, dissolution, etc.)"
+    predicate: "http://www.europeana.eu/schemas/edm/"
+    range: 
+      uri: "rdfs:Literal"
+    cardinality: "0..1"
+
 - "familyName":
-  definition: "Name that indicates a person's family, tribe or community."
-  predicate: "http://xmlns.com/foaf/0.1/"
-  range: 
-    uri: "xsd:string"
-  cardinality: "0..1"
-    
+    definition: "Name that indicates a person's family, tribe or community."
+    predicate: "http://xmlns.com/foaf/0.1/"
+    range: 
+      uri: "xsd:string"
+    cardinality: "0..1"
+
 - "givenName":
-  definition: "Name that identifies a specific person, and differentiates that person from the other members of a group."
-  predicate: "http://xmlns.com/foaf/0.1/"
-  range: 
-    uri: "xsd:string"
-  cardinality: "0..1"
-    
+    definition: "Name that identifies a specific person, and differentiates that person from the other members of a group."
+    predicate: "http://xmlns.com/foaf/0.1/"
+    range: 
+      uri: "xsd:string"
+    cardinality: "0..1"
+
 - "label_source":
-  definition: "Reference to the external source of the label. Used to select display label (\"We always want the FAST label, if there is one\") and automatically update label from source vocabulary"
-  predicate:
-  range: 
-    uri: "xsd:anyURI"
-  cardinality: "0..1"
-      # needs lark predicate
-    
+    definition: "Reference to the external source of the label. Used to select display label (\"We always want the FAST label, if there is one\") and automatically update label from source vocabulary"
+    predicate:
+    range: 
+      uri: "xsd:anyURI"
+    cardinality: "0..1"
+        # needs lark predicate
+
 - "campus":
-  definition: "Used to indicate campus preference for display label "
-  predicate: 
-  range: 
-    uri: "rdfs:Literal"
-  cardinality: "0..*"  
-     #"this could be either a URI or a controlled value list --> whatever is easier to implement". Needs Lark predicate.
-     
+    definition: "Used to indicate campus preference for display label "
+    predicate: 
+    range: 
+      uri: "rdfs:Literal"
+    cardinality: "0..*"  
+       #"this could be either a URI or a controlled value list --> whatever is easier to implement". Needs Lark predicate.
+
 - "annotation":
-  definition: "Admin note for information on reason for creating or using an alternative label, i.e., cultural sensitivity"
-  predicate: null
-  range: 
-    uri: "rdfs:Literal"
-  cardinality: "0..*"
-    # needs lark predicate
+    definition: "Admin note for information on reason for creating or using an alternative label, i.e., cultural sensitivity"
+    predicate: null
+    range: 
+      uri: "rdfs:Literal"
+    cardinality: "0..*"
+      # needs lark predicate
