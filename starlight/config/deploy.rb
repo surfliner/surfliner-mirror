@@ -5,7 +5,7 @@ set :application, "starlight"
 set :repo_url, "https://gitlab.com/surfliner/surfliner.git"
 set :repo_tree, "starlight"
 
-set :deploy_to, ENV.fetch("TARGET", "/opt/starlight")
+set :deploy_to, ENV.fetch("CAP_TARGET", "/opt/starlight")
 
 set :rbenv_type, :system
 
@@ -31,6 +31,6 @@ set :linked_dirs, %w[
 ]
 
 # Default branch is :master
-set :branch, ENV["REVISION"] || ENV["BRANCH_NAME"] || "master"
+set :branch, ENV["CAP_REVISION"] || "master"
 
 SSHKit.config.command_map[:rake] = "bundle exec rake"
