@@ -1,0 +1,14 @@
+---
+fs:
+  - {
+  file_server: "//example.server.org/",
+  fs_type: 'cifs',
+  fs_password: '',
+  fs_user: '',
+  mount_opts: 'vers=1.0,ro,noexec,_netdev',
+  mount_point: "{{ binary_root }}",
+  # the user who needs permission to access the volumes
+  system_gid: 0,
+  system_uid: 0,
+  system_user: root
+  }

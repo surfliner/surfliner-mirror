@@ -1,0 +1,22 @@
+---
+- name: enable epel repo
+  yum:
+    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+  become: yes
+
+- name: update all yum packages
+  yum:
+    name: "*"
+    update_cache: yes
+    state: latest
+  become: yes
+
+- name: install fs utilities
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - cifs-utils
+    - samba-client
+    - samba-common
+  become: yes
