@@ -1,0 +1,12 @@
+galaxy_info:
+  author: Sami Silén
+  description: Shibboleth SP 2.x for RedHat and Debian
+  company: CSC - IT Center for Science
+  license: license (BSD, MIT)
+
+  min_ansible_version: 2.4
+
+  platforms:
+  - name: EL
+    versions:
+    - 7

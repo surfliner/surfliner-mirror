@@ -1,0 +1,8 @@
+---
+# handlers file for shibboleth-sp
+
+- name: restart shibboleth-sp
+  service: name={{ shibbolethsp_service_name }} state=restarted
+
+- name: reown privatekeys-sp
+  include_tasks: tasks/shibbolethsp_certsownership.yml

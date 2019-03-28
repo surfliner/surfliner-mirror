@@ -1,0 +1,5 @@
+---
+__shibbolethsp_packages:
+  - httpd
+  - shibboleth
+  - python-lxml
