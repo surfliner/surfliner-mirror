@@ -3,7 +3,7 @@
 require 'spec_helper'
 require_relative '../../config/environment'
 
-RSpec.describe RootController do
+RSpec.describe ServiceDescriptionController do
   subject(:controller) { described_class.new }
 
   describe '#show' do

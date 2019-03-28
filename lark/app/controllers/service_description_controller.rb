@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
 ##
-# A controller handling root-level API requests; i.e. requests on `/`
-#
 # This controller provides a service description of the API.
-class RootController < ApplicationController
+class ServiceDescriptionController < ApplicationController
   ##
   # Show the API service description
   def show

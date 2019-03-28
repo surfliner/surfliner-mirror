@@ -21,7 +21,7 @@ module Lark
   # @see https://rack.github.io/
   class Application < Sinatra::Base
     get '/' do
-      RootController.new(request: request).show
+      ServiceDescriptionController.new(request: request).show
     end
 
     get '/search' do
