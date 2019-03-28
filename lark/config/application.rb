@@ -20,6 +20,12 @@ module Lark
   # @see http://sinatrarb.com/intro.html
   # @see https://rack.github.io/
   class Application < Sinatra::Base
+    get '/' do
+      data = { version: '0.1.0' }
+
+      [200, { 'Content-Type' => 'application/json' }, [data.to_json]]
+    end
+
     get '/search' do
       SearchController.new(params: params).exact_search
     end
