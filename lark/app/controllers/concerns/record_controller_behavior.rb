@@ -23,10 +23,6 @@ module RecordControllerBehavior
       .parse(request.body)
   end
 
-  def response_headers
-    { 'Content-Type' => 'application/json' }
-  end
-
   def serialize(record:, format:)
     Lark::RecordSerializer
       .for(content_type: format)

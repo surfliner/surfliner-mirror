@@ -18,4 +18,10 @@ class ApplicationController
     @params  = params
     @request = request
   end
+
+  protected
+
+  def response_headers
+    { 'Content-Type' => 'application/json' }
+  end
 end

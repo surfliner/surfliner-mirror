@@ -10,6 +10,6 @@ class RootController < ApplicationController
   def show
     data = { version: '0.1.0' }
 
-    [200, { 'Content-Type' => 'application/json' }, [data.to_json]]
+    [200, response_headers, [data.to_json]]
   end
 end
