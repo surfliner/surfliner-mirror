@@ -11,8 +11,8 @@
   vars:
     # fqdn: spotlight.library.ucsb.edu
 
-    deploy_user: "{{ ansible_ssh_user }}"
-    deploy_group: "{{ ansible_ssh_user }}"
+    deploy_user: "{{ ansible_user_id }}"
+    deploy_group: "{{ ansible_user_id }}"
 
     project_base: /opt
     project_name: starlight
@@ -62,6 +62,8 @@
       vars:
         shibbolethsp_saml_crt: sp-encrypt-cert.pem
         shibbolethsp_saml_key: sp-encrypt-key.pem
+        shibbolethsp_handlerssl: false
+        shibbolethsp_cookieprops: http
         configurables:
           - certs
       become: true
