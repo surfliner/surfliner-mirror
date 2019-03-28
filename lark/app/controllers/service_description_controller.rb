@@ -6,8 +6,8 @@ class ServiceDescriptionController < ApplicationController
   ##
   # Show the API service description
   def show
-    data = { version: '0.1.0' }
+    service_description = ServiceDescription.new
 
-    [200, response_headers, [data.to_json]]
+    [200, response_headers, [service_description.to_json]]
   end
 end
