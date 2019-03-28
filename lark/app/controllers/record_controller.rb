@@ -4,7 +4,7 @@ require_relative 'concerns/record_controller_behavior'
 
 ##
 # A simple controller that resolves requests for authority records.
-class RecordController
+class RecordController < ApplicationController
   include RecordControllerBehavior
 
   ##

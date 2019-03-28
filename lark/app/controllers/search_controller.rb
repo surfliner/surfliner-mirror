@@ -4,7 +4,7 @@ require_relative 'concerns/record_controller_behavior'
 
 ##
 # A controller that resolves searching of authority records.
-class SearchController
+class SearchController < ApplicationController
   include RecordControllerBehavior
 
   ##
