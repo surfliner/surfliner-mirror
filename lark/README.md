@@ -36,6 +36,8 @@ Please see [concept.yml](https://gitlab.com/surfliner/surfliner/blob/master/lark
 
 Lark supports a REST API for managing and consuming authority records.
 
+A description of the API service is available from the running application via a `GET` request on the application root (`curl http://localhost:9292/`).
+
 ### Retrieve (HTTP GET)
 
 Retrieve the content of an authority record with a matching id
