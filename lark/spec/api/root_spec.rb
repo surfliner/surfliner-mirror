@@ -23,7 +23,7 @@ RSpec.describe 'GET /' do
       .to include 'Content-Type' => 'application/json'
   end
 
-  it 'provides an api version' do
+  it 'provides an api service description' do
     get '/'
 
     expect(JSON.parse(last_response.body))

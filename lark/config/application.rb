@@ -21,9 +21,7 @@ module Lark
   # @see https://rack.github.io/
   class Application < Sinatra::Base
     get '/' do
-      data = { version: '0.1.0' }
-
-      [200, { 'Content-Type' => 'application/json' }, [data.to_json]]
+      RootController.new(request: request).show
     end
 
     get '/search' do
