@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-revisions_logfile = "/opt/#{ENV["PROJECT_NAME"]}/revisions.log"
+revisions_logfile = "#{ENV["PROJECT_PATH"]}/revisions.log"
 GIT_SHA =
   if Rails.env.production? && File.exist?(revisions_logfile)
     `tail -1 #{revisions_logfile}`.chomp.split(" ")[3].gsub(/\)$/, "")
