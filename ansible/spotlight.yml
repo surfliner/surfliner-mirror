@@ -4,12 +4,11 @@
   environment:
     - http_proxy: "{{ proxy | default('') }}"
     - https_proxy: "{{ proxy | default('') }}"
-
-  vars_files:
-    - vault/spotlight.yml
+    - no_proxy: "localhost,127.0.0.0"
 
   vars:
-    # fqdn: spotlight.library.ucsb.edu
+    # written to env vars file
+    # fqdn: localhost
 
     deploy_user: "{{ ansible_user_id }}"
     deploy_group: "{{ ansible_user_id }}"
@@ -71,3 +70,5 @@
     - role: spotlight
       become: yes
     - role: shibboleth-metadata
+    # - role: fstab
+    # - role: environment-variables
