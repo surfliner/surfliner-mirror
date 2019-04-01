@@ -58,6 +58,7 @@
       rbenv_group: root
     - role: apache
     - role: passenger
+    - role: cmprescott.xml
     - role: cscfi.shibboleth-sp
       vars:
         shibbolethsp_saml_crt: sp-encrypt-cert.pem

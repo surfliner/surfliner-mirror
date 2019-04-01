@@ -5,3 +5,5 @@ __shibbolethsp_packages:
   - apache2
   - shibboleth-sp2-utils
   - python-lxml
+
+shibbolethsp_service_name: shibd

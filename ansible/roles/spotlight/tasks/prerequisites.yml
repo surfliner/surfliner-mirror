@@ -4,13 +4,13 @@
     url: https://rpm.nodesource.com/pub_{{ node_major_ver }}.x/el/7/x86_64/{{ item.rpm }}-{{ node_ver }}-1nodesource.x86_64.rpm
     checksum: sha256:{{ item.sha }}
     dest: /tmp/{{ item.rpm }}-{{ node_ver }}-1nodesource.x86_64.rpm
-  loop:
+  with_items:
     '{{ node_rpms }}'
 
 - name: install NodeSource repo
   yum:
     name: /tmp/{{ item.rpm }}-{{ node_ver }}-1nodesource.x86_64.rpm
-  loop:
+  with_items:
     '{{ node_rpms }}'
 
 - name: update all yum packages
