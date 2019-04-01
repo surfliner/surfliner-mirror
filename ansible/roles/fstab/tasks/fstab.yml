@@ -1,10 +1,10 @@
 ---
-- name: get system_user UIDs
+- name: get user UID
   shell: id -u {{ deploy_user }} | tr -d '\n'
   register: uid
   become: yes
 
-- name: get system_user GIDs
+- name: get user GID
   shell: id -g {{ deploy_user }} | tr -d '\n'
   register: gid
   become: yes
