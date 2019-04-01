@@ -18,12 +18,9 @@ service:
   port: 80
 
 ingress:
-  enabled: true
+  enabled: false
   annotations: {}
-  hosts:
-    - host: lark.local
-      paths: ['/']
-
+  hosts: [] # provide hosts if ingress is enabled
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:

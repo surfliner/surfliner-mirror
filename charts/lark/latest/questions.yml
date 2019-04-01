@@ -1,0 +1,38 @@
+categories:
+  - API
+  - Authority
+questions:
+- variable: service.type
+  default: "ClusterIP"
+  description: "Service type; see https://kubernetes.io/docs/concepts/services-networking/service/"
+  label: Service Type
+  type: enum
+  group: "Services and Load Balancing"
+  options:
+    - "ClusterIP"
+    - "NodePort"
+  required: true
+- variable: ingress.enabled
+  default: true
+  description: "Expose app using Layer 7 Load Balancer - ingress"
+  type: boolean
+  label: Expose app using Layer 7 Load Balancer
+  show_subquestion_if: true
+  group: "Services and Load Balancing"
+  subquestions:
+  - variable: ingress.hosts[0]
+    default: lark-test.local
+    description: "Hostname for the Lark installation"
+    type: hostname
+    required: true
+    label: Hostname
+- variable: persistence_adapters.index
+  default: "memory"
+  description: "The backend to use for the index; use 'solr' for full search support."
+  label: Index Adapter Type
+  group: lark config
+  options:
+    - memory
+    - solr
+  type: enum
+  required: true
