@@ -20,3 +20,4 @@ gem 'rubocop-rspec',      group: %w[development test]
 gem 'shotgun',            group: 'development'
 gem 'sinatra',            '~> 2.0.5'
 gem 'valkyrie',           '~> 1.5.1'
+gem 'racksh'

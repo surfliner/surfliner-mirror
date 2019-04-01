@@ -1,12 +1,13 @@
 # The Lark Event Log
 
-An excellent way to add visibility to what is happening within LARK service is through Event Logging. 
-The fundamental concept is that every change to the state of Lark is encapsulated in an event object and 
-stored sequentially. This document provides the abstract specification for that log, 
-as well as some notes about its implementation.
+Lark's state is maintained by a single append-only event log. The event log 
+serves as a canonical data source for authority records. This document
+provides the abstract specification for that log, as well as some notes about
+its implementation. 
 
-In principle, the full internal state of the application and its records can be
-reconstructed from the events on the stream.
+Every change to the state of Lark is encapsulated in an event object and 
+stored sequentially. In principle, the full internal state of the application and 
+its records can be reconstructed from the events on the log.
 
 ## Events
 
@@ -64,7 +65,6 @@ __Data__:
 [dry-schema]: https://dry-rb.org/gems/dry-schema/
 [dry-types]: https://dry-rb.org/gems/dry-types/
 
-
 ## The Event Log
 
 The _EventStream_ is a totally-ordered and persistent stream of _Events_. The log
@@ -76,45 +76,55 @@ via the API, especially for expressing record history/provenance.
 
 _Events_ added to the log are published to listeners/subscribers.
 
-## The EventStream
+## The Event Stream
   
-Lark implements a [dry-events](https://dry-rb.org/gems/dry-events/) publisher/subscriber API to define the flow 
-for event logging. This allows for the creation of event publishers and a convenient way to subscribe/listen
-to the events.
+Lark implements a [dry-events](https://dry-rb.org/gems/dry-events/) publisher/subscriber 
+API to define the flow for event logging. This allows for the creation of event publishers 
+and a convenient way to subscribe/listen to the events.
 
-Each time a valid request to resolve authority records is received through the `RecordController` or `BatchController`, 
-an _Event_ gets generated and appended into the _Event Log_ in a sequential manner.
+Each time a valid request to resolve authority records is received through the `RecordController` 
+or `BatchController`, an `Event` gets generated and appended into the `EventStream` 
+in a sequential manner.
 
-Lark's system-wide events are tracked by the _EventStream_. This is a `Singleton`, meaning there
-is exactly one `.instance` and `EventStream.new` is private.
+Lark's system-wide events are tracked by the `EventStream`. This is a `Singleton`, meaning 
+there is exactly one `.instance` and `EventStream.new` is private.
 
 For example: 
-An event can get added to the stream by doing
-``` 
-  EventStream.instance << event
+An event can be created by doing 
+```
+  event = Event.new(type: :create, data: { id: id })
 ```
 
-A block listener can subscribe to the stream as below
+An event can be added to the log by doing
+``` 
+  Lark.config.event_stream << event
 ```
-  EventStream.instance.subscribe('created') do |event|
-    # do something with the event
+
+Whenever an event is persisted to the `EventStream`, it should also also get published. 
+The `Dry::Events::Publisher` implementation can be found in the `Lark::EventStream::Publisher` class.
+
+```
+  def publish_event(event)
+    publish('created', event.data)
   end
 ```
 
-A listener class can subscribe to the stream as follows
+An event listener _IndexListener_ listens for events on the _EventStream_. The `IndexListener` 
+class subscribes to the stream through a config in `lark/config/environment.rb`.
+
 ```
-  class MyListener
+  Lark.config.event_stream.subscribe(IndexListener.new)
+```
+
+The _IndexListener_ class implements methods based on the _Event's_ `types` while following 
+convention laid down by `Dry::Events`and in turn handles updates to the index as needed.
+ 
+```
+  class IndexListener
     def on_created(event)
-      # do something with the event
+      indexer.index(data: Concept.new(event.payload))
     end
   end
-  listener = MyListener.new
-  EventStream.instance.subscribe(listener)
 ```
 
-The _Publisher_ is created using `Dry::Events::Publisher` extension, by providing a unique identifier. 
-Whenever an _Event_ is persisted to the _EventStream_, the _Publisher_ interprets the _Event_ `type` and publishes it to subscribers.
 
-An event listener _IndexListener_ listens for events on the _EventStream_. This class 
-implements methods that correspond to the _Event`types` following the `dry-events` naming convention, 
-and handles updates to the index as needed.

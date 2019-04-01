@@ -195,6 +195,9 @@ GEM
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
+    racksh (1.0.0)
+      rack (>= 1.0)
+      rack-test (>= 0.5)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
@@ -313,6 +316,7 @@ DEPENDENCIES
   factory_bot
   pry
   rack-test
+  racksh
   rsolr (~> 2.2.1)
   rspec
   rubocop
