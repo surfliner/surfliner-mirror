@@ -17,10 +17,6 @@ set :keep_releases, 2
 set :passenger_restart_with_touch, true
 set :assets_prefix, "#{shared_path}/public/assets"
 
-# for restarting Sidekiq
-# https://github.com/seuros/capistrano-sidekiq#integration-with-systemd
-set :init_system, :systemd
-
 set :linked_dirs, %w[
   tmp/pids
   tmp/cache
