@@ -16,3 +16,15 @@
   template:
     src: rails-logs.conf.j2
     dest: /etc/logrotate.d/rails-logs.conf
+
+- name: install vhost configuration
+  template:
+    src: vhost.conf.j2
+    dest: /etc/httpd/conf.d/{{ project_name }}.conf
+  become: yes
+
+- name: restart httpd
+  systemd:
+    name: httpd
+    state: restarted
+  become: yes
