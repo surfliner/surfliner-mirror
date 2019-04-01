@@ -70,6 +70,4 @@
       become: true
     - role: spotlight
       become: yes
-    - role: starlight
-      become: yes
     - role: shibboleth-metadata
