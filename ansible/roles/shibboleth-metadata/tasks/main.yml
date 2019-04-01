@@ -14,6 +14,14 @@
     validate_certs: false
   register: metadata
 
-- name: Display metadata
+- name: write metadata
+  copy:
+    content: "{{ metadata.content }}"
+    dest: /home/{{ deploy_user }}/shibboleth-{{ project_name }}.xml
+    force: yes
+    group: "{{ deploy_group }}"
+    owner: "{{ deploy_user }}"
+
+- name: notify writeout
   debug:
-    var: metadata
+    msg: "Shibboleth metadata written to /home/{{ deploy_user }}/shibboleth-{{ project_name }}.xml"

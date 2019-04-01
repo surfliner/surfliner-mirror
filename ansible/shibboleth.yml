@@ -1,69 +1,26 @@
 ---
-- name: Provision a RHEL/CentOS server for Spotlight
+- name: Provision a RHEL/CentOS server with Shibboleth SP
   hosts: all
   environment:
-    - https_proxy: '{{ proxy | default("") }}'
+    - http_proxy: "{{ proxy | default('') }}"
+    - https_proxy: "{{ proxy | default('') }}"
+    - no_proxy: "localhost,127.0.0.0"
+
+  vars:
+    deploy_user: "{{ ansible_user_id }}"
+    deploy_group: "{{ ansible_user_id }}"
+    project_name: starlight
 
   roles:
-    - role: geerlingguy.apache
-      vars:
-        apache_vhosts:
-          - servername: 'spotlight.localdomain'
-            extra_parameters: |
-              RewriteEngine On
-              RewriteCond %{HTTPS} !=on
-              RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
-        apache_vhosts_ssl:
-          - servername: 'spotlight.localdomain'
-            documentroot: '/var/www/html'
-            certificate_file: '/etc/pki/tls/httpd/localhost.crt'
-            certificate_key_file: '/etc/pki/tls/httpd/localhost.key'
-            #certificate_chain_file: 'chain.crt'
-      become: true
-
+    - role: apache
+    - role: cmprescott.xml
     - role: cscfi.shibboleth-sp
       vars:
         shibbolethsp_saml_crt: sp-encrypt-cert.pem
         shibbolethsp_saml_key: sp-encrypt-key.pem
+        shibbolethsp_handlerssl: false
+        shibbolethsp_cookieprops: http
         configurables:
           - certs
       become: true
-
-  pre_tasks:
-    - name: Create Apache SSL Certificate Directory
-      file:
-        path: /etc/pki/tls/httpd
-        state: directory
-        owner: root
-        group: root
-        mode: 0600
-      become: true
-
-    - name: Install Apache SSL Certificates
-      copy:
-        dest: '/etc/pki/tls/httpd/{{ item }}'
-        src: '{{ item }}'
-        owner: root
-        group: root
-        mode: 0400
-      become: true
-      loop:
-        - localhost.crt
-        #- chain.crt
-        - localhost.key
-
-  tasks:
-    - name: Flush outstanding role handlers
-      meta: flush_handlers
-      when: false
-
-    - name: Verify Shibboleth.sso/Metadata
-      uri:
-        url: 'https://localhost/Shibboleth.sso/Metadata'
-        return_content: true
-        validate_certs: false
-      register: metadata
-
-    - name: Display Metadata
-      debug:
-        var: metadata
+    - role: shibboleth-metadata
