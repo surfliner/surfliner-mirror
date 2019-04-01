@@ -33,7 +33,7 @@ Starlight is an exhibits platform based on [Spotlight](https://github.com/projec
 * Change to your working directory for new projects `cd .`
 * Clone Surfliner's monorepo `git@gitlab.com:surfliner/surfliner.git`
 * Change to the application directory `cd surfliner`
-* For Lark specific setup see [Lark README](https://gitlab.com/surfliner/surfliner/blob/master/lark/README.md)
+* For product specific setup see individual project README.md
 
 ## Team
 
