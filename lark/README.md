@@ -10,7 +10,27 @@ this project. By participating, you agree to abide by the
 
 ## Data Model
 
-%TK
+Attributes are generated from the structure data in lark/model.
+
+### Concept
+  - `pref_label`
+  - `alternate_label`
+  - `hidden_label`
+  - `exact_match`
+  - `close_match`
+  - `note`
+  - `scope_note`
+  - `editorial_note`
+  - `history_note`
+  - `definition`
+  - `scheme`
+  - `literal_form`
+  - `label_source`
+  - `campus`
+  - `annotation`
+  - `identifier`
+
+Please see [concept.yml](https://gitlab.com/surfliner/surfliner/blob/master/lark/model/concept.yml) for more information.
 
 ## API
 

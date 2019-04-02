@@ -67,7 +67,7 @@
         uri: "rdfs:Literal"
       cardinality: "0..*"
 
-  - "defintion":
+  - "definition":
       definition: "A statement or formal explanation of the meaning of a concept."
       predicate : "http://www.w3.org/2004/02/skos/core#definition"
       range:

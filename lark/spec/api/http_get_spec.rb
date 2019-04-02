@@ -39,6 +39,7 @@ RSpec.describe 'GET /{id}' do
                 label_source: [],
                 campus: [],
                 annotation: [],
+                identifier: [],
                 id: id)
     end
 

@@ -168,4 +168,15 @@ RSpec.describe Concept do
         .to annotation
     end
   end
+
+  describe '#identifier' do
+    let(:identifier) { ['identifier'] }
+
+    it 'can set identifier' do
+      expect { concept.identifier = identifier }
+        .to change(concept, :identifier)
+        .from(be_empty)
+        .to identifier
+    end
+  end
 end
