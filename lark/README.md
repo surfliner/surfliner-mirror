@@ -381,7 +381,6 @@ We use it to Lark's environment for Sinatra. It loads Lar's environment like a R
 but instead of running the app it starts an irb session. Additionally, it exposes $rack variable 
 which allows us to make simulated HTTP requests to our app.
 
-
 ### Starting Up
 
 Lark is a [Rack][rack] application, and can be deployed with a variety of Ruby
