@@ -377,7 +377,7 @@ To install the Ruby dependencies for the project, do:
 bundle install
 ```
 [racksh](https://github.com/sickill/racksh) is a console for Rack based ruby web applications.
-We use it to Lark's environment for Sinatra. It loads Lar's environment like a Rack web server, 
+We use it to load Lark's environment for Sinatra. It loads Lark's environment like a Rack web server, 
 but instead of running the app it starts an irb session. Additionally, it exposes $rack variable 
 which allows us to make simulated HTTP requests to our app.
 
