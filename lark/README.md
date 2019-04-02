@@ -376,6 +376,11 @@ To install the Ruby dependencies for the project, do:
 ```sh
 bundle install
 ```
+[racksh](https://github.com/sickill/racksh) is a console for Rack based ruby web applications.
+We use it to Lark's environment for Sinatra. It loads Lar's environment like a Rack web server, 
+but instead of running the app it starts an irb session. Additionally, it exposes $rack variable 
+which allows us to make simulated HTTP requests to our app.
+
 
 ### Starting Up
 
@@ -427,6 +432,22 @@ using in-memory data stores, do:
 ```sh
 $ INDEX_ADAPTER=memory bundle exec rspec
 ```
+
+### Running with Docker
+You will need Docker and Docker Compose installed on your host/local system.
+
+There are two docker-compose files, which allow you to run development and test
+instances of the application if you would like.
+
+To setup a development environment:
+1. `./bin/docker-build.sh`  to build images
+1. `./bin/docker-up.sh`  to run dev environment
+
+For running tests:
+1. `./bin/docker-build.sh -e test`  to build images
+1. `./bin/docker-up.sh -e test`  to run test environment
+1. `./bin/docker-spec.sh -e test` to run test suite
+
 
 ### Architecture
 
