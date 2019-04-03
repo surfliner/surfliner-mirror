@@ -8,10 +8,9 @@ Please see [CONTRIBUTING.md][contributing] for information about contributing to
 this project. By participating, you agree to abide by the
 [UC Principles of Community][principles].
 
+Please see [surfliner Documentation Website](https://surfliner.gitlab.io/docs/docs/home/) for more information.
 
 ## Data Model
-
-Please see [surfliner Documentation Website](https://surfliner.gitlab.io/docs/docs/home/) for more information.
 
 ### Concept
 
