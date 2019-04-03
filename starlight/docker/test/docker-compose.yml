@@ -6,9 +6,9 @@ services:
       - ../.env.docker.test
     volumes:
       - ../../.:/app
-      - starlight_gems:/app/vendor
+      - bundle_cache:/bundle
     working_dir: /app
-    entrypoint: sh docker/setup.sh
+    command: sh -ic "bundle exec rake spec"
     ports:
       - "3001:3001"
     depends_on:
@@ -44,6 +44,6 @@ services:
      - '8985:8983'
 
 volumes:
-  starlight_gems:
+  bundle_cache:
   starlight_database:
 

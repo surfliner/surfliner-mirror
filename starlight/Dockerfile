@@ -12,3 +12,16 @@ RUN apk --no-cache upgrade && \
   sqlite-dev \
   tzdata \
   yarn
+
+RUN mkdir -p /bundle
+ENV BUNDLE_PATH=/bundle \
+    BUNDLE_BIN=/bundle/bin \
+    GEM_HOME=/bundle
+ENV PATH="${BUNDLE_BIN}:${PATH}"
+
+RUN mkdir -p /app
+WORKDIR /app
+COPY . .
+
+ENTRYPOINT ["/bin/sh", "/app/docker/docker-entrypoint.sh"]
+

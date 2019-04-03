@@ -6,9 +6,9 @@ services:
       - ../.env.docker
     volumes:
       - ../../.:/app
-      - starlight_gems:/app/vendor
+      - bundle_cache:/app/vendor
     working_dir: /app
-    entrypoint: sh docker/setup.sh
+    command: sh -ic "bundle exec puma -b tcp://0.0.0.0:3000"
     ports:
       - "3000:3000"
     depends_on:
@@ -32,5 +32,5 @@ services:
      - '8983:8983'
 
 volumes:
-  starlight_gems:
+  bundle_cache:
   starlight_database:
