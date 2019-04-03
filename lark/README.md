@@ -357,7 +357,7 @@ A. Concept
      "id": "..." }
 ```
 
-## Developer Setup
+## Development
 
 Checkout the `surfliner` repository with and `cd` into the `lark` product
 directory.
