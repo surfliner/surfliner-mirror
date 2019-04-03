@@ -10,6 +10,6 @@ yarn install
 
 bundle exec rake db:create db:schema:load
 
-# Then exec the container's main process (what's set as CMD in the Dockerfile).
-# This isn't relevant at the moment
+# Then exec the container's main process
+# This is what's set as CMD in a) Dockerfile b) compose c) CI
 exec "$@"
