@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "capybara/rspec"
-require "capybara/rails"
 require "selenium-webdriver"
 
 Capybara.server = :puma
@@ -13,7 +12,6 @@ RSpec.configure do |config|
   end
   config.before(:each, type: :system, js: true) do
     if ENV["SELENIUM_URL"].present?
-      # TODO: Get this to work for docker-compose test environment
       # Capybara setup to allow for docker
       net = Socket.ip_address_list.detect(&:ipv4_private?)
       ip = net.nil? ? "localhost" : net.ip_address
@@ -31,7 +29,6 @@ RSpec.configure do |config|
       )
 
       driven_by :selenium,
-                using: :chrome,
                 options: { browser: :remote,
                            timeout: 120, # seconds
                            url: ENV["SELENIUM_URL"],

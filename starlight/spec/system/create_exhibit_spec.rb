@@ -8,6 +8,7 @@ RSpec.describe "Import and Display a Work", :clean, type: :system, js: true do
   let(:site_admin)      { FactoryBot.create(:omniauth_site_admin) }
 
   before do
+    enable_selenium_file_detector
     ENV["BINARY_ROOT"] = Rails.root.join("spec", "fixtures", "images").to_s
     omniauth_setup_shibboleth_for(site_admin)
     sign_in
