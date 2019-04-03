@@ -271,10 +271,6 @@ starlight-test:
     - postgres:11-alpine
   script:
     - cd starlight
-    - gem update bundler
-    - bundle install --jobs $(nproc) --path=vendor
-    - yarn install
-    - RAILS_ENV=test bundle exec rake db:create db:schema:load
     - RAILS_ENV=test bundle exec rspec --format progress --format RspecJunitFormatter --out rspec.xml
   artifacts:
     reports:
@@ -285,7 +281,7 @@ starlight-test:
   cache:
     key: starlight-deps
     paths:
-      - starlight/vendor/
+      - /bundle
       - starlight/public/
   only:
     changes:
