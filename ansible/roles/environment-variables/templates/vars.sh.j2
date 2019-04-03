@@ -1,6 +1,6 @@
 export BINARY_ROOT="{{ binary_root }}"
 export DATABASE_AUTH=
-export DATABASE_URL="postgres://{{ db_user }}:{{ db_pass }}@{{ db_host }}/{{ db_name }}"
+export DATABASE_URL="postgres://{{ db_user }}:{{ db_pass | urlencode }}@{{ db_host }}/{{ db_name }}"
 export FROM_EMAIL="{{ from_email }}"
 export HOSTNAME="{{ fqdn }}"
 export PROJECT_PATH="{{ project_root }}/{{ project_name }}"
