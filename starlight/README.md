@@ -92,6 +92,11 @@ For running tests:
 1. `./bin/docker-up.sh -e test`  to run dev environment
 1. `./bin/docker-spec.sh -e test` to run test suite
 
+To teardown your environment:
+1. `./bin/docker-teardown.sh -h` for options
+1. `./bin/docker-teardown.sh -e test`  to teardown containers
+1. `./bin/docker-teardown.sh -e test -v` to teardown containers AND volumes
+
 ### Use database authentication instead of Shibboleth
 If you want to use spotlight's built-in database authentication instead of
 Shibboleth, either for local development or on a server, set an environment
