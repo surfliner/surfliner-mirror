@@ -92,11 +92,10 @@ For running tests:
 1. `./bin/docker-up.sh -e test`  to run dev environment
 1. `./bin/docker-spec.sh -e test` to run test suite
 
-### Use database authentication instead of LDAP
-If you want to use spotlight's built-in database authentication instead of LDAP,
-either for local development or on a DCE server, set an environment variable in
-.env.development or .env.production:
-`DATABASE_AUTH=true`
+### Use database authentication instead of Shibboleth
+If you want to use spotlight's built-in database authentication instead of
+Shibboleth, either for local development or on a server, set an environment
+variable: `DATABASE_AUTH=true`
 
 ### Set up a local admin account
 1. Self-register in the web ui

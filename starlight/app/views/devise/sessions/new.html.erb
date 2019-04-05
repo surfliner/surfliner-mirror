@@ -3,7 +3,6 @@
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
     <%= f.label :username %><br />
-    <% # for whatever reason, changing this to `username` makes Devise stop using our LDAP strategy %>
     <%= f.text_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 

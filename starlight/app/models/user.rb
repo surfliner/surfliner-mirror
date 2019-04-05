@@ -18,7 +18,7 @@ class User < ApplicationRecord
     devise :trackable, :omniauthable, omniauth_providers: [:shibboleth, :developer]
   end
 
-  # Override this Spotlight method since we're using LDAP for auth and don't
+  # Override this Spotlight method since we're using Shibboleth for auth and don't
   # need to invite people to create accounts
   def invite_pending?
     false
