@@ -69,7 +69,7 @@ To add a custom theme to your Starlight installation, follow these steps:
 1. `bundle install` to install gem dependencies
 1. `rake db:migrate` to run database migrations
 1. `yarn install` to install UniversalViewer
-1. `solr_wrapper` to spin up a local copy of solr for development
+1. `solr_wrapper --config config/solr_wrapper_dev.yml` to spin up a local copy of solr for development
 1. `rails s` to run rails server
 
 ### With Docker
