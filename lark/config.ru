@@ -4,4 +4,6 @@
 
 require_relative 'config/environment'
 
+use Rack::Healthcheck::Middleware, '/health'
+
 run Lark.application

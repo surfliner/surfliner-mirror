@@ -12,6 +12,7 @@ gem 'dry-system',         '~> 0.9.2'
 gem 'dry-transaction',    '~> 0.13.0'
 gem 'factory_bot',        group: 'test'
 gem 'pry',                group: %w[development test]
+gem 'rack-healthcheck',   '~> 0.2.0'
 gem 'rack-test',          group: 'test'
 gem 'racksh'
 gem 'rsolr',              '~> 2.2.1'

@@ -3,6 +3,7 @@
 require 'dotenv/load' unless ENV['RACK_ENV'] == 'production'
 
 require_relative 'application'
+require_relative 'initializers/rack-healthcheck'
 
 Valkyrie::MetadataAdapter.register(
   Valkyrie::Persistence::Memory::MetadataAdapter.new,

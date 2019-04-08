@@ -3,6 +3,7 @@
 require 'dry/transaction'
 require 'sinatra'
 require 'valkyrie'
+require 'rack/healthcheck'
 require_relative '../lib/lark'
 
 ##

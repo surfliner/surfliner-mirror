@@ -191,6 +191,7 @@ GEM
     psych (3.1.0)
     public_suffix (3.0.3)
     rack (2.0.6)
+    rack-healthcheck (0.2.0)
     rack-protection (2.0.5)
       rack
     rack-test (1.1.0)
@@ -315,6 +316,7 @@ DEPENDENCIES
   dry-transaction (~> 0.13.0)
   factory_bot
   pry
+  rack-healthcheck (~> 0.2.0)
   rack-test
   racksh
   rsolr (~> 2.2.1)
