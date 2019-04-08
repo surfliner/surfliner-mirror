@@ -37,7 +37,6 @@ group :development, :test do
   gem "capistrano-yarn"
   gem "capybara"
   gem "capybara-screenshot"
-  gem "chromedriver-helper"
   gem "dotenv-rails", "~> 2.5"
   gem "factory_bot_rails"
   gem "highline"
@@ -56,4 +55,5 @@ group :development, :test do
   gem "shoulda-matchers"
   gem "solr_wrapper", ">= 0.3"
   gem "sqlite3"
+  gem "webdrivers"
 end
