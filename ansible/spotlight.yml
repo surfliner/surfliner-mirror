@@ -29,6 +29,11 @@
       rubies:
         - version: "{{ ruby_ver }}"
 
+    shibbolethsp_handlerssl: false
+    shibbolethsp_cookieprops: http
+    configurables:
+      - hakatest
+
     solr_host: localhost
     solr_core: collection1
 
@@ -55,9 +60,15 @@
     - role: zzet.rbenv
       rbenv_owner: root
       rbenv_group: root
+    - role: cmprescott.xml
+    - role: cscfi.shibboleth-sp
+      become: yes
     - role: apache
     - role: passenger
     - role: spotlight
       become: yes
+    - role: shibboleth-sso
+      become: yes
+    - role: shibboleth-metadata
     # - role: fstab
     # - role: environment-variables
