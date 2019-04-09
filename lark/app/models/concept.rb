@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative 'authority'
 require_relative 'schema/concept'
 
 ##
@@ -13,14 +14,8 @@ require_relative 'schema/concept'
 #   adapter.query_service.find_by(id: 'my_id') # => <#Concept ...>
 #   adapter.persister.delete(resource: concept)
 #
-class Concept < Valkyrie::Resource
+class Concept < Authority
   include Schema::Concept
 
   SCHEMA = 'http://www.w3.org/2004/02/skos/core#ConceptScheme'
-
-  ##
-  # @return [String] constant
-  def scheme
-    SCHEMA
-  end
 end
