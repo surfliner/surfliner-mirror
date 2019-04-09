@@ -10,9 +10,9 @@ class ServiceDescription
   end
 
   ##
-  # @return [String] the api version
+  # @return [String] the lark software version
   def version
-    '0.1.0'
+    Lark::VERSION
   end
 
   ##
