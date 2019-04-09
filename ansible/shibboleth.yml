@@ -12,15 +12,15 @@
     project_name: starlight
 
   roles:
-    - role: apache
     - role: cmprescott.xml
     - role: cscfi.shibboleth-sp
       vars:
-        shibbolethsp_saml_crt: sp-encrypt-cert.pem
-        shibbolethsp_saml_key: sp-encrypt-key.pem
         shibbolethsp_handlerssl: false
         shibbolethsp_cookieprops: http
         configurables:
-          - certs
+          - hakatest
+      become: true
+    - role: apache
+    - role: shibboleth-sso
       become: true
     - role: shibboleth-metadata
