@@ -59,11 +59,15 @@ RSpec.describe 'POST /' do
 
   context 'when posting to update batch of authorities in JSON' do
     let(:authority_1) do
-      persister.save(resource: Concept.new(pref_label: 'Label 1'))
+      persister.save(resource: FactoryBot.create(:concept,
+                                                 id: 'a_test_id1',
+                                                 pref_label: 'Label 1'))
     end
 
     let(:authority_2) do
-      persister.save(resource: Concept.new(pref_label: 'Label 2'))
+      persister.save(resource: FactoryBot.create(:concept,
+                                                 id: 'a_test_id2',
+                                                 pref_label: 'Label 2'))
     end
 
     let(:ctype) { 'application/json' }

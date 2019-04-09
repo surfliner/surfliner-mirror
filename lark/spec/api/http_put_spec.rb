@@ -50,7 +50,7 @@ RSpec.describe 'PUT /{id}' do
     end
 
     context 'with putting to update non-existing record' do
-      let(:id)        { 'a_fake_id' }
+      let(:id)        { 'fake_id' }
       let(:new_label) { ['Label edited'] }
 
       it 'update the prefLabel' do
@@ -64,7 +64,7 @@ RSpec.describe 'PUT /{id}' do
       let(:ctype) { 'application/fake' }
       let(:data)  { '' }
       let(:authority) do
-        FactoryBot.create(:concept, pref_label: ['PrefLabel'])
+        FactoryBot.create(:concept)
       end
 
       it 'responds with a 415 status code' do

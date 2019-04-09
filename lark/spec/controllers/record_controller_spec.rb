@@ -53,7 +53,7 @@ RSpec.describe RecordController do
     end
 
     let(:authority) do
-      persister.save(resource: Concept.new(pref_label: 'PrefLabel'))
+      persister.save(resource: FactoryBot.create(:concept))
     end
     let(:params) { { 'id' => authority.id.to_s } }
     let(:body) { StringIO.new(authority.attributes.to_json) }
@@ -80,7 +80,7 @@ RSpec.describe RecordController do
 
     context 'with existing authority record' do
       let(:authority) do
-        persister.save(resource: Concept.new(pref_label: 'label'))
+        persister.save(resource: FactoryBot.create(:concept))
       end
 
       let(:body) do
@@ -97,7 +97,7 @@ RSpec.describe RecordController do
   describe '#show' do
     subject(:controller) { described_class.new(params: params) }
 
-    let(:params)         { { 'id' => 'a_fake_id' } }
+    let(:params)         { { 'id' => 'fake_id' } }
 
     it 'returns a rack response object' do
       expect(controller.show.first).to eq 404

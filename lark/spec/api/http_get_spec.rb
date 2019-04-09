@@ -22,7 +22,11 @@ RSpec.describe 'GET /{id}' do
   context 'with an existing object' do
     let(:persister)  { adapter.persister }
     let(:pref_label) { ['Moomin'] }
-    let(:resource)   { Concept.new(id: id, pref_label: pref_label) }
+    let(:resource) do
+      FactoryBot.create(:concept,
+                        id: id,
+                        pref_label: pref_label)
+    end
     let(:response_expected) do
       JSON.dump(pref_label: pref_label,
                 alternate_label: [],
@@ -75,9 +79,13 @@ RSpec.describe 'GET /{id}' do
     let(:alternate_label) { 'alternate label' }
 
     before do
-      FactoryBot.create(:concept, pref_label: ['authority 1'])
-      FactoryBot.create(:concept, pref_label: ['alternate authority'],
-                                  alternate_label: ['alternate label'])
+      FactoryBot.create(:concept,
+                        id: 'a_fake_id1',
+                        pref_label: ['authority 1'])
+      FactoryBot.create(:concept,
+                        id: 'a_fake_id2',
+                        pref_label: ['alternate authority'],
+                        alternate_label: ['alternate label'])
     end
 
     after { persister.wipe! }

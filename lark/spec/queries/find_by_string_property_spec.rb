@@ -7,7 +7,7 @@ RSpec.describe FindByStringProperty do
 
   let(:adapter) { Valkyrie::MetadataAdapter.find(Lark.config.index_adapter) }
   let(:query_service) { adapter.query_service }
-  let(:authority) { FactoryBot.create(:concept, pref_label: ['PrefLabel']) }
+  let(:authority) { FactoryBot.create(:concept) }
 
   before { adapter.persister.wipe! }
 

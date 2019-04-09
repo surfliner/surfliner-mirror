@@ -17,7 +17,7 @@ RSpec.describe Lark::Transactions::UpdateAuthority do
 
   let(:event_stream) { [] }
   let(:authority) do
-    persister.save(resource: Concept.new(pref_label: 'PrefLabel'))
+    persister.save(resource: FactoryBot.create(:concept))
   end
 
   describe '#call' do

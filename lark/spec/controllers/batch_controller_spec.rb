@@ -23,10 +23,14 @@ RSpec.describe BatchController do
     end
 
     let(:authority_1) do
-      persister.save(resource: Concept.new(pref_label: 'Label 1'))
+      persister.save(resource: FactoryBot.create(:concept,
+                                                 id: 'test_id1',
+                                                 pref_label: 'Label 1'))
     end
     let(:authority_2) do
-      persister.save(resource: Concept.new(pref_label: 'Label 2'))
+      persister.save(resource: FactoryBot.create(:concept,
+                                                 id: 'test_id2',
+                                                 pref_label: 'Label 2'))
     end
 
     context 'with an unknown media type' do

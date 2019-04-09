@@ -38,10 +38,10 @@ RSpec.describe Lark::RecordSerializer do
       Object.send(:remove_const, :Resource)
     end
 
-    let(:record) { Resource.new(label: 'Label') }
+    let(:record) { Resource.new(id: 'a_fake_id', label: 'Label') }
 
     it 'return json string' do
-      expect(json).to eq JSON.dump(label: ['Label'], note: [], id: '')
+      expect(json).to eq JSON.dump(label: ['Label'], note: [], id: 'a_fake_id')
     end
   end
 end
