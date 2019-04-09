@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'dry/transaction'
+require 'rack/healthcheck'
 require 'sinatra'
 require 'valkyrie'
-require 'rack/healthcheck'
 require_relative '../lib/lark'
 
 ##
@@ -21,6 +21,8 @@ module Lark
   # @see http://sinatrarb.com/intro.html
   # @see https://rack.github.io/
   class Application < Sinatra::Base
+    use Rack::Healthcheck::Middleware, '/health'
+
     get '/' do
       ServiceDescriptionController.new(request: request).show
     end
