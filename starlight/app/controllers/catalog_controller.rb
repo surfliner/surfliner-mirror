@@ -3,6 +3,13 @@
 class CatalogController < ApplicationController
   include Blacklight::Catalog
 
+  # https://gitlab.com/surfliner/surfliner/issues/149
+  CatalogController.blacklight_config.show.document_actions.delete(:sms)
+  CatalogController.blacklight_config.show.document_actions.delete(:citation)
+
+  CatalogController.blacklight_config.navbar.partials.delete(:saved_searches)
+  CatalogController.blacklight_config.navbar.partials.delete(:search_history)
+
   configure_blacklight do |config|
     config.show.oembed_field = :oembed_url_ssm
     config.show.tile_source_field = :content_metadata_image_iiif_info_ssm
