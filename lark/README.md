@@ -360,8 +360,8 @@ To install the Ruby dependencies for the project, do:
 bundle install
 ```
 [racksh](https://github.com/sickill/racksh) is a console for Rack based ruby web applications.
-We use it to load Lark's environment for Sinatra. It loads Lark's environment like a Rack web server, 
-but instead of running the app it starts an irb session. Additionally, it exposes $rack variable 
+We use it to load Lark's environment for Sinatra. It loads Lark's environment like a Rack web server,
+but instead of running the app it starts an irb session. Additionally, it exposes $rack variable
 which allows us to make simulated HTTP requests to our app.
 
 ### Starting Up
@@ -420,22 +420,6 @@ using in-memory data stores, do:
 $ INDEX_ADAPTER=memory bundle exec rspec
 ```
 
-### Running with Docker
-You will need Docker and Docker Compose installed on your host/local system.
-
-There are two docker-compose files, which allow you to run development and test
-instances of the application if you would like.
-
-To setup a development environment:
-1. `./bin/docker-build.sh`  to build images
-1. `./bin/docker-up.sh`  to run dev environment
-
-For running tests:
-1. `./bin/docker-build.sh -e test`  to build images
-1. `./bin/docker-up.sh -e test`  to run test environment
-1. `./bin/docker-spec.sh -e test` to run test suite
-
-
 ### Architecture
 
 #### Index
@@ -446,8 +430,8 @@ communicate to this index using a Ruby data mapper library called
 presently, it supports [Apache Solr][solr] and an in-memory only backend
 useful mainly for unit testing.
 
-Solr runs as a docker service in the development and test environments. The 
-valkyrie `solr` adapter is in use as the Lark index_adapter. The 
+Solr runs as a docker service in the development and test environments. The
+valkyrie `solr` adapter is in use as the Lark index_adapter. The
 index can be selected before startup by setting the `INDEX_ADAPTER` env
 variable (choose `solr` or `memory`).
 
@@ -458,7 +442,7 @@ If you want to run Solr directly on your local system, you'll need to setup a
 core with the configuration in `lark/solr/config` and point Lark to it by setting
 the `SOLR_URL` env variable.
 
-ENV-driven configuration options are introduced through 
+ENV-driven configuration options are introduced through
 [dotenv](https://github.com/bkeepers/dotenv) for non-production environments.
 
 #### Event Log
@@ -469,6 +453,14 @@ application behavior is triggered by listeners observing this log via
 
 The specification for this log, including details about event types and their
 semantics, is given in [`EVENT_LOG.md`][event-log]
+
+## Production Considerations
+
+### Helm Chart [Content TK]
+
+### Monitoring
+
+Lark provides a [health check endpoint][rack-healthcheck] at `/health/complete`.
 
 ## License
 
@@ -483,4 +475,5 @@ Lark is made available under the [MIT License][license].
 [webrick]: https://ruby-doc.org/stdlib-2.5.0/libdoc/webrick/rdoc/WEBrick.html
 [dry-events]: https://dry-rb.org/gems/dry-events/
 [event-log]: ./EVENT_LOG.md
+[rack-healthcheck]: https://github.com/downgba/rack-healthcheck
 [license]: ../LICENSE
