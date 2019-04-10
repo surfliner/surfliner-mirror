@@ -352,6 +352,13 @@ cd surfliner/lark
 
 ### Dependencies
 
+#### Prerequisites
+
+Lark requires to install the following softwares:
+
+1. [`Solr`][solr] version >= 5.x
+1. [`PostgreSQL`][postgres]
+
 #### Gems
 
 To install the Ruby dependencies for the project, do:
@@ -363,6 +370,16 @@ bundle install
 We use it to load Lark's environment for Sinatra. It loads Lark's environment like a Rack web server,
 but instead of running the app it starts an irb session. Additionally, it exposes $rack variable
 which allows us to make simulated HTTP requests to our app.
+
+#### Database
+
+To initialize the [`PostgreSQL`][postgres] database for Event Log, run:
+
+```sh
+rake db:create (first time only)
+
+rake db:migrate
+```
 
 ### Starting Up
 
@@ -406,18 +423,18 @@ We maintain robust unit and integration tests. The full test suite currently
 runs in a fraction of a second. We recommend running it frequently during
 development.
 
-If you have a properly [configured Solr index][#index], you can run the
-entire test suite with:
+If you have a properly configured [Solr index][#index] and [PostgreSQL][postgres]
+for [Event Log][#Event Log], you can run the entire test suite with:
 
 ```sh
 $ bundle exec rspec
 ```
 
-If you want to avoid setting up a Solr backend, you can run the test suite
+If you want to avoid setting up a Solr and PostgreSQL backend, you can run the test suite
 using in-memory data stores, do:
 
 ```sh
-$ INDEX_ADAPTER=memory bundle exec rspec
+$ INDEX_ADAPTER=memory EVENT_ADAPTER=memory bundle exec rspec
 ```
 
 ### Architecture
@@ -451,6 +468,18 @@ Lark tracks all state-changing activity in an append-only event log. Most
 application behavior is triggered by listeners observing this log via
 [`dry-events`][dry-events].
 
+The storage backend for Event Log is [`PostgreSQL`][postgres]. The  valkyrie `postgres` adapter
+ is configured for Lark event_adapter. But it can store in memory by setting the `EVENT_ADAPTER`
+env variable (choose `sql` or `memory`) before startup.
+
+For non-trivial development tasks, it's advisable to setup and configure Postgres
+in the development environment. The easiest way to do this is to use the included Docker Compose
+configuration; see [Running with Docker][#running-with-docker].
+
+If you want to run Postgres directly on your local system, you'll need to setup Postgres
+and point Lark to it by setting env variable `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`,
+and `POSTGRES_HOST`.
+
 The specification for this log, including details about event types and their
 semantics, is given in [`EVENT_LOG.md`][event-log]
 
@@ -470,6 +499,7 @@ Lark is made available under the [MIT License][license].
 [contributing]: ../CONTRIBUTING.md
 [principles]: https://ucnet.universityofcalifornia.edu/working-at-uc/our-values/principles-of-community.html
 [solr]: http://lucene.apache.org/solr/
+[postgres]: https://www.postgresql.org/
 [valkyrie]: https://github.com/samvera-labs/valkyrie
 [rack]: https://rack.github.io/
 [webrick]: https://ruby-doc.org/stdlib-2.5.0/libdoc/webrick/rdoc/WEBrick.html
