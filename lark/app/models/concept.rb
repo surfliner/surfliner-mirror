@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'authority'
-require_relative 'schema/concept'
 
 ##
 # A full Concept record built from/saved to the index.
@@ -15,7 +14,9 @@ require_relative 'schema/concept'
 #   adapter.persister.delete(resource: concept)
 #
 class Concept < Authority
-  include Schema::Concept
-
   SCHEMA = 'http://www.w3.org/2004/02/skos/core#ConceptScheme'
+
+  define_schema(
+    YAML.load_file(File.expand_path('../../model/concept.yml', __dir__))
+  )
 end
