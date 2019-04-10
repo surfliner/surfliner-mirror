@@ -1,0 +1,13 @@
+starlight-lint:
+  stage: lint
+  image: $CI_REGISTRY_IMAGE/starlight_web:latest
+  script:
+    - cd starlight
+    - gem update bundler
+    - bundle check || bundle
+    - bundle exec rubocop
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - .styles/**/*
+      - starlight/**/*

@@ -1,0 +1,13 @@
+lark-ruby-build:
+  stage: build
+  services:
+    - name: docker:dind
+  script:
+    - cd lark
+    - registry_login
+    - docker build -t $CI_REGISTRY_IMAGE/lark_web:latest .
+    - docker push $CI_REGISTRY_IMAGE/lark_web:latest
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - lark/Dockerfile

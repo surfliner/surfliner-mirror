@@ -1,0 +1,19 @@
+starlight-code-quality:
+  stage: test
+  image: docker:stable
+  variables:
+    DOCKER_DRIVER: overlay2
+  services:
+    - docker:stable-dind
+  script:
+    - setup_docker
+    - code_quality "starlight"
+  artifacts:
+    reports:
+      codequality: starlight/gl-code-quality-report.json
+  only:
+    changes:
+      - starlight/**/*
+  except:
+    variables:
+      - $CODE_QUALITY_DISABLED

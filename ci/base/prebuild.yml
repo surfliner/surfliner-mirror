@@ -1,0 +1,21 @@
+rebuild-base:
+  stage: prebuild
+  services:
+    - name: docker:dind
+  script:
+    - registry_login
+    - cd docker/base
+    - docker build -t $CI_REGISTRY_IMAGE/builder .
+    - docker push $CI_REGISTRY_IMAGE/builder
+  when: manual
+
+rebuild-solr:
+  stage: prebuild
+  services:
+    - name: docker:dind
+  script:
+    - registry_login
+    - cd docker/solr
+    - docker build -t $CI_REGISTRY_IMAGE/solr .
+    - docker push $CI_REGISTRY_IMAGE/solr
+  when: manual

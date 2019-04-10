@@ -1,0 +1,14 @@
+starlight-build:
+  stage: build
+  services:
+    - name: docker:dind
+  script:
+    - registry_login
+    - cd starlight
+    - docker build -t $CI_REGISTRY_IMAGE/starlight_web:latest .
+    - docker push $CI_REGISTRY_IMAGE/starlight_web:latest
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - starlight/Dockerfile
+

@@ -1,0 +1,20 @@
+lark-dependency-scanning:
+  stage: test
+  image: docker:stable
+  services:
+    - docker:stable-dind
+  script:
+    - setup_docker
+    - cd lark
+    - dependency_scanning
+  artifacts:
+    reports:
+      dependency_scanning: lark/gl-dependency-scanning-report.json
+  only:
+    changes:
+      - lark/**/*
+    variables:
+      - $GITLAB_FEATURES =~ /\bdependency_scanning\b/
+  except:
+    variables:
+      - $DEPENDENCY_SCANNING_DISABLED

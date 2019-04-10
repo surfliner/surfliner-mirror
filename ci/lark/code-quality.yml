@@ -1,0 +1,19 @@
+lark-code-quality:
+  stage: test
+  image: docker:stable
+  variables:
+    DOCKER_DRIVER: overlay2
+  services:
+    - docker:stable-dind
+  script:
+    - setup_docker
+    - code_quality "lark"
+  artifacts:
+    reports:
+      codequality: lark/gl-code-quality-report.json
+  only:
+    changes:
+      - lark/**/*
+  except:
+    variables:
+      - $CODE_QUALITY_DISABLED
