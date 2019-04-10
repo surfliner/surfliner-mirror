@@ -25,6 +25,7 @@ Valkyrie::MetadataAdapter.find(Lark.config.index_adapter)
                          .register_query_handler(FindByStringProperty)
 
 require_relative 'initializers/healthchecks'
+require_relative 'initializers/healthchecks_complete'
 
 Lark.config.event_adapter = ENV['EVENT_ADAPTER'].to_sym
 Lark.config.index_adapter = ENV['INDEX_ADAPTER'].to_sym
