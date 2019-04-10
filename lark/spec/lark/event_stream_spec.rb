@@ -6,7 +6,7 @@ require_relative '../../lib/lark/event_stream'
 RSpec.describe Lark::EventStream do
   subject(:stream) { described_class.instance }
 
-  let(:event)      { instance_double(Event, type: :create, data: {}) }
+  let(:event)      { instance_double(Event, type: :create, data: { id: 'id' }) }
 
   describe '#<<' do
     it 'returns the event' do
