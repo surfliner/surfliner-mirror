@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'authority'
-require_relative 'schema/agent'
 
 ##
 # A full Agent record built from/saved to the index.
@@ -15,7 +14,9 @@ require_relative 'schema/agent'
 #   adapter.persister.delete(resource: agent)
 #
 class Agent < Authority
-  include Schema::Agent
-
   SCHEMA = 'http://www.w3.org/2004/02/skos/core#ConceptScheme'
+
+  define_schema(
+    YAML.load_file(File.expand_path('../../model/agents.yml', __dir__))
+  )
 end
