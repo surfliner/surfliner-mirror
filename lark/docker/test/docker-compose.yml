@@ -8,11 +8,28 @@ services:
     volumes:
       - ../../.:/data
     working_dir: /data
-    command: rackup config.ru
+    command: >
+      sh -c "
+        while ! nc -z postgres 5432;
+        do
+          echo sleeping;
+          sleep 1;
+        done;
+        rake db:create db:migrate && rackup config.ru
+      "
     depends_on:
+      - postgres
       - solr
     stdin_open: true
     tty: true
+
+  postgres:
+    image: postgres:latest
+    restart: always
+    env_file:
+      - ../../.env
+    ports:
+      - "5432:5432"
 
   solr:
     build: ../../../docker/solr
@@ -20,3 +37,4 @@ services:
       - ../../.env
     ports:
      - '8983:8983'
+
