@@ -127,7 +127,7 @@ RSpec.describe 'POST /' do
   context 'when posting malformed JSON' do
     let(:ctype)         { 'application/json' }
     let(:data)          { 'invalid json' }
-    let(:message)       { '767: unexpected token at \'invalid json\'' }
+    let(:message)       { 'unexpected token at \'invalid json\'' }
 
     before { post '/', data, 'CONTENT_TYPE' => ctype }
 
@@ -136,7 +136,7 @@ RSpec.describe 'POST /' do
     end
 
     it 'responds with a simple message' do
-      expect(last_response.body).to eq message
+      expect(last_response.body).to include message
     end
   end
 end
