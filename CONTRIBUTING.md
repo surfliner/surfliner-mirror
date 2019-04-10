@@ -140,6 +140,14 @@ _product_ teams, feel free to `@mention` or add them as an Assignee.
 See the [Merge Request][merge] documentation for more details on how to assign
 someone to review your MR.
 
+It is a goal of the project to not let more than 24 hours go by without a new
+Merge Request receiving a review from at least one _product_ team member. This
+helps keep the cadence of code submission and review quick enough that Merge
+Requests quickly end up in `master` and deployed. If you have not received a
+review on your MR within this time frame, please reference the MR during daily
+stand up and request a review, if you have not already done so via the user
+interface as described above.
+
 #### Things to Consider When Reviewing
 
 First, the person contributing the code is putting themselves out there. Be mindful of what you say in a review.
@@ -157,7 +165,16 @@ This is your chance for a mentoring moment of another developer. Take time to gi
   * Does the description of the new/changed specs match your understanding of what the spec is doing?
   * Did the CI pipeline complete successfully?
 
-If you are uncertain, bring other contributors into the conversation by assigning them as a reviewer.
+If you are uncertain about the proposed changes in the Merge Request, please
+provide this very valuable feedback by asking questions. It benefits the entire
+team if Merge Requests are used as an opportunity to share knowledge. It is a
+goal of the project to try and minimize silos of expertise. Please feel
+comfortable using a Merge Request review as an opportunity to help us all meet
+that goal!
+
+If, however, you find after this dialog that you are uncertain in approving the
+Merge Request, feel free to bring other contributors into the conversation by
+assigning them as a reviewer or mentioning the issue in Slack or daily stand up.
 
 #### Code Style
 
