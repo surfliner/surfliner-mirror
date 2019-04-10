@@ -1,0 +1,36 @@
+# frozen_string_literal: true
+
+require 'dotenv/load' unless ENV['RACK_ENV'] == 'production'
+
+require 'sequel'
+require 'sequel/adapters/postgresql'
+require 'sequel/core'
+require 'sequel_pg'
+require_relative 'config/database'
+
+namespace :db do
+  desc 'Create Database ...'
+  task :create do
+    connection = Sequel.connect(DATABASE)
+    begin
+      connection.execute "CREATE DATABASE #{DATABASE[:database]}"
+      puts "Database #{DATABASE[:database]} is created."
+    rescue Sequel::DatabaseError => e
+      puts "Error creating database #{DATABASE[:database]}: #{e}"
+    end
+  end
+  desc 'Run migrations ...'
+  task :migrate, [:version] do |t, args|
+    Sequel.extension :migration
+    version = args[:version].to_i if args[:version] && t
+    Sequel.connect(DATABASE) do |db|
+      Sequel::Migrator.run(db, 'db/migrations', target: version)
+    end
+  end
+  desc 'Drop Database ...'
+  task :drop do
+    new_connection = Sequel.connect(DATABASE)
+    new_connection.execute "DROP DATABASE IF EXISTS #{DATABASE[:database]}"
+    puts "#{DATABASE[:database]} is dropped"
+  end
+end

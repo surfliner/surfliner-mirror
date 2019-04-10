@@ -3,10 +3,23 @@
 require 'dotenv/load' unless ENV['RACK_ENV'] == 'production'
 
 require_relative 'application'
+require_relative 'database'
+require 'bundler'
+
+Bundler.require
 
 Valkyrie::MetadataAdapter.register(
   Valkyrie::Persistence::Memory::MetadataAdapter.new,
   :memory
+)
+
+##
+# Register postgres metadata adapter
+Valkyrie::MetadataAdapter.register(
+  Valkyrie::Sequel::MetadataAdapter.new(
+    connection: Sequel.connect(DATABASE)
+  ),
+  :sql
 )
 
 ##
