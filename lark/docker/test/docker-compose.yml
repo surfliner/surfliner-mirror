@@ -8,15 +8,6 @@ services:
     volumes:
       - ../../.:/data
     working_dir: /data
-    command: >
-      sh -c "
-        while ! nc -z postgres 5432;
-        do
-          echo sleeping;
-          sleep 1;
-        done;
-        rake db:create db:migrate && rackup config.ru
-      "
     depends_on:
       - postgres
       - solr
@@ -37,4 +28,3 @@ services:
       - ../../.env
     ports:
      - '8983:8983'
-

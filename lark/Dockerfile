@@ -14,4 +14,4 @@ ENV BUNDLE_JOBS=4
 RUN bundle install
 COPY . ./
 
-CMD ["bundle", "exec", "rackup", "--host", "0.0.0.0", "-p", "5000"]
+CMD ["bin/lark.sh"]
