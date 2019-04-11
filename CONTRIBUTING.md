@@ -47,6 +47,10 @@ our [Aha! instance][aha].
 If you are reporting a bug, or are a developer or stakeholder working directly
 on a Sprint, you may create issues in GitLab as needed.
 
+If you create a ticket directly in GitLab, please make sure you add a
+[label][labels] for the product the ticket is related to. For example,
+`starlight` or `lark`.
+
 ### Making Changes
 
 If you are not a Surfliner team member, you should fork the repository.
