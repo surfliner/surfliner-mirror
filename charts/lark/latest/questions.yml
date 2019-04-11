@@ -36,3 +36,13 @@ questions:
     - solr
   type: enum
   required: true
+- variable: persistence_adapters.event
+  default: "memory"
+  description: "The backend to use for the Event Log."
+  label: Event Adapter Type
+  group: lark config
+  options:
+    - memory
+    - sql
+  type: enum
+  required: true

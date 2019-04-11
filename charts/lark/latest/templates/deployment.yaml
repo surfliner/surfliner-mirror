@@ -26,6 +26,8 @@ spec:
           env:
             - name: "INDEX_ADAPTER"
               value: {{ .Values.persistence_adapters.index }}
+            - name: "EVENT_ADAPTER"
+              value: {{ .Values.persistence_adapters.event }}
           ports:
             - name: http
               containerPort: 5000
