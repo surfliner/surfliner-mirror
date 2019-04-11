@@ -70,6 +70,7 @@ Daily, 10:30-10:45am (*except last day of each sprint*)<br/>
 **Project Surfliner Public Standup** (*open to anyone*)<br/>
 Weekly on Wednesdays, 9:30-9:45 am<br/>
 [https://ucsb.zoom.us/j/130912310](https://ucsb.zoom.us/j/130912310)<br/>
+***UPDATE: The April 24, 2019 Public Standup has been canceled due to a scheduling conflict with Samvera Virtual Connect 2019.*** <br/>
 *Purpose*: Weekly meting to keep stakeholders, and other interested parties, informed of the progress of the Surfliner Project and the status, resources, and timelines of the Surfliner products.<br/>
 *Required*: Product Owners, Tech Leads<br/>
 *Optional*: Developers, Domain Experts<br/>
