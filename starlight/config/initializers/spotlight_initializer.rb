@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Spotlight::Engine.config.exhibit_themes = %w[default ucsb]
+Spotlight::Engine.config.exhibit_themes = %w[default ucsb ucsd]
 
 # ==> User model
 # Note that your chosen model must include Spotlight::User mixin
