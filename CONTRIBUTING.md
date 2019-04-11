@@ -186,18 +186,19 @@ the motivation for the change in your commit message.
 For Ruby, we have a project-wide `rubocop` configuration at [`.styles/rubocop_surfliner.yml`][rubocop].
 To run automated style checks, do `bundle exec rubocop` from any product directory.
 
-[principles]: https://ucnet.universityofcalifornia.edu/working-at-uc/our-values/principles-of-community.html
-[monorepo]: https://trunkbaseddevelopment.com/monorepos/
-[mono-vs-multi]: http://www.gigamonkeys.com/mono-vs-multi/
-[trunk]: https://trunkbaseddevelopment.com/
-[gitflow]: https://nvie.com/posts/a-successful-git-branching-model/
 [aha]: https://ucsurfliner.ideas.aha.io/
-[commit]: https://chris.beams.io/posts/git-commit/
-[issue-closing]: https://docs.gitlab.com/ee/user/project/issues/automatic_issue_closing.html
 [commit-template]: https://thoughtbot.com/blog/better-commit-messages-with-a-gitmessage-template
-[merge]: https://docs.gitlab.com/ee/gitlab-basics/add-merge-request.html
-[merge-overview]: https://docs.gitlab.com/ee/user/project/merge_requests/index.html
-[rebase]: https://docs.gitlab.com/ee/workflow/gitlab_flow.html#squashing-commits-with-rebase
+[commit]: https://chris.beams.io/posts/git-commit/
 [devops]: https://docs.gitlab.com/ee/topics/autodevops/
-[styles]: ./.styles
+[gitflow]: https://nvie.com/posts/a-successful-git-branching-model/
+[issue-closing]: https://docs.gitlab.com/ee/user/project/issues/automatic_issue_closing.html
+[labels]: https://docs.gitlab.com/ee/user/project/labels.html#creating-labels
+[merge-overview]: https://docs.gitlab.com/ee/user/project/merge_requests/index.html
+[merge]: https://docs.gitlab.com/ee/gitlab-basics/add-merge-request.html
+[mono-vs-multi]: http://www.gigamonkeys.com/mono-vs-multi/
+[monorepo]: https://trunkbaseddevelopment.com/monorepos/
+[principles]: https://ucnet.universityofcalifornia.edu/working-at-uc/our-values/principles-of-community.html
+[rebase]: https://docs.gitlab.com/ee/workflow/gitlab_flow.html#squashing-commits-with-rebase
 [rubocop]: ./.styles/rubocop_surfliner.yml
+[styles]: ./.styles
+[trunk]: https://trunkbaseddevelopment.com/
