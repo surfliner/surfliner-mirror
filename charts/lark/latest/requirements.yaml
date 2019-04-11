@@ -1,0 +1,7 @@
+---
+
+dependencies:
+  - name: solr
+    version: 1.0.0
+    repository: https://lib-helm-repo.ucsd.edu/
+
