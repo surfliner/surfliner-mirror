@@ -72,3 +72,5 @@ include:
 
 before_script:
   - *auto_devops
+  - apk update && apk add git
+  - git --version

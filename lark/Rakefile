@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'dotenv/load' unless ENV['RACK_ENV'] == 'production'
+require 'dotenv/tasks' unless ENV['RACK_ENV'] == 'production'
 
 require 'sequel'
 require 'sequel/adapters/postgresql'
@@ -11,6 +11,7 @@ require_relative 'config/database'
 namespace :db do
   desc 'Create Database ...'
   task :create do
+    puts "Database connection info: #{DATABASE.inspect}"
     connection = Sequel.connect(DATABASE)
     begin
       connection.execute "CREATE DATABASE #{DATABASE[:database]}"
