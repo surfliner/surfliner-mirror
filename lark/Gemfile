@@ -22,5 +22,4 @@ gem 'rubocop-rspec',      group: %w[development test]
 gem 'shotgun',            group: 'development'
 gem 'sinatra',            '~> 2.0.5'
 gem 'timecop',            group: 'test'
-gem 'valkyrie-sequel', github: 'samvera-labs/valkyrie-sequel', branch: 'master'
-
+gem 'valkyrie-sequel',    '~> 1.0.0'
