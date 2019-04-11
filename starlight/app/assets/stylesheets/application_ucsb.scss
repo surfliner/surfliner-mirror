@@ -47,8 +47,21 @@
   padding-left: 2em;
 }
 
+//////////
+// BROWSE
+//////////
+
+.breadcrumb {
+  margin: 0 0 20px !important;
+}
+
 .browse-category-title {
   color: white;
+  top: 40% !important;
+}
+
+.image-overlay {
+  margin-right: 1em;
 }
 
 footer {
