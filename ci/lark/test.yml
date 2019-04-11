@@ -6,13 +6,19 @@ lark-unit-tests:
     SOLR_CONFIG_DIR: lark/solr/config
     REPOSITORY_URL: $CI_REPOSITORY_URL
     SOLR_CONFIG_COMMIT_SHA: $CI_COMMIT_SHA
+    POSTGRES_DB: postgres
+    POSTGRES_USER: runner
+    POSTGRES_PASSWORD: ""
+    POSTGRES_HOST: postgres
+    POSTGRES_PORT: 5432
   services:
     - name: $CI_REGISTRY_IMAGE/solr
       alias: solr
+    - postgres:latest
   script:
     - cd lark
     - bundle check || bundle
-    - bundle exec rspec
+    - rake db:create db:migrate && bundle exec rspec
   only:
     changes:
       - .gitlab-ci.yml
