@@ -4,4 +4,6 @@ dependencies:
   - name: solr
     version: 1.0.0
     repository: https://lib-helm-repo.ucsd.edu/
-
+  - name: postgresql
+    version: 3.0.0
+    repository: https://kubernetes-charts.storage.googleapis.com/

@@ -2,4 +2,4 @@ apiVersion: v1
 appVersion: "0.1.0"
 description: Lark is an authority control platform and API.
 name: lark
-version: 0.4.1
+version: 0.4.2
