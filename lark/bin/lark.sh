@@ -7,7 +7,8 @@ then
     echo "waiting for postgresql";
     sleep 1;
   done;
+
+  bundle exec rake db:migrate
 fi
 
-bundle exec rake db:migrate &&
-  bundle exec rackup --host 0.0.0.0 -p 5000
+bundle exec rackup --host 0.0.0.0 -p 5000

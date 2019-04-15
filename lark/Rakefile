@@ -20,6 +20,7 @@ namespace :db do
       puts "Error creating database #{DATABASE[:database]}: #{e}"
     end
   end
+
   desc 'Run migrations ...'
   task :migrate, [:version] do |t, args|
     Sequel.extension :migration
@@ -27,7 +28,11 @@ namespace :db do
     Sequel.connect(DATABASE) do |db|
       Sequel::Migrator.run(db, 'db/migrations', target: version)
     end
+  rescue PG::ConnectionBad => err
+    puts "Database connection failed on: #{DATABASE.inspect}"
+    raise err
   end
+
   desc 'Drop Database ...'
   task :drop do
     new_connection = Sequel.connect(DATABASE)
