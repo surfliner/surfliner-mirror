@@ -1,4 +1,4 @@
-FROM ruby:2.5.3-alpine
+FROM ruby:2.6.2-alpine
 
 RUN apk --no-cache upgrade && \
   apk add --no-cache \
@@ -24,4 +24,3 @@ WORKDIR /app
 COPY . .
 
 ENTRYPOINT ["/bin/sh", "/app/docker/docker-entrypoint.sh"]
-
