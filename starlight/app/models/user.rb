@@ -24,6 +24,12 @@ class User < ApplicationRecord
     false
   end
 
+  # Override this Spotlight method since we're using Shibboleth for auth.
+  # This is required to avoid an error while managing users, such as adding a user as an Exhibit admin
+  def created_by_invite?
+    false
+  end
+
   # Method added by Blacklight; Blacklight uses #to_s on your
   # user class to get a user-displayable login/identifier for
   # the account.
