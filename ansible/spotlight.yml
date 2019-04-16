@@ -19,8 +19,8 @@
     binary_root: "{{ project_base }}/ingest"
 
     ruby_bin_root: /usr/local/rbenv/shims
-    ruby_abi: 2.5.0
-    ruby_ver: 2.5.3
+    ruby_abi: 2.6.0
+    ruby_ver: 2.6.2
     rbenv:
       env: system
       # required
