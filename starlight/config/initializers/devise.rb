@@ -139,6 +139,8 @@ Devise.setup do |config|
   # config.send_password_change_notification = false
 
   # ==> Configuration for :invitable
+  # This is set to true by default, we want to avoid passwords
+  config.require_password_on_accepting = false
   # The period the generated invitation token is valid, after
   # this period, the invited resource won't be able to accept the invitation.
   # When invite_for is 0 (the default), the invitation won't expire.

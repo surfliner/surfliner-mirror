@@ -11,6 +11,14 @@ RSpec.describe User, type: :model do
     )
   end
 
+  let(:invited_user_shib_auth_hash) do
+    OmniAuth::AuthHash.new(
+      provider: "shibboleth",
+      uid: "a-user-that-does-not-exist",
+      info: { "email" => "a-user-that-does-not-exist@uc.edu" }
+    )
+  end
+
   let(:dev_auth_hash) do
     OmniAuth::AuthHash.new(
       provider: "developer",
@@ -45,9 +53,28 @@ RSpec.describe User, type: :model do
       expect(user.email).to eq("shibboleth@uc.edu")
     end
 
+    it "creates a User that has been invited" do
+      described_class.invite!(email: "a-user-that-does-not-exist@uc.edu", skip_invitation: true)
+      user = User.from_omniauth(invited_user_shib_auth_hash)
+      expect(user).to be_persisted
+      expect(user.provider).to eq("shibboleth")
+      expect(user.uid).to eq("a-user-that-does-not-exist")
+      expect(user.email).to eq("a-user-that-does-not-exist@uc.edu")
+    end
+
     it "does not persist a shib response with bad or missing information" do
       User.from_omniauth(invalid_shib_auth_hash_missing_info)
       expect(User.find_by(uid: "test", provider: "shibboleth")).to be nil
+    end
+  end
+
+  describe ".invite! from Devise invitable" do
+    it "can invite users" do
+      expect { described_class.invite!(email: "a-user-that-does-not-exist@uc.edu", skip_invitation: true) }.not_to raise_error
+      expect(described_class.last.provider).to be_nil
+      expect(described_class.last.uid).to be_nil
+      expect(described_class.last.email).to eq "a-user-that-does-not-exist@uc.edu"
+      expect(described_class.last.invite_pending?).to eq false
     end
   end
 end

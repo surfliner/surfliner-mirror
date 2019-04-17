@@ -4,6 +4,10 @@ class User < ApplicationRecord
   include Spotlight::User
   attr_accessible :email if Blacklight::Utils.needs_attr_accessible?
 
+  # Devise Invitable tries to set a password, but we're not using passwords for Omniauth
+  # So this is a dummy/noop attribute
+  attr_accessor :password
+
   # Connects this user object to Blacklights Bookmarks.
   include Blacklight::User
 
@@ -13,9 +17,12 @@ class User < ApplicationRecord
            :recoverable,
            :rememberable,
            :trackable,
+           :invitable,
            :validatable
   else
-    devise :trackable, :omniauthable, omniauth_providers: [:shibboleth, :developer]
+    devise :invitable,
+           :trackable,
+           :omniauthable, omniauth_providers: [:shibboleth, :developer]
   end
 
   # Override this Spotlight method since we're using Shibboleth for auth and don't
@@ -45,8 +52,18 @@ class User < ApplicationRecord
   # @param auth [OmniAuth::AuthHash]
   # @return [User] user found or created with `auth` properties
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.email = auth.info.email
+    # User record previously created by inviteable
+    # Record is created with supplied email address, but missing provider and uid
+    invited_user = User.find_by(email: auth.info.email, uid: nil, provider: nil)
+    if invited_user
+      invited_user.provider = auth.provider
+      invited_user.uid = auth.uid
+      invited_user.save
+      invited_user
+    else # new authentication or existing user
+      where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+        user.email = auth.info.email
+      end
     end
   rescue StandardError => e
     logger.error e && return
