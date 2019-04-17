@@ -1,0 +1,107 @@
+#-------------------
+# M3 Metadata Definitions
+#-------------------
+# Administrative information about the profile/model
+# profile:
+#   responsibility:  "the organization or individual responsible for maintaining the profile
+#   responsibility_statement:  "statement of the organization or individual responsible for maintaining the profile
+#   date_modified:  "the date the profile was last altered
+#   type:  "what type of thing does the profile describe?
+#   version:  "what version of the profile is this?
+profile:
+  responsibility: https://surfliner.ucsd.edu/ns#ProjectSurfliner
+  responsibility_statement: Project Surfliner
+  date_modified: 2019-04-17
+  type: concept
+  version: 0.1
+
+# Mapping Definitions
+
+# mappings: "what mappings are expressed in the profile?"
+# - dpla:
+#   name: Digital Public Library of America
+# - datacite
+#   name: DataCite
+
+# Class Definitions
+
+# - class_name: :  "stable generic local name for the class name"
+#     display_label:  "human-readable label for the property"
+#     schema_uri:  "human-readable label for the property"
+
+classes:
+- Agent:
+    display_label: "Agent"
+    schema_uri: lark:Agent
+- Concept:
+    display_label: "Concept"
+    schema_uri: lark:Concept
+- Label:
+    display_label: "Label"
+    schema_uri: lark:Label
+
+# Property Definitions
+
+# - property_name:  "stable generic local name for the property / method name for retrieving data for the property"
+#     display_label:  "human-readable label for the property"
+#     definition:  "The definition for the metadata property being described."
+#     usage_guidelines:  "description of how the defined property should be used (helper text, hints, deposit text, etc.)"
+#     requirement:  "separate from system obligation/cardinality --> the requirement of the property from a best practices standpoint"
+#     controlled_values:
+#       controlled_value_format:  "controlled vocabulary constraint on the property's value"
+#       controlled_value_sources:  "references to a controlled vocabulary list OR list/ref to a config file listing accepted values"
+#        - value 1
+#        - value 2
+#     sample_value:  "exemplar values"
+#     property_uri:  "URI for the property, from a local or shared ontology"
+#     available_on:  "what is property available on"
+#       class:
+#         - GenericWork
+#         - Image
+#       resource_type:
+#         - image
+#         - thesis
+#     range:  "class constraint on the property's value"
+#     data_type:  "type constraint on the property's value"
+#     syntax:  "syntax standard constraint on the property's value"
+#     minimum_occurrence:  "minimum number of values the property must have"
+#     maximum_occurrence:  "maximum number of values the property may have"
+#     validations:
+#       match_regex:  "pattern each value must match to be valid"
+#     index_documentation: "free text metadata specialist facing documentation field about whether a property should be faceted, searchable, displayable, treated as text, etc."
+#     mapping: "pair values for different services"
+#       "dpla" : "URI for target property"
+#       "otherthing" : "URI for target property"
+properties:
+- prefLabel:
+    display_label: "Preferred Label"
+    definition: "Preferred label from the external authority identified as exact match.  For local authorities (those with no exactMatch) the preflabel provided by user creating the authority."
+    usage_guidelines: "Record in lastname, firstname order."
+    requirement: "required"
+    # controlled_value:
+    #    controlled_value_format: "xsd:literal"
+    #    controlled_value_sources:
+    #      - "/qa/terms/local/roles/"
+    sample_value: Moomin Valley
+    property_uri: "http://www.w3.org/2008/05/skos-xl#prefLabel"
+    available_on:
+      class:
+        - Agent
+        - Concept
+    range:
+      uri: "http://www.w3.org/2008/05/skos-xl:Label"
+      class: Label
+    minimum_occurence: 1
+    maximum_occurence: 1
+
+- labelSource:
+    definition: "Reference to the external source of the label.  Used to select display label (\"We always want the FAST label, if there is one\") and automatically update label from source vocabulary"
+    property_uri: "lark:labelSource"
+    available_on_class: Label
+    sample_value:
+      value: "http://id.loc.gov/authorities/names"
+      type: URI
+    range:
+      uri: "xsd:anyURI"
+    minimum_occurence: 0
+    maximum_occurence: 1
