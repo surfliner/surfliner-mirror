@@ -1,7 +1,8 @@
 ---
 fqdn: localhost
+from_email: root@localhost
 
-shib_app_id:
-shib_email:
-shib_session_id:
-shib_uid:
+shib_app_id: "Shib-Application-ID"
+shib_email: "LONG_EMAIL"
+shib_session_id: "Shib-Session-ID"
+shib_uid: "ADUSERNAME"
