@@ -1,9 +1,5 @@
 require: rubocop-rspec
 
-Metrics/BlockLength:
-  Exclude:
-    - 'spec/**/*'
-
 # allow developers to use their judgement about before/after scopes
 RSpec/BeforeAfterAll:
   Enabled: false

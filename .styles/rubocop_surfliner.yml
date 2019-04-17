@@ -13,3 +13,9 @@ Style/AccessModifierDeclarations:
 # we use .gitattributes to manage line feed styles
 Layout/EndOfLine:
   Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+    - '**/*.rake'
+    - 'Rakefile'
