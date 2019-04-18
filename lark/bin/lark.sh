@@ -11,4 +11,4 @@ then
   bundle exec rake db:migrate
 fi
 
-bundle exec rackup --host 0.0.0.0 -p 5000
+bundle exec puma -b tcp://0.0.0.0:5000
