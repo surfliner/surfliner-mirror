@@ -2,7 +2,6 @@
 
 require 'spec_helper'
 require 'rack/test'
-
 require_relative '../../config/environment'
 
 RSpec.describe 'GET /{id}' do
@@ -10,6 +9,12 @@ RSpec.describe 'GET /{id}' do
 
   let(:app) { Lark.application }
   let(:id)  { 'a_fake_id' }
+  let(:adapter) do
+    Valkyrie::MetadataAdapter.find(Lark.config.index_adapter)
+  end
+  let(:persister) { adapter.persister }
+
+  before  { persister.wipe! }
 
   context 'with no object' do
     it 'gives a 404' do
@@ -20,7 +25,6 @@ RSpec.describe 'GET /{id}' do
   end
 
   context 'with an existing object' do
-    let(:persister)  { adapter.persister }
     let(:pref_label) { ['Moomin'] }
     let(:resource) do
       FactoryBot.create(:concept,
@@ -47,10 +51,6 @@ RSpec.describe 'GET /{id}' do
                 id: id)
     end
 
-    let(:adapter) do
-      Valkyrie::MetadataAdapter.find(Lark.config.index_adapter)
-    end
-
     before { persister.save(resource: resource) }
 
     after  { persister.wipe! }
@@ -70,10 +70,6 @@ RSpec.describe 'GET /{id}' do
   end
 
   context 'with basic term search exact match' do
-    let(:adapter) do
-      Valkyrie::MetadataAdapter.find(Lark.config.index_adapter)
-    end
-    let(:persister) { adapter.persister }
     let(:pref_label_1) { 'authority 1' }
     let(:pref_label_alternate) { 'alternate authority' }
     let(:alternate_label) { 'alternate label' }
