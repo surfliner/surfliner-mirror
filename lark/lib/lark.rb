@@ -2,6 +2,7 @@
 
 require 'dry/configurable'
 require 'dry/system/container'
+require 'yaml'
 
 require_relative 'lark/version'
 require_relative 'lark/event_stream'

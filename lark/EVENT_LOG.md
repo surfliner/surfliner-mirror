@@ -1,12 +1,12 @@
 # The Lark Event Log
 
-Lark's state is maintained by a single append-only event log. The event log 
+Lark's state is maintained by a single append-only event log. The event log
 serves as a canonical data source for authority records. This document
 provides the abstract specification for that log, as well as some notes about
-its implementation. 
+its implementation.
 
-Every change to the state of Lark is encapsulated in an event object and 
-stored sequentially. In principle, the full internal state of the application and 
+Every change to the state of Lark is encapsulated in an event object and
+stored sequentially. In principle, the full internal state of the application and
 its records can be reconstructed from the events on the log.
 
 ## Events
@@ -15,7 +15,7 @@ _Events_ are simple data structures holding:
 
   - `type`: a token representing specifying the semantics of the event data.
   - `data`: a key-value structure providing the event details.
-  - `created_at`: a *unique* timestamp.
+  - `date_created`: a *unique* timestamp.
 
 > _Implementation Note_:
 >
@@ -77,30 +77,30 @@ via the API, especially for expressing record history/provenance.
 _Events_ added to the log are published to listeners/subscribers.
 
 ## The Event Stream
-  
-Lark implements a [dry-events](https://dry-rb.org/gems/dry-events/) publisher/subscriber 
-API to define the flow for event logging. This allows for the creation of event publishers 
+
+Lark implements a [dry-events](https://dry-rb.org/gems/dry-events/) publisher/subscriber
+API to define the flow for event logging. This allows for the creation of event publishers
 and a convenient way to subscribe/listen to the events.
 
-Each time a valid request to resolve authority records is received through the `RecordController` 
-or `BatchController`, an `Event` gets generated and appended into the `EventStream` 
+Each time a valid request to resolve authority records is received through the `RecordController`
+or `BatchController`, an `Event` gets generated and appended into the `EventStream`
 in a sequential manner.
 
-Lark's system-wide events are tracked by the `EventStream`. This is a `Singleton`, meaning 
+Lark's system-wide events are tracked by the `EventStream`. This is a `Singleton`, meaning
 there is exactly one `.instance` and `EventStream.new` is private.
 
-For example: 
-An event can be created by doing 
+For example:
+An event can be created by doing
 ```
   event = Event.new(type: :create, data: { id: id })
 ```
 
 An event can be added to the log by doing
-``` 
+```
   Lark.config.event_stream << event
 ```
 
-Whenever an event is persisted to the `EventStream`, it should also also get published. 
+Whenever an event is persisted to the `EventStream`, it should also also get published.
 The `Dry::Events::Publisher` implementation can be found in the `Lark::EventStream::Publisher` class.
 
 ```
@@ -109,16 +109,16 @@ The `Dry::Events::Publisher` implementation can be found in the `Lark::EventStre
   end
 ```
 
-An event listener _IndexListener_ listens for events on the _EventStream_. The `IndexListener` 
+An event listener _IndexListener_ listens for events on the _EventStream_. The `IndexListener`
 class subscribes to the stream through a config in `lark/config/environment.rb`.
 
 ```
   Lark.config.event_stream.subscribe(IndexListener.new)
 ```
 
-The _IndexListener_ class implements methods based on the _Event's_ `types` while following 
+The _IndexListener_ class implements methods based on the _Event's_ `types` while following
 convention laid down by `Dry::Events`and in turn handles updates to the index as needed.
- 
+
 ```
   class IndexListener
     def on_created(event)
@@ -126,5 +126,3 @@ convention laid down by `Dry::Events`and in turn handles updates to the index as
     end
   end
 ```
-
-

@@ -35,12 +35,12 @@ RSpec.describe Event do
     end
   end
 
-  describe '#created_at' do
+  describe '#date_created' do
     let(:created_at) { Date.today.to_datetime }
 
     it 'creates a timestamp' do
-      expect { event.created_at = created_at }
-        .to change(event, :created_at)
+      expect { event.date_created = created_at }
+        .to change(event, :date_created)
         .from(be_nil)
         .to created_at
     end
