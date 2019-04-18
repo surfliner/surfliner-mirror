@@ -31,12 +31,6 @@ class User < ApplicationRecord
     false
   end
 
-  # Override this Spotlight method since we're using Shibboleth for auth.
-  # This is required to avoid an error while managing users, such as adding a user as an Exhibit admin
-  def created_by_invite?
-    false
-  end
-
   # Method added by Blacklight; Blacklight uses #to_s on your
   # user class to get a user-displayable login/identifier for
   # the account.
@@ -52,10 +46,8 @@ class User < ApplicationRecord
   # @param auth [OmniAuth::AuthHash]
   # @return [User] user found or created with `auth` properties
   def self.from_omniauth(auth)
-    # User record previously created by inviteable
-    # Record is created with supplied email address, but missing provider and uid
-    invited_user = User.find_by(email: auth.info.email, uid: nil, provider: nil)
-    if invited_user
+    invited_user = User.find_by(email: auth.info.email)
+    if invited_user&.created_by_invite?
       invited_user.provider = auth.provider
       invited_user.uid = auth.uid
       invited_user.save
