@@ -3,8 +3,6 @@
 require 'spec_helper'
 
 RSpec.describe Lark::Transactions::UpdateAuthority do
-  include ActionDispatch::TestProcess
-
   subject(:update) do
     described_class.new(event_stream: event_stream, adapter: adapter)
                    .call(id: id, attributes: { pref_label: label })
