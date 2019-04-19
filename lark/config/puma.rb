@@ -61,7 +61,7 @@ daemonize false
 #
 # The default is "false".
 #
-quiet
+# quiet
 
 # Configure "min" to be the minimum number of threads to use to answer
 # requests and "max" the maximum.
