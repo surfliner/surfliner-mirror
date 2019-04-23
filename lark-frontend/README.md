@@ -30,6 +30,11 @@ The frontend will be available at http://localhost:8080/.
 npm run build
 ```
 
+### Run your tests
+```
+npm run test
+```
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
