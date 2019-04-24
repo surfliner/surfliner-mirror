@@ -5,7 +5,7 @@
     <div align="left"><button v-on:click="newAuthority()">New Authority</button></div>
     <div align="left">
       <input class="search" type="text" name="search" v-model="searchText" placeholder="PrefLabel">
-      <button v-on:click="getAuthorities()">Search</button>
+      <button v-on:click="getAuthorities()" id="btnSearch">Search</button>
     </div>
 
     <hr>
@@ -23,7 +23,7 @@
           </tbody>
         </table>
       </div>
-      <div><button type="button" v-on:click="createAuthority()">Submit</button></div>
+      <div><button type="button" v-on:click="createAuthority()" id="btnCreate">Submit</button></div>
     </div>
 
     <div v-if="displayPage === 'edit'">
@@ -40,7 +40,7 @@
           </tbody>
         </table>
       </div>
-      <div><button type="button" v-on:click="updateAuthority()">Submit</button></div>
+      <div><button type="button" v-on:click="updateAuthority()" id="btnUpdate">Submit</button></div>
     </div>
 
     <div v-if="displayPage === 'item' && item.id">
@@ -48,7 +48,7 @@
         <table>
           <caption>
             <span>Authority {{ fieldValue(item.pref_label) }}</span>
-            <button v-on:click="editAuthority()">Edit</button>
+            <button v-on:click="editAuthority()" id="btnEdit">Edit</button>
           </caption>
           <thead>
             <tr><th class="attribute" nowrap>Attribute Name</th><th>Values</th></tr>
