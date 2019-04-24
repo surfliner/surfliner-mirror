@@ -19,24 +19,25 @@ RSpec.describe 'POST /' do
     let(:data)          { { pref_label: 'moomin' }.to_json }
     let(:query_service) { adapter.query_service }
 
-    it 'responds 201' do
-      post '/', data, 'CONTENT_TYPE' => ctype
+    before { post '/', data, 'CONTENT_TYPE' => ctype }
 
+    it 'responds 201' do
       expect(last_response.status).to eq 201 # created
     end
 
     it 'returns a JSON body' do
-      post '/', data, 'CONTENT_TYPE' => ctype
-
       expect(last_response.headers)
         .to include 'Content-Type' => ctype
     end
 
     it 'creates an id' do
-      post '/', data, 'CONTENT_TYPE' => ctype
-
       expect(JSON.parse(last_response.body))
         .to include 'id' => an_instance_of(String)
+    end
+
+    it 'has header for CORS request' do
+      expect(last_response.headers)
+        .to include 'Access-Control-Allow-Origin' => '*'
     end
 
     it 'creates a concept' do
@@ -50,10 +51,15 @@ RSpec.describe 'POST /' do
     let(:ctype) { 'application/fake' }
     let(:data)  { '' }
 
-    it 'responds with a 415 status code' do
-      post '/', data, 'CONTENT_TYPE' => ctype
+    before { post '/', data, 'CONTENT_TYPE' => ctype }
 
+    it 'responds with a 415 status code' do
       expect(last_response.status).to eq 415
+    end
+
+    it 'has header for CORS request' do
+      expect(last_response.headers)
+        .to include 'Access-Control-Allow-Origin' => '*'
     end
   end
 
@@ -76,10 +82,15 @@ RSpec.describe 'POST /' do
        { id: authority_2.id.to_s, pref_label: 'new_label_2' }].to_json
     end
 
-    it 'responds with a 204 status code' do
-      post '/batch_edit', data, 'CONTENT_TYPE' => ctype
+    before { post '/batch_edit', data, 'CONTENT_TYPE' => ctype }
 
+    it 'responds with a 204 status code' do
       expect(last_response.status).to eq 204
+    end
+
+    it 'has header for CORS request' do
+      expect(last_response.headers)
+        .to include 'Access-Control-Allow-Origin' => '*'
     end
 
     context 'with POST to update concepts' do
@@ -105,10 +116,15 @@ RSpec.describe 'POST /' do
     context 'with POSTing to update a non existing concepts' do
       let(:data) { [{ id: 'a_fade_id', pref_label: 'new_label_1' }].to_json }
 
-      it 'returns status 404' do
-        post '/batch_edit', data, 'CONTENT_TYPE' => ctype
+      before { post '/batch_edit', data, 'CONTENT_TYPE' => ctype }
 
+      it 'returns status 404' do
         expect(last_response.status).to eq 404
+      end
+
+      it 'has header for CORS request' do
+        expect(last_response.headers)
+          .to include 'Access-Control-Allow-Origin' => '*'
       end
     end
 
@@ -116,10 +132,15 @@ RSpec.describe 'POST /' do
       let(:ctype) { 'application/fake' }
       let(:data)  { '' }
 
-      it 'responds with a 415 status code' do
-        post '/batch_edit', data, 'CONTENT_TYPE' => ctype
+      before { post '/batch_edit', data, 'CONTENT_TYPE' => ctype }
 
+      it 'responds with a 415 status code' do
         expect(last_response.status).to eq 415
+      end
+
+      it 'has header for CORS request' do
+        expect(last_response.headers)
+          .to include 'Access-Control-Allow-Origin' => '*'
       end
     end
   end
@@ -137,6 +158,11 @@ RSpec.describe 'POST /' do
 
     it 'responds with a simple message' do
       expect(last_response.body).to include message
+    end
+
+    it 'has header for CORS request' do
+      expect(last_response.headers)
+        .to include 'Access-Control-Allow-Origin' => '*'
     end
   end
 end

@@ -10,23 +10,24 @@ RSpec.describe 'GET /' do
 
   let(:app) { Lark.application }
 
-  it 'returns 200' do
-    get '/'
+  before { get '/' }
 
+  it 'returns 200' do
     expect(last_response.status).to eq 200
   end
 
   it 'defaults to a json response' do
-    get '/'
-
     expect(last_response.headers)
       .to include 'Content-Type' => 'application/json'
   end
 
   it 'provides an api service description' do
-    get '/'
-
     expect(JSON.parse(last_response.body))
       .to include 'version' => an_instance_of(String)
+  end
+
+  it 'has header for CORS request' do
+    expect(last_response.headers)
+      .to include 'Access-Control-Allow-Origin' => '*'
   end
 end

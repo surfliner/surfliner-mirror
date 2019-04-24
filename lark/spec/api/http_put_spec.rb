@@ -41,6 +41,11 @@ RSpec.describe 'PUT /{id}' do
         put "/#{id}", data, 'CONTENT_TYPE' => ctype
       end
 
+      it 'has header for CORS request' do
+        expect(last_response.headers)
+          .to include 'Access-Control-Allow-Origin' => '*'
+      end
+
       it 'update the prefLabel' do
         get "/#{id}"
 
@@ -53,10 +58,15 @@ RSpec.describe 'PUT /{id}' do
       let(:id)        { 'fake_id' }
       let(:new_label) { ['Label edited'] }
 
-      it 'update the prefLabel' do
-        get "/#{id}"
+      before { put "/#{id}", data, 'CONTENT_TYPE' => ctype }
 
+      it 'update the prefLabel' do
         expect(last_response.status).to eq 404
+      end
+
+      it 'has header for CORS request' do
+        expect(last_response.headers)
+          .to include 'Access-Control-Allow-Origin' => '*'
       end
     end
 
@@ -67,10 +77,15 @@ RSpec.describe 'PUT /{id}' do
         FactoryBot.create(:concept)
       end
 
-      it 'responds with a 415 status code' do
-        put "/#{authority.id}", data, 'CONTENT_TYPE' => ctype
+      before { put "/#{authority.id}", data, 'CONTENT_TYPE' => ctype }
 
+      it 'responds with a 415 status code' do
         expect(last_response.status).to eq 415
+      end
+
+      it 'has header for CORS request' do
+        expect(last_response.headers)
+          .to include 'Access-Control-Allow-Origin' => '*'
       end
     end
   end

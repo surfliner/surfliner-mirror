@@ -9,6 +9,21 @@ class BatchController < ApplicationController
   include RecordControllerBehavior
 
   ##
+  # options for CORS preflight request
+  # Access-Control-Allow-Methods: POST, OPTIONS.
+  # Access-Control-Allow-Headers: Content-Type
+  # Access-Control-Max-Age: 86400 (delta seconds, 24 hours)
+  def options
+    response_headers = {
+      'Access-Control-Allow-Methods' => 'POST, OPTIONS',
+      'Access-Control-Allow-Headers' => 'Content-Type',
+      'Access-Control-Max-Age' => '86400'
+    }
+
+    [204, response_headers.merge(cors_allow_header), []]
+  end
+
+  ##
   # Update an existing authority record from the request
   def batch_update
     authorities = parsed_body(format: ctype)
@@ -19,8 +34,8 @@ class BatchController < ApplicationController
               attributes: attrs)
     end
 
-    [204, response_headers, []]
-  rescue Lark::RequestError => err
-    [err.status, {}, [err.message]]
+    [204, cors_allow_header, []]
+  rescue Lark::RequestError => e
+    [e.status, cors_allow_header, [e.message]]
   end
 end

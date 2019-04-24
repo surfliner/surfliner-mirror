@@ -11,18 +11,17 @@ class SearchController < ApplicationController
   ##
   # exact search for known terms: pref_label, alternate_label
   def exact_search
-    label = search_term params
-    return [400, {}, ['Unknown search term.']] if label.empty?
+    if search_term(params).empty?
+      return [400, response_headers, ['Unknown search term.']]
+    end
 
-    query = FindByStringProperty.new(query_service: query_service)
-    rs = query.find_by_string_property(property: label,
-                                       value: params[label])
+    rs = search params
 
-    return [404, {}, []] if rs.count.zero?
+    return [404, cors_allow_header, []] if rs.count.zero?
 
     [200, response_headers, [serialize(record: rs, format: 'application/json')]]
-  rescue Lark::RequestError => err
-    [err.status, {}, [err.message]]
+  rescue Lark::RequestError => e
+    [e.status, cors_allow_header, [e.message]]
   end
 
   private
@@ -55,5 +54,15 @@ class SearchController < ApplicationController
     buf << ']'
 
     buf.string
+  end
+
+  ##
+  # perform basic term search
+  # @params [Hash] the request parameters map
+  def search(params)
+    label = search_term params
+    FindByStringProperty.new(query_service: query_service)
+                        .find_by_string_property(property: label,
+                                                 value: params[label])
   end
 end

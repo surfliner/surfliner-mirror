@@ -46,6 +46,22 @@ module Lark
     put '/:id' do
       RecordController.new(request: request, params: params).update
     end
+
+    options '/' do
+      ServiceDescriptionController.new(params: params).options
+    end
+
+    options '/search' do
+      SearchController.new(params: params).options
+    end
+
+    options '/batch_edit' do
+      BatchController.new(params: params).options
+    end
+
+    options '/:id' do
+      RecordController.new(params: params).options
+    end
   end
 
   def application

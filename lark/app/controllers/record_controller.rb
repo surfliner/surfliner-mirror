@@ -9,6 +9,21 @@ class RecordController < ApplicationController
   include RecordControllerBehavior
 
   ##
+  # options for CORS preflight request
+  # Access-Control-Allow-Methods: POST, GET, PUT, OPTIONS, DELETE.
+  # Access-Control-Allow-Headers: Content-Type
+  # Access-Control-Max-Age: 86400 (delta seconds, 24 hours)
+  def options
+    response_headers = {
+      'Access-Control-Allow-Methods' => 'POST, GET, PUT, OPTIONS, DELETE',
+      'Access-Control-Allow-Headers' => 'Content-Type',
+      'Access-Control-Max-Age' => '86400'
+    }
+
+    [204, response_headers.merge(cors_allow_header), []]
+  end
+
+  ##
   # Creates a new authority record from the request
   def create
     record = Lark::Transactions::CreateAuthority
@@ -17,8 +32,8 @@ class RecordController < ApplicationController
              .value!
 
     [201, response_headers, [serialize(record: record, format: ctype)]]
-  rescue Lark::RequestError => err
-    [err.status, {}, [err.message]]
+  rescue Lark::RequestError => e
+    [e.status, cors_allow_header, [e.message]]
   end
 
   ##
@@ -26,9 +41,10 @@ class RecordController < ApplicationController
   def show
     record = query_service.find_by(id: params['id'])
 
-    [200, {}, [serialize(record: record, format: 'application/json')]]
-  rescue Valkyrie::Persistence::ObjectNotFoundError => err
-    [404, {}, [err.message]]
+    data = serialize(record: record, format: 'application/json')
+    [200, response_headers, [data]]
+  rescue Valkyrie::Persistence::ObjectNotFoundError => e
+    [404, cors_allow_header, [e.message]]
   end
 
   ##
@@ -40,8 +56,8 @@ class RecordController < ApplicationController
       .new(event_stream: event_stream, adapter: adapter)
       .call(id: params['id'], attributes: attrs)
 
-    [204, response_headers, []]
-  rescue Lark::RequestError => err
-    [err.status, {}, [err.message]]
+    [204, cors_allow_header, []]
+  rescue Lark::RequestError => e
+    [e.status, cors_allow_header, [e.message]]
   end
 end

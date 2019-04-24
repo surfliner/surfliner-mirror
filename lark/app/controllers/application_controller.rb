@@ -22,6 +22,12 @@ class ApplicationController
   protected
 
   def response_headers
-    { 'Content-Type' => 'application/json' }
+    { 'Content-Type' => 'application/json' }.merge(cors_allow_header)
+  end
+
+  ##
+  # The header to support CORS
+  def cors_allow_header
+    { 'Access-Control-Allow-Origin' => '*' }
   end
 end

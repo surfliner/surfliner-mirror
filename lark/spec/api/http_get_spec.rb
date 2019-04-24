@@ -87,55 +87,78 @@ RSpec.describe 'GET /{id}' do
     after { persister.wipe! }
 
     context 'with unsupported search term' do
-      it 'gives a 400 bad request' do
-        get '/search', any_term: 'any term'
+      before { get '/search', any_term: 'any term' }
 
+      it 'gives a 400 bad request' do
         expect(last_response.status).to eq 400
+      end
+
+      it 'has header for CORS request' do
+        expect(last_response.headers)
+          .to include 'Access-Control-Allow-Origin' => '*'
       end
     end
 
-    context 'with no results' do
-      it 'gives a 404 with term pref_label' do
-        get '/search', pref_label: 'authority'
+    context 'with no terms matched pref_label' do
+      before { get '/search', pref_label: 'authority' }
 
+      it 'gives a 404 with term pref_label' do
         expect(last_response.status).to eq 404
       end
 
-      it 'gives a 404 with term alternate_label' do
-        get '/search', alternate_label: 'authority'
+      it 'has header for CORS request' do
+        expect(last_response.headers)
+          .to include 'Access-Control-Allow-Origin' => '*'
+      end
+    end
 
+    context 'with no terms matched alternate_label' do
+      before { get '/search', alternate_label: 'authority' }
+
+      it 'gives a 404 with term alternate_label' do
         expect(last_response.status).to eq 404
+      end
+
+      it 'has header for CORS request' do
+        expect(last_response.headers)
+          .to include 'Access-Control-Allow-Origin' => '*'
       end
     end
 
     context 'with term matched pref_label' do
-      it 'gives a 200' do
-        get '/search', pref_label: pref_label_1
+      before { get '/search', pref_label: pref_label_1 }
 
+      it 'gives a 200' do
         expect(last_response.status).to eq 200
       end
 
       it 'contains the existing authority with pre_label matched' do
-        get '/search', pref_label: pref_label_1
-
         expect(JSON.parse(last_response.body).first.symbolize_keys)
           .to include(pref_label: [pref_label_1], alternate_label: [])
+      end
+
+      it 'has header for CORS request' do
+        expect(last_response.headers)
+          .to include 'Access-Control-Allow-Origin' => '*'
       end
     end
 
     context 'with term match alternate_label' do
-      it 'gives a 200' do
-        get '/search', alternate_label: alternate_label
+      before { get '/search', alternate_label: alternate_label }
 
+      it 'gives a 200' do
         expect(last_response.status).to eq 200
       end
 
       it 'contains the existing authority with alternate_label matched' do
-        get '/search', alternate_label: alternate_label
-
         expect(JSON.parse(last_response.body).first.symbolize_keys)
           .to include(pref_label: [pref_label_alternate],
                       alternate_label: [alternate_label])
+      end
+
+      it 'has header for CORS request' do
+        expect(last_response.headers)
+          .to include 'Access-Control-Allow-Origin' => '*'
       end
     end
   end
