@@ -18,6 +18,12 @@ $ rackup config.ru
 npm install
 ```
 
+### Configure Lark URL
+Edit `.evn`:
+```
+VUE_APP_ROOT_API=http://localhost:9292/
+```
+
 ### Compiles and hot-reloads for development
 ```
 npm run serve

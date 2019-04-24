@@ -5,7 +5,7 @@ const status = response => {
   return Promise.reject(new Error(response.statusText))
 }
 
-const lark_url = 'http://localhost:9292/'
+const lark_url = process.env.VUE_APP_ROOT_API
 const json = response => response.json()
 
 export default {
