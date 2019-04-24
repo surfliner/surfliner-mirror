@@ -11,17 +11,18 @@ class SearchController < ApplicationController
   ##
   # exact search for known terms: pref_label, alternate_label
   def exact_search
-    if search_term(params).empty?
-      return [400, response_headers, ['Unknown search term.']]
+    with_error_handling do
+      if search_term(params).empty?
+        return [400, response_headers, ['Unknown search term.']]
+      end
+
+      rs = search params
+
+      return [404, cors_allow_header, []] if rs.count.zero?
+
+      data = serialize(record: rs, format: 'application/json')
+      [200, response_headers, [data]]
     end
-
-    rs = search params
-
-    return [404, cors_allow_header, []] if rs.count.zero?
-
-    [200, response_headers, [serialize(record: rs, format: 'application/json')]]
-  rescue Lark::RequestError => e
-    [e.status, cors_allow_header, [e.message]]
   end
 
   private

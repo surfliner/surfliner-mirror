@@ -26,14 +26,14 @@ class RecordController < ApplicationController
   ##
   # Creates a new authority record from the request
   def create
-    record = Lark::Transactions::CreateAuthority
-             .new(event_stream: event_stream)
-             .call(attributes: parsed_body(format: ctype))
-             .value!
+    with_error_handling do
+      record = Lark::Transactions::CreateAuthority
+               .new(event_stream: event_stream)
+               .call(attributes: parsed_body(format: ctype))
+               .value!
 
-    [201, response_headers, [serialize(record: record, format: ctype)]]
-  rescue Lark::RequestError => e
-    [e.status, cors_allow_header, [e.message]]
+      [201, response_headers, [serialize(record: record, format: ctype)]]
+    end
   end
 
   ##
@@ -50,14 +50,14 @@ class RecordController < ApplicationController
   ##
   # Update an existing authority record from the request
   def update
-    attrs = parsed_body(format: ctype)
+    with_error_handling do
+      attrs = parsed_body(format: ctype)
 
-    Lark::Transactions::UpdateAuthority
-      .new(event_stream: event_stream, adapter: adapter)
-      .call(id: params['id'], attributes: attrs)
+      Lark::Transactions::UpdateAuthority
+        .new(event_stream: event_stream, adapter: adapter)
+        .call(id: params['id'], attributes: attrs)
 
-    [204, cors_allow_header, []]
-  rescue Lark::RequestError => e
-    [e.status, cors_allow_header, [e.message]]
+      [204, cors_allow_header, []]
+    end
   end
 end

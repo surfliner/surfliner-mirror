@@ -21,6 +21,12 @@ class ApplicationController
 
   protected
 
+  def with_error_handling
+    yield if block_given?
+  rescue Lark::RequestError => e
+    [e.status, cors_allow_header, [e.message]]
+  end
+
   def response_headers
     { 'Content-Type' => 'application/json' }.merge(cors_allow_header)
   end

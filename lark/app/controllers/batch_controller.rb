@@ -26,16 +26,16 @@ class BatchController < ApplicationController
   ##
   # Update an existing authority record from the request
   def batch_update
-    authorities = parsed_body(format: ctype)
-    authorities.each do |attrs|
-      Lark::Transactions::UpdateAuthority
-        .new(event_stream: event_stream, adapter: adapter)
-        .call(id: attrs[:id],
-              attributes: attrs)
-    end
+    with_error_handling do
+      authorities = parsed_body(format: ctype)
+      authorities.each do |attrs|
+        Lark::Transactions::UpdateAuthority
+          .new(event_stream: event_stream, adapter: adapter)
+          .call(id: attrs[:id],
+                attributes: attrs)
+      end
 
-    [204, cors_allow_header, []]
-  rescue Lark::RequestError => e
-    [e.status, cors_allow_header, [e.message]]
+      [204, cors_allow_header, []]
+    end
   end
 end
