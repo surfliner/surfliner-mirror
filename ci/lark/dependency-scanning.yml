@@ -13,6 +13,7 @@ lark-dependency-scanning:
   only:
     changes:
       - lark/**/*
+      - ci/lark/**/*
     variables:
       - $GITLAB_FEATURES =~ /\bdependency_scanning\b/
   except:

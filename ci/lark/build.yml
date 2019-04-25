@@ -5,12 +5,14 @@ lark-ruby-build:
   script:
     - cd lark
     - registry_login
-    - docker build -t $CI_REGISTRY_IMAGE/lark_web:latest .
-    - docker push $CI_REGISTRY_IMAGE/lark_web:latest
+    - docker build -t $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_REF_NAME .
+    - docker push $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_REF_NAME
   only:
     changes:
       - .gitlab-ci.yml
+      - ci/lark/**/*
       - lark/Dockerfile
+      - lark/**/*
 
 lark-frontend-node-build:
   stage: build

@@ -1,6 +1,6 @@
 lark-unit-tests:
   stage: test
-  image: $CI_REGISTRY_IMAGE/lark_web:latest
+  image: $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_REF_NAME
   variables:
     SOLR_CORE_NAME: lark-test
     SOLR_CONFIG_DIR: lark/solr/config
@@ -22,13 +22,13 @@ lark-unit-tests:
   only:
     changes:
       - .gitlab-ci.yml
-      - Dockerfile
+      - ci/lark/**/*
       - lark/**/*
 
 lark-client-unit:
   stage: test
   # reuse the lark_web image; ruby alpine images are missing system dependencies
-  image: $CI_REGISTRY_IMAGE/lark_web:latest
+  image: $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_REF_NAME
   script:
     - cd lark-client
     - bundle check || bundle
@@ -36,12 +36,13 @@ lark-client-unit:
   only:
     changes:
       - .gitlab-ci.yml
+      - ci/lark/**/*
       - lark-client/**/*
 
 lark-client-integration:
   stage: integration
   # reuse the lark_web image; ruby alpine images are missing system dependencies
-  image: $CI_REGISTRY_IMAGE/lark_web:latest
+  image: $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_REF_NAME
   script:
     - cd lark-client
     - bundle check || bundle
@@ -49,5 +50,6 @@ lark-client-integration:
   only:
     changes:
       - .gitlab-ci.yml
+      - ci/lark/**/*
       - lark-client/**/*
       - lark/**/*

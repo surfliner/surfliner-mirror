@@ -14,6 +14,7 @@ lark-code-quality:
   only:
     changes:
       - lark/**/*
+      - ci/lark/**/*
   except:
     variables:
       - $CODE_QUALITY_DISABLED

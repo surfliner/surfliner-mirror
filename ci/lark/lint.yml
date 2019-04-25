@@ -1,6 +1,6 @@
 lark-lint:
   stage: lint
-  image: $CI_REGISTRY_IMAGE/lark_web:latest
+  image: $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_REF_NAME
   script:
     - cd lark
     - bundle check || bundle
@@ -14,7 +14,7 @@ lark-lint:
 lark-client-lint:
   stage: lint
   # reuse the lark_web image; ruby alpine images are missing system dependencies
-  image: $CI_REGISTRY_IMAGE/lark_web:latest
+  image: $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_REF_NAME
   script:
     - cd lark-client
     - bundle check || bundle
@@ -22,5 +22,6 @@ lark-client-lint:
   only:
     changes:
       - .gitlab-ci.yml
+      - ci/lark/**/*
       - .styles/**/*
       - lark-client/**/*

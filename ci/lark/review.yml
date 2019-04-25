@@ -1,0 +1,59 @@
+review:
+  stage: review
+  services:
+    - name: docker:dind
+  script:
+    - cd lark
+    - ensure_namespace
+    - initialize_tiller
+    - create_secret
+    - mv ../charts/lark/latest ./chart
+    - build_chart_dependencies
+    - deploy
+    - persist_environment_url
+  environment:
+    name: ucsb.review.lark/$CI_COMMIT_REF_NAME
+    url: http://lark-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
+    on_stop: stop_review
+  variables:
+    DEPLOY_IMAGE_TAG: $CI_COMMIT_REF_NAME
+    INGRESS_URL: lark-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
+  artifacts:
+    paths: [environment_url.txt]
+  only:
+    refs:
+      - branches
+      - tags
+    changes:
+      - lark/**/*
+      - charts/lark/**/*
+      - ci/lark/**/*
+      - .gitlab-ci.yml
+  except:
+    refs:
+      - master
+
+stop_review:
+  stage: cleanup
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - initialize_tiller
+    - delete
+  environment:
+    name: ucsb.review.lark/$CI_COMMIT_REF_NAME
+    action: stop
+  when: manual
+  allow_failure: true
+  only:
+    refs:
+      - branches
+      - tags
+    changes:
+      - lark/**/*
+      - charts/lark/**/*
+      - ci/lark/**/*
+      - .gitlab-ci.yml
+  except:
+    refs:
+      - master

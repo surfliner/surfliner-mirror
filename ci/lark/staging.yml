@@ -1,16 +1,32 @@
-lark-staging:
+lark-staging-ucsb:
   stage: staging
   services:
     - name: docker:dind
   script:
     - cd lark
     - registry_login
-    - docker build -t $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_SHA .
-    - docker tag $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_SHA $CI_REGISTRY_IMAGE/lark_web:stable
-    - docker push $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_SHA
+    - docker pull $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_REF_NAME
+    - docker tag $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_REF_NAME $CI_REGISTRY_IMAGE/lark_web:stable
     - docker push $CI_REGISTRY_IMAGE/lark_web:stable
+    - check_kube_domain
+    - ensure_namespace
+    - initialize_tiller
+    - create_secret
+    - mv ../charts/lark/latest ./chart
+    - build_chart_dependencies
+    - deploy
+  environment:
+    name: ucsb.staging.lark
+    url: http://lark-staging.$KUBE_INGRESS_BASE_DOMAIN
+  variables:
+    DEPLOY_IMAGE_TAG: lark_web:$CI_COMMIT_REF_NAME
+    INGRESS_URL: lark-staging.$KUBE_INGRESS_BASE_DOMAIN
+  allow_failure: true
   only:
     refs:
       - master
     changes:
       - lark/**/*
+      - charts/lark/**/*
+      - ci/lark/**/*
+      - .gitlab-ci.yml
