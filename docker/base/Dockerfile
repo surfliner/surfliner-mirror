@@ -1,4 +1,4 @@
-FROM docker:stable
+FROM docker:18.09.5
 
 RUN apk update && \
     apk add --no-cache git bash && \
