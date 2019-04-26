@@ -1,22 +1,19 @@
 <template>
-  <div id="app">
-    <Lark/>
+  <div class="lark" align="center">
+    <div id="app">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
-  import Lark from './components/Lark.vue'
-
   export default {
-    name: 'app',
-    components: {
-      Lark
-    }
+    name: 'App'
   }
 </script>
 
 <style>
-  @import './assets/css/lark.css';
+  @import './assets/css/app.css';
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
