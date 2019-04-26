@@ -38,6 +38,7 @@ Puppet, or whatever works best in your local environment and practices.
 | `SITEMAP_DEFAULT_HOST` | Hostname for production application. E.g. `http://localhost` | Yes |
 | `SMTP_HOST` | SMPT host for use with ActionMailer. E.g `localhost` | Yes |
 | `SOLR_URL` | URL of your Solr instance. E.g `http://solr:8983/solr/starlight-core` | Yes |
+| `SPOTLIGHT_THEMES` | Used by Spotlight to activate custom themes. E.g. `ucsb` | No |
 
 ### Deploy Variables
 

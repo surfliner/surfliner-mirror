@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-Spotlight::Engine.config.exhibit_themes = %w[default ucsb ucsd]
+Spotlight::Engine.config.exhibit_themes =
+  %w[default] +
+  ENV.fetch("SPOTLIGHT_THEMES") { "" }.split(",")
 
 # ==> User model
 # Note that your chosen model must include Spotlight::User mixin
