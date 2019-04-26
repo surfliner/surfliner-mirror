@@ -70,6 +70,9 @@ To add a custom theme to your Starlight installation, follow these steps:
 1. `solr_wrapper --config config/solr_wrapper_dev.yml` to spin up a local copy of solr for development
 1. `rails s` to run rails server
 
+To override environment variables set by `.env.development`, create a
+`.env.development.local` file: <https://github.com/bkeepers/dotenv#what-other-env-files-can-i-use>
+
 ### With Docker
 
 You will need Docker and Docker Compose installed on your host/local system.

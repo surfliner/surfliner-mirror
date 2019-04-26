@@ -24,8 +24,8 @@
 .byebug_history
 
 /public/uploads
-
 /spec/examples.txt
+*.local
 
 # Don't check in vendored JS
 .yarn-integrity
