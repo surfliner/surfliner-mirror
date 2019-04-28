@@ -140,7 +140,18 @@
       text-shadow: 0 1px 1px #FFF;
       font-weight: normal;
     }
-    ul
+    > ol
+    {
+      > li > h4
+      {
+        margin: 0;
+      }
+      .active
+      {
+        padding: 1em;
+      }
+    }
+    > ul, > ol
     {
       border: 1px solid #c8cfd3;
       border-bottom: none;
@@ -162,9 +173,10 @@
       .active
       {
         background: #fff;
-        a
+        a, h4
         {
           color: #d56a03;
+          font-weight: normal;
         }
       }
     }
@@ -177,6 +189,21 @@
     .contacts
     {
       margin: 0 20px 20px 20px;
+      border: none;
+      background-color: transparent;
+      li
+      {
+        border: none;
+        background-color: transparent;
+        a
+        {
+          padding: 0;
+          &:hover
+          {
+            background-color: transparent;
+          }
+        }
+      }
     }
   }
   div > .page-title
@@ -285,9 +312,10 @@ footer
   }
 }
 
-// Fixes oddball horizontal scroll overflow issue (mobile view)
+// Mobile-view
 @media (max-width: 767px)
 {
+  // Fixes oddball horizontal scroll overflow issue (Mobile view)
   .navbar-form
   {
     padding: 0;
