@@ -7,6 +7,36 @@
 @import 'leaflet';
 
 //---
+// APPBAR
+//---
+
+#header-navbar
+{
+  background: #182B49;
+  // Logo
+  .navbar-brand
+  {
+    background-image: url(data:image/png;base64,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);
+    background-size: 90px 30px;
+    background-position: 15px;
+  }
+  // Buttons
+  .nav > li > a
+  {
+    color: rgba(255,255,255,0.666);
+  }
+  .nav > li > a:hover
+  {
+    color: #fff;
+  }
+  .navbar-nav > .open > a, .navbar-nav > .open > a:hover, .navbar-nav > .open > a:focus
+  {
+    color: #fff;
+    background-color: #0A1932;
+  }
+}
+
+//---
 // HEADER
 //---
 
@@ -114,7 +144,6 @@
             background-color: #fff;
           }
         }
-
       }
       .active
       {
@@ -167,7 +196,6 @@ footer
   }
 }
 
-
 //---
 // Media queries (BS is mobile first)
 //---
@@ -187,6 +215,35 @@ footer
     margin: auto;
     min-height: 33px;
     background-size: 167px 33px;
+  }
+  // App bar tweaks (Tablet and desktop views)
+  #header-navbar
+  {
+    // Library Logo
+    min-height: 30px;
+    max-height: 30px;
+    .navbar-brand
+    {
+      background-position: center left;
+      width: 90px;
+      height: 30px;
+      margin: 0;
+    }
+    .navbar-nav > li > a
+    {
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+    // Buttons
+    .nav > li > a
+    {
+      font-size: 75%;
+      padding: 5px 10px;
+    }
+    .nav > li> a[data-behavior="contact-link"]
+    {
+      margin-right: 5px;
+    }
   }
 }
 
@@ -222,6 +279,42 @@ footer
     padding: 0;
     margin: 0 15px;
   }
+  // App bar tweaks (Mobile-only)
+  #header-navbar
+  {
+    border-color: #0A1932;
+    .navbar-nav .open .dropdown-menu .divider
+    {
+      background-color: #0A1932;
+    }
+    .navbar-collapse, #facet-panel-collapse, .navbar-form
+    {
+      border-color: #0A1932;
+    }
+    .navbar-collapse, #facet-panel-collapse
+    {
+      box-shadow: inset 0 1px 0 #405575;
+    }
+    .navbar-right > ul
+    {
+      margin: 0 -15px;
+    }
+    .navbar-nav .open .dropdown-menu > li > a
+    {
+      color: rgba(255,255,255,0.666);
+    }
+    .navbar-nav .open .dropdown-menu > li > a:hover
+    {
+      color: #fff;
+    }
+    .navbar-toggle, .facets-toggle
+    {
+      border-color: #293D5C;
+    }
+    .navbar-toggle:focus, .facets-toggle:focus, .navbar-toggle:hover, .facets-toggle:hover
+    {
+      border-color: #405575;
+      background-color: #0A1932;
+    }
+  }
 }
-
-
