@@ -7,7 +7,7 @@
 @import 'leaflet';
 
 //---
-// APPBAR
+// App Bar
 //---
 
 #header-navbar
@@ -37,7 +37,21 @@
 }
 
 //---
-// HEADER
+// Feedback Form
+//---
+
+#report-problem-form
+{
+  padding-bottom: 15px;
+  background-color: #C4CEDF;
+  .form-control, .form-group .st-text-block, .st-block input[type="text"], .item-text-admin #item-text
+  {
+    border-color: #7A8FB1;
+  }
+}
+
+//---
+// Header
 //---
 
 .masthead
