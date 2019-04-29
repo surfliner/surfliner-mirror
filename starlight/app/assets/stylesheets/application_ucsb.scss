@@ -17,29 +17,62 @@
 @import 'themes/ucsb/default-variables';
 @import 'themes/ucsb/overrides';
 
+@mixin inline($separator, $distance) {
+  &, & > li {
+    /* http://www.alistapart.com/articles/taminglists/ */
+    display: inline;
+    margin: 0;
+    padding-left: 0;
+  }
+  & > li + li {
+    // old IE doesn't recognize ::before, so this keeps items at least a little separate
+    padding-left: $distance/2;
+    &::before {
+      font-style: normal;
+      content: $separator;
+      padding-right: $distance/2;
+    }
+  }
+}
+
 // ------
 // Header
 // ------
-.navbar-header::after {
-  clear: none !important;
+
+// to match #eyebrow
+.header-navbar {
+  height: 36px;
 }
-
-.navbar-brand {
-  background-image: image-url('themes/ucsb/ucsb-header-navy.png') !important;
-  height: 17px !important;
-  width: 216px !important;
-
-  margin-top: 15px;
-}
-
-.exhibit-navbar {
-  background-color: $base-lightgray !important;
-  border-color: $base-lightgray !important;
-}
-
 .navbar {
-  li > a {
-    padding: 18px 0 6px !important;
+  min-height: 36px;
+}
+
+#eyebrow {
+  a:hover,
+  a:focus {
+    text-decoration: none;
+  }
+
+  .edu-link:hover {
+    text-decoration: underline;
+  }
+
+  .dropdown-menu {
+    background-color: $base-navy;
+    border-radius: 0;
+    left: inherit;
+    margin-top: 10px !important;
+    padding: 0;
+    right: 0;
+
+    li > a:hover {
+      background-color: $navy-darken-4 !important;
+    }
+
+    a {
+      padding: 12px 24px;
+      text-transform: none !important;
+    }
   }
 }
 
@@ -49,6 +82,11 @@
 
 .st__content-block--text {
   margin-bottom: 10px;
+}
+
+.exhibit-navbar {
+  background-color: $base-lightgray !important;
+  border-color: $base-lightgray !important;
 }
 
 //////////
@@ -68,6 +106,10 @@
   margin-right: 1em;
 }
 
+////////////
+// FOOTER
+////////////
+
 footer {
   background-color: $base-navy;
   color: white;
@@ -76,9 +118,13 @@ footer {
   padding: 1em;
 }
 
-// -------------------------
-// override override.scss :)
-// -------------------------
+//////////
+// MISC
+//////////
+.flat {
+  @include inline(" ", 4px);
+}
+
 .btn {
   padding: 10px 20px !important;
 }
