@@ -19,11 +19,10 @@ export default {
     '$route': 'search'
   },
   methods: {
-    async search(keywords) {
-      fetch(this.$lark_url + 'search?pref_label=' + keywords, { mode: 'cors' })
+    search(keywords) {
+      this.axios.get(this.$lark_url + 'search?pref_label=' + keywords, { mode: "cors" })
         .then(this.$status)
-        .then(this.$json)
-        .then(data => { this.authorities = data; })
+        .then(response => { this.authorities = response.data; })
         .catch(error => { console.log('Request failed', error) });
     },
     displayItem(id) {

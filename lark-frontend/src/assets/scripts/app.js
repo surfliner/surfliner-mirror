@@ -13,11 +13,10 @@ export default {
       this.$set(this.item, fieldName, e.target.value);
       this.$emit('input', e.target.value)
     },
-    async fetchRecord(id) {
-      fetch(this.$lark_url + id, { mode: "cors" })
+    fetchData(url) {
+      this.axios.get(url, { mode: "cors" })
         .then(this.$status)
-        .then(this.$json)
-        .then(data => { this.item = data; })
+        .then(response => { this.item = response.data; })
         .catch(error => { console.log('Request failed', error) });
     }
   },

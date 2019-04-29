@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     loadRecord(id) {
-      this.fetchRecord(id);
+      this.fetchData(this.$lark_url + id);
     },
     editAuthority() {
       this.$router.push({ path: `/${this.item.id}/edit`});
