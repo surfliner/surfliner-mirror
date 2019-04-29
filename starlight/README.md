@@ -51,9 +51,7 @@ To add a custom theme to your Starlight installation, follow these steps:
    `theme-name` is the name of your theme.
 1. Create a square PNG that identifies your theme at
    `app/assets/images/spotlight/themes/theme-name_preview.png`.
-1. Add `theme-name` to the end of the
-   `Spotlight::Engine.config.exhibit_themes` array in
-   `config/initializers/spotlight_initialier.rb`.
+1. Add `theme-name` to the environment variable `SPOTLIGHT_THEMES`.
 1. Add `application_theme-name.scss` to the
    `Rails.application.config.assets.precompile` array in
    `config/initializers/assets.rb`.
