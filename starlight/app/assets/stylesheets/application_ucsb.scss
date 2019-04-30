@@ -76,19 +76,6 @@
   }
 }
 
-#sidebar {
-  padding: 0 2em;
-}
-
-.st__content-block--text {
-  margin-bottom: 10px;
-}
-
-.exhibit-navbar {
-  background-color: $base-lightgray !important;
-  border-color: $base-lightgray !important;
-}
-
 //////////
 // BROWSE
 //////////
@@ -177,6 +164,32 @@ footer {
 //////////
 // MISC
 //////////
+#sidebar {
+  padding: 0 1em;
+
+  .nav-heading {
+    padding: 0;
+  }
+
+  .contact-photo {
+    float: right;
+    margin: 0;
+  }
+
+  .sidenav.contacts .contact-photo + div[itemprop] ~ div[itemprop] {
+    margin: 0;
+  }
+}
+
+.st__content-block--text {
+  margin-bottom: 10px;
+}
+
+.exhibit-navbar {
+  background-color: $base-lightgray !important;
+  border-color: $base-lightgray !important;
+}
+
 .flat {
   @include inline(" ", 4px);
 }
