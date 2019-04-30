@@ -112,10 +112,66 @@
 
 footer {
   background-color: $base-navy;
-  color: white;
+  color: $white;
+  margin-top: 1em;
   min-height: 8em;
   overflow: hidden;
-  padding: 1em;
+  padding: 3em 0 0;
+
+  div + div {
+    padding-top: 1em;
+  }
+
+  a {
+    color: $white;
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: $white;
+    }
+  }
+
+  svg {
+    fill: $white;
+    margin-bottom: -2px;
+    margin-right: 6px;
+    vertical-align: text-bottom;
+  }
+}
+
+.footer-main {
+  padding: 0 3em;
+}
+
+.footer-box + .footer-box {
+  padding-left: 30px;
+}
+
+.seal {
+  border-bottom: 1px solid $white-opacity-50;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+}
+
+.label {
+  border-bottom: 1px solid $white-opacity-50;
+  color: $white;
+  font-size: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+}
+
+.copyright {
+  background-color: $navy-darken-4;
+  font-size: $smallest-font-size;
+  margin: 3em 0 0;
+  padding: 2em 3em 4em;
+  width: 100%;
+}
+
+.footer-meta {
+  @include inline("• ", 8px);
 }
 
 //////////
