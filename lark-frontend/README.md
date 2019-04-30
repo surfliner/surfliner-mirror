@@ -15,11 +15,16 @@ $ rackup config.ru
 
 ## Project setup
 ```
+cd lark-frontend
+```
+
+Install `npm`:
+```
 npm install
 ```
 
 ### Configure Lark URL
-Edit `.evn`:
+Edit `.env`:
 ```
 VUE_APP_ROOT_API=http://localhost:9292/
 ```
