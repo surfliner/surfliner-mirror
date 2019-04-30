@@ -1,4 +1,4 @@
-ark,exactMatch,prefLabel:literal_form,identifier,closeMatch,scopeNote,note,editorialNote,historyNote,definition,alternateLabel:literal_form,alternateLabel:label_source,alternateLabel:annotation,alternateLabel:language,hiddenLabel,prefLabel:label_source,prefLabel:language,alternateLabel:campus,scheme
+id,exact_match,pref_label,identifier,close_match,scope_note,note,editorial_note,history_note,definition,alternate_label,alternate_label_source,alternate_label_annotation,alternate_label_language,hidden_label,pref_label_source,pref_label_language,alternate_label_campus,scheme
 http://library.ucsd.edu/ark:/20775/bb53277026,http://id.worldcat.org/fast/1018930,Mexican American art,,,,,,,,,,,,,,,,
 http://library.ucsd.edu/ark:/20775/bb7887729d,http://vocab.getty.edu/aat/300047753,models (representations),,https://www.wikidata.org/wiki/Q12149837,,,,,,,,,,,,,,
 http://library.ucsd.edu/ark:/20775/bb4098565g,http://id.worldcat.org/fast/1024387,Models (Persons),,http://vocab.getty.edu/aat/300025848,,,,,,,,,,,,,,
