@@ -19,7 +19,6 @@ starlight-test:
     - postgres:11-alpine
   script:
     - cd starlight
-    - RAILS_ENV=test bundle exec rake db:migrate
     - RAILS_ENV=test bundle exec rspec --format progress --format RspecJunitFormatter --out rspec.xml
   artifacts:
     reports:
