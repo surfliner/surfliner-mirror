@@ -18,7 +18,7 @@ export default {
         "history_note": [],
         "definition": [],
         "identifier": [],
-        "literalForm": [],
+        "literal_form": [],
         "label_source": [],
         "campus": [],
         "annotation": []
@@ -29,12 +29,11 @@ export default {
     Lark
   },
   methods: {
-    async createAuthority() {
+    createAuthority() {
       this.axios.post(this.$lark_url, this.item, this.$cors_headers)
         .then(this.$status)
         .then(response => {this.item = response.data; this.$router.push({ path: `/${this.item.id}`});})
         .catch(error => { console.log('Request failed', error) });
-      
     }
   }
 }
