@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   mount Blacklight::Oembed::Engine, at: "oembed"
   mount Riiif::Engine => "/images", as: "riiif"
   root to: "spotlight/exhibits#index"
-  mount Spotlight::Engine, at: "spotlight"
+  mount Spotlight::Engine, at: "starlight"
   mount Blacklight::Engine => "/"
 
   # https://github.com/mperham/sidekiq/wiki/Monitoring#devise

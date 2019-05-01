@@ -31,21 +31,21 @@ RSpec.describe "Import and Display a Work", :clean, type: :system, js: true do
       exhibit.save
       exhibit.reindex_later
       expect(exhibit.title).to eq "Test Exhibit"
-      visit("/spotlight/test-exhibit/resources/new")
+      visit("/starlight/test-exhibit/resources/new")
       click_link "Upload multiple items"
       expect(page).to have_content "CSV File"
       page.attach_file("resources_csv_upload[url]", csv_file_path)
       click_button "Add item"
-      visit "/spotlight/test-exhibit/catalog?utf8=%E2%9C%93&exhibit_id=test-exhibit&search_field=all_fields&q="
+      visit "/starlight/test-exhibit/catalog?utf8=%E2%9C%93&exhibit_id=test-exhibit&search_field=all_fields&q="
       expect(page).to have_content "Colima dog in Santa Rosilia"
 
       # Test that the exhibit page is accessible to non-admin users
       sign_out
-      visit "/spotlight/test-exhibit/catalog?utf8=%E2%9C%93&exhibit_id=test-exhibit&search_field=all_fields&q="
+      visit "/starlight/test-exhibit/catalog?utf8=%E2%9C%93&exhibit_id=test-exhibit&search_field=all_fields&q="
       expect(page).to have_content "Colima dog in Santa Rosilia"
       click_link "Colima dog in Santa Rosilia"
       # IIIF Manifest present on the page
-      expect(page.html).to match(%r{/spotlight/.*/manifest})
+      expect(page.html).to match(%r{/starlight/.*/manifest})
       expect(page).to have_selector ".universal-viewer-iframe"
     end
   end

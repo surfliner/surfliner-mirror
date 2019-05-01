@@ -29,7 +29,7 @@ RSpec.describe "Display embedded PDFs", :clean, type: :system, js: true do
 
   context "when viewing a PDF" do
     it "uses a direct embed" do
-      visit "/spotlight/test/catalog/#{exhibit.id}-#{pdf.id}"
+      visit "/starlight/test/catalog/#{exhibit.id}-#{pdf.id}"
 
       expect(page).to have_selector "embed"
       expect(page).not_to have_selector ".universal-viewer-iframe"
