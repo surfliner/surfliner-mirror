@@ -15,7 +15,10 @@
         </tbody>
       </table>
     </div>
-    <div><button type="button" v-on:click="createAuthority()" id="btnCreate">Create</button></div>
+    <div class="btn-group">
+      <button type="button" @click="cancel()" id="btnCancel">Cancel</button>
+      <button type="button" v-on:click="createAuthority()" id="btnCreate">Create</button>
+    </div>
   </div>
 </template>
 

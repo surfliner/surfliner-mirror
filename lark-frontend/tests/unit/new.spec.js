@@ -29,4 +29,9 @@ describe('Edit.vue', () => {
     expect(wrapper.find('#btnCreate').exists()).toBe(true)
     expect(wrapper.find('#btnCreate').text()).toEqual('Create')
   })
+
+  it('renders the Cancel button', () => {
+    expect(wrapper.find('#btnCancel').exists()).toBe(true)
+    expect(wrapper.find('#btnCancel').text()).toEqual('Cancel')
+  })
 })

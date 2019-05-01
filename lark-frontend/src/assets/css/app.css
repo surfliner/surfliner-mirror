@@ -51,6 +51,9 @@ button:hover {
   background-color: #666;
   color: white;
 }
+.btn-group button {
+  margin: 10px;
+}
 th, td {
   text-align: left;
 }

@@ -28,4 +28,9 @@ describe('Record.vue', () => {
   it('renders the edit button', () => {
     expect(wrapper.find('caption button').exists()).toBe(true)
   })
+
+  it('renders the Back button', () => {
+    expect(wrapper.find('#btnBack').exists()).toBe(true)
+    expect(wrapper.find('#btnBack').text()).toMatch('Back')
+  })
 })

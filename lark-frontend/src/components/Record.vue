@@ -18,6 +18,9 @@
         </tbody>
       </table>
     </div>
+    <div class="btn-group">
+      <button type="button" @click="cancel()" id="btnBack">&lt;&lt; Back</button>
+    </div>
   </div>
 </template>
 

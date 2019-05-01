@@ -18,6 +18,12 @@ export default {
         .then(this.$status)
         .then(response => { this.item = response.data; })
         .catch(error => { console.log('Request failed', error) });
+    },
+   /**
+    * Cancel: router back
+    **/
+    cancel() {
+      this.$router.go(-1);
     }
   },
   computed: {
