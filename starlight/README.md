@@ -49,6 +49,10 @@ To add a custom theme to your Starlight installation, follow these steps:
 
 1. Create `app/assets/stylesheets/application_theme-name.scss`, where
    `theme-name` is the name of your theme.
+1. Create `app/views/shared/_header_navbar_theme-name.html.erb`, where
+   `theme-name` is the name of your theme.
+1. Create `app/views/shared/_footer_theme-name.html.erb`, where
+   `theme-name` is the name of your theme.
 1. Create a square PNG that identifies your theme at
    `app/assets/images/spotlight/themes/theme-name_preview.png`.
 1. Add `theme-name` to the environment variable `SPOTLIGHT_THEMES`.
