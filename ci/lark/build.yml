@@ -11,3 +11,19 @@ lark-ruby-build:
     changes:
       - .gitlab-ci.yml
       - lark/Dockerfile
+
+lark-frontend-node-build:
+  stage: build
+  services:
+    - name: docker:dind
+  script:
+    - cd lark-frontend
+    - registry_login
+    - docker build -t $CI_REGISTRY_IMAGE/lark_frontend_web:latest .
+    - docker push $CI_REGISTRY_IMAGE/lark_frontend_web:latest
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - lark/Dockerfile
+      - ci/lark/**/*
+      - lark-frontend/**/*
