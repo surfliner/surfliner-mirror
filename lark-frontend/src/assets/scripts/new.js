@@ -17,7 +17,11 @@ export default {
         "editorial_note": [],
         "history_note": [],
         "definition": [],
-        "identifier": []
+        "identifier": [],
+        "literalForm": [],
+        "label_source": [],
+        "campus": [],
+        "annotation": []
       }
     }
   },
