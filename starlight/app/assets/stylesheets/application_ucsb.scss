@@ -1,6 +1,7 @@
 /*
  *= require blacklight_oembed.css.scss
  *= require blacklight_gallery.css.scss
+ *= require bootstrap-tagsinput
  *= require openseadragon.css
  *= require openseadragon/openseadragon
 */
@@ -89,17 +90,53 @@ ul.navbar-nav {
   text-transform: none;
 }
 
+#main-container {
+  .label {
+    color: $white;
+    padding: 5px;
+  }
+
+  .blacklight-exhibit_tags > a {
+    display: inline;
+  }
+
+  .unpublished {
+    width: 16.5ch;
+  }
+}
+
 .breadcrumb {
   margin: 0 0 20px !important;
 }
 
 .browse-category-title {
-  color: white;
+  color: $white;
   top: 40% !important;
 }
 
 .image-overlay {
   margin-right: 1em;
+}
+
+////////////
+// ADMIN
+////////////
+.edit-tags {
+  .label {
+    display: inline;
+  }
+
+  .bootstrap-tagsinput {
+    margin-bottom: 10px;
+    margin-right: 5px;
+    margin-top: -3px;
+
+    input {
+      display: block;
+      float: none;
+      width: 200px;
+    }
+  }
 }
 
 ////////////
@@ -134,6 +171,14 @@ footer {
     margin-right: 6px;
     vertical-align: text-bottom;
   }
+
+  .label {
+    border-bottom: 1px solid $white-opacity-50;
+    color: $white;
+    font-size: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+  }
 }
 
 .footer-main {
@@ -146,14 +191,6 @@ footer {
 
 .seal {
   border-bottom: 1px solid $white-opacity-50;
-  margin-bottom: 16px;
-  padding-bottom: 10px;
-}
-
-.label {
-  border-bottom: 1px solid $white-opacity-50;
-  color: $white;
-  font-size: 12px;
   margin-bottom: 16px;
   padding-bottom: 10px;
 }
@@ -173,6 +210,10 @@ footer {
 //////////
 // MISC
 //////////
+.st__content-block--text {
+  margin-bottom: 10px;
+}
+
 #sidebar {
   padding: 0 1em;
 
@@ -188,10 +229,6 @@ footer {
   .sidenav.contacts .contact-photo + div[itemprop] ~ div[itemprop] {
     margin: 0;
   }
-}
-
-.st__content-block--text {
-  margin-bottom: 10px;
 }
 
 .exhibit-navbar {
