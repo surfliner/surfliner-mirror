@@ -6,6 +6,9 @@ import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 Vue.prototype.$axios = axios
 
+import VueFlashMessage from 'vue-flash-message';
+Vue.use(VueFlashMessage);
+
 const dotenv = require('dotenv');
 dotenv.config();
 

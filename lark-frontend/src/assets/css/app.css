@@ -49,7 +49,7 @@ button {
 }
 button:hover {
   background-color: #666;
-  color: white;
+  color: #ddd;
 }
 .btn-group button {
   margin: 10px;
@@ -75,4 +75,7 @@ caption span {
 hr {
   background-color: #ddd;
   margin: 20px 0px;
+}
+.flash {
+  width: 520px;
 }

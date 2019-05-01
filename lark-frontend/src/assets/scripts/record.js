@@ -21,6 +21,11 @@ export default {
   methods: {
     loadRecord(id) {
       this.fetchData(this.$lark_url + id);
+
+      // flash the message as info if there's any
+      if (this.$route.query && this.$route.query.message) {
+        this.flash(this.$route.query.message, 'info', { timeout: 3000 });
+      }
     },
     editAuthority() {
       this.$router.push({ path: `/${this.item.id}/edit`});

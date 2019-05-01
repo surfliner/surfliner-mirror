@@ -22,8 +22,9 @@ export default {
     updateAuthority() {
       this.axios.put(this.$lark_url + this.item.id, this.item, this.$cors_headers)
         .then(this.$status)
-        .then(this.$router.push({ path: `/${this.item.id}` }))
-        .catch(error => { console.log('Request failed', error) });
+        .then(this.$router.push({ path: `/${this.item.id}`,
+                                  query: { message: this.$message.SUCCESS } }))
+        .catch(error => { this.flashError(this.$message.FALIED + ' ' + error) });
     },
     loadRecord(id) {
       this.fetchData(this.$lark_url + id);

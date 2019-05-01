@@ -32,8 +32,10 @@ export default {
     createAuthority() {
       this.axios.post(this.$lark_url, this.item, this.$cors_headers)
         .then(this.$status)
-        .then(response => {this.item = response.data; this.$router.push({ path: `/${this.item.id}`});})
-        .catch(error => { console.log('Request failed', error) });
+        .then(response => { 
+              this.$router.push({ path: `/${response.data.id}`,
+                                  query: { message: this.$message.SUCCESS } }) })
+        .catch(error => { this.flashError(this.$message.FALIED + ' ' + error) });
     }
   }
 }

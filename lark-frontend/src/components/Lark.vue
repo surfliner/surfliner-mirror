@@ -11,6 +11,8 @@
 
       <hr>
     </div>
+
+    <flash-message class="flash"></flash-message>
   </div>
 </template>
 

@@ -14,6 +14,7 @@
 
 <style>
   @import './assets/css/app.css';
+  @import '../node_modules/vue-flash-message/dist/vue-flash-message.min.css';
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;

@@ -14,10 +14,11 @@ export default {
       this.$emit('input', e.target.value)
     },
     fetchData(url) {
+      this.$flashStorage.destroyAll();
       this.axios.get(url, { mode: "cors" })
         .then(this.$status)
         .then(response => { this.item = response.data; })
-        .catch(error => { console.log('Request failed', error) });
+        .catch(error => { this.flashError(error); });
     },
    /**
     * Cancel: router back

@@ -21,4 +21,8 @@ describe('Lark.vue', () => {
     expect(wrapper.find('[name="search"]').exists()).toBe(true)
     expect(wrapper.find('#btnSearch').exists()).toBe(true)
   })
+
+  it('renders the flash element', () => {
+    expect(wrapper.find('.flash').exists()).toBe(true)
+  })
 })

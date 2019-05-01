@@ -20,10 +20,15 @@ export default {
   },
   methods: {
     search(keywords) {
+      this.$flashStorage.destroyAll(); // destroy all flash messages
       this.axios.get(this.$lark_url + 'search?pref_label=' + keywords, { mode: "cors" })
-        .then(this.$status)
         .then(response => { this.authorities = response.data; })
-        .catch(error => { console.log('Request failed', error) });
+        .catch(error => {
+           // status 404 (no search results) will be handled in UI.
+           if (!error.toString().includes('404')) {
+             this.flashError(error);
+           }
+         });
     },
     displayItem(id) {
       this.$router.push({ path: `/${id}`});
