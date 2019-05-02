@@ -6,7 +6,7 @@ rm -f /app/tmp/pids/server.pid
 
 gem update bundler
 bundle check || bundle install --jobs "$(nproc)"
-yarn install
+yarn install --verbose
 
 bundle exec rake db:create db:schema:load
 
