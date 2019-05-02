@@ -38,3 +38,4 @@ starlight-test:
       - Dockerfile
       - ci/**/*
       - starlight/**/*
+  allow_failure: true
