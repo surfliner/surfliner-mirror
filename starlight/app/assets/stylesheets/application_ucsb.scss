@@ -80,6 +80,15 @@
 // BROWSE
 //////////
 
+ul.navbar-nav {
+  margin-top: 10px;
+}
+
+// hyperspecificity because bootstrap :)
+.image-masthead .navbar ul.nav.navbar-nav > li {
+  text-transform: none;
+}
+
 .breadcrumb {
   margin: 0 0 20px !important;
 }
