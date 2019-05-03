@@ -1,9 +1,7 @@
 FROM docker:18.09.5
 
 RUN uname -a
-RUN echo 'http://dl-cdn.alpinelinux.org/alpine/latest-stable/main' > /etc/apk/repositories; \
-    echo 'http://dl-cdn.alpinelinux.org/alpine/latest-stable/community' >> /etc/apk/repositories; \
-    echo 'http://mirror.leaseweb.com/alpine/latest-stable/main' >> /etc/apk/repositories; \
+RUN echo 'http://mirror.leaseweb.com/alpine/latest-stable/main' > /etc/apk/repositories; \
     echo 'http://mirror.leaseweb.com/alpine/latest-stable/community' >> /etc/apk/repositories
 RUN cat /etc/apk/repositories
 
