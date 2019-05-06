@@ -5,6 +5,7 @@ lark-ruby-build:
   script:
     - cd lark
     - registry_login
+    - docker pull $CI_REGISTRY_IMAGE/lark_web
     - docker build -t $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_REF_NAME .
     - docker push $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_REF_NAME
   only:
