@@ -118,6 +118,17 @@ ul.navbar-nav {
   margin-right: 1em;
 }
 
+.description {
+  .hidden-sm,
+  .hidden-md {
+    display: none;
+  }
+
+  &::after {
+    content: '...';
+  }
+}
+
 ////////////
 // ADMIN
 ////////////
