@@ -3,9 +3,12 @@ starlight-lint:
   image: $CI_REGISTRY_IMAGE/starlight_web:latest
   script:
     - cd starlight
-    - gem update bundler
-    - bundle check || bundle
     - bundle exec rubocop
+  cache:
+    key: starlight-deps
+    paths:
+      - /bundle
+      - starlight/public/
   only:
     changes:
       - .gitlab-ci.yml
