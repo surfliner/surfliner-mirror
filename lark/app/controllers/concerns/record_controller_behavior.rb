@@ -23,6 +23,12 @@ module RecordControllerBehavior
       .parse(request.body)
   end
 
+  def parsed_csv(format:, data:)
+    Lark::RecordParser
+      .for(content_type: format)
+      .parse(data)
+  end
+
   def serialize(record:, format:)
     Lark::RecordSerializer
       .for(content_type: format)

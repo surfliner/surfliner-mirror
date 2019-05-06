@@ -266,6 +266,63 @@ Content-Length: 35
 767: unexpected token at 'any data'
 ```
 
+### Batch Import CSV (HTTP POST)
+
+Create authority records in batch.
+
+```sh
+curl -v --data-binary @/filepath_for_csv/UCSD_authority_sample_2.csv -H "Content-Type: text/csv" http://localhost:9292/batch_import
+```
+
+Response
+```
+HTTP/1.1 201 Created
+Content-Type: application/json
+Access-Control-Allow-Origin: *
+X-Content-Type-Options: nosniff
+
+```
+
+#### Error Cases
+
+##### With unsupported attributes in csv file
+```sh
+curl -v --data-binary @/filepath_for_csv/UCSD_authority_sample_1.csv -H "Content-Type: text/csv" http://localhost:9292/batch_import
+```
+
+Response
+```
+HTTP/1.1 400 Bad Request
+Content-Type: text/html;charset=utf-8
+Access-Control-Allow-Origin: *
+```
+
+##### With unsupported format
+```sh
+curl -v --data-binary @/filepath_for_csv/UCSD_authority_sample_1.csv -H "Content-Type: application/fake" http://localhost:9292/batch_import
+```
+
+```
+HTTP/1.1 415 Unsupported Media Type
+Content-Type: text/html;charset=utf-8
+Access-Control-Allow-Origin: *
+
+```
+
+##### With file does not exist
+
+```sh
+curl -v --data-binary @/not_exist_file.csv -H "Content-Type: text/csv" http://localhost:9292/batch_import
+```
+
+Response
+
+```
+HTTP/1.1 400 Bad Request
+Content-Type: text/html;charset=utf-8
+Access-Control-Allow-Origin: *
+```
+
 ### Basic Term Search (HTTP GET /search)
 Retrieve authority records that match the basic term pref-label or alternate-label (exact matching).
 

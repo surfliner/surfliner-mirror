@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'csv'
 require_relative 'application_controller'
 require_relative 'concerns/record_controller_behavior'
 
@@ -37,5 +38,37 @@ class BatchController < ApplicationController
 
       [204, cors_allow_header, []]
     end
+  end
+
+  ##
+  # Import authority records from CSV file
+  def batch_import
+    with_error_handling do
+      path = '/tmp/lark_import.csv'
+      copy_csv_file(path, request)
+      CSV.foreach(path, headers: true, encoding: 'ISO-8859-1') do |row|
+        create_record(row.to_hash.to_json)
+      end
+      File.delete(path) if File.exist?(path)
+      [201, response_headers, []]
+    end
+  end
+
+  private
+
+  def create_record(data)
+    Lark::Transactions::CreateAuthority
+      .new(event_stream: event_stream)
+      .call(attributes: parsed_csv(format: ctype, data: data))
+      .value!
+  end
+
+  def copy_csv_file(path, request)
+    data = request.body.read
+    raise Lark::BadRequest if data.empty?
+
+    file = File.open(path, 'wb')
+    file.puts(data)
+    file.close
   end
 end

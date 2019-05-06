@@ -39,6 +39,10 @@ module Lark
       BatchController.new(request: request).batch_update
     end
 
+    post '/batch_import' do
+      BatchController.new(request: request).batch_import
+    end
+
     post '/' do
       RecordController.new(request: request).create
     end

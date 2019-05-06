@@ -14,6 +14,8 @@ RSpec.describe 'POST /' do
   end
   let(:persister) { adapter.persister }
 
+  before  { persister.wipe! }
+
   context 'when posting JSON' do
     let(:ctype)         { 'application/json' }
     let(:data)          { { pref_label: 'moomin' }.to_json }
@@ -163,6 +165,35 @@ RSpec.describe 'POST /' do
     it 'has header for CORS request' do
       expect(last_response.headers)
         .to include 'Access-Control-Allow-Origin' => '*'
+    end
+  end
+
+  context 'when posting CSV file' do
+    let(:ctype)         { 'text/csv' }
+    let(:csv_file)      { 'UCSD_authority_sample_2.csv' }
+    let(:csv_file_path) { File.join(RSpec.configuration.fixture, csv_file) }
+    let(:query_service) { adapter.query_service }
+    let(:data) { Rack::Test::UploadedFile.new(csv_file_path, 'text/csv') }
+
+    it 'responds 201' do
+      post '/batch_import', data, 'CONTENT_TYPE' => ctype
+      expect(last_response.status).to eq 201 # created
+    end
+
+    it 'creates three concept' do
+      expect { post '/batch_import', data, 'CONTENT_TYPE' => ctype }
+        .to change { query_service.find_all_of_model(model: Concept).count }
+        .by 3
+    end
+
+    context 'with unsupported attributes' do
+      let(:csv_file) { 'UCSD_authority_sample_1.csv' }
+
+      before { post '/batch_import', data, 'CONTENT_TYPE' => ctype }
+
+      it 'responds 400' do
+        expect(last_response.status).to eq 400
+      end
     end
   end
 end

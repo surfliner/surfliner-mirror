@@ -8,7 +8,8 @@ module Lark
       ##
       # @see Lark::RecordParser#parse
       def parse(input)
-        json = JSON.parse(input.read)
+        data = input.is_a?(String) ? input : input.read
+        json = JSON.parse(data)
         return json.map(&:symbolize_keys) if json.is_a?(Array)
 
         json.symbolize_keys

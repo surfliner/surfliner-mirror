@@ -16,7 +16,7 @@ module Lark
     # @return [#parse]
     def self.for(content_type:)
       case content_type
-      when 'application/json'
+      when 'application/json', 'text/csv'
         RecordParsers::JSONParser.new
       else
         raise UnsupportedMediaType, content_type

@@ -24,5 +24,7 @@ RSpec.configure do |config|
     FactoryBot.find_definitions
   end
 
+  config.add_setting :fixture, default: "#{File.dirname(__FILE__)}/fixtures/"
+
   Kernel.srand config.seed
 end
