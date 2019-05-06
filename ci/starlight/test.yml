@@ -27,7 +27,7 @@ starlight-test:
     paths:
       - starlight/tmp/screenshots
   cache:
-    key: starlight-deps
+    key: starlight-cache
     paths:
       - /bundle
       - starlight/public/

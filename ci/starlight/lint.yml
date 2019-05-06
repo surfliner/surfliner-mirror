@@ -5,7 +5,7 @@ starlight-lint:
     - cd starlight
     - bundle exec rubocop
   cache:
-    key: starlight-deps
+    key: starlight-cache
     paths:
       - /bundle
       - starlight/public/
