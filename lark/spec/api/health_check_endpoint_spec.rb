@@ -11,11 +11,13 @@ RSpec.describe 'GET /health' do
   let(:app) { Lark.application }
   let(:index_conn) { Lark::HealthChecks::IndexConnection }
   let(:solr_conn) { Lark::HealthChecks::SolrConnection }
+  let(:pg_conn) { Lark::HealthChecks::PostgresConnection }
 
   describe '/complete' do
     context 'when services are healthy' do
       before do
         allow_any_instance_of(solr_conn).to receive(:status).and_return(true)
+        allow_any_instance_of(pg_conn).to receive(:status).and_return(true)
       end
 
       it 'returns success' do
@@ -44,6 +46,12 @@ RSpec.describe 'GET /health' do
             status: false,
             optional: false,
             time: 0.0
+          }, {
+            name: 'postgres',
+            type: 'DATABASE',
+            status: false,
+            optional: false,
+            time: 0.0
           }]
         }
       end
@@ -53,6 +61,7 @@ RSpec.describe 'GET /health' do
 
         allow_any_instance_of(index_conn).to receive(:status).and_return(false)
         allow_any_instance_of(solr_conn).to receive(:status).and_return(false)
+        allow_any_instance_of(pg_conn).to receive(:status).and_return(false)
 
         get '/health/complete'
       end
