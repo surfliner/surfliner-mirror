@@ -18,6 +18,7 @@ review:
   variables:
     DEPLOY_IMAGE_TAG: $CI_COMMIT_REF_NAME
     INGRESS_URL: lark-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
+    HELM_UPGRADE_EXTRA_ARGS: '--set persistence_adapters.index="memory" --set persistence_adapters.event="memory" --set solr.enabled=FALSE --set postgresql.enabled=FALSE'
   artifacts:
     paths: [environment_url.txt]
   only:
