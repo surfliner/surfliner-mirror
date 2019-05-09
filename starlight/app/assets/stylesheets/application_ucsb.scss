@@ -200,10 +200,6 @@ footer {
   padding: 0 3em;
 }
 
-.footer-box + .footer-box {
-  padding-left: 30px;
-}
-
 .seal {
   border-bottom: 1px solid $white-opacity-50;
   margin-bottom: 16px;
@@ -220,6 +216,16 @@ footer {
 
 .footer-meta {
   @include inline("• ", 8px);
+}
+
+.connect {
+  padding-top: 54px;
+}
+
+@media all and (min-width: $screen-md) {
+  .footer-box + .footer-box {
+    padding-left: 30px;
+  }
 }
 
 //////////
