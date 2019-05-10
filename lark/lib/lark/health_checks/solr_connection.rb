@@ -21,6 +21,8 @@ module Lark
       private
 
       def check
+        return @status = true if Lark.config.index_adapter == :memory
+
         uri = URI(url)
         http = Net::HTTP.new(uri.host, uri.port)
         response = http.get('/')

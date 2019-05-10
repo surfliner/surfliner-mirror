@@ -20,6 +20,8 @@ module Lark
       private
 
       def check
+        return @status = true if Lark.config.event_adapter == :memory
+
         Sequel.connect(DATABASE)
         @status = true
       rescue Sequel::DatabaseError => _

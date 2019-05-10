@@ -14,6 +14,30 @@ RSpec.describe 'GET /health' do
   let(:pg_conn) { Lark::HealthChecks::PostgresConnection }
 
   describe '/complete' do
+    context 'when using memory for index adapter' do
+      before do
+        allow(Lark.config).to receive(:index_adapter).and_return(:memory)
+      end
+
+      it 'returns success' do
+        get '/health/complete'
+
+        expect(last_response).to have_attributes status: 200
+      end
+    end
+
+    context 'when using memory for event adapter' do
+      before do
+        allow(Lark.config).to receive(:event_adapter).and_return(:memory)
+      end
+
+      it 'returns success' do
+        get '/health/complete'
+
+        expect(last_response).to have_attributes status: 200
+      end
+    end
+
     context 'when services are healthy' do
       before do
         allow_any_instance_of(solr_conn).to receive(:status).and_return(true)
