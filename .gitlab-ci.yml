@@ -355,7 +355,7 @@ include:
     echo "Tiller is listening on ${HELM_HOST}"
 
     if ! helm version --debug; then
-      echo "Failed to init Tiller."
+      echo "Failed to initialize Tiller."
       return 1
     fi
     echo ""
