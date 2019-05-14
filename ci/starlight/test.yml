@@ -30,6 +30,6 @@ starlight-test:
     changes:
       - .gitlab-ci.yml
       - Dockerfile
-      - ci/**/*
+      - ci/starlight/**/*
       - starlight/**/*
   allow_failure: true
