@@ -26,11 +26,6 @@ starlight-test:
     when: on_failure
     paths:
       - starlight/tmp/screenshots
-  cache:
-    key: starlight-cache
-    paths:
-      - /bundle
-      - starlight/public/
   only:
     changes:
       - .gitlab-ci.yml

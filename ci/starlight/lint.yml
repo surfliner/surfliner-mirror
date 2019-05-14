@@ -4,11 +4,6 @@ starlight-lint:
   script:
     - cd starlight
     - bundle exec rubocop
-  cache:
-    key: starlight-cache
-    paths:
-      - /bundle
-      - starlight/public/
   only:
     changes:
       - .gitlab-ci.yml
