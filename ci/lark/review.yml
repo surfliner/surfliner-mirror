@@ -1,4 +1,4 @@
-review:
+review_ucsb:
   stage: review
   services:
     - name: docker:dind
@@ -14,7 +14,7 @@ review:
   environment:
     name: ucsb.review.lark/$CI_COMMIT_REF_NAME
     url: http://lark-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
-    on_stop: stop_review
+    on_stop: stop_review_ucsb
   variables:
     DEPLOY_IMAGE_TAG: $CI_COMMIT_REF_NAME
     INGRESS_URL: lark-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
@@ -34,7 +34,43 @@ review:
     refs:
       - master
 
-stop_review:
+review_ucsd:
+  stage: review
+  services:
+    - name: docker:dind
+  script:
+    - cd lark
+    - ensure_namespace
+    - initialize_tiller
+    - create_secret
+    - mv ../charts/lark/latest ./chart
+    - build_chart_dependencies
+    - deploy
+    - persist_environment_url
+  environment:
+    name: ucsd.review.lark/$CI_COMMIT_REF_NAME
+    url: http://lark-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
+    on_stop: stop_review_ucsd
+  variables:
+    DEPLOY_IMAGE_TAG: $CI_COMMIT_REF_NAME
+    INGRESS_URL: lark-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
+    HELM_UPGRADE_EXTRA_ARGS: '--set persistence_adapters.index="memory" --set persistence_adapters.event="memory" --set solr.enabled=FALSE --set postgresql.enabled=FALSE'
+  artifacts:
+    paths: [environment_url.txt]
+  only:
+    refs:
+      - branches
+      - tags
+    changes:
+      - lark/**/*
+      - charts/lark/**/*
+      - ci/lark/**/*
+      - .gitlab-ci.yml
+  except:
+    refs:
+      - master
+
+stop_review_ucsb:
   stage: cleanup
   variables:
     GIT_STRATEGY: none
@@ -43,6 +79,31 @@ stop_review:
     - delete
   environment:
     name: ucsb.review.lark/$CI_COMMIT_REF_NAME
+    action: stop
+  when: manual
+  allow_failure: true
+  only:
+    refs:
+      - branches
+      - tags
+    changes:
+      - lark/**/*
+      - charts/lark/**/*
+      - ci/lark/**/*
+      - .gitlab-ci.yml
+  except:
+    refs:
+      - master
+
+stop_review_ucsd:
+  stage: cleanup
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - initialize_tiller
+    - delete
+  environment:
+    name: ucsd.review.lark/$CI_COMMIT_REF_NAME
     action: stop
   when: manual
   allow_failure: true
