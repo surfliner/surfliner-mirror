@@ -542,7 +542,10 @@ semantics, is given in [`EVENT_LOG.md`][event-log]
 
 ## Production Considerations
 
-### Helm Chart [Content TK]
+### Deployment
+
+We maintain resources for deploying Lark with Docker, Helm and Kubernetes. Documentation for those
+resources is at [DEPLOYMENT.md][delpoyment].
 
 ### Monitoring
 
@@ -562,5 +565,6 @@ Lark is made available under the [MIT License][license].
 [webrick]: https://ruby-doc.org/stdlib-2.5.0/libdoc/webrick/rdoc/WEBrick.html
 [dry-events]: https://dry-rb.org/gems/dry-events/
 [event-log]: ./EVENT_LOG.md
+[deployment]: ./DEPLOYMENT.md
 [rack-healthcheck]: https://github.com/downgba/rack-healthcheck
 [license]: ../LICENSE
