@@ -5,9 +5,6 @@ lark-staging-ucsb:
   script:
     - cd lark
     - registry_login
-    - docker pull $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_REF_NAME
-    - docker tag $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_REF_NAME $CI_REGISTRY_IMAGE/lark_web:stable
-    - docker push $CI_REGISTRY_IMAGE/lark_web:stable
     - check_kube_domain
     - ensure_namespace
     - initialize_tiller
@@ -19,10 +16,9 @@ lark-staging-ucsb:
     name: ucsb.staging.lark
     url: http://lark-staging.$KUBE_INGRESS_BASE_DOMAIN
   variables:
-    DEPLOY_IMAGE_TAG: lark_web:$CI_COMMIT_REF_NAME
+    DEPLOY_IMAGE_TAG: lark_web:$CI_COMMIT_REF_NAME # master (see only: refs:)
     INGRESS_URL: lark-staging.$KUBE_INGRESS_BASE_DOMAIN
-    HELM_UPGRADE_EXTRA_ARGS: '--set persistence_adapters.index="memory" --set persistence_adapters.event="memory" --set solr.enabled="false" --set postgresql.enabled="false"'
-  allow_failure: true
+    HELM_UPGRADE_EXTRA_ARGS: '--set persistence_adapters.index="memory" --set persistence_adapters.event="memory" --set solr.enabled=FALSE --set postgresql.enabled=FALSE'
   only:
     refs:
       - master
