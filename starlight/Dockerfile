@@ -19,14 +19,17 @@ RUN apk --no-cache upgrade && \
   tzdata \
   yarn
 
-RUN mkdir -p /bundle
-ENV BUNDLE_PATH=/bundle \
-    BUNDLE_BIN=/bundle/bin \
-    GEM_HOME=/bundle
-ENV PATH="${BUNDLE_BIN}:${PATH}"
+RUN addgroup -g 1000 -S starlight && \
+    adduser -u 1000 -S starlight -G starlight
+USER starlight
 
-RUN mkdir -p /app
-WORKDIR /app
-COPY . .
+RUN gem update bundler
 
-ENTRYPOINT ["/bin/sh", "/app/docker/docker-entrypoint.sh"]
+RUN mkdir -p /home/starlight/app
+WORKDIR /home/starlight/app
+COPY --chown=starlight:starlight Gemfile* ./
+RUN bundle check || bundle install --jobs "$(nproc)"
+COPY --chown=starlight:starlight . ./
+RUN yarn install --verbose
+
+ENTRYPOINT ["/bin/sh", "/home/starlight/app/docker/docker-entrypoint.sh"]

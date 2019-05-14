@@ -5,9 +5,8 @@ services:
     env_file:
       - ../.env.docker.test
     volumes:
-      - ../../.:/app
-      - bundle_cache:/bundle
-    working_dir: /app
+      - ../../.:/home/starlight/app
+    working_dir: /home/starlight/app
     command: sh -ic "bundle exec rake spec"
     ports:
       - "3001:3001"
@@ -44,6 +43,5 @@ services:
      - '8985:8983'
 
 volumes:
-  bundle_cache:
   starlight_database:
 

@@ -2,11 +2,7 @@
 set -e
 
 # Remove a potentially pre-existing server.pid for Rails.
-rm -f /app/tmp/pids/server.pid
-
-gem update bundler
-bundle check || bundle install --jobs "$(nproc)"
-yarn install --verbose
+rm -f /home/starlight/app/tmp/pids/server.pid
 
 bundle exec rake db:create db:schema:load
 

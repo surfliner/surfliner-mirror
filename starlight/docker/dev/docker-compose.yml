@@ -5,9 +5,8 @@ services:
     env_file:
       - ../.env.docker
     volumes:
-      - ../../.:/app
-      - bundle_cache:/app/vendor
-    working_dir: /app
+      - ../../.:/home/starlight/app
+    working_dir: /home/starlight/app
     command: sh -ic "bundle exec puma -b tcp://0.0.0.0:3000"
     ports:
       - "3000:3000"
@@ -32,5 +31,4 @@ services:
      - '8983:8983'
 
 volumes:
-  bundle_cache:
   starlight_database:
