@@ -10,5 +10,7 @@ starlight-build:
   only:
     changes:
       - .gitlab-ci.yml
+      - ci/starlight/**/*
       - starlight/Dockerfile
+      - starlight/**/*
 
