@@ -10,6 +10,7 @@ RUN apk --no-cache upgrade && \
   build-base \
   git \
   imagemagick \
+  less \
   libxml2-dev \
   libxslt-dev \
   nodejs-current \
