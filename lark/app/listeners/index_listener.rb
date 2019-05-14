@@ -38,7 +38,7 @@ class IndexListener
     end
 
     indexer.index(data: resource)
-  rescue Valkyrie::Persistence::ObjectNotFoundError => error
-    raise Lark::NotFound, error.message
+  rescue Valkyrie::Persistence::ObjectNotFoundError => e
+    raise Lark::NotFound, e.message
   end
 end

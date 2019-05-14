@@ -22,7 +22,7 @@ module Lark
       def check
         Lark::Indexer.new
         @status = true
-      rescue StandardError => _
+      rescue StandardError => _e
         @status = false
       end
     end

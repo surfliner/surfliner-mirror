@@ -27,7 +27,7 @@ module Lark
         http = Net::HTTP.new(uri.host, uri.port)
         response = http.get('/')
         @status = response.code == '302'
-      rescue StandardError => _
+      rescue StandardError => _e
         @status = false
       end
     end

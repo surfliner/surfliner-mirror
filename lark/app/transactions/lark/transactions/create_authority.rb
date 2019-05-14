@@ -44,8 +44,8 @@ module Lark
           Event.new(type: :change_properties,
                     data: { id: id, changes: attributes })
         Success(id: id, attributes: attributes)
-      rescue StandardError => error
-        raise Lark::BadRequest, error.message
+      rescue StandardError => e
+        raise Lark::BadRequest, e.message
       end
 
       def log_create_event(attributes:, id:)

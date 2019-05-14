@@ -24,7 +24,7 @@ module Lark
 
         Sequel.connect(DATABASE)
         @status = true
-      rescue Sequel::DatabaseError => _
+      rescue Sequel::DatabaseError => _e
         @status = false
       end
     end
