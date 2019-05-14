@@ -4,7 +4,7 @@
 # A service description for the API
 class ServiceDescription
   class << self
-    def to_json
+    def to_json(*)
       new.to_json
     end
   end
@@ -17,7 +17,7 @@ class ServiceDescription
 
   ##
   # @return [String] a JSON service description
-  def to_json
+  def to_json(*)
     to_h.to_json
   end
 
