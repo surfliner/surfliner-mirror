@@ -134,8 +134,8 @@ properties:
     available_on:
         class: lark:Label
     range:
-        uri: http://www.w3.org/2001/XMLSchema#string
-    data_type: http://www.w3.org/2001/XMLSchema#string 
+        uri: http://www.w3.org/2001/XMLSchema#anyURI
+    data_type: http://www.w3.org/2001/XMLSchema#anyURI 
     cardinality: 
         minimum: 0
         maximum:    

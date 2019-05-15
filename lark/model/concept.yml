@@ -99,7 +99,7 @@
       definition: "Used to indicate campus preference for display label "
       predicate : "lark:campus"
       range:
-        uri: "rdfs:Literal"
+        uri: "xsd:anyURI"
       cardinality: "0..*"
 
      #This could be either a URI or a controlled value list --> whatever is easier to implement
