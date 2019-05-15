@@ -7,12 +7,13 @@ require 'sequel/adapters/postgresql'
 require 'sequel/core'
 require 'sequel_pg'
 require_relative 'config/database'
+require 'logger'
 
 namespace :db do
   desc 'Create Database ...'
   task :create do
     puts "Database connection info: #{DATABASE.inspect}"
-    connection = Sequel.connect(DATABASE)
+    connection = Sequel.connect(DATABASE, logger: Logger.new($stderr))
     begin
       connection.execute "CREATE DATABASE #{DATABASE[:database]}"
       puts "Database #{DATABASE[:database]} is created."
@@ -25,7 +26,7 @@ namespace :db do
   task :migrate, [:version] do |t, args|
     Sequel.extension :migration
     version = args[:version].to_i if args[:version] && t
-    Sequel.connect(DATABASE) do |db|
+    Sequel.connect(DATABASE, logger: Logger.new($stderr)) do |db|
       Sequel::Migrator.run(db, 'db/migrations', target: version)
     end
   rescue PG::ConnectionBad => e
@@ -35,7 +36,7 @@ namespace :db do
 
   desc 'Drop Database ...'
   task :drop do
-    new_connection = Sequel.connect(DATABASE)
+    new_connection = Sequel.connect(DATABASE, logger: Logger.new($stderr))
     new_connection.execute "DROP DATABASE IF EXISTS #{DATABASE[:database]}"
     puts "#{DATABASE[:database]} is dropped"
   end
