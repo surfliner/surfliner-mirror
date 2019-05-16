@@ -315,6 +315,7 @@ include:
     helm init --client-only
 
     helm repo add lib-helm-repo https://lib-helm-repo.ucsd.edu/
+    helm repo add incubator https://kubernetes-charts-incubator.storage.googleapis.com/
 
     helm dependency update chart/
     helm dependency build chart/
