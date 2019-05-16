@@ -440,10 +440,11 @@ rake db:migrate
 
 #### Import Dummy Records
 
-```sh
-rake lark:seed
-```
+Make sure docker is up and running in development
 
+```sh
+docker exec dev_web_1 rake lark:seed
+```
 
 ### Starting Up
 
