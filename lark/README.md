@@ -438,6 +438,13 @@ rake db:create (first time only)
 rake db:migrate
 ```
 
+#### Import Dummy Records
+
+```sh
+rake lark:seed
+```
+
+
 ### Starting Up
 
 Lark is a [Rack][rack] application, and can be deployed with a variety of Ruby
