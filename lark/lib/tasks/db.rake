@@ -27,9 +27,9 @@ namespace :db do
     Sequel.connect(DATABASE, logger: Logger.new($stderr)) do |db|
       Sequel::Migrator.run(db, 'db/migrations', target: version)
     end
-  rescue PG::ConnectionBad => err
+  rescue PG::ConnectionBad => e
     puts "Database connection failed on: #{DATABASE.inspect}"
-    raise err
+    raise e
   end
 
   desc 'Drop Database ...'
