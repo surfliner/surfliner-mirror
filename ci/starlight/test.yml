@@ -1,4 +1,4 @@
-starlight-test:
+starlight-system-test:
   image: $CI_REGISTRY_IMAGE/starlight_web:latest
   stage: test
   variables:
@@ -19,7 +19,7 @@ starlight-test:
     - postgres:11-alpine
   script:
     - cd starlight
-    - RAILS_ENV=test bundle exec rspec --format progress --format RspecJunitFormatter --out rspec.xml
+    - RAILS_ENV=test bundle exec rspec --tag type:system --format progress --format RspecJunitFormatter --out rspec.xml
   artifacts:
     reports:
       junit: starlight/rspec.xml
@@ -33,3 +33,32 @@ starlight-test:
       - ci/starlight/**/*
       - starlight/**/*
   allow_failure: true
+
+starlight-unit-test:
+  image: $CI_REGISTRY_IMAGE/starlight_web:latest
+  stage: test
+  variables:
+    DATABASE_URL: "postgres://postgres@postgres/starlight-test"
+    SOLR_CORE_NAME: "starlight-test"
+    SOLR_CONFIG_DIR: "starlight/solr/config"
+    SOLR_CONFIG_COMMIT_SHA: $CI_COMMIT_SHA
+    SOLR_URL: "http://solr:8983/solr/starlight-test"
+    REPOSITORY_URL: $CI_REPOSITORY_URL
+    RAILS_ENV: "test"
+  services:
+    - name: $CI_REGISTRY_IMAGE/solr
+      alias: solr
+    - postgres:11-alpine
+  script:
+    - cd starlight
+    - RAILS_ENV=test bundle exec rspec --tag ~type:system --format progress --format RspecJunitFormatter --out rspec.xml
+  artifacts:
+    reports:
+      junit: starlight/rspec.xml
+    when: on_failure
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - Dockerfile
+      - ci/starlight/**/*
+      - starlight/**/*
