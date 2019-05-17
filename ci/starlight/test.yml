@@ -21,6 +21,7 @@ starlight-system-test:
     - cd starlight
     - RAILS_ENV=test bundle exec rspec --tag type:system --format progress --format RspecJunitFormatter --out rspec.xml
   artifacts:
+    name: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
     reports:
       junit: starlight/rspec.xml
     when: on_failure
@@ -53,6 +54,7 @@ starlight-unit-test:
     - cd starlight
     - RAILS_ENV=test bundle exec rspec --tag ~type:system --format progress --format RspecJunitFormatter --out rspec.xml
   artifacts:
+    name: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
     reports:
       junit: starlight/rspec.xml
     when: on_failure
