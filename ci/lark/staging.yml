@@ -27,3 +27,6 @@ lark-staging-ucsb:
       - charts/lark/**/*
       - ci/lark/**/*
       - .gitlab-ci.yml
+  except:
+    variables:
+      - $NO_DEPLOY == "true"

@@ -31,6 +31,7 @@ review_ucsb:
       - charts/lark/**/*
       - ci/lark/**/*
       - .gitlab-ci.yml
+  extends: .except-no-deploy
 
 review_ucsd:
   stage: review
@@ -64,6 +65,7 @@ review_ucsd:
       - charts/lark/**/*
       - ci/lark/**/*
       - .gitlab-ci.yml
+  extends: .except-no-deploy
 
 stop_review_ucsb:
   stage: cleanup
@@ -86,6 +88,7 @@ stop_review_ucsb:
       - charts/lark/**/*
       - ci/lark/**/*
       - .gitlab-ci.yml
+  extends: .except-no-deploy
 
 stop_review_ucsd:
   stage: cleanup
@@ -108,3 +111,4 @@ stop_review_ucsd:
       - charts/lark/**/*
       - ci/lark/**/*
       - .gitlab-ci.yml
+  extends: .except-no-deploy

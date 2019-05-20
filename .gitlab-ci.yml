@@ -37,6 +37,11 @@ include:
       - merge_requests
       - tags
 
+.except-no-deploy:
+  except:
+    variables:
+      - $NO_DEPLOY == "true"
+
 # ---------------------------------------------------------------------------
 
 .auto_devops: &auto_devops |
