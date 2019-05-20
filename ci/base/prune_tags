@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Surfliner project identifier (Settings -> General)
+project_id="10649580"
+
+# Get list of all registry repository identifiers
+repository_ids=$(curl -v --header "PRIVATE-TOKEN: $REGISTRY_API_TOKEN" "https://gitlab.com/api/v4/projects/$project_id/registry/repositories/" | jq ".[] .id")
+
+# Prune tags that are:
+# - NOT master or stable (latest is excluded by default)
+# - IS older than 10 days
+for repo_id in $repository_ids; do
+  curl -v --request DELETE --data 'name_regex=^(?!master|stable)' --data 'older_than=10d' --header "PRIVATE-TOKEN: $REGISTRY_API_TOKEN" "https://gitlab.com/api/v4/projects/$project_id/registry/repositories/$repo_id/tags"
+done

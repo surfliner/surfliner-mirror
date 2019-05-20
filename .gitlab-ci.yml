@@ -1,7 +1,7 @@
 image: $CI_REGISTRY_IMAGE/builder
 
 stages:
-  - prebuild
+  - maintanence
   - build
   - lint
   - test
@@ -14,7 +14,7 @@ variables:
   DOCKER_DRIVER: overlay2
 
 include:
-  - local: ci/base/prebuild.yml
+  - local: ci/base/maintanence.yml
   - local: ci/lark/build.yml
   - local: ci/lark/code-quality.yml
   - local: ci/lark/dependency-scanning.yml

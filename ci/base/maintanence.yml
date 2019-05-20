@@ -1,5 +1,5 @@
 rebuild-base:
-  stage: prebuild
+  stage: maintanence
   services:
     - name: docker:dind
   script:
@@ -10,7 +10,7 @@ rebuild-base:
   when: manual
 
 rebuild-solr:
-  stage: prebuild
+  stage: maintanence
   services:
     - name: docker:dind
   script:
@@ -19,3 +19,14 @@ rebuild-solr:
     - docker build -t $CI_REGISTRY_IMAGE/solr .
     - docker push $CI_REGISTRY_IMAGE/solr
   when: manual
+
+prune-tags:
+  stage: maintanence
+  image: alpine
+  script:
+    - apk --no-cache upgrade && apk add --no-cache curl git jq
+    - sh ci/base/prune_tags
+  only:
+    - schedules
+
+
