@@ -11,6 +11,7 @@ review_ucsb:
     - build_chart_dependencies
     - deploy
     - persist_environment_url
+  allow_failure: true
   environment:
     name: ucsb.review.lark/$CI_COMMIT_REF_NAME
     url: http://lark-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
