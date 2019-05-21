@@ -12,9 +12,31 @@ services:
       - "3000:3000"
     depends_on:
       - database
+      - redis
       - solr
     stdin_open: true
     tty: true
+
+  sidekiq:
+    build: ../../.
+    env_file:
+      - ../.env.docker
+    volumes:
+      - ../../.:/home/starlight/app
+    working_dir: /home/starlight/app
+    entrypoint: sh -ic "bundle exec sidekiq"
+    depends_on:
+      - database
+      - redis
+      - solr
+    stdin_open: true
+    tty: true
+
+  redis:
+    image: redis:5.0-alpine
+    command: redis-server
+    volumes:
+      - redis:/data
 
   database:
     image: postgres:11-alpine
@@ -32,3 +54,4 @@ services:
 
 volumes:
   starlight_database:
+  redis:
