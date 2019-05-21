@@ -11,6 +11,7 @@ starlight-dependency-scanning:
   artifacts:
     reports:
       dependency_scanning: starlight/gl-dependency-scanning-report.json
+  extends: .only-refs-default
   only:
     changes:
       - starlight/**/*

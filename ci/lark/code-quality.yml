@@ -11,6 +11,7 @@ lark-code-quality:
   artifacts:
     reports:
       codequality: lark/gl-code-quality-report.json
+  extends: .only-refs-default
   only:
     changes:
       - lark/**/*

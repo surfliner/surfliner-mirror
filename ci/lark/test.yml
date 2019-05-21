@@ -19,6 +19,7 @@ lark-unit-tests:
     - cd lark
     - bundle check || bundle
     - rake db:create db:migrate && bundle exec rspec
+  extends: .only-refs-default
   only:
     changes:
       - .gitlab-ci.yml
@@ -33,6 +34,7 @@ lark-client-unit:
     - cd lark-client
     - bundle check || bundle
     - bundle exec rspec --tag ~integration
+  extends: .only-refs-default
   only:
     changes:
       - .gitlab-ci.yml
@@ -47,6 +49,7 @@ lark-client-integration:
     - cd lark-client
     - bundle check || bundle
     - bundle exec rspec --tag @integration
+  extends: .only-refs-default
   only:
     changes:
       - .gitlab-ci.yml

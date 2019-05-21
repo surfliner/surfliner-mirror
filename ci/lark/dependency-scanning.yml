@@ -10,6 +10,7 @@ lark-dependency-scanning:
   artifacts:
     reports:
       dependency_scanning: lark/gl-dependency-scanning-report.json
+  extends: .only-refs-default
   only:
     changes:
       - lark/**/*

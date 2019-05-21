@@ -5,6 +5,7 @@ lark-lint:
     - cd lark
     - bundle check || bundle
     - bundle exec rubocop
+  extends: .only-refs-default
   only:
     changes:
       - .gitlab-ci.yml
@@ -19,6 +20,7 @@ lark-client-lint:
     - cd lark-client
     - bundle check || bundle
     - bundle exec rubocop
+  extends: .only-refs-default
   only:
     changes:
       - .gitlab-ci.yml

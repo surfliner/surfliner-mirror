@@ -4,6 +4,7 @@ starlight-lint:
   script:
     - cd starlight
     - bundle exec rubocop
+  extends: .only-refs-default
   only:
     changes:
       - .gitlab-ci.yml

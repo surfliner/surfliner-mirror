@@ -8,6 +8,7 @@ lark-ruby-build:
     - docker pull $CI_REGISTRY_IMAGE/lark_web
     - docker build -t $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_REF_NAME .
     - docker push $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_REF_NAME
+  extends: .only-refs-default
   only:
     changes:
       - .gitlab-ci.yml
@@ -24,6 +25,7 @@ lark-frontend-node-build:
     - registry_login
     - docker build -t $CI_REGISTRY_IMAGE/lark_frontend_web:latest .
     - docker push $CI_REGISTRY_IMAGE/lark_frontend_web:latest
+  extends: .only-refs-default
   only:
     changes:
       - .gitlab-ci.yml

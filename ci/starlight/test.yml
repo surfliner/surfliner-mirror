@@ -27,6 +27,7 @@ starlight-system-test:
     when: on_failure
     paths:
       - starlight/tmp/screenshots
+  extends: .only-refs-default
   only:
     changes:
       - .gitlab-ci.yml
@@ -57,6 +58,7 @@ starlight-unit-test:
     reports:
       junit: starlight/rspec.xml
     when: on_failure
+  extends: .only-refs-default
   only:
     changes:
       - .gitlab-ci.yml

@@ -7,6 +7,7 @@ starlight-build:
     - cd starlight
     - docker build -t $CI_REGISTRY_IMAGE/starlight_web:latest .
     - docker push $CI_REGISTRY_IMAGE/starlight_web:latest
+  extends: .only-refs-default
   only:
     changes:
       - .gitlab-ci.yml

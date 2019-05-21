@@ -28,6 +28,15 @@ include:
   - local: ci/starlight/lint.yml
   - local: ci/starlight/test.yml
 
+# Default only -> refs settings for all jobs
+# see: https://docs.gitlab.com/ee/ci/yaml/#onlyrefsexceptrefs
+.only-refs-default:
+  only:
+    refs:
+      - master
+      - merge_requests
+      - tags
+
 # ---------------------------------------------------------------------------
 
 .auto_devops: &auto_devops |
