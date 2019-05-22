@@ -24,7 +24,6 @@ review_ucsb:
     paths: [environment_url.txt]
   only:
     refs:
-      - branches
       - merge_requests
       - tags
     changes:
@@ -32,9 +31,6 @@ review_ucsb:
       - charts/lark/**/*
       - ci/lark/**/*
       - .gitlab-ci.yml
-  except:
-    refs:
-      - master
 
 review_ucsd:
   stage: review
@@ -61,7 +57,6 @@ review_ucsd:
     paths: [environment_url.txt]
   only:
     refs:
-      - branches
       - merge_requests
       - tags
     changes:
@@ -69,9 +64,6 @@ review_ucsd:
       - charts/lark/**/*
       - ci/lark/**/*
       - .gitlab-ci.yml
-  except:
-    refs:
-      - master
 
 stop_review_ucsb:
   stage: cleanup
@@ -87,7 +79,6 @@ stop_review_ucsb:
   allow_failure: true
   only:
     refs:
-      - branches
       - merge_requests
       - tags
     changes:
@@ -95,9 +86,6 @@ stop_review_ucsb:
       - charts/lark/**/*
       - ci/lark/**/*
       - .gitlab-ci.yml
-  except:
-    refs:
-      - master
 
 stop_review_ucsd:
   stage: cleanup
@@ -113,7 +101,6 @@ stop_review_ucsd:
   allow_failure: true
   only:
     refs:
-      - branches
       - merge_requests
       - tags
     changes:
@@ -121,6 +108,3 @@ stop_review_ucsd:
       - charts/lark/**/*
       - ci/lark/**/*
       - .gitlab-ci.yml
-  except:
-    refs:
-      - master
