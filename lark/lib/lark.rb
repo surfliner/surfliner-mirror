@@ -19,6 +19,7 @@ require_relative 'lark/record_serializer'
 module Lark
   extend Dry::Configurable
 
+  setting :database
   setting :event_adapter, :sql
   setting :index_adapter, :solr
   setting :event_stream,  EventStream.instance

@@ -3,7 +3,6 @@
 require 'dotenv/load' unless ENV['RACK_ENV'] == 'production'
 
 require_relative 'application'
-require_relative 'database'
 require 'bundler'
 
 Bundler.require
@@ -17,11 +16,14 @@ Valkyrie::MetadataAdapter.register(
 )
 
 if Lark.config.event_adapter == :sql
+  require_relative 'database'
+  Lark.config.database = DATABASE
+
   ##
   # Register postgres metadata adapter
   Valkyrie::MetadataAdapter.register(
     Valkyrie::Sequel::MetadataAdapter.new(
-      connection: Sequel.connect(DATABASE)
+      connection: Sequel.connect(Lark.config.database)
     ),
     :sql
   )
