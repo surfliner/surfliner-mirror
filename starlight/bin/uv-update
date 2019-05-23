@@ -1,0 +1,30 @@
+#!/bin/sh
+
+# Update from Universal Viewer repo, fingerprint the directory, and symlink the thumbprinted directory into place
+uv_src="./node_modules/universalviewer/uv/."
+uv_dest="./public/uv"
+echo "Copying over build uv"
+cp -r "$uv_src" "$uv_dest"
+
+# UV is deployed outside the asset pipeline
+# (see https://github.com/UniversalViewer/universalviewer/issues/481)
+#
+# In the meantime, to bust browser caches we're calculating a unique
+# thumbprint for the UV assets ourselves and adding a symlink to the uv directory
+# from a unique path.
+echo "Calculating an MD5 thumbprint for the UV assets"
+md5_thumprint=''
+case "$(uname -s)" in
+  Darwin)
+    md5_thumprint=$(tar cf - public/uv | md5 | tee "$uv_dest/.md5")
+    ;;
+  Linux)
+    md5_thumprint=$(tar cf - public/uv | md5sum | cut -d ' ' -f1 | tee "$uv_dest/.md5")
+    ;;
+  *)
+    echo "unsupport OS detected for calcuating MD5 thumbprint"
+    ;;
+esac
+
+echo "Adding a symlink for the thumbprinted directory"
+ln -s ./uv "$uv_dest-$md5_thumprint"

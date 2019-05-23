@@ -30,6 +30,5 @@ WORKDIR /home/starlight/app
 COPY --chown=starlight:starlight Gemfile* ./
 RUN bundle check || bundle install --jobs "$(nproc)"
 COPY --chown=starlight:starlight . ./
-RUN yarn install --verbose
 
 ENTRYPOINT ["/bin/sh", "/home/starlight/app/docker/docker-entrypoint.sh"]

@@ -33,7 +33,6 @@ starlight-system-test:
       - .gitlab-ci.yml
       - ci/starlight/**/*
       - starlight/**/*
-  allow_failure: true
 
 starlight-unit-test:
   image: $CI_REGISTRY_IMAGE/starlight_web:latest

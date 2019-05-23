@@ -30,7 +30,6 @@
 # Don't check in vendored JS
 .yarn-integrity
 node_modules
-public/yarn
 yarn-debug.log*
 yarn-error.log
 
