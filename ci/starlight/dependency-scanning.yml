@@ -1,12 +1,13 @@
 starlight-dependency-scanning:
   stage: test
   image: docker:stable
-  allow_failure: true
   services:
     - docker:stable-dind
   script:
     - setup_docker
+    - apk --no-cache upgrade && apk add --no-cache yarn
     - cd starlight
+    - yarn install
     - dependency_scanning
   artifacts:
     reports:
