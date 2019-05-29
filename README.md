@@ -61,69 +61,7 @@ While not involved in daily development work, the project also includes these tw
 
 ### Team Meetings
 #### Project-wide
-**Project Surfliner Daily Standup**<br/> 
-Daily, 10:30-10:45am (*except last day of each sprint*)<br/>
-[https://ucsd.zoom.us/j/306296343](https://ucsd.zoom.us/j/306296343)<br/> 
-*Purpose*: Daily meeting during the sprint to discuss ongoing work and blockers.<br/>
-*Required*: Project Team<br/>
-
-**Project Surfliner Public Standup** (*open to anyone*)<br/>
-Weekly on Wednesdays, 9:30-9:45 am<br/>
-[https://ucsb.zoom.us/j/130912310](https://ucsb.zoom.us/j/130912310)<br/>
-***UPDATE: The April 24, 2019 Public Standup has been canceled due to a scheduling conflict with Samvera Virtual Connect 2019.*** <br/>
-*Purpose*: Weekly meting to keep stakeholders, and other interested parties, informed of the progress of the Surfliner Project and the status, resources, and timelines of the Surfliner products.<br/>
-*Required*: Product Owners, Tech Leads<br/>
-*Optional*: Developers, Domain Experts<br/>
-
-**Project Surfliner Sprint Retrospective**<br/>
-Every other Thursday, 11am-12pm (*starting March 7, 2019*)<br/>
-[https://ucsb.zoom.us/j/352799530](https://ucsb.zoom.us/j/352799530)<br/>
-*Purpose*: Meeting on the last day of the sprint to discuss how things went and what to change for future sprints.<br/>
-*Required*: Project Team<br/>
-
-#### Lark Product Team
-**Lark Sprint Planning**<br/>
-Every other Thursday, 2-3pm (*starting March 21, 2019*)<br/>
-[https://ucsd.zoom.us/j/929943163](https://ucsd.zoom.us/j/929943163)<br/>
-*Purpose*: Meeting the week before the next sprint to negotiate and select tickets on that sprint.<br/>
-*Required*: Lark Product Owner, Tech Lead & Developers<br/>
-*Optional*: Lark Domain Experts<br/>
-
-**Lark Backlog Refinement**<br/>
-Every other Thursday, 2-3pm (*starting March 28, 2019*)<br/>
-[https://ucsd.zoom.us/j/889736855](https://ucsd.zoom.us/j/889736855)<br/>
-*Purpose*: Meeting, as needed, prior to Sprint Planning to groom & prioritize tickets.<br/>
-*Required*: Lark Product Owner & Tech Lead<br/>
-*Optional*: Lark Developers & Domain Experts<br/>
-
-**Lark Sprint Review**<br/>
-Every other Friday, 9-10am (*starting March 22, 2019*)<br/>
-[https://ucsd.zoom.us/j/878403933](https://ucsd.zoom.us/j/878403933)<br/>
-*Purpose*: Informal meeting on the last day of the sprint to show what team has accomplished during the sprint, typically taking the form of a demo. Demos are recorded. The Product Owner & Tech Lead are responsible for demo content & ensuring the demo gets recorded and shared. Demos are public; to be briefly summarized in the following Project Surfliner Public Stand-up.<br/>
-*Required*: Lark Product Owner & Tech Lead<br/>
-*Optional*: Lark Developers & Domain Experts<br/>
-
-#### Starlight Product Team
-**Starlight Sprint Planning**<br/>
-Every other Wednesday, 1-2pm (*starting March 6, 2019*)<br/>
-[https://ucsb.zoom.us/j/858050458](https://ucsb.zoom.us/j/858050458)<br/>
-*Purpose*: Meeting the week before the next sprint to negotiate and select tickets on that sprint.<br/>
-*Required*: Starlight Product Owner, Tech Lead & Developers<br/>
-*Optional*: Starlight Domain Experts<br/>
-
-**Starlight Backlog Refinement**<br/>
-Every other Wednesday, 1-2pm (*starting March 13, 2019*)<br/>
-[https://ucsb.zoom.us/j/523222821](https://ucsb.zoom.us/j/523222821)<br/>
-*Purpose*: Meeting, as needed, prior to Sprint Planning to groom & prioritize tickets.<br/>
-*Required*: Starlight Product Owner & Tech Lead<br/>
-*Optional*: Starlight Developers & Domain Experts<br/>
-
-**Starlight Sprint Review**<br/>
-Every other Friday, 10-11am (*starting March 8, 2019*)<br/>
-[https://ucsb.zoom.us/j/396755119](https://ucsb.zoom.us/j/396755119)<br/>
-*Purpose*: Informal meeting on the last day of the sprint to show what team has accomplished during the sprint, typically taking the form of a demo. Demos are recorded. The Product Owner & Tech Lead are responsible for demo content & ensuring the demo gets recorded and shared. Demos are public; to be briefly summarized in the following Project Surfliner Public Stand-up.<br/>
-*Required*: Starlight Product Owner & Tech Lead<br/>
-*Optional*: Starlight Developers & Domain Experts<br/>
+Project Surfliner is currently in an off workcycle. Standing meetings will resume in the future.
 
 # Communication Channels
 **Blog**<br/>
