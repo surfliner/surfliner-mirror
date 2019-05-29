@@ -3,6 +3,35 @@
 Starlight is based on Spotlight, a framework for the creation and presentation of
 exhibits.
 
+## Deploying Starlight
+
+Please see our [Deploy](doc/deploy.md) documentation for details on how to
+deploy a Starlight application to staging or production environments. For local
+development and testing, please see [Developing Locally](README.md#developing-locally)
+
+## Authentication
+
+The environment variable `AUTH_METHOD` determines how users log in.  The options
+are:
+
+- `google`: Authenticates via Google OAuth
+- `shibboleth`: Authenticates via Shibboleth
+- `developer`: Authenticates via YAML file (for local testing only)
+- `database`: Authenticates via standard Rails/Devise db-backed Users
+
+### Authentication with Google
+
+Users authenticate using Google.  To configure Starlight to connect to Google
+using OAuth:
+
+1. Create a new application at <https://console.developers.google.com/>.
+1. Complete the OAuth consent form under the Credentials tab.
+1. In the Credentials tab, select `Create credentials -> OAuth client ID`.  The
+   type should be “Web application” and the Authoritized redirect URI should be
+   your application’s hostname followed by `/users/auth/google_oauth2/callback`.
+1. Set the environment variables `GOOGLE_AUTH_ID` and `GOOGLE_AUTH_SECRET` to
+   the provided OAuth client ID and client secret, respectively.
+
 ## Importing Data
 
 Images can be specified either via a url or via a filename. A CSV import file
@@ -21,12 +50,6 @@ urls, change the `url` column heading to say `file` instead.
     `/opt/ingest/images/sample.jpg`.  If the file path starts with `/`, it will
     be treated as an absolute path and `BINARY_ROOT` will be ignored.
 1. Click `choose file` and upload your populated CSV file.
-
-## Deploying Starlight
-
-Please see our [Deploy](doc/deploy.md) documentation for details on how to
-deploy a Starlight application to staging or production environments. For local
-development and testing, please see [Developing Locally](README.md#developing-locally)
 
 ## Google Analytics
 
@@ -111,11 +134,6 @@ To teardown your environment:
 1. `./bin/docker-teardown.sh -h` for options
 1. `./bin/docker-teardown.sh -e test`  to teardown containers
 1. `./bin/docker-teardown.sh -e test -v` to teardown containers AND volumes
-
-### Use database authentication instead of Shibboleth
-If you want to use spotlight's built-in database authentication instead of
-Shibboleth, either for local development or on a server, set an environment
-variable: `DATABASE_AUTH=true`
 
 ### Set up a local admin account
 1. Self-register in the web ui

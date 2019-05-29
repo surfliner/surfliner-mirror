@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     concerns :searchable
   end
 
-  if ENV["DATABASE_AUTH"].present?
+  if ENV["AUTH_METHOD"] == "database"
     devise_for :users
   else
     devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }

@@ -6,7 +6,7 @@ Rails.application.configure do
   config.active_job.queue_adapter = :sidekiq
 
   # Authentication strategy
-  config.shibboleth = true
+  config.shibboleth = ENV["AUTH_METHOD"] == "shibboleth"
 
   # Code is not reloaded between requests.
   config.cache_classes = true
