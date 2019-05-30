@@ -1,0 +1,3 @@
+{{ deploy_user }}       ALL=(ALL)NOPASSWD:/usr/bin/systemctl reload sidekiq
+{{ deploy_user }}       ALL=(ALL)NOPASSWD:/usr/bin/systemctl restart sidekiq
+{{ deploy_user }}       ALL=(ALL)NOPASSWD:/usr/bin/systemctl stop sidekiq
