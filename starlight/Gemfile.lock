@@ -154,9 +154,6 @@ GEM
     capistrano-rbenv (2.1.4)
       capistrano (~> 3.1)
       sshkit (~> 1.3)
-    capistrano-sidekiq (1.0.2)
-      capistrano (>= 3.9.0)
-      sidekiq (>= 3.4)
     capistrano-yarn (2.0.2)
       capistrano (~> 3.0)
     capybara (3.22.0)
@@ -532,7 +529,6 @@ DEPENDENCIES
   capistrano-passenger
   capistrano-rails (>= 1.1.3)
   capistrano-rbenv
-  capistrano-sidekiq
   capistrano-yarn
   capybara
   capybara-screenshot
@@ -568,7 +564,7 @@ DEPENDENCIES
   scss_lint_reporter_checkstyle
   selenium-webdriver
   shoulda-matchers
-  sidekiq (< 6)
+  sidekiq
   sitemap_generator
   solr_wrapper (>= 0.3)
   sqlite3

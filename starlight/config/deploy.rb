@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+SSHKit.config.command_map[:rake] = "bundle exec rake"
+
 set :application, "starlight"
 
 set :repo_url, "https://gitlab.com/surfliner/surfliner.git"
@@ -29,4 +31,4 @@ set :linked_dirs, %w[
 # Default branch is :master
 set :branch, ENV["CAP_REVISION"] || "master"
 
-SSHKit.config.command_map[:rake] = "bundle exec rake"
+after "deploy:restart", "sidekiq:restart"
