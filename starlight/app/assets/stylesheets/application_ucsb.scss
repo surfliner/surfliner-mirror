@@ -227,6 +227,11 @@ footer {
 //////////
 // MISC
 //////////
+.row {
+  margin-left: inherit;
+  margin-right: inherit;
+}
+
 .st__content-block--text {
   margin-bottom: 10px;
 }
