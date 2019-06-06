@@ -32,23 +32,23 @@ RSpec.describe 'GET /{id}' do
                         pref_label: pref_label)
     end
     let(:response_expected) do
-      JSON.dump(pref_label: pref_label,
-                alternate_label: [],
-                hidden_label: [],
-                exact_match: [],
-                close_match: [],
-                note: [],
-                scope_note: [],
-                editorial_note: [],
-                history_note: [],
-                definition: [],
-                scheme: 'http://www.w3.org/2004/02/skos/core#ConceptScheme',
-                literal_form: [],
-                label_source: [],
-                campus: [],
-                annotation: [],
-                identifier: [],
-                id: id)
+      { 'pref_label' => pref_label,
+        'alternate_label' => [],
+        'hidden_label' => [],
+        'exact_match' => [],
+        'close_match' => [],
+        'note' => [],
+        'scope_note' => [],
+        'editorial_note' => [],
+        'history_note' => [],
+        'definition' => [],
+        'scheme' => 'http://www.w3.org/2004/02/skos/core#ConceptScheme',
+        'literal_form' => [],
+        'label_source' => [],
+        'campus' => [],
+        'annotation' => [],
+        'identifier' => [],
+        'id' => id }
     end
 
     before { persister.save(resource: resource) }
@@ -64,7 +64,7 @@ RSpec.describe 'GET /{id}' do
     it 'gets the object matching the id' do
       get "/#{id}"
 
-      expect(last_response.body)
+      expect(JSON.parse(last_response.body))
         .to eq response_expected
     end
   end
