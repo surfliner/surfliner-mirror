@@ -3,25 +3,29 @@
 ##
 # @abstract An abstract Authority record built from/saved to the index.
 class Authority < Valkyrie::Resource
+  SCHEMA = 'http://www.w3.org/2004/02/skos/core#ConceptScheme'
+
   class << self
     def define_schema(config)
       config.each do |de|
         term = de.keys.first
 
-        case de[term]['range']['uri']
-        when 'xsd:anyURI'
-          attribute term.underscore.to_sym,
-                    Valkyrie::Types::Set.of(Valkyrie::Types::URI)
-        else
-          attribute term.underscore.to_sym, Valkyrie::Types::Set
-        end
+        attribute term.underscore.to_sym,
+                  type_for(range: de[term]['range']['uri'])
+      end
+
+      attribute :scheme, Valkyrie::Types::Strict::String.default(self::SCHEMA)
+    end
+
+    private
+
+    def type_for(range:)
+      case range
+      when 'xsd:anyURI'
+        Valkyrie::Types::Set.of(Valkyrie::Types::URI)
+      else
+        Valkyrie::Types::Set
       end
     end
-  end
-
-  ##
-  # @return [String] constant
-  def scheme
-    self.class::SCHEMA
   end
 end

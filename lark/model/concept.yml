@@ -74,13 +74,6 @@
         uri: "rdfs:Literal"
       cardinality: "0..1"
 
-  - "scheme":
-      definition: "include this for others consuming our data. The scheme being something like <lark..../authorities/concepts>?"
-      predicate : "http://www.w3.org/2004/02/skos/core#inScheme"
-      range:
-        uri: "skos:ConceptScheme"
-      cardinality: 1
-
   - "literalForm":
       definition: "String value of the skos-xl Label.  Can include language qualifier, e.g., \"photographs\"@en-US"
       predicate : "http://www.w3.org/2008/05/skos-xl#literalForm"
