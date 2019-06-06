@@ -234,7 +234,7 @@ GEM
       thread_safe (~> 0.1)
     uber (0.1.0)
     unicode-display_width (1.6.0)
-    valkyrie (2.0.0.RC9)
+    valkyrie (2.0.0.RC10)
       activemodel
       activesupport
       disposable (~> 0.4.5)
@@ -279,7 +279,7 @@ DEPENDENCIES
   shotgun
   sinatra (~> 2.0.5)
   timecop
-  valkyrie (= 2.0.0.RC9)
+  valkyrie (= 2.0.0.RC10)
   valkyrie-sequel (= 2.0.0.RC1)
 
 BUNDLED WITH

@@ -23,5 +23,5 @@ gem 'rubocop-rspec',      group: %w[development test]
 gem 'shotgun',            group: 'development'
 gem 'sinatra',            '~> 2.0.5'
 gem 'timecop',            group: 'test'
-gem 'valkyrie',           '2.0.0.RC9'
+gem 'valkyrie',           '2.0.0.RC10'
 gem 'valkyrie-sequel',    '2.0.0.RC1'
