@@ -283,3 +283,21 @@ footer {
 .control-group .help-inline {
   display: inline !important;
 }
+
+.carousel {
+  .carousel-indicators {
+    li {
+      background-color: inherit;
+      height: inherit;
+      width: inherit;
+
+      &.active {
+        background-color: $brand-primary;
+      }
+
+      &:hover {
+        background-color: inherit;
+      }
+    }
+  }
+}
