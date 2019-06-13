@@ -256,6 +256,15 @@ footer {
 .exhibit-navbar {
   background-color: $base-lightgray !important;
   border-color: $base-lightgray !important;
+
+  .navbar-brand {
+    color: $base-navy !important;
+
+    :hover,
+    :active {
+      color: $base-navy !important;
+    }
+  }
 }
 
 .flat {
