@@ -81,6 +81,19 @@
   }
 }
 
+// love overriding bootstrap
+.dropdown-menu, .twitter-typeahead .tt-menu {
+  float: none;
+  left: inherit;
+  top: inherit;
+}
+
+body:not(.toolbar-tray-open) .nav > li.dropdown.open .dropdown-menu, body:not(.toolbar-tray-open) .nav > li.dropdown.open .twitter-typeahead .tt-menu, .twitter-typeahead body:not(.toolbar-tray-open) .nav > li.dropdown.open .tt-menu {
+  left: inherit;
+  right: inherit;
+  width: auto;
+}
+
 //////////
 // BROWSE
 //////////
