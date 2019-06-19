@@ -1,12 +1,12 @@
 #!/bin/sh
 
-if [ $EVENT_ADAPTER == "sql" ]
+if [ "$EVENT_ADAPTER" = "sql" ]
 then
-  while ! nc -z $POSTGRES_HOST $POSTGRES_PORT;
+  while ! nc -z "$POSTGRES_HOST" "$POSTGRES_PORT"
   do
-    echo "waiting for postgresql";
-    sleep 1;
-  done;
+    echo "waiting for postgresql"
+    sleep 1
+  done
 
   bundle exec rake db:migrate
 fi

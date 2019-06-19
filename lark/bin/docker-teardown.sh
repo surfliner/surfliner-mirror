@@ -4,9 +4,9 @@ usage()
 {
     echo "usage: ./bin/docker-teardown [-v -e | -h]"
     echo "Options:"
-    echo "-e, --env       Choose environment (dev/test)"
-    echo "-v, --volumes   Deletes volumes if specified"
-    echo "-h, --help      Help information you're reading now"
+    echo " -e, --env       Choose environment (dev/test)"
+    echo " -v, --volumes   Deletes volumes if specified"
+    echo " -h, --help      Help information you're reading now"
 }
 
 compose_env="./docker/dev/"
