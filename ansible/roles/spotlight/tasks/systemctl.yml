@@ -5,6 +5,14 @@
     src: sidekiq.service.j2
   become: yes
 
+- name: generate key base
+  shell: openssl rand -base64 64 | sha256sum | tr -d '\n\ -'
+  register: rando
+
+- name: set rails secret key base
+  set_fact:
+    rails_secret_key_base: "{{ rando.stdout }}"
+
 - name: write systemctl variables file
   template:
     src: systemctl-vars.j2
