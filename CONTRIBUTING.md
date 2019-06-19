@@ -190,6 +190,9 @@ the motivation for the change in your commit message.
 For Ruby, we have a project-wide `rubocop` configuration at [`.styles/rubocop_surfliner.yml`][rubocop].
 To run automated style checks, do `bundle exec rubocop` from any product directory.
 
+For Shell scripts, we use [Shellcheck][shellcheck].
+Shellcheck can be integrated into your editor, or ran directly on the command line with the `shellcheck` binary.
+
 [aha]: https://ucsurfliner.ideas.aha.io/
 [commit-template]: https://thoughtbot.com/blog/better-commit-messages-with-a-gitmessage-template
 [commit]: https://chris.beams.io/posts/git-commit/
@@ -204,5 +207,6 @@ To run automated style checks, do `bundle exec rubocop` from any product directo
 [principles]: https://ucnet.universityofcalifornia.edu/working-at-uc/our-values/principles-of-community.html
 [rebase]: https://docs.gitlab.com/ee/workflow/gitlab_flow.html#squashing-commits-with-rebase
 [rubocop]: ./.styles/rubocop_surfliner.yml
+[shellcheck]: https://www.shellcheck.net/
 [styles]: ./.styles
 [trunk]: https://trunkbaseddevelopment.com/
