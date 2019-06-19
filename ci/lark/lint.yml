@@ -1,3 +1,16 @@
+lark-shellcheck:
+  stage: lint
+  image: koalaman/shellcheck-alpine:stable
+  script:
+    - cd lark
+    - find . -name tmp -prune -o -type f -exec awk 'FNR == 1 && /^#!.*sh/{print FILENAME}' {} + | xargs shellcheck
+  extends: .only-refs-default
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - .styles/**/*
+      - lark/**/*
+
 lark-lint:
   stage: lint
   image: $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_REF_NAME
