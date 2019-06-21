@@ -1,10 +1,10 @@
+export AUTH_METHOD=google
 export BINARY_ROOT="{{ binary_root }}"
-export DATABASE_AUTH=
 export DATABASE_URL="postgres://{{ db_user }}:{{ db_pass | urlencode | regex_replace('/','%2F') }}@{{ db_host }}/{{ db_name }}"
 export FROM_EMAIL="{{ from_email }}"
 export HOSTNAME="{{ fqdn }}"
-export PROJECT_PATH="{{ project_base }}/{{ project_name }}"
 export PORT="3000"
+export PROJECT_PATH="{{ project_base }}/{{ project_name }}"
 export RAILS_ENV="production"
 export RAILS_MAX_THREADS="5"
 export RAILS_QUEUE="sidekiq"
@@ -17,3 +17,4 @@ export SHIB_UID_FIELD="{{ shib_uid }}"
 export SITEMAP_DEFAULT_HOST="http://localhost"
 export SMTP_HOST="{{ smtp_host }}"
 export SOLR_URL="http://{{ solr_host }}:8983/solr/{{ solr_core }}"
+# export SPOTLIGHT_THEMES=
