@@ -21,7 +21,7 @@
 @mixin inline($separator, $distance) {
   &, & > li {
     /* http://www.alistapart.com/articles/taminglists/ */
-    display: inline;
+    display: inline-block;
     margin: 0;
     padding-left: 0;
   }
