@@ -18,7 +18,6 @@ gem 'popper_js', '~> 1.14'
 gem 'puma', '~> 3.11'
 gem 'rsolr', '>= 1.0', '< 3'
 gem 'sass-rails', '~> 5.0'
-gem 'solr_wrapper', '>= 0.3', group:  %(development test)
 gem 'spring', group: :development
 gem 'spring-watcher-listen', '~> 2.0.0', group: :development
 gem 'sqlite3', '~> 1.3.6'
