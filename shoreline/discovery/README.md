@@ -1,24 +1,13 @@
-# README
+# Shoreline Discovery
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Shorline Discovery is a [GeoBlacklight][geoblacklight] frontend for the Shoreline
+geospatial system.
 
-Things you may want to cover:
+Please see [CONTRIBUTING.md][contributing] for information about contributing to
+this project. By participating, you agree to abide by the
+[UC Principles of Community][principles].
 
-* Ruby version
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+[contributing]: ../../CONTRIBUTING.md
+[geoblacklight]: https://github.com/geoblacklight/geoblacklight
+[principles]: https://ucnet.universityofcalifornia.edu/working-at-uc/our-values/principles-of-community.html
