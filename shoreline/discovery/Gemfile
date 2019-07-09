@@ -15,6 +15,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails', '~> 4.3'
 gem 'listen', '>= 3.0.5', '< 3.2', group: :development
 gem 'popper_js', '~> 1.14'
+gem 'pry-rails', '~> 0.3', group: %(development, test)
 gem 'puma', '~> 3.11'
 gem 'rsolr', '>= 1.0', '< 3'
 gem 'sass-rails', '~> 5.0'
