@@ -6,6 +6,7 @@ AllCops:
     - 'script/**/*'
     - 'tmp/**/*'
     - 'vendor/**/*'
+    - 'node_modules/**/*'
 
 Style/AccessModifierDeclarations:
   Enabled: false
