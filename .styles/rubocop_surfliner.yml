@@ -11,6 +11,10 @@ AllCops:
 Style/AccessModifierDeclarations:
   Enabled: false
 
+Style/MixinUsage:
+  Exclude:
+    - 'bin/*'
+
 # we use .gitattributes to manage line feed styles
 Layout/EndOfLine:
   Enabled: false
@@ -21,6 +25,7 @@ Metrics/BlockLength:
     - '**/*.rake'
     - 'Rakefile'
     - '**/catalog_controller.rb'
+    - 'config/**/*'
 
 Metrics/ClassLength:
   Exclude:
