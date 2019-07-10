@@ -11,7 +11,8 @@ class CatalogController < ApplicationController
     # Please see https://github.com/projectblacklight/blacklight/pull/2006/
     config.raw_endpoint.enabled = true
 
-    ## Default parameters to send to solr for all search-like requests. See also SolrHelper#solr_search_params
+    ## Default parameters to send to solr for all search-like requests.
+    ## See also SolrHelper#solr_search_params
     ## @see https://lucene.apache.org/solr/guide/6_6/common-query-parameters.html
     ## @see https://lucene.apache.org/solr/guide/6_6/the-dismax-query-parser.html#TheDisMaxQueryParser-Theq.altParameter
     config.default_solr_params = {
@@ -23,7 +24,8 @@ class CatalogController < ApplicationController
     ## @see https://lucene.apache.org/solr/guide/6_6/common-query-parameters.html
     config.default_per_page = 10
 
-    ## Default parameters to send on single-document requests to Solr. These settings are the Blackligt defaults (see SolrHelper#solr_doc_params) or
+    ## Default parameters to send on single-document requests to Solr. These
+    ## settings are the Blackligt defaults (see SolrHelper#solr_doc_params) or
     ## parameters included in the Blacklight-jetty document requestHandler.
     #
     config.default_document_solr_params = {
@@ -67,34 +69,29 @@ class CatalogController < ApplicationController
     #
     # :show may be set to false if you don't want the facet to be drawn in the
     # facet bar
-    # config.add_facet_field 'format', :label => 'Format'
-    # config.add_facet_field 'pub_date', :label => 'Publication Year', :single => true
-    # config.add_facet_field 'subject_topic_facet', :label => 'Topic', :limit => 20
-    # config.add_facet_field 'language_facet', :label => 'Language', :limit => true
-    # config.add_facet_field 'lc_1letter_facet', :label => 'Call Number'
-    # config.add_facet_field 'subject_geo_facet', :label => 'Region'
-    # config.add_facet_field 'solr_bbox', :fq => "solr_bbox:IsWithin(-88,26,-79,36)", :label => 'Spatial'
 
-    # config.add_facet_field 'example_pivot_field', :label => 'Pivot Field', :pivot => ['format', 'language_facet']
+    FIELDS = Settings.FIELDS
 
-    # config.add_facet_field 'example_query_facet_field', :label => 'Publish Date', :query => {
-    #    :years_5 => { :label => 'within 5 Years', :fq => "pub_date:[#{Time.now.year - 5 } TO *]" },
-    #    :years_10 => { :label => 'within 10 Years', :fq => "pub_date:[#{Time.now.year - 10 } TO *]" },
-    #    :years_25 => { :label => 'within 25 Years', :fq => "pub_date:[#{Time.now.year - 25 } TO *]" }
-    # }
+    config.add_facet_field FIELDS.PROVENANCE, label: 'Institution',
+                                              limit: 8,
+                                              partial: 'icon_facet'
 
-    config.add_facet_field Settings.FIELDS.PROVENANCE, label: 'Institution', limit: 8, partial: 'icon_facet'
-    config.add_facet_field Settings.FIELDS.CREATOR, label: 'Author', limit: 8
-    config.add_facet_field Settings.FIELDS.PUBLISHER, label: 'Publisher', limit: 8
-    config.add_facet_field Settings.FIELDS.SUBJECT, label: 'Subject', limit: 8
-    config.add_facet_field Settings.FIELDS.SPATIAL_COVERAGE, label: 'Place', limit: 8
-    config.add_facet_field Settings.FIELDS.PART_OF, label: 'Collection', limit: 8
+    config.add_facet_field FIELDS.CREATOR, label: 'Author', limit: 8
+    config.add_facet_field FIELDS.PUBLISHER, label: 'Publisher', limit: 8
+    config.add_facet_field FIELDS.SUBJECT, label: 'Subject', limit: 8
+    config.add_facet_field FIELDS.SPATIAL_COVERAGE, label: 'Place', limit: 8
+    config.add_facet_field FIELDS.PART_OF, label: 'Collection', limit: 8
 
-    config.add_facet_field Settings.FIELDS.YEAR, label: 'Year', limit: 10
+    config.add_facet_field FIELDS.YEAR, label: 'Year', limit: 10
 
-    config.add_facet_field Settings.FIELDS.RIGHTS, label: 'Access', limit: 8, partial: 'icon_facet'
-    config.add_facet_field Settings.FIELDS.GEOM_TYPE, label: 'Data type', limit: 8, partial: 'icon_facet'
-    config.add_facet_field Settings.FIELDS.FILE_FORMAT, label: 'Format', limit: 8
+    config.add_facet_field FIELDS.RIGHTS, label: 'Access',
+                                          limit: 8,
+                                          partial: 'icon_facet'
+    config.add_facet_field FIELDS.GEOM_TYPE, label: 'Data type',
+                                             limit: 8,
+                                             partial: 'icon_facet'
+    config.add_facet_field FIELDS.FILE_FORMAT, label: 'Format',
+                                               limit: 8
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -103,25 +100,10 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    # config.add_index_field 'title_display', :label => 'Title:'
-    # config.add_index_field 'title_vern_display', :label => 'Title:'
-    # config.add_index_field 'author_display', :label => 'Author:'
-    # config.add_index_field 'author_vern_display', :label => 'Author:'
-    # config.add_index_field 'format', :label => 'Format:'
-    # config.add_index_field 'language_facet', :label => 'Language:'
-    # config.add_index_field 'published_display', :label => 'Published:'
-    # config.add_index_field 'published_vern_display', :label => 'Published:'
-    # config.add_index_field 'lc_callnum_display', :label => 'Call number:'
-
-    # config.add_index_field 'dc_title_t', :label => 'Display Name:'
-    # config.add_index_field Settings.FIELDS.PROVENANCE, :label => 'Institution:'
-    # config.add_index_field Settings.FIELDS.RIGHTS, :label => 'Access:'
-    # # config.add_index_field 'Area', :label => 'Area:'
-    # config.add_index_field Settings.FIELDS.SUBJECT, :label => 'Keywords:'
-    config.add_index_field Settings.FIELDS.YEAR
-    config.add_index_field Settings.FIELDS.CREATOR
-    config.add_index_field Settings.FIELDS.DESCRIPTION, helper_method: :snippit
-    config.add_index_field Settings.FIELDS.PUBLISHER
+    config.add_index_field FIELDS.YEAR
+    config.add_index_field FIELDS.CREATOR
+    config.add_index_field FIELDS.DESCRIPTION, helper_method: :snippit
+    config.add_index_field FIELDS.PUBLISHER
 
     # solr fields to be displayed in the show (single result) view
     #  The ordering of the field names is the order of the display
@@ -129,16 +111,33 @@ class CatalogController < ApplicationController
     # item_prop: [String] property given to span with Schema.org item property
     # link_to_search: [Boolean] that can be passed to link to a facet search
     # helper_method: [Symbol] method that can be used to render the value
-    config.add_show_field Settings.FIELDS.CREATOR, label: 'Author(s)', itemprop: 'author'
-    config.add_show_field Settings.FIELDS.DESCRIPTION, label: 'Description', itemprop: 'description', helper_method: :render_value_as_truncate_abstract
-    config.add_show_field Settings.FIELDS.PUBLISHER, label: 'Publisher', itemprop: 'publisher'
-    config.add_show_field Settings.FIELDS.PART_OF, label: 'Collection', itemprop: 'isPartOf'
-    config.add_show_field Settings.FIELDS.SPATIAL_COVERAGE, label: 'Place(s)', itemprop: 'spatial', link_to_facet: true
-    config.add_show_field Settings.FIELDS.SUBJECT, label: 'Subject(s)', itemprop: 'keywords', link_to_facet: true
-    config.add_show_field Settings.FIELDS.TEMPORAL, label: 'Year', itemprop: 'temporal'
-    config.add_show_field Settings.FIELDS.PROVENANCE, label: 'Held by', link_to_facet: true
+    config.add_show_field FIELDS.CREATOR, label: 'Author(s)', itemprop: 'author'
+    config.add_show_field FIELDS.DESCRIPTION,
+                          label: 'Description',
+                          itemprop: 'description',
+                          helper_method: :render_value_as_truncate_abstract
+    config.add_show_field FIELDS.PUBLISHER,
+                          label: 'Publisher',
+                          itemprop: 'publisher'
+    config.add_show_field FIELDS.PART_OF,
+                          label: 'Collection',
+                          itemprop: 'isPartOf'
+    config.add_show_field FIELDS.SPATIAL_COVERAGE,
+                          label: 'Place(s)',
+                          itemprop: 'spatial',
+                          link_to_facet: true
+    config.add_show_field FIELDS.SUBJECT,
+                          label: 'Subject(s)',
+                          itemprop: 'keywords',
+                          link_to_facet: true
+    config.add_show_field FIELDS.TEMPORAL,
+                          label: 'Year',
+                          itemprop: 'temporal'
+    config.add_show_field FIELDS.PROVENANCE,
+                          label: 'Held by',
+                          link_to_facet: true
     config.add_show_field(
-      Settings.FIELDS.REFERENCES,
+      FIELDS.REFERENCES,
       label: 'More details at',
       accessor: [:external_url],
       if: proc { |_, _, doc| doc.external_url },
@@ -159,8 +158,8 @@ class CatalogController < ApplicationController
     # urls.  A display label will be automatically calculated from the :key,
     # or can be specified manually to be different.
 
-    # This one uses all the defaults set by the solr request handler. Which
-    # solr request handler? The one set in config[:default_solr_parameters][:qt],
+    # This one uses all the defaults set by the solr request handler. Which solr
+    # request handler? The one set in config[:default_solr_parameters][:qt],
     # since we aren't specifying it otherwise.
 
     config.add_search_field 'all_fields', label: 'All Fields'
@@ -193,8 +192,8 @@ class CatalogController < ApplicationController
     #   }
     # end
 
-    # # Specifying a :qt only to show it's possible, and so our internal automated
-    # # tests can test it. In this case it's the same as
+    # # Specifying a :qt only to show it's possible, and so our internal
+    # # automated tests can test it. In this case it's the same as
     # # config[:default_solr_parameters][:qt], so isn't actually neccesary.
     # config.add_search_field('subject') do |field|
     #   field.solr_parameters = { :'spellcheck.dictionary' => 'subject' }
@@ -218,30 +217,54 @@ class CatalogController < ApplicationController
     # whether the sort is ascending or descending (it must be asc or desc
     # except in the relevancy case).
     config.add_sort_field 'score desc, dc_title_sort asc', label: 'relevance'
-    config.add_sort_field "#{Settings.FIELDS.YEAR} desc, dc_title_sort asc", label: 'year'
-    config.add_sort_field "#{Settings.FIELDS.PUBLISHER} asc, dc_title_sort asc", label: 'publisher'
     config.add_sort_field 'dc_title_sort asc', label: 'title'
+    config.add_sort_field "#{FIELDS.YEAR} desc, dc_title_sort asc",
+                          label: 'year'
+    config.add_sort_field "#{FIELDS.PUBLISHER} asc, dc_title_sort asc",
+                          label: 'publisher'
 
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.
     config.spell_max = 5
 
     # Nav actions from Blacklight
-    config.add_nav_action(:bookmark, partial: 'blacklight/nav/bookmark', if: :render_bookmarks_control?)
-    config.add_nav_action(:search_history, partial: 'blacklight/nav/search_history')
+    config.add_nav_action(:bookmark,
+                          partial: 'blacklight/nav/bookmark',
+                          if: :render_bookmarks_control?)
+    config.add_nav_action(:search_history,
+                          partial: 'blacklight/nav/search_history')
 
     # Tools from Blacklight
     config.add_results_collection_tool(:sort_widget)
     config.add_results_collection_tool(:per_page_widget)
-    config.add_show_tools_partial(:bookmark, partial: 'bookmark_control', if: :render_bookmarks_control?)
-    config.add_show_tools_partial(:email, callback: :email_action, validator: :validate_email_params)
-    config.add_show_tools_partial(:sms, if: :render_sms_action?, callback: :sms_action, validator: :validate_sms_params)
+    config.add_show_tools_partial(:bookmark,
+                                  partial: 'bookmark_control',
+                                  if: :render_bookmarks_control?)
+    config.add_show_tools_partial(:email, callback: :email_action,
+                                          validator: :validate_email_params)
+    config.add_show_tools_partial(:sms, if: :render_sms_action?,
+                                        callback: :sms_action,
+                                        validator: :validate_sms_params)
+
+    document_has_references = proc do |_context, _config, options|
+      options[:document] &&
+        (Settings.WEBSERVICES_SHOWN & options[:document]
+                                        .references
+                                        .refs.map(&:type)
+                                        .map(&:to_s)).any?
+    end
+
+    document_exists = proc do |_context, _config, options|
+      options[:document]
+    end
 
     # Custom tools for GeoBlacklight
-    config.add_show_tools_partial :web_services, if: proc { |_context, _config, options| options[:document] && (Settings.WEBSERVICES_SHOWN & options[:document].references.refs.map(&:type).map(&:to_s)).any? }
-    config.add_show_tools_partial :metadata, if: proc { |_context, _config, options| options[:document] && (Settings.METADATA_SHOWN & options[:document].references.refs.map(&:type).map(&:to_s)).any? }
-    config.add_show_tools_partial :exports, partial: 'exports', if: proc { |_context, _config, options| options[:document] }
-    config.add_show_tools_partial :data_dictionary, partial: 'data_dictionary', if: proc { |_context, _config, options| options[:document] }
+    config.add_show_tools_partial :web_services, if: document_has_references
+    config.add_show_tools_partial :metadata,     if: document_has_references
+    config.add_show_tools_partial :exports, partial: 'exports',
+                                            if: document_exists
+    config.add_show_tools_partial :data_dictionary, partial: 'data_dictionary',
+                                                    if: document_exists
 
     # Configure basemap provider for GeoBlacklight maps (uses https only basemap
     # providers with open licenses)

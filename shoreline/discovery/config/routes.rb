@@ -5,13 +5,20 @@ Rails.application.routes.draw do
   root to: 'catalog#index'
   concern :searchable, Blacklight::Routes::Searchable.new
 
-  resource :catalog, only: [:index], as: 'catalog', path: '/catalog', controller: 'catalog' do
+  resource :catalog,
+           only: [:index],
+           as: 'catalog',
+           path: '/catalog',
+           controller: 'catalog' do
     concerns :searchable
   end
   devise_for :users
   concern :exportable, Blacklight::Routes::Exportable.new
 
-  resources :solr_documents, only: [:show], path: '/catalog', controller: 'catalog' do
+  resources :solr_documents,
+            only: [:show],
+            path: '/catalog',
+            controller: 'catalog' do
     concerns :exportable
   end
 
@@ -25,7 +32,10 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   mount Geoblacklight::Engine => 'geoblacklight'
   concern :gbl_exportable, Geoblacklight::Routes::Exportable.new
-  resources :solr_documents, only: [:show], path: '/catalog', controller: 'catalog' do
+  resources :solr_documents,
+            only: [:show],
+            path: '/catalog',
+            controller: 'catalog' do
     concerns :gbl_exportable
   end
   concern :gbl_wms, Geoblacklight::Routes::Wms.new
