@@ -1,0 +1,11 @@
+version: '3.5'
+services:
+  app:
+    build: ../../.
+    volumes:
+      - ../../.:/data
+    working_dir: /data
+    stdin_open: true
+    tty: true
+    ports:
+     - '3000:3000'
