@@ -20,3 +20,12 @@ Metrics/BlockLength:
     - 'spec/**/*'
     - '**/*.rake'
     - 'Rakefile'
+    - '**/catalog_controller.rb'
+
+Metrics/ClassLength:
+  Exclude:
+    - '**/catalog_controller.rb'
+
+Metrics/LineLength:
+  Exclude:
+    - 'Gemfile'
