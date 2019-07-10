@@ -20,9 +20,3 @@ Style/Documentation:
     - 'app/models/solr_document.rb'
     - 'app/models/user.rb'
     - 'config/application.rb'
-
-# Offense count: 2
-Style/MixinUsage:
-  Exclude:
-    - 'bin/setup'
-    - 'bin/update'
