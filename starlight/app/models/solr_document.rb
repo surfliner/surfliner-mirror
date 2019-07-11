@@ -10,6 +10,11 @@ class SolrDocument
 
   # Email uses the semantic field mappings below to generate the body
   # of an email.
+  field_semantics.merge!(
+    title: ::Spotlight::Engine.config.upload_title_field ||
+    ::CatalogController.blacklight_config.index.title_field
+  )
+
   SolrDocument.use_extension(Blacklight::Document::Email)
 
   # SMS uses the semantic field mappings below to generate the body of
