@@ -41,6 +41,9 @@
     # set in vault file
     # smtp_host:
 
+    # can be google, shibboleth, or database
+    auth_method: google
+
     db_host: localhost
     db_name: spotlight_db
     # set in vault file

@@ -1,4 +1,4 @@
-export AUTH_METHOD=google
+export AUTH_METHOD="{{ auth_method }}"
 export BINARY_ROOT="{{ binary_root }}"
 export DATABASE_URL="postgres://{{ db_user }}:{{ db_pass | urlencode | regex_replace('/','%2F') }}@{{ db_host }}/{{ db_name }}"
 export FROM_EMAIL="{{ from_email }}"
