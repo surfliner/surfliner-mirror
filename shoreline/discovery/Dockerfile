@@ -4,7 +4,7 @@ RUN apk --no-cache upgrade && \
   apk add build-base \
   git \
   yarn \
-  sqlite-dev
+  postgresql postgresql-dev
 
 RUN gem update bundler
 
@@ -15,4 +15,5 @@ ENV BUNDLE_JOBS=4
 RUN bundle install
 COPY . ./
 
-CMD ["bundle", "exec", "rails", "server"]
+CMD ["bundle", "exec", "puma", "-b", "tcp://0.0.0.0:3000"]
+ENTRYPOINT ["bin/docker-entrypoint.sh"]
