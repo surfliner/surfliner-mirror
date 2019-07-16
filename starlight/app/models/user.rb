@@ -35,7 +35,9 @@ class User < ApplicationRecord
   # Override this Spotlight method since we're using Google/Shib for auth and
   # don't need to invite people to create accounts
   def invite_pending?
-    false
+    return false unless ENV["AUTH_METHOD"] == "database"
+
+    super
   end
 
   # Method added by Blacklight; Blacklight uses #to_s on your
