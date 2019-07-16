@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: https://github.com/ucsblibrary/spotlight.git
-  revision: 98a77eb4eef5bd9c249bfb14482e2cf4cce58784
+  revision: e647e8ecbda65c16538449ae00f94717f11c2fa3
   branch: ucsb
   specs:
     blacklight-spotlight (2.7.0)
@@ -125,7 +125,7 @@ GEM
       bootstrap-sass (~> 3.0)
       openseadragon (>= 0.2.0)
       rails
-    blacklight-oembed (0.2.0)
+    blacklight-oembed (0.3.0)
       blacklight (>= 5.0, < 7)
       bootstrap-sass (~> 3.0)
       rails
