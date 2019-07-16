@@ -167,6 +167,16 @@ ul.navbar-nav {
   }
 }
 
+.pending-label {
+  display: none !important;
+}
+
+.invite-pending {
+  .pending-label {
+    display: inline;
+  }
+}
+
 ////////////
 // FOOTER
 ////////////
