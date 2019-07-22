@@ -97,7 +97,6 @@ body:not(.toolbar-tray-open) .nav > li.dropdown.open .dropdown-menu, body:not(.t
 //////////
 // BROWSE
 //////////
-
 ul.navbar-nav {
   margin-top: 10px;
 }
@@ -144,6 +143,10 @@ ul.navbar-nav {
   &::after {
     content: '...';
   }
+}
+
+.carousel-caption > * {
+  color: white !important;
 }
 
 ////////////
