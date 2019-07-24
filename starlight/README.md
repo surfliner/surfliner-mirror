@@ -135,6 +135,22 @@ To teardown your environment:
 1. `./bin/docker-teardown.sh -e test`  to teardown containers
 1. `./bin/docker-teardown.sh -e test -v` to teardown containers AND volumes
 
+### Load sample data and admin account
+You can use the [sample rake file](lib/tasks/sample.rake) to load a sample
+exhibit and generate an administrative user.
+
+If you are developing without docker, this can be done as:
+```
+bundle exec rake starlight:sample:seed_admin_user
+bundle exec rake starlight:sample:seed_exhibit
+```
+
+If you are developing with docker, this can be done as:
+```
+docker-compose -f docker/dev/docker-compose.yml exec web bundle exec rake starlight:sample:seed_admin_user
+docker-compose -f docker/dev/docker-compose.yml exec web bundle exec rake starlight:sample:seed_exhibit
+```
+
 ### Set up a local admin account
 1. Self-register in the web ui
 1. Run this rake command: `rake spotlight:admin`
