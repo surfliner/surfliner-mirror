@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   # Devise Invitable tries to set a password, but we're not using passwords for Omniauth
   # So this is a dummy/noop attribute
-  attr_accessor :password
+  attr_accessor :password unless ENV["AUTH_METHOD"] == "database"
 
   # Connects this user object to Blacklights Bookmarks.
   include Blacklight::User
