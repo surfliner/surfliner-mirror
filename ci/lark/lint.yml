@@ -16,6 +16,7 @@ lark-lint:
   image: ruby:2.6-alpine
   script:
     - cd lark
+    - gem update bundler
     - bundle check || bundle
     - bundle exec rubocop
   extends: .only-refs-default
@@ -31,6 +32,7 @@ lark-client-lint:
   image: ruby:2.6-alpine
   script:
     - cd lark-client
+    - gem update bundler
     - bundle check || bundle
     - bundle exec rubocop
   extends: .only-refs-default
