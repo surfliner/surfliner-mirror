@@ -1,3 +1,8 @@
 /*
  *= require application.scss
 */
+
+// https://gitlab.com/surfliner/surfliner/issues/226
+div.st-blocks:last-child {
+  padding-bottom: 200px;
+}
