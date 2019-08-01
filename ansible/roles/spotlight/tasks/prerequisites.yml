@@ -21,18 +21,7 @@
 
 - name: install dependencies
   yum:
-    name: "{{ item }}"
-  with_items:
-    - ImageMagick
-    # for precompiling es6
-    - nodejs
-    # for nokogiri extensions
-    - libxml2-devel
-    - libxslt-devel
-    # for pg native extensions
-    - postgresql-devel
-    # for Sidekiq
-    - redis
+    name: "{{ spotlight_rpms }}"
 
 # See https://github.com/zzet/ansible-rbenv-role/issues/12
 - name: install bundler

@@ -10,3 +10,15 @@ node_rpms:
     sha: 955fb52738f526e3ce1a46fe8e103809c1c9f30b880f97a7bf7c201342a6a518
   - rpm: nodejs-devel
     sha: e4dfbd29732132377612d3462e25f28c15a414539aff92f88bac5dd92f6ead4a
+
+spotlight_rpms:
+    - ImageMagick
+    # for precompiling es6
+    - nodejs
+    # for nokogiri extensions
+    - libxml2-devel
+    - libxslt-devel
+    # for pg native extensions
+    - postgresql-devel
+    # for Sidekiq
+    - redis

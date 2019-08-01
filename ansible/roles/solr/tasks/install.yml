@@ -25,7 +25,7 @@
   command: bash {{ install_path }}/solr-{{ SOLR_VER }}/bin/install_solr_service.sh \
                 {{ install_path }}/solr-{{ SOLR_VER }}.tgz \
                 -n
-  when: (solr_version_output | failed) or (not (solr_version_output.stdout | match(".*{{ SOLR_VER }}.*")))
+  when: (solr_version_output is failed) or (not (solr_version_output.stdout is match(".*" ~ SOLR_VER ~ ".*")))
   become: yes
 
 - name: create solr group

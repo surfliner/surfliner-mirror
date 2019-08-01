@@ -13,10 +13,5 @@
 
 - name: install dependencies
   yum:
-    name: "{{ item }}"
-  with_items:
-    - gcc-c++
-    - httpd-devel
-    - libcurl-devel
-    - mod_xsendfile
+    name: "{{ apache_packages }}"
   become: yes
