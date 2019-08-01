@@ -1,6 +1,19 @@
 # frozen_string_literal: true
 
 namespace :starlight do
+  task seed_admin_user: [:environment] do
+    provider = ENV["AUTH_METHOD"]
+    email = "admin@localhost"
+    password = "testing"
+
+    puts "Creating admin #{provider} user with email: #{email} (password: '#{password}')"
+    u = User.find_or_create_by(email: email) do |user|
+      user.provider = provider
+      user.password = password
+    end
+    Spotlight::Role.create(user: u, resource: Spotlight::Site.instance, role: "admin")
+  end
+
   namespace :sample do
     desc "Load Blake exhibit and content"
     task seed_exhibit: [:environment] do
@@ -16,15 +29,6 @@ namespace :starlight do
       puts "Cleaning out all content"
       Spotlight::Exhibit.all.&:destroy!
       Blacklight.default_index.connection.delete_by_query("*:*", params: { "softCommit" => true })
-    end
-
-    task seed_admin_user: [:environment] do
-      puts "Creating admin user with email: admin@uc.edu"
-      u = User.new
-      u.email = "admin@uc.edu"
-      u.provider = "developer"
-      u.save
-      Spotlight::Role.create(user: u, resource: Spotlight::Site.instance, role: "admin")
     end
   end
 end
