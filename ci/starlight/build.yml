@@ -1,7 +1,7 @@
 starlight-build:
   stage: build
   services:
-    - name: docker:dind
+    - name: docker:$DOCKER_IMAGE_VERSION-dind
   script:
     - registry_login
     - cd starlight

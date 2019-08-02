@@ -1,7 +1,7 @@
 lark-ruby-build:
   stage: build
   services:
-    - name: docker:dind
+    - name: docker:$DOCKER_IMAGE_VERSION-dind
   script:
     - cd lark
     - registry_login
@@ -19,7 +19,7 @@ lark-ruby-build:
 lark-frontend-node-build:
   stage: build
   services:
-    - name: docker:dind
+    - name: docker:$DOCKER_IMAGE_VERSION-dind
   script:
     - cd lark-frontend
     - registry_login

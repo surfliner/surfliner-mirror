@@ -1,8 +1,8 @@
 lark-dependency-scanning:
   stage: test
-  image: docker:stable
+  image: docker:$DOCKER_IMAGE_VERSION
   services:
-    - docker:stable-dind
+    - docker:$DOCKER_IMAGE_VERSION-dind
   script:
     - setup_docker
     - cd lark

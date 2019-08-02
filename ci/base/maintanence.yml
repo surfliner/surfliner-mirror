@@ -1,7 +1,7 @@
 rebuild-base:
   stage: maintanence
   services:
-    - name: docker:dind
+    - name: docker:$DOCKER_IMAGE_VERSION-dind
   script:
     - registry_login
     - cd docker/base
@@ -12,7 +12,7 @@ rebuild-base:
 rebuild-solr:
   stage: maintanence
   services:
-    - name: docker:dind
+    - name: docker:$DOCKER_IMAGE_VERSION-dind
   script:
     - registry_login
     - cd docker/solr

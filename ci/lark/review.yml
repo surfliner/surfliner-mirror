@@ -1,7 +1,7 @@
 review_ucsb:
   stage: review
   services:
-    - name: docker:dind
+    - name: docker:$DOCKER_IMAGE_VERSION-dind
   script:
     - cd lark
     - ensure_namespace
