@@ -18,14 +18,12 @@ variables:
 include:
   - local: ci/base/maintanence.yml
   - local: ci/lark/build.yml
-  - local: ci/lark/code-quality.yml
   - local: ci/lark/dependency-scanning.yml
   - local: ci/lark/lint.yml
   - local: ci/lark/test.yml
   - local: ci/lark/review.yml
   - local: ci/lark/staging.yml
   - local: ci/starlight/build.yml
-  - local: ci/starlight/code-quality.yml
   - local: ci/starlight/dependency-scanning.yml
   - local: ci/starlight/lint.yml
   - local: ci/starlight/test.yml

@@ -129,9 +129,9 @@ We are using GitLab's [AutoDevOps CI/CD platform][devops] for running a variety
 of automated checks. A few of these checks will be required to pass in order for
 a merge request to be reviewed:
 
-* Auto Build
-* Auto Test
-* Auto Code Quality
+* Build
+* Lint
+* Test
 
 When all of the required checks pass, then any of the active _product_ team
 members may review and merge the code.
