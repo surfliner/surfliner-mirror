@@ -141,13 +141,13 @@ exhibit and generate an administrative user.
 
 If you are developing without docker, this can be done as:
 ```
-bundle exec rake starlight:sample:seed_admin_user
+bundle exec rake starlight:seed_admin_user
 bundle exec rake starlight:sample:seed_exhibit
 ```
 
 If you are developing with docker, this can be done as:
 ```
-docker-compose -f docker/dev/docker-compose.yml exec web bundle exec rake starlight:sample:seed_admin_user
+docker-compose -f docker/dev/docker-compose.yml exec web bundle exec rake starlight:seed_admin_user
 docker-compose -f docker/dev/docker-compose.yml exec web bundle exec rake starlight:sample:seed_exhibit
 ```
 
