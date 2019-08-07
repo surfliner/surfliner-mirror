@@ -14,18 +14,22 @@
     creates: "{{ install_path }}/solr-{{ SOLR_VER }}/bin/solr"
     copy: no
   become: yes
+  when: not ansible_check_mode
 
 - name: check if the correct version of Solr is already installed
   command: /opt/solr/bin/solr version
   register: solr_version_output
   ignore_errors: yes
-  become: yes
+  check_mode: false
+  changed_when: false
 
 - name: run Solr service setup
   command: bash {{ install_path }}/solr-{{ SOLR_VER }}/bin/install_solr_service.sh \
                 {{ install_path }}/solr-{{ SOLR_VER }}.tgz \
                 -n
-  when: (solr_version_output is failed) or (not (solr_version_output.stdout is match(".*" ~ SOLR_VER ~ ".*")))
+  when:
+    - (solr_version_output is failed) or (not (solr_version_output.stdout is match(".*" ~ SOLR_VER ~ ".*")))
+    - not ansible_check_mode
   become: yes
 
 - name: create solr group
@@ -67,6 +71,7 @@
   args:
     creates: /var/solr/data/{{ solr_core }}
   become: yes
+  when: not ansible_check_mode
 
 - name: install schema
   become_user: solr
@@ -74,6 +79,7 @@
     src: schema.xml
     dest: /var/solr/data/{{ solr_core }}/conf/schema.xml
   become: yes
+  when: not ansible_check_mode
 
 - name: install solrconfig
   become_user: solr
@@ -81,6 +87,7 @@
     src: solrconfig.xml
     dest: /var/solr/data/{{ solr_core }}/conf/solrconfig.xml
   become: yes
+  when: not ansible_check_mode
 
 - name: set Solr to restart on reboot, and start server
   systemd:

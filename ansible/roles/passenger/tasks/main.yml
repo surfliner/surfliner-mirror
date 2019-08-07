@@ -12,6 +12,7 @@
     - bundler
     - rack
   become: yes
+  when: not ansible_check_mode
 
 - name: install Passenger
   gem:
@@ -21,6 +22,7 @@
     executable: "{{ ruby_bin_root }}/gem"
     user_install: false
   become: yes
+  when: not ansible_check_mode
 
 - name: install passenger-install-apache2-module
   command: "{{ ruby_bin_root }}/passenger-install-apache2-module --auto --languages ruby"
@@ -32,11 +34,11 @@
   command: "{{ ruby_bin_root }}/passenger-install-apache2-module --snippet"
   register: passenger_conf
   changed_when: no
-  become: yes
 
 - name: write passenger.conf
   copy:
     content: "{{ passenger_conf.stdout }}"
     dest: /etc/httpd/conf.d/passenger.conf
   become: yes
+  when: not ansible_check_mode
   notify: restart Apache

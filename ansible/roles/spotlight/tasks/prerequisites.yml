@@ -12,6 +12,7 @@
     name: /tmp/{{ item.rpm }}-{{ node_ver }}-1nodesource.x86_64.rpm
   with_items:
     '{{ node_rpms }}'
+  when: not ansible_check_mode
 
 - name: update all yum packages
   yum:
@@ -22,6 +23,7 @@
 - name: install dependencies
   yum:
     name: "{{ spotlight_rpms }}"
+  ignore_errors: "{{ ansible_check_mode }}"
 
 # See https://github.com/zzet/ansible-rbenv-role/issues/12
 - name: install bundler
@@ -34,6 +36,7 @@
     global: yes
     name: yarn
     state: latest
+  when: not ansible_check_mode
 
 - name: start Redis
   systemd:

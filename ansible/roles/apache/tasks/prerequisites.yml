@@ -15,3 +15,4 @@
   yum:
     name: "{{ apache_packages }}"
   become: yes
+  ignore_errors: "{{ ansible_check_mode }}"

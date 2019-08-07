@@ -57,22 +57,48 @@
         db: "{{ db_name }}"
         password: "{{ db_pass }}"
 
+  pre_tasks:
+    - name: geerlingguy.postgresql
+      include_role:
+        name: geerlingguy.postgresql
+      vars:
+        ansible_become: true
+      when: db_host == 'localhost' and not ansible_check_mode
+
+    - name: zzet.rbenv
+      include_role:
+        name: zzet.rbenv
+      vars:
+        rbenv_owner: root
+        rbenv_group: root
+      when: not ansible_check_mode
+
+    - name: Shibboleth-SP
+      include_role:
+        name: cscfi.shibboleth-sp
+      vars:
+        ansible_become: "true"
+      when: use_shibboleth_role | default(true) and auth_method == "shibboleth"
+
   roles:
-    - role: geerlingguy.postgresql
-      become: yes
     - role: solr
-    - role: zzet.rbenv
-      rbenv_owner: root
-      rbenv_group: root
-    - role: cmprescott.xml
-    - role: cscfi.shibboleth-sp
-      become: yes
     - role: apache
     - role: passenger
     - role: spotlight
       become: yes
-    - role: shibboleth-sso
-      become: yes
-    - role: shibboleth-metadata
-    # - role: fstab
-    # - role: environment-variables
+
+  tasks:
+    - name: XML Module to support Ansible Tower
+      include_role:
+        name: cmprescott.xml
+      when: ansible_version.full is version_compare("2.4", "<")
+
+    - name: Shibboleth Roles
+      include_role:
+        name: '{{ item }}'
+      vars:
+        ansible_become: true
+      with_items:
+        - shibboleth-sso
+        - shibboleth-metadata
+      when: use_shibboleth_role | default(true) and auth_method == "shibboleth"

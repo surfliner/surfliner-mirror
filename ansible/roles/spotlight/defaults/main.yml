@@ -2,6 +2,16 @@
 project_name: starlight
 project_base: /opt
 config_path: "{{ project_base }}/{{ project_name }}/shared/config"
+create_secret_key: true
+create_env_vars: true
+
+fqdn: "{{ ansible_fqdn }}"
+from_email: "{{ project_name }}@{{ ansible_domain }}"
+shib_app_id: "Shib-Application-ID"
+shib_email: "LONG_EMAIL"
+shib_session_id: "Shib-Session-ID"
+shib_uid: "ADUSERNAME"
+smtp_host: "smtp.{{ ansible_domain }}"
 
 node_major_ver: 10
 node_ver: 10.15.0
