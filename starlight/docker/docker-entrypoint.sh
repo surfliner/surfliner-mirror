@@ -21,7 +21,11 @@ else
     sleep 1
   done
 
-  bundle exec rake db:create db:schema:load
+  # Support env var option for database command(s)
+  db_commands="${DATABASE_COMMAND:-db:migrate}"
+  for db_command in $db_commands; do
+    bundle exec rake "$db_command"
+  done
 fi
 
 # Then exec the container's main process

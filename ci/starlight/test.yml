@@ -3,6 +3,7 @@ starlight-system-test:
   stage: test
   variables:
     DATABASE_URL: "postgres://postgres@postgres/starlight-test"
+    DATABASE_COMMAND: "db:create db:schema:load"
     SOLR_CORE_NAME: "starlight-test"
     SOLR_CONFIG_DIR: "starlight/solr/config"
     SOLR_CONFIG_COMMIT_SHA: $CI_COMMIT_SHA
@@ -39,6 +40,7 @@ starlight-unit-test:
   stage: test
   variables:
     DATABASE_URL: "postgres://postgres@postgres/starlight-test"
+    DATABASE_COMMAND: "db:create db:schema:load"
     SOLR_CORE_NAME: "starlight-test"
     SOLR_CONFIG_DIR: "starlight/solr/config"
     SOLR_CONFIG_COMMIT_SHA: $CI_COMMIT_SHA
