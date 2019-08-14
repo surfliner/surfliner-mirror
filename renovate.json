@@ -2,5 +2,6 @@
   "extends": [
     "config:base"
   ],
-  "bundler": { "enabled": true }
+  "bundler": { "enabled": true },
+  "labels": [ "dependencies" ]
 }
