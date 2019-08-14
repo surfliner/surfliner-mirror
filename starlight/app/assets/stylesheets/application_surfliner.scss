@@ -1,4 +1,5 @@
 /*
+/*
  *= require blacklight_oembed.css.scss
  *= require blacklight_gallery.css.scss
  *= require bootstrap-tagsinput
@@ -17,6 +18,7 @@
 
 @import 'themes/ucsb/default-variables';
 @import 'themes/ucsb/overrides';
+@import 'application_ucsb';
 
 @mixin inline($separator, $distance) {
   &, & > li {
@@ -45,26 +47,12 @@ $surf-navy-darken:              #004468;
 // ------
 
 // to match #eyebrow
-.header-navbar {
-  height: 36px;
-}
-.navbar {
-  min-height: 36px;
-}
-
-.navbar-default {
-  border: 0;
-}
 
 #eyebrow {
   background-color: $surf-base-navy;
   a:hover,
   a:focus {
     text-decoration: none;
-  }
-
-  .edu-link:hover {
-    text-decoration: underline;
   }
 
   .dropdown-menu {
@@ -78,116 +66,7 @@ $surf-navy-darken:              #004468;
     li > a:hover {
       background-color: $surf-navy-darken !important;
     }
-
-    a {
-      padding: 12px 24px;
-      text-transform: none !important;
-    }
   }
-}
-
-// love overriding bootstrap
-.dropdown-menu, .twitter-typeahead .tt-menu {
-  float: none;
-  left: inherit;
-  top: inherit;
-}
-
-body:not(.toolbar-tray-open) .nav > li.dropdown.open .dropdown-menu, body:not(.toolbar-tray-open) .nav > li.dropdown.open .twitter-typeahead .tt-menu, .twitter-typeahead body:not(.toolbar-tray-open) .nav > li.dropdown.open .tt-menu {
-  left: inherit;
-  right: inherit;
-  width: auto;
-}
-
-//////////
-// BROWSE
-//////////
-ul.navbar-nav {
-  margin-top: 10px;
-}
-
-// hyperspecificity because bootstrap :)
-.image-masthead .navbar ul.nav.navbar-nav > li {
-  text-transform: none;
-}
-
-#main-container {
-  .label {
-    color: $white;
-    padding: 5px;
-  }
-
-  .blacklight-exhibit_tags > a {
-    display: inline;
-  }
-
-  .unpublished {
-    width: 16.5ch;
-  }
-}
-
-.breadcrumb {
-  margin: 0 0 20px !important;
-}
-
-.browse-category-title {
-  color: $white;
-  top: 40% !important;
-}
-
-.image-overlay {
-  margin-right: 1em;
-}
-
-.description {
-  .hidden-sm,
-  .hidden-md {
-    display: none;
-  }
-
-  &::after {
-    content: '...';
-  }
-}
-
-.carousel-caption > * {
-  color: white !important;
-}
-
-////////////
-// ADMIN
-////////////
-.edit-tags {
-  .label {
-    display: inline;
-  }
-
-  .bootstrap-tagsinput {
-    margin-bottom: 10px;
-    margin-right: 5px;
-    margin-top: -3px;
-
-    input {
-      display: block;
-      float: none;
-      width: 200px;
-    }
-  }
-}
-
-.pending-label {
-  display: none !important;
-}
-
-.invite-pending {
-  .pending-label {
-    display: inline;
-  }
-}
-
-// https://gitlab.com/surfliner/surfliner/issues/226
-div.st-blocks:last-child {
-  padding-bottom: 200px;
 }
 
 ////////////
@@ -206,98 +85,13 @@ footer {
     width:200px;
     height:70px;
   }
-
-  div + div {
-    padding-top: 1em;
-  }
-
-  a {
-    color: $white;
-
-    &:hover,
-    &:active,
-    &:focus {
-      color: $white;
-    }
-  }
-
-  svg {
-    fill: $white;
-    margin-bottom: -2px;
-    margin-right: 6px;
-    vertical-align: text-bottom;
-  }
-
-  .label {
-    border-bottom: 1px solid $white-opacity-50;
-    color: $white;
-    font-size: 12px;
-    margin-bottom: 16px;
-    padding-bottom: 10px;
-  }
-}
-
-.seal {
-  border-bottom: 1px solid $white-opacity-50;
-  margin-bottom: 16px;
-  padding-bottom: 10px;
-}
-
-.copyright {
-  background-color: #004468;
-  font-size: $smallest-font-size;
-  margin: 3em 0 0;
-  padding: 2em 3em 4em;
-  width: 100%;
-}
-
-.footer-meta {
-  @include inline("• ", 8px);
-}
-
-.connect {
-  padding-top: 54px;
-}
-
-@media all and (min-width: $screen-md) {
-  .footer-box + .footer-box {
-    padding-left: 30px;
-  }
 }
 
 //////////
 // MISC
 //////////
-.row {
-  margin-left: inherit;
-  margin-right: inherit;
-}
-
-.st__content-block--text {
-  margin-bottom: 10px;
-}
-
-#sidebar {
-  padding: 0 1em;
-
-  .nav-heading {
-    padding: 0;
-  }
-
-  .contact-photo {
-    float: right;
-    margin: 0;
-  }
-
-  .sidenav.contacts .contact-photo + div[itemprop] ~ div[itemprop] {
-    margin: 0;
-  }
-}
 
 .exhibit-navbar {
-  background-color: $base-lightgray !important;
-  border-color: $base-lightgray !important;
-
   .navbar-brand {
     color: $surf-base-navy !important;
 
@@ -307,40 +101,3 @@ footer {
     }
   }
 }
-
-.flat {
-  @include inline(" ", 4px);
-}
-
-.btn {
-  padding: 10px 20px !important;
-}
-
-.form-control {
-  padding: 10px !important;
-}
-
-.help-block,
-.control-group .help-inline {
-  display: inline !important;
-}
-
-.carousel {
-  .carousel-indicators {
-    li {
-      background-color: inherit;
-      height: inherit;
-      width: inherit;
-
-      &.active {
-        background-color: $brand-primary;
-      }
-
-      &:hover {
-        background-color: inherit;
-      }
-    }
-  }
-}
-
-
