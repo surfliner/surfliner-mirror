@@ -35,7 +35,7 @@ services:
     image: redis:5.0-alpine
     command: redis-server
     volumes:
-      - redis:/data
+      - starlight_redis:/data
 
   database:
     image: postgres:11-alpine
@@ -46,6 +46,8 @@ services:
 
   solr:
     build: ../../../docker/solr
+    volumes:
+      - starlight_solr:/opt/solr/server/solr/mycores
     env_file:
       - ../.env.docker
     ports:
@@ -53,4 +55,5 @@ services:
 
 volumes:
   starlight_database:
-  redis:
+  starlight_redis:
+  starlight_solr:
