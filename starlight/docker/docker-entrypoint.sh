@@ -6,7 +6,7 @@ rm -f /home/starlight/app/tmp/pids/server.pid
 
 # Extract DB host and port
 if [ -z ${DATABASE_URL+x} ]; then
-  echo "DATABASE_URL is not supplied, skipping database setup";
+  echo "DATABASE_URL is not supplied, skipping database setup"
 else
   db_host=$(echo "$DATABASE_URL" | cut -d "@" -f2 | cut -d "/" -f1 | cut -d ":" -f1)
   db_port=$(echo "$DATABASE_URL" | cut -d "@" -f2 | cut -d "/" -f1 | cut -d ":" -f2)
@@ -21,11 +21,14 @@ else
     sleep 1
   done
 
-  # Support env var option for database command(s)
-  db_commands="${DATABASE_COMMAND:-db:migrate}"
-  for db_command in $db_commands; do
-    bundle exec rake "$db_command"
-  done
+  if [ -z ${DATABASE_COMMAND+x} ]; then
+    echo "DATABASE_COMMAND is not supplied, skipping database rake tasks"
+  else
+    # Support env var option for database command(s)
+    for db_command in $DATABASE_COMMAND; do
+      bundle exec rake "$db_command"
+    done
+  fi
 fi
 
 # Then exec the container's main process

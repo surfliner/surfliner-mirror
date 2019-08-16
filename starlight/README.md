@@ -135,6 +135,22 @@ To teardown your environment:
 1. `./bin/docker-teardown.sh -e test`  to teardown containers
 1. `./bin/docker-teardown.sh -e test -v` to teardown containers AND volumes
 
+#### Persisting Data during Docker development
+The docker entrypoint script will read an environment variable named
+`DATABASE_COMMAND` that allows you to determine what database rake commands are
+run when the container is started.
+
+By default in `.env.docker` and `.env.docker.test` this will run `db:create
+db:schema:load`. This is desirable because if someone is developing locally
+without docker they are likely using `sqlite3` whereas if someone is using
+docker they will be using `postgres`. So any `db:migrate` commands will
+potentially generate conflicts. However, it means that each `up` command will
+wipe any existing data, which may be problematic during development.
+
+If you wish to persist data across sessions, after the initial creation of the
+containers, you can simply comment out or remove the `DATABASE_COMMAND`, to
+ensure it does not run `db:schema:load` in future runs.
+
 ### Load sample data and admin account
 You can use the [sample rake file](lib/tasks/sample.rake) to load a sample
 exhibit and generate an administrative user.
