@@ -23,6 +23,8 @@ include:
   - local: ci/lark/test.yml
   - local: ci/lark/review.yml
   - local: ci/lark/staging.yml
+  - local: ci/shoreline/build.yml
+  - local: ci/shoreline/lint.yml
   - local: ci/starlight/build.yml
   - local: ci/starlight/dependency-scanning.yml
   - local: ci/starlight/lint.yml

@@ -1,0 +1,16 @@
+shoreline-discovery-ruby-build:
+  image: $CI_REGISTRY_IMAGE/buildah
+  stage: build
+  extends: .only-refs-default
+  script:
+    - buildah login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+    - buildah pull $CI_REGISTRY_IMAGE/shoreline_discovery_app:$CI_COMMIT_REF_NAME
+    - cd shoreline/discovery
+    - buildah bud --format docker --storage-driver vfs -t $CI_REGISTRY_IMAGE/shoreline_discovery_app:$CI_COMMIT_REF_NAME .
+    - buildah push --storage-driver vfs docker://$CI_REGISTRY_IMAGE/shoreline_discovery_app:$CI_COMMIT_REF_NAME
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - ci/shoreline/**/*
+      - shoreline/discovery/Dockerfile
+      - shoreline/discovery/**/*

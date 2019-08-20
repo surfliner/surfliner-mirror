@@ -54,8 +54,8 @@ your local system.
 
 To setup a development environment:
 
-1. `docker-compose -f docker/dev/docker_compose.yml build` to build the images
-1. `docker-compose -f docker/dev/docker_compose.yml up` to run the development
+1. `bin/docker-build.sh` to build the images
+1. `bin/docker-up.sh` to run the development
    environment.
 1. Access the `discovery` application on [`http://localhost:3000`][localhost].
 

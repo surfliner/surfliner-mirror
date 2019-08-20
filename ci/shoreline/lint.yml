@@ -1,0 +1,28 @@
+shoreline-shellcheck:
+  stage: lint
+  image: koalaman/shellcheck-alpine:stable
+  script:
+    - cd shoreline
+    - find . -name tmp -prune -o -type f -exec awk 'FNR == 1 && /^#!.*sh/{print FILENAME}' {} + | xargs shellcheck
+  extends: .only-refs-default
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - .styles/**/*
+      - shoreline/**/*
+
+shoreline-discovery-lint:
+  stage: lint
+  image: ruby:2.6-alpine
+  script:
+    - apk add --no-cache build-base postgresql-dev
+    - cd shoreline/discovery
+    - gem update bundler
+    - bundle check || bundle
+    - bundle exec rubocop
+  extends: .only-refs-default
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - .styles/**/*
+      - shoreline/discovery/**/*
