@@ -36,7 +36,7 @@ bundle install
 
 ### Starting Up
 
- is a [Rails][rails] application. To start the server you can run
+Shoreline Discovery is a [Rails][rails] application. To start the server you can run
 
 
 ```sh
