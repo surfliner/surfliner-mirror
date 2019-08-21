@@ -7,7 +7,6 @@ services:
     volumes:
       - ../../.:/home/starlight/app
     working_dir: /home/starlight/app
-    command: sh -ic "bundle exec puma -b tcp://0.0.0.0:3000"
     ports:
       - "3000:3000"
     depends_on:
