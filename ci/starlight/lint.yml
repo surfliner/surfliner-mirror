@@ -13,7 +13,7 @@ starlight-shellcheck:
 
 starlight-lint:
   stage: lint
-  image: $CI_REGISTRY_IMAGE/starlight_web:latest
+  image: $CI_REGISTRY_IMAGE/starlight_web:$CI_COMMIT_REF_NAME
   script:
     - cd starlight
     - bundle exec rubocop

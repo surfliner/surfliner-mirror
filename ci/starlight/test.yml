@@ -1,5 +1,5 @@
 starlight-system-test:
-  image: $CI_REGISTRY_IMAGE/starlight_web:latest
+  image: $CI_REGISTRY_IMAGE/starlight_web:$CI_COMMIT_REF_NAME
   stage: test
   variables:
     DATABASE_URL: "postgres://postgres@postgres/starlight-test"
@@ -36,7 +36,7 @@ starlight-system-test:
       - starlight/**/*
 
 starlight-unit-test:
-  image: $CI_REGISTRY_IMAGE/starlight_web:latest
+  image: $CI_REGISTRY_IMAGE/starlight_web:$CI_COMMIT_REF_NAME
   stage: test
   variables:
     DATABASE_URL: "postgres://postgres@postgres/starlight-test"
