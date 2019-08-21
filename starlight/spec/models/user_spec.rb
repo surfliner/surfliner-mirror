@@ -36,7 +36,7 @@ RSpec.describe User, type: :model do
 
   describe ".from_omniauth for Developer strategy" do
     it "creates a User for first time user" do
-      user = User.from_omniauth(dev_auth_hash)
+      user = described_class.from_omniauth(dev_auth_hash)
 
       expect(user).to be_persisted
       expect(user.provider).to eq("developer")
@@ -46,7 +46,7 @@ RSpec.describe User, type: :model do
 
   describe ".from_omniauth for Shibboleth strategy" do
     it "creates a User when a user is first authenticated" do
-      user = User.from_omniauth(shib_auth_hash)
+      user = described_class.from_omniauth(shib_auth_hash)
       expect(user).to be_persisted
       expect(user.provider).to eq("shibboleth")
       expect(user.uid).to eq("drseuss")
@@ -55,7 +55,7 @@ RSpec.describe User, type: :model do
 
     it "creates a User that has been invited" do
       described_class.invite!(email: "a-user-that-does-not-exist@uc.edu", skip_invitation: true)
-      user = User.from_omniauth(invited_user_shib_auth_hash)
+      user = described_class.from_omniauth(invited_user_shib_auth_hash)
       expect(user).to be_persisted
       expect(user.provider).to eq("shibboleth")
       expect(user.uid).to eq("a-user-that-does-not-exist")
@@ -63,8 +63,8 @@ RSpec.describe User, type: :model do
     end
 
     it "does not persist a shib response with bad or missing information" do
-      User.from_omniauth(invalid_shib_auth_hash_missing_info)
-      expect(User.find_by(uid: "test", provider: "shibboleth")).to be nil
+      described_class.from_omniauth(invalid_shib_auth_hash_missing_info)
+      expect(described_class.find_by(uid: "test", provider: "shibboleth")).to be nil
     end
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_28_163615) do
+ActiveRecord::Schema.define(version: 2019_08_13_085432) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(version: 2019_03_28_163615) do
     t.datetime "updated_at"
     t.string "field_type"
     t.boolean "readonly_field", default: false
+    t.boolean "is_multiple", default: false
   end
 
   create_table "spotlight_exhibits", force: :cascade do |t|
