@@ -11,8 +11,7 @@ RUN gem update bundler
 RUN mkdir /data
 WORKDIR /data
 COPY Gemfile* ./
-ENV BUNDLE_JOBS=4
-RUN bundle install
+RUN bundle install --jobs "$(nproc)"
 COPY . ./
 
 CMD ["bundle", "exec", "puma", "-b", "tcp://0.0.0.0:3000"]

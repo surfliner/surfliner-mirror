@@ -18,7 +18,7 @@ shoreline-discovery-lint:
     - apk add --no-cache build-base postgresql-dev
     - cd shoreline/discovery
     - gem update bundler
-    - bundle check || bundle
+    - bundle check || bundle install --jobs "$(nproc)"
     - bundle exec rubocop
   extends: .only-refs-default
   only:
