@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: https://github.com/ucsblibrary/spotlight.git
-  revision: 296f5fe72e7a21a37faf715e084d1441c69bc72c
+  revision: 4f16ca6a13631ac8e2209ce186af3c343bfc8dd1
   branch: ucsb
   specs:
     blacklight-spotlight (2.7.2)
@@ -104,7 +104,7 @@ GEM
       rails (>= 4.2, < 6)
     arel (9.0.0)
     ast (2.4.0)
-    autoprefixer-rails (9.6.1)
+    autoprefixer-rails (9.6.1.1)
       execjs
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
@@ -233,7 +233,7 @@ GEM
       activesupport (>= 3.2.18)
       faraday (>= 0.9)
       json
-    iiif_manifest (0.6.0)
+    iiif_manifest (1.0.0)
       activesupport (>= 4)
     image_processing (1.9.3)
       mini_magick (>= 4.9.5, < 5)
