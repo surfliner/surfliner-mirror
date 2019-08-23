@@ -15,7 +15,8 @@
 * [Communication Channels](#communication-channels)
 
 ## About
-Project Surfliner is an experimental project of the UC San Diego and UC Santa Barbara libraries to collaboratively define, create, and maintain digital library products. Project Surfliner is more than shared code, or even shared objectives. The project is the collaboration effort. It is building and leveraging the strengths, experiences, and resources of each campus partner to focus on shared concepts and products. 
+Project Surfliner is an experimental project of the UC San Diego and UC Santa Barbara libraries to collaboratively define, create, and maintain digital library products. Project Surfliner is more than shared code, or even shared objectives. The project is the collaboration effort. It is building and leveraging the strengths, experiences, and resources of each campus partner to focus on shared concepts and products.
+
 The collaboration is named Project Surfliner after the Amtrak route that links our institutions together.
 
 ## Products
@@ -38,20 +39,25 @@ Starlight is an exhibits platform based on [Spotlight](https://github.com/projec
 ## Team
 
 ### Team Roles
-Surfliner development follows two-week sprint cycles that include both the Santa Barbara and San Diego teams for all products. The following team roles have been identified: 
+Surfliner development follows two-week sprint cycles that include both the Santa Barbara and San Diego teams for all products. The following team roles have been identified:
 
-* **Product Owner**: represents the user community and is responsible for working with the user group to determine what features will be in the product release.<br/>
-* **Tech Lead**: the technical lead is responsible for the technical decision making on a given product; they provide facilitation and direction to guide development and architectural decisions.<br/>
-* **Developer**: an individual that builds and create software and applications.<br/>
-* **Domain Expert**: a person who is an authority in a particular area or topic. For example, an accessibility expert. <br/>
+* **Product Owner**: represents the user community and is responsible for working with the user group to determine what features will be in the product release.
+
+* **Tech Lead**: the technical lead is responsible for the technical decision making on a given product; they provide facilitation and direction to guide development and architectural decisions.
+
+* **Developer**: an individual that builds and create software and applications.
+
+* **Domain Expert**: a person who is an authority in a particular area or topic. For example, an accessibility expert.
 
 Within the Project Surfliner context, there are two types of teams:
 
-* **Project Team**: the entire active Surfliner team, including Product Owners, Tech Leads, Developers & Domain Experts for all products under active development.<br/>
-* **Product Team**: the group of people currently working on a given product; including Product Owner, Tech Lead, Developers & Domain Experts.<br/>
+* **Project Team**: the entire active Surfliner team, including Product Owners, Tech Leads, Developers & Domain Experts for all products under active development.
+
+* **Product Team**: the group of people currently working on a given product; including Product Owner, Tech Lead, Developers & Domain Experts.
 
 While not involved in daily development work, the project also includes these two other vitality important roles:
-* **Project Champion**: Tim ‘Six Sigma’ Marconi, John Ajao<br/>
+* **Project Champion**: Tim ‘Six Sigma’ Marconi, John Ajao
+
 * **Stakeholders**: individuals who are responsible for informing the decisions that product teams make and have specific knowledge and influence that help the product. Stakeholders include:
   * User Advocates;
   * Staff;
@@ -64,19 +70,14 @@ While not involved in daily development work, the project also includes these tw
 Project Surfliner is currently in an off workcycle. Standing meetings will resume in the future.
 
 # Communication Channels
-**Blog**<br/>
-[https://surfliner.ucsd.edu](https://surfliner.ucsd.edu)
+- **Blog**: [https://surfliner.ucsd.edu](https://surfliner.ucsd.edu)
 
-**Slack Channel**<br/>
-[http://uctech.slack.com](http://uctech.slack.com) (# surfliner)
+- **Slack Channel**: [http://uctech.slack.com](http://uctech.slack.com) (`#surfliner`)
 
-**Google Group**<br/>
-[https://groups.google.com/a/library.ucsb.edu/forum/#!forum/surfliner](https://groups.google.com/a/library.ucsb.edu/forum/#!forum/surfliner)<br/>
-(Joining the Google Group will grant you access to the Team Drive and send an invitation to the weekly public standup.)
+- **Google Group**:
+  [https://groups.google.com/a/library.ucsb.edu/forum/#!forum/surfliner](https://groups.google.com/a/library.ucsb.edu/forum/#!forum/surfliner)
+  (Joining the Google Group will grant you access to the Team Drive and send an invitation to the weekly public standup.)
 
-**YouTube Channel**<br/>
-[https://www.youtube.com/channel/UCyeydFM6pQh5SGuY7bhFoUg](https://www.youtube.com/channel/UCyeydFM6pQh5SGuY7bhFoUg)
+- **YouTube Channel**: [https://www.youtube.com/channel/UCyeydFM6pQh5SGuY7bhFoUg](https://www.youtube.com/channel/UCyeydFM6pQh5SGuY7bhFoUg)
 
-**Project Ideas Portal**<br/>
-[https://ucsurfliner.ideas.aha.io/](https://ucsurfliner.ideas.aha.io/)
-
+- **Project Ideas Portal**: [https://ucsurfliner.ideas.aha.io/](https://ucsurfliner.ideas.aha.io/)
