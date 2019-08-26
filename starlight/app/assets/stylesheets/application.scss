@@ -26,3 +26,9 @@
 
 @import 'sir-trevor/main';
 @import 'leaflet';
+
+.blacklight-exhibit_tags {
+  a + a {
+    margin-left: 5px;
+  }
+}

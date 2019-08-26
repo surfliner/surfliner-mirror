@@ -112,8 +112,14 @@ ul.navbar-nav {
     padding: 5px;
   }
 
-  .blacklight-exhibit_tags > a {
-    display: inline;
+  .blacklight-exhibit_tags {
+    a + a {
+      margin-left: 5px;
+    }
+
+    & > a {
+      display: inline;
+    }
   }
 
   .unpublished {
