@@ -316,19 +316,7 @@ footer {
 }
 
 .carousel {
-  .carousel-indicators {
-    li {
-      background-color: inherit;
-      height: inherit;
-      width: inherit;
-
-      &.active {
-        background-color: $brand-primary;
-      }
-
-      &:hover {
-        background-color: inherit;
-      }
-    }
+  .carousel-control {
+    bottom: 0 !important;
   }
 }
