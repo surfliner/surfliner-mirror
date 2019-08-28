@@ -4,7 +4,7 @@ categories:
 questions:
 - variable: service.type
   default: "ClusterIP"
-  description: "Service type; see https://kubernetes.io/docs/concepts/services-networking/service/"
+  description: "Service type; see https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types"
   label: Service Type
   type: enum
   group: "Services and Load Balancing"

@@ -1,0 +1,72 @@
+# https://rancher.com/docs/rancher/v2.x/en/catalog/custom/creating/#question-variable-reference
+questions:
+# - variable: resources.limits.cpu
+#   default:
+#   description: "CPU limit for this app; required if running in a resource-limited project"
+#   label: CPU Limit
+#   group: Resources
+#   type: int
+- variable: service.type
+  default: "ClusterIP"
+  description: "Service type; see https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types"
+  label: Service Type
+  type: enum
+  group: "Services and Load Balancing"
+  options:
+    - "ClusterIP"
+    - "NodePort"
+  required: true
+- variable: ingress.enabled
+  default: true
+  description: "Expose app using Layer 7 Load Balancer - ingress"
+  type: boolean
+  label: Expose app using Layer 7 Load Balancer
+  show_subquestion_if: true
+  group: "Services and Load Balancing"
+  subquestions:
+  - variable: ingress.hosts[0]
+    default: starlight.local
+    description: "Hostname for the Starlight installation"
+    type: hostname
+    required: true
+    label: Hostname
+- variable: persistence_adapters.event
+  default: "memory"
+  description: "The backend to use for the Event Log."
+  label: Event Adapter Type
+  group: "Starlight"
+  options:
+    - memory
+    - sql
+  type: enum
+  required: true
+- variable: email.smtp_host
+  type: string
+  group: "Starlight"
+  label: "SMTP Host"
+  description: "Hostname of the SMTP server used to send emails to users"
+- variable: email.from_address
+  type: string
+  group: "Starlight"
+  label: "SMTP From Address"
+  description: "Email address for sending messages to users"
+- variable: auth.method
+  type: string
+  default: "google"
+  label: Authentication Method
+  group: "Authentication"
+  type: enum
+  options:
+    - "google"
+    - "shibboleth"
+    - "database"
+  required: true
+- variable: auth.google.api_id
+  type: string
+  label: "Google API ID"
+  description: "See https://gitlab.com/surfliner/surfliner/tree/master/starlight#authentication-with-google"
+  group: "Authentication"
+- variable: auth.google.api_secret
+  type: string
+  label: "Google API Secret"
+  group: "Authentication"

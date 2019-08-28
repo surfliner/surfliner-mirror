@@ -5,9 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: nginx
-  tag: stable
-  pullPolicy: IfNotPresent
+  repository: registry.gitlab.com/surfliner/surfliner/starlight_web
+  name: starlight_web
+  tag: master
+  pullPolicy: Always
 
 imagePullSecrets: []
 nameOverride: ""
@@ -19,17 +20,41 @@ service:
 
 ingress:
   enabled: false
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  hosts:
-    - host: chart-example.local
-      paths: []
-
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+  hosts: []
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
+
+persistence_adapters:
+  event: memory
+
+# Configuration for postgresql chart
+# see: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md
+postgresql:
+  imageTag: "11.2.0"
+  enabled: true
+  cpu: 1000m
+  memory: 1Gi
+  postgresqlUsername: lark
+  postgresqlPassword: larkpass
+  postgresqlDatabase: lark-events
+  servicePort: 5432
+  persistence:
+    size: 10Gi
+
+email:
+  smtp_host:
+  from_address:
+
+auth:
+  method: "google"
+  google:
+    api_id:
+    api_secret:
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

@@ -24,17 +24,58 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: "AUTH_METHOD"
+              value: {{ .Values.auth.method }}
+            - name: "FROM_EMAIL"
+              value: {{ .Values.email.from_address }}
+            - name: "GOOGLE_AUTH_ID"
+              value: {{ .Values.auth.google.api_id }}
+            - name: "GOOGLE_AUTH_SECRET"
+              value: {{ .Values.auth.google.api_secret }}
+            - name: "HOSTNAME"
+              value: {{ template "starlight.fullname" . }}
+            - name: "RAILS_ENV"
+              value: production
+            - name: "RAILS_MAX_THREADS"
+              value: "5"
+            - name: "RAILS_QUEUE"
+              value: sidekiq
+            - name: "SECRET_KEY_BASE"
+              value: {{ randAlphaNum 20 | b64enc }}
+            - name: "SMTP_HOST"
+              value: {{ .Values.email.smtp_host }}
+            - name: "SOLR_URL"
+              value: {{ template "starlight.solr.fullname" . }}:8983/solr/collection1
+            - name: "PORT"
+              value: "3000"
+            - name: "POSTGRES_DB"
+              value: {{ .Values.postgresql.postgresqlDatabase }}
+            - name: "POSTGRES_HOST"
+              value: {{ template "starlight.postgresql.fullname" . }}
+            - name: "POSTGRES_PORT"
+              value: {{ .Values.postgresql.servicePort | quote }}
+            - name: "POSTGRES_USER"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "starlight.fullname" . }}
+                  key: db-username
+            - name: "POSTGRES_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "starlight.fullname" . }}
+                  key: db-password
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 3000
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /health
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /health
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
