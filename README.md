@@ -67,7 +67,7 @@ While not involved in daily development work, the project also includes these tw
 
 ### Team Meetings
 #### Project-wide
-Project Surfliner is currently in an off workcycle. Standing meetings will resume in the future.
+Daily stand-ups are at 10:30AM PST here: https://ucsb.zoom.us/j/310736504
 
 # Communication Channels
 - **Blog**: [https://surfliner.ucsd.edu](https://surfliner.ucsd.edu)
