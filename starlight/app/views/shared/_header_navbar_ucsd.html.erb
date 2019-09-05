@@ -1,17 +1,15 @@
-<div id="header-navbar" class="navbar navbar-default navbar-static-top navbar-inverse" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#user-util-collapse">
-      <span class="sr-only"><%= t :toggle_nav %></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-    <%= link_to application_name, main_app.root_path, class: "navbar-brand" %>
-    </div>
+<div class="layout-header">
+  <a class="sr-only" href="#main-content">Skip to main content</a>
+  <div id="uc-emergency"></div>
+  <section class="layout-login">
+    <div class="layout-container"></div>
+  </section>
 
-    <div class="collapse navbar-collapse" id="user-util-collapse">
-      <%= render :partial=>'/user_util_links' %>
-    </div>
-  </div>
+    <section class="layout-title">
+        <div class="layout-container container">
+            <a href="index.html" class="title-header title-header-large">Decorator V5</a>
+            <a href="index.html" class="title-header title-header-short">V5</a>
+            <a href="https://www.ucsd.edu" class="title-logo">UC San Diego</a>
+        </div>
+    </section>
 </div>

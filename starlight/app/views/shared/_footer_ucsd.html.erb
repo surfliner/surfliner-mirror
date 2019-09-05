@@ -1,10 +1,23 @@
-<footer>
-  <div class="meta-adrl">
-    <div class="copyright">
-      Copyright 2014–<%= Date.today.year %> The Regents of the University of California, All Rights Reserved.
-    </div>
-    <div class="footer-version copyright">
-      <span class="version">Version <span title="<%= GIT_SHA %>"><%= BRANCH %> updated <%= LAST_DEPLOYED %></span></span>
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8">
+              <p>
+                <span>UC San Diego 9500 Gilman Dr. La Jolla, CA 92093 (858) 534-2230</span>
+          <br />
+                <span>
+                    Copyright © <span class="footer-copyright-year"></span> Regents of the University of California.
+                    All rights reserved.
+                </span>
+            </p>
+              <ul class="footer-links">
+                <li><a href="https://www.ucsd.edu/_about/legal/index.html">Terms &amp; Conditions</a></li>
+                <li><a href="mailto:youremail@xyz.ucsd.edu">Feedback</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4">
+            <img src="http://cdn.ucsd.edu/developer/decorator/5.0.2/img/ucsd-footer-logo-white.png" alt="" class="img-responsive footer-logo" />
+        </div>
     </div>
   </div>
 </footer>
