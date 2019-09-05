@@ -4,5 +4,6 @@
     ":preserveSemverRanges"
   ],
   "bundler": { "enabled": true },
-  "labels": [ "dependencies" ]
+  "labels": [ "dependencies" ],
+  "ignoreDeps": [ "ruby" ]
 }
