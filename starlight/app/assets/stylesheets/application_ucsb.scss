@@ -322,6 +322,16 @@ footer {
 }
 
 .carousel {
+  .carousel-indicators li {
+    background-color: white;
+    height: auto;
+    width: auto;
+
+    &:hover {
+      background-color: $base-lightgray;
+    }
+  }
+
   .carousel-control {
     bottom: 0 !important;
   }
