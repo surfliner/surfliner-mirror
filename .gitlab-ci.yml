@@ -18,7 +18,6 @@ variables:
 include:
   - local: ci/base/maintanence.yml
   - local: ci/lark/build.yml
-  - local: ci/lark/dependency-scanning.yml
   - local: ci/lark/lint.yml
   - local: ci/lark/test.yml
   - local: ci/lark/review.yml
@@ -26,7 +25,6 @@ include:
   - local: ci/shoreline/build.yml
   - local: ci/shoreline/lint.yml
   - local: ci/starlight/build.yml
-  - local: ci/starlight/dependency-scanning.yml
   - local: ci/starlight/lint.yml
   - local: ci/starlight/test.yml
 
@@ -73,20 +71,6 @@ include:
                --volume "$PWD":/code \
                --volume /var/run/docker.sock:/var/run/docker.sock \
                "registry.gitlab.com/gitlab-org/security-products/codequality:$SP_VERSION" /code/$1
-  }
-
-  function dependency_scanning() {
-    case "$CI_SERVER_VERSION" in
-      *-ee)
-        docker run --env DEP_SCAN_DISABLE_REMOTE_CHECKS="${DEP_SCAN_DISABLE_REMOTE_CHECKS:-false}" \
-                   --volume "$PWD:/code" \
-                   --volume /var/run/docker.sock:/var/run/docker.sock \
-                   "registry.gitlab.com/gitlab-org/security-products/dependency-scanning:latest" /code
-        ;;
-      *)
-        echo "GitLab EE is required"
-        ;;
-    esac
   }
 
 # copied from GitLab Auto DevOps
