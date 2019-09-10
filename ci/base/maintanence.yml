@@ -1,14 +1,3 @@
-rebuild-base:
-  stage: maintanence
-  services:
-    - name: docker:$DOCKER_IMAGE_VERSION-dind
-  script:
-    - registry_login
-    - cd docker/base
-    - docker build -t $CI_REGISTRY_IMAGE/builder .
-    - docker push $CI_REGISTRY_IMAGE/builder
-  when: manual
-
 rebuild-buildah:
   image: registry.fedoraproject.org/fedora-minimal:30
   stage: maintanence

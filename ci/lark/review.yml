@@ -1,23 +1,24 @@
 review_ucsb:
+  extends: .auto-deploy
   stage: review
-  services:
-    - name: docker:$DOCKER_IMAGE_VERSION-dind
   script:
     - cd lark
-    - ensure_namespace
-    - initialize_tiller
-    - create_secret
+    - auto-deploy ensure_namespace
+    - auto-deploy initialize_tiller
+    - auto-deploy create_secret
     - mv ../charts/lark/latest ./chart
     - build_chart_dependencies
-    - deploy
-    - persist_environment_url
+    - auto-deploy deploy
+    - auto-deploy persist_environment_url
   allow_failure: true
   environment:
     name: ucsb.review.lark/$CI_COMMIT_REF_NAME
     url: http://lark-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
     on_stop: stop_review_ucsb
   variables:
-    DEPLOY_IMAGE_TAG: $CI_COMMIT_REF_NAME
+    ROLLOUT_RESOURCE_TYPE: deployment
+    CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE
+    CI_APPLICATION_TAG: $CI_COMMIT_REF_NAME
     INGRESS_URL: lark-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
     HELM_UPGRADE_EXTRA_ARGS: '--set persistence_adapters.index="memory" --set persistence_adapters.event="memory" --set solr.enabled=FALSE --set postgresql.enabled=FALSE'
   artifacts:
@@ -31,27 +32,27 @@ review_ucsb:
       - charts/lark/**/*
       - ci/lark/**/*
       - .gitlab-ci.yml
-  extends: .except-no-deploy
 
 review_ucsd:
+  extends: .auto-deploy
   stage: review
-  services:
-    - name: docker:dind
   script:
     - cd lark
-    - ensure_namespace
-    - initialize_tiller
-    - create_secret
+    - auto-deploy ensure_namespace
+    - auto-deploy initialize_tiller
+    - auto-deploy create_secret
     - mv ../charts/lark/latest ./chart
     - build_chart_dependencies
-    - deploy
-    - persist_environment_url
+    - auto-deploy deploy
+    - auto-deploy persist_environment_url
   environment:
     name: ucsd.review.lark/$CI_COMMIT_REF_NAME
     url: http://lark-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
     on_stop: stop_review_ucsd
   variables:
-    DEPLOY_IMAGE_TAG: $CI_COMMIT_REF_NAME
+    ROLLOUT_RESOURCE_TYPE: deployment
+    CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE
+    CI_APPLICATION_TAG: $CI_COMMIT_REF_NAME
     INGRESS_URL: lark-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
     HELM_UPGRADE_EXTRA_ARGS: '--set persistence_adapters.index="memory" --set persistence_adapters.event="memory" --set solr.enabled=FALSE --set postgresql.enabled=FALSE'
   artifacts:
@@ -65,15 +66,15 @@ review_ucsd:
       - charts/lark/**/*
       - ci/lark/**/*
       - .gitlab-ci.yml
-  extends: .except-no-deploy
 
 stop_review_ucsb:
+  extends: .auto-deploy
   stage: cleanup
   variables:
     GIT_STRATEGY: none
   script:
-    - initialize_tiller
-    - delete
+    - auto-deploy initialize_tiller
+    - auto-deploy delete
   environment:
     name: ucsb.review.lark/$CI_COMMIT_REF_NAME
     action: stop
@@ -88,15 +89,15 @@ stop_review_ucsb:
       - charts/lark/**/*
       - ci/lark/**/*
       - .gitlab-ci.yml
-  extends: .except-no-deploy
 
 stop_review_ucsd:
+  extends: .auto-deploy
   stage: cleanup
   variables:
     GIT_STRATEGY: none
   script:
-    - initialize_tiller
-    - delete
+    - auto-deploy initialize_tiller
+    - auto-deploy delete
   environment:
     name: ucsd.review.lark/$CI_COMMIT_REF_NAME
     action: stop
@@ -111,4 +112,3 @@ stop_review_ucsd:
       - charts/lark/**/*
       - ci/lark/**/*
       - .gitlab-ci.yml
-  extends: .except-no-deploy

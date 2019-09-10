@@ -1,22 +1,21 @@
 lark-staging-ucsb:
+  extends: .auto-deploy
   stage: staging
-  services:
-    - name: docker:$DOCKER_IMAGE_VERSION-dind
   script:
     - cd lark
-    - registry_login
-    - check_kube_domain
-    - ensure_namespace
-    - initialize_tiller
-    - create_secret
+    - auto-deploy ensure_namespace
+    - auto-deploy initialize_tiller
+    - auto-deploy create_secret
     - mv ../charts/lark/latest ./chart
-    - build_chart_dependencies
-    - deploy
+    - auto-deploy build_chart_dependencies
+    - auto-deploy deploy
   environment:
     name: ucsb.staging.lark
     url: http://lark-staging.$KUBE_INGRESS_BASE_DOMAIN
   variables:
-    DEPLOY_IMAGE_TAG: lark_web:$CI_COMMIT_REF_NAME # master (see only: refs:)
+    ROLLOUT_RESOURCE_TYPE: deployment
+    CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE
+    CI_APPLICATION_TAG: $CI_COMMIT_REF_NAME # master (see only: refs:)
     INGRESS_URL: lark-staging.$KUBE_INGRESS_BASE_DOMAIN
     HELM_UPGRADE_EXTRA_ARGS: '--set persistence_adapters.index="memory" --set persistence_adapters.event="memory" --set solr.enabled=FALSE --set postgresql.enabled=FALSE'
   only:
@@ -27,6 +26,3 @@ lark-staging-ucsb:
       - charts/lark/**/*
       - ci/lark/**/*
       - .gitlab-ci.yml
-  except:
-    variables:
-      - $NO_DEPLOY == "true"
