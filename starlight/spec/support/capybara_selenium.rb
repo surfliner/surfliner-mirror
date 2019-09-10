@@ -30,7 +30,7 @@ RSpec.configure do |config|
 
       driven_by :selenium,
                 options: { browser: :remote,
-                           timeout: 120, # seconds
+                           timeout: 300, # seconds
                            url: ENV["SELENIUM_URL"],
                            desired_capabilities: capabilities, }
     else
