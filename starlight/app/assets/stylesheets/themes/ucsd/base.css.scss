@@ -15,7 +15,6 @@
  *
  * minimizes number of calls sent to reference images
  */
-
 .title-logo,
 .layout-footer > .layout-container {
   background: url(../img/sprite_base.png) no-repeat transparent; }
@@ -61,7 +60,6 @@ span.loading {
  *  - more(?)
  *
  * ***************/
- 
 /* ***********************************************
  * BASE
  * ***************/
@@ -276,9 +274,9 @@ nav .container {
   float: left;
   color: #FFF; }
 
-/*#search {
+#search {
   position: absolute !important;
-  width: 385px; }*/
+  width: 385px; }
 
 /*Dropdown Hover Fallback */
 @media only screen and (min-width: 767px) {

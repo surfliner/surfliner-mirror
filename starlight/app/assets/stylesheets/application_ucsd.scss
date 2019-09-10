@@ -23,16 +23,40 @@
 .layout-footer > .layout-container {
   background: url(https://developer.ucsd.edu/design/v5-kitchen-sink/img/sprite_base.png) no-repeat transparent; }
 
-#header-navbar
-{
-  background: #006A96;
+.layout-header.open, .layout-main.open, .layout-footer.open {
+  -webkit-transform: translate(42%, 0);
+  transform: translate(42%, 0);
 }
 
-.navbar-collapse, #facet-panel-collapse, .navbar-form
-    {
-      border-color: #0A1932;
-    }
-    .navbar-collapse, #facet-panel-collapse
-    {
-      box-shadow: inset 0 1px 0 #405575;
-    }
+@media only screen and (max-width: 640px) {
+  .layout-header.open, .layout-main.open, .layout-footer.open {
+    -webkit-transform: translate(83%, 0);
+    transform: translate(83%, 0);
+  }
+}
+
+.layout-header button.btn-nav {
+  position: relative;
+  float: left;
+  height: 44px;
+  color: #fff;
+  font-size: 24px;
+  background-image: none;
+  background-color: #006A96;
+  border-radius: 1px;
+  border: 1px solid #006A96;
+  padding: 9px 10px;
+  margin-right: 10px;
+}
+
+@media only screen and (max-width: 360px) {
+  .layout-header button.btn-nav {
+    font-size: 20px;
+  }
+}
+
+@media only screen and (max-width: 960px) {
+  .layout-header button.btn-nav {
+    display: block;
+  }
+}
