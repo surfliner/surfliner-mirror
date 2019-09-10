@@ -9,54 +9,389 @@
 
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
-
 @import 'blacklight/blacklight';
 @import 'spotlight/spotlight';
-
+@import 'spotlight/variables_bootstrap';
 @import 'sir-trevor/main';
 @import 'leaflet';
+@import 'themes/ucsd/base.css.scss';
 
+.title-logo {
+  background: url(https://cdn.ucsd.edu/cms/decorator-5/img/sprite_base.png) no-repeat transparent; }
 
-@import 'themes/ucsd/base.css';
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+  .title-logo {
+    background-image: url(https://cdn.ucsd.edu/cms/decorator-5/img/sprite_base2x.png);
+    background-size: 500px 120px; } }
 
-.title-logo,
-.layout-footer > .layout-container {
-  background: url(https://developer.ucsd.edu/design/v5-kitchen-sink/img/sprite_base.png) no-repeat transparent; }
-
-.layout-header.open, .layout-main.open, .layout-footer.open {
-  -webkit-transform: translate(42%, 0);
-  transform: translate(42%, 0);
-}
-
-@media only screen and (max-width: 640px) {
-  .layout-header.open, .layout-main.open, .layout-footer.open {
-    -webkit-transform: translate(83%, 0);
-    transform: translate(83%, 0);
+#header-navbar
+{
+  background: #006a96;
+  
+  // Buttons
+  .nav > li > a
+  {
+    color: rgba(255,255,255,0.666);
+  }
+  .nav > li > a:hover
+  {
+    color: #fff;
+  }
+  .navbar-nav > .open > a, .navbar-nav > .open > a:hover, .navbar-nav > .open > a:focus
+  {
+    color: #fff;
+    background-color: #0A1932;
   }
 }
 
-.layout-header button.btn-nav {
-  position: relative;
-  float: left;
-  height: 44px;
-  color: #fff;
-  font-size: 24px;
-  background-image: none;
-  background-color: #006A96;
-  border-radius: 1px;
-  border: 1px solid #006A96;
-  padding: 9px 10px;
-  margin-right: 10px;
-}
+//---
+// Feedback Form
+//---
 
-@media only screen and (max-width: 360px) {
-  .layout-header button.btn-nav {
-    font-size: 20px;
+#report-problem-form
+{
+  padding-bottom: 15px;
+  background-color: #C4CEDF;
+  .form-control, .form-group .st-text-block, .st-block input[type="text"], .item-text-admin #item-text
+  {
+    border-color: #7A8FB1;
   }
 }
 
-@media only screen and (max-width: 960px) {
-  .layout-header button.btn-nav {
-    display: block;
+//---
+// Header
+//---
+
+.masthead .site-title-container, .image-masthead .background-container-gradient
+{
+  background: no-repeat transparent
+}
+
+.masthead
+{
+  background-color: #2b92b9;
+  .site-title-container
+  {
+    background-size: 100px 19px;
+    background-position: center right 15px;
+    max-height: none; // Title fix
+    .site-title
+    {
+      font-family: "Trebuchet MS", sans-serif;
+      color: #fff;
+      text-transform: uppercase;
+      font-size: 24px;
+      font-weight: normal;
+      white-space: normal; // Title fix
+      width: 66.666%;
+      small
+      {
+        color: rgba(255,255,255,0.666);
+        font-size: 12px;
+      }
+    }
+  }
+  #exhibit-navbar
+  {
+    background-color: #f2f5f7;
+    border-radius: 0;
+    border-left: none;
+    border-top: none;
+    border-bottom: none;
+    border-color: #c8cfd3;
+    .navbar-default .navbar-nav > .active > a
+    {
+      color: #004b6e;
+      background-color: #FDFDFD;
+    }
+    ul
+    {
+      border-left: solid 1px #c9d0d4;
+      background-color: #fdfdfd;
+      > li
+      {
+        border-right: solid 1px #c9d0d4;
+        a
+        {
+          color: #004b6e;
+        }
+      }
+    }
+  }
+}
+
+.image-masthead
+{
+  .navbar ul.nav.navbar-nav > li
+  {
+    text-transform: none;
+  }
+  .navbar ul.nav.navbar-nav > li a
+  {
+    letter-spacing: normal;
+  }
+  .background-container-gradient
+  {
+    background-size: 100px 19px;
+    background-position: top 32px right 15px;
+    margin: 0 auto;
+  }
+}
+
+//---
+// Breadcrumbs
+//---
+
+.breadcrumbs-container
+{
+  .breadcrumb
+  {
+    padding: 0;
+    background-color: transparent;
+    font-size: 90%;
+  }
+}
+
+//---
+// Main
+//---
+
+#main-container
+{
+  #sidebar
+  {
+    .nav-heading
+    {
+      border: 1px solid #c8cfd3;
+      border-bottom: none;
+      background-color: #f2f5f7;
+      color: #738AA3;
+      font-size: 140%;
+      text-shadow: 0 1px 1px #FFF;
+      font-weight: normal;
+    }
+    > ol
+    {
+      > li > h4
+      {
+        margin: 0;
+      }
+      .active
+      {
+        padding: 1em;
+      }
+    }
+    > ul, > ol
+    {
+      border: 1px solid #c8cfd3;
+      border-bottom: none;
+      background-color: #f2f5f7;
+      li
+      {
+        border-bottom: 1px solid #c8cfd3;
+        margin-top: 0;
+        a
+        {
+          color: #016691;
+          padding: 1em;
+          &:hover
+          {
+            background-color: #fff;
+          }
+        }
+      }
+      .active
+      {
+        background: #fff;
+        a, h4
+        {
+          color: #d56a03;
+          font-weight: normal;
+        }
+      }
+    }
+    .contacts-header
+    {
+      margin: 0 20px 0 20px;
+      font-size: 180%;
+      font-weight: normal;
+    }
+    .contacts
+    {
+      margin: 0 20px 20px 20px;
+      border: none;
+      background-color: transparent;
+      li
+      {
+        border: none;
+        background-color: transparent;
+        a
+        {
+          padding: 0;
+          &:hover
+          {
+            background-color: transparent;
+          }
+        }
+      }
+    }
+  }
+  div > .page-title
+  {
+    margin-top: 0;
+  }
+
+  // https://gitlab.com/surfliner/surfliner/issues/226
+  div.st-blocks:last-child {
+    padding-bottom: 200px;
+  }
+}
+
+
+//---
+// Media queries (BS is mobile first)
+//---
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px)
+{
+  // Display UCSD header logo on right-hand side
+  .masthead .site-title-container
+  {
+    background-size: 229px 45px;
+  }
+  // Display UCSD footer logo on right-hand side
+  footer .meta-adrl
+  {
+    width: 720px;
+    margin: auto;
+    min-height: 33px;
+    background-size: 167px 33px;
+  }
+  
+  // App bar tweaks (Tablet and desktop views)
+  #header-navbar
+  {
+    // Library Logo
+    min-height: 30px;
+    max-height: 30px;
+    .navbar-brand
+    {
+      background-position: center left;
+      width: 90px;
+      height: 30px;
+      margin: 0;
+    }
+    .navbar-nav > li > a
+    {
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+    // Buttons
+    .nav > li > a
+    {
+      font-size: 75%;
+      padding: 5px 10px;
+    }
+    .nav > li> a[data-behavior="contact-link"]
+    {
+      margin-right: 5px;
+    }
+  }
+  .image-masthead
+  {
+    .background-container-gradient
+    {
+      background-size: 229px 45px;
+      background-position: top 19px right 15px;
+      width: 750px;
+    }
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px)
+{
+  footer .meta-adrl
+  {
+    width: 970px;
+    margin: auto;
+    padding: 0 15px;
+    background-position: center right 15px;
+  }
+  .image-masthead
+  {
+    .background-container-gradient
+    {
+      width: 970px;
+    }
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px)
+{
+  footer .meta-adrl
+  {
+    width: 1140px;
+    margin: auto;
+    padding: 0;
+    background-position: center right;
+  }
+  .image-masthead
+  {
+    .background-container-gradient
+    {
+      width: 1170px;
+    }
+  }
+}
+
+// Mobile-view
+@media (max-width: 767px)
+{
+  // Fixes oddball horizontal scroll overflow issue (Mobile view)
+  .navbar-form
+  {
+    padding: 0;
+    margin: 0 15px;
+  }
+  // App bar tweaks (Mobile-only)
+  #header-navbar
+  {
+    border-color: #0A1932;
+    .navbar-nav .open .dropdown-menu .divider
+    {
+      background-color: #0A1932;
+    }
+    .navbar-collapse, #facet-panel-collapse, .navbar-form
+    {
+      border-color: #0A1932;
+    }
+    .navbar-collapse, #facet-panel-collapse
+    {
+      box-shadow: inset 0 1px 0 #405575;
+    }
+    .navbar-right > ul
+    {
+      margin: 0 -15px;
+    }
+    .navbar-nav .open .dropdown-menu > li > a
+    {
+      color: rgba(255,255,255,0.666);
+    }
+    .navbar-nav .open .dropdown-menu > li > a:hover
+    {
+      color: #fff;
+    }
+    .navbar-toggle, .facets-toggle
+    {
+      border-color: #293D5C;
+    }
+    .navbar-toggle:focus, .facets-toggle:focus, .navbar-toggle:hover, .facets-toggle:hover
+    {
+      border-color: #405575;
+      background-color: #0A1932;
+    }
   }
 }
