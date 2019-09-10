@@ -1,21 +1,18 @@
+# It is assumed that for production environments, database credentials will be
+# made available to the application via the POSTGRES_ variables
+#
+# see: https://edgeguides.rubyonrails.org/configuring.html#configuring-a-database
+# see: https://gitlab.com/surfliner/surfliner/blob/master/starlight/doc/deploy.md#environment-variables
 default: &default
-  adapter: sqlite3
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") %>
   timeout: 5000
-
+  url: <%= DatabaseURL.build(ENV) %>
 
 development:
   <<: *default
-  database: db/development.sqlite3
 
 test:
   <<: *default
-  database: db/test.sqlite3
 
-# It is assumed that for production environments, database credentials will be made available to the application via the
-# DATBASE_URL environment variable
-# see: https://edgeguides.rubyonrails.org/configuring.html#configuring-a-database
-# see: https://gitlab.com/surfliner/surfliner/blob/master/starlight/doc/deploy.md#environment-variables
 production:
   <<: *default
-  adapter: postgresql
