@@ -27,6 +27,10 @@ spec:
           env:
             - name: "AUTH_METHOD"
               value: {{ .Values.auth.method }}
+            - name: "DATABASE_COMMAND"
+              value: "db:migrate"
+            - name: "DB_ADAPTER"
+              value: postgresql
             - name: "FROM_EMAIL"
               value: {{ .Values.email.from_address }}
             - name: "GOOGLE_AUTH_ID"
