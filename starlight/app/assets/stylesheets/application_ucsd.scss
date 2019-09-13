@@ -14,15 +14,112 @@
 @import 'spotlight/variables_bootstrap';
 @import 'sir-trevor/main';
 @import 'leaflet';
-@import 'themes/ucsd/base.css.scss';
+@import url("https://fonts.googleapis.com/css?family=Roboto");
 
-.title-logo {
-  background: url(https://cdn.ucsd.edu/cms/decorator-5/img/sprite_base.png) no-repeat transparent; }
 
-@media screen and (-webkit-min-device-pixel-ratio: 2) {
-  .title-logo {
-    background-image: url(https://cdn.ucsd.edu/cms/decorator-5/img/sprite_base2x.png);
-    background-size: 500px 120px; } }
+/* ***********************************************
+ * Layout
+ *
+ * Components:
+ *  - base layout
+ *  - header
+ *  - body 
+ *  - footer
+ *
+ * ***************/
+
+ /* ***********************************************
+ * BASE
+ * ***************/
+
+html, body {
+  background: #FFF;
+/*  overflow-x: hidden; */
+  color: #333;
+  font: normal normal normal 16px/1.7 'Roboto', sans-serif; }
+
+h1, h2, h3, h4, h5, h6 {
+  color: #333;
+  font-weight: 400;
+  line-height: 1.1;
+  /*margin: 0 0 .25em;*/ }
+
+h1 {
+  color: #006A96;
+  letter-spacing: .5px;
+  font-size: 39px; }
+
+.h2, h2 {
+  font-size: 28px; }
+
+hr {
+  background-color: #ccc;
+  color: #ccc;
+  height: 1px; }
+
+a {
+  color: #016691; }
+
+  /* container will have media queries for sizing*/
+.layout-container {
+  max-width: 1200px;
+  width: 98%;
+  margin: 0px auto;
+  overflow: hidden; }
+
+@media only screen and (max-width: 768px) {
+  .layout-container {
+    width: 94%; } }
+
+@media only screen and (max-width: 1200px) {
+  .layout-container {
+    max-width: 960px; } }
+
+.layout-navbar .layout-container {
+  overflow: visible; }
+
+.layout-header {
+  /* to incorporate new navbar button*/
+  display: block;
+  width: 100%;
+  background-color: #2b92b9;
+  /*
+    @media only screen and (min-width: $desktop-small + 1) {
+      height: 78px;
+    }*/ }
+
+@media only screen and (min-width: 320px) and (max-width: 768px) {
+  .layout-header {
+    height: 105px; } }
+
+.layout-header {
+  height: 100%; }
+
+.layout-title {
+  font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
+  height: 92px;
+  width: 100%;
+  background: #fff;
+  padding: 1.5em 0; }
+
+@media only screen and (max-width: 360px) {
+  .layout-title {
+    padding: 0.5em 0; } }
+
+@media only screen and (max-width: 768px) {
+  .layout-title {
+    padding: 1em 0;
+    height: auto; } }
+
+ 
+ /* ***********************************************
+ * HEADER
+ * ***************/
+
+//---
+// header navbar
+//---
 
 #header-navbar
 {
@@ -45,7 +142,7 @@
 }
 
 //---
-// Feedback Form
+// FEEDBACK FORM
 //---
 
 #report-problem-form
@@ -59,7 +156,129 @@
 }
 
 //---
-// Header
+// UCSD TITLE LOGO
+//---
+
+.title-logo {
+  background: url(https://cdn.ucsd.edu/cms/decorator-5/img/sprite_base.png) no-repeat transparent; }
+
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+  .title-logo {
+    background-image: url(https://cdn.ucsd.edu/cms/decorator-5/img/sprite_base2x.png);
+    background-size: 500px 120px; } }
+
+/* ***********************************************
+ * TITLE
+ * ***************/
+
+.title-header {
+  float: left;
+  color: #000;
+  font-size: 1.35rem;
+  letter-spacing: 1px;
+  text-decoration: none;
+  text-transform: uppercase; }
+
+.title-header.title-header-short {
+  display: none; }
+
+@media only screen and (max-width: 480px) {
+  .title-header.title-header-short {
+    display: block;
+    margin-top: 0; } }
+
+.title-header:hover, .title-header:focus {
+  color: #666666;
+  text-decoration: none; }
+
+@media only screen and (max-width: 480px) {
+  .title-header {
+    display: none;
+    margin-top: 2.25em; } }
+
+@media only screen and (max-width: 360px) {
+  .title-header {
+    font-size: 20px;
+    margin-top: 2em; } }
+
+.title-header-large {
+  margin-top: 5px; }
+
+@media only screen and (min-width: 480px) and (max-width: 768px) {
+  .title-header-large {
+    display: block;
+    margin-top: 2.5em; } }
+
+.title-logo {
+  float: right;
+  width: 229px;
+  height: 65px;
+  overflow: hidden;
+  text-indent: -999em;
+  background-position: 0 -3px; }
+
+@media only screen and (max-width: 480px) {
+  .title-logo {
+    background-position: -239px -2px;
+    height: 45px;
+    width: 166px;
+    display: none !important; } }
+
+@media only screen and (max-width: 768px) {
+  .title-logo {
+    display: block;
+    position: absolute; } }
+
+.header-logo {
+  height: 30px;
+  margin: 15px 20px 0 0;
+  width: auto; }
+
+@media only screen and (min-width: 480px) {
+  .header-logo {
+    display: none; } }
+
+.layout-header.open,
+.layout-main.open,
+.layout-footer.open {
+  -webkit-transform: translate(42%, 0);
+  transform: translate(42%, 0); }
+
+@media only screen and (max-width: 640px) {
+  .layout-header.open,
+  .layout-main.open,
+  .layout-footer.open {
+    -webkit-transform: translate(83%, 0);
+    transform: translate(83%, 0); } }
+
+.layout-header button.btn-nav {
+  position: relative;
+  float: left;
+  height: 44px;
+  color: #fff;
+  font-size: 24px;
+  background-image: none;
+  background-color: #006A96;
+  border-radius: 1px;
+  border: 1px solid #006A96;
+  padding: 9px 10px;
+  margin-right: 10px; }
+
+@media only screen and (max-width: 360px) {
+  .layout-header button.btn-nav {
+    font-size: 20px; } }
+
+@media only screen and (max-width: 960px) {
+  .layout-header button.btn-nav {
+    display: block; } }
+
+
+/* ***********************************************
+ * body layout
+ * ***************/
+
+//---
+// masthead and site title
 //---
 
 .masthead .site-title-container, .image-masthead .background-container-gradient
@@ -247,10 +466,70 @@
   }
 }
 
+/* ***********************************************
+ * FOOTER
+ * **************/
+footer {
+  background-color: #006A96; 
+  margin-top: 50px;}
+
+.footer-links {
+  list-style: none;
+  margin: .5em 0 0;
+  padding: 0; }
+
+.footer-links > li {
+  display: inline;
+  margin-left: 0;
+  margin-right: .5em;
+  padding-right: .75em; }
+
+.footer-links > li a {
+  color: #fff;
+  text-decoration: underline; }
+
+.footer-links > li:first-child {
+  border-right: 1px solid #fff; }
+
+.footer .row {
+  padding: 1.5em 0;
+  color: #fff;
+  font-size: .9em; }
+
+.footer-logo {
+  width: 158px;
+  height: 30px;
+  float: right; }
+
+@media only screen and (max-width: 768px) {
+  .footer-logo {
+    float: none;
+    margin-top: 15px; } }
+
+/* --------------------------------------------------------------------
+ * _images
+ */
+img.left {
+  float: left;
+  padding: 0 1em 1em 0;
+  width: auto; }
+
+img.right {
+  float: right;
+  padding: 0 0 1em 1em;
+  width: auto; }
+
+@media only screen and (max-width: 360px) {
+  img.left,
+  img.right {
+    float: none;
+    padding: 1em 0; } }
+
 
 //---
 // Media queries (BS is mobile first)
 //---
+
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px)
@@ -395,3 +674,32 @@
     }
   }
 }
+
+@media print {
+  /* removes ucsd logo and other background images (glyphicons) */
+  html, main, footer *,
+  .layout-title * {
+    background-color: transparent !important;
+    background-image: none !important;
+    overflow: visible !important; }
+  /* title and header font color should be black (readable) */
+  .title-header,
+  h1, h2, h3, h4, h5, h6, p {
+    color: #000; }
+  /* hide login/ emergency/ nav/ search/ footer links/ btn-nav styles */
+  #uc-emergency, .layout-login, nav, .search, .footer-links, .btn-nav {
+    display: none; }
+  main {
+    width: 99.99% !important; }
+  main section {
+    left: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important; }
+  /* reset horizontal ruler */
+  hr {
+    background-color: #ccc !important; }
+  .main-content-nav {
+    background: none; }
+  a[href]:after {
+    content: none !important; } }
