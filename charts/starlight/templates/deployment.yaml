@@ -45,6 +45,8 @@ spec:
               value: "5"
             - name: "RAILS_QUEUE"
               value: sidekiq
+            - name: "RAILS_SERVE_STATIC_FILES"
+              value: "true"
             - name: "REDIS_URL"
               value: {{ template "starlight.redis.fullname" . }}:6379
             - name: "SECRET_KEY_BASE"

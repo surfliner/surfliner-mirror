@@ -31,5 +31,7 @@ COPY --chown=starlight:starlight Gemfile* ./
 RUN bundle check || bundle install --jobs "$(nproc)"
 COPY --chown=starlight:starlight . ./
 
+RUN bundle exec rake assets:precompile
+
 CMD ["bundle", "exec", "puma", "-b", "tcp://0.0.0.0:3000"]
 ENTRYPOINT ["/bin/sh", "/home/starlight/app/docker/docker-entrypoint.sh"]
