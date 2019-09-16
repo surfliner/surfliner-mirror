@@ -8,6 +8,7 @@ RUN cat /etc/apk/repositories
 RUN apk --no-cache upgrade && \
   apk add --no-cache \
   build-base \
+  curl \
   git \
   imagemagick \
   less \
