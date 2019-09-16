@@ -4,7 +4,7 @@ class Users::SessionsController < Devise::SessionsController
   # /users/sign_in
   #
   # use of Devise.omniauth_configs.keys allows us to dynamically switch between
-  # :developer, :google_oauth2, :shibboleth environments
+  # :developer, :google_oauth2 environments
   def new
     redirect_to omniauth_authorize_path(User, Devise.omniauth_configs.keys.first)
   end

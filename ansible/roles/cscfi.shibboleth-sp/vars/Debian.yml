@@ -1,9 +1,0 @@
----
-__shibbolethsp_packages: 
-  - shibboleth-sp2-common
-  - libapache2-mod-shib2
-  - apache2
-  - shibboleth-sp2-utils
-  - python-lxml
-
-shibbolethsp_service_name: shibd

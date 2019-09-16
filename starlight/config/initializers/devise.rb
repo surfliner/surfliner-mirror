@@ -326,13 +326,6 @@ Devise.setup do |config|
   case ENV["AUTH_METHOD"]
   when "google"
     config.omniauth :google_oauth2, ENV.fetch("GOOGLE_AUTH_ID"), ENV.fetch("GOOGLE_AUTH_SECRET")
-  when "shibboleth"
-    config.omniauth :shibboleth,
-                    uid_field: ENV.fetch("SHIB_UID_FIELD"),
-                    shib_session_id_field: ENV.fetch("SHIB_SESSION_ID_FIELD"),
-                    shib_application_id_field: ENV.fetch("SHIB_APPLICATION_ID_FIELD"),
-                    debug: false,
-                    info_fields: { email: ENV.fetch("SHIB_EMAIL_FIELD") }
   when "developer"
     config.omniauth :developer
   end

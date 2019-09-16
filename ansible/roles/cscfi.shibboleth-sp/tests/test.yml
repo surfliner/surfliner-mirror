@@ -1,5 +1,0 @@
-# test.yml
----
-- hosts: all
-  roles:
-    - role_under_test

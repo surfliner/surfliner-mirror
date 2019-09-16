@@ -3,17 +3,17 @@
 require "rails_helper"
 
 RSpec.describe User, type: :model do
-  let(:shib_auth_hash) do
+  let(:google_auth_hash) do
     OmniAuth::AuthHash.new(
-      provider: "shibboleth",
+      provider: "google_oauth2",
       uid: "drseuss",
-      info: { "email" => "shibboleth@uc.edu" }
+      info: { "email" => "google_oauth2@uc.edu" }
     )
   end
 
-  let(:invited_user_shib_auth_hash) do
+  let(:invited_user_google_auth_hash) do
     OmniAuth::AuthHash.new(
-      provider: "shibboleth",
+      provider: "google_oauth2",
       uid: "a-user-that-does-not-exist",
       info: { "email" => "a-user-that-does-not-exist@uc.edu" }
     )
@@ -27,9 +27,9 @@ RSpec.describe User, type: :model do
     )
   end
 
-  let(:invalid_shib_auth_hash_missing_info) do
+  let(:invalid_google_auth_hash_missing_info) do
     OmniAuth::AuthHash.new(
-      provider: "shibboleth",
+      provider: "google_oauth2",
       uid: "test"
     )
   end
@@ -44,27 +44,27 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe ".from_omniauth for Shibboleth strategy" do
+  describe ".from_omniauth for Google strategy" do
     it "creates a User when a user is first authenticated" do
-      user = described_class.from_omniauth(shib_auth_hash)
+      user = described_class.from_omniauth(google_auth_hash)
       expect(user).to be_persisted
-      expect(user.provider).to eq("shibboleth")
+      expect(user.provider).to eq("google_oauth2")
       expect(user.uid).to eq("drseuss")
-      expect(user.email).to eq("shibboleth@uc.edu")
+      expect(user.email).to eq("google_oauth2@uc.edu")
     end
 
     it "creates a User that has been invited" do
       described_class.invite!(email: "a-user-that-does-not-exist@uc.edu", skip_invitation: true)
-      user = described_class.from_omniauth(invited_user_shib_auth_hash)
+      user = described_class.from_omniauth(invited_user_google_auth_hash)
       expect(user).to be_persisted
-      expect(user.provider).to eq("shibboleth")
+      expect(user.provider).to eq("google_oauth2")
       expect(user.uid).to eq("a-user-that-does-not-exist")
       expect(user.email).to eq("a-user-that-does-not-exist@uc.edu")
     end
 
-    it "does not persist a shib response with bad or missing information" do
-      described_class.from_omniauth(invalid_shib_auth_hash_missing_info)
-      expect(described_class.find_by(uid: "test", provider: "shibboleth")).to be nil
+    it "does not persist a google response with bad or missing information" do
+      described_class.from_omniauth(invalid_google_auth_hash_missing_info)
+      expect(described_class.find_by(uid: "test", provider: "google_oauth2")).to be nil
     end
   end
 

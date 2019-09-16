@@ -12,11 +12,4 @@ XSendFilePath {{ project_base }}/{{ project_name }}/derivatives
         Options -MultiViews
         Require all granted
   </Directory>
-{% if auth_method == "shibboleth" %}
-<Location /users/auth/shibboleth/callback>
-  AuthType shibboleth
-  ShibRequestSetting requireSession 1
-  require valid-user
-</Location>
-{% endif %}
 </VirtualHost>

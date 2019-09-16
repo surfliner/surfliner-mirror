@@ -25,14 +25,13 @@ class User < ApplicationRecord
            :omniauthable, omniauth_providers: [
              :developer,
              :google_oauth2,
-             :shibboleth,
            ]
   end
 
   # avoid setting new users as superadmins
   def add_default_roles; end
 
-  # Override this Spotlight method since we're using Google/Shib for auth and
+  # Override this Spotlight method since we're using Google for auth and
   # don't need to invite people to create accounts
   def invite_pending?
     return false unless ENV["AUTH_METHOD"] == "database"

@@ -15,7 +15,6 @@ The environment variable `AUTH_METHOD` determines how users log in.  The options
 are:
 
 - `google`: Authenticates via Google OAuth
-- `shibboleth`: Authenticates via Shibboleth
 - `developer`: Authenticates via YAML file (for local testing only)
 - `database`: Authenticates via standard Rails/Devise db-backed Users
 

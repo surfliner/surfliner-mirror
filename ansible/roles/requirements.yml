@@ -7,9 +7,3 @@
 
 - src: cmprescott.xml
   version: '1.0.0'
-
-# We are maintaining a local copy of the role because of
-# https://github.com/ansible/ansible/issues/17490
-#   handlers not inheriting role parameters (become)
-#- src: cscfi.shibboleth-sp
-#  version: 'v1.0.6'

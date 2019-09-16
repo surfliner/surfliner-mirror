@@ -1,6 +1,0 @@
----
-# handlers file for shibboleth-sp
-
-- name: restart shibboleth-sp
-  service: name={{ shibbolethsp_service_name }} state=restarted
-  become: true

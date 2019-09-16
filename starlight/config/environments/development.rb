@@ -2,9 +2,6 @@
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  # Authentication strategy
-  config.shibboleth = ENV["AUTH_METHOD"] == "shibboleth"
-
   config.active_job.queue_adapter = ENV["RAILS_QUEUE"]&.to_sym
 
   # In the development environment your application's code is reloaded on

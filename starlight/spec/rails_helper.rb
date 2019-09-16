@@ -48,7 +48,7 @@ RSpec.configure do |config|
 
   config.before do
     Blacklight.default_index.connection.delete_by_query("*:*", params: { "softCommit" => true })
-    OmniAuth.config.mock_auth[:shibboleth] = nil
+    OmniAuth.config.mock_auth[:google_oauth2] = nil
   end
 
   config.after do

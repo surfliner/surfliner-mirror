@@ -9,7 +9,7 @@ FactoryBot.define do
     end
     sequence(:email) { |n| "user#{n}@example.com" }
     sequence(:uid) { |n| "user#{n}" }
-    provider { "shibboleth" }
+    provider { "google_oauth2" }
 
     factory :omniauth_site_admin do
       after(:create) do |user, _evaluator|

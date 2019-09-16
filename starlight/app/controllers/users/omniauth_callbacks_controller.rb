@@ -17,16 +17,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     find_or_create_user("google_oauth2")
   end
 
-  # Matches omniauth 'shibboleth' strategy set in config/devise.yml
-  # This is used for staging and production envirnoments
-  def shibboleth
-    find_or_create_user("shibboleth")
-  end
-
   # Responsible for handling the authentication callback for omniauth strategies
   # Call out to User model persistence methods for each omniauth strategy. Examples being `User.from_omniauth` and
   # `User.from_developer`
-  # @param auth_type [String] Current options 'developer', 'google_oauth2', 'shibboleth'
+  # @param auth_type [String] Current options 'developer', 'google_oauth2'
   def find_or_create_user(auth_type)
     logger.debug "#{auth_type} :: #{current_user.inspect}"
     @user = User.from_omniauth(request.env["omniauth.auth"])
