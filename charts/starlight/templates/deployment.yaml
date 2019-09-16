@@ -48,13 +48,13 @@ spec:
             - name: "RAILS_SERVE_STATIC_FILES"
               value: "true"
             - name: "REDIS_URL"
-              value: {{ template "starlight.redis.fullname" . }}:6379
+              value: {{ template "starlight.redis.fullname" . }}-master:6379
             - name: "SECRET_KEY_BASE"
               value: {{ randAlphaNum 20 | b64enc }}
             - name: "SMTP_HOST"
               value: {{ .Values.email.smtp_host }}
             - name: "SOLR_URL"
-              value: {{ template "starlight.solr.fullname" . }}:8983/solr/collection1
+              value: http://{{ template "starlight.solr.fullname" . }}-svc:8983/solr/collection1
             - name: "PORT"
               value: "3000"
             - name: "POSTGRES_DB"
