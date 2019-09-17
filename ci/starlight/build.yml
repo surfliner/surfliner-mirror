@@ -4,8 +4,8 @@ starlight-build:
   script:
     - buildah login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
     - cd starlight
-    - buildah bud --format docker --storage-driver vfs -t $CI_REGISTRY_IMAGE/starlight_web:$CI_COMMIT_REF_NAME .
-    - buildah push --storage-driver vfs docker://$CI_REGISTRY_IMAGE/starlight_web:$CI_COMMIT_REF_NAME
+    - buildah bud --format docker --storage-driver vfs -t $CI_REGISTRY_IMAGE/starlight_web:$CI_COMMIT_SHA .
+    - buildah push --storage-driver vfs docker://$CI_REGISTRY_IMAGE/starlight_web:$CI_COMMIT_SHA
   extends: .only-refs-default
   only:
     changes:

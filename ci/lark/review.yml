@@ -12,13 +12,13 @@ review_ucsb:
     - auto-deploy persist_environment_url
   allow_failure: true
   environment:
-    name: ucsb.review.lark/$CI_COMMIT_REF_NAME
+    name: ucsb.review.lark/$CI_COMMIT_SHA
     url: http://lark-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
     on_stop: stop_review_ucsb
   variables:
     ROLLOUT_RESOURCE_TYPE: deployment
     CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE
-    CI_APPLICATION_TAG: $CI_COMMIT_REF_NAME
+    CI_APPLICATION_TAG: $CI_COMMIT_SHA
     INGRESS_URL: lark-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
     HELM_UPGRADE_EXTRA_ARGS: '--set persistence_adapters.index="memory" --set persistence_adapters.event="memory" --set solr.enabled=FALSE --set postgresql.enabled=FALSE'
   artifacts:
@@ -47,13 +47,13 @@ review_ucsd:
     - auto-deploy persist_environment_url
   allow_failure: true
   environment:
-    name: ucsd.review.lark/$CI_COMMIT_REF_NAME
+    name: ucsd.review.lark/$CI_COMMIT_SHA
     url: http://lark-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
     on_stop: stop_review_ucsd
   variables:
     ROLLOUT_RESOURCE_TYPE: deployment
     CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE
-    CI_APPLICATION_TAG: $CI_COMMIT_REF_NAME
+    CI_APPLICATION_TAG: $CI_COMMIT_SHA
     INGRESS_URL: lark-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
     HELM_UPGRADE_EXTRA_ARGS: '--set persistence_adapters.index="memory" --set persistence_adapters.event="memory" --set solr.enabled=FALSE --set postgresql.enabled=FALSE'
   artifacts:
@@ -77,7 +77,7 @@ stop_review_ucsb:
     - auto-deploy initialize_tiller
     - auto-deploy delete
   environment:
-    name: ucsb.review.lark/$CI_COMMIT_REF_NAME
+    name: ucsb.review.lark/$CI_COMMIT_SHA
     action: stop
   when: manual
   allow_failure: true
@@ -100,7 +100,7 @@ stop_review_ucsd:
     - auto-deploy initialize_tiller
     - auto-deploy delete
   environment:
-    name: ucsd.review.lark/$CI_COMMIT_REF_NAME
+    name: ucsd.review.lark/$CI_COMMIT_SHA
     action: stop
   when: manual
   allow_failure: true

@@ -15,7 +15,7 @@ lark-staging-ucsb:
   variables:
     ROLLOUT_RESOURCE_TYPE: deployment
     CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE
-    CI_APPLICATION_TAG: $CI_COMMIT_REF_NAME # master (see only: refs:)
+    CI_APPLICATION_TAG: $CI_COMMIT_SHA # master (see only: refs:)
     INGRESS_URL: lark-staging.$KUBE_INGRESS_BASE_DOMAIN
     HELM_UPGRADE_EXTRA_ARGS: '--set persistence_adapters.index="memory" --set persistence_adapters.event="memory" --set solr.enabled=FALSE --set postgresql.enabled=FALSE'
   only:

@@ -1,6 +1,6 @@
 lark-unit-tests:
   stage: test
-  image: $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_REF_NAME
+  image: $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_SHA
   variables:
     SOLR_CORE_NAME: lark-test
     SOLR_CONFIG_DIR: lark/solr/config
@@ -29,7 +29,7 @@ lark-unit-tests:
 lark-client-unit:
   stage: test
   # reuse the lark_web image; ruby alpine images are missing system dependencies
-  image: $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_REF_NAME
+  image: $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_SHA
   script:
     - cd lark-client
     - bundle check || bundle
@@ -44,7 +44,7 @@ lark-client-unit:
 lark-client-integration:
   stage: integration
   # reuse the lark_web image; ruby alpine images are missing system dependencies
-  image: $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_REF_NAME
+  image: $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_SHA
   script:
     - cd lark-client
     - bundle check || bundle
