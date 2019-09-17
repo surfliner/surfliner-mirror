@@ -45,6 +45,7 @@ review_ucsd:
     - build_chart_dependencies
     - auto-deploy deploy
     - auto-deploy persist_environment_url
+  allow_failure: true
   environment:
     name: ucsd.review.lark/$CI_COMMIT_REF_NAME
     url: http://lark-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
