@@ -5,8 +5,5 @@ dependencies:
 - name: redis
   repository: https://kubernetes-charts.storage.googleapis.com/
   version: 9.1.3
-- name: solr
-  repository: https://kubernetes-charts-incubator.storage.googleapis.com/
-  version: 1.2.0
-digest: sha256:b7a6d921ca44069edd161a3f7c5b63b4b802707ee17eb535009824ab89213a06
-generated: "2019-08-29T11:14:05.390324-07:00"
+digest: sha256:03a8f8694a233c793581c4a8d96cc636a09ff285a2e37accf9da1a5283276a37
+generated: "2019-09-18T11:48:36.545667-07:00"
