@@ -58,22 +58,6 @@ spec:
               value: {{ .Values.auth.google.api_secret }}
             - name: "HOSTNAME"
               value: {{ template "starlight.fullname" . }}
-            - name: "RAILS_ENV"
-              value: production
-            - name: "RAILS_MAX_THREADS"
-              value: "5"
-            - name: "RAILS_QUEUE"
-              value: sidekiq
-            - name: "RAILS_SERVE_STATIC_FILES"
-              value: "true"
-            - name: "REDIS_URL"
-              value: {{ template "starlight.redis.fullname" . }}-master:6379
-            - name: "SECRET_KEY_BASE"
-              value: {{ randAlphaNum 20 | b64enc }}
-            - name: "SMTP_HOST"
-              value: {{ .Values.email.smtp_host }}
-            - name: "SOLR_URL"
-              value: http://{{ template "starlight.solr.fullname" . }}-svc:8983/solr/collection1
             - name: "PORT"
               value: "3000"
             - name: "POSTGRES_DB"
@@ -92,6 +76,24 @@ spec:
                 secretKeyRef:
                   name: {{ template "starlight.fullname" . }}
                   key: db-password
+            - name: "RAILS_ENV"
+              value: production
+            - name: "RAILS_MAX_THREADS"
+              value: "5"
+            - name: "RAILS_QUEUE"
+              value: sidekiq
+            - name: "RAILS_SERVE_STATIC_FILES"
+              value: "true"
+            - name: "REDIS_URL"
+              value: {{ template "starlight.redis.fullname" . }}-master:6379
+            - name: "SECRET_KEY_BASE"
+              value: {{ randAlphaNum 20 | b64enc }}
+            - name: "SMTP_HOST"
+              value: {{ .Values.email.smtp_host }}
+            - name: "SOLR_URL"
+              value: http://{{ template "starlight.solr.fullname" . }}-svc:8983/solr/collection1
+            - name: "SPOTLIGHT_THEMES"
+              value: "ucsb,surfliner,ucsd"
           ports:
             - name: http
               containerPort: 3000
