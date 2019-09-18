@@ -4,6 +4,7 @@
 * Galaxy provides a hub of pre-packaged units of work known to Ansible as roles that can be found, reused and shared as needed. 
 * Roles can be dropped into Ansible PlayBooks and immediately put to work. 
 * `ansible-galaxy` is the command line tool that comes bundled with Ansible.
+* Sample variables are in `vars/sample.yml`
 
 1. `ansible-galaxy install --roles-path roles -r roles/requirements.yml`
 2. `cp inventory.template inventory`
