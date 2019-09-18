@@ -46,6 +46,9 @@ postgresql:
   persistence:
     size: 10Gi
 
+redis:
+  usePassword: false
+
 email:
   smtp_host:
   from_address:
