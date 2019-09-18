@@ -20,6 +20,25 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
     {{- end }}
+      initContainers:
+        - name: create-solr-core
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+          command:
+            - "sh"
+            - "-c"
+            - |
+              COUNTER=0;
+              while [ $COUNTER -lt 120 ]; do
+                if nc starlight-solr-svc 8983; then
+                  curl -H 'Content-type: application/json' -d '{create: {name: collection1, config: solrconfig, numShards: 1}}' starlight-solr-svc:8983/api/collections/
+                  exit 0;
+                fi
+                COUNTER=$(( COUNTER+1 ));
+                sleep 2;
+              done;
+              echo "Failed to create Solr core after 240 secs";
+              exit 1;
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"

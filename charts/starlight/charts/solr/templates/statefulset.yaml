@@ -95,7 +95,22 @@ spec:
               mountPath: "/tmp"
             - name: "{{ include "solr.pvc-name" . }}"
               mountPath: "/tmp-config"
-
+        - name: "upload-solr-configs"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+          command:
+            - "sh"
+            - "-c"
+            - |
+              mkdir /tmp/configdir
+              cp /tmp/solrconfig/solrconfig.xml /tmp/configdir
+              cp /tmp/schema/schema.xml /tmp/configdir
+              /opt/solr/server/scripts/cloud-scripts/zkcli.sh -zkhost ${STARLIGHT_ZOOKEEPER_SERVICE_HOST}:${STARLIGHT_ZOOKEEPER_SERVICE_PORT} -cmd upconfig -confname solrconfig -confdir /tmp/configdir
+          volumeMounts:
+            - name: "solrconfig-xml"
+              mountPath: "/tmp/solrconfig"
+            - name: "schema-xml"
+              mountPath: "/tmp/schema"
 {{- if .Values.tls.enabled }}
         - name: "setup-keystore-and-properties"
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
