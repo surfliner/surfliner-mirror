@@ -85,7 +85,7 @@ spec:
             - name: "RAILS_SERVE_STATIC_FILES"
               value: "true"
             - name: "REDIS_URL"
-              value: {{ template "starlight.redis.fullname" . }}-master:6379
+              value: redis://{{ template "starlight.redis.fullname" . }}-master:6379
             - name: "SECRET_KEY_BASE"
               value: {{ randAlphaNum 20 | b64enc }}
             - name: "SMTP_HOST"
