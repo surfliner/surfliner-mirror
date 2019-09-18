@@ -50,10 +50,22 @@ spec:
 {{- end }}
         - name: solr-xml
           configMap:
-            name: {{ include "solr.configmap-name" . }}
+            name: {{ include "solr.zkconfig-name" . }}
             items:
               - key: solr.xml
                 path: solr.xml
+        - name: solrconfig-xml
+          configMap:
+            name: {{ include "solr.solrconfig-name" . }}
+            items:
+              - key: solrconfig.xml
+                path: solrconfig.xml
+        - name: schema-xml
+          configMap:
+            name: {{ include "solr.schema-name" . }}
+            items:
+              - key: schema.xml
+                path: schema.xml
       initContainers:
         - name: check-zk
           image: busybox:latest

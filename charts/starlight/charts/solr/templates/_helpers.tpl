@@ -74,11 +74,18 @@ Create chart name and version as used by the chart label.
 {{- end -}}
 
 {{/*
-  Define the name of the solr.xml configmap
+  Define the names of the configmaps
 */}}
-{{- define "solr.configmap-name" -}}
-{{- printf "%s-%s" (include "solr.fullname" .) "config-map" | trunc 63 | trimSuffix "-" -}}
+{{- define "solr.zkconfig-name" -}}
+{{- printf "%s-%s" (include "solr.fullname" .) "zkconfig" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+{{- define "solr.solrconfig-name" -}}
+{{- printf "%s-%s" (include "solr.fullname" .) "solrconfig" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+{{- define "solr.schema-name" -}}
+{{- printf "%s-%s" (include "solr.fullname" .) "schema" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 
 {{/*
   Define the labels that should be applied to all resources in the chart
