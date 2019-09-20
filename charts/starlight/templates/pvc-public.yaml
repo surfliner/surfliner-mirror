@@ -6,8 +6,8 @@ metadata:
 spec:
   resources:
     requests:
-      storage: 20Gi
+      storage: {{ .Values.pvc.public.size }}
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
-  storageClassName: "gp2"
+  storageClassName: {{ .Values.pvc.public.class }}
