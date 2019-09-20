@@ -48,7 +48,6 @@ questions:
   type: enum
   options:
     - "google"
-    - "shibboleth"
     - "database"
   required: true
 - variable: auth.google.api_id
