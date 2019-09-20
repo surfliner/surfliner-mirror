@@ -49,8 +49,8 @@ npm run test
 ### Running with Docker
 You will need Docker installed on your host/local system.
 To setup a development environment:
-1. `docker build -t vuejs-cookbook/dockerize-vuejs-app .`  to build images
-1. `docker run -it -p 8080:8080 --rm --name dockerize-vuejs-app-1 vuejs-cookbook/dockerize-vuejs-app`  to run dev environment
+1. `docker build -t lark-frontend:latest .`  to build images
+1. `docker run -it -p 8080:80 --rm --name lark-frontend lark-frontend:latest`  to run dev environment
 1. Access the `lark` API on `http://localhost:8080`
 
 ### Customize configuration
