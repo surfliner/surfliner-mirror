@@ -30,16 +30,6 @@ questions:
     type: hostname
     required: true
     label: Hostname
-- variable: persistence_adapters.event
-  default: "memory"
-  description: "The backend to use for the Event Log."
-  label: Event Adapter Type
-  group: "Starlight"
-  options:
-    - memory
-    - sql
-  type: enum
-  required: true
 - variable: email.smtp_host
   type: string
   group: "Starlight"

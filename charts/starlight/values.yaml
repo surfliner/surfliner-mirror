@@ -29,9 +29,6 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-persistence_adapters:
-  event: memory
-
 # Configuration for postgresql chart
 # see: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md
 postgresql:
