@@ -6,6 +6,11 @@ starlight-build:
     - cd starlight
     - buildah bud --format docker --storage-driver vfs -t $CI_REGISTRY_IMAGE/starlight_web:$CI_COMMIT_SHA .
     - buildah push --storage-driver vfs docker://$CI_REGISTRY_IMAGE/starlight_web:$CI_COMMIT_SHA
+    - |
+      if [ "$CI_COMMIT_REF_NAME" = "master" ]; then
+        buildah tag --storage-driver vfs $CI_REGISTRY_IMAGE/starlight_web:$CI_COMMIT_SHA $CI_REGISTRY_IMAGE/starlight_web:stable
+        buildah push --storage-driver vfs docker://$CI_REGISTRY_IMAGE/starlight_web:stable
+      fi
   extends: .only-refs-default
   only:
     changes:
