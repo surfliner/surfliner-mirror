@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: registry.gitlab.com/surfliner/surfliner/starlight_web
   name: starlight_web
-  tag: master
+  tag: stable
   pullPolicy: Always
 
 imagePullSecrets: []
