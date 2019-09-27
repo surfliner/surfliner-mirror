@@ -25,6 +25,35 @@ include:
   - local: ci/starlight/lint.yml
   - local: ci/starlight/test.yml
 
+# Build with Kaniko, adding a stable tag to master builds
+.build_helpers: &build_helpers |
+  set -x
+  build_image_for() {
+    if test $# -ne 2 ; then
+        echo "You must specify a project path to a Dockerfile and an image name. example: build_image_for 'starlight' 'starlight_web'"
+      exit 1
+    fi
+    project=$1
+    image_name=$2
+    destination="--destination $CI_REGISTRY_IMAGE/$image_name:$CI_COMMIT_SHA"
+    if [ "$CI_COMMIT_REF_NAME" = "master" ]; then
+      destination="$destination --destination $CI_REGISTRY_IMAGE/$image_name:stable"
+    fi
+    /kaniko/executor --context "$CI_PROJECT_DIR"/$project --cache=true --dockerfile "$CI_PROJECT_DIR"/"$project"/Dockerfile $destination
+  }
+
+
+# Use Kaniko for building container images
+.kaniko-build:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug-v0.17.1
+    entrypoint: [""]
+  before_script:
+    - *build_helpers
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+
+
 # Surfliner-specific helm chart setup to include additional helm repos
 .deploy_helpers: &deploy_helpers |
   [[ "$TRACE" ]] && set -x

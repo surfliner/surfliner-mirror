@@ -1,12 +1,9 @@
 lark-ruby-build:
-  image: $CI_REGISTRY_IMAGE/buildah
-  stage: build
+  extends:
+    - .kaniko-build
+    - .only-refs-default
   script:
-    - buildah login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
-    - cd lark
-    - buildah bud --format docker --storage-driver vfs -t $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_SHA .
-    - buildah push --storage-driver vfs docker://$CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_SHA
-  extends: .only-refs-default
+    - build_image_for "lark" "lark_web"
   only:
     changes:
       - .gitlab-ci.yml
@@ -15,14 +12,11 @@ lark-ruby-build:
       - lark/**/*
 
 lark-frontend-node-build:
-  image: $CI_REGISTRY_IMAGE/buildah
-  stage: build
+  extends:
+    - .kaniko-build
+    - .only-refs-default
   script:
-    - buildah login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
-    - cd lark-frontend
-    - buildah bud --format docker --storage-driver vfs -t $CI_REGISTRY_IMAGE/lark_frontend_web:latest .
-    - buildah push --storage-driver vfs docker://$CI_REGISTRY_IMAGE/lark_frontend_web:latest
-  extends: .only-refs-default
+    - build_image_for "lark-frontend" "lark_frontend_web"
   only:
     changes:
       - .gitlab-ci.yml
