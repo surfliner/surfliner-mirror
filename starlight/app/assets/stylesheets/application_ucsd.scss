@@ -16,690 +16,514 @@
 @import 'leaflet';
 @import url("https://fonts.googleapis.com/css?family=Roboto");
 
-
-/* ***********************************************
- * Layout
- *
- * Components:
- *  - base layout
- *  - header
- *  - body 
- *  - footer
- *
- * ***************/
-
- /* ***********************************************
- * BASE
- * ***************/
-
-html, body {
-  background: #FFF;
-/*  overflow-x: hidden; */
-  color: #333;
-  font: normal normal normal 16px/1.7 'Roboto', sans-serif; }
-
-h1, h2, h3, h4, h5, h6 {
-  color: #333;
-  font-weight: 400;
-  line-height: 1.1;
-  /*margin: 0 0 .25em;*/ }
-
-h1 {
-  color: #006A96;
-  letter-spacing: .5px;
-  font-size: 39px; }
-
-.h2, h2 {
-  font-size: 28px; }
-
-hr {
-  background-color: #ccc;
-  color: #ccc;
-  height: 1px; }
-
-a {
-  color: #016691; }
-
-  /* container will have media queries for sizing*/
-.layout-container {
-  max-width: 1200px;
-  width: 98%;
-  margin: 0px auto;
-  overflow: hidden; }
-
-@media only screen and (max-width: 768px) {
-  .layout-container {
-    width: 94%; } }
-
-@media only screen and (max-width: 1200px) {
-  .layout-container {
-    max-width: 960px; } }
-
-.layout-navbar .layout-container {
-  overflow: visible; }
-
-.layout-header {
-  /* to incorporate new navbar button*/
-  display: block;
-  width: 100%;
-  background-color: #2b92b9;
-  /*
-    @media only screen and (min-width: $desktop-small + 1) {
-      height: 78px;
-    }*/ }
-
-@media only screen and (min-width: 320px) and (max-width: 768px) {
-  .layout-header {
-    height: 105px; } }
-
-.layout-header {
-  height: 100%; }
-
-.layout-title {
-  font-family: 'Roboto', sans-serif;
-  box-sizing: border-box;
-  height: 92px;
-  width: 100%;
-  background: #fff;
-  padding: 1.5em 0; }
-
-@media only screen and (max-width: 360px) {
-  .layout-title {
-    padding: 0.5em 0; } }
-
-@media only screen and (max-width: 768px) {
-  .layout-title {
-    padding: 1em 0;
-    height: auto; } }
-
- 
- /* ***********************************************
- * HEADER
- * ***************/
-
 //---
-// header navbar
+// SASS Variables
 //---
 
-#header-navbar
+$color-appbar: #0b4a67;
+$color-appbar-accent: #033851;
+$color-appbar-dark: #012536;
+$color-appbar-bright: #fff;
+$color-appbar-text: rgba(255,255,255,0.666);
+
+$color-sidebar: #eeeeee;
+$color-sidebar-accent: #d8d7d7;
+$color-sidebar-dark: #333;
+$color-sidebar-bright: #fff;
+$color-sidebar-active-parent: #004663;
+$color-sidebar-hover: #006a96;
+
+//---
+// App Bar
+//---
+
+#app-bar
 {
-  background: #006a96;
-  
+  background: $color-appbar;
+
   // Buttons
   .nav > li > a
   {
-    color: rgba(255,255,255,0.666);
+    color: $color-appbar-text;
   }
   .nav > li > a:hover
   {
-    color: #fff;
+    color: $color-appbar-bright;
   }
   .navbar-nav > .open > a, .navbar-nav > .open > a:hover, .navbar-nav > .open > a:focus
   {
-    color: #fff;
-    background-color: #0A1932;
+    color: $color-appbar-bright;
+    background-color: $color-appbar-dark;
   }
 }
 
 //---
-// FEEDBACK FORM
+// Campus-like HTML (Decorator v5)
 //---
 
-#report-problem-form
+body
 {
-  padding-bottom: 15px;
-  background-color: #C4CEDF;
-  .form-control, .form-group .st-text-block, .st-block input[type="text"], .item-text-admin #item-text
-  {
-    border-color: #7A8FB1;
-  }
+  font: normal normal normal 16px/1.7 Roboto, sans-serif !important;
+  color: #333;
+  margin-bottom: 0 !important;
 }
 
 //---
-// UCSD TITLE LOGO
+// Campus-like Header
 //---
 
-.title-logo {
-  background: url(https://cdn.ucsd.edu/cms/decorator-5/img/sprite_base.png) no-repeat transparent; }
+.layout-header {
 
-@media screen and (-webkit-min-device-pixel-ratio: 2) {
-  .title-logo {
-    background-image: url(https://cdn.ucsd.edu/cms/decorator-5/img/sprite_base2x.png);
-    background-size: 500px 120px; } }
-
-/* ***********************************************
- * TITLE
- * ***************/
-
-.title-header {
-  float: left;
-  color: #000;
-  font-size: 1.35rem;
-  letter-spacing: 1px;
-  text-decoration: none;
-  text-transform: uppercase; }
-
-.title-header.title-header-short {
-  display: none; }
-
-@media only screen and (max-width: 480px) {
-  .title-header.title-header-short {
-    display: block;
-    margin-top: 0; } }
-
-.title-header:hover, .title-header:focus {
-  color: #666666;
-  text-decoration: none; }
-
-@media only screen and (max-width: 480px) {
-  .title-header {
-    display: none;
-    margin-top: 2.25em; } }
-
-@media only screen and (max-width: 360px) {
-  .title-header {
-    font-size: 20px;
-    margin-top: 2em; } }
-
-.title-header-large {
-  margin-top: 5px; }
-
-@media only screen and (min-width: 480px) and (max-width: 768px) {
-  .title-header-large {
-    display: block;
-    margin-top: 2.5em; } }
-
-.title-logo {
-  float: right;
-  width: 229px;
-  height: 65px;
-  overflow: hidden;
-  text-indent: -999em;
-  background-position: 0 -3px; }
-
-@media only screen and (max-width: 480px) {
-  .title-logo {
-    background-position: -239px -2px;
-    height: 45px;
-    width: 166px;
-    display: none !important; } }
-
-@media only screen and (max-width: 768px) {
-  .title-logo {
-    display: block;
-    position: absolute; } }
-
-.header-logo {
-  height: 30px;
-  margin: 15px 20px 0 0;
-  width: auto; }
-
-@media only screen and (min-width: 480px) {
-  .header-logo {
-    display: none; } }
-
-.layout-header.open,
-.layout-main.open,
-.layout-footer.open {
-  -webkit-transform: translate(42%, 0);
-  transform: translate(42%, 0); }
-
-@media only screen and (max-width: 640px) {
-  .layout-header.open,
-  .layout-main.open,
-  .layout-footer.open {
-    -webkit-transform: translate(83%, 0);
-    transform: translate(83%, 0); } }
-
-.layout-header button.btn-nav {
-  position: relative;
-  float: left;
-  height: 44px;
-  color: #fff;
-  font-size: 24px;
-  background-image: none;
-  background-color: #006A96;
-  border-radius: 1px;
-  border: 1px solid #006A96;
-  padding: 9px 10px;
-  margin-right: 10px; }
-
-@media only screen and (max-width: 360px) {
-  .layout-header button.btn-nav {
-    font-size: 20px; } }
-
-@media only screen and (max-width: 960px) {
-  .layout-header button.btn-nav {
-    display: block; } }
-
-
-/* ***********************************************
- * body layout
- * ***************/
-
-//---
-// masthead and site title
-//---
-
-.masthead .site-title-container, .image-masthead .background-container-gradient
-{
-  background: no-repeat transparent
-}
-
-.masthead
-{
-  background-color: #2b92b9;
-  .site-title-container
-  {
-    background-size: 100px 19px;
-    background-position: center right 15px;
-    max-height: none; // Title fix
-    .site-title
-    {
-      font-family: "Trebuchet MS", sans-serif;
-      color: #fff;
-      text-transform: uppercase;
-      font-size: 24px;
-      font-weight: normal;
-      white-space: normal; // Title fix
-      width: 66.666%;
-      small
-      {
-        color: rgba(255,255,255,0.666);
-        font-size: 12px;
-      }
-    }
+  .layout-title {
+    font-family: Roboto, sans-serif;
+    box-sizing: border-box;
+    height: 92px;
+    width: 100%;
+    background: #fff;
+    padding: 1.5em 0;
   }
-  #exhibit-navbar
-  {
-    background-color: #f2f5f7;
-    border-radius: 0;
-    border-left: none;
-    border-top: none;
-    border-bottom: none;
-    border-color: #c8cfd3;
-    .navbar-default .navbar-nav > .active > a
-    {
-      color: #004b6e;
-      background-color: #FDFDFD;
-    }
-    ul
-    {
-      border-left: solid 1px #c9d0d4;
-      background-color: #fdfdfd;
-      > li
-      {
-        border-right: solid 1px #c9d0d4;
-        a
-        {
-          color: #004b6e;
-        }
-      }
-    }
-  }
-}
 
-.image-masthead
-{
-  .navbar ul.nav.navbar-nav > li
-  {
-    text-transform: none;
-  }
-  .navbar ul.nav.navbar-nav > li a
-  {
-    letter-spacing: normal;
-  }
-  .background-container-gradient
-  {
-    background-size: 100px 19px;
-    background-position: top 32px right 15px;
+  .layout-container {
+    max-width: 1200px;
     margin: 0 auto;
+    display: flex;
+    align-items: center;
+  }
+
+  .title-header {
+    width:50%;
+    color: #000;
+    font-size: 21.6px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .title-header:hover {
+    color: #666;
+    text-decoration: none;
+  }
+
+  .title-logo {
+    width: 50%;
+    height: 46px;
+    overflow: hidden;
+  }
+
+  .title-logo > img{
+    float: right;
+    width: 225px;
+    height: 46px;
   }
 }
 
 //---
-// Breadcrumbs
+// Campus-like Breadcrumbs
 //---
 
-.breadcrumbs-container
-{
-  .breadcrumb
-  {
-    padding: 0;
+.breadcrumbs-container {
+
+  margin-bottom: 21.6px;
+
+  .breadcrumb {
+
     background-color: transparent;
-    font-size: 90%;
+    color: #666;
+    display: inline;
+    font-size: 80%;
+    padding: 0;
+
+    > .active {
+      color: #777;
+    }
+
+    a {
+      color: #016691;
+    }
+
+    a:focus, a:hover {
+      color: #23527c;
+    }
   }
 }
 
 //---
-// Main
+// Campus-like Left-hand Navigation Menu
+//    - Note: "Feature pages" & "About pages" render this menu differently
+//    - Note: "Dashboard" pages draw menu like "About pages"
 //---
 
-#main-container
-{
-  #sidebar
-  {
-    .nav-heading
-    {
-      border: 1px solid #c8cfd3;
+#main-container {
+
+  #sidebar {
+
+    .nav-heading {
+      border: 1px solid $color-sidebar-accent;
       border-bottom: none;
-      background-color: #f2f5f7;
-      color: #738AA3;
+      background-color: $color-sidebar;
+      color: $color-sidebar-dark;
       font-size: 140%;
       text-shadow: 0 1px 1px #FFF;
       font-weight: normal;
     }
-    > ol
-    {
-      > li > h4
-      {
-        margin: 0;
-      }
-      .active
-      {
-        padding: 1em;
-      }
-    }
-    > ul, > ol
-    {
-      border: 1px solid #c8cfd3;
+
+    // "Feature pages"
+    > ol {
+      border: 1px solid $color-sidebar-accent;
       border-bottom: none;
-      background-color: #f2f5f7;
-      li
-      {
-        border-bottom: 1px solid #c8cfd3;
+      background-color: $color-sidebar;
+      > li {
+        border-bottom: 1px solid $color-sidebar-accent;
         margin-top: 0;
-        a
-        {
-          color: #016691;
+        > h4 {
+          margin: 0 !important;
+          display: block;
+        }
+        a {
+          color: $color-sidebar-dark;
           padding: 1em;
-          &:hover
-          {
-            background-color: #fff;
+          &:hover {
+            background-color: $color-sidebar-hover;
+            color: $color-sidebar-bright;
           }
         }
       }
-      .active
-      {
-        background: #fff;
-        a, h4
-        {
-          color: #d56a03;
+      .active {
+        background: $color-sidebar-bright !important;
+        color: $color-sidebar-active-parent !important;
+        font-weight: 700 !important;
+        h4 {
+          color: $color-sidebar-active-parent !important;
+          font-weight: 700 !important;
+          padding: 1em;
+          cursor: pointer;
+        }
+        .subsection li {
+          background-color: $color-sidebar;
           font-weight: normal;
+          padding: 0;
+          h4 {
+            padding: 0;
+          }
+        }
+      }
+      .subsection {
+        li {
+          list-style-type: none;
+          border-top: 1px solid $color-sidebar-accent;
+          border-bottom: none;
+          font-size: 13.6px;
+          margin: 0 !important;
+          border-left: 21.6px solid transparent;
+        }
+        .active {
+          color: $color-sidebar-active-parent !important;
+          font-weight: 700;
+          padding: 1em;
         }
       }
     }
-    .contacts-header
-    {
-      margin: 0 20px 0 20px;
-      font-size: 180%;
+
+    // "About pages"
+    > ul {
+      border: 1px solid $color-sidebar-accent;
+      border-bottom: none;
+      background-color: $color-sidebar;
+      li {
+        border-bottom: 1px solid $color-sidebar-accent;
+        margin-top: 0;
+        a {
+          color: $color-sidebar-dark;
+          padding: 1em;
+          &:hover {
+            background-color: $color-sidebar-hover;
+            color: $color-sidebar-bright;
+          }
+        }
+      }
+      .active {
+        background: $color-sidebar-bright !important;
+        a, h4 {
+          background: $color-sidebar-bright !important;
+          color: $color-sidebar-active-parent !important;
+          font-weight: 700;
+        }
+      }
+    }
+
+    .contacts-header {
+      margin: 0;
+      color: $color-sidebar-dark;
+      font-size: 140%;
       font-weight: normal;
     }
-    .contacts
-    {
-      margin: 0 20px 20px 20px;
+
+    .contacts {
+      margin: 0 0 21.6px 0;
       border: none;
       background-color: transparent;
-      li
-      {
+      li {
         border: none;
         background-color: transparent;
-        a
-        {
+        div {
+          font-size: 90%;
+          line-height: 1.4;
+        }
+        a {
           padding: 0;
-          &:hover
-          {
+          color: $color-sidebar-active-parent;
+          &:hover {
+            color: $color-sidebar-active-parent;
+            text-decoration: underline;
             background-color: transparent;
           }
         }
       }
     }
   }
-  div > .page-title
-  {
+
+  div > .page-title {
     margin-top: 0;
   }
+}
 
-  // https://gitlab.com/surfliner/surfliner/issues/226
+//---
+// Masthead
+//---
+
+.masthead {
+  background-color: #006a96;
+  .site-title-container {
+    max-height: none; // Title fix
+    .site-title {
+      color: #fff;
+      text-transform: uppercase;
+      font-size: 30px;
+      font-weight: 700;
+      white-space: normal; // Title fix
+      width: 100%;
+      small {
+        color: rgba(255, 255, 255, 0.75);
+        font-size: 14px;
+        line-height: 1.2;
+      }
+    }
+  }
+}
+
+.image-masthead {
+  .btn-primary {
+    background-color: #444;
+    border-color: #666;
+    border-radius: 0;
+  }
+}
+
+//---
+// Campus-like Footer
+//---
+
+.footer {
+
+  background-color: #006a96;
+  padding: 21.6px;
+  color: #fff;
+  font-size: .9em;
+  margin-top: 43.2px;
+
+  .footer-links {
+    list-style: none;
+    margin: .5em 0 0;
+    padding: 0;
+  }
+
+  .footer-links > li {
+    display: inline;
+    margin-left: 0;
+    margin-right: .5em;
+    padding-right: .75em;
+    border-right: 1px solid #fff;
+  }
+
+  .footer-links > li:last-child {
+    border-right: none;
+  }
+
+  .footer-links > li a {
+    color: #fff;
+    text-decoration: underline;
+  }
+
+  .footer-logo {
+    width: 158px;
+    height: 30px;
+    float: right;
+  }
+
+  .img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+//---
+// Other Tweaks (Non-campus theme related)
+//---
+
+// Nav Bar Search Form (Adds white space below form)
+#new_contact_form {
+  padding-bottom: 15px;
+}
+
+// https://gitlab.com/surfliner/surfliner/issues/226
+#main-container {
   div.st-blocks:last-child {
     padding-bottom: 200px;
   }
 }
 
-/* ***********************************************
- * FOOTER
- * **************/
-footer {
-  background-color: #006A96; 
-  margin-top: 50px;}
-
-.footer-links {
-  list-style: none;
-  margin: .5em 0 0;
-  padding: 0; }
-
-.footer-links > li {
-  display: inline;
-  margin-left: 0;
-  margin-right: .5em;
-  padding-right: .75em; }
-
-.footer-links > li a {
-  color: #fff;
-  text-decoration: underline; }
-
-.footer-links > li:first-child {
-  border-right: 1px solid #fff; }
-
-.footer .row {
-  padding: 1.5em 0;
-  color: #fff;
-  font-size: .9em; }
-
-.footer-logo {
-  width: 158px;
-  height: 30px;
-  float: right; }
-
-@media only screen and (max-width: 768px) {
-  .footer-logo {
-    float: none;
-    margin-top: 15px; } }
-
-/* --------------------------------------------------------------------
- * _images
- */
-img.left {
-  float: left;
-  padding: 0 1em 1em 0;
-  width: auto; }
-
-img.right {
-  float: right;
-  padding: 0 0 1em 1em;
-  width: auto; }
-
-@media only screen and (max-width: 360px) {
-  img.left,
-  img.right {
-    float: none;
-    padding: 1em 0; } }
-
-
 //---
-// Media queries (BS is mobile first)
+// Media Queries
+//    - Remember: Bootstrap is "Mobile first"
 //---
 
-
-// Medium devices (tablets, 768px and up)
+// Medium devices (Tablets, 768px and up)
 @media (min-width: 768px)
 {
-  // Display UCSD header logo on right-hand side
-  .masthead .site-title-container
-  {
-    background-size: 229px 45px;
-  }
-  // Display UCSD footer logo on right-hand side
-  footer .meta-adrl
-  {
-    width: 720px;
-    margin: auto;
-    min-height: 33px;
-    background-size: 167px 33px;
-  }
-  
-  // App bar tweaks (Tablet and desktop views)
-  #header-navbar
-  {
-    // Library Logo
+  // App Bar [Tablet/Desktop Views]
+  #app-bar {
+
     min-height: 30px;
     max-height: 30px;
-    .navbar-brand
-    {
-      background-position: center left;
-      width: 90px;
-      height: 30px;
-      margin: 0;
-    }
-    .navbar-nav > li > a
-    {
+
+    .navbar-nav > li > a {
       padding-top: 5px;
       padding-bottom: 5px;
     }
+
     // Buttons
-    .nav > li > a
-    {
-      font-size: 75%;
+    .nav > li > a {
+      font-size: 85%;
       padding: 5px 10px;
     }
-    .nav > li> a[data-behavior="contact-link"]
-    {
+
+    .nav > li> a[data-behavior="contact-link"] {
       margin-right: 5px;
     }
   }
-  .image-masthead
-  {
-    .background-container-gradient
-    {
-      background-size: 229px 45px;
-      background-position: top 19px right 15px;
-      width: 750px;
+
+  // Masthead [Tablet/Desktop Views]
+  .masthead {
+    .site-title-container {
+      .site-title {
+        font-size: 36px;
+        small {
+          font-size: 20px;
+        }
+      }
     }
   }
 }
 
-// Large devices (desktops, 992px and up)
-@media (min-width: 992px)
-{
-  footer .meta-adrl
-  {
-    width: 970px;
-    margin: auto;
-    padding: 0 15px;
-    background-position: center right 15px;
-  }
-  .image-masthead
-  {
-    .background-container-gradient
-    {
-      width: 970px;
+// Large devices (Desktops, 992px and up)
+@media (min-width: 992px) {
+
+  // Masthead [Tablet/Desktop Views]
+  .masthead {
+    .site-title-container {
+      .site-title {
+        margin: 64px 0;
+      }
     }
   }
+
 }
 
-// Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px)
-{
-  footer .meta-adrl
-  {
-    width: 1140px;
-    margin: auto;
-    padding: 0;
-    background-position: center right;
-  }
-  .image-masthead
-  {
-    .background-container-gradient
-    {
-      width: 1170px;
+// Extra large devices (Large desktops, 1200px and up)
+@media (min-width: 1200px) {
+}
+
+// Mobile View
+@media (max-width: 767px) {
+
+  // App Bar [Mobile view]
+  #app-bar {
+
+    border-color: $color-appbar-bright;
+
+    .navbar-nav .open .dropdown-menu .divider {
+      background-color: $color-appbar-accent;
+    }
+
+    .navbar-collapse, #facet-panel-collapse, .navbar-form {
+      border-color: $color-appbar-dark;
+    }
+
+    .navbar-collapse, #facet-panel-collapse {
+      box-shadow: inset 0 1px 0 $color-appbar-accent;
+    }
+
+    .navbar-right > ul {
+      margin: 0 -15px;
+    }
+
+    .navbar-nav .open .dropdown-menu > li > a {
+      color: $color-appbar-text;
+    }
+
+    .navbar-nav .open .dropdown-menu > li > a:hover {
+      color: $color-appbar-bright;
+    }
+
+    .navbar-toggle, .facets-toggle {
+      border-color: $color-appbar-accent;
+    }
+
+    .navbar-toggle:focus, .facets-toggle:focus, .navbar-toggle:hover, .facets-toggle:hover {
+      border-color: $color-appbar-accent;
+      background-color: $color-appbar-dark;
     }
   }
-}
 
-// Mobile-view
-@media (max-width: 767px)
-{
-  // Fixes oddball horizontal scroll overflow issue (Mobile view)
-  .navbar-form
-  {
+  // Nav Bar Search Form (Fixes oddball horizontal scroll overflow issue) [Mobile view]
+  .navbar-form {
     padding: 0;
     margin: 0 15px;
   }
-  // App bar tweaks (Mobile-only)
-  #header-navbar
-  {
-    border-color: #0A1932;
-    .navbar-nav .open .dropdown-menu .divider
-    {
-      background-color: #0A1932;
+
+  // Campus-like Header [Mobile View]
+  .layout-header {
+
+    .layout-title {
+      height: 61px;
+      padding: 15px 0;
     }
-    .navbar-collapse, #facet-panel-collapse, .navbar-form
-    {
-      border-color: #0A1932;
+
+    .title-header {
+      font-size: 18px;
+      letter-spacing: normal;
     }
-    .navbar-collapse, #facet-panel-collapse
-    {
-      box-shadow: inset 0 1px 0 #405575;
+
+    .title-logo {
+      height: 31px;
     }
-    .navbar-right > ul
-    {
-      margin: 0 -15px;
+
+    .title-logo > img{
+      width: 150px;
+      height: 31px;
     }
-    .navbar-nav .open .dropdown-menu > li > a
-    {
-      color: rgba(255,255,255,0.666);
-    }
-    .navbar-nav .open .dropdown-menu > li > a:hover
-    {
-      color: #fff;
-    }
-    .navbar-toggle, .facets-toggle
-    {
-      border-color: #293D5C;
-    }
-    .navbar-toggle:focus, .facets-toggle:focus, .navbar-toggle:hover, .facets-toggle:hover
-    {
-      border-color: #405575;
-      background-color: #0A1932;
+  }
+
+  // Campus-like Footer [Mobile view]
+  .footer {
+
+    padding-right: 0;
+    padding-left: 0;
+
+    .footer-logo {
+      float: none;
+      margin-top: 15px;
     }
   }
 }
-
-@media print {
-  /* removes ucsd logo and other background images (glyphicons) */
-  html, main, footer *,
-  .layout-title * {
-    background-color: transparent !important;
-    background-image: none !important;
-    overflow: visible !important; }
-  /* title and header font color should be black (readable) */
-  .title-header,
-  h1, h2, h3, h4, h5, h6, p {
-    color: #000; }
-  /* hide login/ emergency/ nav/ search/ footer links/ btn-nav styles */
-  #uc-emergency, .layout-login, nav, .search, .footer-links, .btn-nav {
-    display: none; }
-  main {
-    width: 99.99% !important; }
-  main section {
-    left: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 100% !important; }
-  /* reset horizontal ruler */
-  hr {
-    background-color: #ccc !important; }
-  .main-content-nav {
-    background: none; }
-  a[href]:after {
-    content: none !important; } }
