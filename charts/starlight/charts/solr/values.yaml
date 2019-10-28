@@ -103,3 +103,6 @@ exporter:
   service:
     type: "ClusterIP"
     annotations: {}
+
+schema:
+solrconfig:

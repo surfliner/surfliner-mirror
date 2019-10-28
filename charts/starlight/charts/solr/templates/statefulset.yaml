@@ -54,18 +54,23 @@ spec:
             items:
               - key: solr.xml
                 path: solr.xml
+{{- if .Values.solrconfig }}
         - name: solrconfig-xml
           configMap:
             name: {{ include "solr.solrconfig-name" . }}
             items:
               - key: solrconfig.xml
                 path: solrconfig.xml
+{{- end }}
+{{- if .Values.schema }}
+        # Solr will ignore schema.xml unless the solrconfig.xml contains `<schemaFactory class="ClassicIndexSchemaFactory"/>`
         - name: schema-xml
           configMap:
             name: {{ include "solr.schema-name" . }}
             items:
               - key: schema.xml
                 path: schema.xml
+{{- end }}
       initContainers:
         - name: check-zk
           image: busybox:latest
@@ -95,6 +100,7 @@ spec:
               mountPath: "/tmp"
             - name: "{{ include "solr.pvc-name" . }}"
               mountPath: "/tmp-config"
+{{- if .Values.solrconfig }}
         - name: "upload-solr-configs"
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: "{{ .Values.image.pullPolicy }}"
@@ -104,13 +110,16 @@ spec:
             - |
               mkdir /tmp/configdir
               cp /tmp/solrconfig/solrconfig.xml /tmp/configdir
-              cp /tmp/schema/schema.xml /tmp/configdir
+              cp /tmp/schema/schema.xml /tmp/configdir || echo "No schema.xml provided; skipping"
               /opt/solr/server/scripts/cloud-scripts/zkcli.sh -zkhost ${STARLIGHT_ZOOKEEPER_SERVICE_HOST}:${STARLIGHT_ZOOKEEPER_SERVICE_PORT} -cmd upconfig -confname solrconfig -confdir /tmp/configdir
           volumeMounts:
             - name: "solrconfig-xml"
               mountPath: "/tmp/solrconfig"
+{{- if .Values.schema }}
             - name: "schema-xml"
               mountPath: "/tmp/schema"
+{{- end }}
+{{- end }}
 {{- if .Values.tls.enabled }}
         - name: "setup-keystore-and-properties"
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
