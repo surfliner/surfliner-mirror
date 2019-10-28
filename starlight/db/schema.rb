@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_13_085432) do
+ActiveRecord::Schema.define(version: 2019_10_28_165653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,6 +123,16 @@ ActiveRecord::Schema.define(version: 2019_08_13_085432) do
     t.boolean "is_multiple", default: false
   end
 
+  create_table "spotlight_custom_search_fields", force: :cascade do |t|
+    t.string "slug"
+    t.string "field"
+    t.text "configuration"
+    t.bigint "exhibit_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exhibit_id"], name: "index_spotlight_custom_search_fields_on_exhibit_id"
+  end
+
   create_table "spotlight_exhibits", id: :serial, force: :cascade do |t|
     t.string "title", null: false
     t.string "subtitle"
@@ -208,7 +218,7 @@ ActiveRecord::Schema.define(version: 2019_08_13_085432) do
     t.string "slug"
     t.string "scope"
     t.text "content"
-    t.integer "weight", default: 50
+    t.integer "weight", default: 1000
     t.boolean "published"
     t.integer "exhibit_id"
     t.integer "created_by_id"
@@ -221,6 +231,7 @@ ActiveRecord::Schema.define(version: 2019_08_13_085432) do
     t.integer "thumbnail_id"
     t.string "locale", default: "en"
     t.integer "default_locale_page_id"
+    t.string "content_type"
     t.index ["default_locale_page_id"], name: "index_spotlight_pages_on_default_locale_page_id"
     t.index ["exhibit_id"], name: "index_spotlight_pages_on_exhibit_id"
     t.index ["locale"], name: "index_spotlight_pages_on_locale"
