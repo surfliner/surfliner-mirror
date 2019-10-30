@@ -11,7 +11,7 @@ module IIIFHelpers
 
   def self.image_path(id,
                       region: "full",
-                      size:,
+                      size: "max",
                       rotation: "0",
                       quality: "default",
                       format: "jpg")

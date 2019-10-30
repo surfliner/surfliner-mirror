@@ -2,31 +2,6 @@
 
 require "spotlight"
 
-Rails.application.config.after_initialize do
-  # Get the Solr document built properly
-  Spotlight::UploadSolrDocumentBuilder.class_eval do
-    def add_image_dimensions(solr_hash)
-      uri = URI(IIIFHelpers.info_url(resource.upload_id, {}))
-
-      Net::HTTP.start(uri.host,
-                      uri.port,
-                      use_ssl: Rails.env.production?,
-                      verify_mode: OpenSSL::SSL::VERIFY_NONE) do |http|
-        request = Net::HTTP::Get.new uri
-        response = http.request(request)
-        image_info = JSON.parse(response.body) # Net::HTTPResponse object
-        solr_hash[:spotlight_full_image_width_ssm] = image_info["width"]
-        solr_hash[:spotlight_full_image_height_ssm] = image_info["height"]
-      end
-    end
-
-    def add_file_versions(solr_hash)
-      url = IIIFHelpers.image_path(resource.upload_id, size: "!400,400")
-      solr_hash[Spotlight::Engine.config.thumbnail_field] = url
-    end
-  end
-end
-
 module Spotlight
   class FeaturedImageUploader < CarrierWave::Uploader::Base
     # Overrides the default storage directory for S3/Minio uploads
