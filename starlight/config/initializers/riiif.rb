@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
-Riiif::Image.file_resolver = Riiif::HTTPFileResolver.new
-Riiif::Image.file_resolver.id_to_uri = lambda do |id|
-  IIIFHelpers.image_path(id)
+if ENV["IIIF_BASE_URL"].present?
+  Riiif::Image.file_resolver = Riiif::HTTPFileResolver.new
+  Riiif::Image.file_resolver.id_to_uri = lambda do |id|
+    IIIFHelpers.image_path(id)
+  end
+else
+  Riiif::Image.file_resolver = Spotlight::CarrierwaveFileResolver.new
 end
 
 # Riiif::Image.authorization_service = IIIFAuthorizationService
