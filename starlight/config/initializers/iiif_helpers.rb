@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 if ENV["IIIF_BASE_URL"].present?
   module IIIFHelpers
     IIIF_BASE_URL = ENV["IIIF_BASE_URL"]
