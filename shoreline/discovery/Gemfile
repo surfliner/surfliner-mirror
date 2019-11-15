@@ -15,6 +15,7 @@ gem 'geoblacklight',           '~> 2.0'
 gem 'jbuilder',                '~> 2.5'
 gem 'jquery-rails',            '~> 4.3'
 gem 'listen', '>= 3.0.5', '< 3.3', group: 'development'
+gem 'okcomputer',              '~> 1.18'
 gem 'pg',                      '~> 1.1.4'
 gem 'popper_js',               '~> 1.14'
 gem 'pry-rails',               '~> 0.3', group: %w[development test]

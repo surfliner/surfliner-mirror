@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "shoreline.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "shoreline.name" . }}
+    helm.sh/chart: {{ include "shoreline.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: {{ include "shoreline.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
