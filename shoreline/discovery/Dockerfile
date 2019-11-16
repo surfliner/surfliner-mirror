@@ -15,5 +15,7 @@ COPY Gemfile* ./
 RUN bundle install --jobs "$(nproc)"
 COPY . ./
 
+RUN bundle exec rake assets:precompile
+
 CMD ["bundle", "exec", "puma", "-v", "--debug", "-b", "tcp://0.0.0.0:3000"]
 ENTRYPOINT ["bin/docker-entrypoint.sh"]
