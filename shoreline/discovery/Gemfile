@@ -5,13 +5,14 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '~> 2.6'
 
-gem 'blacklight',              '~> 7.0'
+gem 'blacklight',              '~> 7.0.1'
 gem 'bootsnap',                '>= 1.1.0', require: false
 gem 'bootstrap',               '~> 4.0'
 gem 'byebug',                  group: %w[development test], platforms: %i[mri mingw x64_mingw]
 gem 'devise',                  '~> 4.6'
 gem 'devise-guests',           '~> 0.6'
-gem 'geoblacklight',           '~> 2.0'
+gem 'dotenv-rails',            '~> 2.7', group: %w[development test]
+gem 'geoblacklight',           '~> 2.1.2'
 gem 'jbuilder',                '~> 2.5'
 gem 'jquery-rails',            '~> 4.3'
 gem 'listen', '>= 3.0.5', '< 3.3', group: 'development'
