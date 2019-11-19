@@ -2,5 +2,8 @@ dependencies:
 - name: postgresql
   repository: https://kubernetes-charts.storage.googleapis.com/
   version: 6.3.2
-digest: sha256:59cee87d4015eefc8a22c7a0bf6b1913a30ee1ed6b9fd1ef0f620ef3478fc736
-generated: 2019-11-14T16:53:05.964743339-08:00
+- name: geoserver
+  repository: file://../geoserver
+  version: 0.1.0
+digest: sha256:3b9fe80914654e12633b677c5248a1852081b5ead4911a1a506bf3d595b3591e
+generated: 2019-11-19T09:10:54.328957998-08:00
