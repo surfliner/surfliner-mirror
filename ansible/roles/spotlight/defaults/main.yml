@@ -26,5 +26,3 @@ spotlight_rpms:
     - libxslt-devel
     # for pg native extensions
     - postgresql-devel
-    # for Sidekiq
-    - redis
