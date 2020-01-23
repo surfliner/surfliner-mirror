@@ -10,8 +10,7 @@
   * [Team Roles](#team-roles)
   * [Team Meetings](#team-meetings)
     * [Project-wide](#project-wide)
-    * [Lark Product Team](#lark-product-team)
-    * [Starlight Product Team](#starlight-product-team)
+    * [Shoreline Product Team](#shoreline-product-team)
 * [Communication Channels](#communication-channels)
 
 ## About
@@ -24,6 +23,9 @@ The Project Surfliner team is collaboratively developing a number of products wh
 
 ### Lark
 Lark is a shared authority control platform and API. See the [Lark README](https://gitlab.com/surfliner/surfliner/blob/master/lark/README.md) for more information. Lark was named after the Southern Pacific Lark Train that operated overnight between Los Angeles and San Francisco via San Luis Obispo from 1941 - April 1968.
+
+### Shoreline
+Shoreline is a geospatial materials platform based on GeoBlacklight.  See the [Shoreline README](https://gitlab.com/surfliner/surfliner/blob/master/shoreline/discovery/README.md) for more information.  Shoreline was named after the Southern Pacific train that ran between Los Angeles and San Francisco between 1927 and 1931.
 
 ### Starlight
 Starlight is an exhibits platform based on [Spotlight](https://github.com/projectblacklight/spotlight). See the [Starlight README](https://gitlab.com/surfliner/surfliner/blob/master/starlight/README.md) for more information. Starlight was named after Southern Pacific Starlight Train that operated overnight between Los Angeles and San Francisco from October 1949 - July 1957.
@@ -66,8 +68,51 @@ While not involved in daily development work, the project also includes these tw
   * etc...
 
 ### Team Meetings
+The current workcycle runs from Wednesday, February 5 to Tuesday, March 31, 2020.  The meetings below are for this time period only.
+
 #### Project-wide
-Daily stand-ups are at 10:30AM PST here: https://ucsb.zoom.us/j/310736504
+**Project Surfliner Daily Standup**<br/> 
+Daily, 10:30-10:45am (*except last day of each sprint*)<br/>
+[https://ucsd.zoom.us/j/306296343](https://ucsd.zoom.us/j/306296343)<br/> 
+*Purpose*: Daily meeting during the sprint to discuss ongoing work and blockers.<br/>
+*Required*: Project Team<br/>
+
+**Project Surfliner Sprint Retrospective**<br/>
+Last day of each sprint, 10:30am-11:30am<br/>
+[https://ucsb.zoom.us/j/352799530](https://ucsd.zoom.us/j/306296343)<br/>
+*Purpose*: Meeting on the last day of the sprint to discuss how things went and what to change for future sprints.<br/>
+*Required*: Project Team<br/>
+
+#### Shoreline Product Team
+**Shoreline Product Kickoff Meeting**<br/>
+Wednesday, January 29, 2020 3-4:30pm<br/>
+[https://ucsb.zoom.us/j/360316176](https://ucsb.zoom.us/j/360316176)<br/>
+*Purpose*: Overview of upcoming work cycle and review of preparatory work done in 2019.<br/>
+*Required*: Shoreline Product Owner, Tech Lead & Developers<br/>
+*Optional*: Shoreline Domain Experts & Stakeholders<br/>
+
+**Shoreline Backlog Refinement**<br/>
+Initial meeting Monday January 27, 2020 1:30-3pm<br/>
+Regular meetings every other Wednesday, 1-2pm (*starting February 12, 2020*)<br/>
+[https://ucsb.zoom.us/j/190685321](https://ucsb.zoom.us/j/190685321)<br/>
+*Purpose*: Meeting, as needed, prior to Sprint Planning to groom & prioritize tickets.<br/>
+*Required*: Shoreline Product Owner & Tech Lead<br/>
+*Optional*: Shoreline Developers & Domain Experts<br/>
+
+**Shoreline Sprint Planning**<br/>
+Every other Thursday, 3-4pm (*starting January 30, 2020 with a 1.5 hour meeting*)<br/>
+[https://ucsb.zoom.us/j/179404826](https://ucsb.zoom.us/j/179404826)<br/>
+*Purpose*: Meeting the week before the next sprint to negotiate and select tickets on that sprint.<br/>
+*Required*: Shoreline Product Owner, Tech Lead & Developers<br/>
+*Optional*: Shoreline Domain Experts<br/>
+
+**Shoreline Sprint Review**<br/>
+Every other Tuesday, 1:30-2:30pm (*starting February 18, 2020*)<br/>
+[https://ucsb.zoom.us/j/800899979](https://ucsb.zoom.us/j/800899979)<br/>
+*Purpose*: Informal meeting on the last day of the sprint to show what team has accomplished during the sprint, typically taking the form of a demo. Demos are recorded. The Product Owner & Tech Lead are responsible for demo content & ensuring the demo gets recorded and shared. Demos are public; to be briefly summarized in the following Project Surfliner Public Stand-up.<br/>
+*Required*: Shoreline Product Owner & Tech Lead<br/>
+*Optional*: Shoreline Developers & Domain Experts<br/>
+
 
 # Communication Channels
 - **Blog**: [https://surfliner.ucsd.edu](https://surfliner.ucsd.edu)
