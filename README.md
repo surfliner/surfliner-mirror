@@ -73,7 +73,7 @@ The current workcycle runs from Wednesday, February 5 to Tuesday, March 31, 2020
 #### Project-wide
 **Project Surfliner Daily Standup**<br/> 
 Daily, 10:30-10:45am (*except last day of each sprint*)<br/>
-[https://ucsd.zoom.us/j/306296343](https://ucsd.zoom.us/j/306296343)<br/> 
+[https://ucsb.zoom.us/j/310736504](https://ucsb.zoom.us/j/310736504)<br/> 
 *Purpose*: Daily meeting during the sprint to discuss ongoing work and blockers.<br/>
 *Required*: Project Team<br/>
 
