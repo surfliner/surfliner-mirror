@@ -21,7 +21,12 @@ spec:
     spec:
       volumes:
         - name: "data"
+          {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: geoserver-data
+          {{ else }}
           emptyDir: {}
+          {{ end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"

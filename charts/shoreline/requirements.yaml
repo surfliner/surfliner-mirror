@@ -5,5 +5,5 @@ dependencies:
     repository: https://kubernetes-charts.storage.googleapis.com/
     condition: postgresql.enabled
   - name: geoserver
-    version: 0.1.0
+    version: 0.1.1
     repository: file://../geoserver
