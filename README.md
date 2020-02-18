@@ -80,7 +80,7 @@ Daily, 10:30-10:45am (*except last day of each sprint*)<br/>
 
 **Project Surfliner Sprint Retrospective**<br/>
 Last day of each sprint, 10:30am-11:30am<br/>
-[https://ucsb.zoom.us/j/352799530](https://ucsd.zoom.us/j/306296343)<br/>
+[https://ucsb.zoom.us/j/447601116](https://ucsb.zoom.us/j/447601116)<br/>
 *Purpose*: Meeting on the last day of the sprint to discuss how things went and what to change for future sprints.<br/>
 *Required*: Project Team<br/>
 
