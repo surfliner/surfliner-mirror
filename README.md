@@ -4,6 +4,7 @@
 * [About](#about)
 * [Products](#products)
   * [Lark](#lark)
+  * [Shoreline](#shoreline)
   * [Starlight](#starlight)
 * [Developer Setup](#developer-setup)
 * [Team](#team)
