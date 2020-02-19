@@ -23,7 +23,7 @@ gem 'okcomputer',              '~> 1.18'
 gem 'pg',                      '~> 1.1.4'
 gem 'popper_js',               '~> 1.14'
 gem 'pry-rails',               '~> 0.3', group: %w[development test]
-gem 'puma',                    '~> 3.11'
+gem 'puma', '~> 4.0'
 gem 'rails',                   '~> 5.2.3'
 gem 'rsolr',                   '>= 1.0', '< 3'
 gem 'rspec-its',               group: 'test'
