@@ -9,12 +9,15 @@ gem 'blacklight',              '~> 7.0.1'
 gem 'bootsnap',                '>= 1.1.0', require: false
 gem 'bootstrap',               '~> 4.0'
 gem 'byebug',                  group: %w[development test], platforms: %i[mri mingw x64_mingw]
+gem 'capybara',                group: 'test'
 gem 'devise',                  '~> 4.6'
 gem 'devise-guests',           '~> 0.6'
 gem 'dotenv-rails',            '~> 2.7', group: %w[development test]
+gem 'factory_bot_rails',       group: 'test'
 gem 'geoblacklight',           '~> 2.1.2'
 gem 'jbuilder',                '~> 2.5'
 gem 'jquery-rails',            '~> 4.3'
+gem 'letter_opener_web',       '~> 1.0', group: 'development'
 gem 'listen', '>= 3.0.5', '< 3.3', group: 'development'
 gem 'okcomputer',              '~> 1.18'
 gem 'pg',                      '~> 1.1.4'
@@ -23,6 +26,7 @@ gem 'pry-rails',               '~> 0.3', group: %w[development test]
 gem 'puma',                    '~> 3.11'
 gem 'rails',                   '~> 5.2.3'
 gem 'rsolr',                   '>= 1.0', '< 3'
+gem 'rspec-its',               group: 'test'
 gem 'rspec-rails',             '~> 3.8', group: 'test'
 gem 'rubocop',                 group: %w[development test]
 gem 'rubocop-rails',           group: %w[development test]

@@ -46,3 +46,7 @@ rspec.xml
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# MacOS metadata file
+.DS_Store
+/*/*/.DS_Store

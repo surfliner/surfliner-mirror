@@ -47,4 +47,10 @@ Rails.application.routes.draw do
     concerns :gbl_downloadable
   end
   resources :download, only: [:show]
+
+  # Contact form routes
+  post 'contact' => 'contact_form#create', as: :contact_form_index
+  get 'contact' => 'contact_form#new'
+
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end

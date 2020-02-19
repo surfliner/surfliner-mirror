@@ -17,14 +17,22 @@ RSpec/DescribeClass:
 RSpec/ExampleLength:
   Exclude:
     - 'spec/api/**/*'
+    - 'spec/features/**/*'
     - 'spec/integration/**/*'
     - 'spec/system/**/*'
+
+# specs for complex browser features (e.g. capybara tests) should tolerate
+# multiple expectations
+RSpec/MultipleExpectations:
+  Exclude:
+    - 'spec/features/**/*'
 
 # specs in designated integration test directories don't need to use the normal
 # path conventions
 RSpec/FilePath:
   Exclude:
     - 'spec/api/**/*'
+    - 'spec/features/**/*'
     - 'spec/integration/**/*'
     - 'spec/system/**/*'
 
