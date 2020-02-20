@@ -5,9 +5,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '~> 2.6'
 
-gem 'blacklight',              '~> 7.0.1'
+gem 'blacklight',              '~> 7.6.0'
 gem 'bootsnap',                '>= 1.1.0', require: false
-gem 'bootstrap',               '~> 4.0'
+gem 'bootstrap',               '~> 4.3'
 gem 'byebug',                  group: %w[development test], platforms: %i[mri mingw x64_mingw]
 gem 'capybara',                group: 'test'
 gem 'devise',                  '~> 4.6'
@@ -23,7 +23,7 @@ gem 'okcomputer',              '~> 1.18'
 gem 'pg',                      '~> 1.1.4'
 gem 'popper_js',               '~> 1.14'
 gem 'pry-rails',               '~> 0.3', group: %w[development test]
-gem 'puma', '~> 4.0'
+gem 'puma',                    '~> 4.0'
 gem 'rails',                   '~> 5.2.3'
 gem 'rsolr',                   '>= 1.0', '< 3'
 gem 'rspec-its',               group: 'test'
@@ -31,7 +31,7 @@ gem 'rspec-rails',             '~> 3.8', group: 'test'
 gem 'rubocop',                 group: %w[development test]
 gem 'rubocop-rails',           group: %w[development test]
 gem 'rubocop-rspec',           group: %w[development test]
-gem 'sass-rails', '~> 6.0'
+gem 'sass-rails',              '~> 6.0'
 gem 'spring',                  group: 'development'
 gem 'spring-watcher-listen',   '~> 2.0.0', group: 'development'
 gem 'turbolinks',              '~> 5.2'
@@ -39,7 +39,6 @@ gem 'twitter-typeahead-rails', '0.11.1'
 gem 'tzinfo-data',             '~> 1.2019.0'
 gem 'uglifier',                '>= 1.3.0'
 gem 'web-console',             '>= 3.3.0', group: 'development'
-gem 'webpacker',               '~> 4.0'
 
 group :development, :test do
   gem 'solr_wrapper'
