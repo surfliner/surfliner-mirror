@@ -29,8 +29,8 @@ spec:
             - |
               COUNTER=0;
               while [ $COUNTER -lt 120 ]; do
-                if nc shoreline-solr-svc 8983; then
-                  curl -H 'Content-type: application/json' -d '{create: {name: collection1, config: solrconfig, numShards: 1}}' shoreline-solr-svc:8983/api/collections/
+                if nc {{ .Release.Name }}-solr-svc 8983; then
+                  curl -H 'Content-type: application/json' -d '{create: {name: collection1, config: solrconfig, numShards: 1}}' {{ .Release.Name }}-solr-svc:8983/api/collections/
                   exit 0;
                 fi
                 COUNTER=$(( COUNTER+1 ));
