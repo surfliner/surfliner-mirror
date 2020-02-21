@@ -105,7 +105,7 @@ spec:
               mkdir /tmp/configdir
               cp /tmp/solrconfig/solrconfig.xml /tmp/configdir
               cp /tmp/schema/schema.xml /tmp/configdir
-              /opt/solr/server/scripts/cloud-scripts/zkcli.sh -zkhost ${SHORELINE_ZOOKEEPER_SERVICE_HOST}:${SHORELINE_ZOOKEEPER_SERVICE_PORT} -cmd upconfig -confname solrconfig -confdir /tmp/configdir
+              /opt/solr/server/scripts/cloud-scripts/zkcli.sh -zkhost ${ {{- .Release.Name | upper }}_ZOOKEEPER_SERVICE_HOST}:${ {{- .Release.Name | upper }}_ZOOKEEPER_SERVICE_PORT} -cmd upconfig -confname solrconfig -confdir /tmp/configdir
           volumeMounts:
             - name: "solrconfig-xml"
               mountPath: "/tmp/solrconfig"
