@@ -2,7 +2,7 @@
 
 ## Environment Variables
 
-Starlight aims at following the [12 factor application][12-factor] pattern as
+Shoreline aims at following the [12 factor application][12-factor] pattern as
 much as possible. To that end, there are a set of environment variables that one
 should populate when deploying to a staging/production server. Development and
 test instances have sane defaults that you should not need to adjust unless you
