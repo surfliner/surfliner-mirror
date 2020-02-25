@@ -1,0 +1,15 @@
+shoreline-discovery-tag-stable:
+  image: $CI_REGISTRY_IMAGE/buildah
+  stage: staging
+  script:
+    - buildah login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+    - buildah pull --storage-driver vfs docker://$CI_REGISTRY_IMAGE/shoreline_discovery_app:$CI_COMMIT_SHA
+    - buildah tag --storage-driver vfs $CI_REGISTRY_IMAGE/shoreline_discovery_app:$CI_COMMIT_SHA $CI_REGISTRY_IMAGE/shoreline_discovery_app:stable
+    - buildah push --storage-driver vfs docker://$CI_REGISTRY_IMAGE/shoreline_discovery_app:stable
+  only:
+    refs:
+      - master
+    changes:
+      - ci/shoreline/**/*
+      - shoreline/discovery/Dockerfile
+      - shoreline/discovery/**/*

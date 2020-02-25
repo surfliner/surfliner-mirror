@@ -17,6 +17,7 @@ include:
   - local: ci/lark/staging.yml
   - local: ci/shoreline/build.yml
   - local: ci/shoreline/lint.yml
+  - local: ci/shoreline/staging.yml
   - local: ci/starlight/build.yml
   - local: ci/starlight/lint.yml
   - local: ci/starlight/test.yml
