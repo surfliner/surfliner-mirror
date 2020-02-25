@@ -67,6 +67,8 @@ spec:
               value: "true"
             - name: "SECRET_KEY_BASE"
               value: {{ randAlphaNum 20 | b64enc }}
+            - name: "SHORELINE_THEME"
+              value: {{ .Values.theme }}
             - name: "SOLR_HOST"
               value: {{ template "shoreline.solr.fullname" . }}-svc
             - name: "SOLR_PORT"

@@ -29,3 +29,9 @@ questions:
   label: Image Tag
   type: string
   group: "Images"
+- variable: theme
+  default: ""
+  description: "Site theme to deploy; e.g., `ucsb`"
+  group: Theme
+  label: Theme
+  type: string
