@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: oscarfonts/geoserver
-  tag: 2.16.0
+  tag: 2.16.2
   pullPolicy: IfNotPresent
 
 nameOverride: ""
