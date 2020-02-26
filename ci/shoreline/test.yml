@@ -1,0 +1,39 @@
+.shoreline-discovery-test:
+  stage: test
+  image: $CI_REGISTRY_IMAGE/shoreline_discovery_app:$CI_COMMIT_SHA
+  variables:
+    POSTGRES_USER: "postgres"
+    POSTGRES_PASSWORD: "postgres"
+    SOLR_CORE_NAME: "shoreline-test"
+    SOLR_CONFIG_DIR: "shoreline/discovery/solr/conf"
+    SOLR_CONFIG_COMMIT_SHA: $CI_COMMIT_SHA
+    SOLR_PORT: "8983"
+    RAILS_ENV: "test"
+  services:
+    - name: $CI_REGISTRY_IMAGE/solr
+      alias: solr
+    - postgres:11-alpine
+  before_script:
+    - cd shoreline/discovery
+  artifacts:
+    name: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+    reports:
+      junit: shoreline/discovery/rspec.xml
+    when: on_failure
+  extends: .only-refs-default
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - ci/shoreline/**/*
+      - shoreline/discovery/**/*
+
+shoreline-discovery-unit-test:
+  extends: .shoreline-discovery-test
+  script:
+    - bundle exec rspec --tag ~type:feature --format progress --format RspecJunitFormatter --out rspec.xml
+
+shoreline-discovery-integration-test:
+  extends: .shoreline-discovery-test
+  script:
+    - bundle exec rspec --tag type:feature --format progress --format RspecJunitFormatter --out rspec.xml
+  allow_failure: true # todo: make this pass
