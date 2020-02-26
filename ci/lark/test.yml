@@ -14,7 +14,8 @@ lark-unit-tests:
   services:
     - name: $CI_REGISTRY_IMAGE/solr
       alias: solr
-    - postgres:latest
+    - name: postgres:latest
+      alias: postgres
   script:
     - cd lark
     - bundle check || bundle
