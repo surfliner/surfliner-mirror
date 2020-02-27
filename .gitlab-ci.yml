@@ -7,9 +7,11 @@ stages:
   - review
   - staging
   - cleanup
+  - failure_notification
 
 include:
   - local: ci/base/maintanence.yml
+  - local: ci/base/failure_notification.yml
   - local: ci/lark/build.yml
   - local: ci/lark/lint.yml
   - local: ci/lark/test.yml
