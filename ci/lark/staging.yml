@@ -9,6 +9,7 @@ lark-staging-ucsb:
     - mv ../charts/lark/latest ./chart
     - auto-deploy build_chart_dependencies
     - auto-deploy deploy
+  allow_failure: true
   environment:
     name: ucsb.staging.lark
     url: http://lark-staging.$KUBE_INGRESS_BASE_DOMAIN
