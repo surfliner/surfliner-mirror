@@ -18,4 +18,9 @@ Puppet, or whatever works best in your local environment and practices.
 | ---- | ----------- | -------- |
 | `SHORELINE_THEME` | Custom theme (CSS, header, footer) to be activated (e.g., `ucsb`) | No |
 
+### Ingest Variables
+
+| `SHORELINE_PROVENANCE` | Specify the source of the object being ingested, e.g. “UC Santa Barbara” | Yes |
+| `SHORELINE_ACCESS`     | Specify the access level for the object being ingested: “Public” or “Restricted”; defaults to “Public” | No |
+
 [12-factor]: https://12factor.net/
