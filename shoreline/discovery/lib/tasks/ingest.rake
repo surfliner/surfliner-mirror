@@ -15,7 +15,7 @@ namespace :shoreline do
     Geoserver::Publish.shapefile(
       connection: new_conn,
       workspace_name: 'public',
-      file_path: "file://#{ENV['GEOSERVER_DATA_DIR']}/#{file_name}",
+      file_path: "file:///var/local/geoserver/#{file_name}",
       id: file_id,
       title: file_id.gsub('_', ' ')
     )
