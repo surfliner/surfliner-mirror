@@ -3,33 +3,30 @@
 ##
 # @see bin/ingest and doc/deploy.md
 module Importer
+  # rubocop:disable Layout/LineLength
   XPATHS = {
-    # rubocop:disable Layout/LineLength
     dc_description_s: '//xmlns:identificationInfo//xmlns:abstract/gco:CharacterString',
     dc_format_s: '//xmlns:MD_Format/xmlns:name/gco:CharacterString',
     dc_title_s: '//xmlns:title/gco:CharacterString'
-    # rubocop:enable Layout/LineLength
   }.freeze
 
   XPATHS_MULTIVALUE = {
-    # rubocop:disable Layout/LineLength
     dc_creator_sm: "//xmlns:identificationInfo//xmlns:role[xmlns:CI_RoleCode[@codeListValue='originator']]/preceding-sibling::xmlns:organisationName/gco:CharacterString",
     dc_publisher_sm: "//xmlns:identificationInfo//xmlns:role[xmlns:CI_RoleCode[@codeListValue='publisher']]/preceding-sibling::xmlns:organisationName/gco:CharacterString",
     dc_subject_sm: "//xmlns:MD_Keywords[xmlns:type/xmlns:MD_KeywordTypeCode[@codeListValue='theme']]/xmlns:keyword/gco:CharacterString",
     dct_isPartOf_sm: '//xmlns:identificationInfo//xmlns:collectiveTitle/gco:CharacterString',
     dct_spatial_sm: "//xmlns:MD_Keywords[xmlns:type/xmlns:MD_KeywordTypeCode[@codeListValue='place']]/xmlns:keyword/gco:CharacterString"
-    # rubocop:enable Layout/LineLength
   }.freeze
-
-  ID = SecureRandom.uuid.to_s
 
   EXTRA_FIELDS = {
-    dc_identifier_s: ID,
     dc_rights_s: ENV.fetch('SHORELINE_ACCESS', 'Public'),
     dct_provenance_s: ENV.fetch('SHORELINE_PROVENANCE', ''),
-    geoblacklight_version: '1.0',
-    layer_slug_s: ID
+    dct_references_s: {
+      "http://www.opengis.net/def/serviceType/ogc/wms" => "http://#{ENV['GEOSERVER_HOST']}:#{ENV['GEOSERVER_PORT']}/wms"
+    },
+    geoblacklight_version: '1.0'
   }.freeze
+  # rubocop:enable Layout/LineLength
 
   BOUNDS = {
     east: '//xmlns:eastBoundLongitude/gco:Decimal',
@@ -61,9 +58,8 @@ module Importer
 
   def self.run(options)
     logger = make_logger(output: options[:logfile], level: options[:verbosity])
-    metadata = JSON.parse(
-      extract(zipfile: options[:file], logger: logger).to_json
-    )
+    metadata = JSON.parse(extract(file: options[:file],
+                                  logger: logger).to_json)
 
     logger.info metadata
 
@@ -74,19 +70,19 @@ module Importer
 
   def self.extract(options)
     Dir.mktmpdir do |dir|
-      options[:logger].info "Unzipping #{options[:zipfile]} to #{dir}"
+      options[:logger].info "Unzipping #{options[:file]} to #{dir}"
 
       # -j: flatten directory structure in `dest'
       # -o: overwrite existing files in `dest'
-      system 'unzip', '-qq', '-j', '-o', options[:zipfile], '-d', dir
+      system 'unzip', '-qq', '-j', '-o', options[:file], '-d', dir
 
       iso = Dir.glob('*iso19139.xml', base: dir)[0]
       xml = Nokogiri::XML(File.open("#{dir}/#{iso}"))
 
-      makeattrs(xml: xml, logger: options[:logger])
+      makeattrs({ xml: xml }.merge(options))
     end
   rescue ArgumentError => e
-    options[:logger].error "No ISO metadata found in #{options[:zipfile]}"
+    options[:logger].error "No ISO metadata found in #{options[:file]}"
     raise e
   end
 
@@ -102,7 +98,12 @@ module Importer
       attributes[k] = options[:xml].xpath(v).map(&:children).flatten.map(&:to_s).map { |s| CGI.unescapeHTML(s) }
     end
 
-    attributes[:solr_year_i] = options[:xml].xpath('substring(//xmlns:MD_DataIdentification/xmlns:citation//gco:Date, 1, 4)')
+    # byebug
+    id = File.basename(options[:file], File.extname(options[:file]))
+    attributes[:dc_identifier_s] = "public:#{id}"
+    attributes[:layer_slug_s] = "public:#{id}"
+
+    attributes[:solr_year_i] = options[:xml].xpath('substring(//MD_DataIdentification/xmlns:citation//gco:Date, 1, 4)')
     # rubocop:enable Layout/LineLength
 
     coords = %i[west east north south].map do |dir|
