@@ -4,21 +4,20 @@
 namespace :shoreline do
   desc 'publish a Shapefile in geoserver'
   task :publish, [:file_path] => :environment do |_t, args|
-    new_conn = Geoserver::Publish::Connection.new(
+    conn = Geoserver::Publish::Connection.new(
       'url' => "http://#{ENV['GEOSERVER_HOST']}:#{ENV['GEOSERVER_PORT']}/geoserver/rest",
       'user' => ENV['GEOSERVER_USER'],
       'password' => ENV['GEOSERVER_PASSWORD']
     )
-    file_name = File.basename(args[:file_path])
-    file_id = File.basename(args[:file_path], File.extname(args[:file_path]))
 
-    Geoserver::Publish.shapefile(
-      connection: new_conn,
-      workspace_name: 'public',
-      file_path: "file:///var/local/geoserver/#{file_name}",
-      id: file_id,
-      title: file_id.gsub('_', ' ')
-    )
+    file = File.read(args[:file_path])
+    file_id = File.basename(args[:file_path], File.extname(args[:file_path]))
+    workspace = 'public3'
+    Geoserver::Publish.create_workspace(workspace_name: workspace, connection: conn)
+    Geoserver::Publish::DataStore.new(conn).upload(workspace_name: workspace, data_store_name: file_id, file: file)
+
+  rescue StandardError => e
+    puts e.message
   end
 end
 # rubocop:enable Layout/LineLength
