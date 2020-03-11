@@ -1,4 +1,4 @@
-shoreline-discovery-ruby-build:
+shoreline:discovery:ruby-build:
   extends:
     - .kaniko-build
     - .only-refs-default

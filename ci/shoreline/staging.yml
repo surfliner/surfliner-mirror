@@ -8,7 +8,7 @@
       - shoreline/discovery/Dockerfile
       - shoreline/discovery/**/*
 
-shoreline-discovery-deploy-ucsb-stage:
+shoreline:discovery:deploy:ucsb-stage:
   extends:
     - .auto-deploy
     - .shoreline:deploy:stage
@@ -32,7 +32,7 @@ shoreline-discovery-deploy-ucsb-stage:
     HELM_UPGRADE_EXTRA_ARGS: '--timeout 1000 --set theme="ucsb"'
     ROLLOUT_RESOURCE_TYPE: deployment
 
-stop_shoreline:stage:ucsb:
+shoreline:discovery:cleanup:ucsb-stage:
   extends:
     - .auto-deploy
     - .shoreline:deploy:stage

@@ -1,4 +1,4 @@
-shoreline-shellcheck:
+shoreline:shellcheck:
   stage: lint
   image: koalaman/shellcheck-alpine:stable
   script:
@@ -11,7 +11,7 @@ shoreline-shellcheck:
       - .styles/**/*
       - shoreline/**/*
 
-shoreline-discovery-lint:
+shoreline:discovery:lint:
   stage: lint
   image: ruby:2.6-alpine
   script:

@@ -1,4 +1,4 @@
-.shoreline-discovery-test:
+.shoreline:discovery:test:
   stage: test
   image: $CI_REGISTRY_IMAGE/shoreline_discovery_app:$CI_COMMIT_SHA
   variables:
@@ -27,13 +27,13 @@
       - ci/shoreline/**/*
       - shoreline/discovery/**/*
 
-shoreline-discovery-unit-test:
-  extends: .shoreline-discovery-test
+shoreline:discovery:test:unit:
+  extends: .shoreline:discovery:test
   script:
     - bundle exec rspec --tag ~type:feature --format progress --format RspecJunitFormatter --out rspec.xml
 
-shoreline-discovery-feature-test:
-  extends: .shoreline-discovery-test
+shoreline:discovery:test:feature:
+  extends: .shoreline:discovery:test
   script:
     - bundle exec rspec --tag type:feature --format progress --format RspecJunitFormatter --out rspec.xml
   allow_failure: true # todo: make this pass
