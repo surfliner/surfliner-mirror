@@ -33,42 +33,18 @@ module Importer
     west: '//xmlns:westBoundLongitude/gco:Decimal'
   }.freeze
 
-  def self.make_logger(output:, level: 'INFO')
-    logger = Logger.new(output)
-    logger.level = begin
-                     "Logger::#{level.upcase}".constantize
-                   rescue NameError
-                     logger.warn "#{level} isn't a valid log level. "\
-                                 'Defaulting to INFO.'
-                     Logger::INFO
-                   end
-
-    ActiveSupport::Deprecation.behavior = lambda do |message, backtrace|
-      logger.warn message
-      logger.warn backtrace
-    end
-
-    # For deprecation warnings from gems
-    $stderr.reopen(output, 'a') if output.is_a? Pathname
-
-    logger
-  end
-
   def self.run(options)
-    logger = make_logger(output: options[:logfile], level: options[:verbosity])
-    metadata = JSON.parse(extract(file: options[:file],
-                                  logger: logger).to_json)
-
-    logger.info metadata
+    metadata = JSON.parse(extract(file: options[:file]).to_json)
+    puts metadata
 
     Blacklight.default_index.connection.add(metadata)
-    logger.info 'Committing changes to Solr'
+    puts 'Committing changes to Solr'
     Blacklight.default_index.connection.commit
   end
 
   def self.extract(options)
     Dir.mktmpdir do |dir|
-      options[:logger].info "Unzipping #{options[:file]} to #{dir}"
+      puts "Unzipping #{options[:file]} to #{dir}"
 
       # -j: flatten directory structure in `dest'
       # -o: overwrite existing files in `dest'
@@ -80,7 +56,7 @@ module Importer
       makeattrs({ xml: xml }.merge(options))
     end
   rescue ArgumentError => e
-    options[:logger].error "No ISO metadata found in #{options[:file]}"
+    warn "No ISO metadata found in #{options[:file]}"
     raise e
   end
 
@@ -112,7 +88,7 @@ module Importer
 
     attributes.merge(EXTRA_FIELDS).reject { |_k, v| v.blank? }
   rescue NoMethodError => e
-    options[:logger].error "Could not extract #{k} from #{iso}"
+    warn "Could not extract #{k} from #{iso}"
     raise e
   end
 end
