@@ -33,8 +33,8 @@ module Importer
     west: '//xmlns:westBoundLongitude/gco:Decimal'
   }.freeze
 
-  def self.run(options)
-    metadata = JSON.parse(extract(file: options[:file]).to_json)
+  def self.run(file)
+    metadata = JSON.parse(extract(file).to_json)
     puts metadata
 
     Blacklight.default_index.connection.add(metadata)
@@ -42,21 +42,21 @@ module Importer
     Blacklight.default_index.connection.commit
   end
 
-  def self.extract(options)
+  def self.extract(file)
     Dir.mktmpdir do |dir|
-      puts "Unzipping #{options[:file]} to #{dir}"
+      puts "Unzipping #{file} to #{dir}"
 
       # -j: flatten directory structure in `dest'
       # -o: overwrite existing files in `dest'
-      system 'unzip', '-qq', '-j', '-o', options[:file], '-d', dir
+      system 'unzip', '-qq', '-j', '-o', file, '-d', dir
 
       iso = Dir.glob('*iso19139.xml', base: dir)[0]
       xml = Nokogiri::XML(File.open("#{dir}/#{iso}"))
 
-      makeattrs({ xml: xml }.merge(options))
+      makeattrs(file: file, xml: xml)
     end
   rescue ArgumentError => e
-    warn "No ISO metadata found in #{options[:file]}"
+    warn "No ISO metadata found in #{file}"
     raise e
   end
 
