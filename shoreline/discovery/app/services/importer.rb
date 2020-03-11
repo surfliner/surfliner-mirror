@@ -21,9 +21,7 @@ module Importer
   EXTRA_FIELDS = {
     dc_rights_s: ENV.fetch('SHORELINE_ACCESS', 'Public'),
     dct_provenance_s: ENV.fetch('SHORELINE_PROVENANCE', ''),
-    dct_references_s: {
-      "http://www.opengis.net/def/serviceType/ogc/wms" => "http://#{ENV['GEOSERVER_HOST']}:#{ENV['GEOSERVER_PORT']}/wms"
-    },
+    dct_references_s: "{\"http://www.opengis.net/def/serviceType/ogc/wfs\":\"http://#{ENV['GEOSERVER_HOST']}:#{ENV['GEOSERVER_PORT']}/geoserver/wfs\", \"http://www.opengis.net/def/serviceType/ogc/wms\":\"http://#{ENV['GEOSERVER_HOST']}:#{ENV['GEOSERVER_PORT']}/geoserver/wms\"}",
     geoblacklight_version: '1.0'
   }.freeze
   # rubocop:enable Layout/LineLength
@@ -101,7 +99,8 @@ module Importer
     # byebug
     id = File.basename(options[:file], File.extname(options[:file]))
     attributes[:dc_identifier_s] = "public:#{id}"
-    attributes[:layer_slug_s] = "public:#{id}"
+    attributes[:layer_slug_s] = "#{id}"
+    attributes[:layer_id_s] = "public:#{id}"
 
     attributes[:solr_year_i] = options[:xml].xpath('substring(//MD_DataIdentification/xmlns:citation//gco:Date, 1, 4)')
     # rubocop:enable Layout/LineLength
