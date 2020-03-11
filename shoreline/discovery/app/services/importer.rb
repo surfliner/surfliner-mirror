@@ -102,7 +102,7 @@ module Importer
       attributes[k] = options[:xml].xpath(v).map(&:children).flatten.map(&:to_s).map { |s| CGI.unescapeHTML(s) }
     end
 
-    attributes[:solr_year_i] = options[:xml].xpath('substring(//xmlns:identificationInfo//gml:timePosition, 1, 4)')
+    attributes[:solr_year_i] = options[:xml].xpath('substring(//xmlns:MD_DataIdentification/xmlns:citation//gco:Date, 1, 4)')
     # rubocop:enable Layout/LineLength
 
     coords = %i[west east north south].map do |dir|
