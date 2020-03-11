@@ -99,7 +99,7 @@ module Importer
     # byebug
     id = File.basename(options[:file], File.extname(options[:file]))
     attributes[:dc_identifier_s] = "public:#{id}"
-    attributes[:layer_slug_s] = "#{id}"
+    attributes[:layer_slug_s] = id.to_s
     attributes[:layer_id_s] = "public:#{id}"
 
     attributes[:solr_year_i] = options[:xml].xpath('substring(//MD_DataIdentification/xmlns:citation//gco:Date, 1, 4)')

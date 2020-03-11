@@ -8,12 +8,12 @@
 
 # Offense count: 3
 Metrics/AbcSize:
-  Max: 36
+  Max: 42
 
 # Offense count: 2
 # Configuration parameters: CountComments, ExcludedMethods.
 Metrics/MethodLength:
-  Max: 16
+  Max: 20
 
 # Offense count: 1
 # Configuration parameters: ForbiddenDelimiters.

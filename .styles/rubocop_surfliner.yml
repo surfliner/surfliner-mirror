@@ -19,6 +19,10 @@ Style/MixinUsage:
 Layout/EndOfLine:
   Enabled: false
 
+Layout/LineLength:
+  Exclude:
+    - 'Gemfile'
+
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
@@ -30,7 +34,3 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   Exclude:
     - '**/catalog_controller.rb'
-
-Metrics/LineLength:
-  Exclude:
-    - 'Gemfile'
