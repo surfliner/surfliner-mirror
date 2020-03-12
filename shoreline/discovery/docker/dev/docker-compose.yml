@@ -10,10 +10,20 @@ services:
     depends_on:
       - postgres
       - solr
+      - geoserver
     stdin_open: true
     tty: true
     ports:
      - '3000:3000'
+
+  geoserver:
+    image: oscarfonts/geoserver
+    volumes:
+      - shoreline_geoserver_data:/var/local/geoserver
+    env_file:
+      - ../../.env
+    ports:
+      - '8088:8080'
 
   postgres:
     image: postgres:11-alpine
@@ -33,3 +43,5 @@ services:
 
 volumes:
   shoreline_discovery_db:
+  shoreline_geoserver_data:
+

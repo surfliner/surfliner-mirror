@@ -1,11 +1,5 @@
-shoreline-discovery-tag-stable:
-  image: $CI_REGISTRY_IMAGE/buildah
-  stage: staging
-  script:
-    - buildah login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
-    - buildah pull --storage-driver vfs docker://$CI_REGISTRY_IMAGE/shoreline_discovery_app:$CI_COMMIT_SHA
-    - buildah tag --storage-driver vfs $CI_REGISTRY_IMAGE/shoreline_discovery_app:$CI_COMMIT_SHA $CI_REGISTRY_IMAGE/shoreline_discovery_app:stable
-    - buildah push --storage-driver vfs docker://$CI_REGISTRY_IMAGE/shoreline_discovery_app:stable
+.shoreline:deploy:stage:
+  extends: .only-refs-default
   only:
     refs:
       - master
@@ -13,3 +7,47 @@ shoreline-discovery-tag-stable:
       - ci/shoreline/**/*
       - shoreline/discovery/Dockerfile
       - shoreline/discovery/**/*
+
+shoreline-discovery-deploy-ucsb-stage:
+  extends:
+    - .auto-deploy
+    - .shoreline:deploy:stage
+  stage: staging
+  script:
+    - cd shoreline/discovery
+    - auto-deploy ensure_namespace
+    - auto-deploy initialize_tiller
+    - auto-deploy create_secret
+    - mv ../../charts/shoreline ./chart
+    - mv ../../charts/geoserver ./geoserver
+    - build_chart_dependencies
+    - auto-deploy deploy
+  environment:
+    name: ucsb.staging.shoreline
+    url: http://shoreline-staging.$KUBE_INGRESS_BASE_DOMAIN
+  variables:
+    CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE/shoreline_discovery_app
+    CI_APPLICATION_TAG: stable
+    HELM_RELEASE_NAME: surfliner-shoreline-stage
+    HELM_UPGRADE_EXTRA_ARGS: '--timeout 1000 --set theme="ucsb"'
+    ROLLOUT_RESOURCE_TYPE: deployment
+
+stop_shoreline:stage:ucsb:
+  extends:
+    - .auto-deploy
+    - .shoreline:deploy:stage
+  stage: cleanup
+  environment:
+    name: ucsb.staging.shoreline
+    action: stop
+  when: manual
+  allow_failure: true
+  variables:
+    CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE/shoreline_discovery_app
+    CI_APPLICATION_TAG: stable
+    GIT_STRATEGY: none
+    HELM_RELEASE_NAME: surfliner-shoreline-stage
+    ROLLOUT_RESOURCE_TYPE: deployment
+  script:
+    - auto-deploy initialize_tiller
+    - auto-deploy delete

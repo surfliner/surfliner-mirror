@@ -23,7 +23,7 @@ spec:
         - name: "data"
           {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
-            claimName: geoserver-data
+            claimName: "{{ include "geoserver.fullname" . }}-data"
           {{ else }}
           emptyDir: {}
           {{ end }}

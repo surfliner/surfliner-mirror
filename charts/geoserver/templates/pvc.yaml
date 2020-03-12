@@ -2,9 +2,9 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: geoserver-data
+  name: "{{ include "geoserver.fullname" . }}-data"
   labels:
-    app: geoserver-chart
+    app: {{ include "geoserver.name" .}}
 spec:
   volumeMode: Filesystem
   accessModes:

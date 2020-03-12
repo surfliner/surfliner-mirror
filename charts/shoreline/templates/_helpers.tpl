@@ -32,7 +32,7 @@ Create chart name and version as used by the chart label.
 {{- end -}}
 
 {{- define "shoreline.postgresql.fullname" -}}
-{{- printf "%s-%s" .Release.Name "postgresql" | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s-%s" .Release.Name "postgres" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{- define "shoreline.solr.fullname" -}}

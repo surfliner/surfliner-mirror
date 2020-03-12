@@ -4,7 +4,7 @@
   variables:
     POSTGRES_USER: "postgres"
     POSTGRES_PASSWORD: "postgres"
-    SOLR_CORE_NAME: "shoreline-test"
+    SOLR_CORE_NAME: "shoreline-discovery"
     SOLR_CONFIG_DIR: "shoreline/discovery/solr/conf"
     SOLR_CONFIG_COMMIT_SHA: $CI_COMMIT_SHA
     SOLR_PORT: "8983"
@@ -32,7 +32,7 @@ shoreline-discovery-unit-test:
   script:
     - bundle exec rspec --tag ~type:feature --format progress --format RspecJunitFormatter --out rspec.xml
 
-shoreline-discovery-integration-test:
+shoreline-discovery-feature-test:
   extends: .shoreline-discovery-test
   script:
     - bundle exec rspec --tag type:feature --format progress --format RspecJunitFormatter --out rspec.xml
