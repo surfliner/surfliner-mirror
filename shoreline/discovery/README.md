@@ -7,6 +7,16 @@ Please see [CONTRIBUTING.md][contributing] for information about contributing to
 this project. By participating, you agree to abide by the
 [UC Principles of Community][principles].
 
+## Ingesting objects
+
+To ingest a shapefile into Shoreline, use the `shoreline:publish` Rake task (see
+`doc/deploy.md` for information about the environment variables):
+```
+$ SHORELINE_PROVENANCE=“My institution” SHORELINE_ACCESS=Public bin/rake shoreline:publish[path/to/shapefile.zip]
+```
+
+The shapefile will be ingested into GeoServer and GeoBlacklight, and users can
+download the shapefile and derivatives through the GeoBlacklight UI.
 
 ## Development
 

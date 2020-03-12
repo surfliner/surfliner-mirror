@@ -20,6 +20,7 @@ Puppet, or whatever works best in your local environment and practices.
 
 ### Ingest Variables
 
+| `GEOBLACKLIGHT_DOWNLOAD_PATH` | The directory where GeoBlacklight stores generated files for download; defaults to `tmp/cache/downloads` | No |
 | `SHORELINE_PROVENANCE` | Specify the source of the object being ingested, e.g. “UC Santa Barbara” | Yes |
 | `SHORELINE_ACCESS`     | Specify the access level for the object being ingested: “Public” or “Restricted”; defaults to “Public” | No |
 
