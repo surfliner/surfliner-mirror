@@ -2,7 +2,6 @@
   only:
     refs:
       - merge_requests
-      - tags
     changes:
       - ci/shoreline/**/*
       - shoreline/discovery/Dockerfile
@@ -24,12 +23,12 @@ shoreline:discovery:deploy:ucsb-review:
     - auto-deploy deploy
   environment:
     name: ucsb.review.shoreline
-    url: http://shoreline-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
+    url: http://shoreline-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
     on_stop: shoreline:discovery:cleanup:ucsb-review
   variables:
     CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE/shoreline_discovery_app
     CI_APPLICATION_TAG: $CI_COMMIT_SHA
-    HELM_RELEASE_NAME: surfliner-shoreline-$CI_ENVIRONMENT_SLUG
+    HELM_RELEASE_NAME: surfliner-shoreline-$CI_MERGE_REQUEST_ID
     HELM_UPGRADE_EXTRA_ARGS: '--timeout 1000 --set theme="ucsb"'
     ROLLOUT_RESOURCE_TYPE: deployment
 
@@ -48,7 +47,7 @@ shoreline:discovery:cleanup:ucsb-review:
     CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE/shoreline_discovery_app
     CI_APPLICATION_TAG: $CI_COMMIT_SHA
     GIT_STRATEGY: none
-    HELM_RELEASE_NAME: surfliner-shoreline-$CI_ENVIRONMENT_SLUG
+    HELM_RELEASE_NAME: surfliner-shoreline-$CI_MERGE_REQUEST_ID
     HELM_UPGRADE_EXTRA_ARGS: '--timeout 1000 --set theme="ucsb"'
     ROLLOUT_RESOURCE_TYPE: deployment
   script:
