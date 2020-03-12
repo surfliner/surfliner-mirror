@@ -38,10 +38,17 @@ spec:
               done;
               echo "Failed to create Solr core after 240 secs";
               exit 1;
+      volumes:
+        - name: downloads
+          persistentVolumeClaim:
+            claimName: "{{ include "shoreline.fullname" . }}-downloads"
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: downloads
+              mountPath: /home/shoreline/app/tmp/cache/downloads
           env:
             - name: "DATABASE_ADAPTER"
               value: postgresql

@@ -25,6 +25,14 @@ ingress:
   hosts: ['shoreline.local']
   tls: []
 
+persistence:
+  enabled: true
+
+pvc:
+  downloads:
+    size: 5Gi
+    class: ""
+
 postgresql:
   imageTag: "11.2.0"
   enabled: true

@@ -1,0 +1,16 @@
+{{- if .Values.persistence.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: "{{ include "shoreline.fullname" . }}-downloads"
+  labels:
+    app: {{ include "shoreline.name" .}}
+spec:
+  resources:
+    requests:
+      storage: {{ .Values.pvc.downloads.size }}
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: {{ .Values.pvc.downloads.class }}
+{{- end }}
