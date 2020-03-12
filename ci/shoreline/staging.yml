@@ -30,8 +30,9 @@ shoreline:discovery:deploy:ucsb-stage:
   variables:
     CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE/shoreline_discovery_app
     CI_APPLICATION_TAG: stable
+    INGRESS_URL: shoreline-staging.$KUBE_INGRESS_BASE_DOMAIN
     HELM_RELEASE_NAME: surfliner-shoreline-stage
-    HELM_UPGRADE_EXTRA_ARGS: '--timeout 1000 --set theme="ucsb"'
+    HELM_UPGRADE_EXTRA_ARGS: '--timeout 1000 --set theme="ucsb" --set ingress.hosts={shoreline-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN}'
     ROLLOUT_RESOURCE_TYPE: deployment
 
 shoreline:discovery:cleanup:ucsb-stage:
