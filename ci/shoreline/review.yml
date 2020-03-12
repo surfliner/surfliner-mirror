@@ -31,7 +31,6 @@ shoreline:discovery:deploy:ucsb-review:
     CI_APPLICATION_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-shoreline-$CI_ENVIRONMENT_SLUG
     HELM_UPGRADE_EXTRA_ARGS: '--timeout 1000 --set theme="ucsb"'
-    INGRESS_URL: shoreline-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
     ROLLOUT_RESOURCE_TYPE: deployment
 
 
