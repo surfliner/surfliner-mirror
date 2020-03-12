@@ -106,3 +106,5 @@ LEAFLET:
       <<: *opacity_control
     IMAGEMAPLAYER:
       <<: *opacity_control
+
+DOWNLOAD_PATH: <%= ENV['GEOBLACKLIGHT_DOWNLOAD_PATH'] %>
