@@ -4,6 +4,8 @@
       - merge_requests
     changes:
       - ci/shoreline/**/*
+      - charts/shoreline/**/*
+      - charts/geoserver/**/*
       - shoreline/discovery/Dockerfile
       - shoreline/discovery/**/*
 
