@@ -48,12 +48,14 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
             - name: downloads
-              mountPath: /home/shoreline/app/tmp/cache/downloads
+              mountPath: /data/tmp/cache/downloads
           env:
             - name: "DATABASE_ADAPTER"
               value: postgresql
             - name: "DATABASE_HOST"
               value: {{ template "shoreline.postgresql.fullname" . }}
+            - name: "GEOBLACKLIGHT_DOWNLOAD_PATH"
+              value: /data/tmp/cache/downloads
             - name: "POSTGRES_DB"
               value: {{ .Values.postgresql.postgresqlDatabase }}
             - name: "POSTGRES_PORT"
