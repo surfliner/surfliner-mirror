@@ -6,6 +6,7 @@ stages:
   - integration
   - review
   - staging
+  - production
   - cleanup
   - failure_notification
 
@@ -22,6 +23,7 @@ include:
   - local: ci/shoreline/test.yml
   - local: ci/shoreline/review.yml
   - local: ci/shoreline/staging.yml
+  - local: ci/shoreline/production.yml
   - local: ci/starlight/build.yml
   - local: ci/starlight/lint.yml
   - local: ci/starlight/test.yml
