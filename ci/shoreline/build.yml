@@ -8,5 +8,6 @@ shoreline:discovery:ruby-build:
     changes:
       - .gitlab-ci.yml
       - ci/shoreline/**/*
+      - charts/shoreline/**/*
       - shoreline/discovery/Dockerfile
       - shoreline/discovery/**/*
