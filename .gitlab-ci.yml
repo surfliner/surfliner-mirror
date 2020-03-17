@@ -37,7 +37,7 @@ include:
     project=$1
     image_name=$2
     destination="--destination $CI_REGISTRY_IMAGE/$image_name:$CI_COMMIT_SHA"
-    if [ "$CI_COMMIT_REF_NAME" = "master" ]; then
+    if [ "$CI_COMMIT_BRANCH" = "master" ]; then
       destination="$destination --destination $CI_REGISTRY_IMAGE/$image_name:stable"
     fi
     /kaniko/executor --context "$CI_PROJECT_DIR"/$project --cache=true --dockerfile "$CI_PROJECT_DIR"/"$project"/Dockerfile $destination
