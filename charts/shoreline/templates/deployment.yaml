@@ -56,6 +56,14 @@ spec:
               value: {{ template "shoreline.postgresql.fullname" . }}
             - name: "GEOBLACKLIGHT_DOWNLOAD_PATH"
               value: /data/tmp/cache/downloads
+            - name: "GEOSERVER_HOST"
+              value: {{ template "shoreline.geoserver.fullname" . }}
+            - name: "GEOSERVER_PASSWORD"
+              value: geoserver
+            - name: "GEOSERVER_PORT"
+              value: "80"
+            - name: "GEOSERVER_USER"
+              value: admin
             - name: "POSTGRES_DB"
               value: {{ .Values.postgresql.postgresqlDatabase }}
             - name: "POSTGRES_PORT"
