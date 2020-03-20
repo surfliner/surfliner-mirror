@@ -6,6 +6,9 @@
   * [Lark](#lark)
   * [Shoreline](#shoreline)
   * [Starlight](#starlight)
+* [Product Deployments](#product-deployments)
+  * [UCSB](#ucsb)
+  * [UCSD](#ucsd)
 * [Developer Setup](#developer-setup)
 * [Team](#team)
   * [Team Roles](#team-roles)
@@ -30,6 +33,20 @@ Shoreline is a geospatial materials platform based on GeoBlacklight.  See the [S
 
 ### Starlight
 Starlight is an exhibits platform based on [Spotlight](https://github.com/projectblacklight/spotlight). See the [Starlight README](https://gitlab.com/surfliner/surfliner/blob/master/starlight/README.md) for more information. Starlight was named after Southern Pacific Starlight Train that operated overnight between Los Angeles and San Francisco from October 1949 - July 1957.
+
+## Product Deployments
+
+### UCSB
+*  **Shoreline (Staging):** [http://shoreline-staging.eks.dld.library.ucsb.edu/](http://shoreline-staging.eks.dld.library.ucsb.edu/)
+*  **Shoreline (Production):** [http://shoreline.eks.dld.library.ucsb.edu/](http://shoreline.eks.dld.library.ucsb.edu/)
+*  **Starlight (Staging):** [https://spotlight-stage.library.ucsb.edu/](https://spotlight-stage.library.ucsb.edu/)
+*  **Starlight (Production):** [https://spotlight.library.ucsb.edu/](https://spotlight.library.ucsb.edu/)
+
+### UCSD
+*  **Shoreline (Staging):** [http://lib-shoreline-staging.ucsd.edu](http://lib-shoreline-staging.ucsd.edu)
+*  **Shoreline (Production):** TBD
+*  **Starlight (Staging):** [https://lib-starlight-staging.ucsd.edu/](https://lib-starlight-staging.ucsd.edu/)
+*  **Starlight (Production):** [https://exhibits.ucsd.edu/](https://exhibits.ucsd.edu/)
 
 ## Developer Setup
 * Start by getting yourself an account on GitLab.
