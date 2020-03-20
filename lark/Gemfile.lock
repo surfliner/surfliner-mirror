@@ -1,26 +1,26 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    actionpack (6.0.2.1)
-      actionview (= 6.0.2.1)
-      activesupport (= 6.0.2.1)
+    actionpack (6.0.2.2)
+      actionview (= 6.0.2.2)
+      activesupport (= 6.0.2.2)
       rack (~> 2.0, >= 2.0.8)
       rack-test (>= 0.6.3)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.2.0)
-    actionview (6.0.2.1)
-      activesupport (= 6.0.2.1)
+    actionview (6.0.2.2)
+      activesupport (= 6.0.2.2)
       builder (~> 3.1)
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
-    activemodel (6.0.2.1)
-      activesupport (= 6.0.2.1)
+    activemodel (6.0.2.2)
+      activesupport (= 6.0.2.2)
     activemodel-serializers-xml (1.0.2)
       activemodel (> 5.x)
       activesupport (> 5.x)
       builder (~> 3.1)
-    activesupport (6.0.2.1)
+    activesupport (6.0.2.2)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
@@ -141,11 +141,11 @@ GEM
     mustermann (1.0.3)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
-    oj (3.7.12)
+    oj (3.10.5)
     parallel (1.17.0)
     parser (2.6.3.0)
       ast (~> 2.4.0)
-    pg (1.1.4)
+    pg (1.2.3)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -165,9 +165,9 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.3.0)
       loofah (~> 2.3)
-    railties (6.0.2.1)
-      actionpack (= 6.0.2.1)
-      activesupport (= 6.0.2.1)
+    railties (6.0.2.2)
+      actionpack (= 6.0.2.2)
+      activesupport (= 6.0.2.2)
       method_source
       rake (>= 0.8.7)
       thor (>= 0.20.3, < 2.0)
@@ -217,9 +217,9 @@ GEM
     rubocop-rspec (1.33.0)
       rubocop (>= 0.60.0)
     ruby-progressbar (1.10.1)
-    sequel (5.21.0)
-    sequel_pg (1.12.2)
-      pg (>= 0.18.0)
+    sequel (5.30.0)
+    sequel_pg (1.12.4)
+      pg (>= 0.18.0, != 1.2.0)
       sequel (>= 4.38.0)
     shotgun (0.9.2)
       rack (>= 1.0)
@@ -251,11 +251,11 @@ GEM
       rdf-vocab
       reform
       reform-rails
-    valkyrie-sequel (2.0.0.RC1)
+    valkyrie-sequel (2.1.0)
       oj
       sequel
       sequel_pg
-      valkyrie (>= 2.0.0.RC6, < 3.0.0)
+      valkyrie (~> 2.1.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.3.0)
@@ -284,7 +284,7 @@ DEPENDENCIES
   sinatra (~> 2.0.5)
   timecop
   valkyrie (= 2.1.1)
-  valkyrie-sequel (= 2.0.0.RC1)
+  valkyrie-sequel (= 2.1.0)
 
 BUNDLED WITH
    2.0.1
