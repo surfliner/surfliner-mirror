@@ -45,7 +45,7 @@ Starlight is an exhibits platform based on [Spotlight](https://github.com/projec
 ### UCSD
 *  **Shoreline (Staging):** [http://lib-shoreline-staging.ucsd.edu](http://lib-shoreline-staging.ucsd.edu)
 *  **Shoreline (Production):** TBD
-*  **Starlight (Staging):** [https://lib-starlight-staging.ucsd.edu/](https://lib-starlight-staging.ucsd.edu/)
+*  **Starlight (Staging):** [https://exhibits-staging.ucsd.edu/](https://exhibits-staging.ucsd.edu/)
 *  **Starlight (Production):** [https://exhibits.ucsd.edu/](https://exhibits.ucsd.edu/)
 
 ## Developer Setup
