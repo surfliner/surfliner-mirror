@@ -57,7 +57,8 @@ spec:
             - name: "GEOBLACKLIGHT_DOWNLOAD_PATH"
               value: /data/tmp/cache/downloads
             - name: "GEOSERVER_HOST"
-              value: {{ template "shoreline.geoserver.fullname" . }}
+            - name: "GEOSERVER_HOST"
+              value: {{ .Values.geoserver.ingress.hosts | first |  }}
             - name: "GEOSERVER_PASSWORD"
               value: geoserver
             - name: "GEOSERVER_PORT"

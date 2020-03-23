@@ -48,6 +48,10 @@ postgresql:
 geoserver:
   persistence:
     enabled: true
+  ingress:
+    enabled: true
+    hosts: ['geoserver.local']
+    tls: []
 
 theme:
 

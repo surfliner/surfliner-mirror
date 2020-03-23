@@ -31,7 +31,7 @@ shoreline:discovery:deploy:ucsb-review:
     CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE/shoreline_discovery_app
     CI_APPLICATION_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-shoreline-$CI_MERGE_REQUEST_ID
-    HELM_UPGRADE_EXTRA_ARGS: '--timeout 1000 --set theme="ucsb" --set ingress.hosts={shoreline-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN}'
+    HELM_UPGRADE_EXTRA_ARGS: '--timeout 1000 --set theme="ucsb" --set ingress.hosts={shoreline-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN} --set geoserver.ingress.hosts={shoreline-geoserver-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN}'
     ROLLOUT_RESOURCE_TYPE: deployment
 
 
