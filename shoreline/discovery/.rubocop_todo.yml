@@ -7,20 +7,20 @@
 # versions of RuboCop, may require this file to be generated again.
 
 # Offense count: 3
-Metrics/AbcSize:
-  Max: 42
+# Cop supports --auto-correct.
+Lint/RedundantCopDisableDirective:
+  Exclude:
+    - 'app/services/importer.rb'
+    - 'lib/tasks/ingest.rake'
 
-# Offense count: 2
+# Offense count: 1
+Metrics/AbcSize:
+  Max: 41
+
+# Offense count: 1
 # Configuration parameters: CountComments, ExcludedMethods.
 Metrics/MethodLength:
   Max: 20
-
-# Offense count: 1
-# Configuration parameters: ForbiddenDelimiters.
-# ForbiddenDelimiters: (?-mix:(^|\s)(EO[A-Z]{1}|END)(\s|$))
-Naming/HeredocDelimiterNaming:
-  Exclude:
-    - 'bin/ingest'
 
 # Offense count: 9
 Style/Documentation:
@@ -36,3 +36,10 @@ Style/Documentation:
     - 'app/models/solr_document.rb'
     - 'app/models/user.rb'
     - 'config/application.rb'
+
+# Offense count: 3
+# Cop supports --auto-correct.
+# Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
+# URISchemes: http, https
+Layout/LineLength:
+  Max: 284

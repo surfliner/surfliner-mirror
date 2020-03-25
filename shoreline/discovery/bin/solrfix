@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+$stdout.sync = true # flush output immediately
+
+puts 'Loading environment...'
+require File.expand_path('../config/environment', __dir__)
+puts "Running in #{Rails.env} mode..."
+
+new_url = ARGV.first
+docs = Blacklight.default_index.search['response']['docs']
+
+Blacklight.default_index.connection.delete_by_id(docs.map { |doc| doc['layer_slug_s'] })
+Blacklight.default_index.connection.commit
+
+updates = docs.map do |doc|
+  doc['dct_references_s'] = "{\"http://www.opengis.net/def/serviceType/ogc/wfs\":\"#{new_url}/geoserver/wfs\", \"http://www.opengis.net/def/serviceType/ogc/wms\":\"#{new_url}/geoserver/wms\"}"
+
+  internal_fields = %w[
+    _version_
+    score
+    solr_bboxtype
+    solr_bboxtype__maxX
+    solr_bboxtype__maxY
+    solr_bboxtype__minX
+    solr_bboxtype__minY
+    timestamp
+  ]
+
+  doc.reject { |k, _v| internal_fields.any? { |a| k == a } }
+end
+
+Blacklight.default_index.connection.add(updates)
+Blacklight.default_index.connection.commit
