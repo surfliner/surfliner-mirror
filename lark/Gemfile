@@ -8,7 +8,7 @@ gem 'capybara_discoball', '~> 0.1.0', group: 'test'
 gem 'dotenv', group: %w[development test]
 gem 'dry-configurable', '~> 0.11.0'
 gem 'dry-events', '~> 0.2.0'
-gem 'dry-system', '~> 0.13.0'
+gem 'dry-system', '~> 0.17.0'
 gem 'dry-transaction', '~> 0.13.0'
 gem 'factory_bot', group: 'test'
 gem 'pry', group: %w[development test]
