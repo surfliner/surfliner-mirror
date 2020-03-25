@@ -5,7 +5,7 @@ notify-slack:
     - apk add --no-cache curl git
   script:
     - ./ci/support/notify_slack.sh "Build on \`$CI_BUILD_REF_NAME\` failed! Commit \`$(git log -1 --oneline)\` See $CI_PIPELINE_URL"
-  when: on_failure
+  # when: on_failure
   only:
     - master
 
