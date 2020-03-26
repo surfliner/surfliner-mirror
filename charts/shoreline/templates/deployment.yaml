@@ -40,8 +40,7 @@ spec:
               exit 1;
       volumes:
         - name: downloads
-          persistentVolumeClaim:
-            claimName: "{{ include "shoreline.fullname" . }}-downloads"
+          emptyDir: {}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -56,7 +55,6 @@ spec:
               value: {{ template "shoreline.postgresql.fullname" . }}
             - name: "GEOBLACKLIGHT_DOWNLOAD_PATH"
               value: /data/tmp/cache/downloads
-            - name: "GEOSERVER_HOST"
             - name: "GEOSERVER_HOST"
               value: {{ .Values.geoserver.ingress.hosts | first |  }}
             - name: "GEOSERVER_PASSWORD"
