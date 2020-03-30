@@ -28,7 +28,7 @@ include:
   - local: ci/starlight/lint.yml
   - local: ci/starlight/test.yml
 
-# Build with Kaniko, adding a stable tag to master builds
+# Build with Kaniko. When building on `master`, tag a new stable image.
 .build_helpers: &build_helpers |
   set -x
   build_image_for() {

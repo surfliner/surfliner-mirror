@@ -2,17 +2,21 @@
   stage: test
   image: $CI_REGISTRY_IMAGE/shoreline_discovery_app:$CI_COMMIT_SHA
   variables:
-    POSTGRES_USER: "postgres"
+    DATABASE_HOST: "localhost"
+    POSTGRES_DB: "shoreline-discovery"
     POSTGRES_PASSWORD: "postgres"
+    POSTGRES_USER: "postgres"
     SOLR_CORE_NAME: "shoreline-discovery"
     SOLR_CONFIG_DIR: "shoreline/discovery/solr/conf"
     SOLR_CONFIG_COMMIT_SHA: $CI_COMMIT_SHA
     SOLR_PORT: "8983"
+    SOLR_HOST: "localhost"
     RAILS_ENV: "test"
   services:
     - name: $CI_REGISTRY_IMAGE/solr
       alias: solr
-    - postgres:11-alpine
+    - name: postgres:11-alpine
+      alias: postgres
   before_script:
     - cd shoreline/discovery
   artifacts:
@@ -21,6 +25,8 @@
       junit: shoreline/discovery/rspec.xml
     when: on_failure
   extends: .only-refs-default
+  tags:
+    - kubernetes
   only:
     changes:
       - .gitlab-ci.yml
