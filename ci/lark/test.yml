@@ -4,12 +4,14 @@ lark-unit-tests:
   variables:
     SOLR_CORE_NAME: lark-test
     SOLR_CONFIG_DIR: lark/solr/config
+    SOLR_URL: http://localhost:8983/solr/lark-test
     REPOSITORY_URL: $CI_REPOSITORY_URL
     SOLR_CONFIG_COMMIT_SHA: $CI_COMMIT_SHA
+    SOLR_HOST: localhost
     POSTGRES_DB: postgres
     POSTGRES_USER: runner
     POSTGRES_PASSWORD: password
-    POSTGRES_HOST: db
+    POSTGRES_HOST: localhost
     POSTGRES_PORT: 5432
   services:
     - name: $CI_REGISTRY_IMAGE/solr
@@ -21,6 +23,8 @@ lark-unit-tests:
     - bundle check || bundle
     - rake db:create db:migrate && bundle exec rspec
   extends: .only-refs-default
+  tags:
+    - kubernetes
   only:
     changes:
       - .gitlab-ci.yml
