@@ -130,9 +130,9 @@ class CatalogController < ApplicationController
                           label: 'Subject(s)',
                           itemprop: 'keywords',
                           link_to_facet: true
-    config.add_show_field FIELDS.TEMPORAL,
+    config.add_show_field FIELDS.YEAR,
                           label: 'Year',
-                          itemprop: 'temporal'
+                          itemprop: 'year'
     config.add_show_field FIELDS.PROVENANCE,
                           label: 'Held by',
                           link_to_facet: true
