@@ -56,6 +56,12 @@ main {
   }
 }
 
+a.remove,
+.documents-list a,
+.page-sidebar a {
+  border-bottom: 0 !important;
+}
+
 .card-header {
   margin: 0;
 
