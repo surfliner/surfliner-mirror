@@ -63,6 +63,15 @@ module Importer
   def self.makeattrs(options)
     attributes = {}
 
+    id = File.basename(options[:file], File.extname(options[:file]))
+    attributes[:dc_identifier_s] = "public:#{id}"
+    attributes[:layer_slug_s] = id.to_s
+    attributes[:layer_id_s] = "public:#{id}"
+
+    attributes[:solr_year_i] = year(options[:xml])
+    attributes[:solr_geom] = envelope(options[:xml])
+    attributes[:layer_geom_type_s] = type("public:#{id}")
+
     # rubocop:disable Layout/LineLength
     XPATHS.each do |k, v|
       attributes[k] = CGI.unescapeHTML(options[:xml].xpath(v).first.children.first.to_s)
@@ -71,24 +80,36 @@ module Importer
     XPATHS_MULTIVALUE.each do |k, v|
       attributes[k] = options[:xml].xpath(v).map(&:children).flatten.map(&:to_s).map { |s| CGI.unescapeHTML(s) }
     end
-
-    # byebug
-    id = File.basename(options[:file], File.extname(options[:file]))
-    attributes[:dc_identifier_s] = "public:#{id}"
-    attributes[:layer_slug_s] = id.to_s
-    attributes[:layer_id_s] = "public:#{id}"
-
-    attributes[:solr_year_i] = options[:xml].xpath('substring(//MD_DataIdentification/xmlns:citation//gco:Date, 1, 4)')
     # rubocop:enable Layout/LineLength
-
-    coords = %i[west east north south].map do |dir|
-      options[:xml].xpath(BOUNDS[dir]).map(&:children).flatten.map(&:to_s).first
-    end
-    attributes[:solr_geom] = "ENVELOPE(#{coords.join(',')})"
 
     attributes.merge(EXTRA_FIELDS).reject { |_k, v| v.blank? }
   rescue NoMethodError => e
     warn "Could not extract #{k} from #{iso}"
     raise e
+  end
+
+  def self.type(name)
+    connection = Faraday.new(headers: { 'Content-Type' => 'application/json' })
+    connection.basic_auth(
+      ENV['GEOSERVER_USER'],
+      ENV['GEOSERVER_PASSWORD']
+    )
+
+    url = "http://#{ENV['GEOSERVER_HOST']}:#{ENV['GEOSERVER_PORT']}/geoserver/rest/layers/#{name}.json"
+
+    json = JSON.parse(connection.get(url).body)
+    json['layer']['defaultStyle']['name'].titlecase
+  end
+
+  def self.year(xml)
+    xml.xpath('substring(//MD_DataIdentification/xmlns:citation//gco:Date, 1, 4)')
+  end
+
+  def self.envelope(xml)
+    coords = %i[west east north south].map do |dir|
+      xml.xpath(BOUNDS[dir]).map(&:children).flatten.map(&:to_s).first
+    end
+
+    "ENVELOPE(#{coords.join(',')})"
   end
 end
