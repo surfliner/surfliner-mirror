@@ -102,7 +102,7 @@ module Importer
   end
 
   def self.year(xml)
-    xml.xpath('substring(//MD_DataIdentification/xmlns:citation//gco:Date, 1, 4)')
+    xml.xpath('substring(//xmlns:MD_DataIdentification/xmlns:citation//gco:Date, 1, 4)')
   end
 
   def self.envelope(xml)
