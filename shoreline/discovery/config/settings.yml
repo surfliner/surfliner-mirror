@@ -33,7 +33,7 @@ FIELDS:
   :YEAR: 'solr_year_i'
   :CREATOR: 'dc_creator_sm'
   :DESCRIPTION: 'dc_description_s'
-  :PUBLISHER: 'dc_publisher_s'
+  :PUBLISHER: 'dc_publisher_sm'
   :PART_OF: 'dct_isPartOf_sm'
   :TEMPORAL: 'dct_temporal_sm'
   :TITLE: 'dc_title_s'
