@@ -64,6 +64,7 @@ include:
     helm init --client-only
 
     helm repo add incubator https://kubernetes-charts-incubator.storage.googleapis.com/
+    helm repo add bitnami https://charts.bitnami.com/bitnami
 
     helm dependency update chart/
     helm dependency build chart/
