@@ -21,6 +21,7 @@ starlight-lint:
     - bundle check || bundle
     - bundle exec rubocop
   extends: .only-refs-default
+  needs: []
   only:
     changes:
       - .gitlab-ci.yml

@@ -5,6 +5,7 @@ lark-shellcheck:
     - cd lark
     - find . -name tmp -prune -o -type f -exec awk 'FNR == 1 && /^#!.*sh/{print FILENAME}' {} + | xargs shellcheck
   extends: .only-refs-default
+  needs: []
   only:
     changes:
       - .gitlab-ci.yml
@@ -21,6 +22,7 @@ lark-lint:
     - bundle check || bundle
     - bundle exec rubocop
   extends: .only-refs-default
+  needs: []
   only:
     changes:
       - .gitlab-ci.yml
@@ -38,6 +40,7 @@ lark-client-lint:
     - bundle check || bundle
     - bundle exec rubocop
   extends: .only-refs-default
+  needs: []
   only:
     changes:
       - .gitlab-ci.yml

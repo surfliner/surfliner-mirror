@@ -21,6 +21,7 @@ shoreline:discovery:lint:
     - bundle check || bundle install --jobs "$(nproc)"
     - bundle exec rubocop
   extends: .only-refs-default
+  needs: []
   only:
     changes:
       - .gitlab-ci.yml
