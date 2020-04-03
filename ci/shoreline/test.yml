@@ -15,7 +15,7 @@
   services:
     - name: $CI_REGISTRY_IMAGE/solr
       alias: solr
-    - name: postgres:11-alpine
+    - name: postgres:12-alpine
       alias: postgres
   before_script:
     - cd shoreline/discovery

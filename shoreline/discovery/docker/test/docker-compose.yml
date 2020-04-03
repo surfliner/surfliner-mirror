@@ -16,7 +16,7 @@ services:
      - '3000:3000'
 
   postgres:
-    image: postgres:11-alpine
+    image: postgres:12-alpine
     volumes:
       - shoreline_discovery_db:/var/lib/postgresql/data
     env_file:
