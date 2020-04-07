@@ -38,6 +38,72 @@ spec:
               done;
               echo "Failed to create Solr core after 240 secs";
               exit 1;
+        {{- if .Values.sample_data }}
+        - name: ingest-sample-data
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+          command:
+            - "sh"
+            - "-c"
+            - |
+              COUNTER=0;
+              while [ $COUNTER -lt 30 ]; do
+                echo 'trying to connect to {{ .Release.Name }}-geoserver on port 80';
+                if nc {{ .Release.Name }}-geoserver 80 ; then
+                  for shape in $(ls spec/fixtures/shapefiles); do
+                    bundle exec rake shoreline:publish["spec/fixtures/shapefiles/${shape}"]
+                  done
+                  exit 0;
+                fi
+                COUNTER=$(( COUNTER+1 ));
+                sleep 3s;
+              done;
+              echo "Failed to find GeoServer after 90 secs";
+              exit 1;
+          env:
+            - name: "SHORELINE_PROVENANCE"
+              value: "UC Santa Barbara"
+            - name: "SHORELINE_ACCESS"
+              value: Public
+            - name: "DATABASE_ADAPTER"
+              value: postgresql
+            - name: "DATABASE_HOST"
+              value: {{ template "shoreline.postgresql.fullname" . }}
+            - name: "GEOBLACKLIGHT_DOWNLOAD_PATH"
+              value: /data/tmp/cache/downloads
+            - name: "GEOSERVER_HOST"
+              value: {{ .Values.geoserver.ingress.hosts | first |  }}
+            - name: "GEOSERVER_PASSWORD"
+              value: geoserver
+            - name: "GEOSERVER_PORT"
+              value: "80"
+            - name: "GEOSERVER_USER"
+              value: admin
+            - name: "POSTGRES_DB"
+              value: {{ .Values.postgresql.postgresqlDatabase }}
+            - name: "POSTGRES_PORT"
+              value: {{ .Values.postgresql.servicePort | quote }}
+            - name: "POSTGRES_USER"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "shoreline.fullname" . }}
+                  key: db-username
+            - name: "POSTGRES_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "shoreline.fullname" . }}
+                  key: db-password
+            - name: "RAILS_ENV"
+              value: production
+            - name: "SECRET_KEY_BASE"
+              value: {{ randAlphaNum 20 | b64enc }}
+            - name: "SOLR_HOST"
+              value: {{ template "shoreline.solr.fullname" . }}-svc
+            - name: "SOLR_PORT"
+              value: "8983"
+            - name: "SOLR_CORE_NAME"
+              value: collection1
+        {{- end }}
       volumes:
         - name: downloads
           emptyDir: {}

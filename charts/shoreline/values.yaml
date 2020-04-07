@@ -28,6 +28,9 @@ ingress:
 persistence:
   enabled: true
 
+# whether to ingest fixture data during deployment
+sample_data:
+
 pvc:
   downloads:
     size: 5Gi
