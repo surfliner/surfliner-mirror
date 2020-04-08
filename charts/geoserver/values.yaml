@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: oscarfonts/geoserver
+  repository: kartoza/geoserver
   tag: 2.16.2
   pullPolicy: IfNotPresent
 

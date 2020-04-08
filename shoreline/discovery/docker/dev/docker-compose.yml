@@ -17,9 +17,9 @@ services:
      - '3000:3000'
 
   geoserver:
-    image: oscarfonts/geoserver
+    image: kartoza/geoserver
     volumes:
-      - shoreline_geoserver_data:/var/local/geoserver
+      - shoreline_geoserver_data:/data
     env_file:
       - ../../.env
     ports:
