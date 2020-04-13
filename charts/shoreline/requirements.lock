@@ -1,9 +1,9 @@
 dependencies:
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
-  version: 8.6.12
+  version: 8.7.3
 - name: geoserver
   repository: file://../geoserver
   version: 0.2.0
-digest: sha256:29393fc92f62eb223e87215ddc92a269e59c520928b07103ec4debe09264a135
-generated: 2020-04-02T10:27:50.165003597-07:00
+digest: sha256:c987a694e3eb716c38788f005c006d6011d7d6b7e5e60c43184977732b8667f0
+generated: 2020-04-13T15:58:36.387656834-07:00
