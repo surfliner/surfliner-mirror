@@ -27,6 +27,9 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+admin:
+  password: geoserver
+
 persistence:
   enabled: true
 
