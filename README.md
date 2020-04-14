@@ -38,7 +38,7 @@ Starlight is an exhibits platform based on [Spotlight](https://github.com/projec
 
 ### UCSB
 *  **Shoreline (Staging):** [http://shoreline-staging.eks.dld.library.ucsb.edu/](http://shoreline-staging.eks.dld.library.ucsb.edu/)
-*  **Shoreline (Production):** [http://shoreline.eks.dld.library.ucsb.edu/](http://shoreline.eks.dld.library.ucsb.edu/)
+*  **Shoreline (Production):** [http://geodata.library.ucsb.edu/](http://geodata.library.ucsb.edu/)
 *  **Starlight (Staging):** [https://spotlight-stage.library.ucsb.edu/](https://spotlight-stage.library.ucsb.edu/)
 *  **Starlight (Production):** [https://spotlight.library.ucsb.edu/](https://spotlight.library.ucsb.edu/)
 
