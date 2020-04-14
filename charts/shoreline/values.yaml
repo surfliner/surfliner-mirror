@@ -49,6 +49,8 @@ postgresql:
     size: 10Gi
 
 geoserver:
+  admin:
+    password: shorelinegeo
   persistence:
     enabled: true
   ingress:
