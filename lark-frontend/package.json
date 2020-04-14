@@ -10,27 +10,27 @@
     "test": "jest --coverage"
   },
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.19.2",
     "core-js": "^2.6.5",
-    "vue": "^2.6.10",
-    "vue-axios": "^2.1.4",
+    "vue": "^2.6.11",
+    "vue-axios": "^2.1.5",
     "vue-flash-message": "^0.7.2",
-    "vue-router": "^3.0.6"
+    "vue-router": "^3.1.6"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.6.0",
-    "@vue/cli-plugin-eslint": "^3.6.0",
-    "@vue/cli-plugin-unit-jest": "^3.6.3",
-    "@vue/cli-service": "^3.6.0",
-    "@vue/test-utils": "^1.0.0-beta.29",
+    "@vue/cli-plugin-babel": "^3.12.1",
+    "@vue/cli-plugin-eslint": "^3.12.1",
+    "@vue/cli-plugin-unit-jest": "^3.12.1",
+    "@vue/cli-service": "^3.12.1",
+    "@vue/test-utils": "^1.0.0-beta.33",
     "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "^10.0.1",
+    "babel-eslint": "^10.1.0",
     "babel-jest": "^24.0.0",
     "eslint": "^6.0.0",
-    "eslint-plugin-vue": "^6.0.0",
-    "jest": "^24.7.1",
+    "eslint-plugin-vue": "^6.2.2",
+    "jest": "^24.9.0",
     "jest-transform-stub": "^2.0.0",
-    "vue-jest": "^3.0.4",
-    "vue-template-compiler": "^2.5.21"
+    "vue-jest": "^3.0.5",
+    "vue-template-compiler": "^2.6.11"
   }
 }
