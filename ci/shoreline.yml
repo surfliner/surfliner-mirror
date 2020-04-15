@@ -5,3 +5,13 @@ include:
   - local: ci/shoreline/review.yml
   - local: ci/shoreline/staging.yml
   - local: ci/shoreline/production.yml
+
+.only-shoreline-changes:
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - ci/shoreline.yml
+      - ci/shoreline/**/*
+      - charts/shoreline/**/*
+      - shoreline/discovery/Dockerfile
+      - shoreline/discovery/**/*

@@ -2,12 +2,6 @@ shoreline:discovery:ruby-build:
   extends:
     - .kaniko-build
     - .only-refs-default
+    - .only-shoreline-changes
   script:
     - build_image_for "shoreline/discovery" "shoreline_discovery_app"
-  only:
-    changes:
-      - .gitlab-ci.yml
-      - ci/shoreline/**/*
-      - charts/shoreline/**/*
-      - shoreline/discovery/Dockerfile
-      - shoreline/discovery/**/*

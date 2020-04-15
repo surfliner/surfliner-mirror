@@ -1,13 +1,9 @@
 .shoreline:deploy:review:
+  extends: .only-shoreline-changes
+  needs: ["shoreline:discovery:ruby-build"]
   only:
     refs:
       - merge_requests
-    changes:
-      - ci/shoreline/**/*
-      - charts/shoreline/**/*
-      - charts/geoserver/**/*
-      - shoreline/discovery/Dockerfile
-      - shoreline/discovery/**/*
 
 shoreline:discovery:deploy:ucsb-review:
   extends:

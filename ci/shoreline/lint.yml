@@ -7,8 +7,8 @@ shoreline:shellcheck:
   extends: .only-refs-default
   only:
     changes:
-      - .gitlab-ci.yml
-      - .styles/**/*
+      - ci/shoreline.yml
+      - ci/shoreline/**/*
       - shoreline/**/*
 
 shoreline:discovery:lint:

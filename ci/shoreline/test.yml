@@ -1,5 +1,6 @@
 .shoreline:discovery:test:
   stage: test
+  needs: ["shoreline:discovery:ruby-build"]
   image: $CI_REGISTRY_IMAGE/shoreline_discovery_app:$CI_COMMIT_SHA
   variables:
     DATABASE_HOST: "localhost"
@@ -24,14 +25,11 @@
     reports:
       junit: shoreline/discovery/rspec.xml
     when: on_failure
-  extends: .only-refs-default
+  extends:
+    - .only-refs-default
+    - .only-shoreline-changes
   tags:
     - kubernetes
-  only:
-    changes:
-      - .gitlab-ci.yml
-      - ci/shoreline/**/*
-      - shoreline/discovery/**/*
 
 shoreline:discovery:test:unit:
   extends: .shoreline:discovery:test
