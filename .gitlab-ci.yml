@@ -11,22 +11,10 @@ stages:
   - failure_notification
 
 include:
-  - local: ci/base/maintanence.yml
-  - local: ci/base/failure_notification.yml
-  - local: ci/lark/build.yml
-  - local: ci/lark/lint.yml
-  - local: ci/lark/test.yml
-  - local: ci/lark/review.yml
-  - local: ci/lark/staging.yml
-  - local: ci/shoreline/build.yml
-  - local: ci/shoreline/lint.yml
-  - local: ci/shoreline/test.yml
-  - local: ci/shoreline/review.yml
-  - local: ci/shoreline/staging.yml
-  - local: ci/shoreline/production.yml
-  - local: ci/starlight/build.yml
-  - local: ci/starlight/lint.yml
-  - local: ci/starlight/test.yml
+  - local: ci/base.yml
+  - local: ci/lark.yml
+  - local: ci/shoreline.yml
+  - local: ci/starlight.yml
 
 # Build with Kaniko. When building on `master`, tag a new stable image.
 .build_helpers: &build_helpers |

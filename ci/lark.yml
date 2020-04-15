@@ -1,0 +1,6 @@
+include:
+  - local: ci/lark/build.yml
+  - local: ci/lark/lint.yml
+  - local: ci/lark/test.yml
+  - local: ci/lark/review.yml
+  - local: ci/lark/staging.yml

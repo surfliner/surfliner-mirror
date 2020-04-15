@@ -1,0 +1,3 @@
+include:
+  - local: ci/base/maintanence.yml
+  - local: ci/base/failure_notification.yml

@@ -1,0 +1,4 @@
+include:
+  - local: ci/starlight/build.yml
+  - local: ci/starlight/lint.yml
+  - local: ci/starlight/test.yml

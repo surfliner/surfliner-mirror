@@ -1,0 +1,7 @@
+include:
+  - local: ci/shoreline/build.yml
+  - local: ci/shoreline/lint.yml
+  - local: ci/shoreline/test.yml
+  - local: ci/shoreline/review.yml
+  - local: ci/shoreline/staging.yml
+  - local: ci/shoreline/production.yml
