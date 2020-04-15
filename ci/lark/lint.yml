@@ -4,13 +4,13 @@ lark-shellcheck:
   script:
     - cd lark
     - find . -name tmp -prune -o -type f -exec awk 'FNR == 1 && /^#!.*sh/{print FILENAME}' {} + | xargs shellcheck
-  extends: .only-refs-default
+  extends:
+    - .only-refs-default
+    - .only-lark-changes
   needs: []
   only:
     changes:
-      - .gitlab-ci.yml
       - .styles/**/*
-      - lark/**/*
 
 lark-lint:
   stage: lint
@@ -21,13 +21,13 @@ lark-lint:
     - gem update bundler
     - bundle check || bundle
     - bundle exec rubocop
-  extends: .only-refs-default
+  extends:
+    - .only-refs-default
+    - .only-lark-api-changes
   needs: []
   only:
     changes:
-      - .gitlab-ci.yml
       - .styles/**/*
-      - lark/**/*
 
 lark-client-lint:
   stage: lint
@@ -39,11 +39,10 @@ lark-client-lint:
     - gem update bundler
     - bundle check || bundle
     - bundle exec rubocop
-  extends: .only-refs-default
+  extends:
+    - .only-refs-default
+    - .only-lark-cli-changes
   needs: []
   only:
     changes:
-      - .gitlab-ci.yml
-      - ci/lark/**/*
       - .styles/**/*
-      - lark-client/**/*

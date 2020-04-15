@@ -1,6 +1,6 @@
-lark-staging-ucsb:
-  extends: .auto-deploy
+lark:deploy:staging:ucsb:
   stage: staging
+  extends: .deploy-lark
   script:
     - cd lark
     - auto-deploy ensure_namespace
@@ -22,8 +22,3 @@ lark-staging-ucsb:
   only:
     refs:
       - master
-    changes:
-      - lark/**/*
-      - charts/lark/**/*
-      - ci/lark/**/*
-      - .gitlab-ci.yml

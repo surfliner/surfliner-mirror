@@ -1,6 +1,6 @@
-review_ucsb:
-  extends: .auto-deploy
+lark:deploy:review:ucsb:
   stage: review
+  extends: .deploy-lark
   script:
     - cd lark
     - auto-deploy ensure_namespace
@@ -14,28 +14,21 @@ review_ucsb:
   environment:
     name: ucsb.review.lark/$CI_COMMIT_SHA
     url: http://lark-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
-    on_stop: stop_review_ucsb
+    on_stop: lark:stop:review:ucsb
   variables:
     ROLLOUT_RESOURCE_TYPE: deployment
     CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE
     CI_APPLICATION_TAG: $CI_COMMIT_SHA
     INGRESS_URL: lark-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
     HELM_UPGRADE_EXTRA_ARGS: '--set persistence_adapters.index="memory" --set persistence_adapters.event="memory" --set solr.enabled=FALSE --set postgresql.enabled=FALSE'
-  artifacts:
-    paths: [environment_url.txt]
   only:
     refs:
       - merge_requests
       - tags
-    changes:
-      - lark/**/*
-      - charts/lark/**/*
-      - ci/lark/**/*
-      - .gitlab-ci.yml
 
-review_ucsd:
-  extends: .auto-deploy
+lark:deploy:review:ucsd:
   stage: review
+  extends: .deploy-lark
   script:
     - cd lark
     - auto-deploy ensure_namespace
@@ -49,27 +42,22 @@ review_ucsd:
   environment:
     name: ucsd.review.lark/$CI_COMMIT_SHA
     url: http://lark-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
-    on_stop: stop_review_ucsd
+    on_stop: lark:stop:review:ucsd
   variables:
     ROLLOUT_RESOURCE_TYPE: deployment
     CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE
     CI_APPLICATION_TAG: $CI_COMMIT_SHA
     INGRESS_URL: lark-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
     HELM_UPGRADE_EXTRA_ARGS: '--set persistence_adapters.index="memory" --set persistence_adapters.event="memory" --set solr.enabled=FALSE --set postgresql.enabled=FALSE'
-  artifacts:
-    paths: [environment_url.txt]
   only:
     refs:
       - merge_requests
       - tags
-    changes:
-      - lark/**/*
-      - charts/lark/**/*
-      - ci/lark/**/*
-      - .gitlab-ci.yml
 
-stop_review_ucsb:
-  extends: .auto-deploy
+lark:stop:review:ucsb:
+  extends:
+    - .auto-deploy
+    - .only-lark-changes
   stage: cleanup
   variables:
     GIT_STRATEGY: none
@@ -85,14 +73,11 @@ stop_review_ucsb:
     refs:
       - merge_requests
       - tags
-    changes:
-      - lark/**/*
-      - charts/lark/**/*
-      - ci/lark/**/*
-      - .gitlab-ci.yml
 
-stop_review_ucsd:
-  extends: .auto-deploy
+lark:stop:review:ucsd:
+  extends:
+    - .auto-deploy
+    - .only-lark-changes
   stage: cleanup
   variables:
     GIT_STRATEGY: none
@@ -108,8 +93,3 @@ stop_review_ucsd:
     refs:
       - merge_requests
       - tags
-    changes:
-      - lark/**/*
-      - charts/lark/**/*
-      - ci/lark/**/*
-      - .gitlab-ci.yml

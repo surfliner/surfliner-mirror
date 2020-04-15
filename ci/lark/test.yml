@@ -1,6 +1,7 @@
-lark-unit-tests:
+lark:api:test:unit:
   stage: test
   image: $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_SHA
+  needs: ["lark:ruby-build"]
   variables:
     SOLR_CORE_NAME: lark-test
     SOLR_CONFIG_DIR: lark/solr/config
@@ -22,42 +23,37 @@ lark-unit-tests:
     - cd lark
     - bundle check || bundle
     - rake db:create db:migrate && bundle exec rspec
-  extends: .only-refs-default
+  extends:
+    - .only-refs-default
+    - .only-lark-api-changes
   tags:
     - kubernetes
-  only:
-    changes:
-      - .gitlab-ci.yml
-      - ci/lark/**/*
-      - lark/**/*
 
-lark-client-unit:
+lark:client:test:unit:
   stage: test
-  # reuse the lark_web image; ruby alpine images are missing system dependencies
+  needs: ["lark:ruby-build"]
   image: $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_SHA
   script:
     - cd lark-client
     - bundle check || bundle
     - bundle exec rspec --tag ~integration
-  extends: .only-refs-default
+  extends:
+    - .only-refs-default
+    - .only-lark-cli-changes
   only:
     changes:
       - .gitlab-ci.yml
       - ci/lark/**/*
       - lark-client/**/*
 
-lark-client-integration:
+lark:client:test:integration:
   stage: integration
-  # reuse the lark_web image; ruby alpine images are missing system dependencies
+  needs: ["lark:ruby-build"]
   image: $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_SHA
   script:
     - cd lark-client
     - bundle check || bundle
     - bundle exec rspec --tag @integration
-  extends: .only-refs-default
-  only:
-    changes:
-      - .gitlab-ci.yml
-      - ci/lark/**/*
-      - lark-client/**/*
-      - lark/**/*
+  extends:
+    - .only-refs-default
+    - .only-lark-changes

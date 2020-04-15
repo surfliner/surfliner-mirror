@@ -1,25 +1,15 @@
-lark-ruby-build:
+lark:ruby-build:
   extends:
     - .kaniko-build
     - .only-refs-default
+    - .only-lark-changes
   script:
     - build_image_for "lark" "lark_web"
-  only:
-    changes:
-      - .gitlab-ci.yml
-      - ci/lark/**/*
-      - lark/Dockerfile
-      - lark/**/*
 
-lark-frontend-node-build:
+lark:frontend:node-build:
   extends:
     - .kaniko-build
     - .only-refs-default
+    - .only-lark-frontend-changes
   script:
     - build_image_for "lark-frontend" "lark_frontend_web"
-  only:
-    changes:
-      - .gitlab-ci.yml
-      - lark/Dockerfile
-      - ci/lark/**/*
-      - lark-frontend/**/*

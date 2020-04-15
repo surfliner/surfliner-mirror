@@ -4,3 +4,40 @@ include:
   - local: ci/lark/test.yml
   - local: ci/lark/review.yml
   - local: ci/lark/staging.yml
+
+.deploy-lark:
+  extends:
+    - .auto-deploy
+    - .only-lark-changes
+  needs: ["lark:ruby-build", "lark:frontend:node-build"]
+  artifacts:
+    paths: [environment_url.txt]
+
+.only-lark-changes:
+  extends:
+    - .only-lark-api-changes
+    - .only-lark-frontend-changes
+
+.only-lark-api-changes:
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - ci/lark.yml
+      - ci/lark/**/*
+      - lark/**/*
+
+.only-lark-cli-changes:
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - ci/lark.yml
+      - ci/lark/**/*
+      - lark-client/**/*
+
+.only-lark-frontend-changes:
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - ci/lark.yml
+      - ci/lark/**/*
+      - lark-frontend/**/*
