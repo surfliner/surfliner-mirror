@@ -1,0 +1,52 @@
+.shoreline:deploy:review:
+  extends: .only-shoreline-changes
+  needs: ["shoreline:discovery:ruby-build"]
+  only:
+    refs:
+      - merge_requests
+
+shoreline:discovery:deploy:ucsd-review:
+  stage: review
+  extends:
+    - .helm3-deploy
+    - .shoreline:deploy:review
+  environment:
+    name: ucsd.shoreline.review/$CI_MERGE_REQUEST_ID
+    url: http://shoreline-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
+    on_stop: shoreline:discovery:cleanup:ucsd-review
+    auto_stop_in: 1 week
+  variables:
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/shoreline_discovery_app
+    DEPLOY_TAG: $CI_COMMIT_SHA
+    HELM_RELEASE_NAME: surfliner-shoreline-$CI_MERGE_REQUEST_ID
+    HELM_UPGRADE_EXTRA_ARGS: '--set theme="ucsd" --set ingress.hosts={shoreline-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN} --set geoserver.ingress.hosts={geoserver-review.local}'
+    KUBE_NAMESPACE: shoreline-review
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+  script:
+    - cd shoreline/discovery
+    - mv ../../charts/shoreline ./chart
+    - mv ../../charts/geoserver ./geoserver
+    - deploy
+
+shoreline:discovery:cleanup:ucsd-review:
+  extends:
+    - .helm3-deploy
+    - .shoreline:deploy:review
+  stage: review
+  environment:
+    name: ucsd.shoreline.review/$CI_MERGE_REQUEST_ID
+    url: http://shoreline-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
+    action: stop
+  when: manual
+  allow_failure: true
+  variables:
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/shoreline_discovery_app
+    DEPLOY_TAG: $CI_COMMIT_SHA
+    GIT_STRATEGY: none
+    HELM_RELEASE_NAME: surfliner-shoreline-$CI_MERGE_REQUEST_ID
+    HELM_UPGRADE_EXTRA_ARGS: '--set theme="ucsd" --set ingress.hosts={shoreline-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN} --set geoserver.ingress.hosts={geoserver-review.local}'
+    KUBE_NAMESPACE: shoreline-review
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+  script:
+    - delete
+    - delete_stateful_set_pvcs

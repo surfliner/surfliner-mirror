@@ -3,7 +3,9 @@ include:
   - local: ci/shoreline/lint.yml
   - local: ci/shoreline/test.yml
   - local: ci/shoreline/review.yml
+  - local: ci/shoreline/review-ucsd.yml
   - local: ci/shoreline/staging.yml
+  - local: ci/shoreline/staging-ucsd.yml
   - local: ci/shoreline/production.yml
 
 .only-shoreline-changes:

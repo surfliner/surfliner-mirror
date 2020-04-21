@@ -76,3 +76,63 @@ include:
       - master
       - merge_requests
       - tags
+
+  # Helm 3 deployment helper functions
+.helm3_deploy_helpers: &helm3_deploy_helpers |
+  function deploy() {
+    if helm ls --namespace="$KUBE_NAMESPACE" -q | grep -q "$HELM_RELEASE_NAME"; then
+      echo "Deploying new release: $HELM_RELEASE_NAME..."
+    else
+      first_release="yes"
+      echo "Deploying initial release: $HELM_RELEASE_NAME..."
+    fi
+    helm upgrade \
+        --install \
+        --atomic \
+        --set image.repository="$DEPLOY_IMAGE" \
+        --set image.tag="$DEPLOY_TAG" \
+        $HELM_UPGRADE_EXTRA_ARGS \
+        --namespace="$KUBE_NAMESPACE" \
+        "$HELM_RELEASE_NAME" \
+        chart/
+  }
+
+  function delete() {
+    echo "Deleting release: $HELM_RELEASE_NAME..."
+    helm delete --namespace "$KUBE_NAMESPACE" "$HELM_RELEASE_NAME"
+  }
+
+  # note: should not be used in production
+  function delete_stateful_set_pvcs(){
+    echo "Deleting any StatefulSet Persistent Volume Claims..."
+    kubectl delete pvc -l release="$HELM_RELEASE_NAME" --namespace="$KUBE_NAMESPACE"
+  }
+
+  function rollback() {
+    echo "Rolling back to previous release of: $HELM_RELEASE_NAME..."
+    helm rollback --wait --namespace "$KUBE_NAMESPACE" "$HELM_RELEASE_NAME"
+  }
+
+  function ensure_namespace() {
+    kubectl get namespace "$KUBE_NAMESPACE" || kubectl create namespace "$KUBE_NAMESPACE"
+  }
+
+  # A GitLab-integrated Kubernetes cluster should already have a KUBECONFIG created
+  # Otherwise, we assume the KUBECONFIG is setup as a base64-encoded environment variable
+  function setup_kube_config(){
+    if [ -z "${KUBECONFIG}" ]; then
+      echo "A GitLab KUBECONFIG file was not detected, using KUBE_ROLE_CONFIG env var.."
+      mkdir -p /etc/deploy
+      export KUBECONFIG=/etc/deploy/config
+      echo ${KUBE_ROLE_CONFIG} | base64 -d > $KUBECONFIG
+    fi
+  }
+
+# Helm3-based image for tiller-less deploys
+.helm3-deploy:
+  image: "dtzar/helm-kubectl:3.1.2"
+  stage: deploy
+  before_script:
+    - *helm3_deploy_helpers
+    - setup_kube_config
+    - ensure_namespace
