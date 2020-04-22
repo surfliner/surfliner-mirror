@@ -105,7 +105,10 @@ include:
   # note: should not be used in production
   function delete_stateful_set_pvcs(){
     echo "Deleting any StatefulSet Persistent Volume Claims..."
+    # postgresql and zookeeper
     kubectl delete pvc -l release="$HELM_RELEASE_NAME" --namespace="$KUBE_NAMESPACE"
+    # solr
+    kubectl delete pvc -l "app.kubernetes.io/instance=$HELM_RELEASE_NAME" --namespace="$KUBE_NAMESPACE"
   }
 
   function rollback() {
