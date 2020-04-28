@@ -23,6 +23,7 @@ shoreline:discovery:deploy:ucsb-review:
     name: ucsb.review.shoreline
     url: http://shoreline-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
     on_stop: shoreline:discovery:cleanup:ucsb-review
+    auto_stop_in: 4 days
   variables:
     CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE/shoreline_discovery_app
     CI_APPLICATION_TAG: $CI_COMMIT_SHA

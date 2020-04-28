@@ -15,6 +15,7 @@ lark:deploy:review:ucsb:
     name: ucsb.review.lark/$CI_COMMIT_SHA
     url: http://lark-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
     on_stop: lark:stop:review:ucsb
+    auto_stop_in: 4 days
   variables:
     ROLLOUT_RESOURCE_TYPE: deployment
     CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE
@@ -43,6 +44,7 @@ lark:deploy:review:ucsd:
     name: ucsd.review.lark/$CI_COMMIT_SHA
     url: http://lark-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
     on_stop: lark:stop:review:ucsd
+    auto_stop_in: 4 days
   variables:
     ROLLOUT_RESOURCE_TYPE: deployment
     CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE
