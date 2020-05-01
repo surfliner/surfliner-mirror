@@ -13,7 +13,9 @@ Rails.application.config.after_initialize do
         next if row["file"].blank?
 
         full_path = Pathname.new(ENV["BINARY_ROOT"] || "").join(row["file"])
-        flash[:alert] << "No file exists at #{full_path}; skipping" unless full_path.exist?
+        unless full_path.exist?
+          flash[:alert] << "No file exists at #{full_path}; skipping"
+        end
       end
 
       Spotlight::AddUploadsFromCSV.perform_later(csv, current_exhibit, current_user)

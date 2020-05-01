@@ -3,7 +3,7 @@
 # This is necessary because the upstream :user factory in Spotlight current assumes there is a password property
 # (see https://github.com/projectblacklight/spotlight/blob/v2.3.2/spec/factories/users.rb#L7 )
 FactoryBot.define do
-  factory :omniauth_user, class: User do
+  factory :omniauth_user, class: "User" do
     transient do
       exhibit { FactoryBot.create(:exhibit) }
     end
