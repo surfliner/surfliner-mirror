@@ -4,6 +4,6 @@ dependencies:
   version: 8.7.3
 - name: geoserver
   repository: file://../geoserver
-  version: 0.2.0
-digest: sha256:c987a694e3eb716c38788f005c006d6011d7d6b7e5e60c43184977732b8667f0
-generated: 2020-04-13T15:58:36.387656834-07:00
+  version: 0.3.0
+digest: sha256:985a9503e845a603c8839a661d1691c3ec759bae9a55567353de39a40fd3da2d
+generated: 2020-05-04T11:33:16.58710832-07:00
