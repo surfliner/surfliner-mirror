@@ -49,14 +49,14 @@ spec:
               port: http
             failureThreshold: 2
             periodSeconds: 5
-            initialDelaySeconds: 30
+            initialDelaySeconds: 90
           readinessProbe:
             httpGet:
               path: /geoserver
               port: http
             failureThreshold: 2
             periodSeconds: 10
-            initialDelaySeconds: 35
+            initialDelaySeconds: 90
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
