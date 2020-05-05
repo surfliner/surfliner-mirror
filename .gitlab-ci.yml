@@ -80,6 +80,8 @@ include:
   # Helm 3 deployment helper functions
 .helm3_deploy_helpers: &helm3_deploy_helpers |
   function deploy() {
+    setup_helm_dependencies
+
     if helm ls --namespace="$KUBE_NAMESPACE" -q | grep -q "$HELM_RELEASE_NAME"; then
       echo "Deploying new release: $HELM_RELEASE_NAME..."
     else
@@ -95,6 +97,33 @@ include:
         --namespace="$KUBE_NAMESPACE" \
         "$HELM_RELEASE_NAME" \
         chart/
+  }
+
+  # Setup helm repositories
+  function setup_helm_dependencies(){
+    echo "Setting up Helm repositories for chart dependencies.."
+    # dynamically add helm repositories based on helm dependency listing
+    repos=$(helm dep list chart/ | grep http | cut -f3 | uniq)
+    if test -z "$repos"; then
+      echo "This Helm chart has no dependencies.."
+      return
+    fi
+    index=0
+    for repo in $repos
+    do
+      helm repo add "repo-$index" "$repo" --no-update
+      index=${index+1}
+    done
+    download_chart_dependencies
+  }
+
+  # Install chart dependencies
+  function download_chart_dependencies(){
+    echo "Downloading Helm chart dependencies.."
+    # update charts/ based on the contents of Chart.yaml
+    helm dependency update chart/
+    # rebuild the charts/ directory based on the Chart.lock file
+    helm dependency build chart/
   }
 
   function delete() {
