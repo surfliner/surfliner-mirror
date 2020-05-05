@@ -38,10 +38,11 @@ include:
 .kaniko-build:
   stage: build
   image:
-    name: gcr.io/kaniko-project/executor:debug-v0.17.1
+    name: gcr.io/kaniko-project/executor:debug-v0.20.0
     entrypoint: [""]
   before_script:
     - *build_helpers
+    - mkdir -p /kaniko/.docker
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
 
 
