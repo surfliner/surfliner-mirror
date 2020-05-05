@@ -41,6 +41,8 @@ services:
     image: postgres:11-alpine
     volumes:
       - starlight_database:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres_pass
     ports:
       - "5432:5432"
 
