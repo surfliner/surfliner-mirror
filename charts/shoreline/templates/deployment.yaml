@@ -124,7 +124,10 @@ spec:
             - name: "GEOSERVER_HOST"
               value: {{ .Values.geoserver.ingress.hosts | first |  }}
             - name: "GEOSERVER_PASSWORD"
-              value: geoserver
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "shoreline.fullname" . }}
+                  key: geoserver-admin-password
             - name: "GEOSERVER_PORT"
               value: "80"
             - name: "GEOSERVER_USER"
