@@ -10,6 +10,6 @@ lark:frontend:node-build:
   extends:
     - .kaniko-build
     - .only-refs-default
-    - .only-lark-frontend-changes
+    - .only-lark-changes
   script:
     - build_image_for "lark-frontend" "lark_frontend_web"
