@@ -14,9 +14,14 @@ include:
     paths: [environment_url.txt]
 
 .only-lark-changes:
-  extends:
-    - .only-lark-api-changes
-    - .only-lark-frontend-changes
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - ci/lark.yml
+      - ci/lark/**/*
+      - lark/**/*
+      - lark-client/**/*
+      - lark-frontend/**/*
 
 .only-lark-api-changes:
   only:
