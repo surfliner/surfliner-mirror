@@ -47,17 +47,15 @@ spec:
             httpGet:
               path: /
               port: http
-            failureThreshold: 8
-            timeoutSeconds: 5
-            periodSeconds: 10
+            failureThreshold: 2
+            periodSeconds: 5
             initialDelaySeconds: 90
           readinessProbe:
             httpGet:
               path: /geoserver
               port: http
             failureThreshold: 2
-            timeoutSeconds: 5
-            periodSeconds: 5
+            periodSeconds: 10
             initialDelaySeconds: 90
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
