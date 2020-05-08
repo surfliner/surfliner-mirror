@@ -6,4 +6,4 @@ dependencies:
   repository: file://../geoserver
   version: 0.3.0
 digest: sha256:4eed866defed6a442dccb0812eaefe0d399acb8a96c9b801b1d73f79e1ac7f38
-generated: "2020-05-08T14:35:39.820160258-07:00"
+generated: "2020-05-08T16:11:31.314778874-07:00"
