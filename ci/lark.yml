@@ -19,6 +19,7 @@ include:
       - .gitlab-ci.yml
       - ci/lark.yml
       - ci/lark/**/*
+      - charts/lark/**/*
       - lark/**/*
       - lark-client/**/*
       - lark-frontend/**/*
@@ -29,6 +30,7 @@ include:
       - .gitlab-ci.yml
       - ci/lark.yml
       - ci/lark/**/*
+      - charts/lark/**/*
       - lark/**/*
 
 .only-lark-cli-changes:
@@ -37,6 +39,7 @@ include:
       - .gitlab-ci.yml
       - ci/lark.yml
       - ci/lark/**/*
+      - charts/lark/**/*
       - lark-client/**/*
 
 .only-lark-frontend-changes:
@@ -45,4 +48,5 @@ include:
       - .gitlab-ci.yml
       - ci/lark.yml
       - ci/lark/**/*
+      - charts/lark/**/*
       - lark-frontend/**/*
