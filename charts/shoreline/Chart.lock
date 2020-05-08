@@ -1,9 +1,9 @@
 dependencies:
 - name: postgresql
-  repository: https://kubernetes-charts.storage.googleapis.com/
-  version: 6.5.9
+  repository: https://charts.bitnami.com/bitnami
+  version: 8.7.3
 - name: geoserver
   repository: file://../geoserver
-  version: 0.2.0
-digest: sha256:15ef3fb2fc674c4ab921cd5b2117f6a400b869e41a325f9a73951acdd50958e7
-generated: "2020-03-23T16:31:27.923843446-07:00"
+  version: 0.3.0
+digest: sha256:4eed866defed6a442dccb0812eaefe0d399acb8a96c9b801b1d73f79e1ac7f38
+generated: "2020-05-08T14:35:39.820160258-07:00"
