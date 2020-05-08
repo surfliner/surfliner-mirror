@@ -12,6 +12,7 @@ include:
       - .gitlab-ci.yml
       - ci/shoreline.yml
       - ci/shoreline/**/*
+      - charts/geoserver/**/*
       - charts/shoreline/**/*
       - shoreline/discovery/Dockerfile
       - shoreline/discovery/**/*
