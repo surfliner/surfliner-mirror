@@ -3,25 +3,20 @@ lark:deploy:review:ucsb:
   extends: .deploy-lark
   script:
     - cd lark
-    - auto-deploy ensure_namespace
-    - auto-deploy initialize_tiller
-    - auto-deploy create_secret
     - mv ../charts/lark/latest ./chart
-    - build_chart_dependencies
-    - auto-deploy deploy
-    - auto-deploy persist_environment_url
+    - deploy
   allow_failure: true
   environment:
-    name: ucsb.review.lark/$CI_COMMIT_SHA
-    url: http://lark-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
+    name: ucsb.review.lark/$CI_MERGE_REQUEST_ID
+    url: http://lark-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
     on_stop: lark:stop:review:ucsb
     auto_stop_in: 4 days
   variables:
-    ROLLOUT_RESOURCE_TYPE: deployment
-    CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE
-    CI_APPLICATION_TAG: $CI_COMMIT_SHA
-    INGRESS_URL: lark-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
-    HELM_UPGRADE_EXTRA_ARGS: '--set persistence_adapters.index="memory" --set persistence_adapters.event="memory" --set solr.enabled=FALSE --set postgresql.enabled=FALSE'
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/shoreline_discovery_app
+    DEPLOY_TAG: $CI_COMMIT_SHA
+    HELM_RELEASE_NAME: surfliner-lark-$CI_MERGE_REQUEST_ID
+    KUBE_NAMESPACE: lark-review
+    HELM_UPGRADE_EXTRA_ARGS: '--set ingress.hosts={lark-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN} --set persistence_adapters.index="memory" --set persistence_adapters.event="memory" --set solr.enabled=FALSE --set postgresql.enabled=FALSE'
   only:
     refs:
       - merge_requests
@@ -32,25 +27,21 @@ lark:deploy:review:ucsd:
   extends: .deploy-lark
   script:
     - cd lark
-    - auto-deploy ensure_namespace
-    - auto-deploy initialize_tiller
-    - auto-deploy create_secret
     - mv ../charts/lark/latest ./chart
-    - build_chart_dependencies
-    - auto-deploy deploy
-    - auto-deploy persist_environment_url
+    - deploy
   allow_failure: true
   environment:
-    name: ucsd.review.lark/$CI_COMMIT_SHA
-    url: http://lark-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
+    name: ucsd.review.lark/$CI_MERGE_REQUEST_ID
+    url: http://lark-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
     on_stop: lark:stop:review:ucsd
     auto_stop_in: 4 days
   variables:
-    ROLLOUT_RESOURCE_TYPE: deployment
-    CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE
-    CI_APPLICATION_TAG: $CI_COMMIT_SHA
-    INGRESS_URL: lark-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
-    HELM_UPGRADE_EXTRA_ARGS: '--set persistence_adapters.index="memory" --set persistence_adapters.event="memory" --set solr.enabled=FALSE --set postgresql.enabled=FALSE'
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/shoreline_discovery_app
+    DEPLOY_TAG: $CI_COMMIT_SHA
+    HELM_RELEASE_NAME: surfliner-lark-$CI_MERGE_REQUEST_ID
+    KUBE_NAMESPACE: lark-review
+    HELM_UPGRADE_EXTRA_ARGS: '--set ingress.hosts={lark-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN} --set persistence_adapters.index="memory" --set persistence_adapters.event="memory" --set solr.enabled=FALSE --set postgresql.enabled=FALSE'
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
   only:
     refs:
       - merge_requests
@@ -58,16 +49,14 @@ lark:deploy:review:ucsd:
 
 lark:stop:review:ucsb:
   extends:
-    - .auto-deploy
-    - .only-lark-changes
-  stage: cleanup
+    - .deploy-lark
+  stage: review
   variables:
     GIT_STRATEGY: none
   script:
-    - auto-deploy initialize_tiller
-    - auto-deploy delete
+    - delete
   environment:
-    name: ucsb.review.lark/$CI_COMMIT_SHA
+    name: ucsb.review.lark/$CI_MERGE_REQUEST_ID
     action: stop
   when: manual
   allow_failure: true
@@ -78,16 +67,15 @@ lark:stop:review:ucsb:
 
 lark:stop:review:ucsd:
   extends:
-    - .auto-deploy
-    - .only-lark-changes
-  stage: cleanup
+    - .deploy-lark
+  stage: review
   variables:
     GIT_STRATEGY: none
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
   script:
-    - auto-deploy initialize_tiller
-    - auto-deploy delete
+    - delete
   environment:
-    name: ucsd.review.lark/$CI_COMMIT_SHA
+    name: ucsd.review.lark/$CI_MERGE_REQUEST_ID
     action: stop
   when: manual
   allow_failure: true

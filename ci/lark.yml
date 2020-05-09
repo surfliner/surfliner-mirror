@@ -7,7 +7,7 @@ include:
 
 .deploy-lark:
   extends:
-    - .auto-deploy
+    - .helm3-deploy
     - .only-lark-changes
   needs: ["lark:ruby-build", "lark:frontend:node-build"]
   artifacts:
