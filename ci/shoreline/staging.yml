@@ -1,5 +1,13 @@
 .shoreline:deploy:stage:
-  extends: .only-refs-default
+  stage: staging
+  extends:
+    - .only-refs-default
+    - .helm3-deploy
+  variables:
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/shoreline_discovery_app
+    DEPLOY_TAG: stable
+    HELM_RELEASE_NAME: surfliner-shoreline-stage
+    KUBE_NAMESPACE: shoreline-staging
   only:
     refs:
       - master
@@ -10,34 +18,53 @@
       - shoreline/discovery/Dockerfile
       - shoreline/discovery/**/*
 
-shoreline:discovery:deploy:ucsb-stage:
+shoreline:discovery:deploy:ucsd-stage:
   extends:
-    - .auto-deploy
     - .shoreline:deploy:stage
-  stage: staging
+  environment:
+    name: ucsd.shoreline.staging
+    url: http://geodata-staging.ucsd.edu/
+  variables:
+    HELM_UPGRADE_EXTRA_ARGS: '--set theme="ucsd" --set ingress.hosts={geodata-staging.ucsd.edu} --set geoserver.ingress.hosts={geoserver-staging.ucsd.edu} --set sample_data=true'
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
   script:
     - cd shoreline/discovery
-    - auto-deploy ensure_namespace
-    - auto-deploy initialize_tiller
-    - auto-deploy create_secret
     - mv ../../charts/shoreline ./chart
     - mv ../../charts/geoserver ./geoserver
-    - build_chart_dependencies
-    - auto-deploy deploy
+    - deploy
+
+shoreline:discovery:cleanup:ucsd-stage:
+  extends:
+    - .shoreline:deploy:stage
+  stage: cleanup
+  environment:
+    name: ucsd.shoreline.staging
+    action: stop
+  when: manual
+  allow_failure: true
+  variables:
+    GIT_STRATEGY: none
+    KUBE_NAMESPACE: shoreline-staging
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+  script:
+    - delete
+
+shoreline:discovery:deploy:ucsb-stage:
+  extends:
+    - .shoreline:deploy:stage
+  script:
+    - cd shoreline/discovery
+    - mv ../../charts/shoreline ./chart
+    - mv ../../charts/geoserver ./geoserver
+    - deploy
   environment:
     name: ucsb.staging.shoreline
     url: http://shoreline-staging.$KUBE_INGRESS_BASE_DOMAIN
   variables:
-    CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE/shoreline_discovery_app
-    CI_APPLICATION_TAG: stable
-    INGRESS_URL: shoreline-staging.$KUBE_INGRESS_BASE_DOMAIN
-    HELM_RELEASE_NAME: surfliner-shoreline-stage
-    HELM_UPGRADE_EXTRA_ARGS: '--timeout 1000 --set theme="ucsb" --set ingress.hosts={shoreline-staging.$KUBE_INGRESS_BASE_DOMAIN} --set geoserver.ingress.hosts={shoreline-geoserver-staging.$KUBE_INGRESS_BASE_DOMAIN} --set sample_data=true'
-    ROLLOUT_RESOURCE_TYPE: deployment
+    HELM_UPGRADE_EXTRA_ARGS: '--timeout 1000s --set theme="ucsb" --set ingress.hosts={shoreline-staging.$KUBE_INGRESS_BASE_DOMAIN} --set geoserver.ingress.hosts={shoreline-geoserver-staging.$KUBE_INGRESS_BASE_DOMAIN} --set sample_data=true'
 
 shoreline:discovery:cleanup:ucsb-stage:
   extends:
-    - .auto-deploy
     - .shoreline:deploy:stage
   stage: cleanup
   environment:
@@ -46,11 +73,7 @@ shoreline:discovery:cleanup:ucsb-stage:
   when: manual
   allow_failure: true
   variables:
-    CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE/shoreline_discovery_app
-    CI_APPLICATION_TAG: stable
     GIT_STRATEGY: none
     HELM_RELEASE_NAME: surfliner-shoreline-stage
-    ROLLOUT_RESOURCE_TYPE: deployment
   script:
-    - auto-deploy initialize_tiller
-    - auto-deploy delete
+    - delete
