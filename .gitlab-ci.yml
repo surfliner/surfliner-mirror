@@ -162,7 +162,7 @@ include:
 
 # Helm3-based image for tiller-less deploys
 .helm3-deploy:
-  image: "dtzar/helm-kubectl:3.1.2"
+  image: "dtzar/helm-kubectl:3.2.1"
   stage: deploy
   before_script:
     - *helm3_deploy_helpers
