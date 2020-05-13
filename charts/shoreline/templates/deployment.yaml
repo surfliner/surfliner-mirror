@@ -73,6 +73,8 @@ spec:
               value: /data/tmp/cache/downloads
             - name: "GEOSERVER_HOST"
               value: {{ .Values.geoserver.ingress.hosts | first |  }}
+            - name: "GEOSERVER_INTERNAL_HOST"
+              value: {{ template "shoreline.geoserver.fullname" . }}
             - name: "GEOSERVER_PASSWORD"
               value: geoserver
             - name: "GEOSERVER_PORT"
@@ -123,6 +125,8 @@ spec:
               value: /data/tmp/cache/downloads
             - name: "GEOSERVER_HOST"
               value: {{ .Values.geoserver.ingress.hosts | first |  }}
+            - name: "GEOSERVER_INTERNAL_HOST"
+              value: {{ template "shoreline.geoserver.fullname" . }}
             - name: "GEOSERVER_PASSWORD"
               valueFrom:
                 secretKeyRef:

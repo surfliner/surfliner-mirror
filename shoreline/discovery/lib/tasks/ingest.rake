@@ -5,7 +5,8 @@ namespace :shoreline do
   desc 'publish a Shapefile in GeoServer and GeoBlacklight'
   task :publish, [:file_path] => :environment do |_t, args|
     conn = Geoserver::Publish::Connection.new(
-      'url' => "http://#{ENV['GEOSERVER_HOST']}:#{ENV['GEOSERVER_PORT']}/geoserver/rest",
+      # Using internal hostname to avoid the nginx ingress, which limits filesize
+      'url' => "http://#{ENV['GEOSERVER_INTERNAL_HOST']}:#{ENV['GEOSERVER_PORT']}/geoserver/rest",
       'user' => ENV['GEOSERVER_USER'],
       'password' => ENV['GEOSERVER_PASSWORD']
     )
