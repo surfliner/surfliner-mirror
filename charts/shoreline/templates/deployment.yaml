@@ -34,7 +34,7 @@ spec:
                   exit 0;
                 fi
                 COUNTER=$(( COUNTER+1 ));
-                sleep 2;
+                sleep 2s;
               done;
               echo "Failed to create Solr core after 240 secs";
               exit 1;
@@ -47,7 +47,7 @@ spec:
             - "-c"
             - |
               COUNTER=0;
-              while [ $COUNTER -lt 30 ]; do
+              while [ $COUNTER -lt 120 ]; do
                 echo 'trying to connect to {{ .Release.Name }}-geoserver on port 80';
                 if nc {{ .Release.Name }}-geoserver 80 ; then
                   for shape in $(ls spec/fixtures/shapefiles); do
@@ -56,9 +56,9 @@ spec:
                   exit 0;
                 fi
                 COUNTER=$(( COUNTER+1 ));
-                sleep 3s;
+                sleep 2s;
               done;
-              echo "Failed to find GeoServer after 90 secs";
+              echo "Failed to find GeoServer after 240 secs";
               exit 1;
           env:
             - name: "SHORELINE_PROVENANCE"
