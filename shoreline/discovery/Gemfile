@@ -40,6 +40,7 @@ gem 'twitter-typeahead-rails', '0.11.1'
 gem 'tzinfo-data',             '~> 1.2020.0'
 gem 'uglifier',                '>= 1.3.0'
 gem 'web-console',             '>= 3.3.0', group: 'development'
+gem 'zk'
 
 group :development, :test do
   gem 'solr_wrapper'

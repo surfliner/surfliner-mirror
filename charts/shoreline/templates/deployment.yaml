@@ -20,7 +20,7 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       initContainers:
-        - name: create-solr-core
+        - name: configure-solr
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: "{{ .Values.image.pullPolicy }}"
           command:
@@ -31,6 +31,8 @@ spec:
               while [ $COUNTER -lt 120 ]; do
                 if nc {{ .Release.Name }}-solr-svc 8983; then
                   curl -H 'Content-type: application/json' -d '{create: {name: collection1, config: solrconfig, numShards: 1}}' {{ .Release.Name }}-solr-svc:8983/api/collections/
+                  sleep 10s
+                  bin/rake shoreline:solrconfig['collection1','solr/conf']
                   exit 0;
                 fi
                 COUNTER=$(( COUNTER+1 ));
