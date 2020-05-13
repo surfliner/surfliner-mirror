@@ -52,9 +52,13 @@ spec:
               while [ $COUNTER -lt 120 ]; do
                 echo 'trying to connect to {{ .Release.Name }}-geoserver on port 80';
                 if nc {{ .Release.Name }}-geoserver 80 ; then
+                  echo "Found GeoServer; ingesting..."
+
                   for shape in $(ls spec/fixtures/shapefiles); do
+                    echo "Ingesting ${shape}..."
                     bundle exec rake shoreline:publish["spec/fixtures/shapefiles/${shape}"]
                   done
+
                   exit 0;
                 fi
                 COUNTER=$(( COUNTER+1 ));
