@@ -62,7 +62,7 @@ shoreline:discovery:deploy:ucsb-review:
     on_stop: shoreline:discovery:cleanup:ucsb-review
     auto_stop_in: 4 days
   variables:
-    HELM_UPGRADE_EXTRA_ARGS: '--timeout 1000s --set theme="ucsb" --set ingress.hosts={shoreline-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN} --set geoserver.ingress.hosts={shoreline-geoserver-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN} --set sample_data=true --set geoserver.persistence.enabled=false --set postgresql.persistence.enabled=false'
+    HELM_UPGRADE_EXTRA_ARGS: '--set theme="ucsb" --set ingress.hosts={shoreline-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN} --set geoserver.ingress.hosts={shoreline-geoserver-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN} --set sample_data=true --set geoserver.persistence.enabled=false --set postgresql.persistence.enabled=false'
 
 shoreline:discovery:cleanup:ucsb-review:
   extends:
