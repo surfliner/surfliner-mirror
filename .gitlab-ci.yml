@@ -103,7 +103,7 @@ include:
   function download_chart_dependencies(){
     echo "Downloading Helm chart dependencies.."
     # rebuild the charts/ directory based on the Chart.lock file
-    helm dependency build chart/
+    helm dependency update chart/
   }
 
   function delete() {
