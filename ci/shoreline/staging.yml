@@ -48,6 +48,7 @@ shoreline:discovery:cleanup:ucsd-stage:
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
   script:
     - delete
+    - delete_stateful_set_pvcs
 
 shoreline:discovery:deploy:ucsb-stage:
   extends:
@@ -77,3 +78,4 @@ shoreline:discovery:cleanup:ucsb-stage:
     HELM_RELEASE_NAME: surfliner-shoreline-stage
   script:
     - delete
+    - delete_stateful_set_pvcs
