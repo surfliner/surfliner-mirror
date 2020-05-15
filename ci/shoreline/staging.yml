@@ -21,6 +21,7 @@
 shoreline:discovery:deploy:ucsd-stage:
   extends:
     - .shoreline:deploy:stage
+  allow_failure: true
   environment:
     name: ucsd.shoreline.staging
     url: http://geodata-staging.ucsd.edu/
