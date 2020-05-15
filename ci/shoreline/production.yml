@@ -1,5 +1,7 @@
 .shoreline:deploy:production:
-  extends: .only-refs-default
+  extends:
+    - .only-refs-default
+    - .helm3-deploy
   when: manual
   only:
     refs:
@@ -14,25 +16,20 @@
 
 shoreline:discovery:deploy:prod:ucsb:
   extends:
-    - .auto-deploy
     - .shoreline:deploy:production
   stage: production
   script:
     - cd shoreline/discovery
-    - auto-deploy ensure_namespace
-    - auto-deploy initialize_tiller
-    - auto-deploy create_secret
     - mv ../../charts/shoreline ./chart
     - mv ../../charts/geoserver ./geoserver
-    - build_chart_dependencies
-    - auto-deploy deploy
+    - deploy
   environment:
     name: ucsb.production.shoreline
     url: http://shoreline.$KUBE_INGRESS_BASE_DOMAIN
   variables:
-    CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE/shoreline_discovery_app
-    CI_APPLICATION_TAG: stable
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/shoreline_discovery_app
+    DEPLOY_TAG: stable
     INGRESS_URL: shoreline.$KUBE_INGRESS_BASE_DOMAIN
+    KUBE_NAMESPACE: shoreline-prod
     HELM_RELEASE_NAME: surfliner-shoreline-prod
     HELM_UPGRADE_EXTRA_ARGS: '--timeout 15m0s --set theme="ucsb" --set ingress.hosts={geodata.library.ucsb.edu} --set geoserver.ingress.hosts={geoserver.geodata.library.ucsb.edu}'
-    ROLLOUT_RESOURCE_TYPE: deployment
