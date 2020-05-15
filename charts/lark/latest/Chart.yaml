@@ -3,3 +3,12 @@ appVersion: "0.1.0"
 description: Lark is an authority control platform and API.
 name: lark
 version: 0.4.4
+dependencies:
+  - name: solr
+    version: 1.5.0
+    repository: https://kubernetes-charts-incubator.storage.googleapis.com/
+    condition: solr.enabled
+  - name: postgresql
+    version: 8.7.3
+    repository: https://charts.bitnami.com/bitnami
+    condition: postgresql.enabled
