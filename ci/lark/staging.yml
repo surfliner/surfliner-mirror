@@ -3,20 +3,17 @@ lark:deploy:staging:ucsb:
   extends: .deploy-lark
   script:
     - cd lark
-    - auto-deploy ensure_namespace
-    - auto-deploy initialize_tiller
-    - auto-deploy create_secret
     - mv ../charts/lark/latest ./chart
-    - auto-deploy build_chart_dependencies
-    - auto-deploy deploy
+    - deploy
   allow_failure: true
   environment:
     name: ucsb.staging.lark
     url: http://lark-staging.$KUBE_INGRESS_BASE_DOMAIN
   variables:
-    ROLLOUT_RESOURCE_TYPE: deployment
-    CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE
-    CI_APPLICATION_TAG: $CI_COMMIT_SHA # master (see only: refs:)
+    KUBE_NAMESPACE: lark-staging
+    HELM_RELEASE_NAME: surfliner-lark-stage
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE
+    DEPLOY_TAG: $CI_COMMIT_SHA # master (see only: refs:)
     INGRESS_URL: lark-staging.$KUBE_INGRESS_BASE_DOMAIN
     HELM_UPGRADE_EXTRA_ARGS: '--set persistence_adapters.index="memory" --set persistence_adapters.event="memory" --set solr.enabled=FALSE --set postgresql.enabled=FALSE'
   only:
