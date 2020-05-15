@@ -44,30 +44,6 @@ include:
     - *build_helpers
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
 
-
-# Surfliner-specific helm chart setup to include additional helm repos
-.deploy_helpers: &deploy_helpers |
-  [[ "$TRACE" ]] && set -x
-  function build_chart_dependencies() {
-    helm init --client-only
-
-    helm repo add incubator https://kubernetes-charts-incubator.storage.googleapis.com/
-    helm repo add bitnami https://charts.bitnami.com/bitnami
-
-    helm dependency update chart/
-    helm dependency build chart/
-  }
-
-# Gitlab image used for deployment
-# see: https://gitlab.com/gitlab-org/gitlab-ce/blob/master/lib/gitlab/ci/templates/Jobs/Deploy.gitlab-ci.yml
-.auto-deploy:
-  image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:v0.1.0"
-  except:
-    variables:
-      - $NO_DEPLOY == "true"
-  before_script:
-    - *deploy_helpers
-
 # Default only -> refs settings for all jobs
 # see: https://docs.gitlab.com/ee/ci/yaml/#onlyrefsexceptrefs
 .only-refs-default:
