@@ -34,5 +34,5 @@ shoreline:discovery:deploy:prod:ucsb:
     CI_APPLICATION_TAG: stable
     INGRESS_URL: shoreline.$KUBE_INGRESS_BASE_DOMAIN
     HELM_RELEASE_NAME: surfliner-shoreline-prod
-    HELM_UPGRADE_EXTRA_ARGS: '--timeout 1000 --set theme="ucsb" --set ingress.hosts={geodata.library.ucsb.edu} --set geoserver.ingress.hosts={geoserver.geodata.library.ucsb.edu}'
+    HELM_UPGRADE_EXTRA_ARGS: '--timeout 15m0s --set theme="ucsb" --set ingress.hosts={geodata.library.ucsb.edu} --set geoserver.ingress.hosts={geoserver.geodata.library.ucsb.edu}'
     ROLLOUT_RESOURCE_TYPE: deployment
