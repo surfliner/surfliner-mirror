@@ -42,3 +42,7 @@ Create chart name and version as used by the chart label.
 {{- define "shoreline.solr.fullname" -}}
 {{- printf "%s-%s" .Release.Name "solr" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{- define "shoreline.zk.fullname" -}}
+{{- printf "%s-%s" .Release.Name "zookeeper" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
