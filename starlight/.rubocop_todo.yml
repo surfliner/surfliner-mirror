@@ -56,7 +56,7 @@ Style/IfUnlessModifier:
     - 'config/initializers/upload_controller_file_checking.rb'
     - 'spec/rails_helper.rb'
 
-# Offense count: 130
+# Offense count: 132
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https
