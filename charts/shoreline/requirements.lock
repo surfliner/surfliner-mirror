@@ -6,7 +6,7 @@ dependencies:
   repository: file://../geoserver
   version: 0.4.0
 - name: solr
-  repository: https://kubernetes-charts-incubator.storage.googleapis.com
+  repository: http://storage.googleapis.com/kubernetes-charts-incubator
   version: 1.5.0
-digest: sha256:b06334c623ba2b4bcd3dd50c373868f1583b5e26846536ad97d3883eed9c91a5
-generated: "2020-05-21T15:43:26.873845246-07:00"
+digest: sha256:eb4a5179470b641d6eb1159e0888340d9eae58cdf1dae43c56b90b1bba64d55b
+generated: "2020-05-26T11:58:08.725648716-07:00"
