@@ -25,24 +25,25 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       initContainers:
-        - name: create-solr-core
+        - name: configure-solr
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+          env:
+            - name: "SOLR_HOST"
+              value: {{ template "starlight.solr.fullname" . }}-svc
+            - name: "SOLR_PORT"
+              value: "8983"
+            - name: "SOLR_CORE_NAME"
+              value: collection1
+            - name: "ZK_HOST"
+              value: {{ template "starlight.zk.fullname" . }}
+            - name: "ZK_PORT"
+              value: "2181"
           command:
             - "sh"
             - "-c"
             - |
-              COUNTER=0;
-              while [ $COUNTER -lt 120 ]; do
-                if nc starlight-solr-svc 8983; then
-                  curl -H 'Content-type: application/json' -d '{create: {name: collection1, config: solrconfig, numShards: 1}}' starlight-solr-svc:8983/api/collections/
-                  exit 0;
-                fi
-                COUNTER=$(( COUNTER+1 ));
-                sleep 2;
-              done;
-              echo "Failed to create Solr core after 240 secs";
-              exit 1;
+              ./bin/upload-solr-configs.sh && ./bin/create-solr-collection.sh
       volumes:
         - name: public
           persistentVolumeClaim:
