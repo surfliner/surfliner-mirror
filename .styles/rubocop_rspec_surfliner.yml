@@ -39,3 +39,18 @@ RSpec/FilePath:
 RSpec/AnyInstance:
   Exclude:
     - 'spec/api/**/*'
+
+# don't check for constant definitions in tests, the convention we prefer is
+#   before do
+#     module MyProject::Test
+#       module MySpecScope
+#         class TestClass
+#           # ...
+#         end
+#       end
+#     end
+#   end
+#
+#   after { MyProject::Test.send(:remove_const, MySpecScope)}
+RSpec/LeakyConstantDeclaration:
+  Enabled: false
