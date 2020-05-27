@@ -16,4 +16,9 @@ module ApplicationHelper
 
     render partial: "#{partial}_#{current_theme}"
   end
+
+  # Tools pane
+  def show_doc_actions?
+    !ActiveModel::Type::Boolean.new.cast(ENV['SHORELINE_SUPPRESS_TOOLS']) && super
+  end
 end

@@ -21,6 +21,7 @@ data:
   RAILS_SERVE_STATIC_FILES: "true"
   SHORELINE_ACCESS: Public
   SHORELINE_PROVENANCE: "UC Santa Barbara"
+  SHORELINE_SUPPRESS_TOOLS: {{ .Values.suppressTools | quote }}
   SHORELINE_THEME: {{ .Values.theme }}
   SOLR_CORE_NAME: collection1
   SOLR_HOST: {{ template "shoreline.solr.fullname" . }}-svc

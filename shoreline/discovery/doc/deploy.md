@@ -17,6 +17,7 @@ Puppet, or whatever works best in your local environment and practices.
 | Name | Description | Required |
 | ---- | ----------- | -------- |
 | `SHORELINE_THEME` | Custom theme (CSS, header, footer) to be activated (e.g., `ucsb`) | No |
+| `SHORELINE_SUPPRESS_TOOLS` | Don’t render the “Tools” pane on object show pages; defaults to `false` | No |
 
 ### Ingest Variables
 
