@@ -15,6 +15,18 @@ Style/MixinUsage:
   Exclude:
     - 'bin/*'
 
+Style/ExponentialNotation:
+  Enabled: true
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
 # we use .gitattributes to manage line feed styles
 Layout/EndOfLine:
   Enabled: false
@@ -22,6 +34,15 @@ Layout/EndOfLine:
 Layout/LineLength:
   Exclude:
     - 'Gemfile'
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
 
 Metrics/BlockLength:
   Exclude:
