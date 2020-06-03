@@ -1,10 +1,5 @@
 FROM ruby:2.6.2-alpine
 
-RUN uname -a
-RUN echo 'http://mirror.leaseweb.com/alpine/latest-stable/main' > /etc/apk/repositories; \
-    echo 'http://mirror.leaseweb.com/alpine/latest-stable/community' >> /etc/apk/repositories
-RUN cat /etc/apk/repositories
-
 RUN apk --no-cache upgrade && \
   apk add --no-cache \
   build-base \
