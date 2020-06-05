@@ -1,4 +1,4 @@
-FROM ruby:2.6.2-alpine
+FROM ruby:2.6.6-alpine
 
 RUN apk --no-cache upgrade && \
   apk add --no-cache \
@@ -15,17 +15,13 @@ RUN apk --no-cache upgrade && \
   tzdata \
   yarn
 
-RUN addgroup -g 1000 -S starlight && \
-    adduser -u 1000 -S starlight -G starlight
-USER starlight
-
 RUN gem update bundler
 
 RUN mkdir -p /home/starlight/app
 WORKDIR /home/starlight/app
-COPY --chown=starlight:starlight Gemfile* ./
+COPY Gemfile* ./
 RUN bundle check || bundle install --jobs "$(nproc)"
-COPY --chown=starlight:starlight . ./
+COPY . ./
 
 RUN bundle exec rake assets:precompile
 

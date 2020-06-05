@@ -6,6 +6,9 @@ services:
       - ../.env.docker
     volumes:
       - ../../.:/home/starlight/app
+      - starlight_uploads:/home/starlight/app/public/uploads
+      - starlight_assets:/home/starlight/app/public/assets
+      - starlight_tmp:/home/starlight/app/tmp
     working_dir: /home/starlight/app
     ports:
       - "3000:3000"
@@ -22,6 +25,9 @@ services:
       - ../.env.docker
     volumes:
       - ../../.:/home/starlight/app
+      - starlight_uploads:/home/starlight/app/public/uploads
+      - starlight_assets:/home/starlight/app/public/assets
+      - starlight_tmp:/home/starlight/app/tmp
     working_dir: /home/starlight/app
     entrypoint: sh -ic "bundle exec sidekiq"
     depends_on:
@@ -59,3 +65,6 @@ volumes:
   starlight_database:
   starlight_redis:
   starlight_solr:
+  starlight_uploads:
+  starlight_tmp:
+  starlight_assets:
