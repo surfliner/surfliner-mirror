@@ -14,7 +14,7 @@ starlight-shellcheck:
 
 starlight-lint:
   stage: lint
-  image: ruby:2.6.2-alpine
+  image: ruby:2.6.6-alpine
   script:
     - cd starlight
     - apk add --no-cache build-base git postgresql-dev sqlite-dev
