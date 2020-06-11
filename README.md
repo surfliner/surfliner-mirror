@@ -86,7 +86,7 @@ While not involved in daily development work, the project also includes these tw
   * etc...
 
 ### Team Meetings
-The current workcycle runs from Wednesday, February 5 to Tuesday, March 31, 2020.  The meetings below are for this time period only.
+The current workcycle runs from Wednesday, June 17 to Tuesday, August 11, 2020.  The meetings below are for this time period only.
 
 #### Project-wide
 **Project Surfliner Daily Standup**<br/> 
@@ -96,41 +96,34 @@ Daily, 10:30-10:45am (*except last day of each sprint*)<br/>
 *Required*: Project Team<br/>
 
 **Project Surfliner Sprint Retrospective**<br/>
-Last day of each sprint, 10:30am-11:30am<br/>
+Last day of each sprint, TBD<br/>
 [https://ucsb.zoom.us/j/447601116](https://ucsb.zoom.us/j/447601116)<br/>
 *Purpose*: Meeting on the last day of the sprint to discuss how things went and what to change for future sprints.<br/>
 *Required*: Project Team<br/>
 
 #### Shoreline Product Team
-**Shoreline Product Kickoff Meeting**<br/>
-Wednesday, January 29, 2020 3-4:30pm<br/>
-[https://ucsb.zoom.us/j/360316176](https://ucsb.zoom.us/j/360316176)<br/>
-*Purpose*: Overview of upcoming work cycle and review of preparatory work done in 2019.<br/>
-*Required*: Shoreline Product Owner, Tech Lead & Developers<br/>
-*Optional*: Shoreline Domain Experts & Stakeholders<br/>
-
 **Shoreline Backlog Refinement**<br/>
-Initial meeting Monday January 27, 2020 1:30-3pm<br/>
-Regular meetings every other Wednesday, 1-2pm (*starting February 12, 2020*)<br/>
+Initial meeting Monday June 15, 2020, 11am-12pm<br/>
+Regular meetings every other Tuesday, 3-4pm (*starting June 23, 2020*)<br/>
 [https://ucsb.zoom.us/j/190685321](https://ucsb.zoom.us/j/190685321)<br/>
 *Purpose*: Meeting, as needed, prior to Sprint Planning to groom & prioritize tickets.<br/>
 *Required*: Shoreline Product Owner & Tech Lead<br/>
 *Optional*: Shoreline Developers & Domain Experts<br/>
 
 **Shoreline Sprint Planning**<br/>
-Every other Thursday, 3-4pm (*starting January 30, 2020 with a 1.5 hour meeting*)<br/>
+Initial meeting Tuesday June 16, 2020, 3-4pm<br/>
+Regular meetings every other Wednesday, 11am-12pm (*starting June 24, 2020*)<br/>
 [https://ucsb.zoom.us/j/179404826](https://ucsb.zoom.us/j/179404826)<br/>
 *Purpose*: Meeting the week before the next sprint to negotiate and select tickets on that sprint.<br/>
 *Required*: Shoreline Product Owner, Tech Lead & Developers<br/>
 *Optional*: Shoreline Domain Experts<br/>
 
 **Shoreline Sprint Review**<br/>
-Every other Tuesday, 1:30-2:30pm (*starting February 18, 2020*)<br/>
+Last day of each sprint, 10:30-11am (*starting June 30, 2020*)<br/>
 [https://ucsb.zoom.us/j/800899979](https://ucsb.zoom.us/j/800899979)<br/>
 *Purpose*: Informal meeting on the last day of the sprint to show what team has accomplished during the sprint, typically taking the form of a demo. Demos are recorded. The Product Owner & Tech Lead are responsible for demo content & ensuring the demo gets recorded and shared. Demos are public; to be briefly summarized in the following Project Surfliner Public Stand-up.<br/>
 *Required*: Shoreline Product Owner & Tech Lead<br/>
 *Optional*: Shoreline Developers & Domain Experts<br/>
-
 
 # Communication Channels
 - **Blog**: [https://surfliner.ucsd.edu](https://surfliner.ucsd.edu)
