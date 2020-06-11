@@ -5,7 +5,7 @@
   when: manual
   only:
     refs:
-      - master
+      - trunk
   only:
     changes:
       - ci/shoreline/**/*

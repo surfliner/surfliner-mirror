@@ -10,7 +10,7 @@
     KUBE_NAMESPACE: shoreline-staging
   only:
     refs:
-      - master
+      - trunk
     changes:
       - ci/shoreline/**/*
       - charts/shoreline/**/*

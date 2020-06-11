@@ -13,9 +13,9 @@ lark:deploy:staging:ucsb:
     KUBE_NAMESPACE: lark-staging
     HELM_RELEASE_NAME: surfliner-lark-stage
     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE
-    DEPLOY_TAG: $CI_COMMIT_SHA # master (see only: refs:)
+    DEPLOY_TAG: $CI_COMMIT_SHA # trunk (see only: refs:)
     INGRESS_URL: lark-staging.$KUBE_INGRESS_BASE_DOMAIN
     HELM_UPGRADE_EXTRA_ARGS: '--set persistence_adapters.index="memory" --set persistence_adapters.event="memory" --set solr.enabled=FALSE --set postgresql.enabled=FALSE'
   only:
     refs:
-      - master
+      - trunk

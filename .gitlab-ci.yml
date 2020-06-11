@@ -16,7 +16,7 @@ include:
   - local: ci/shoreline.yml
   - local: ci/starlight.yml
 
-# Build with Kaniko. When building on `master`, tag a new stable image.
+# Build with Kaniko. When building on `trunk`, tag a new stable image.
 .build_helpers: &build_helpers |
   set -x
   build_image_for() {
@@ -27,7 +27,7 @@ include:
     project=$1
     image_name=$2
     destination="--destination $CI_REGISTRY_IMAGE/$image_name:$CI_COMMIT_SHA"
-    if [ "$CI_COMMIT_BRANCH" = "master" ]; then
+    if [ "$CI_COMMIT_BRANCH" = "trunk" ]; then
       destination="$destination --destination $CI_REGISTRY_IMAGE/$image_name:stable"
     fi
     /kaniko/executor --context "$CI_PROJECT_DIR"/$project --cache=true --dockerfile "$CI_PROJECT_DIR"/"$project"/Dockerfile $destination
@@ -49,7 +49,7 @@ include:
 .only-refs-default:
   only:
     refs:
-      - master
+      - trunk
       - merge_requests
       - tags
 

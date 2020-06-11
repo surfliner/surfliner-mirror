@@ -7,7 +7,7 @@ notify-slack-failure:
     - ./ci/support/notify_slack.sh "Build on \`$CI_BUILD_REF_NAME\` failed! Commit \`$(git log -1 --oneline)\` See $CI_PIPELINE_URL"
   when: on_failure
   only:
-    - master
+    - trunk
 
 notify-slack-success:
   image: alpine:latest
@@ -18,5 +18,4 @@ notify-slack-success:
     - ./ci/support/notify_slack.sh "Build on \`$CI_BUILD_REF_NAME\` passed! Commit \`$(git log -1 --oneline)\` See $CI_PIPELINE_URL"
   when: on_success
   only:
-    - master
-
+    - trunk
