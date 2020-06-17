@@ -8,16 +8,30 @@ spec:
     matchLabels:
       app.kubernetes.io/name: {{ include "starlight.name" . }}-sidekiq
       app.kubernetes.io/instance: {{ .Release.Name }}-sidekiq
+      component: rails
   template:
     metadata:
       labels:
         app.kubernetes.io/name: {{ include "starlight.name" . }}-sidekiq
         app.kubernetes.io/instance: {{ .Release.Name }}-sidekiq
+        component: rails
     spec:
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
+      # ensure we run on the same node as the rails server; only required when
+      # using PVCs that are ReadWriteOnce
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: component
+                  operator: In
+                  values:
+                    - rails
+            topologyKey: kubernetes.io/hostname
       volumes:
         - name: public
           persistentVolumeClaim:
@@ -90,10 +104,6 @@ spec:
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-    {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-    {{- end }}
     {{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
