@@ -6,7 +6,8 @@ starlight-build:
     - build_image_for "starlight" "starlight_web"
   only:
     changes:
-      - .gitlab-ci.yml
+      - charts/starlight/**/*
       - ci/starlight/**/*
-      - starlight/Dockerfile
+      - .gitlab-ci.yml
       - starlight/**/*
+      - starlight/Dockerfile
