@@ -16,10 +16,6 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}-sidekiq
         component: rails
     spec:
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
       # ensure we run on the same node as the rails server; only required when
       # using PVCs that are ReadWriteOnce
       affinity:
