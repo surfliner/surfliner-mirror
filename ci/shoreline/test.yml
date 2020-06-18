@@ -7,19 +7,22 @@
     POSTGRES_DB: "shoreline-discovery"
     POSTGRES_PASSWORD: "postgres"
     POSTGRES_USER: "postgres"
-    SOLR_CORE_NAME: "shoreline-discovery"
-    SOLR_CONFIG_DIR: "shoreline/discovery/solr/conf"
-    SOLR_CONFIG_COMMIT_SHA: $CI_COMMIT_SHA
-    SOLR_PORT: "8983"
-    SOLR_HOST: "localhost"
     RAILS_ENV: "test"
+    SOLR_CONFIG_COMMIT_SHA: $CI_COMMIT_SHA
+    SOLR_CORE_NAME: "shoreline-discovery"
+    SOLR_HOST: solr
+    SOLR_PORT: 8983
+    ZK_HOST: zk
+    ZK_PORT: 2181
   services:
-    - name: solr:8
-      alias: solr
     - name: postgres:12-alpine
       alias: postgres
+    - name: solr:8
+      alias: solr
+    - name: zookeeper:3.6
+      alias: zk
   before_script:
-    - cd shoreline/discovery
+    - cd shoreline/discovery && ./bin/upload-solr-configs.sh && ./bin/create-solr-collection.sh
   artifacts:
     name: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
     reports:

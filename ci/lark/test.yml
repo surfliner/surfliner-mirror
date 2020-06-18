@@ -3,24 +3,28 @@ lark:api:test:unit:
   image: $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_SHA
   needs: ["lark:ruby-build"]
   variables:
-    SOLR_CORE_NAME: lark-test
-    SOLR_CONFIG_DIR: lark/solr/config
-    SOLR_URL: http://localhost:8983/solr/lark-test
+    POSTGRES_DB: postgres
+    POSTGRES_HOST: localhost
+    POSTGRES_PASSWORD: password
+    POSTGRES_PORT: 5432
+    POSTGRES_USER: runner
     REPOSITORY_URL: $CI_REPOSITORY_URL
     SOLR_CONFIG_COMMIT_SHA: $CI_COMMIT_SHA
-    SOLR_HOST: localhost
-    POSTGRES_DB: postgres
-    POSTGRES_USER: runner
-    POSTGRES_PASSWORD: password
-    POSTGRES_HOST: localhost
-    POSTGRES_PORT: 5432
+    SOLR_CORE_NAME: lark-test
+    SOLR_HOST: solr
+    SOLR_PORT: 8983
+    SOLR_URL: http://solr:8983/solr/lark-test
+    ZK_HOST: zk
+    ZK_PORT: 2181
   services:
+    - name: postgres:12-alpine
+      alias: postgres
     - name: solr:8
       alias: solr
-    - name: postgres:latest
-      alias: db
+    - name: zookeeper:3.6
+      alias: zk
   script:
-    - cd lark
+    - cd lark && ./bin/upload-solr-configs.sh && ./bin/create-solr-collection.sh
     - bundle check || bundle
     - rake db:create db:migrate && bundle exec rspec
   extends:

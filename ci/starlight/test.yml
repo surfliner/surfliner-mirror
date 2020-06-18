@@ -3,28 +3,33 @@
   stage: test
   extends: .only-refs-default
   variables:
-    DATABASE_URL: "postgres://postgres@localhost/starlight-test"
     DATABASE_COMMAND: "db:create db:schema:load"
+    DATABASE_URL: "postgres://postgres@localhost/starlight-test"
     POSTGRES_DB: "starlight-test"
-    POSTGRES_USER: "postgres"
     POSTGRES_PASSWORD: "postgres"
-    SOLR_CORE_NAME: "starlight-test"
-    SOLR_CONFIG_DIR: "starlight/solr/config"
-    SOLR_CONFIG_COMMIT_SHA: $CI_COMMIT_SHA
-    SOLR_URL: "http://localhost:8983/solr/starlight-test"
+    POSTGRES_USER: "postgres"
+    RAILS_ENV: "test"
     REPOSITORY_URL: $CI_REPOSITORY_URL
     SELENIUM_URL: "http://localhost:4444/wd/hub/"
-    RAILS_ENV: "test"
+    SOLR_CONFIG_COMMIT_SHA: $CI_COMMIT_SHA
+    SOLR_CORE_NAME: "starlight-test"
+    SOLR_HOST: solr
+    SOLR_PORT: 8983
+    SOLR_URL: "http://solr:8983/solr/starlight-test"
     START_XVFB: "false"
+    ZK_HOST: zk
+    ZK_PORT: 2181
   services:
-    - name: solr:8
-      alias: solr
     - name: postgres:11-alpine
       alias: postgres
     - name: selenium/standalone-chrome:latest
       alias: chrome
+    - name: solr:8
+      alias: solr
+    - name: zookeeper:3.6
+      alias: zk
   before_script:
-    - cd starlight
+    - cd starlight && ./bin/upload-solr-configs.sh && ./bin/create-solr-collection.sh
   tags:
     - kubernetes
   only:

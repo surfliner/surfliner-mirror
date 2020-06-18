@@ -1,8 +1,16 @@
 FROM ruby:2.6-alpine
 
-RUN apk update && \
-    apk add build-base libc-dev libxml2 libxml2-dev libxslt libxslt-dev \
-    postgresql postgresql-dev git
+RUN apk update && apk add \
+    build-base \
+    curl \
+    git \
+    libc-dev \
+    libxml2 \
+    libxml2-dev \
+    libxslt \
+    libxslt-dev \
+    postgresql \
+    postgresql-dev
 
 RUN gem update bundler
 
