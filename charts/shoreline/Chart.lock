@@ -1,9 +1,0 @@
-dependencies:
-- name: postgresql
-  repository: https://charts.bitnami.com/bitnami
-  version: 8.7.3
-- name: geoserver
-  repository: file://../geoserver
-  version: 0.3.0
-digest: sha256:4eed866defed6a442dccb0812eaefe0d399acb8a96c9b801b1d73f79e1ac7f38
-generated: "2020-05-08T16:11:31.314778874-07:00"

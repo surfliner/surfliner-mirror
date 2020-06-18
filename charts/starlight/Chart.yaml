@@ -13,6 +13,6 @@ dependencies:
     repository: https://kubernetes-charts.storage.googleapis.com/
     condition: redis.enabled
   - name: solr
-    version: 1.5.0
+    version: 1.x.x
     repository: http://storage.googleapis.com/kubernetes-charts-incubator
     condition: solr.enabled
