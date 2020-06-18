@@ -17,7 +17,7 @@
     RAILS_ENV: "test"
     START_XVFB: "false"
   services:
-    - name: $CI_REGISTRY_IMAGE/solr
+    - name: solr:8
       alias: solr
     - name: postgres:11-alpine
       alias: postgres

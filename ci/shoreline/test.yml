@@ -14,7 +14,7 @@
     SOLR_HOST: "localhost"
     RAILS_ENV: "test"
   services:
-    - name: $CI_REGISTRY_IMAGE/solr
+    - name: solr:8
       alias: solr
     - name: postgres:12-alpine
       alias: postgres
