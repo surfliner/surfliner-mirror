@@ -22,7 +22,7 @@ shoreline:discovery:deploy:ucsd-review:
     on_stop: shoreline:discovery:cleanup:ucsd-review
     auto_stop_in: 1 week
   variables:
-    HELM_UPGRADE_EXTRA_ARGS: '--timeout 15m0s --set theme="ucsd" --set ingress.hosts={shoreline-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN} --set geoserver.ingress.hosts={shoreline-geoserver-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN} --set sample_data=true --set geoserver.persistence.enabled=false --set postgresql.persistence.enabled=false --set solr.replicaCount=1 --set solr.zookeeper.replicaCount=1 --set solr.zookeeper.persistence.enabled=false'
+    HELM_UPGRADE_EXTRA_ARGS: '--set contact_email="awork@ucsd.edu" --set theme="ucsd" --set ingress.hosts={shoreline-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN} --set geoserver.ingress.hosts={shoreline-geoserver-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN} --set sample_data=true --set geoserver.persistence.enabled=false --set postgresql.persistence.enabled=false --set solr.replicaCount=1 --set solr.zookeeper.replicaCount=1 --set solr.zookeeper.persistence.enabled=false'
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
   script:
     - cd shoreline/discovery
@@ -62,7 +62,7 @@ shoreline:discovery:deploy:ucsb-review:
     on_stop: shoreline:discovery:cleanup:ucsb-review
     auto_stop_in: 4 days
   variables:
-    HELM_UPGRADE_EXTRA_ARGS: '--timeout 15m0s --set theme="ucsb" --set ingress.hosts={shoreline-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN} --set geoserver.ingress.hosts={shoreline-geoserver-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN} --set sample_data=true --set geoserver.persistence.enabled=false --set postgresql.persistence.enabled=false --set solr.replicaCount=1 --set solr.zookeeper.replicaCount=2 --set solr.zookeeper.persistence.enabled=false'
+    HELM_UPGRADE_EXTRA_ARGS: '--set contact_email="geospatial@library.ucsb.edu" --set theme="ucsb" --set ingress.hosts={shoreline-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN} --set geoserver.ingress.hosts={shoreline-geoserver-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN} --set sample_data=true --set geoserver.persistence.enabled=false --set postgresql.persistence.enabled=false --set solr.replicaCount=1 --set solr.zookeeper.replicaCount=2 --set solr.zookeeper.persistence.enabled=false'
 
 shoreline:discovery:cleanup:ucsb-review:
   extends:

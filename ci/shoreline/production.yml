@@ -32,4 +32,4 @@ shoreline:discovery:deploy:prod:ucsb:
     INGRESS_URL: shoreline.$KUBE_INGRESS_BASE_DOMAIN
     KUBE_NAMESPACE: shoreline-prod
     HELM_RELEASE_NAME: surfliner-shoreline-prod
-    HELM_UPGRADE_EXTRA_ARGS: '--timeout 15m0s --set theme="ucsb" --set ingress.hosts={geodata.library.ucsb.edu} --set geoserver.ingress.hosts={geoserver.geodata.library.ucsb.edu}'
+    HELM_UPGRADE_EXTRA_ARGS: '--set contact_email="geospatial@library.ucsb.edu" --set theme="ucsb" --set ingress.hosts={geodata.library.ucsb.edu} --set geoserver.ingress.hosts={geoserver.geodata.library.ucsb.edu}'
