@@ -1,0 +1,79 @@
+.starlight:deploy:review:
+  stage: review
+  extends:
+    - .only-starlight-changes
+    - .helm3-deploy
+  variables:
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/starlight_web
+    DEPLOY_TAG: $CI_COMMIT_SHA
+    HELM_RELEASE_NAME: surfliner-starlight-$CI_MERGE_REQUEST_ID
+    KUBE_NAMESPACE: starlight-review
+  needs: ["starlight-build"]
+  only:
+    refs:
+      - merge_requests
+
+starlight:deploy:ucsd-review:
+  extends:
+    - .starlight:deploy:review
+  environment:
+    name: ucsd.starlight.review/$CI_MERGE_REQUEST_ID
+    url: http://starlight-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
+    on_stop: starlight:cleanup:ucsd-review
+    auto_stop_in: 1 week
+  variables:
+    HELM_UPGRADE_EXTRA_ARGS: '--set ingress.hosts={starlight-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN} --set postgresql.persistence.enabled=false --set redis.cluster.enabled=false --set redis.master.persistence.enabled=false --set solr.replicaCount=1 --set solr.zookeeper.replicaCount=2'
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+  script:
+    - cd starlight
+    - mv ../charts/starlight ./chart
+    - deploy
+
+starlight:cleanup:ucsd-review:
+  extends:
+    - .starlight:deploy:review
+  environment:
+    name: ucsd.starlight.review/$CI_MERGE_REQUEST_ID
+    url: http://starlight-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
+    action: stop
+  when: manual
+  allow_failure: true
+  variables:
+    GIT_STRATEGY: none
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+  script:
+    - delete
+    - delete_stateful_set_pvcs
+
+starlight:deploy:ucsb-review:
+  extends:
+    - .helm3-deploy
+    - .starlight:deploy:review
+  stage: review
+  script:
+    - cd starlight
+    - mv ../charts/starlight ./chart
+    - deploy
+  environment:
+    name: ucsb.review.starlight
+    url: http://starlight-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
+    on_stop: starlight:cleanup:ucsb-review
+    auto_stop_in: 4 days
+  variables:
+    HELM_UPGRADE_EXTRA_ARGS: '--set ingress.hosts={starlight-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN} --set postgresql.persistence.enabled=false --set redis.cluster.enabled=false --set redis.master.persistence.enabled=false --set solr.replicaCount=1 --set solr.zookeeper.replicaCount=2'
+
+starlight:cleanup:ucsb-review:
+  extends:
+    - .helm3-deploy
+    - .starlight:deploy:review
+  stage: cleanup
+  environment:
+    name: ucsb.review.starlight
+    action: stop
+  when: manual
+  allow_failure: true
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - delete
+    - delete_stateful_set_pvcs

@@ -2,12 +2,6 @@ starlight-build:
   extends:
     - .kaniko-build
     - .only-refs-default
+    - .only-starlight-changes
   script:
     - build_image_for "starlight" "starlight_web"
-  only:
-    changes:
-      - charts/starlight/**/*
-      - ci/starlight/**/*
-      - .gitlab-ci.yml
-      - starlight/**/*
-      - starlight/Dockerfile

@@ -2,3 +2,14 @@ include:
   - local: ci/starlight/build.yml
   - local: ci/starlight/lint.yml
   - local: ci/starlight/test.yml
+  - local: ci/starlight/review.yml
+
+.only-starlight-changes:
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - ci/starlight.yml
+      - ci/starlight/**/*
+      - charts/starlight/**/*
+      - starlight/Dockerfile
+      - starlight/**/*

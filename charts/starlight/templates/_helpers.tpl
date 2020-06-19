@@ -64,6 +64,6 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- printf "%s-%s" .Release.Name "solr" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "shoreline.zk.fullname" -}}
+{{- define "starlight.zk.fullname" -}}
 {{- printf "%s-%s" .Release.Name "zookeeper" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}

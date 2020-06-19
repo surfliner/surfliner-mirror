@@ -44,9 +44,9 @@ postgresql:
   enabled: true
   cpu: 1000m
   memory: 1Gi
-  postgresqlUsername: lark
-  postgresqlPassword: larkpass
-  postgresqlDatabase: lark-events
+  postgresqlUsername: starlight
+  postgresqlPassword: starlight_pass
+  postgresqlDatabase: starlight_db
   servicePort: 5432
   persistence:
     size: 10Gi
