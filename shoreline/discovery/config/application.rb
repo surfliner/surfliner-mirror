@@ -3,6 +3,7 @@
 require_relative 'boot'
 
 require 'rails/all'
+require 'action_mailer/railtie'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -17,5 +18,11 @@ module Discovery
     # here. Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+    config.action_mailer.delivery_method = ENV.fetch('SHORELINE_DELIVERY_METHOD').to_sym
+
+    if ENV['SHORELINE_SMTP_HOST'].present? && ENV['SHORELINE_SMTP_PORT'].present?
+      config.action_mailer.smtp_settings = { address: ENV.fetch('SHORELINE_SMTP_HOST'),
+                                             port: ENV.fetch('SHORELINE_SMTP_PORT') }
+    end
   end
 end

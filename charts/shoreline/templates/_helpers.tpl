@@ -44,6 +44,10 @@ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
 
+{{- define "shoreline.email.fullname" -}}
+{{- printf "%s-%s" .Release.Name "email" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{- define "shoreline.geoserver.fullname" -}}
 {{- printf "%s-%s" .Release.Name "geoserver" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}

@@ -5,6 +5,7 @@ metadata:
   labels:
 {{ include "shoreline.labels" . | indent 4 }}
 data:
+  CONTACT_EMAIL: {{ .Values.contact_email }}
   DATABASE_ADAPTER: postgresql
   DATABASE_HOST: {{ template "shoreline.postgresql.fullname" . }}
   GEOBLACKLIGHT_DOWNLOAD_PATH: /data/tmp/cache/downloads
@@ -15,10 +16,14 @@ data:
   POSTGRES_DB: {{ .Values.postgresql.postgresqlDatabase }}
   POSTGRES_PORT: {{ .Values.postgresql.servicePort | quote }}
   RAILS_ENV: production
+  RAILS_LOG_TO_STDOUT: "true"
   RAILS_SERVE_STATIC_FILES: "true"
   SHORELINE_ACCESS: Public
+  SHORELINE_DELIVERY_METHOD: {{ .Values.delivery_method | quote }}
   SHORELINE_PROVENANCE: "UC Santa Barbara"
   SHORELINE_SUPPRESS_TOOLS: {{ .Values.suppressTools | quote }}
+  SHORELINE_SMTP_HOST: {{ template "shoreline.email.fullname" . }}
+  SHORELINE_SMTP_PORT: {{ .Values.email.service.port | quote }}
   SHORELINE_THEME: {{ .Values.theme }}
   SOLR_CORE_NAME: collection1
   SOLR_HOST: {{ template "shoreline.solr.fullname" . }}-svc

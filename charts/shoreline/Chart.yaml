@@ -4,6 +4,9 @@ description: Charts for GeoBlacklight & Shoreline
 name: shoreline
 version: 0.2.0
 dependencies:
+  - name: email
+    version: 0.3.0
+    repository: https://lib-helm-repo.ucsd.edu
   - name: postgresql
     version: 8.7.3
     repository: https://charts.bitnami.com/bitnami
