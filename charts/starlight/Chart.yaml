@@ -13,6 +13,6 @@ dependencies:
     repository: https://charts.bitnami.com/bitnami
     condition: redis.enabled
   - name: solr
-    version: 1.x.x
+    version: 1.5.2
     repository: http://storage.googleapis.com/kubernetes-charts-incubator
     condition: solr.enabled

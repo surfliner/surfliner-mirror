@@ -12,5 +12,5 @@ dependencies:
     version: 0.4.0
     repository: file://../geoserver
   - name: solr
-    version: 1.x.x
+    version: 1.5.2
     repository: http://storage.googleapis.com/kubernetes-charts-incubator

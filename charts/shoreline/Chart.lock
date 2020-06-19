@@ -7,6 +7,6 @@ dependencies:
   version: 0.4.0
 - name: solr
   repository: http://storage.googleapis.com/kubernetes-charts-incubator
-  version: 1.x.x
-digest: sha256:f8cfb8861a97a81d61ad173bcdd33a805fe57a73497ea7b1356f6c16aa2745e6
-generated: "2020-06-18T13:18:28.395162352-07:00"
+  version: 1.5.2
+digest: sha256:c229cfe932bdea752c8515afd5f8990254cf30a6f615fc4a8baae9ac7aa0ec9c
+generated: "2020-06-19T12:14:07.405502169-07:00"
