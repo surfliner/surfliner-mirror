@@ -3,10 +3,10 @@ dependencies:
   repository: https://kubernetes-charts.storage.googleapis.com/
   version: 6.5.9
 - name: redis
-  repository: https://kubernetes-charts.storage.googleapis.com/
-  version: 10.5.7
+  repository: https://charts.bitnami.com/bitnami
+  version: 10.7.4
 - name: solr
   repository: http://storage.googleapis.com/kubernetes-charts-incubator
   version: 1.x.x
-digest: sha256:6f34eb2f187e461e7d28546d31d4147bb14d1e5e2aade592a4347553ee2c27b7
-generated: "2020-06-18T13:18:35.168250179-07:00"
+digest: sha256:ddbd15e8ece3f90da4f0324c2b7ed8b21b2c5175516e97070d5d747657f710f9
+generated: "2020-06-19T11:43:36.775239882-07:00"
