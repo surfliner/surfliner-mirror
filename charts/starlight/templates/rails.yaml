@@ -43,12 +43,19 @@ spec:
             - |
               ./bin/upload-solr-configs.sh && ./bin/create-solr-collection.sh
       volumes:
-        - name: public
+          {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
             claimName: rails-public
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
         - name: cache
+          {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
             claimName: rails-cache
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"

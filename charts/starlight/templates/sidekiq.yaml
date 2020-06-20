@@ -30,11 +30,19 @@ spec:
             topologyKey: kubernetes.io/hostname
       volumes:
         - name: public
+          {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
             claimName: rails-public
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
         - name: cache
+          {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
             claimName: rails-cache
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
       containers:
         - name: {{ .Chart.Name }}-sidekiq
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
