@@ -5,7 +5,7 @@ require 'rack/test'
 require 'timecop'
 require_relative '../../config/environment'
 
-RSpec.describe 'GET /health' do
+RSpec.describe 'GET /healthz' do
   include ::Rack::Test::Methods
 
   let(:app) { Lark.application }
@@ -20,7 +20,7 @@ RSpec.describe 'GET /health' do
       end
 
       it 'returns success' do
-        get '/health/complete'
+        get '/healthz/complete'
 
         expect(last_response).to have_attributes status: 200
       end
@@ -32,7 +32,7 @@ RSpec.describe 'GET /health' do
       end
 
       it 'returns success' do
-        get '/health/complete'
+        get '/healthz/complete'
 
         expect(last_response).to have_attributes status: 200
       end
@@ -45,7 +45,7 @@ RSpec.describe 'GET /health' do
       end
 
       it 'returns success' do
-        get '/health/complete'
+        get '/healthz/complete'
 
         expect(last_response).to have_attributes status: 200
       end
@@ -87,7 +87,7 @@ RSpec.describe 'GET /health' do
         allow_any_instance_of(solr_conn).to receive(:status).and_return(false)
         allow_any_instance_of(pg_conn).to receive(:status).and_return(false)
 
-        get '/health/complete'
+        get '/healthz/complete'
       end
 
       after do

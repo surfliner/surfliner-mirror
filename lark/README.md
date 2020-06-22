@@ -557,7 +557,7 @@ resources is at [DEPLOYMENT.md][delpoyment].
 
 ### Monitoring
 
-Lark provides a [health check endpoint][rack-healthcheck] at `/health/complete`.
+Lark provides a [health check endpoint][rack-healthcheck] at `/healthz/complete`.
 
 ## License
 

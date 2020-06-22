@@ -50,11 +50,11 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /health/complete
+              path: /healthz/complete
               port: http
           readinessProbe:
             httpGet:
-              path: /health/complete
+              path: /healthz/complete
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

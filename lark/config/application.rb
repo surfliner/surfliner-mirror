@@ -21,7 +21,7 @@ module Lark
   # @see http://sinatrarb.com/intro.html
   # @see https://rack.github.io/
   class Application < Sinatra::Base
-    use Rack::Healthcheck::Middleware, '/health'
+    use Rack::Healthcheck::Middleware, '/healthz'
 
     get '/' do
       ServiceDescriptionController.new(request: request).show
