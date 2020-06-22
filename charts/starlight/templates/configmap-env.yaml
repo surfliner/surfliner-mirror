@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 data:
   AUTH_METHOD: {{ .Values.auth.method }}
-  DATABASE_COMMAND: "db:migrate"
+  DATABASE_COMMAND: {{ .Values.application.db_setup_command }}
   DB_ADAPTER: postgresql
   {{- if .Values.email.from_address }}
   FROM_EMAIL: {{ .Values.email.from_address }}
@@ -27,7 +27,7 @@ data:
   POSTGRES_PORT: {{ .Values.postgresql.servicePort | quote }}
   RAILS_ENV: production
   RAILS_LOG_TO_STDOUT: "true"
-  RAILS_MAX_THREADS: "5"
+  RAILS_MAX_THREADS: {{ .Values.application.max_threads | quote }}
   RAILS_QUEUE: sidekiq
   RAILS_SERVE_STATIC_FILES: "true"
   REDIS_URL: redis://{{ template "starlight.redis.fullname" . }}-master:6379

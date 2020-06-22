@@ -29,6 +29,10 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+application:
+  db_setup_command: "db:migrate"
+  max_threads: 5
+
 email:
   smtp_host:
   from_address:
