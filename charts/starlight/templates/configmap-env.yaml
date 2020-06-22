@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "starlight.fullname" . }}-env
+  labels:
+    app.kubernetes.io/name: {{ include "starlight.name" . }}
+    helm.sh/chart: {{ include "starlight.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+data:
+  AUTH_METHOD: {{ .Values.auth.method }}
+  DATABASE_COMMAND: "db:migrate"
+  DB_ADAPTER: postgresql
+  FROM_EMAIL: {{ .Values.email.from_address }}
+  GOOGLE_AUTH_ID: {{ .Values.auth.google.api_id }}
+  GOOGLE_AUTH_SECRET: {{ .Values.auth.google.api_secret }}
+  HOSTNAME: {{ template "starlight.fullname" . }}
+  PORT: "3000"
+  POSTGRES_DB: {{ .Values.postgresql.postgresqlDatabase }}
+  POSTGRES_HOST: {{ template "starlight.postgresql.fullname" . }}
+  POSTGRES_PORT: {{ .Values.postgresql.servicePort | quote }}
+  RAILS_ENV: production
+  RAILS_LOG_TO_STDOUT: "true"
+  RAILS_MAX_THREADS: "5"
+  RAILS_QUEUE: sidekiq
+  RAILS_SERVE_STATIC_FILES: "true"
+  REDIS_URL: redis://{{ template "starlight.redis.fullname" . }}-master:6379
+  SMTP_HOST: {{ .Values.email.smtp_host }}
+  SOLR_CORE_NAME: collection1
+  SOLR_HOST: {{ template "starlight.solr.fullname" . }}-svc
+  SOLR_PORT: "8983"
+  SOLR_URL: http://{{ template "starlight.solr.fullname" . }}-svc:8983/solr/collection1
+  SPOTLIGHT_THEMES: "ucsb,surfliner,ucsd"
+  ZK_HOST: {{ template "starlight.zk.fullname" . }}
+  ZK_PORT: "2181"
