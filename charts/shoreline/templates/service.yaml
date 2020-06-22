@@ -3,10 +3,7 @@ kind: Service
 metadata:
   name: {{ include "shoreline.fullname" . }}
   labels:
-    app.kubernetes.io/name: {{ include "shoreline.name" . }}
-    helm.sh/chart: {{ include "shoreline.chart" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{ include "shoreline.labels" . | indent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
