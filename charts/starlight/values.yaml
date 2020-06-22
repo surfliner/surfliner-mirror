@@ -29,6 +29,16 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+email:
+  smtp_host:
+  from_address:
+
+auth:
+  method: "google"
+  google:
+    api_id:
+    api_secret:
+
 persistence:
   enabled: true
   cache:
@@ -54,16 +64,6 @@ postgresql:
 
 redis:
   usePassword: false
-
-email:
-  smtp_host:
-  from_address:
-
-auth:
-  method: "google"
-  google:
-    api_id:
-    api_secret:
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
