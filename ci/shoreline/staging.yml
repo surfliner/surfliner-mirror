@@ -26,7 +26,7 @@ shoreline:discovery:deploy:ucsd-stage:
     name: ucsd.shoreline.staging
     url: http://geodata-staging.ucsd.edu/
   variables:
-    HELM_UPGRADE_EXTRA_ARGS: '--timeout 15m0s --set theme="ucsd" --set ingress.hosts={geodata-staging.ucsd.edu} --set geoserver.ingress.hosts={geoserver-staging.ucsd.edu} --set sample_data=true'
+    HELM_UPGRADE_EXTRA_ARGS: '--timeout 15m0s --set theme="ucsd" --set ingress.hosts={geodata-staging.ucsd.edu} --set ingress.tls[0].hosts[0]="geodata-staging.ucsd.edu" --set ingress.tls[0].secretName="geodata-stagingcertificate" --set geoserver.ingress.hosts={geoserver-staging.ucsd.edu} --set sample_data=true'
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
   script:
     - cd shoreline/discovery
