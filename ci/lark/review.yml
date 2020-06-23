@@ -5,14 +5,13 @@ lark:deploy:review:ucsb:
     - cd lark
     - mv ../charts/lark/latest ./chart
     - deploy
-  allow_failure: true
   environment:
     name: ucsb.review.lark/$CI_MERGE_REQUEST_ID
     url: http://lark-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
     on_stop: lark:stop:review:ucsb
     auto_stop_in: 4 days
   variables:
-    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/shoreline_discovery_app
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE
     DEPLOY_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-lark-$CI_MERGE_REQUEST_ID
     KUBE_NAMESPACE: lark-review
@@ -29,14 +28,13 @@ lark:deploy:review:ucsd:
     - cd lark
     - mv ../charts/lark/latest ./chart
     - deploy
-  allow_failure: true
   environment:
     name: ucsd.review.lark/$CI_MERGE_REQUEST_ID
     url: http://lark-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
     on_stop: lark:stop:review:ucsd
     auto_stop_in: 4 days
   variables:
-    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/shoreline_discovery_app
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE
     DEPLOY_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-lark-$CI_MERGE_REQUEST_ID
     KUBE_NAMESPACE: lark-review
