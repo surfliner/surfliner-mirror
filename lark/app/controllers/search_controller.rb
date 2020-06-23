@@ -12,9 +12,8 @@ class SearchController < ApplicationController
   # exact search for known terms: pref_label, alternate_label
   def exact_search
     with_error_handling do
-      if search_term(params).empty?
-        return [400, response_headers, ['Unknown search term.']]
-      end
+      return [400, response_headers, ['Unknown search term.']] if
+        search_term(params).empty?
 
       rs = search params
 
