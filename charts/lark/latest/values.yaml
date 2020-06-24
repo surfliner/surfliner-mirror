@@ -18,7 +18,7 @@ service:
   port: 80
 
 ingress:
-  enabled: false
+  enabled: true
   annotations: {}
   hosts: [] # provide hosts if ingress is enabled
   tls: []
