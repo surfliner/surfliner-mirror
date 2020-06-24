@@ -39,7 +39,8 @@ email:
   from_address: starlight@example.edu
 
 auth:
-  method: "google"
+  method: developer
+  # only required if method is "google"
   google:
     api_id:
     api_secret:
