@@ -8,7 +8,7 @@ dependencies:
     version: 0.3.0
     repository: https://lib-helm-repo.ucsd.edu
   - name: postgresql
-    version: 8.7.3
+    version: 8.10.8
     repository: https://charts.bitnami.com/bitnami
     condition: postgresql.enabled
   - name: geoserver

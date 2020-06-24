@@ -4,12 +4,12 @@ dependencies:
   version: 0.3.0
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
-  version: 8.7.3
+  version: 8.10.8
 - name: geoserver
   repository: file://../geoserver
   version: 0.4.0
 - name: solr
   repository: http://storage.googleapis.com/kubernetes-charts-incubator
   version: 1.5.2
-digest: sha256:c98bbb7ac1ad93e7d7de162716e86f0b0761295cd218c8182c011d7a2e0c3a2a
-generated: "2020-06-22T10:46:36.042675351-07:00"
+digest: sha256:8e3c9a654d958b251044da6e9449a779958914a536fac7782729ec43e7b498a3
+generated: "2020-06-24T09:08:33.468388656-07:00"
