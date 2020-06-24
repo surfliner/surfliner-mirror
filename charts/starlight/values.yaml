@@ -34,8 +34,9 @@ application:
   max_threads: 5
 
 email:
-  smtp_host:
-  from_address:
+  # these needs to be set to something, even if it doesn't work, or else rails errors out on startup
+  smtp_host: smtp.example.edu
+  from_address: starlight@example.edu
 
 auth:
   method: "google"

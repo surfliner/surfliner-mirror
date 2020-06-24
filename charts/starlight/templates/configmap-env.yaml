@@ -11,9 +11,7 @@ data:
   AUTH_METHOD: {{ .Values.auth.method }}
   DATABASE_COMMAND: {{ .Values.application.db_setup_command }}
   DB_ADAPTER: postgresql
-  {{- if .Values.email.from_address }}
   FROM_EMAIL: {{ .Values.email.from_address }}
-  {{- end }}
   {{- if .Values.auth.google.api_id }}
   GOOGLE_AUTH_ID: {{ .Values.auth.google.api_id }}
   {{- end }}
@@ -31,9 +29,7 @@ data:
   RAILS_QUEUE: sidekiq
   RAILS_SERVE_STATIC_FILES: "true"
   REDIS_URL: redis://{{ template "starlight.redis.fullname" . }}-master:6379
-  {{- if .Values.email.smtp_host }}
   SMTP_HOST: {{ .Values.email.smtp_host }}
-  {{- end }}
   SOLR_CORE_NAME: collection1
   SOLR_HOST: {{ template "starlight.solr.fullname" . }}-svc
   SOLR_PORT: "8983"
