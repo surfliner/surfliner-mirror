@@ -3,7 +3,7 @@
   stage: test
   extends:
     - .only-refs-default
-    - .only-shoreline-changes
+    - .only-starlight-changes
   variables:
     DATABASE_COMMAND: "db:create db:schema:load"
     DATABASE_URL: "postgres://postgres@localhost/starlight-test"
