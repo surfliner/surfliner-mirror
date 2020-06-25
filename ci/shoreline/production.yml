@@ -50,5 +50,6 @@ shoreline:discovery:deploy:prod:ucsd:
     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/shoreline_discovery_app
     DEPLOY_TAG: stable
     KUBE_NAMESPACE: shoreline-prod
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
     HELM_RELEASE_NAME: surfliner-shoreline-prod
     HELM_UPGRADE_EXTRA_ARGS: '--set contact_email="awork@ucsd.edu" --set theme="ucsd" --set ingress.hosts={geodata.ucsd.edu} --set ingress.tls[0].hosts[0]=geodata.ucsd.edu --set ingress.tls[0].secretName="geodatacertificate" --set geoserver.ingress.hosts={lib-geoserver.ucsd.edu}'
