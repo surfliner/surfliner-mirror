@@ -71,8 +71,6 @@ module Importer
     attributes[:solr_year_i] = year(options[:xml])
     attributes[:solr_geom] = envelope(options[:xml])
     attributes[:layer_geom_type_s] = type("public:#{id}")
-
-    # rubocop:disable Layout/LineLength
     XPATHS.each do |k, v|
       attributes[k] = CGI.unescapeHTML(options[:xml].xpath(v).first.children.first.to_s)
     end
@@ -80,7 +78,6 @@ module Importer
     XPATHS_MULTIVALUE.each do |k, v|
       attributes[k] = options[:xml].xpath(v).map(&:children).flatten.map(&:to_s).map { |s| CGI.unescapeHTML(s) }
     end
-    # rubocop:enable Layout/LineLength
 
     attributes.merge(EXTRA_FIELDS).reject { |_k, v| v.blank? }
   rescue NoMethodError => e

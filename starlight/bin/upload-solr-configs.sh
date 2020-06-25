@@ -6,7 +6,7 @@ while [ $COUNTER -lt 30 ]; do
   echo "-- Looking for ZK (${ZK_HOST}:${ZK_PORT})..."
   if echo srvr | nc "${ZK_HOST}" "${ZK_PORT}" | grep -q "Mode"; then
     echo "-- Uploading solrconfig.xml and schema.xml to ZooKeeper ..."
-    bin/rake starlight:solrconfig['solr/config']
+    bin/rake solrconf:upload['solr/config']
     exit 0
   fi
   COUNTER=$(( COUNTER+1 ));

@@ -1,3 +1,10 @@
+PATH
+  remote: ../gems/solrconf
+  specs:
+    solrconf (0.1.0)
+      rake
+      zk
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -295,10 +302,10 @@ DEPENDENCIES
   rubocop-rspec
   shotgun
   sinatra (~> 2.0.5)
+  solrconf!
   timecop
   valkyrie (= 2.1.1)
   valkyrie-sequel (= 2.1.0)
-  zk
 
 BUNDLED WITH
    2.1.4

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Layout/LineLength
 namespace :shoreline do
   desc 'publish a Shapefile in GeoServer and GeoBlacklight'
   task :publish, [:file_path] => :environment do |_t, args|
@@ -22,4 +21,3 @@ namespace :shoreline do
     puts e.message
   end
 end
-# rubocop:enable Layout/LineLength

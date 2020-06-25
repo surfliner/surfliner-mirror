@@ -50,6 +50,13 @@ GIT
       tophat
       underscore-rails (~> 1.6)
 
+PATH
+  remote: ../gems/solrconf
+  specs:
+    solrconf (0.1.0)
+      rake
+      zk
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -617,11 +624,11 @@ DEPENDENCIES
   sidekiq (< 6)
   sitemap_generator
   solr_wrapper (>= 0.3)
+  solrconf!
   sprockets (< 4)
   sqlite3
   uglifier (>= 1.3.0)
   webdrivers
-  zk
 
 RUBY VERSION
    ruby 2.6.6p146

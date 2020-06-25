@@ -14,15 +14,15 @@ gem 'factory_bot', group: 'test'
 gem 'pry', group: %w[development test]
 gem 'puma'
 gem 'rack-healthcheck', '~> 0.2.0'
-gem 'racksh'
 gem 'rack-test', group: 'test'
+gem 'racksh'
 gem 'rsolr', '~> 2.3.0'
 gem 'rspec', group: 'test'
 gem 'rubocop', group: %w[development test]
 gem 'rubocop-rspec', group: %w[development test]
 gem 'shotgun', group: 'development'
 gem 'sinatra', '~> 2.0.5'
+gem 'solrconf', path: '../gems/solrconf'
 gem 'timecop', group: 'test'
 gem 'valkyrie', '2.1.1'
 gem 'valkyrie-sequel', '2.1.0'
-gem 'zk'
