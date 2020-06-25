@@ -25,13 +25,16 @@ ingress:
   hosts: ['shoreline.local']
   tls: []
 
+persistence:
+  enabled: true
+
 # whether to ingest fixture data during deployment
 sample_data:
 
 suppressTools: false
 
-persistence:
-  enabled: true
+solr:
+  collectionName: collection1
 
 pvc:
   downloads:

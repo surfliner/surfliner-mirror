@@ -30,6 +30,9 @@ application:
   db_setup_command: "db:migrate"
   max_threads: 5
 
+solr:
+  collectionName: collection1
+
 email:
   # these needs to be set to something, even if it doesn't work, or else rails errors out on startup
   smtp_host: smtp.example.edu

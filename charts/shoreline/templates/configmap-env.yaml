@@ -25,7 +25,7 @@ data:
   SHORELINE_SMTP_HOST: {{ template "shoreline.email.fullname" . }}
   SHORELINE_SMTP_PORT: {{ .Values.email.service.port | quote }}
   SHORELINE_THEME: {{ .Values.theme }}
-  SOLR_CORE_NAME: collection1
+  SOLR_CORE_NAME: {{ .Values.solr.collectionName }}
   SOLR_HOST: {{ template "shoreline.solr.fullname" . }}-svc
   SOLR_PORT: "8983"
   ZK_HOST: {{ template "shoreline.zk.fullname" . }}

@@ -28,10 +28,10 @@ data:
   RAILS_SERVE_STATIC_FILES: "true"
   REDIS_URL: redis://{{ template "starlight.redis.fullname" . }}-master:6379
   SMTP_HOST: {{ .Values.email.smtp_host }}
-  SOLR_CORE_NAME: collection1
+  SOLR_CORE_NAME: {{ .Values.solr.collectionName }}
   SOLR_HOST: {{ template "starlight.solr.fullname" . }}-svc
   SOLR_PORT: "8983"
-  SOLR_URL: http://{{ template "starlight.solr.fullname" . }}-svc:8983/solr/collection1
+  SOLR_URL: http://{{ template "starlight.solr.fullname" . }}-svc:8983/solr/{{ .Values.solr.collectionName }}
   SPOTLIGHT_THEMES: "ucsb,surfliner,ucsd"
   ZK_HOST: {{ template "starlight.zk.fullname" . }}
   ZK_PORT: "2181"
