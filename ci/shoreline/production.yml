@@ -33,3 +33,22 @@ shoreline:discovery:deploy:prod:ucsb:
     KUBE_NAMESPACE: shoreline-prod
     HELM_RELEASE_NAME: surfliner-shoreline-prod
     HELM_UPGRADE_EXTRA_ARGS: '--set contact_email="geospatial@library.ucsb.edu" --set theme="ucsb" --set ingress.hosts={geodata.library.ucsb.edu} --set geoserver.ingress.hosts={geoserver.geodata.library.ucsb.edu}'
+
+shoreline:discovery:deploy:prod:ucsd:
+  extends:
+    - .shoreline:deploy:production
+  stage: production
+  script:
+    - cd shoreline/discovery
+    - mv ../../charts/shoreline ./chart
+    - mv ../../charts/geoserver ./geoserver
+    - deploy
+  environment:
+    name: ucsd.production.shoreline
+    url: http://geodata.ucsd.edu
+  variables:
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/shoreline_discovery_app
+    DEPLOY_TAG: stable
+    KUBE_NAMESPACE: shoreline-prod
+    HELM_RELEASE_NAME: surfliner-shoreline-prod
+    HELM_UPGRADE_EXTRA_ARGS: '--set contact_email="awork@ucsd.edu" --set theme="ucsd" --set ingress.hosts={geodata.ucsd.edu} --set ingress.tls[0].hosts[0]=geodata.ucsd.edu --set ingress.tls[0].secretName="geodatacertificate" --set geoserver.ingress.hosts={lib-geoserver.ucsd.edu}'
