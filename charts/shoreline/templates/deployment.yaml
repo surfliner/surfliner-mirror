@@ -30,7 +30,7 @@ spec:
             - "-c"
             - |
               ./bin/upload-solr-configs.sh && ./bin/create-solr-collection.sh
-        {{- if .Values.sample_data }}
+        {{- if .Values.shoreline.sample_data }}
         - name: ingest-sample-data
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: "{{ .Values.image.pullPolicy }}"

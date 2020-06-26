@@ -25,31 +25,29 @@ ingress:
   hosts: ['shoreline.local']
   tls: []
 
+shoreline:
+  theme: ""
+  # whether to ingest fixture data during deployment
+  sample_data:
+  suppressTools: false
+  solr:
+    collectionName: collection1
+  email:
+    delivery_method: smtp
+    contact_email: noreply@example.com
+
 persistence:
   enabled: true
-
-# whether to ingest fixture data during deployment
-sample_data:
-
-suppressTools: false
-
-solr:
-  collectionName: collection1
-
-pvc:
   downloads:
     size: 5Gi
     class: ""
-
-# Email settings for app
-delivery_method: smtp
-contact_email: noreply@example.com
 
 # Configure environment variables for email chart/container
 # see: https://gitlab.com/ucsdlibrary/development/email/
 # see: https://github.com/bokysan/docker-postfix#configuration-options
 # defaults: allow any email address to send email
 email:
+  enabled: true
   envVars:
     - name: ALLOWED_SENDER_DOMAINS
       value: ""
@@ -87,8 +85,6 @@ geoserver:
     enabled: true
     hosts: ['geoserver.local']
     tls: []
-
-theme:
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
