@@ -149,7 +149,7 @@ Regular meetings every other Wednesday, 11am-12pm (*starting June 24, 2020*)<br/
 *Optional*: Shoreline Tech Lead<br/>
 
 **Shoreline Sprint Review**<br/>
-Last day of each sprint, 10:30-11am (*starting June 30, 2020*)<br/>
+Last day of each sprint, 9:30-10am (*starting June 30, 2020*)<br/>
 [https://ucsb.zoom.us/j/800899979](https://ucsb.zoom.us/j/800899979)<br/>
 *Purpose*: Informal meeting on the last day of the sprint to show what team has accomplished during the sprint, typically taking the form of a demo. Demos are recorded. The Product Owner & Tech Lead are responsible for demo content & ensuring the demo gets recorded and shared.<br/>
 *Required*: Shoreline Product Owner<br/>
