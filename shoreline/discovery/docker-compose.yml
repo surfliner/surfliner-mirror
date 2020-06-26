@@ -2,14 +2,15 @@ version: '3.7'
 
 services:
   app:
-    build: .
+    build:
+      context: ../../
+      dockerfile: shoreline/discovery/Dockerfile
     env_file:
       - .env
     command: |
         sh -c 'bin/upload-solr-configs.sh && bin/create-solr-collection.sh && bin/docker-entrypoint.sh && bundle exec puma -v --debug -b tcp://0.0.0.0:3000'
     volumes:
-      - .:/data
-    working_dir: /data
+      - .:/home/shoreline/discovery/app
     depends_on:
       - postgres
       - solr
@@ -34,22 +35,16 @@ services:
       - shoreline_discovery_db:/var/lib/postgresql/data
     env_file:
       - .env
-    ports:
-      - "5432:5432"
 
   solr:
     image: solr:8.4.0
     env_file:
       - .env
-    ports:
-     - '8983:8983'
 
   zk:
     image: zookeeper:3.6
     env_file:
       - .env
-    ports:
-     - '2181:2181'
 
 volumes:
   shoreline_discovery_db:

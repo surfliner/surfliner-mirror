@@ -1,9 +1,11 @@
 # build stage
 FROM node:10-alpine as build-stage
 WORKDIR /app
-COPY package*.json ./
+
+COPY lark-frontend/package*.json ./
 RUN npm install
-COPY . .
+
+COPY lark-frontend .
 RUN npm run build
 
 # production stage

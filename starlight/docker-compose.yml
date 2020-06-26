@@ -2,7 +2,9 @@ version: '3.7'
 
 services:
   web:
-    build: .
+    build:
+      context: ..
+      dockerfile: starlight/Dockerfile
     env_file:
       - .env.development
     command: |
@@ -12,7 +14,6 @@ services:
       - starlight_uploads:/home/starlight/app/public/uploads
       - starlight_assets:/home/starlight/app/public/assets
       - starlight_tmp:/home/starlight/app/tmp
-    working_dir: /home/starlight/app
     ports:
       - "3000:3000"
     depends_on:
@@ -23,7 +24,9 @@ services:
     tty: true
 
   sidekiq:
-    build: .
+    build:
+      context: ..
+      dockerfile: starlight/Dockerfile
     env_file:
       - .env.development
     volumes:
@@ -31,7 +34,6 @@ services:
       - starlight_uploads:/home/starlight/app/public/uploads
       - starlight_assets:/home/starlight/app/public/assets
       - starlight_tmp:/home/starlight/app/tmp
-    working_dir: /home/starlight/app
     entrypoint: sh -ic "bundle exec sidekiq"
     depends_on:
       - database
@@ -52,22 +54,16 @@ services:
       - starlight_database:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: postgres_pass
-    ports:
-      - "5432:5432"
 
   solr:
     image: solr:8.4.0
     env_file:
       - .env.development
-    ports:
-     - '8983:8983'
 
   zk:
     image: zookeeper:3.6
     env_file:
       - .env.development
-    ports:
-     - '2181:2181'
 
 volumes:
   starlight_database:

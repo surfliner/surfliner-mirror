@@ -19,9 +19,12 @@ RUN gem update bundler
 
 RUN mkdir -p /home/starlight/app
 WORKDIR /home/starlight/app
-COPY Gemfile* ./
+
+COPY starlight/Gemfile* ./
+COPY gems /home/starlight/gems
 RUN bundle check || bundle install --jobs "$(nproc)"
-COPY . ./
+
+COPY starlight .
 
 RUN bundle exec rake assets:precompile
 

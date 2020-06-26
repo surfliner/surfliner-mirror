@@ -29,7 +29,7 @@ include:
     if [ "$CI_COMMIT_BRANCH" = "trunk" ]; then
       destination="$destination --destination $CI_REGISTRY_IMAGE/$image_name:stable"
     fi
-    /kaniko/executor --context "$CI_PROJECT_DIR"/$project --cache=true --dockerfile "$CI_PROJECT_DIR"/"$project"/Dockerfile $destination
+    /kaniko/executor --context "$CI_PROJECT_DIR" --cache=true --dockerfile "$CI_PROJECT_DIR"/"$project"/Dockerfile $destination
   }
 
 

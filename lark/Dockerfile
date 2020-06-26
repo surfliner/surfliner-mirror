@@ -14,12 +14,13 @@ RUN apk update && apk add \
 
 RUN gem update bundler
 
-RUN mkdir /data
-RUN mkdir /config
-WORKDIR /data
-COPY Gemfile* ./
-ENV BUNDLE_JOBS=4
-RUN bundle install
-COPY . ./
+RUN mkdir -p /home/lark/app
+WORKDIR /home/lark/app
+
+COPY lark/Gemfile* ./
+COPY gems /home/lark/gems
+RUN bundle check || bundle install --jobs "$(nproc)"
+
+COPY lark .
 
 CMD ["bin/lark.sh"]
