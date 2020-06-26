@@ -15,9 +15,9 @@
     ZK_HOST: zk
     ZK_PORT: 2181
   services:
-    - name: postgres:12-alpine
+    - name: bitnami/postgresql:12.3.0
       alias: postgres
-    - name: solr:8
+    - name: solr:8.4.0
       alias: solr
     - name: zookeeper:3.6
       alias: zk

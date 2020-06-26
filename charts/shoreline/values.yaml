@@ -55,6 +55,12 @@ email:
   service:
     port: 587
 
+# Configuration for solr chart
+# see: https://github.com/helm/charts/blob/master/incubator/solr/values.yaml
+solr:
+  image:
+    tag: 8.4.0
+
 postgresql:
   nameOverride: database
   image:

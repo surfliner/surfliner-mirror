@@ -17,7 +17,7 @@ services:
      - '3000:3000'
 
   geoserver:
-    image: kartoza/geoserver
+    image: kartoza/geoserver:2.17.0
     volumes:
       - shoreline_geoserver_data:/data
     env_file:
@@ -26,7 +26,7 @@ services:
       - '8088:8080'
 
   postgres:
-    image: postgres:12-alpine
+    image: bitnami/postgresql:12.3.0
     volumes:
       - shoreline_discovery_db:/var/lib/postgresql/data
     env_file:

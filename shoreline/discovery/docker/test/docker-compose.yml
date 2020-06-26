@@ -16,7 +16,7 @@ services:
      - '3000:3000'
 
   postgres:
-    image: postgres:12-alpine
+    image: bitnami/postgresql:12.3.0
     volumes:
       - shoreline_discovery_db:/var/lib/postgresql/data
     env_file:
