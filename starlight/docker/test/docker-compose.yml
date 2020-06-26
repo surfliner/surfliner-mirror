@@ -29,7 +29,7 @@ services:
     tty: true
 
   database:
-    image: postgres:11-alpine
+    image: bitnami/postgresql:12.3.0
     volumes:
       - starlight_database:/var/lib/postgresql/data
     ports:

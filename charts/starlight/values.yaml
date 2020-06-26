@@ -51,10 +51,17 @@ persistence:
     size: 20Gi
     class: ""
 
+# Configuration for solr chart
+# see: https://github.com/helm/charts/blob/master/incubator/solr/values.yaml
+solr:
+  image:
+    tag: 8.4.0
+
 # Configuration for postgresql chart
 # see: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md
 postgresql:
-  imageTag: "11.2.0"
+  image:
+    tag: "12.3.0"
   enabled: true
   cpu: 1000m
   memory: 1Gi
@@ -66,6 +73,8 @@ postgresql:
     size: 10Gi
 
 redis:
+  image:
+    tag: "6.0"
   usePassword: false
 
 resources: {}

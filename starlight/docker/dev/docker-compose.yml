@@ -38,13 +38,13 @@ services:
     tty: true
 
   redis:
-    image: redis:5.0-alpine
+    image: bitnami/redis:6.0
     command: redis-server
     volumes:
       - starlight_redis:/data
 
   database:
-    image: postgres:11-alpine
+    image: bitnami/postgresql:12.3.0
     volumes:
       - starlight_database:/var/lib/postgresql/data
     environment:
