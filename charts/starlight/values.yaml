@@ -26,24 +26,22 @@ ingress:
   hosts: ['starlight.local']
   tls: []
 
-application:
-  db_setup_command: "db:migrate"
-  max_threads: 5
-
-solr:
-  collectionName: collection1
-
-email:
-  # these needs to be set to something, even if it doesn't work, or else rails errors out on startup
-  smtp_host: smtp.example.edu
-  from_address: starlight@example.edu
-
-auth:
-  method: developer
-  # only required if method is "google"
-  google:
-    api_id:
-    api_secret:
+starlight:
+  application:
+    db_setup_command: "db:migrate"
+    max_threads: 5
+  solr:
+    collectionName: collection1
+  email:
+    # these needs to be set to something, even if it doesn't work, or else rails errors out on startup
+    smtp_host: smtp.example.edu
+    from_address: starlight@example.edu
+  auth:
+    method: developer
+    # only required if method is "google"
+    google:
+      api_id:
+      api_secret:
 
 persistence:
   enabled: true

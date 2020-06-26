@@ -8,13 +8,13 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 data:
-  AUTH_METHOD: {{ .Values.auth.method }}
-  DATABASE_COMMAND: {{ .Values.application.db_setup_command }}
+  AUTH_METHOD: {{ .Values.starlight.auth.method }}
+  DATABASE_COMMAND: {{ .Values.starlight.application.db_setup_command }}
   DB_ADAPTER: postgresql
-  FROM_EMAIL: {{ .Values.email.from_address }}
-  {{- if (eq "google" .Values.auth.method) }}
-  GOOGLE_AUTH_ID: {{ .Values.auth.google.api_id }}
-  GOOGLE_AUTH_SECRET: {{ .Values.auth.google.api_secret }}
+  FROM_EMAIL: {{ .Values.starlight.email.from_address }}
+  {{- if (eq "google" .Values.starlight.auth.method) }}
+  GOOGLE_AUTH_ID: {{ .Values.starlight.auth.google.api_id }}
+  GOOGLE_AUTH_SECRET: {{ .Values.starlight.auth.google.api_secret }}
   {{- end }}
   HOSTNAME: {{ template "starlight.fullname" . }}
   PORT: "3000"
@@ -23,15 +23,15 @@ data:
   POSTGRES_PORT: {{ .Values.postgresql.servicePort | quote }}
   RAILS_ENV: production
   RAILS_LOG_TO_STDOUT: "true"
-  RAILS_MAX_THREADS: {{ .Values.application.max_threads | quote }}
+  RAILS_MAX_THREADS: {{ .Values.starlight.application.max_threads | quote }}
   RAILS_QUEUE: sidekiq
   RAILS_SERVE_STATIC_FILES: "true"
   REDIS_URL: redis://{{ template "starlight.redis.fullname" . }}-master:6379
-  SMTP_HOST: {{ .Values.email.smtp_host }}
-  SOLR_CORE_NAME: {{ .Values.solr.collectionName }}
+  SMTP_HOST: {{ .Values.starlight.email.smtp_host }}
+  SOLR_CORE_NAME: {{ .Values.starlight.solr.collectionName }}
   SOLR_HOST: {{ template "starlight.solr.fullname" . }}-svc
   SOLR_PORT: "8983"
-  SOLR_URL: http://{{ template "starlight.solr.fullname" . }}-svc:8983/solr/{{ .Values.solr.collectionName }}
+  SOLR_URL: http://{{ template "starlight.solr.fullname" . }}-svc:8983/solr/{{ .Values.starlight.solr.collectionName }}
   SPOTLIGHT_THEMES: "ucsb,surfliner,ucsd"
   ZK_HOST: {{ template "starlight.zk.fullname" . }}
   ZK_PORT: "2181"
