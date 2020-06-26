@@ -7,7 +7,7 @@ lark:api:test:unit:
     POSTGRES_HOST: localhost
     POSTGRES_PASSWORD: password
     POSTGRES_PORT: 5432
-    POSTGRES_USER: runner
+    POSTGRES_USER: postgres
     REPOSITORY_URL: $CI_REPOSITORY_URL
     SOLR_CONFIG_COMMIT_SHA: $CI_COMMIT_SHA
     SOLR_CORE_NAME: lark-test
@@ -17,9 +17,9 @@ lark:api:test:unit:
     ZK_HOST: zk
     ZK_PORT: 2181
   services:
-    - name: postgres:12-alpine
+    - name: bitnami/postgresql:12.3.0
       alias: postgres
-    - name: solr:8
+    - name: solr:8.4.0
       alias: solr
     - name: zookeeper:3.6
       alias: zk

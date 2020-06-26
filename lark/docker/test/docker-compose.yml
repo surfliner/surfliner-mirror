@@ -15,7 +15,7 @@ services:
     tty: true
 
   postgres:
-    image: postgres:latest
+    image: bitnami/postgresql:12.3.0
     restart: always
     env_file:
       - ../../.env
