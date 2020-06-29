@@ -5,7 +5,7 @@
     - .helm3-deploy
   variables:
     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/shoreline_discovery_app
-    DEPLOY_TAG: stable
+    DEPLOY_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-shoreline-stage
     KUBE_NAMESPACE: shoreline-staging
   only:
