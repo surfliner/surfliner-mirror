@@ -3,6 +3,9 @@
     "config:base",
     ":preserveSemverRanges"
   ],
+  "gitlabci": {
+    "fileMatch": ["^ci/.*\.ya?ml$"]
+  },
   "bundler": { "enabled": true },
   "labels": [ "dependencies" ],
   "ignoreDeps": [ "ruby" ]
