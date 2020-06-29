@@ -18,7 +18,7 @@ services:
     tty: true
 
   chrome:
-    image: selenium/standalone-chrome:latest
+    image: selenium/standalone-chrome:3.141
     env_file:
       - ../.env.docker.test
     volumes:

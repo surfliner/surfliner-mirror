@@ -1,6 +1,6 @@
 lark-shellcheck:
   stage: lint
-  image: koalaman/shellcheck-alpine:stable
+  image: koalaman/shellcheck-alpine:v0.7.1
   script:
     - cd lark
     - find . -name tmp -prune -o -type f -exec awk 'FNR == 1 && /^#!.*sh/{print FILENAME}' {} + | xargs shellcheck

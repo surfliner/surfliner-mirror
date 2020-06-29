@@ -24,7 +24,7 @@
   services:
     - name: bitnami/postgresql:12.3.0
       alias: postgres
-    - name: selenium/standalone-chrome:latest
+    - name: selenium/standalone-chrome:3.141
       alias: chrome
     - name: solr:8.4.0
       alias: solr
