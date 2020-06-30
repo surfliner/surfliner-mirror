@@ -60,7 +60,6 @@ shoreline:discovery:deploy:ucsb-review:
   extends:
     - .helm3-deploy
     - .shoreline:deploy:review
-  stage: review
   script:
     - cd shoreline/discovery
     - mv ../../charts/shoreline ./chart
@@ -89,7 +88,6 @@ shoreline:discovery:cleanup:ucsb-review:
   extends:
     - .helm3-deploy
     - .shoreline:deploy:review
-  stage: cleanup
   environment:
     name: ucsb.review.shoreline
     action: stop

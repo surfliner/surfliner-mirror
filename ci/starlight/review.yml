@@ -59,7 +59,6 @@ starlight:deploy:ucsb-review:
   extends:
     - .helm3-deploy
     - .starlight:deploy:review
-  stage: review
   script:
     - cd starlight
     - mv ../charts/starlight ./chart
@@ -86,7 +85,6 @@ starlight:cleanup:ucsb-review:
   extends:
     - .helm3-deploy
     - .starlight:deploy:review
-  stage: cleanup
   environment:
     name: ucsb.review.starlight
     action: stop

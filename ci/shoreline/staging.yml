@@ -43,7 +43,6 @@ shoreline:discovery:deploy:ucsd-stage:
 shoreline:discovery:cleanup:ucsd-stage:
   extends:
     - .shoreline:deploy:stage
-  stage: cleanup
   environment:
     name: ucsd.shoreline.staging
     action: stop
@@ -79,7 +78,6 @@ shoreline:discovery:deploy:ucsb-stage:
 shoreline:discovery:cleanup:ucsb-stage:
   extends:
     - .shoreline:deploy:stage
-  stage: cleanup
   environment:
     name: ucsb.staging.shoreline
     action: stop

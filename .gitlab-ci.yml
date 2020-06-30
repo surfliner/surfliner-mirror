@@ -7,7 +7,6 @@ stages:
   - review
   - staging
   - production
-  - cleanup
   - failure_notification
 
 include:
