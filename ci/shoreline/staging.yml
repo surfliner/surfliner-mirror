@@ -25,14 +25,9 @@ shoreline:discovery:deploy:ucsd-stage:
     name: ucsd.shoreline.staging
     url: http://geodata-staging.ucsd.edu/
   variables:
+    HELM_ENCODED_VALUES: $UCSD_SHORELINE_STAGING_VALUES
     HELM_UPGRADE_EXTRA_ARGS: >
-      --set geoserver.ingress.hosts={lib-geoserver-staging.ucsd.edu}
-      --set ingress.hosts={geodata-staging.ucsd.edu}
-      --set ingress.tls[0].hosts[0]=geodata-staging.ucsd.edu
-      --set ingress.tls[0].secretName=geodata-stagingcertificate
-      --set shoreline.email.contact_email=awork@ucsd.edu
-      --set shoreline.sample_data=true
-      --set shoreline.theme=ucsd
+      --values $HELM_VALUES_FILE
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
   script:
     - cd shoreline/discovery

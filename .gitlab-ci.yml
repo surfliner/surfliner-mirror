@@ -105,6 +105,14 @@ include:
     kubectl get namespace "$KUBE_NAMESPACE" || kubectl create namespace "$KUBE_NAMESPACE"
   }
 
+  # Support supplying a base64-encoded helm values file for deployment
+  function setup_helm_values_file(){
+    if [ "$HELM_ENCODED_VALUES" ]; then
+      echo "HELM_ENCODED_VALUES CI/CD variable found. Decoding and creating HELM_VALUES_FILE"
+      echo ${HELM_ENCODED_VALUES} | base64 -d > $HELM_VALUES_FILE
+    fi
+  }
+
   # A GitLab-integrated Kubernetes cluster should already have a KUBECONFIG created
   # Otherwise, we assume the KUBECONFIG is setup as a base64-encoded environment variable
   function setup_kube_config(){
@@ -120,6 +128,8 @@ include:
 .helm3-deploy:
   image: dtzar/helm-kubectl:3.2.4
   stage: deploy
+  variables:
+    HELM_VALUES_FILE: /helm-values.yml
   before_script:
     - *helm3_deploy_helpers
     - setup_kube_config
