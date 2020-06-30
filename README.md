@@ -124,7 +124,7 @@ Regular meetings every other Monday, 11am-12pm (*starting June 29, 2020*)<br/>
 
 **DevOps Sprint Review**<br/>
 Last day of each sprint, 10:30-11:30am (*starting June 30, 2020*)<br/>
-[https://ucsb.zoom.us/j/91659880579](https://ucsb.zoom.us/j/91659880579)<br/>
+Use DSU Zoom link: [https://ucsb.zoom.us/j/310736504](https://ucsb.zoom.us/j/310736504)<br/>
 *Purpose*: Informal meeting on the last day of the sprint to show what team has accomplished during the sprint, typically taking the form of a demo. Demos are recorded. The Product Owner & Tech Lead are responsible for demo content & ensuring the demo gets recorded and shared.<br/>
 *Required*: Shoreline/Starlight Tech Leads<br/>
 *Optional*: Shoreline/Starlight Product Owners & DevOps Sprint Team Members<br/>
