@@ -1,11 +1,14 @@
 version: '3.7'
+
 services:
   web:
-    build: ../../.
+    build: .
     env_file:
-      - ../.env.docker
+      - .env.development
+    command: |
+        sh -c 'bin/upload-solr-configs.sh && bin/create-solr-collection.sh && bin/docker-entrypoint.sh && bundle exec puma -v --debug -b tcp://0.0.0.0:3000'
     volumes:
-      - ../../.:/home/starlight/app
+      - .:/home/starlight/app
       - starlight_uploads:/home/starlight/app/public/uploads
       - starlight_assets:/home/starlight/app/public/assets
       - starlight_tmp:/home/starlight/app/tmp
@@ -20,11 +23,11 @@ services:
     tty: true
 
   sidekiq:
-    build: ../../.
+    build: .
     env_file:
-      - ../.env.docker
+      - .env.development
     volumes:
-      - ../../.:/home/starlight/app
+      - .:/home/starlight/app
       - starlight_uploads:/home/starlight/app/public/uploads
       - starlight_assets:/home/starlight/app/public/assets
       - starlight_tmp:/home/starlight/app/tmp
@@ -53,18 +56,22 @@ services:
       - "5432:5432"
 
   solr:
-    build: ../../../docker/solr
-    volumes:
-      - starlight_solr:/opt/solr/server/solr/mycores
+    image: solr:8.4.0
     env_file:
-      - ../.env.docker
+      - .env.development
     ports:
      - '8983:8983'
+
+  zk:
+    image: zookeeper:3.6
+    env_file:
+      - .env.development
+    ports:
+     - '2181:2181'
 
 volumes:
   starlight_database:
   starlight_redis:
-  starlight_solr:
   starlight_uploads:
   starlight_tmp:
   starlight_assets:
