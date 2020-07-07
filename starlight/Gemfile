@@ -50,8 +50,8 @@ group :development, :test do
   gem "pry-doc"
   gem "pry-rails"
   gem "pry-rescue"
-  gem "rspec-rails"
   gem "rspec_junit_formatter"
+  gem "rspec-rails"
   gem "rubocop-rails_config"
   gem "rubocop-rspec"
   gem "scss_lint", require: false
