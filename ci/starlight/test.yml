@@ -31,7 +31,9 @@
     - name: zookeeper:3.6
       alias: zk
   before_script:
-    - cd starlight && ./bin/upload-solr-configs.sh && ./bin/create-solr-collection.sh
+    - cd starlight/app
+    - ../scripts/upload-solr-configs.sh /home/starlight/app/solr/config
+    - ../scripts/create-solr-collection.sh
   tags:
     - kubernetes
   only:

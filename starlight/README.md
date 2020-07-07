@@ -97,20 +97,6 @@ version. In order to update Universal Viewer to a newer version:
 
 ## Developing locally
 
-### Set up your local development instance
-1. `git clone https://gitlab.com/surfliner/surfliner.git`
-1. `cd surfliner/starlight`
-1. `bundle install` to install gem dependencies
-1. `rake db:migrate` to run database migrations
-1. `yarn install` to install UniversalViewer
-1. `solr_wrapper --config config/solr_wrapper_dev.yml` to spin up a local copy of solr for development
-1. `rails s` to run rails server
-
-To override environment variables set by `.env.development`, create a
-`.env.development.local` file: <https://github.com/bkeepers/dotenv#what-other-env-files-can-i-use>
-
-### With Docker
-
 You will need Docker and Docker Compose installed on your host/local system.
 
 There are two docker-compose files, which allow you to run development and test
@@ -154,13 +140,6 @@ ensure it does not run `db:schema:load` in future runs.
 You can use the [sample rake file](lib/tasks/sample.rake) to load a sample
 exhibit and generate an administrative user.
 
-If you are developing without docker, this can be done as:
-```
-bundle exec rake starlight:seed_admin_user
-bundle exec rake starlight:sample:seed_exhibit
-```
-
-If you are developing with docker, this can be done as:
 ```
 docker-compose -f docker/dev/docker-compose.yml exec web bundle exec rake starlight:seed_admin_user
 docker-compose -f docker/dev/docker-compose.yml exec web bundle exec rake starlight:sample:seed_exhibit

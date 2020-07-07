@@ -24,9 +24,12 @@ lark:api:test:unit:
     - name: zookeeper:3.6
       alias: zk
   script:
-    - cd lark && ./bin/upload-solr-configs.sh && ./bin/create-solr-collection.sh
+    - cd lark
+    - ../scripts/upload-solr-configs.sh /home/lark/app/solr/config
+    - ../scripts/create-solr-collection.sh
     - bundle check || bundle
-    - rake db:create db:migrate && bundle exec rspec
+    - rake db:create db:migrate
+    - bundle exec rspec
   extends:
     - .only-refs-default
     - .only-lark-api-changes

@@ -32,10 +32,11 @@ spec:
             - secretRef:
                 name: {{ template "starlight.fullname" . }}
           command:
-            - "sh"
-            - "-c"
-            - |
-              ./bin/upload-solr-configs.sh && ./bin/create-solr-collection.sh
+            - sh
+            - -c
+            - >
+              ../scripts/upload-solr-configs.sh /home/starlight/app/solr/config &&
+              ../scripts/create-solr-collection.sh
       volumes:
         - name: public
           {{- if .Values.persistence.enabled }}

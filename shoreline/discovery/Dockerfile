@@ -18,6 +18,7 @@ COPY gems ../../gems/
 RUN bundle check || bundle install --jobs "$(nproc)"
 
 COPY shoreline/discovery .
+COPY scripts ../../scripts/
 
 RUN bundle exec rake assets:precompile
 

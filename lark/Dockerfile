@@ -22,5 +22,6 @@ COPY gems /home/lark/gems
 RUN bundle check || bundle install --jobs "$(nproc)"
 
 COPY lark .
+COPY scripts ../../scripts/
 
 CMD ["bin/lark.sh"]

@@ -33,7 +33,6 @@ gem 'rubocop',                 group: %i[development test]
 gem 'rubocop-rails',           group: %i[development test]
 gem 'rubocop-rspec',           group: %i[development test]
 gem 'sass-rails',              '~> 6.0'
-gem 'solr_wrapper',            group: %i[development test]
 gem 'solrconf',                path: '../../gems/solrconf'
 gem 'turbolinks',              '~> 5.2'
 gem 'twitter-typeahead-rails', '0.11.1'

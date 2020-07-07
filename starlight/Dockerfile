@@ -25,6 +25,7 @@ COPY gems /home/starlight/gems
 RUN bundle check || bundle install --jobs "$(nproc)"
 
 COPY starlight .
+COPY scripts /home/starlight/scripts
 
 RUN bundle exec rake assets:precompile
 

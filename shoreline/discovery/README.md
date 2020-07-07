@@ -46,18 +46,6 @@ bundle install
 
 ### Starting Up
 
-Shoreline Discovery is a [Rails][rails] application. To start the server you can run
-
-
-```sh
-bundle exec rails server
-```
-
-After this, the application should be available on
-[`http://localhost:3000`][localhost].
-
-### Running with Docker
-
 The development environment is supported with Docker Compose. To run the
 dockerized environment, you will need Docker and Docker Compose installed on
 your local system.
