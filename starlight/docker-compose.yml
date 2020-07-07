@@ -7,13 +7,14 @@ services:
       dockerfile: starlight/Dockerfile
     env_file:
       - .env.development
-    command: |
-        sh -c '
-          ../scripts/upload-solr-configs.sh /home/starlight/app/solr/config && \
-          ../scripts/create-solr-collection.sh && \
-          bin/docker-entrypoint.sh && \
-          bundle exec puma -v --debug -b tcp://0.0.0.0:3000
-          '
+    command:
+      - sh
+      - -c
+      - >
+        ../scripts/upload-solr-configs.sh /home/starlight/app/solr/config &&
+        ../scripts/create-solr-collection.sh &&
+        bin/docker-entrypoint.sh &&
+        bundle exec puma -v --debug -b tcp://0.0.0.0:3000
     volumes:
       - .:/home/starlight/app
       - starlight_uploads:/home/starlight/app/public/uploads
