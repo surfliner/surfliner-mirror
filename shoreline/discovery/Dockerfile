@@ -1,5 +1,8 @@
 FROM ruby:2.6.2-alpine
 
+ARG PROJECTPATH=shoreline
+ARG DOCKERROOT=/home/${PROJECTPATH}
+
 RUN apk --no-cache upgrade && apk add \
   build-base \
   curl \
@@ -10,15 +13,14 @@ RUN apk --no-cache upgrade && apk add \
 
 RUN gem update bundler
 
-RUN mkdir -p /home/shoreline/discovery/app
-WORKDIR /home/shoreline/discovery/app
+WORKDIR ${DOCKERROOT}/discovery/app
 
-COPY shoreline/discovery/Gemfile* ./
-COPY gems ../../gems/
+COPY ${PROJECTPATH}/discovery/Gemfile* ${DOCKERROOT}/discovery/app/
+COPY gems ${DOCKERROOT}/gems/
 RUN bundle check || bundle install --jobs "$(nproc)"
 
-COPY shoreline/discovery .
-COPY scripts ../../scripts/
+COPY ${PROJECTPATH}/discovery ${DOCKERROOT}/discovery/app/
+COPY scripts ${DOCKERROOT}/scripts/
 
 RUN bundle exec rake assets:precompile
 

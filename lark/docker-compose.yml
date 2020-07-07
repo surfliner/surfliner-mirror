@@ -10,8 +10,8 @@ services:
       - sh
       - -c
       - >
-        ../scripts/upload-solr-configs.sh /home/lark/app/solr/config &&
-        ../scripts/create-solr-collection.sh &&
+        /home/lark/scripts/upload-solr-configs.sh /home/lark/app/solr/config &&
+        /home/lark/scripts/create-solr-collection.sh &&
         bin/lark.sh
     volumes:
       - .:/home/lark/app

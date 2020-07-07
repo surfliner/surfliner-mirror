@@ -25,8 +25,8 @@ lark:api:test:unit:
       alias: zk
   script:
     - cd lark
-    - ../scripts/upload-solr-configs.sh /home/lark/app/solr/config
-    - ../scripts/create-solr-collection.sh
+    - /home/lark/scripts/upload-solr-configs.sh /home/lark/app/solr/config
+    - /home/lark/scripts/create-solr-collection.sh
     - bundle check || bundle
     - rake db:create db:migrate
     - bundle exec rspec

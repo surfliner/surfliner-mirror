@@ -1,5 +1,8 @@
 FROM ruby:2.6-alpine
 
+ARG PROJECTPATH=lark
+ARG DOCKERROOT=/home/${PROJECTPATH}
+
 RUN apk update && apk add \
     build-base \
     curl \
@@ -14,14 +17,13 @@ RUN apk update && apk add \
 
 RUN gem update bundler
 
-RUN mkdir -p /home/lark/app
-WORKDIR /home/lark/app
+WORKDIR ${DOCKERROOT}/app
 
-COPY lark/Gemfile* ./
-COPY gems /home/lark/gems
+COPY ${PROJECTPATH}/Gemfile* ${DOCKERROOT}/app/
+COPY gems ${DOCKERROOT}/gems/
 RUN bundle check || bundle install --jobs "$(nproc)"
 
-COPY lark .
-COPY scripts ../../scripts/
+COPY ${PROJECTPATH} ${DOCKERROOT}/app/
+COPY scripts ${DOCKERROOT}/scripts/
 
 CMD ["bin/lark.sh"]

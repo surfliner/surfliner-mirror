@@ -22,9 +22,9 @@
     - name: zookeeper:3.6
       alias: zk
   before_script:
-    - cd shoreline/discovery
-    - ../../scripts/upload-solr-configs.sh /home/shoreline/discovery/app/solr/conf
-    - ../../scripts/create-solr-collection.sh
+    - cd /home/shoreline/discovery/app
+    - /home/shoreline/scripts/upload-solr-configs.sh /home/shoreline/discovery/app/solr/conf
+    - /home/shoreline/scripts/create-solr-collection.sh
   artifacts:
     name: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
     reports:

@@ -1,5 +1,8 @@
 FROM ruby:2.6.6-alpine
 
+ARG PROJECTPATH=starlight
+ARG DOCKERROOT=/home/${PROJECTPATH}
+
 RUN apk --no-cache upgrade && \
   apk add --no-cache \
   build-base \
@@ -17,15 +20,14 @@ RUN apk --no-cache upgrade && \
 
 RUN gem update bundler
 
-RUN mkdir -p /home/starlight/app
-WORKDIR /home/starlight/app
+WORKDIR ${DOCKERROOT}/app
 
-COPY starlight/Gemfile* ./
-COPY gems /home/starlight/gems
+COPY ${PROJECTPATH}/Gemfile* ${DOCKERROOT}/app/
+COPY gems ${DOCKERROOT}/gems/
 RUN bundle check || bundle install --jobs "$(nproc)"
 
-COPY starlight .
-COPY scripts /home/starlight/scripts
+COPY ${PROJECTPATH} ${DOCKERROOT}/app/
+COPY scripts ${DOCKERROOT}/scripts/
 
 RUN bundle exec rake assets:precompile
 

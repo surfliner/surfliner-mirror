@@ -26,10 +26,11 @@ spec:
             - secretRef:
                 name: {{ template "shoreline.fullname" . }}
           command:
-            - "sh"
-            - "-c"
-            - |
-              ./bin/upload-solr-configs.sh && ./bin/create-solr-collection.sh
+            - sh
+            - -c
+            - >
+              /home/shoreline/scripts/upload-solr-configs.sh /home/shoreline/discovery/app/solr/conf &&
+              /home/shoreline/scripts/create-solr-collection.sh
       volumes:
         - name: downloads
           emptyDir: {}
