@@ -9,7 +9,7 @@ data:
   DATABASE_ADAPTER: postgresql
   DATABASE_HOST: {{ template "shoreline.postgresql.fullname" . }}
   GEOBLACKLIGHT_DOWNLOAD_PATH: /data/tmp/cache/downloads
-  GEOSERVER_HOST: {{ .Values.geoserver.ingress.hosts | first |  }}
+  GEOSERVER_HOST: {{ .Values.geoserver.ingress.hosts | first }}
   GEOSERVER_INTERNAL_HOST: {{ template "shoreline.geoserver.fullname" . }}
   GEOSERVER_PORT: "80"
   GEOSERVER_USER: admin

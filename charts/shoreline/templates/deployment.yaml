@@ -35,27 +35,8 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: "{{ .Values.image.pullPolicy }}"
           command:
-            - "sh"
-            - "-c"
-            - |
-              COUNTER=0;
-              while [ $COUNTER -lt 120 ]; do
-                echo 'trying to connect to {{ .Release.Name }}-geoserver on port 80';
-                if nc {{ .Release.Name }}-geoserver 80 ; then
-                  echo "Found GeoServer; ingesting..."
-
-                  for shape in $(ls spec/fixtures/shapefiles); do
-                    echo "Ingesting ${shape}..."
-                    bundle exec rake shoreline:publish["spec/fixtures/shapefiles/${shape}"]
-                  done
-
-                  exit 0;
-                fi
-                COUNTER=$(( COUNTER+1 ));
-                sleep 2s;
-              done;
-              echo "Failed to find GeoServer after 240 secs";
-              exit 1;
+            - /home/shoreline/discovery/app/bin/ingest.sh
+            - /home/shoreline/discovery/app/spec/fixtures/shapefiles/*
           envFrom:
             - configMapRef:
                 name: {{ include "shoreline.fullname" . }}-env
