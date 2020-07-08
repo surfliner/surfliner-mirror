@@ -12,7 +12,8 @@ namespace :shoreline do
 
     file = File.read(args[:file_path])
     file_id = File.basename(args[:file_path], File.extname(args[:file_path]))
-    workspace = 'public'
+    workspace = ENV.fetch('GEOSERVER_WORKSPACE', 'public')
+
     Geoserver::Publish.create_workspace(workspace_name: workspace, connection: conn)
     Geoserver::Publish::DataStore.new(conn).upload(workspace_name: workspace, data_store_name: file_id, file: file)
 

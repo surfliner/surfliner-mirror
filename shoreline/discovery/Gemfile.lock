@@ -176,7 +176,7 @@ GEM
       rails (~> 5.0)
       webpacker
     geoblacklight-icons (1.4.0)
-    geoserver-publish (0.2.1)
+    geoserver-publish (0.4.0)
       faraday
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -413,7 +413,7 @@ DEPENDENCIES
   dotenv-rails (~> 2.7)
   factory_bot_rails
   geoblacklight (~> 2.3.0)
-  geoserver-publish (~> 0.2.1)
+  geoserver-publish (~> 0.3)
   jbuilder (~> 2.5)
   jquery-rails (~> 4.3)
   letter_opener_web

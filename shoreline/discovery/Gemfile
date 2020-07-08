@@ -13,7 +13,7 @@ gem 'devise-guests',           '~> 0.6'
 gem 'dotenv-rails',            '~> 2.7', group: %i[development test]
 gem 'factory_bot_rails',       group: [:test]
 gem 'geoblacklight',           '~> 2.3.0'
-gem 'geoserver-publish',       '~> 0.2.1'
+gem 'geoserver-publish',       '~> 0.3'
 gem 'jbuilder',                '~> 2.5'
 gem 'jquery-rails',            '~> 4.3'
 gem 'letter_opener_web',       group: [:development]
