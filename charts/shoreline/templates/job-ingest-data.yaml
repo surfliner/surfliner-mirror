@@ -1,0 +1,30 @@
+{{- if .Values.shoreline.sample_data }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+metadata:
+  name: {{ include "shoreline.fullname" . }}-ingest-data
+  labels:
+    {{- include "shoreline.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": post-install
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  template:
+    metadata:
+      name: {{ include "shoreline.fullname" . }}-ingest-data
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: ingest-sample-data
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+          command:
+            - /home/shoreline/discovery/app/bin/ingest.sh
+            - /home/shoreline/discovery/app/spec/fixtures/shapefiles/*
+          envFrom:
+            - configMapRef:
+                name: {{ include "shoreline.fullname" . }}-env
+            - secretRef:
+                name: {{ template "shoreline.fullname" . }}
+{{- end }}

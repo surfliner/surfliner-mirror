@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{ include "shoreline.fullname" . }}
   labels:
-{{ include "shoreline.labels" . | indent 4 }}
+    {{- include "shoreline.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -30,19 +30,6 @@ spec:
             - "-c"
             - |
               ./bin/upload-solr-configs.sh && ./bin/create-solr-collection.sh
-        {{- if .Values.shoreline.sample_data }}
-        - name: ingest-sample-data
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
-          command:
-            - /home/shoreline/discovery/app/bin/ingest.sh
-            - /home/shoreline/discovery/app/spec/fixtures/shapefiles/*
-          envFrom:
-            - configMapRef:
-                name: {{ include "shoreline.fullname" . }}-env
-            - secretRef:
-                name: {{ template "shoreline.fullname" . }}
-        {{- end }}
       volumes:
         - name: downloads
           emptyDir: {}
