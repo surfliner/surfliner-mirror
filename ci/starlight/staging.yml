@@ -1,0 +1,45 @@
+.starlight:deploy:stage:
+  stage: staging
+  extends:
+    - .only-starlight-changes
+    - .helm3-deploy
+  variables:
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/starlight_web
+    DEPLOY_TAG: $CI_COMMIT_SHA
+    HELM_RELEASE_NAME: surfliner-starlight-stage
+    KUBE_NAMESPACE: starlight-staging
+  needs: ["starlight-build"]
+  only:
+    refs:
+      - trunk
+
+starlight:deploy:ucsb-stage:
+  extends:
+    - .starlight:deploy:stage
+  script:
+    - cd starlight
+    - mv ../charts/starlight ./chart
+    - deploy
+  environment:
+    name: ucsb.staging.starlight
+    url: http://starlight-staging.$KUBE_INGRESS_BASE_DOMAIN
+    on_stop: starlight:cleanup:ucsb-stage
+    auto_stop_in: 4 days
+  variables:
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --set ingress.hosts={starlight-staging.$KUBE_INGRESS_BASE_DOMAIN}
+
+starlight:cleanup:ucsb-stage:
+  extends:
+    - .starlight:deploy:stage
+  environment:
+    name: ucsb.staging.starlight
+    action: stop
+  when: manual
+  allow_failure: true
+  variables:
+    GIT_STRATEGY: none
+    HELM_RELEASE_NAME: surfliner-starlight-stage
+  script:
+    - delete
+    - delete_stateful_set_pvcs

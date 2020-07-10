@@ -3,6 +3,7 @@ include:
   - local: ci/starlight/lint.yml
   - local: ci/starlight/test.yml
   - local: ci/starlight/review.yml
+  - local: ci/starlight/staging.yml
 
 .only-starlight-changes:
   only:
