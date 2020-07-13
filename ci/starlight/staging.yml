@@ -28,6 +28,8 @@ starlight:deploy:ucsb-stage:
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
       --set ingress.hosts={starlight-staging.$KUBE_INGRESS_BASE_DOMAIN}
+      --set starlight.auth.google.api_id=$UCSB_STAGE_GOOGLE_ID
+      --set starlight.auth.google.api_secret=$UCSB_STAGE_GOOGLE_SECRET
 
 starlight:cleanup:ucsb-stage:
   extends:
