@@ -36,12 +36,6 @@ shoreline:
     delivery_method: smtp
     contact_email: noreply@example.com
 
-persistence:
-  enabled: true
-  downloads:
-    size: 5Gi
-    class: ""
-
 # Configure environment variables for email chart/container
 # see: https://gitlab.com/ucsdlibrary/development/email/
 # see: https://github.com/bokysan/docker-postfix#configuration-options
