@@ -43,6 +43,21 @@ spec:
           {{- else }}
           emptyDir: {}
           {{- end }}
+      initContainers:
+      - name: wait-for-rails-deployment
+        image: alpine:latest
+        imagePullPolicy: Always
+        envFrom:
+          - configMapRef:
+              name: {{ include "starlight.fullname" . }}-env
+        args:
+        - /bin/sh
+        - -c
+        - >
+          while [ $(wget --server-response --quiet --spider "$HOSTNAME/healthz" 2>&1 | awk 'NR==1{print $2}') -ne 200 ]; do
+            echo "waiting for ${HOSTNAME} healthz check to pass"
+            sleep 15;
+          done
       containers:
         - name: {{ .Chart.Name }}-sidekiq
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
