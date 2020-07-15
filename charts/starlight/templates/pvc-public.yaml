@@ -10,5 +10,7 @@ spec:
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
+  {{- if .Values.persistence.public.class }}
   storageClassName: {{ .Values.persistence.public.class }}
+  {{- end }}
 {{- end }}

@@ -47,10 +47,11 @@ persistence:
   enabled: true
   cache:
     size: 5Gi
-    class: ""
+    # either specify a StorageClassName or leave this value unset
+    # class: gp2
   public:
     size: 20Gi
-    class: ""
+    # class: gp2
 
 # Configuration for solr chart
 # see: https://github.com/helm/charts/blob/master/incubator/solr/values.yaml
