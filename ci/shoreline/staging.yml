@@ -66,6 +66,7 @@ shoreline:discovery:deploy:ucsb-stage:
     HELM_UPGRADE_EXTRA_ARGS: >
       --set geoserver.ingress.hosts={shoreline-geoserver-staging.$KUBE_INGRESS_BASE_DOMAIN}
       --set ingress.hosts={shoreline-staging.$KUBE_INGRESS_BASE_DOMAIN}
+      --set persistence.downloads.class=gp2
       --set shoreline.email.contact_email=geospatial@library.ucsb.edu
       --set shoreline.sample_data=true
       --set shoreline.theme=ucsb

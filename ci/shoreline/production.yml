@@ -35,6 +35,7 @@ shoreline:discovery:deploy:prod:ucsb:
     HELM_UPGRADE_EXTRA_ARGS: >
       --set geoserver.ingress.hosts={geoserver.geodata.library.ucsb.edu}
       --set ingress.hosts={geodata.library.ucsb.edu}
+      --set persistence.downloads.class=gp2
       --set shoreline.email.contact_email=geospatial@library.ucsb.edu
       --set shoreline.theme=ucsb
 
