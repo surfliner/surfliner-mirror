@@ -33,21 +33,12 @@ using OAuth:
 
 ## Importing Data
 
-Images can be specified either via a url or via a filename. A CSV import file
-must use either urls or files, not a mixture of both.  Files will be loaded
-relative to an optional environment variable, `BINARY_ROOT`.
+Images must be specified via a url.
 
 1. Create an exhibit. Ensure all the metadata fields you want are specified.
 1. In the UI for your exhibit, go to Items --> Add Items --> Upload multiple items
 1. Click `download template` to download a CSV template that contains all the metadata fields for your exhibit
-1. Populate the CSV as appropriate. If you want to use local files instead of
-urls, change the `url` column heading to say `file` instead.
-
-    File paths will load relative to whatever value is set for
-    `BINARY_ROOT`. e.g., if `BINARY_ROOT=/opt/ingest` and
-    `file=images/sample.jpg` the file will load from
-    `/opt/ingest/images/sample.jpg`.  If the file path starts with `/`, it will
-    be treated as an absolute path and `BINARY_ROOT` will be ignored.
+1. Populate the CSV as appropriate.
 1. Click `choose file` and upload your populated CSV file.
 
 ## Google Analytics

@@ -17,7 +17,6 @@ Puppet, or whatever works best in your local environment and practices.
 | Name | Description | Required |
 | ---- | ----------- | -------- |
 | `AUTH_METHOD` | `google`, `developer`, or `database` | Yes |
-| `BINARY_ROOT` | Mounted share for local file ingestion | No |
 | `DATABASE_URL` | Setup your [database connection information][db] | Yes |
 | `FROM_EMAIL` | Application email address to use with ActionMailer | Yes |
 | `GA_EMAIL` | see [Google Analytics section in README][ga] | No |

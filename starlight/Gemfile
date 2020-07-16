@@ -60,4 +60,5 @@ group :development, :test do
   gem "shoulda-matchers"
   gem "sqlite3"
   gem "webdrivers"
+  gem "webmock"
 end

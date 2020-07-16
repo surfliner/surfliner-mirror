@@ -31,8 +31,8 @@ RSpec.describe "when searching", :clean, type: :system, js: true do
 
   before do
     enable_selenium_file_detector
+    stub_http_image_uploads
 
-    ENV["BINARY_ROOT"] = Rails.root.join("spec", "fixtures", "images").to_s
     allow(Spotlight::DefaultThumbnailJob).to receive(:perform_later)
     omniauth_setup_google_auth_for(site_admin)
     sign_in
