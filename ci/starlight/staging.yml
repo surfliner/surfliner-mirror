@@ -48,3 +48,35 @@ starlight:cleanup:ucsb-stage:
   script:
     - delete
     - delete_stateful_set_pvcs
+
+starlight:deploy:ucsd-stage:
+  extends:
+    - .starlight:deploy:stage
+  script:
+    - cd starlight
+    - mv ../charts/starlight ./chart
+    - deploy
+  environment:
+    name: ucsd.staging.starlight
+    url: http://lib-exhibits-staging.ucsd.edu/
+    on_stop: starlight:cleanup:ucsd-stage
+    auto_stop_in: 4 days
+  variables:
+    HELM_ENCODED_VALUES: $UCSD_STARLIGHT_STAGING_VALUES
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --values $HELM_VALUES_FILE
+
+starlight:cleanup:ucsd-stage:
+  extends:
+    - .starlight:deploy:stage
+  environment:
+    name: ucsd.staging.starlight
+    action: stop
+  when: manual
+  allow_failure: true
+  variables:
+    GIT_STRATEGY: none
+    HELM_RELEASE_NAME: surfliner-starlight-stage
+  script:
+    - delete
+    - delete_stateful_set_pvcs
