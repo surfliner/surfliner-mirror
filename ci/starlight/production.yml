@@ -1,0 +1,34 @@
+.starlight:deploy:production:
+  stage: production
+  extends:
+    - .only-starlight-changes
+    - .helm3-deploy
+  variables:
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/starlight_web
+    DEPLOY_TAG: $CI_COMMIT_SHA
+    HELM_RELEASE_NAME: surfliner-starlight-prod
+    KUBE_NAMESPACE: starlight-prod
+  needs: ["starlight-build"]
+  when: manual
+  only:
+    refs:
+      - trunk
+
+starlight:deploy:ucsb-production:
+  extends:
+    - .starlight:deploy:production
+  script:
+    - cd starlight
+    - mv ../charts/starlight ./chart
+    - deploy
+  environment:
+    name: ucsb.production.starlight
+    url: http://starlight.$KUBE_INGRESS_BASE_DOMAIN
+  variables:
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --set ingress.hosts={starlight.$KUBE_INGRESS_BASE_DOMAIN}
+      --set persistence.cache.class=gp2
+      --set persistence.public.class=gp2
+      --set starlight.auth.google.api_id=$UCSB_PROD_GOOGLE_ID
+      --set starlight.auth.google.api_secret=$UCSB_PROD_GOOGLE_SECRET
+      --set starlight.auth.method=google
