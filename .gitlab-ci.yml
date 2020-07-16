@@ -133,4 +133,5 @@ include:
   before_script:
     - *helm3_deploy_helpers
     - setup_kube_config
+    - setup_helm_values_file
     - ensure_namespace
