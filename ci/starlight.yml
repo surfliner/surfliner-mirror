@@ -1,9 +1,10 @@
 include:
   - local: ci/starlight/build.yml
   - local: ci/starlight/lint.yml
-  - local: ci/starlight/test.yml
+  - local: ci/starlight/production.yml
   - local: ci/starlight/review.yml
   - local: ci/starlight/staging.yml
+  - local: ci/starlight/test.yml
 
 .only-starlight-changes:
   only:
