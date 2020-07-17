@@ -63,6 +63,7 @@ starlight:deploy:ucsd-stage:
     auto_stop_in: 4 days
   variables:
     HELM_ENCODED_VALUES: $UCSD_STARLIGHT_STAGING_VALUES
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
     HELM_UPGRADE_EXTRA_ARGS: >
       --values $HELM_VALUES_FILE
 
@@ -77,6 +78,7 @@ starlight:cleanup:ucsd-stage:
   variables:
     GIT_STRATEGY: none
     HELM_RELEASE_NAME: surfliner-starlight-stage
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
   script:
     - delete
     - delete_stateful_set_pvcs
