@@ -12,10 +12,6 @@ data:
   DATABASE_COMMAND: {{ .Values.starlight.application.db_setup_command }}
   DB_ADAPTER: postgresql
   FROM_EMAIL: {{ .Values.starlight.email.from_address }}
-  {{- if (eq "google" .Values.starlight.auth.method) }}
-  GOOGLE_AUTH_ID: {{ .Values.starlight.auth.google.api_id }}
-  GOOGLE_AUTH_SECRET: {{ .Values.starlight.auth.google.api_secret }}
-  {{- end }}
   HOSTNAME: {{ template "starlight.fullname" . }}
   PORT: "3000"
   POSTGRES_DB: {{ .Values.postgresql.postgresqlDatabase }}
