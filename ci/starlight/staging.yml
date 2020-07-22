@@ -24,7 +24,6 @@ starlight:deploy:ucsb-stage:
     name: ucsb.staging.starlight
     url: http://starlight-staging.$KUBE_INGRESS_BASE_DOMAIN
     on_stop: starlight:cleanup:ucsb-stage
-    auto_stop_in: 4 days
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
       --set ingress.hosts={starlight-staging.$KUBE_INGRESS_BASE_DOMAIN}
@@ -60,7 +59,6 @@ starlight:deploy:ucsd-stage:
     name: ucsd.staging.starlight
     url: http://lib-exhibits-staging.ucsd.edu/
     on_stop: starlight:cleanup:ucsd-stage
-    auto_stop_in: 4 days
   variables:
     HELM_ENCODED_VALUES: $UCSD_STARLIGHT_STAGING_VALUES
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
