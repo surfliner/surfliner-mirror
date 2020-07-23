@@ -28,7 +28,7 @@ gem "rsolr", ">= 1.0"
 gem "sass-rails"
 gem "sidekiq", "< 6"
 gem "sitemap_generator"
-gem "solrconf", path: "../gems/solrconf"
+gem "solrconf", path: "../gems/solrconf" unless ENV["CAP_SERVER"]
 gem "sprockets", "< 4"
 gem "uglifier", ">= 1.3.0"
 
