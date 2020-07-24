@@ -14,6 +14,26 @@ namespace :starlight do
     Spotlight::Role.create(user: u, resource: Spotlight::Site.instance, role: "admin")
   end
 
+  task migrate_iiif_content: [:environment] do
+    abort "\nYou must supply APP_URL and OLD_APP_URL environment variables for this task.\n\n" unless ENV["APP_URL"] && ENV["OLD_APP_URL"]
+
+    hostname = ENV["APP_URL"]
+    old_hostname = ENV["OLD_APP_URL"]
+    # List of table/column pairs to update
+    iiif_updates = [{ table: "spotlight_pages", column: "content" },
+                    { table: "spotlight_featured_images", column: "iiif_tilesource" },
+                    { table: "spotlight_featured_images", column: "iiif_canvas_id" },]
+
+    iiif_updates.each do |u|
+      puts "Updating iiif urls for #{u[:table]}:#{u[:column]}.."
+      sql = "UPDATE #{u[:table]} SET #{u[:column]} = replace(#{u[:column]}, '#{old_hostname}', '#{hostname}')"
+      ActiveRecord::Base.connection.execute(sql)
+    end
+
+    puts "Generating new Solr index.."
+    Rake::Task["spotlight:reindex"].invoke
+  end
+
   namespace :sample do
     desc "Load Blake exhibit and content"
     task seed_exhibit: [:environment] do

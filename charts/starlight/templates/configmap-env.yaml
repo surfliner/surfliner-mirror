@@ -8,11 +8,15 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 data:
+  APP_URL: http{{ if .Values.ingress.tls }}s{{ end }}://{{ index .Values.ingress.hosts 0 }}
   AUTH_METHOD: {{ .Values.starlight.auth.method }}
   DATABASE_COMMAND: {{ .Values.starlight.application.db_setup_command }}
   DB_ADAPTER: postgresql
   FROM_EMAIL: {{ .Values.starlight.email.from_address }}
   HOSTNAME: {{ template "starlight.fullname" . }}
+  {{- if .Values.starlight.loadBackup.oldAppUrl }}
+  OLD_APP_URL: {{ .Values.starlight.loadBackup.oldAppUrl }}
+  {{- end }}
   PORT: "3000"
   POSTGRES_DB: {{ .Values.postgresql.postgresqlDatabase }}
   POSTGRES_HOST: {{ template "starlight.postgresql.fullname" . }}

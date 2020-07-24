@@ -1,0 +1,74 @@
+{{- if .Values.starlight.loadBackup.enabled -}}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "starlight.fullname" . }}-migrate-data
+  labels:
+{{ include "starlight.labels" . | indent 4 }}
+  annotations:
+    "helm.sh/hook": post-install
+    "helm.sh/hook-delete-policy": hook-succeeded
+    "helm.sh/hook-weight": "1"
+spec:
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "starlight.name" . }}-migrate-data
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      restartPolicy: Never
+      # ensure we run on the same node as the rails server; only required when
+      # using PVCs that are ReadWriteOnce
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: component
+                  operator: In
+                  values:
+                    - rails
+            topologyKey: kubernetes.io/hostname
+      volumes:
+        - name: public
+          {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ include "starlight.fullname" . }}-rails-public
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
+      containers:
+      - name: starlight-restore
+        image: registry.gitlab.com/ucsdlibrary/development/pg-manager:stable
+        imagePullPolicy: Always
+        volumeMounts:
+          - name: public
+            mountPath: /uploads
+        command: ["/bin/sh", "/scripts/starlight-restore.sh"]
+        env:
+          - name: "DB_BACKUP_FILE"
+            value: "/tmp/starlight-restore.dmp"
+          - name: "PGHOST"
+            value: {{ template "starlight.postgresql.fullname" . }}
+          - name: "PGPASSWORD"
+            valueFrom:
+              secretKeyRef:
+                name: {{ template "starlight.fullname" . }}
+                key: POSTGRES_ADMIN_PASSWORD
+          - name: "PGUSER"
+            value: postgres
+          - name: "PGDATABASE"
+            value: {{ .Values.postgresql.postgresqlDatabase }}
+          - name: "AWS_ACCESS_KEY_ID"
+            value: {{ .Values.starlight.loadBackup.accessKey }}
+          - name: "AWS_SECRET_ACCESS_KEY"
+            value: {{ .Values.starlight.loadBackup.secretKey }}
+          - name: "ENDPOINT_URL"
+            value: {{ .Values.starlight.loadBackup.endpointUrl }}
+          - name: "BUCKET"
+            value: {{ .Values.starlight.loadBackup.bucket }}
+          - name: "DB_BUCKET_KEY"
+            value: {{ .Values.starlight.loadBackup.dbBucketKey }}
+          - name: "IMAGES_BUCKET_PATH"
+            value: {{ .Values.starlight.loadBackup.imagesBucketPath }}
+{{- end }}
