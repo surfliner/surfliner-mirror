@@ -14,11 +14,6 @@ namespace :starlight do
     Spotlight::Role.create(user: u, resource: Spotlight::Site.instance, role: "admin")
   end
 
-  task reindex_all: [:environment] do
-    puts "Reindexing all exhibits"
-    Spotlight::Exhibit.all.each(&:reindex_later)
-  end
-
   namespace :sample do
     desc "Load Blake exhibit and content"
     task seed_exhibit: [:environment] do
