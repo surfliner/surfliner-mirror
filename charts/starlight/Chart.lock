@@ -1,12 +1,12 @@
 dependencies:
 - name: postgresql
-  repository: https://kubernetes-charts.storage.googleapis.com/
-  version: 6.5.9
+  repository: https://charts.bitnami.com/bitnami
+  version: 9.1.2
 - name: redis
   repository: https://charts.bitnami.com/bitnami
-  version: 10.7.4
+  version: 10.7.11
 - name: solr
   repository: http://storage.googleapis.com/kubernetes-charts-incubator
   version: 1.5.2
-digest: sha256:e7bbc72998fafdad8b2acb8fa698b3207260074462d83b8d2b8ea2ee8907d2ba
-generated: "2020-06-19T12:13:59.24109414-07:00"
+digest: sha256:fdb8fed3ecaf5dd0dac01d188424e7f9316132d98dbd8289f5541b5db93abb62
+generated: "2020-07-31T14:01:25.149116021-07:00"

@@ -5,11 +5,11 @@ name: starlight
 version: 0.3.0
 dependencies:
   - name: postgresql
-    version: 6.5.9
-    repository: https://kubernetes-charts.storage.googleapis.com/
+    version: 9.1.2
+    repository: https://charts.bitnami.com/bitnami
     condition: postgresql.enabled
   - name: redis
-    version: 10.7.4
+    version: 10.7.11
     repository: https://charts.bitnami.com/bitnami
     condition: redis.enabled
   - name: solr
