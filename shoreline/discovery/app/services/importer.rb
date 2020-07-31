@@ -53,7 +53,8 @@ module Importer
       iso = Dir.glob('*iso19139.xml', base: dir)[0]
       xml = Nokogiri::XML(File.open("#{dir}/#{iso}"))
 
-      makeattrs(file: file, xml: xml)
+      id = File.basename(Dir.glob('*.shp', base: dir)[0], '.shp')
+      makeattrs(id: id, xml: xml)
     end
   rescue ArgumentError => e
     warn "No ISO metadata found in #{file}"
@@ -63,7 +64,7 @@ module Importer
   def self.makeattrs(options)
     attributes = {}
 
-    id = File.basename(options[:file], File.extname(options[:file]))
+    id = options[:id]
     attributes[:dc_identifier_s] = "public:#{id}"
     attributes[:layer_slug_s] = id.to_s
     attributes[:layer_id_s] = "public:#{id}"
