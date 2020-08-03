@@ -32,14 +32,14 @@ spec:
         - name: public
           {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
-            claimName: rails-public
+            claimName: {{ include "starlight.fullname" . }}-rails-public
           {{- else }}
           emptyDir: {}
           {{- end }}
         - name: cache
           {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
-            claimName: rails-cache
+            claimName: {{ include "starlight.fullname" . }}-rails-cache
           {{- else }}
           emptyDir: {}
           {{- end }}
