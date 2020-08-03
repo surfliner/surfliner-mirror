@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: rails-public
+  name: {{ include "starlight.fullname" . }}-rails-public
 spec:
   resources:
     requests:
