@@ -33,7 +33,7 @@ services:
     env_file:
       - .env
     ports:
-      - '8088:8080'
+      - '8080:8080'
 
   postgres:
     image: bitnami/postgresql:12.3.0

@@ -93,7 +93,7 @@ module Importer
       ENV['GEOSERVER_PASSWORD']
     )
 
-    url = "http://#{ENV['GEOSERVER_HOST']}:#{ENV['GEOSERVER_PORT']}/geoserver/rest/layers/#{name}.json"
+    url = "http://#{ENV['GEOSERVER_INTERNAL_HOST']}:#{ENV['GEOSERVER_PORT']}/geoserver/rest/layers/#{name}.json"
 
     json = JSON.parse(connection.get(url).body)
     json['layer']['defaultStyle']['name'].titlecase
