@@ -22,9 +22,6 @@ module Starlight
         [], [], true
       )[Rails.env] || {}
 
-    # Protect from forgery by default
-    config.action_controller.protect_from_forgery
-
     config.action_mailer.default_options = { from: ENV.fetch("FROM_EMAIL") }
   end
 end

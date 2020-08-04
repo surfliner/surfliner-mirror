@@ -23,9 +23,6 @@ data:
   RAILS_QUEUE: sidekiq
   RAILS_SERVE_STATIC_FILES: "true"
   REDIS_URL: redis://{{ template "starlight.redis.fullname" . }}-master:6379
-  {{- if .Values.ingress.tls }}
-  SSL_ENABLED: "true"
-  {{ end }}
   SMTP_HOST: {{ .Values.starlight.email.smtp_host }}
   SOLR_CORE_NAME: {{ .Values.starlight.solr.collectionName }}
   SOLR_HOST: {{ template "starlight.solr.fullname" . }}-svc
