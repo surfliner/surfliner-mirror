@@ -27,7 +27,7 @@ services:
      - '3000:3000'
 
   geoserver:
-    image: kartoza/geoserver:2.17.0
+    image: kartoza/geoserver:2.17.1
     volumes:
       - shoreline_geoserver_data:/data
     env_file:
