@@ -11,6 +11,7 @@ data:
   APP_URL: http{{ if .Values.ingress.tls }}s{{ end }}://{{ index .Values.ingress.hosts 0 }}
   AUTH_METHOD: {{ .Values.starlight.auth.method }}
   DATABASE_COMMAND: {{ .Values.starlight.application.db_setup_command }}
+  DELIVERY_METHOD: {{ .Values.starlight.email.delivery_method }}
   DB_ADAPTER: postgresql
   FROM_EMAIL: {{ .Values.starlight.email.from_address }}
   HOSTNAME: {{ template "starlight.fullname" . }}
@@ -27,7 +28,13 @@ data:
   RAILS_QUEUE: sidekiq
   RAILS_SERVE_STATIC_FILES: "true"
   REDIS_URL: redis://{{ template "starlight.redis.fullname" . }}-master:6379
-  SMTP_HOST: {{ .Values.starlight.email.smtp_host }}
+  {{- if eq "smtp" .Values.starlight.email.delivery_method }}
+  SMTP_AUTHENTICATION: {{ .Values.starlight.email.smtp_settings.authentication }}
+  SMTP_HOST: {{ .Values.starlight.email.smtp_settings.address }}
+  SMTP_PASSWORD: {{ .Values.starlight.email.smtp_settings.password }}
+  SMTP_PORT: {{ .Values.starlight.email.smtp_settings.port | quote }}
+  SMTP_USERNAME: {{ .Values.starlight.email.smtp_settings.user_name }}
+  {{- end }}
   SOLR_CORE_NAME: {{ .Values.starlight.solr.collectionName }}
   SOLR_HOST: {{ template "starlight.solr.fullname" . }}-svc
   SOLR_PORT: "8983"

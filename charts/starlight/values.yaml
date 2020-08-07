@@ -46,8 +46,16 @@ starlight:
     # imagesBucketPath: aws/minio public/images bucket path e.g. public/images or images
   email:
     # these needs to be set to something, even if it doesn't work, or else rails errors out on startup
-    smtp_host: smtp.example.edu
     from_address: starlight@example.edu
+    delivery_method: letter_opener_web # or: smtp
+    # see: https://guides.rubyonrails.org/action_mailer_basics.html#action-mailer-configuration
+    # smtp_settings:
+    #   address: smtp.example.edu
+    #   port: 587
+    #   user_name: username
+    #   password: password
+    #   authentication: plain
+
   auth:
     method: developer
     # only required if method is "google"

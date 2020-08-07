@@ -14,13 +14,16 @@ module Starlight
     config.load_defaults 5.2
 
     config.action_mailer.default_url_options = { host: ENV.fetch("HOSTNAME") }
-    config.action_mailer.smtp_settings =
-      YAML.safe_load(
-        ERB.new(File.read(Rails.root.join("config", "smtp.yml"))).result,
-        # by default #safe_load doesn't allow aliases
-        # https://github.com/ruby/psych/blob/2884f7bf8d1bd6433babe6b7b8e4b6007e59af97/lib/psych.rb#L290
-        [], [], true
-      )[Rails.env] || {}
+    config.action_mailer.delivery_method = ENV.fetch("DELIVERY_METHOD").to_sym
+
+    if ENV.fetch("DELIVERY_METHOD", "").eql? "smtp"
+      config.action_mailer.smtp_settings = { address: ENV.fetch("SMTP_HOST"),
+                                             port: ENV.fetch("SMTP_PORT"),
+                                             user_name: ENV.fetch("SMTP_USERNAME"),
+                                             password: ENV.fetch("SMTP_PASSWORD"),
+                                             authentication: ENV.fetch("SMTP_AUTHENTICATION").to_sym,
+                                             enable_starttls_auto: true, }
+    end
 
     config.action_mailer.default_options = { from: ENV.fetch("FROM_EMAIL") }
   end
