@@ -9,7 +9,7 @@ dependencies:
     repository: https://lib-helm-repo.ucsd.edu
     condition: email.enabled
   - name: postgresql
-    version: 9.1.2
+    version: 8.10.8
     repository: https://charts.bitnami.com/bitnami
     condition: postgresql.enabled
   - name: geoserver
