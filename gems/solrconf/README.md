@@ -20,6 +20,8 @@ Or install it yourself as:
 
 ## Usage
 
+### `upload`
+
 The `upload` task uploads Solr configuration files (schema, etc) to ZooKeeper as
 a global configset named `solrconfig`:
 
@@ -27,4 +29,12 @@ a global configset named `solrconfig`:
 export ZK_HOST=localhost
 export ZK_PORT=2181
 rake solrconf:upload[path/to/configfiles]
+```
+
+### `delete_by_ids`
+
+This task deletes Solr documents by ID:
+```sh
+export SOLR_DELETE_IDS=FY2015_ADDRESS_POINT,citiescounty_021616
+rake solrconf:delete_by_ids
 ```

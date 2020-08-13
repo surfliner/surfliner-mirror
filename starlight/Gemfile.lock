@@ -53,8 +53,9 @@ GIT
 PATH
   remote: ../gems/solrconf
   specs:
-    solrconf (0.1.0)
+    solrconf (0.2.0)
       rake
+      rsolr
       zk
 
 GEM
