@@ -1,3 +1,12 @@
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+- [Shoreline Discovery](#shoreline-discovery)
+    - [Local Development](#local-development)
+    - [Deployment](doc/deploy.md)
+    - [Ingesting objects](doc/ingest.md)
+
+<!-- markdown-toc end -->
 # Shoreline Discovery
 
 Shorline Discovery is a [GeoBlacklight][geoblacklight] frontend for the Shoreline
@@ -7,18 +16,7 @@ Please see [CONTRIBUTING.md][contributing] for information about contributing to
 this project. By participating, you agree to abide by the
 [UC Principles of Community][principles].
 
-## Ingesting objects
-
-To ingest a shapefile into Shoreline, use the `shoreline:publish` Rake task (see
-`doc/deploy.md` for information about the environment variables):
-```
-$ SHORELINE_PROVENANCE=“My institution” SHORELINE_ACCESS=Public bin/rake shoreline:publish[path/to/shapefile.zip]
-```
-
-The shapefile will be ingested into GeoServer and GeoBlacklight, and users can
-download the shapefile and derivatives through the GeoBlacklight UI.
-
-## Development
+## Local Development
 
 Checkout the `surfliner` repository with and `cd` into the `shoreline/discovery`
 directory.
@@ -27,24 +25,6 @@ directory.
 git clone git@gitlab.com:surfliner/surfliner.git
 cd surfliner/shoreline/discovery
 ```
-
-### Dependencies
-
-#### Prerequisites
-
-Shoreline Discovery requires running the following:
-
-1. [`Solr`][solr]
-
-#### Gems
-
-To install the Ruby dependencies for the project, do:
-
-```sh
-bundle install
-```
-
-### Starting Up
 
 The development environment is supported with Docker Compose. To run the
 dockerized environment, you will need Docker and Docker Compose installed on
@@ -56,6 +36,10 @@ To setup a development environment:
 1. `bin/docker-up.sh` to run the development
    environment.
 1. Access the `discovery` application on [`http://localhost:3000`][localhost].
+
+## [Deployment](doc/deploy.md)
+
+## [Ingesting objects](doc/ingest.md)
 
 [contributing]: ../../CONTRIBUTING.md
 [geoblacklight]: https://github.com/geoblacklight/geoblacklight
