@@ -5,11 +5,8 @@ require 'rsolr'
 
 namespace :solrconf do
   desc 'Delete objects from Solr by ID'
-  task :delete_by_ids => :environment do
-
-    if ENV['SOLR_DELETE_IDS'].blank?
-      abort "--- Error: environment variable SOLR_DELETE_IDS is unset"
-    end
+  task delete_by_ids: :environment do
+    abort '--- Error: environment variable SOLR_DELETE_IDS is unset' if ENV['SOLR_DELETE_IDS'].blank?
 
     client = RSolr.connect(
       url: "http://#{ENV['SOLR_HOST']}:#{ENV['SOLR_PORT']}/solr/#{ENV['SOLR_CORE_NAME']}"
