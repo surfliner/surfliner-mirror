@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative 'lib/solrconf/version'
+require_relative 'lib/solr_utils/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'solrconf'
-  spec.version       = Solrconf::VERSION
+  spec.name          = 'solr_utils'
+  spec.version       = SolrUtils::VERSION
   spec.authors       = ['Alexandra Dunn']
   spec.email         = ['dunn.alex@gmail.com']
 

@@ -3,7 +3,7 @@
 require 'rake'
 require 'zk'
 
-namespace :solrconf do
+namespace :solr_utils do
   desc 'Upload Solr configuration files to ZooKeeper'
   task :upload, %i[dir_path] => :environment do |_t, args|
     zk_host = ENV['ZK_HOST']

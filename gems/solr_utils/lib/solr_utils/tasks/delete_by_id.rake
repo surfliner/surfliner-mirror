@@ -3,7 +3,7 @@
 require 'rake'
 require 'rsolr'
 
-namespace :solrconf do
+namespace :solr_utils do
   desc 'Delete objects from Solr by ID'
   task delete_by_ids: :environment do
     abort '--- Error: environment variable SOLR_DELETE_IDS is unset' if ENV['SOLR_DELETE_IDS'].blank?

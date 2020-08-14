@@ -22,7 +22,7 @@ gem 'rubocop', group: %w[development test]
 gem 'rubocop-rspec', group: %w[development test]
 gem 'shotgun', group: 'development'
 gem 'sinatra', '~> 2.0.5'
-gem 'solrconf', path: '../gems/solrconf'
+gem 'solr_utils', path: '../gems/solr_utils'
 gem 'timecop', group: 'test'
 gem 'valkyrie', '2.1.1'
 gem 'valkyrie-sequel', '2.1.0'

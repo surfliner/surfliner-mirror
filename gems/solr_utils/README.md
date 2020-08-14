@@ -1,4 +1,4 @@
-# solrconf
+# solr_utils
 
 This gem provides rake tasks for configuring Solr instances.
 
@@ -7,28 +7,24 @@ This gem provides rake tasks for configuring Solr instances.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'solrconf'
+gem "solr_utils", path: "../gems/solr_utils"
 ```
 
 And then execute:
 
     $ bundle install
 
-Or install it yourself as:
-
-    $ gem install solrconf
-
 ## Usage
 
 ### `upload`
 
 The `upload` task uploads Solr configuration files (schema, etc) to ZooKeeper as
-a global configset named `solrconfig`:
+a global configset named `solr_utilsig`:
 
 ```sh
 export ZK_HOST=localhost
 export ZK_PORT=2181
-rake solrconf:upload[path/to/configfiles]
+rake solr_utils:upload[path/to/configfiles]
 ```
 
 ### `delete_by_ids`
@@ -36,5 +32,5 @@ rake solrconf:upload[path/to/configfiles]
 This task deletes Solr documents by ID:
 ```sh
 export SOLR_DELETE_IDS=FY2015_ADDRESS_POINT,citiescounty_021616
-rake solrconf:delete_by_ids
+rake solr_utils:delete_by_ids
 ```

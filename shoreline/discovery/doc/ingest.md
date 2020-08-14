@@ -16,11 +16,11 @@ done
 ```
 
 If you need to remove an ingested item, you can delete it from solr with
-`solrconf:delete_by_ids`:
+`solr_utils:delete_by_ids`:
 
 ```sh
 export SOLR_DELETE_IDS=FY2015_ADDRESS_POINT,citiescounty_021616
-bin/rake solrconf:delete_by_ids
+bin/rake solr_utils:delete_by_ids
 ```
 
 The shapefile will remain in GeoServer, however; you can delete it from there

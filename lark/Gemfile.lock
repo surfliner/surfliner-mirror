@@ -1,7 +1,7 @@
 PATH
-  remote: ../gems/solrconf
+  remote: ../gems/solr_utils
   specs:
-    solrconf (0.2.0)
+    solr_utils (0.2.0)
       rake
       rsolr
       zk
@@ -303,7 +303,7 @@ DEPENDENCIES
   rubocop-rspec
   shotgun
   sinatra (~> 2.0.5)
-  solrconf!
+  solr_utils!
   timecop
   valkyrie (= 2.1.1)
   valkyrie-sequel (= 2.1.0)
