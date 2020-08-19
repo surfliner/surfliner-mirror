@@ -22,10 +22,12 @@ $primary: #004663;
 // Imports
 //---
 
+/*
+*= require leaflet-label
+*/
 @import 'bootstrap';
 @import 'blacklight/blacklight';
-@import 'geoblacklight/application';
-@import 'leaflet';
+@import 'geoblacklight/geoblacklight';
 
 //---
 // SASS Variables

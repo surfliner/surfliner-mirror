@@ -12,7 +12,10 @@
  *
  */
 
+/*
+*= require leaflet-label
+*/
 @import 'bootstrap';
 @import 'blacklight/blacklight';
-@import 'geoblacklight/application';
-@import 'leaflet';
+@import 'geoblacklight/geoblacklight';
+

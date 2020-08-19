@@ -254,17 +254,31 @@ class CatalogController < ApplicationController
                                         .map(&:to_s)).any?
     end
 
-    document_exists = proc do |_context, _config, options|
-      options[:document]
+    document_has_arcgis_urls = proc do |_cxt, _conf, opts|
+      opts[:document]&.arcgis_urls.present?
+    end
+
+    document_has_carto_reference = proc do |_cxt, _conf, opts|
+      opts[:document]&.carto_reference.present?
+    end
+
+    document_has_data_dictionary = proc do |_cxt, _conf, opts|
+      opts[:document]&.data_dictionary_download.present?
     end
 
     # Custom tools for GeoBlacklight
     config.add_show_tools_partial :web_services, if: document_has_references
     config.add_show_tools_partial :metadata,     if: document_has_references
-    config.add_show_tools_partial :exports, partial: 'exports',
-                                            if: document_exists
-    config.add_show_tools_partial :data_dictionary, partial: 'data_dictionary',
-                                                    if: document_exists
+
+    config.add_show_tools_partial(:arcgis,
+                                  partial: 'arcgis',
+                                  if: document_has_arcgis_urls)
+    config.add_show_tools_partial(:carto,
+                                  partial: 'carto',
+                                  if: document_has_carto_reference)
+    config.add_show_tools_partial(:data_dictionary,
+                                  partial: 'data_dictionary',
+                                  if: document_has_data_dictionary)
 
     # Configure basemap provider for GeoBlacklight maps (uses https only basemap
     # providers with open licenses)
