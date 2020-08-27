@@ -42,7 +42,7 @@ solr:
 postgresql:
   image:
     repository: bitnami/postgresql
-    tag: 12.3.0
+    tag: 12.4.0
   enabled: true
   cpu: 1000m
   memory: 1Gi
