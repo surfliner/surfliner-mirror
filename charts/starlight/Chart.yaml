@@ -9,7 +9,7 @@ dependencies:
     repository: https://charts.bitnami.com/bitnami
     condition: postgresql.enabled
   - name: redis
-    version: 10.7.16
+    version: 10.7.17
     repository: https://charts.bitnami.com/bitnami
     condition: redis.enabled
   - name: solr
