@@ -29,6 +29,7 @@ ingress:
 
 starlight:
   application:
+    name: "Starlight"
     db_setup_command: "db:migrate"
     max_threads: 5
   solr:

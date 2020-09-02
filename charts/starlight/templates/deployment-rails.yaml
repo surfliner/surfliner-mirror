@@ -52,6 +52,12 @@ spec:
           {{- else }}
           emptyDir: {}
           {{- end }}
+        - name: locales
+          configMap:
+            name: {{ include "starlight.fullname" . }}-locales
+            items:
+              - key: "blacklight.en.yml"
+                path: "blacklight.en.yml"
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -61,6 +67,9 @@ spec:
               mountPath: /home/starlight/app/tmp
             - name: public
               mountPath: /home/starlight/app/public/uploads
+            - name: locales
+              mountPath: /home/starlight/app/config/locales
+              readOnly: true
           envFrom:
             - configMapRef:
                 name: {{ include "starlight.fullname" . }}-env
