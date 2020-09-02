@@ -23,11 +23,11 @@ this language throughout our documentation.
 ### Branching Strategy
 
 We are using a [trunk-based][trunk] branching strategy. In short, this means we
-have a running `master` branch, `feature` branches for new work, and tagged
+have a running `trunk` branch, `feature` branches for new work, and tagged
 releases.
 
 If you are coming from a [gitflow][gitflow] strategy, you'll note that your
-feature branches will always merge back into `master` as opposed to `develop`.
+feature branches will always merge back into `trunk` as opposed to `develop`.
 
 ## Contributing Tasks
 
@@ -55,7 +55,7 @@ If you create a ticket directly in GitLab, please make sure you add a
 
 If you are not a Surfliner team member, you should fork the repository.
 
-* Create a topic branch from master `git branch feature/my-feature master`
+* Create a topic branch from trunk `git branch feature/my-feature trunk`
 * Checkout your new branch `git checkout feature/my-feature`
 * Setup your development environment as documented for the project
 * Run the test suite to confirm you have a working starting point
@@ -113,11 +113,11 @@ process of creating and managing a merge request:
 * [Merge requests overview][merge-overview]
 
 Checklist:
-* Make sure your branch is up to date with `master`
-    * `git checkout master`
+* Make sure your branch is up to date with `trunk`
+    * `git checkout trunk`
     * `git pull --rebase`
     * `git checkout <your-branch>`
-    * `git rebase master`
+    * `git rebase trunk`
     * It is a good idea to run your tests again.
 * If you have multiple commits in your branch, consider whether squashing some
   of those commits together would improve their logical grouping. See [Squashing
@@ -147,7 +147,7 @@ someone to review your MR.
 It is a goal of the project to not let more than 24 hours go by without a new
 Merge Request receiving a review from at least one _product_ team member. This
 helps keep the cadence of code submission and review quick enough that Merge
-Requests quickly end up in `master` and deployed. If you have not received a
+Requests quickly end up in `trunk` and deployed. If you have not received a
 review on your MR within this time frame, please reference the MR during daily
 stand up and request a review, if you have not already done so via the user
 interface as described above.
