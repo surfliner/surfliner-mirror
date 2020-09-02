@@ -43,7 +43,7 @@ spec:
           {{- else }}
           emptyDir: {}
           {{- end }}
-        - name: locales
+        - name: blacklight-locale
           configMap:
             name: {{ include "starlight.fullname" . }}-locales
             items:
@@ -73,9 +73,9 @@ spec:
               mountPath: /home/starlight/app/tmp
             - name: public
               mountPath: /home/starlight/app/public/uploads
-            - name: locales
-              mountPath: /home/starlight/app/config/locales
-              readOnly: true
+            - name: blacklight-locale
+              mountPath: /home/starlight/app/config/locales/blacklight.en.yml
+              subPath: blacklight.en.yml
           envFrom:
             - configMapRef:
                 name: {{ include "starlight.fullname" . }}-env
