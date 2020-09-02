@@ -50,7 +50,7 @@ services:
 
   redis:
     image: bitnami/redis:6.0
-    command: redis-server
+    command: redis-server --protected-mode no
     volumes:
       - starlight_redis:/data
 
