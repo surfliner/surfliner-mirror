@@ -13,7 +13,8 @@ module Starlight
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
-    config.action_mailer.default_url_options = { host: ENV.fetch("HOSTNAME") }
+    config.action_mailer.default_url_options = { host: URI.parse(ENV.fetch("APP_URL")).hostname,
+                                                 protocol: URI.parse(ENV.fetch("APP_URL")).scheme, }
     config.action_mailer.delivery_method = ENV.fetch("DELIVERY_METHOD").to_sym
 
     if ENV.fetch("DELIVERY_METHOD", "").eql? "smtp"

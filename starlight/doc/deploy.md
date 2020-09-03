@@ -22,7 +22,6 @@ Puppet, or whatever works best in your local environment and practices.
 | `GA_EMAIL` | see [Google Analytics section in README][ga] | No |
 | `GA_PKCS12_KEY_PATH` | see [Google Analytics section in README][ga] | No |
 | `GA_WEB_PROPERTY_ID` | see [Google Analytics section in README][ga] | No |
-| `HOSTNAME` | Hostname to use for ActionMailer | Yes |
 | `IIIF_BASE_URL` | Base URL for an external IIIF server (e.g., `http://localhost:8182/iiif/2` for a locally running Cantaloupe) | No |
 | `PORT` | Application port. Generally `3000` for Rails applications | No |
 | `PROJECT_PATH` | Location that the application is deployed on the server. E.g. `/opt/starlight` | Yes |
