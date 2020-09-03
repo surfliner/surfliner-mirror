@@ -31,6 +31,8 @@ starlight:
     name: "Starlight"
     db_setup_command: "db:migrate"
     max_threads: 5
+  sitemaps:
+    enabled: true
   solr:
     collectionName: collection1
   loadBackup:
@@ -61,6 +63,9 @@ persistence:
     # class: gp2
   public:
     size: 20Gi
+    # class: gp2
+  sitemaps:
+    size: 200Mi
     # class: gp2
 
 # Configuration for solr chart
