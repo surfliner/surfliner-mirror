@@ -464,23 +464,18 @@ $ shotgun config.ru
 ### Running with Docker
 You will need Docker and Docker Compose installed on your host/local system.
 
-There are two docker-compose files, which allow you to run development and test
-instances of the application if you would like.
-
 To setup a development environment:
-1. `./bin/docker-build.sh`  to build images
-1. `./bin/docker-up.sh`  to run dev environment
+1. `docker-compose up --build` to build images (if necessary)
+1. `docker-compose up`  to run dev environment
 1. Access the `lark` API on `http://localhost:5000`
 
 For running tests:
-1. `./bin/docker-build.sh -e test`  to build images
-1. `./bin/docker-up.sh -e test`  to run test environment
-1. `./bin/docker-spec.sh -e test` to run test suite
+```
+docker-compose exec web bundle exec rspec
+```
 
-To teardown your environment:
-1. `./bin/docker-teardown.sh -h` for options
-1. `./bin/docker-teardown.sh -e test`  to teardown containers
-1. `./bin/docker-teardown.sh -e test -v` to teardown containers AND volumes
+See the [`docker-compose` CLI
+reference](https://docs.docker.com/compose/reference/overview/) for more on commands.
 
 ### Running the Test Suite
 

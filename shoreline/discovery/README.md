@@ -31,11 +31,17 @@ dockerized environment, you will need Docker and Docker Compose installed on
 your local system.
 
 To setup a development environment:
-
-1. `bin/docker-build.sh` to build the images
-1. `bin/docker-up.sh` to run the development
-   environment.
+1. `docker-compose up --build` to build images (if necessary)
+1. `docker-compose up`  to run dev environment
 1. Access the `discovery` application on [`http://localhost:3000`][localhost].
+
+For running tests:
+```
+docker-compose exec app bundle exec rspec
+```
+
+See the [`docker-compose` CLI
+reference](https://docs.docker.com/compose/reference/overview/) for more on commands.
 
 ## [Deployment](doc/deploy.md)
 

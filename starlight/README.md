@@ -90,26 +90,18 @@ version. In order to update Universal Viewer to a newer version:
 
 You will need Docker and Docker Compose installed on your host/local system.
 
-There are two docker-compose files, which allow you to run development and test
-instances of the application if you would like.
-
 To setup a development environment:
-1. `git clone https://gitlab.com/surfliner/surfliner.git`
-1. `cd surfliner/starlight`
-1. `./bin/docker-build.sh`  to build images
-1. `./bin/docker-up.sh`  to run dev environment
-   run database migrations
-1. Browse to http://localhost:3000
+1. `docker-compose up --build` to build images (if necessary)
+1. `docker-compose up`  to run dev environment
+1. Access the application on [`http://localhost:3000`][localhost].
 
 For running tests:
-1. `./bin/docker-build.sh -e test`  to build images
-1. `./bin/docker-up.sh -e test`  to run dev environment
-1. `./bin/docker-spec.sh -e test` to run test suite
+```
+docker-compose exec app bundle exec rspec
+```
 
-To teardown your environment:
-1. `./bin/docker-teardown.sh -h` for options
-1. `./bin/docker-teardown.sh -e test`  to teardown containers
-1. `./bin/docker-teardown.sh -e test -v` to teardown containers AND volumes
+See the [`docker-compose` CLI
+reference](https://docs.docker.com/compose/reference/overview/) for more on commands.
 
 #### Persisting Data during Docker development
 The docker entrypoint script will read an environment variable named
