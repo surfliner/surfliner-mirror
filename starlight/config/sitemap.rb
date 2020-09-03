@@ -2,7 +2,7 @@
 
 require "sitemap_generator"
 
-SitemapGenerator::Sitemap.default_host = ENV.fetch("SITEMAP_DEFAULT_HOST")
+SitemapGenerator::Sitemap.default_host = ENV.fetch("APP_URL")
 
 # Use /public/sitemaps to reuse directory across capistrano deploys
 SitemapGenerator::Sitemap.sitemaps_path = "sitemaps/"
