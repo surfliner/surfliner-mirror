@@ -28,10 +28,10 @@ spec:
                         - rails
                 topologyKey: kubernetes.io/hostname
           volumes:
-          - name: sitemaps
+          - name: public
             {{- if .Values.persistence.enabled }}
             persistentVolumeClaim:
-              claimName: {{ include "starlight.fullname" . }}-sitemaps
+              claimName: {{ include "starlight.fullname" . }}-rails-public
             {{- else }}
             emptyDir: {}
             {{- end }}
@@ -40,8 +40,9 @@ spec:
             image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
             imagePullPolicy: {{ .Values.image.pullPolicy }}
             volumeMounts:
-              - name: sitemaps
+              - name: public
                 mountPath: /home/starlight/app/public/sitemaps
+                subPath: sitemaps
             args: ["bundle", "exec", "rake", "sitemap:refresh"]
             envFrom:
               - configMapRef:

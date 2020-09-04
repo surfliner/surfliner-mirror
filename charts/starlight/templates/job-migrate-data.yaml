@@ -44,6 +44,7 @@ spec:
         volumeMounts:
           - name: public
             mountPath: /uploads
+            subPath: uploads
         command: ["/bin/sh", "/scripts/starlight-restore.sh"]
         env:
           - name: "DB_BACKUP_FILE"

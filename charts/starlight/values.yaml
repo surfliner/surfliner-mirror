@@ -72,9 +72,6 @@ persistence:
   public:
     size: 20Gi
     # class: gp2
-  sitemaps:
-    size: 200Mi
-    # class: gp2
 
 # Configuration for solr chart
 # see: https://github.com/helm/charts/blob/master/incubator/solr/values.yaml
