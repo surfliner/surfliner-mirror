@@ -50,20 +50,18 @@ spec:
               - key: "blacklight.en.yml"
                 path: "blacklight.en.yml"
       initContainers:
-      - name: wait-for-rails-deployment
-        image: alpine:latest
-        imagePullPolicy: Always
+      - name: wait-for-database
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
         envFrom:
           - configMapRef:
               name: {{ include "starlight.fullname" . }}-env
+          - secretRef:
+              name: {{ template "starlight.fullname" . }}
         args:
         - /bin/sh
         - -c
-        - >
-          while [ $(wget --server-response --quiet --spider "$APP_URL/healthz" 2>&1 | awk 'NR==1{print $2}') -ne 200 ]; do
-            echo "waiting for ${APP_URL} healthz check to pass"
-            sleep 15
-          done
+        - bin/db-wait.sh "$POSTGRES_HOST:$POSTGRES_PORT" bundle exec rake db:abort_if_pending_migrations
       containers:
         - name: {{ .Chart.Name }}-sidekiq
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
