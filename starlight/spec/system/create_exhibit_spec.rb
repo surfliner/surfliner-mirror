@@ -10,7 +10,7 @@ RSpec.describe "Import and Display a Work", :clean, type: :system, js: true do
   before do
     enable_selenium_file_detector
     stub_http_image_uploads
-    omniauth_setup_google_auth_for(site_admin)
+    omniauth_setup_dev_auth_for(site_admin)
     sign_in
     allow(Spotlight::DefaultThumbnailJob).to receive(:perform_later)
   end

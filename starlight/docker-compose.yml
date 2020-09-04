@@ -8,7 +8,7 @@ services:
       target: starlight
     image: starlight
     env_file:
-      - .env.development
+      - .env
     command:
       - sh
       - -c
@@ -35,7 +35,7 @@ services:
   db_migrate:
     image: starlight
     env_file:
-      - .env.development
+      - .env
     entrypoint: ["sh", "-c"]
     command: db-setup.sh
     depends_on:
@@ -46,7 +46,7 @@ services:
   sidekiq:
     image: starlight
     env_file:
-      - .env.development
+      - .env
     volumes:
       - .:/home/starlight/app
       - starlight_uploads:/home/starlight/app/public/uploads
@@ -76,12 +76,15 @@ services:
   solr:
     image: solr:8.6.2
     env_file:
-      - .env.development
+      - .env
 
   zk:
     image: zookeeper:3.6
     env_file:
-      - .env.development
+      - .env
+
+  chrome:
+    image: selenium/standalone-chrome:3.141
 
 volumes:
   starlight_database:

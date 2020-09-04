@@ -91,13 +91,13 @@ version. In order to update Universal Viewer to a newer version:
 You will need Docker and Docker Compose installed on your host/local system.
 
 To setup a development environment:
-1. `docker-compose up --build` to build images (if necessary)
+1. `docker-compose build` to build images (`docker-compose up --build` does not work)
 1. `docker-compose up`  to run dev environment
 1. Access the application on [`http://localhost:3000`][localhost].
 
 For running tests:
 ```
-docker-compose exec app bundle exec rspec
+docker-compose exec web sh -c 'RAILS_QUEUE=inline RAILS_ENV=test bundle exec rake'
 ```
 
 See the [`docker-compose` CLI
