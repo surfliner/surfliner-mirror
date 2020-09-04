@@ -6,6 +6,7 @@ services:
       context: ..
       dockerfile: starlight/Dockerfile
       target: starlight
+    image: starlight
     env_file:
       - .env.development
     command:
@@ -24,11 +25,23 @@ services:
     ports:
       - "3000:3000"
     depends_on:
+      - db_migrate
       - database
       - redis
       - solr
     stdin_open: true
     tty: true
+
+  db_migrate:
+    image: starlight
+    env_file:
+      - .env.development
+    entrypoint: ["sh", "-c"]
+    command: bin/db-setup.sh
+    depends_on:
+      - database
+    volumes:
+      - .:/home/starlight/app
 
   sidekiq:
     image: starlight
