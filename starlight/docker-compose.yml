@@ -5,6 +5,7 @@ services:
     build:
       context: ..
       dockerfile: starlight/Dockerfile
+      target: starlight
     env_file:
       - .env.development
     command:
@@ -30,9 +31,7 @@ services:
     tty: true
 
   sidekiq:
-    build:
-      context: ..
-      dockerfile: starlight/Dockerfile
+    image: starlight
     env_file:
       - .env.development
     volumes:

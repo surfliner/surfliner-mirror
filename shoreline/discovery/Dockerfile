@@ -1,4 +1,4 @@
-FROM ruby:2.6.2-alpine
+FROM ruby:2.6.2-alpine as shoreline
 
 ARG PROJECTPATH=shoreline
 ARG DOCKERROOT=/home/${PROJECTPATH}

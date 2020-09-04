@@ -1,4 +1,4 @@
-FROM ruby:2.6.6-alpine
+FROM ruby:2.6.6-alpine as starlight
 
 ARG PROJECTPATH=starlight
 ARG DOCKERROOT=/home/${PROJECTPATH}
