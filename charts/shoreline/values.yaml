@@ -55,7 +55,7 @@ email:
 solr:
   image:
     repository: solr
-    tag: 8.6.1
+    tag: 8.6.2
 
 # Configuration for postgresql chart
 # see: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md
