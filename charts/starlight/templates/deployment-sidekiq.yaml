@@ -60,9 +60,9 @@ spec:
         - /bin/sh
         - -c
         - >
-          while [ $(wget --server-response --quiet --spider "$HOSTNAME/healthz" 2>&1 | awk 'NR==1{print $2}') -ne 200 ]; do
-            echo "waiting for ${HOSTNAME} healthz check to pass"
-            sleep 15;
+          while [ $(wget --server-response --quiet --spider "$APP_URL/healthz" 2>&1 | awk 'NR==1{print $2}') -ne 200 ]; do
+            echo "waiting for ${APP_URL} healthz check to pass"
+            sleep 15
           done
       containers:
         - name: {{ .Chart.Name }}-sidekiq

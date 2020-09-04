@@ -14,7 +14,6 @@ data:
   DELIVERY_METHOD: {{ .Values.starlight.email.delivery_method }}
   DB_ADAPTER: postgresql
   FROM_EMAIL: {{ .Values.starlight.email.from_address }}
-  HOSTNAME: {{ template "starlight.fullname" . }}
   {{- if .Values.starlight.loadBackup.oldAppUrl }}
   OLD_APP_URL: {{ .Values.starlight.loadBackup.oldAppUrl }}
   {{- end }}
