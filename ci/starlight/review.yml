@@ -73,6 +73,7 @@ starlight:deploy:ucsb-review:
       --set solr.zookeeper.persistence.enabled=false
       --set solr.zookeeper.replicaCount=2
       --set starlight.auth.method=developer
+      --set starlight.sitemaps.enabled=false
 
 starlight:cleanup:ucsb-review:
   extends:
