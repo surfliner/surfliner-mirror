@@ -13,8 +13,8 @@ services:
       - sh
       - -c
       - >
-        /home/starlight/scripts/upload-solr-configs.sh /home/starlight/app/solr/config &&
-        /home/starlight/scripts/create-solr-collection.sh &&
+        upload-solr-configs.sh /home/starlight/app/solr/config &&
+        create-solr-collection.sh &&
         bin/docker-entrypoint.sh &&
         bundle exec puma -v --debug -b tcp://0.0.0.0:3000
     volumes:
@@ -37,7 +37,7 @@ services:
     env_file:
       - .env.development
     entrypoint: ["sh", "-c"]
-    command: bin/db-setup.sh
+    command: db-setup.sh
     depends_on:
       - database
     volumes:

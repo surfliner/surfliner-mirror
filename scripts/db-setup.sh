@@ -21,7 +21,7 @@ else
     db_port=5432
   fi
 
-  bin/db-wait.sh "$db_host:$db_port"
+  db-wait.sh "$db_host:$db_port"
 
   if [ -z "${DATABASE_COMMAND}" ]; then
     echo "DATABASE_COMMAND is not supplied, skipping database rake tasks"

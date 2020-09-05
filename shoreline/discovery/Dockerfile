@@ -21,6 +21,7 @@ RUN bundle check || bundle install --jobs "$(nproc)"
 
 COPY ${PROJECTPATH}/discovery ${DOCKERROOT}/discovery/app/
 COPY scripts ${DOCKERROOT}/scripts/
+ENV PATH="$DOCKERROOT/scripts:$PATH"
 
 RUN bundle exec rake assets:precompile
 

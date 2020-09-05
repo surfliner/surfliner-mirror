@@ -25,5 +25,6 @@ RUN bundle check || bundle install --jobs "$(nproc)"
 
 COPY ${PROJECTPATH} ${DOCKERROOT}/app/
 COPY scripts ${DOCKERROOT}/scripts/
+ENV PATH="$DOCKERROOT/scripts:$PATH"
 
 CMD ["bin/lark.sh"]

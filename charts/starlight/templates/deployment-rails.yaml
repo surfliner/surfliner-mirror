@@ -35,8 +35,8 @@ spec:
             - sh
             - -c
             - >
-              /home/starlight/scripts/upload-solr-configs.sh /home/starlight/app/solr/config &&
-              /home/starlight/scripts/create-solr-collection.sh
+              upload-solr-configs.sh /home/starlight/app/solr/config &&
+              create-solr-collection.sh
         - name: setup-db
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: "{{ .Values.image.pullPolicy }}"
@@ -48,7 +48,7 @@ spec:
           command:
             - sh
             - -c
-            - bin/db-setup.sh
+            - db-setup.sh
       volumes:
         - name: public
           {{- if .Values.persistence.enabled }}

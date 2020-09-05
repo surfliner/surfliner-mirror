@@ -33,8 +33,8 @@
       alias: zk
   before_script:
     - cd /home/starlight/app
-    - /home/starlight/scripts/upload-solr-configs.sh /home/starlight/app/solr/config
-    - /home/starlight/scripts/create-solr-collection.sh
+    - upload-solr-configs.sh /home/starlight/app/solr/config
+    - create-solr-collection.sh
   tags:
     - kubernetes
   only:

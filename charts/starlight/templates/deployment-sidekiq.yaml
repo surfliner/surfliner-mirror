@@ -61,7 +61,7 @@ spec:
         args:
         - /bin/sh
         - -c
-        - bin/db-wait.sh "$POSTGRES_HOST:$POSTGRES_PORT" bundle exec rake db:abort_if_pending_migrations
+        - db-wait.sh "$POSTGRES_HOST:$POSTGRES_PORT" bundle exec rake db:abort_if_pending_migrations
       containers:
         - name: {{ .Chart.Name }}-sidekiq
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
