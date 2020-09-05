@@ -2,7 +2,7 @@ apiVersion: v2
 appVersion: "0.1"
 description: Charts for GeoBlacklight & Shoreline
 name: shoreline
-version: 0.2.0
+version: 0.3.0
 dependencies:
   - name: email
     version: 0.3.0

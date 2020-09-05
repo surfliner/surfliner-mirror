@@ -31,6 +31,18 @@ spec:
             - >
               upload-solr-configs.sh /home/shoreline/discovery/app/solr/conf &&
               create-solr-collection.sh
+        - name: setup-db
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+          envFrom:
+            - configMapRef:
+                name: {{ include "shoreline.fullname" . }}-env
+            - secretRef:
+                name: {{ template "shoreline.fullname" . }}
+          command:
+            - sh
+            - -c
+            - db-setup.sh
       volumes:
         - name: downloads
           emptyDir: {}
