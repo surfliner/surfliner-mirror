@@ -1,3 +1,10 @@
+rebuild-util:
+  extends: .kaniko-build
+  stage: maintanence
+  script:
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/util/Dockerfile --destination $CI_REGISTRY_IMAGE/surfliner-util
+  when: manual
+
 prune-tags:
   stage: maintanence
   image: alpine
