@@ -7,13 +7,13 @@ metadata:
 data:
   CONTACT_EMAIL: {{ .Values.shoreline.email.contact_email }}
   DATABASE_ADAPTER: postgresql
-  DATABASE_HOST: {{ template "shoreline.postgresql.fullname" . }}
   GEOBLACKLIGHT_DOWNLOAD_PATH: /data/tmp/cache/downloads
   GEOSERVER_HOST: {{ .Values.geoserver.ingress.hosts | first }}
   GEOSERVER_INTERNAL_HOST: {{ template "shoreline.geoserver.fullname" . }}
   GEOSERVER_PORT: "80"
   GEOSERVER_USER: admin
   POSTGRES_DB: {{ .Values.postgresql.postgresqlDatabase }}
+  POSTGRES_HOST: {{ template "shoreline.postgresql.fullname" . }}
   POSTGRES_PORT: {{ .Values.postgresql.servicePort | quote }}
   RAILS_ENV: production
   RAILS_LOG_TO_STDOUT: "true"
