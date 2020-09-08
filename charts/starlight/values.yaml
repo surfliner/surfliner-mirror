@@ -35,15 +35,19 @@ starlight:
     enabled: true
   solr:
     collectionName: collection1
-  loadBackup:
-    enabled: false
-    # oldAppUrl: url for previous system, used for iiif url migration. i.e. https://exhibits.ucsd.edu
+  backups:
+    import:
+      enabled: false
+      # oldAppUrl: url for previous system, used for iiif url migration. i.e. https://exhibits.ucsd.edu
+    export:
+      enabled: false
     # accessKey: aws/minio access key
+    # directoryImportPath: mountPath to copy public/uploads backup directory into e.g. /uploads
     # secretKey: aws/minio secret key
     # endpointUrl: aws/minio endpoint
     # bucket: aws/minio bucket name
     # dbBucketKey: aws/minio database dump bucket key/file e.g. starlight.dmp
-    # imagesBucketPath: aws/minio public/images bucket path e.g. public/images or images
+    # directoryBucketPath: aws/minio public/images bucket path e.g. public/images or images
   email:
     # these needs to be set to something, even if it doesn't work, or else rails errors out on startup
     from_address: starlight@example.edu

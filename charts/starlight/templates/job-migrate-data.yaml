@@ -1,4 +1,4 @@
-{{- if .Values.starlight.loadBackup.enabled -}}
+{{- if .Values.starlight.backups.import.enabled -}}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -38,17 +38,21 @@ spec:
           emptyDir: {}
           {{- end }}
       containers:
-      - name: starlight-restore
-        image: registry.gitlab.com/ucsdlibrary/development/pg-manager:stable
+      - name: starlight-import
+        image: registry.gitlab.com/surfliner/surfliner/surfliner-util:stable
         imagePullPolicy: Always
         volumeMounts:
           - name: public
-            mountPath: /uploads
+            mountPath: {{ .Values.starlight.backups.directoryImportPath }}
             subPath: uploads
-        command: ["/bin/sh", "/scripts/starlight-restore.sh"]
+        command: ["/bin/sh", "-c", "postgresql-import.sh && directory-import.sh"]
         env:
           - name: "DB_BACKUP_FILE"
             value: "/tmp/starlight-restore.dmp"
+          - name: "DIRECTORY_BUCKET_PATH"
+            value: {{ .Values.starlight.backups.directoryBucketPath }}
+          - name: "DIRECTORY_IMPORT_PATH"
+            value: {{ .Values.starlight.backups.directoryImportPath }}
           - name: "PGHOST"
             value: {{ template "starlight.postgresql.fullname" . }}
           - name: "PGPASSWORD"
@@ -61,15 +65,13 @@ spec:
           - name: "PGDATABASE"
             value: {{ .Values.postgresql.postgresqlDatabase }}
           - name: "AWS_ACCESS_KEY_ID"
-            value: {{ .Values.starlight.loadBackup.accessKey }}
+            value: {{ .Values.starlight.backups.accessKey }}
           - name: "AWS_SECRET_ACCESS_KEY"
-            value: {{ .Values.starlight.loadBackup.secretKey }}
+            value: {{ .Values.starlight.backups.secretKey }}
           - name: "ENDPOINT_URL"
-            value: {{ .Values.starlight.loadBackup.endpointUrl }}
+            value: {{ .Values.starlight.backups.endpointUrl }}
           - name: "BUCKET"
-            value: {{ .Values.starlight.loadBackup.bucket }}
+            value: {{ .Values.starlight.backups.bucket }}
           - name: "DB_BUCKET_KEY"
-            value: {{ .Values.starlight.loadBackup.dbBucketKey }}
-          - name: "IMAGES_BUCKET_PATH"
-            value: {{ .Values.starlight.loadBackup.imagesBucketPath }}
+            value: {{ .Values.starlight.backups.dbBucketKey }}
 {{- end }}

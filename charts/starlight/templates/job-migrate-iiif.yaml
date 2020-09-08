@@ -1,4 +1,4 @@
-{{- if .Values.starlight.loadBackup.enabled -}}
+{{- if .Values.starlight.backups.import.enabled -}}
 apiVersion: batch/v1
 kind: Job
 metadata:
