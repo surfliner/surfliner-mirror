@@ -1,9 +1,14 @@
 rebuild-util:
-  extends: .kaniko-build
+  extends:
+    - .kaniko-build
+    - .only-refs-default
   stage: maintanence
   script:
-    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/util/Dockerfile --destination $CI_REGISTRY_IMAGE/surfliner-util
-  when: manual
+    - build_image_for "util" "surfliner-util"
+  only:
+    changes:
+      - scripts/**/*
+      - util/Dockerfile
 
 prune-tags:
   stage: maintanence
