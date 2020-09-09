@@ -12,6 +12,7 @@
     POSTGRES_PASSWORD: "postgres"
     POSTGRES_USER: "postgres"
     RAILS_ENV: "test"
+    RAILS_QUEUE: inline
     REPOSITORY_URL: $CI_REPOSITORY_URL
     SELENIUM_URL: "http://localhost:4444/wd/hub/"
     SOLR_CONFIG_COMMIT_SHA: $CI_COMMIT_SHA
