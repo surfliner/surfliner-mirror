@@ -45,7 +45,7 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /geoserver
               port: http
             failureThreshold: 8
             timeoutSeconds: 5
