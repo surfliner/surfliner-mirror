@@ -26,6 +26,7 @@ ingress:
   tls: []
 
 shoreline:
+  db_setup_command: "db:migrate"
   theme: ""
   # whether to ingest fixture data during deployment
   sample_data:

@@ -3,6 +3,7 @@
   needs: ["shoreline:discovery:ruby-build"]
   image: $CI_REGISTRY_IMAGE/shoreline_discovery_app:$CI_COMMIT_SHA
   variables:
+    DATABASE_COMMAND: "db:schema:load"
     POSTGRES_DB: "shoreline-discovery"
     POSTGRES_HOST: "localhost"
     POSTGRES_PASSWORD: "postgres"
@@ -25,6 +26,7 @@
     - cd /home/shoreline/discovery/app
     - upload-solr-configs.sh /home/shoreline/discovery/app/solr/conf
     - create-solr-collection.sh
+    - db-setup.sh
   artifacts:
     name: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
     reports:
@@ -45,4 +47,3 @@ shoreline:discovery:test:feature:
   extends: .shoreline:discovery:test
   script:
     - bundle exec rspec --tag type:feature --format progress --format RspecJunitFormatter --out rspec.xml
-  allow_failure: true # todo: make this pass

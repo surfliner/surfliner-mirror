@@ -7,6 +7,7 @@ metadata:
 data:
   CONTACT_EMAIL: {{ .Values.shoreline.email.contact_email }}
   DATABASE_ADAPTER: postgresql
+  DATABASE_COMMAND: {{ .Values.shoreline.db_setup_command }}
   GEOBLACKLIGHT_DOWNLOAD_PATH: /data/tmp/cache/downloads
   GEOSERVER_HOST: {{ .Values.geoserver.ingress.hosts | first }}
   GEOSERVER_INTERNAL_HOST: {{ template "shoreline.geoserver.fullname" . }}
