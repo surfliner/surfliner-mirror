@@ -75,6 +75,12 @@ include:
         chart/
   }
 
+  # Run Helm chart tests for a deployment
+  # see: https://helm.sh/docs/topics/chart_tests/
+  function run_chart_tests(){
+    helm test --namespace="$KUBE_NAMESPACE" "$HELM_RELEASE_NAME"
+  }
+
   # Install chart dependencies
   function download_chart_dependencies(){
     echo "Downloading Helm chart dependencies.."
