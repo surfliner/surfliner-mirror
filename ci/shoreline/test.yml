@@ -4,6 +4,7 @@
   image: $CI_REGISTRY_IMAGE/shoreline_discovery_app:$CI_COMMIT_SHA
   variables:
     DATABASE_COMMAND: "db:schema:load"
+    DELIVERY_METHOD: "test"
     POSTGRES_DB: "shoreline-discovery"
     POSTGRES_HOST: "localhost"
     POSTGRES_PASSWORD: "postgres"

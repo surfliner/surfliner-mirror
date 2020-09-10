@@ -23,7 +23,8 @@ class ContactForm
     {
       subject: subject,
       to: ENV['CONTACT_EMAIL'],
-      from: email
+      from: ENV['CONTACT_EMAIL'],
+      cc: email
     }
   end
 end

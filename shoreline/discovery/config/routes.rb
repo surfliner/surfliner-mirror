@@ -52,5 +52,5 @@ Rails.application.routes.draw do
   post 'contact' => 'contact_form#create', as: :contact_form_index
   get 'contact' => 'contact_form#new'
 
-  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' if ENV.fetch('DELIVERY_METHOD', '').eql? 'letter_opener_web'
 end

@@ -16,7 +16,7 @@ gem 'geoblacklight',           '~> 3.0.0'
 gem 'geoserver-publish',       '~> 0.3'
 gem 'jbuilder',                '~> 2.5'
 gem 'jquery-rails',            '~> 4.3'
-gem 'letter_opener_web',       group: [:development]
+gem 'letter_opener_web'
 gem 'nokogiri',                '~> 1.10.9'
 gem 'okcomputer',              '~> 1.18'
 gem 'optimist'

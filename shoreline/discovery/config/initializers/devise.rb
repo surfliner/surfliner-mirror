@@ -4,7 +4,7 @@
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
   require 'devise/orm/active_record'
-  config.mailer_sender                      = 'please-change-me@example.com'
+  config.mailer_sender                      = ENV.fetch('CONTACT_EMAIL', 'please-change-me@example.com')
   config.case_insensitive_keys              = [:email]
   config.strip_whitespace_keys              = [:email]
   config.skip_session_storage               = [:http_auth]

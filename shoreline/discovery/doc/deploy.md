@@ -19,9 +19,6 @@ Puppet, or whatever works best in your local environment and practices.
 | `SHORELINE_THEME` | Custom theme (CSS, header, footer) to be activated (e.g., `ucsb`) | No |
 | `SHORELINE_SUPPRESS_TOOLS` | Don’t render the “Tools” pane on object show pages; defaults to `false` | No |
 | `CONTACT_EMAIL` | Email address for Contact feature | Yes |
-| `SHORELINE_SMTP_HOST` | Hostname mapping to email service running postfix | Yes |
-| `SHORELINE_SMTP_PORT` | Port to email service running postfix | Yes |
-| `SHORELINE_DELIVERY_METHOD` | Delivery method for email service (e.g., `smtp`) | Yes |
 
 ### Ingest Variables
 

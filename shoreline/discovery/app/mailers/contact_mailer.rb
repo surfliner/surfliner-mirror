@@ -7,6 +7,7 @@ class ContactMailer < ApplicationMailer
     # Check for spam
     return if @contact_form.spam?
 
+    logger.debug("Sending contact form email with: #{@contact_form.headers}")
     mail(@contact_form.headers)
   end
 end

@@ -19,11 +19,20 @@ module Discovery
     # here. Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
-    config.action_mailer.delivery_method = ENV.fetch('SHORELINE_DELIVERY_METHOD').to_sym
+    config.action_mailer.delivery_method = ENV.fetch('DELIVERY_METHOD').to_sym
+    config.action_mailer.default_url_options = { host: URI.parse(ENV.fetch('APP_URL')).hostname,
+                                                 protocol: URI.parse(ENV.fetch('APP_URL')).scheme }
 
-    if ENV['SHORELINE_SMTP_HOST'].present? && ENV['SHORELINE_SMTP_PORT'].present?
-      config.action_mailer.smtp_settings = { address: ENV.fetch('SHORELINE_SMTP_HOST'),
-                                             port: ENV.fetch('SHORELINE_SMTP_PORT') }
+    config.action_mailer.default_options = { from: ENV.fetch('CONTACT_EMAIL'),
+                                             to: ENV.fetch('CONTACT_EMAIL') }
+
+    if ENV.fetch('DELIVERY_METHOD', '').eql? 'smtp'
+      config.action_mailer.smtp_settings = { address: ENV.fetch('SMTP_HOST'),
+                                             port: ENV.fetch('SMTP_PORT'),
+                                             user_name: ENV.fetch('SMTP_USERNAME'),
+                                             password: ENV.fetch('SMTP_PASSWORD'),
+                                             authentication: ENV.fetch('SMTP_AUTHENTICATION').to_sym,
+                                             enable_starttls_auto: true }
     end
   end
 end

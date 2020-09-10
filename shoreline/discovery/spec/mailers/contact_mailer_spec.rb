@@ -24,7 +24,11 @@ RSpec.describe ContactMailer do
   end
 
   it 'renders the sender email' do
-    expect(email.from).to eql([contact_form.email])
+    expect(email.from).to eql([ENV['CONTACT_EMAIL']])
+  end
+
+  it 'renders the cc email for the user' do
+    expect(email.cc).to eql([contact_form.email])
   end
 
   it 'renders the message body' do

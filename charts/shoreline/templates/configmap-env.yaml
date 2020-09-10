@@ -5,9 +5,11 @@ metadata:
   labels:
 {{ include "shoreline.labels" . | indent 4 }}
 data:
+  APP_URL: http{{ if .Values.ingress.tls }}s{{ end }}://{{ index .Values.ingress.hosts 0 }}
   CONTACT_EMAIL: {{ .Values.shoreline.email.contact_email }}
   DATABASE_ADAPTER: postgresql
   DATABASE_COMMAND: {{ .Values.shoreline.db_setup_command }}
+  DELIVERY_METHOD: {{ .Values.shoreline.email.delivery_method }}
   GEOBLACKLIGHT_DOWNLOAD_PATH: /data/tmp/cache/downloads
   GEOSERVER_HOST: {{ .Values.geoserver.ingress.hosts | first }}
   GEOSERVER_INTERNAL_HOST: {{ template "shoreline.geoserver.fullname" . }}
@@ -20,12 +22,16 @@ data:
   RAILS_LOG_TO_STDOUT: "true"
   RAILS_SERVE_STATIC_FILES: "true"
   SHORELINE_ACCESS: Public
-  SHORELINE_DELIVERY_METHOD: {{ .Values.shoreline.email.delivery_method | quote }}
   SHORELINE_PROVENANCE: "UC Santa Barbara"
   SHORELINE_SUPPRESS_TOOLS: {{ .Values.shoreline.suppressTools | quote }}
-  SHORELINE_SMTP_HOST: {{ template "shoreline.email.fullname" . }}
-  SHORELINE_SMTP_PORT: {{ .Values.email.service.port | quote }}
   SHORELINE_THEME: {{ .Values.shoreline.theme }}
+  {{- if eq "smtp" .Values.shoreline.email.delivery_method }}
+  SMTP_AUTHENTICATION: {{ .Values.shoreline.email.smtp_settings.authentication }}
+  SMTP_HOST: {{ .Values.shoreline.email.smtp_settings.address }}
+  SMTP_PASSWORD: {{ .Values.shoreline.email.smtp_settings.password }}
+  SMTP_PORT: {{ .Values.shoreline.email.smtp_settings.port | quote }}
+  SMTP_USERNAME: {{ .Values.shoreline.email.smtp_settings.user_name }}
+  {{- end }}
   SOLR_CORE_NAME: {{ .Values.shoreline.solr.collectionName }}
   SOLR_HOST: {{ template "shoreline.solr.fullname" . }}-svc
   SOLR_PORT: "8983"

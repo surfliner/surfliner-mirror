@@ -34,22 +34,15 @@ shoreline:
   solr:
     collectionName: collection1
   email:
-    delivery_method: smtp
-    contact_email: noreply@example.com
-
-# Configure environment variables for email chart/container
-# see: https://gitlab.com/ucsdlibrary/development/email/
-# see: https://github.com/bokysan/docker-postfix#configuration-options
-# defaults: allow any email address to send email
-email:
-  enabled: true
-  envVars:
-    - name: ALLOWED_SENDER_DOMAINS
-      value: ""
-    - name: ALLOW_EMPTY_SENDER_DOMAINS
-      value: "true"
-  service:
-    port: 587
+    contact_email: shoreline@example.edu
+    delivery_method: letter_opener_web # or: smtp
+    # see: https://guides.rubyonrails.org/action_mailer_basics.html#action-mailer-configuration
+    # smtp_settings:
+    #   address: smtp.example.edu
+    #   port: 587
+    #   user_name: username
+    #   password: password
+    #   authentication: plain
 
 # Configuration for solr chart
 # see: https://github.com/helm/charts/blob/master/incubator/solr/values.yaml
