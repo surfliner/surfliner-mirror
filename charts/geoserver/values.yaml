@@ -11,6 +11,7 @@ image:
 
 nameOverride: ""
 fullnameOverride: ""
+healthz: /geoserver
 
 service:
   type: ClusterIP
