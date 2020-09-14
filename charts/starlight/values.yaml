@@ -29,13 +29,23 @@ ingress:
 starlight:
   application:
     name: "Starlight"
-    db_setup_command: "db:migrate"
-    max_threads: 5
     themes: "ucsb,surfliner,ucsd"
+  port: 3000
+  rails:
+    db_adapter: postgresql
+    db_setup_command: "db:migrate"
+    environment: production
+    log_to_stdout: true
+    max_threads: 5
+    queue: sidekiq
+    serve_static_files: true
   sitemaps:
     enabled: true
   solr:
     collectionName: collection1
+    port: 8983
+  zookeeper:
+    port: 2181
   backups:
     import:
       enabled: false

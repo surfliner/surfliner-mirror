@@ -49,11 +49,18 @@ The following tables lists the configurable parameters of the Starlight chart an
 | `nameOverride` | String to partially override starlight.fullname template with a string (will prepend the release name) | `""` | N/A |
 | `fullnameOverride` | String to fully override email.fullname template | `""` | N/A |
 | `starlight.application.name` | Name used in some default Blacklight templates | `Starlight` | N/A |
-| `starlight.application.db_setup_command` | Database rake task(s) to run when deployment starts | `db:migrate` | `DATABASE_COMMAND` |
-| `starlight.application.max_threads` | Size of DB connection pool (used by Sidekiq also).  | `5` | `RAILS_MAX_THREADS ` |
 | `starlight.application.themes` | Themes made available to the application.  | `ucsb,surfliner,ucsd` | `SPOTLIGHT_THEMES` |
+| `starlight.rails.db_adapter` | Which Rails database adapter to use | `postgresql` | `DB_ADAPTER` |
+| `starlight.rails.db_setup_command` | Database rake task(s) to run when deployment starts | `db:migrate` | `DATABASE_COMMAND` |
+| `starlight.rails.environment` | Rails environment for application.  | `production` | `RAILS_ENV` |
+| `starlight.rails.log_to_stdout` | Should Rails log to standard output.  | `true` | `RAILS_LOG_TO_STDOUT` |
+| `starlight.rails.max_threads` | Size of DB connection pool (used by Sidekiq also).  | `5` | `RAILS_MAX_THREADS ` |
+| `starlight.rails.queue` | Which queue adapter for ActiveJob.  | `sidekiq` | `RAILS_QUEUE` |
+| `starlight.rails.serve_static_files` | Whether Rails should not serve files in `public/`.  | `true` | `RAILS_SERVE_STATIC_FILES` |
 | `starlight.sitemap.enabled` | Whether to enable k8s sitemap cron job to ping search engines.  | `true` | N/A |
 | `starlight.solr.collectionName` | Name of Solr collection.  | `collection1` | `SOLR_CORE_NAME` |
+| `starlight.solr.port` | Solr port to use.  | `8983` | `SOLR_PORT` |
+| `starlight.zookeeper.port` | Zookeeper port to use.  | `2181` | `ZK_PORT` |
 | `starlight.backups.import.enabled` | Whether to run the backup import migration jobs (when migrating data from another environment).  | `false` | N/A |
 | `starlight.backups.import.oldAppUrl` | URL for previous environment.  | `nil` | `OLD_APP_URL` |
 | `starlight.backups.export.enabled` | Whether to run the backup export migration jobs.  | `false` | N/A |
