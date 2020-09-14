@@ -38,6 +38,6 @@ data:
   SOLR_HOST: {{ template "starlight.solr.fullname" . }}-svc
   SOLR_PORT: "8983"
   SOLR_URL: http://{{ template "starlight.solr.fullname" . }}-svc:8983/solr/{{ .Values.starlight.solr.collectionName }}
-  SPOTLIGHT_THEMES: "ucsb,surfliner,ucsd"
+  SPOTLIGHT_THEMES: {{ .Values.starlight.application.themes }}
   ZK_HOST: {{ template "starlight.zk.fullname" . }}
   ZK_PORT: "2181"
