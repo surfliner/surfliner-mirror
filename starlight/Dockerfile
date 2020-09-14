@@ -28,6 +28,7 @@ RUN bundle check || bundle install --jobs "$(nproc)"
 
 COPY ${PROJECTPATH} ${DOCKERROOT}/app/
 COPY scripts ${DOCKERROOT}/scripts/
+COPY .styles $DOCKERROOT/.styles/
 ENV PATH="$DOCKERROOT/scripts:$PATH"
 
 RUN bundle exec rake assets:precompile
