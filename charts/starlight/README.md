@@ -82,14 +82,23 @@ The following tables lists the configurable parameters of the Starlight chart an
 | `starlight.auth.google.api_id` | Google authentication API identifier.  | `nil` | `GOOGLE_AUTH_ID` |
 | `starlight.auth.google.secret` | Google authentication API secret.  | `nil` | `GOOGLE_AUTH_SECRET` |
 | `persistence.enabled` | Whether to create persistent volume claims(PVC) for the application.  | `true` | N/A |
-| `persistence.cache.size` | Rails cache PVC size.  | `5Gi` | N/A |
-| `persistence.cache.class` | StorageClassName for your k8s cluster.  | `nil` | N/A |
 | `persistence.public.size` | Rails public PVC size.  | `5Gi` | N/A |
 | `persistence.public.class` | StorageClassName for your k8s cluster.  | `nil` | N/A |
 
 ### Chart Dependency Parameters
 
 The following tables list a few key configurable parameters for Starlight chart dependencies and their default values. If you want to further customize the dependent chart, please consult the links below for the documentation of those charts.
+
+#### Memcached
+
+See: https://github.com/kubernetes/charts/blob/master/stable/memcached/README.md
+
+| Parameter | Description | Default | Environment Variable |
+| --------- | ----------- | ------- | -------------------- |
+| `memcached.enabled` | Whether to use memcached for Rails cache_store | `true` | N/A |
+| `memcached.architecture` | Which memcached architecture to deploy | `high-availability` | N/A |
+| `memcached.persistence.enabled` | Whether to use a PVC (requires `high-availability` architecture) | `true` | N/A |
+| `memcached.persistence.size` | Memcached PVC size| `8Gi` | N/A |
 
 #### PostgreSQL
 

@@ -36,13 +36,6 @@ spec:
           {{- else }}
           emptyDir: {}
           {{- end }}
-        - name: cache
-          {{- if .Values.persistence.enabled }}
-          persistentVolumeClaim:
-            claimName: {{ include "starlight.fullname" . }}-rails-cache
-          {{- else }}
-          emptyDir: {}
-          {{- end }}
         - name: blacklight-locale
           configMap:
             name: {{ include "starlight.fullname" . }}-locales
@@ -67,8 +60,6 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
-            - name: cache
-              mountPath: /home/starlight/app/tmp
             - name: public
               mountPath: /home/starlight/app/public/uploads
               subPath: uploads

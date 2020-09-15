@@ -192,6 +192,7 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.6)
+    dalli (2.7.10)
     declarative (0.0.20)
     declarative-option (0.1.0)
     deprecation (1.0.0)
@@ -597,6 +598,7 @@ DEPENDENCIES
   capistrano-yarn
   capybara
   capybara-screenshot
+  dalli
   devise
   devise-guests (~> 0.6)
   devise_invitable

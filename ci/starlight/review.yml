@@ -66,6 +66,7 @@ starlight:deploy:ucsb-review:
       --set ingress.hosts={starlight-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN}
       --set persistence.enabled=false
       --set postgresql.persistence.enabled=false
+      --set memcached.architecture=standalone
       --set redis.cluster.enabled=false
       --set redis.master.persistence.enabled=false
       --set solr.persistence.enabled=false

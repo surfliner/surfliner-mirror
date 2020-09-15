@@ -1,12 +1,15 @@
 dependencies:
+- name: memcached
+  repository: https://charts.bitnami.com/bitnami
+  version: 4.2.24
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
   version: 9.1.2
 - name: redis
   repository: https://charts.bitnami.com/bitnami
-  version: 10.7.11
+  version: 10.8.2
 - name: solr
   repository: http://storage.googleapis.com/kubernetes-charts-incubator
   version: 1.5.2
-digest: sha256:fdb8fed3ecaf5dd0dac01d188424e7f9316132d98dbd8289f5541b5db93abb62
-generated: "2020-09-01T14:02:22.693604502-07:00"
+digest: sha256:b791586efb0654675850433adf71279737dd6afb4c6318cd63bc7a49baf1dde5
+generated: "2020-09-15T13:39:45.808747219-07:00"

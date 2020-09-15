@@ -80,10 +80,6 @@ starlight:
 
 persistence:
   enabled: true
-  cache:
-    size: 5Gi
-    # either specify a StorageClassName or leave this value unset
-    # class: gp2
   public:
     size: 20Gi
     # class: gp2
@@ -94,6 +90,19 @@ solr:
   image:
     repository: solr
     tag: 8.6.2
+
+# Configuration for memcached chart
+# see: https://github.com/bitnami/charts/blob/master/bitnami/memcached/README.md
+memcached:
+  enabled: true
+  architecture: high-availability
+  # requires architecture: high-availability
+  persistence:
+    enabled: true
+    size: 8Gi
+  image:
+    repository: bitnami/memcached
+    tag: 1.6.7
 
 # Configuration for postgresql chart
 # see: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md

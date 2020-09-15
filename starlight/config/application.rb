@@ -27,5 +27,10 @@ module Starlight
     end
 
     config.action_mailer.default_options = { from: ENV.fetch("FROM_EMAIL") }
+
+    if ENV["MEMCACHED_HOST"].present?
+      config.action_controller.perform_caching = true
+      config.cache_store = :mem_cache_store, ENV["MEMCACHED_HOST"]
+    end
   end
 end

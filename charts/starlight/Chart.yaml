@@ -4,6 +4,10 @@ description: Starlight is based on Spotlight, a framework for the creation and p
 name: starlight
 version: 0.4.0
 dependencies:
+  - name: memcached
+    version: 4.2.24
+    repository: https://charts.bitnami.com/bitnami
+    condition: memcached.enabled
   - name: postgresql
     version: 9.1.2
     repository: https://charts.bitnami.com/bitnami

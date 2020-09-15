@@ -27,6 +27,7 @@ services:
     depends_on:
       - db_migrate
       - database
+      - memcached
       - redis
       - solr
     stdin_open: true
@@ -59,6 +60,9 @@ services:
       - solr
     stdin_open: true
     tty: true
+
+  memcached:
+    image: bitnami/memcached:1.6.7
 
   redis:
     image: bitnami/redis:6.0

@@ -9,6 +9,7 @@ gem "blacklight-spotlight",
     git: "https://github.com/ucsblibrary/spotlight.git",
     branch: "ucsb"
 gem "bootsnap"
+gem "dalli"
 gem "devise"
 gem "devise-guests", "~> 0.6"
 gem "devise_invitable"
