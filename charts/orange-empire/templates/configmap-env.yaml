@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "orange-empire.fullname" . }}-env
+  labels:
+    {{- include "orange-empire.labels" . | nindent 4 }}
+data:
+  CANTALOUPE_ENDPOINT_ADMIN_ENABLED: {{ .Values.cantaloupe.admin.endpointEnabled | quote }}
+  CANTALOUPE_CACHE_SERVER_DERIVATIVE_ENABLED: {{ .Values.cantaloupe.cacheServer.derivativeEnabled | quote }}
+  CANTALOUPE_CACHE_SERVER_DERIVATIVE: {{ .Values.cantaloupe.cacheServer.derivative }}
+  CANTALOUPE_CACHE_SERVER_DERIVATIVE_TTL_SECONDS: {{ .Values.cantaloupe.cacheServer.derivativeTTLSeconds | quote }}
+  CANTALOUPE_CACHE_SERVER_PURGE_MISSING: {{ .Values.cantaloupe.cacheServer.purgeMissing | quote }}
+  CANTALOUPE_PROCESSOR_SELECTION_STRATEGY: {{ .Values.cantaloupe.processorSelectionStrategy }}
+  CANTALOUPE_MANUAL_PROCESSOR_JP2: {{ .Values.cantaloupe.manualProcessorJP2 }}
+  CANTALOUPE_S3CACHE_ENDPOINT: {{ .Values.cantaloupe.s3.cache.endpoint }}
+  CANTALOUPE_S3CACHE_BUCKET_NAME: {{ .Values.cantaloupe.s3.cache.bucketName }}
+  CANTALOUPE_S3SOURCE_BASICLOOKUPSTRATEGY_BUCKET_NAME: {{ .Values.cantaloupe.s3.source.bucketName }}
+  CANTALOUPE_S3SOURCE_ENDPOINT: {{ .Values.cantaloupe.s3.source.endpoint }}
+  CANTALOUPE_S3SOURCE_BASICLOOKUPSTRATEGY_PATH_SUFFIX: {{ .Values.cantaloupe.s3.source.basicLookupStrategyPathSuffix | quote }}
+  CANTALOUPE_SOURCE_STATIC: {{ .Values.cantaloupe.sourceStatic }}
+  JAVA_HEAP_SIZE: {{ .Values.cantaloupe.java.heapSize }}
