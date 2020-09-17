@@ -13,5 +13,6 @@ include:
       - ci/starlight.yml
       - ci/starlight/**/*
       - charts/starlight/**/*
+      - gems/**/*
       - starlight/Dockerfile
       - starlight/**/*

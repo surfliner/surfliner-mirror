@@ -14,5 +14,6 @@ include:
       - ci/shoreline/**/*
       - charts/geoserver/**/*
       - charts/shoreline/**/*
+      - gems/**/*
       - shoreline/discovery/Dockerfile
       - shoreline/discovery/**/*
