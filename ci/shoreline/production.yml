@@ -1,12 +1,16 @@
 .shoreline:deploy:production:
+  stage: production
   extends:
-    - .only-refs-default
     - .helm3-deploy
+  script:
+    - cd shoreline/discovery
+    - mv ../../charts/shoreline ./chart
+    - mv ../../charts/geoserver ./geoserver
+    - deploy
   when: manual
   only:
     refs:
       - trunk
-  only:
     changes:
       - ci/shoreline/**/*
       - charts/shoreline/**/*
@@ -17,12 +21,6 @@
 shoreline:discovery:deploy:prod:ucsb:
   extends:
     - .shoreline:deploy:production
-  stage: production
-  script:
-    - cd shoreline/discovery
-    - mv ../../charts/shoreline ./chart
-    - mv ../../charts/geoserver ./geoserver
-    - deploy
   environment:
     name: ucsb.production.shoreline
     url: http://shoreline.$KUBE_INGRESS_BASE_DOMAIN
@@ -42,12 +40,6 @@ shoreline:discovery:deploy:prod:ucsb:
 shoreline:discovery:deploy:prod:ucsd:
   extends:
     - .shoreline:deploy:production
-  stage: production
-  script:
-    - cd shoreline/discovery
-    - mv ../../charts/shoreline ./chart
-    - mv ../../charts/geoserver ./geoserver
-    - deploy
   environment:
     name: ucsd.production.shoreline
     url: http://geodata.ucsd.edu
