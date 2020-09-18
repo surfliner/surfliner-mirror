@@ -8,6 +8,7 @@
     - mv ../../charts/geoserver ./geoserver
     - deploy
   when: manual
+  needs: ["shoreline:discovery:ruby-build"]
   only:
     refs:
       - trunk
