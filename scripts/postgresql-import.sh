@@ -2,7 +2,7 @@
 set -e
 
 echo "Downloading $PGDATABASE database backup..."
-aws --endpoint-url "$ENDPOINT_URL" s3 cp "s3://$BUCKET/$DB_BUCKET_KEY" "$DB_BACKUP_FILE"
+aws --endpoint-url "$ENDPOINT_URL" s3 cp "$DB_BACKUP_SOURCE" "$DB_BACKUP_DESTINATION"
 
 # Ensure we can interact with the database
 while ! nc -z "$PGHOST" 5432
@@ -12,4 +12,4 @@ do
 done
 
 echo "Restoring database backup $PGDATABASE"
-pg_restore --clean --single-transaction --verbose -U "$PGUSER" -d "$PGDATABASE" "$DB_BACKUP_FILE"
+pg_restore --clean --single-transaction --verbose -U "$PGUSER" -d "$PGDATABASE" "$DB_BACKUP_DESTINATION"

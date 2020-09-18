@@ -1,0 +1,74 @@
+{{- if .Values.starlight.backups.export.enabled -}}
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ include "starlight.fullname" . }}-export
+  labels:
+{{ include "starlight.labels" . | indent 4 }}
+spec:
+  schedule: {{ .Values.starlight.backups.export.schedule | quote }}
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: {{ include "starlight.name" . }}-export
+            app.kubernetes.io/instance: {{ .Release.Name }}-export
+        spec:
+          # ensure we run on the same node as the rails server; only required when
+          # using PVCs that are ReadWriteOnce
+          affinity:
+            podAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchExpressions:
+                    - key: component
+                      operator: In
+                      values:
+                        - rails
+                topologyKey: kubernetes.io/hostname
+          volumes:
+          - name: public
+            {{- if .Values.persistence.enabled }}
+            persistentVolumeClaim:
+              claimName: {{ include "starlight.fullname" . }}-rails-public
+            {{- else }}
+            emptyDir: {}
+            {{- end }}
+          containers:
+          - name: starlight-export
+            image: registry.gitlab.com/surfliner/surfliner/surfliner-util:stable
+            imagePullPolicy: {{ .Values.image.pullPolicy }}
+            volumeMounts:
+              - name: public
+                mountPath: {{ .Values.starlight.backups.export.sourcePath }}
+                subPath: uploads
+            command: ["/bin/sh", "-c", "postgresql-export.sh && file-sync.sh"]
+            env:
+              - name: "DB_BACKUP_SOURCE"
+                value: {{ .Values.starlight.backups.export.dbBackupSource }}
+              - name: "DB_BACKUP_DESTINATION"
+                value: {{ .Values.starlight.backups.export.dbBackupDestination }}
+              - name: "DESTINATION_PATH"
+                value: {{ .Values.starlight.backups.export.destinationPath }}
+              - name: "SOURCE_PATH"
+                value: {{ .Values.starlight.backups.export.sourcePath }}
+              - name: "PGHOST"
+                value: {{ template "starlight.postgresql.fullname" . }}
+              - name: "PGPASSWORD"
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ template "starlight.fullname" . }}
+                    key: POSTGRES_ADMIN_PASSWORD
+              - name: "PGUSER"
+                value: postgres
+              - name: "PGDATABASE"
+                value: {{ .Values.postgresql.postgresqlDatabase }}
+              - name: "AWS_ACCESS_KEY_ID"
+                value: {{ .Values.starlight.backups.export.accessKey }}
+              - name: "AWS_SECRET_ACCESS_KEY"
+                value: {{ .Values.starlight.backups.export.secretKey }}
+              - name: "ENDPOINT_URL"
+                value: {{ .Values.starlight.backups.export.endpointUrl }}
+          restartPolicy: Never
+{{- end }}

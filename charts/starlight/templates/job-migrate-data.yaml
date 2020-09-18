@@ -43,16 +43,18 @@ spec:
         imagePullPolicy: Always
         volumeMounts:
           - name: public
-            mountPath: {{ .Values.starlight.backups.directoryImportPath }}
+            mountPath: {{ .Values.starlight.backups.import.destinationPath }}
             subPath: uploads
-        command: ["/bin/sh", "-c", "postgresql-import.sh && directory-import.sh"]
+        command: ["/bin/sh", "-c", "postgresql-import.sh && file-sync.sh"]
         env:
-          - name: "DB_BACKUP_FILE"
-            value: "/tmp/starlight-restore.dmp"
-          - name: "DIRECTORY_BUCKET_PATH"
-            value: {{ .Values.starlight.backups.directoryBucketPath }}
-          - name: "DIRECTORY_IMPORT_PATH"
-            value: {{ .Values.starlight.backups.directoryImportPath }}
+          - name: "DB_BACKUP_SOURCE"
+            value: {{ .Values.starlight.backups.import.dbBackupSource }}
+          - name: "DB_BACKUP_DESTINATION"
+            value: {{ .Values.starlight.backups.import.dbBackupDestination }}
+          - name: "DESTINATION_PATH"
+            value: {{ .Values.starlight.backups.import.destinationPath }}
+          - name: "SOURCE_PATH"
+            value: {{ .Values.starlight.backups.import.sourcePath }}
           - name: "PGHOST"
             value: {{ template "starlight.postgresql.fullname" . }}
           - name: "PGPASSWORD"
@@ -65,13 +67,9 @@ spec:
           - name: "PGDATABASE"
             value: {{ .Values.postgresql.postgresqlDatabase }}
           - name: "AWS_ACCESS_KEY_ID"
-            value: {{ .Values.starlight.backups.accessKey }}
+            value: {{ .Values.starlight.backups.import.accessKey }}
           - name: "AWS_SECRET_ACCESS_KEY"
-            value: {{ .Values.starlight.backups.secretKey }}
+            value: {{ .Values.starlight.backups.import.secretKey }}
           - name: "ENDPOINT_URL"
-            value: {{ .Values.starlight.backups.endpointUrl }}
-          - name: "BUCKET"
-            value: {{ .Values.starlight.backups.bucket }}
-          - name: "DB_BUCKET_KEY"
-            value: {{ .Values.starlight.backups.dbBucketKey }}
+            value: {{ .Values.starlight.backups.import.endpointUrl }}
 {{- end }}

@@ -49,16 +49,24 @@ starlight:
   backups:
     import:
       enabled: false
+      # accessKey: aws/minio access key
+      # dbBackupSource: s3:// URL or local file path for psql database backup source file. e.g: s3://ucsd/starlight.dmp or /tmp/starlight-backup.dmp
+      # dbBackupDestination: s3:// URL or local file path for psql database backup destination file. e.g: s3://ucsd/starlight.dmp or /tmp/starlight-backup.dmp
+      # destinationPath: s3:// URL or local directory path to destination path. e.g. s3://my-bucket/uploads or /uploads
+      # endpointUrl: aws/minio endpoint
       # oldAppUrl: url for previous system, used for iiif url migration. i.e. https://exhibits.ucsd.edu
+      # secretKey: aws/minio secret key
+      # sourcePath: s3:// URL or local directory path to source path. e.g. s3://my-bucket/uploads or /uploads
     export:
       enabled: false
-    # accessKey: aws/minio access key
-    # directoryImportPath: mountPath to copy public/uploads backup directory into e.g. /uploads
-    # secretKey: aws/minio secret key
-    # endpointUrl: aws/minio endpoint
-    # bucket: aws/minio bucket name
-    # dbBucketKey: aws/minio database dump bucket key/file e.g. starlight.dmp
-    # directoryBucketPath: aws/minio public/images bucket path e.g. public/images or images
+      # accessKey: aws/minio access key
+      # dbBackupSource: s3:// URL or local file path for psql database backup source file. e.g: s3://ucsd/starlight.dmp or /tmp/starlight-backup.dmp
+      # dbBackupDestination: s3:// URL or local file path for psql database backup destination file. e.g: s3://ucsd/starlight.dmp or /tmp/starlight-backup.dmp
+      # destinationPath: s3:// URL or local directory path to destination path. e.g. s3://my-bucket/uploads or /uploads
+      # endpointUrl: aws/minio endpoint
+      # schedule: k8s cron schedule for exports. e.g. "30 8 * * *"
+      # secretKey: aws/minio secret key
+      # sourcePath: s3:// URL or local directory path to source path. e.g. s3://my-bucket/uploads or /uploads
   email:
     # these needs to be set to something, even if it doesn't work, or else rails errors out on startup
     from_address: starlight@example.edu
