@@ -22,6 +22,9 @@
 shoreline:discovery:deploy:prod:ucsb:
   extends:
     - .shoreline:deploy:production
+  needs: ["shoreline:discovery:ruby-build", "shoreline:discovery:deploy:ucsb-stage"]
+  when: delayed
+  start_in: 15 minutes
   environment:
     name: ucsb.production.shoreline
     url: http://shoreline.$KUBE_INGRESS_BASE_DOMAIN
