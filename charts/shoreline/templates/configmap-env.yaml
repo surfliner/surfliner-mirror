@@ -10,7 +10,7 @@ data:
   DATABASE_ADAPTER: postgresql
   DATABASE_COMMAND: {{ .Values.shoreline.db_setup_command }}
   DELIVERY_METHOD: {{ .Values.shoreline.email.delivery_method }}
-  GEOBLACKLIGHT_DOWNLOAD_PATH: /data/tmp/cache/downloads
+  GEOBLACKLIGHT_DOWNLOAD_PATH: {{ .Values.shoreline.geoblacklightDownloadPath }}
   GEOSERVER_HOST: {{ .Values.geoserver.ingress.hosts | first }}
   GEOSERVER_INTERNAL_HOST: {{ template "shoreline.geoserver.fullname" . }}
   GEOSERVER_PORT: "80"
@@ -21,8 +21,8 @@ data:
   RAILS_ENV: production
   RAILS_LOG_TO_STDOUT: "true"
   RAILS_SERVE_STATIC_FILES: "true"
-  SHORELINE_ACCESS: Public
-  SHORELINE_PROVENANCE: "UC Santa Barbara"
+  SHORELINE_ACCESS: {{ .Values.shoreline.access }}
+  SHORELINE_PROVENANCE: {{ .Values.shoreline.provenance }}
   SHORELINE_SUPPRESS_TOOLS: {{ .Values.shoreline.suppressTools | quote }}
   SHORELINE_THEME: {{ .Values.shoreline.theme }}
   {{- if eq "smtp" .Values.shoreline.email.delivery_method }}
