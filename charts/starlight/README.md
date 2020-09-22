@@ -120,4 +120,85 @@ See: https://github.com/helm/charts/blob/master/incubator/solr/values.yaml
 
 See: https://github.com/helm/charts/blob/master/stable/redis/README.md
 
+### Data Import and Export
+
+The Starlight Helm chart contains optional configuration to enable the import
+and/or export of data for a Helm chart deployment. Some use cases for this
+functionality are:
+
+Import:
+* Migrating an existing non-k8s Starlight environment to a new Starlight
+    environment managed by the Helm chart in k8s.
+* Populating a local deployment with an export of an existing Starlight
+    environment to explore the range of features. An example of this might be
+    the Starlight documentation instance.
+* Populating CI/CD Review applications with real data from an existing Starlight
+    environment for review by Subject Matter Experts and other stakeholders.
+
+Export:
+* Nightly exports of the images and database for recovery. Note, this should not
+    necessarily replace any backup strategy you would normally use for your
+    applications.
+* Export of a Starlight instance, such as the documentation site, for use in
+    import use cases elsewhere, as noted above.
+
+#### Import Configuration
+
+| Parameter | Description | Default | Environment Variable |
+| --------- | ----------- | ------- | -------------------- |
+| `backups.import.enabled` | Enable the import Jobs during installation | `false` | N/A |
+| `backups.import.accessKey` | S3/Minio access key | `nil` | `AWS_ACCESS_KEY_ID` |
+| `backups.import.dbBackupSource` | s3:// URL or local file path for psql backup source file | `nil` | `DB_BACKUP_SOURCE` |
+| `backups.import.dbBackupDestination` | s3:// URL or local file path for psql backup destination file | `nil` | `DB_BACKUP_DESTINATION` |
+| `backups.import.destinationPath` | s3:// URL or local file directory for where images should be imported in the new deployed environment. Will be copied from `backups.import.sourcePath` | `nil` | `DESTINATION_PATH` |
+| `backups.import.endpointUrl` | S3/Minio endpoint URL | `nil` | `ENDPOINT_URL` |
+| `backups.import.oldAppUrl` | URL for previous system, used for iiif url migration. e.g. `https://exhibits.ucsd.edu` | `nil` | `ENDPOINT_URL` |
+| `backups.import.secretKey` | S3/Minio secret key | `nil` | `AWS_SECRET_ACCESS_KEY` |
+| `backups.import.sourcePath` | s3:// URL or local directory path to images directory backup. Will be copied to `backups.import.destinationPath` | `nil` | `SOURCE_PATH` |
+
+#### Export Configuration
+
+| Parameter | Description | Default | Environment Variable |
+| --------- | ----------- | ------- | -------------------- |
+| `backups.export.enabled` | Enable the export Jobs during installation | `false` | N/A |
+| `backups.export.accessKey` | S3/Minio access key | `nil` | `AWS_ACCESS_KEY_ID` |
+| `backups.export.dbBackupSource` | s3:// URL or local file path for psql backup source file | `nil` | `DB_BACKUP_SOURCE` |
+| `backups.export.dbBackupDestination` | s3:// URL or local file path for psql backup destination file | `nil` | `DB_BACKUP_DESTINATION` |
+| `backups.export.destinationPath` | s3:// URL or local file directory for where images should be exported. Will be copied from `backups.export.sourcePath` | `nil` | `DESTINATION_PATH` |
+| `backups.export.endpointUrl` | S3/Minio endpoint URL | `nil` | `ENDPOINT_URL` |
+| `backups.export.schedule` | k8s cron schedule for export. e.g: `30 8 * * *` | `nil` | N/A |
+| `backups.export.secretKey` | S3/Minio secret key | `nil` | `AWS_SECRET_ACCESS_KEY` |
+| `backups.export.sourcePath` | s3:// URL or local directory path to images directory in the currently deployed environment. Will be copied to `backups.export.destinationPath` | `nil` | `SOURCE_PATH` |
+
+Note: If setting up an S3 bucket for import or export, which relies on the `sync` option
+in the `aws-cli` tool, you will need to ensure that you set a `ListBucket`
+statement as shown below:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Id": "Policy1600725558503",
+    "Statement": [
+        {
+            "Sid": "Stmt000001",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::111111111111:user/StarlightProdData"
+            },
+            "Action": "s3:*",
+            "Resource": "arn:aws:s3:::starlight-backup-test/*"
+        },
+        {
+            "Sid": "Stmt000002",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::111111111111:user/StarlightProdData"
+            },
+            "Action": "s3:ListBucket",
+            "Resource": "arn:aws:s3:::starlight-backup-test"
+        }
+    ]
+}
+```
+
 [starlight]:https://gitlab.com/surfliner/surfliner/-/tree/trunk/starlight
