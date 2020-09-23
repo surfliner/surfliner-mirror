@@ -14,7 +14,7 @@ require "rails_helper"
 # Identifier
 # Publisher
 # Subject
-RSpec.describe "when searching", :clean, type: :system, js: true do
+RSpec.describe "search", :clean, type: :system, js: true do
   let(:item_one)        { "Ednah A. Rich" }
   let(:item_two)        { "Group photograph in front of Anna S. C. Blake Manual Training School" }
   let(:item_three)      { "Miss Anna S.C. Blake" }
@@ -38,7 +38,7 @@ RSpec.describe "when searching", :clean, type: :system, js: true do
     sign_in
   end
 
-  context "when searching specified fields" do
+  context "with specified fields" do
     it "returns the records we expect" do
       expect(Spotlight::Exhibit.count).to eq 0
       visit "/"
