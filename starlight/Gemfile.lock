@@ -193,6 +193,10 @@ GEM
       safe_yaml (~> 1.0.0)
     crass (1.0.6)
     dalli (2.7.10)
+    database_cleaner (1.8.5)
+    database_cleaner-active_record (1.8.0)
+      activerecord
+      database_cleaner (~> 1.8.0)
     declarative (0.0.20)
     declarative-option (0.1.0)
     deprecation (1.0.0)
@@ -599,6 +603,7 @@ DEPENDENCIES
   capybara
   capybara-screenshot
   dalli
+  database_cleaner-active_record
   devise
   devise-guests (~> 0.6)
   devise_invitable

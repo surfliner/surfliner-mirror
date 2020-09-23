@@ -37,6 +37,7 @@ rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
 end
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -47,8 +48,11 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
 
-  # config.before :suite do
-  # end
+  DatabaseCleaner.allow_remote_database_url = true
+  config.before :suite do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
 
   config.before do
     Blacklight.default_index.connection.delete_by_query("*:*", params: { "softCommit" => true })
@@ -56,7 +60,7 @@ RSpec.configure do |config|
   end
 
   config.after do
-    User.destroy_all
+    DatabaseCleaner.clean
   end
 
   # RSpec Rails can automatically mix in different behaviours to your tests
