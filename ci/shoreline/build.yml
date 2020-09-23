@@ -4,4 +4,4 @@ shoreline:discovery:ruby-build:
     - .only-refs-default
     - .only-shoreline-changes
   script:
-    - build_image_for "shoreline/discovery" "shoreline_discovery_app"
+    - build_image_for "shoreline/discovery" "shoreline_discovery_app" "production"

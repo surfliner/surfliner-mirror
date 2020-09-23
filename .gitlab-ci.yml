@@ -19,17 +19,24 @@ include:
 .build_helpers: &build_helpers |
   set -x
   build_image_for() {
-    if test $# -ne 2 ; then
-        echo "You must specify a project path to a Dockerfile and an image name. example: build_image_for 'starlight' 'starlight_web'"
+      if test $# -lt 2 ; then
+        echo "You must specify a project path to a Dockerfile and an image name, and an optional target."
+        echo "example: build_image_for 'starlight' 'starlight_web' 'production'"
       exit 1
     fi
     project=$1
     image_name=$2
+    target=$3
     destination="--destination $CI_REGISTRY_IMAGE/$image_name:$CI_COMMIT_SHA"
     if [ "$CI_COMMIT_BRANCH" = "trunk" ]; then
       destination="$destination --destination $CI_REGISTRY_IMAGE/$image_name:stable"
     fi
-    /kaniko/executor --context "$CI_PROJECT_DIR" --cache=true --dockerfile "$CI_PROJECT_DIR"/"$project"/Dockerfile $destination
+
+    if [ "$target" ]; then
+      /kaniko/executor --context "$CI_PROJECT_DIR" --cache=true --target "$target" --dockerfile "$CI_PROJECT_DIR"/"$project"/Dockerfile $destination
+    else
+      /kaniko/executor --context "$CI_PROJECT_DIR" --cache=true --dockerfile "$CI_PROJECT_DIR"/"$project"/Dockerfile $destination
+    fi
   }
 
 

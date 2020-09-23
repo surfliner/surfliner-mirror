@@ -5,8 +5,8 @@ services:
     build:
       context: ../../
       dockerfile: shoreline/discovery/Dockerfile
-      target: shoreline
-    image: shoreline
+      target: development
+    image: shoreline:development
     env_file:
       - .env
     command:
@@ -30,7 +30,7 @@ services:
      - '3000:3000'
 
   db_migrate:
-    image: shoreline
+    image: shoreline:development
     env_file:
       - .env
     entrypoint: ["sh", "-c"]
