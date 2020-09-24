@@ -43,24 +43,6 @@ COPY ${PROJECTPATH}/discovery ${DOCKERROOT}/discovery/app/
 COPY scripts ${DOCKERROOT}/scripts/
 COPY --from=development /usr/local/bundle /usr/local/bundle
 
-# set env vars to allow assets to compile
-ENV APP_URL=http://localhost
-ENV CONTACT_EMAIL=contact@example.com
-ENV DATABASE_ADAPTER=postgresql
-ENV DELIVERY_METHOD=letter_opener_web
-ENV GEOSERVER_HOST=geoserver
-ENV GEOSERVER_PASSWORD=password
-ENV GEOSERVER_PORT=80
-ENV GEOSERVER_USER=geo-admin
-ENV POSTGRES_DB=shoreline
-ENV POSTGRES_HOST=postgres
-ENV POSTGRES_PASSWORD=password
-ENV POSTGRES_USER=user
-ENV SECRET_KEY_BASE=secret12345
-ENV SOLR_CORE_NAME=collection1
-ENV SOLR_HOST=solr
-ENV SOLR_PORT=8983
-
 RUN bundle config set without 'development test' \
     && bundle clean --force \
     # Remove unneeded files (cached *.gem, *.o, *.c)
@@ -69,7 +51,7 @@ RUN bundle config set without 'development test' \
     && find /usr/local/bundle/ -name "*.o" -delete
 
 RUN apk add --no-cache yarn && \
-    RAILS_ENV=production bundle exec rake assets:precompile && \
+    SECRET_KEY_BASE=secret12345 RAILS_ENV=production bundle exec rake assets:precompile && \
     apk del yarn
 
 RUN rm -rf node_modules tmp/* log/* vendor/dictionary*

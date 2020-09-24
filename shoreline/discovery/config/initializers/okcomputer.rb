@@ -6,15 +6,15 @@ OkComputer.mount_at = 'healthz'
 
 # Setup additional services
 
-solr_url = "http://#{ENV.fetch('SOLR_HOST')}:#{ENV.fetch('SOLR_PORT')}/solr/#{ENV.fetch('SOLR_CORE_NAME')}"
+solr_url = "http://#{ENV.fetch('SOLR_HOST', '')}:#{ENV.fetch('SOLR_PORT', '')}/solr/#{ENV.fetch('SOLR_CORE_NAME', '')}"
 OkComputer::Registry.register 'solr', OkComputer::HttpCheck.new(solr_url)
 
 class GeoServerCheck < OkComputer::Check
   def check
     conn = Geoserver::Publish::Connection.new(
-      'url' => "http://#{ENV.fetch('GEOSERVER_HOST')}:#{ENV.fetch('GEOSERVER_PORT')}/geoserver/rest",
-      'user' => ENV.fetch('GEOSERVER_USER'),
-      'password' => ENV.fetch('GEOSERVER_PASSWORD')
+      'url' => "http://#{ENV.fetch('GEOSERVER_HOST', '')}:#{ENV.fetch('GEOSERVER_PORT', '')}/geoserver/rest",
+      'user' => ENV['GEOSERVER_USER'],
+      'password' => ENV['GEOSERVER_PASSWORD']
     )
 
     if conn.get(path: '/')
