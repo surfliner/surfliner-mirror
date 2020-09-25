@@ -1,4 +1,6 @@
-FROM ruby:2.6.2-alpine as base
+ARG RUBY_VERSION=2.6.2
+FROM ruby:$RUBY_VERSION-alpine as base
+
 ARG PROJECTPATH=shoreline
 ARG DOCKERROOT=/home/${PROJECTPATH}
 ENV PATH="$DOCKERROOT/scripts:$PATH"
