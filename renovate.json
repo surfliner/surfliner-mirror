@@ -7,5 +7,13 @@
     "fileMatch": ["^ci/.*\\.ya?ml$"]
   },
   "bundler": { "enabled": true },
-  "labels": [ "dependencies" ]
+  "labels": [ "dependencies" ],
+  "regexManagers": [
+    {
+      "fileMatch": ["^Dockerfile$"],
+      "matchStrings": ["ARG RUBY_VERSION=(?<currentValue>.*?)\n" ],
+      "depNameTemplate": "ruby",
+      "datasourceTemplate": "docker"
+    }
+  ]
 }
