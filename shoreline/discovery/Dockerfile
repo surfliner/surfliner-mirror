@@ -16,6 +16,9 @@ WORKDIR ${DOCKERROOT}/discovery/app
 COPY ${PROJECTPATH}/discovery/Gemfile* ${DOCKERROOT}/discovery/app/
 COPY gems ${DOCKERROOT}/gems/
 
+CMD ["bundle", "exec", "puma", "-v", "--debug", "-b", "tcp://0.0.0.0:3000"]
+ENTRYPOINT ["bin/docker-entrypoint.sh"]
+
 FROM base as development
 ARG PROJECTPATH=shoreline
 ARG DOCKERROOT=/home/${PROJECTPATH}
@@ -33,9 +36,6 @@ COPY ${PROJECTPATH}/discovery ${DOCKERROOT}/discovery/app/
 COPY scripts ${DOCKERROOT}/scripts/
 
 RUN bundle exec rake assets:precompile
-
-CMD ["bundle", "exec", "puma", "-v", "--debug", "-b", "tcp://0.0.0.0:3000"]
-ENTRYPOINT ["bin/docker-entrypoint.sh"]
 
 FROM base as production
 ARG PROJECTPATH=shoreline
@@ -57,6 +57,3 @@ RUN apk add --no-cache yarn && \
     apk del yarn
 
 RUN rm -rf node_modules tmp/* log/* vendor/dictionary*
-
-CMD ["bundle", "exec", "puma", "-v", "--debug", "-b", "tcp://0.0.0.0:3000"]
-ENTRYPOINT ["bin/docker-entrypoint.sh"]
