@@ -7,5 +7,5 @@
     "fileMatch": ["^ci/.*\\.ya?ml$"]
   },
   "bundler": { "enabled": true },
-  "labels": [ "dependencies" ],
+  "labels": [ "dependencies" ]
 }
