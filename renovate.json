@@ -8,5 +8,4 @@
   },
   "bundler": { "enabled": true },
   "labels": [ "dependencies" ],
-  "ignoreDeps": [ "ruby" ]
 }
