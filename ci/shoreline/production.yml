@@ -7,7 +7,8 @@
     - mv ../../charts/shoreline ./chart
     - mv ../../charts/geoserver ./geoserver
     - deploy
-  when: manual
+  when: delayed
+  start_in: 90 minutes
   needs: ["shoreline:discovery:ruby-build"]
   only:
     refs:
@@ -23,8 +24,6 @@ shoreline:discovery:deploy:prod:ucsb:
   extends:
     - .shoreline:deploy:production
   needs: ["shoreline:discovery:ruby-build", "shoreline:discovery:deploy:ucsb-stage"]
-  when: delayed
-  start_in: 90 minutes
   environment:
     name: ucsb.production.shoreline
     url: http://shoreline.$KUBE_INGRESS_BASE_DOMAIN
