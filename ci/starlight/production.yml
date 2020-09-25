@@ -32,3 +32,19 @@ starlight:deploy:ucsb-production:
       --set starlight.auth.google.api_id=$UCSB_PROD_GOOGLE_ID
       --set starlight.auth.google.api_secret=$UCSB_PROD_GOOGLE_SECRET
       --set starlight.auth.method=google
+
+starlight:deploy:ucsd-production:
+  extends:
+    - .starlight:deploy:production
+  environment:
+    name: ucsd.production.starlight
+    url: https://exhibits.ucsd.edu
+  script:
+    - cd starlight
+    - mv ../charts/starlight ./chart
+    - deploy
+  variables:
+    HELM_ENCODED_VALUES: $UCSD_STARLIGHT_PRODUCTION_VALUES
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --values $HELM_VALUES_FILE
