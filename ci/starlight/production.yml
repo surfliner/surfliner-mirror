@@ -9,7 +9,8 @@
     HELM_RELEASE_NAME: surfliner-starlight-prod
     KUBE_NAMESPACE: starlight-prod
   needs: ["starlight-build"]
-  when: manual
+  when: delayed
+  start_in: 90 minutes
   only:
     refs:
       - trunk
