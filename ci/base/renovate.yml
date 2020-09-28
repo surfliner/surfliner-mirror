@@ -1,0 +1,13 @@
+lint-renovate:
+  extends:
+    - .only-refs-default
+  stage: lint
+  image:
+    name: renovate/renovate:slim
+    entrypoint: [""]
+  script:
+    - renovate-config-validator
+  needs: []
+  only:
+    changes:
+      - renovate.json
