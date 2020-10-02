@@ -91,7 +91,7 @@ While not involved in daily development work, the project also includes these tw
   * etc...
 
 ### Team Meetings
-The current workcycle runs from Wednesday, June 17 to Tuesday, August 11, 2020.  The meetings below are for this time period only.
+The current workcycle runs from Wednesday, October 7 to Tuesday, December 15, 2020.  The meetings below are for this time period only.
 
 #### Project-wide
 **Project Surfliner Daily Standup**<br/> 
