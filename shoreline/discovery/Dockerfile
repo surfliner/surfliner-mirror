@@ -1,3 +1,4 @@
+# renovate: datasource=docker depName=ruby versioning=ruby
 ARG RUBY_VERSION=2.6.2
 FROM ruby:$RUBY_VERSION-alpine as base
 
