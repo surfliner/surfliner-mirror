@@ -14,16 +14,28 @@ services:
       - >
         upload-solr-configs.sh /home/lark/app/solr/config &&
         create-solr-collection.sh &&
-        bin/lark.sh
+        bundle exec puma --debug -b tcp://0.0.0.0:5000
     volumes:
       - .:/home/lark/app
     depends_on:
+      - db_migrate
       - postgres
       - solr
     stdin_open: true
     tty: true
     ports:
      - '5000:5000'
+
+  db_migrate:
+    image: lark
+    env_file:
+      - .env
+    entrypoint: ["sh", "-c"]
+    command: db-setup.sh
+    depends_on:
+      - postgres
+    volumes:
+      - .:/home/lark/app
 
   postgres:
     image: bitnami/postgresql:12.4.0
