@@ -1,6 +1,5 @@
 .shoreline:discovery:test:
   stage: test
-  needs: ["shoreline:discovery:ruby-build"]
   image: $CI_REGISTRY_IMAGE/shoreline_discovery_app:$CI_COMMIT_SHA
   variables:
     DATABASE_COMMAND: "db:schema:load"

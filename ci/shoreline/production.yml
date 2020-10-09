@@ -7,7 +7,6 @@
     - mv ../../charts/shoreline ./chart
     - mv ../../charts/geoserver ./geoserver
     - deploy
-  needs: ["shoreline:discovery:ruby-build"]
   only:
     refs:
       - trunk
@@ -21,7 +20,6 @@
 shoreline:discovery:deploy:prod:ucsb:
   extends:
     - .shoreline:deploy:production
-  needs: ["shoreline:discovery:ruby-build", "shoreline:discovery:deploy:ucsb-stage"]
   environment:
     name: ucsb.production.shoreline
     url: http://shoreline.$KUBE_INGRESS_BASE_DOMAIN
@@ -48,7 +46,6 @@ shoreline:discovery:deploy:prod:ucsb:
 shoreline:discovery:deploy:prod:ucsd:
   extends:
     - .shoreline:deploy:production
-  needs: ["shoreline:discovery:ruby-build", "shoreline:discovery:deploy:ucsd-stage"]
   environment:
     name: ucsd.production.shoreline
     url: http://geodata.ucsd.edu

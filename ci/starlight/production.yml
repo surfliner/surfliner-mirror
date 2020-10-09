@@ -8,7 +8,6 @@
     DEPLOY_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-starlight-prod
     KUBE_NAMESPACE: starlight-prod
-  needs: ["starlight-build"]
   only:
     refs:
       - trunk
@@ -16,7 +15,6 @@
 starlight:deploy:ucsb-production:
   extends:
     - .starlight:deploy:production
-  needs: ["starlight-build", "starlight:deploy:ucsb-stage"]
   script:
     - cd starlight
     - mv ../charts/starlight ./chart
@@ -43,7 +41,6 @@ starlight:deploy:ucsb-production:
 starlight:deploy:ucsd-production:
   extends:
     - .starlight:deploy:production
-  needs: ["starlight-build", "starlight:deploy:ucsd-stage"]
   environment:
     name: ucsd.production.starlight
     url: https://exhibits.ucsd.edu
