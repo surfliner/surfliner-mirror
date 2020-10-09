@@ -37,7 +37,7 @@ module Lark
       def log_change_properties_event(id:, attributes:)
         @event_stream <<
           Event.new(type: :change_properties,
-                    data: { id: id, changes: attributes })
+                    data: { record_id: id, changes: attributes })
         Success(id: id, attributes: attributes)
       end
 

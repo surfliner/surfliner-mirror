@@ -19,7 +19,7 @@ class Event < Valkyrie::Resource
   #   @return [Symbol]
   # @!attribute [rw] date_created
   #   @return [DateTime]
-  attribute :data, Valkyrie::Types::Hash.default({}.freeze)
+  attribute :data, Valkyrie::Types::Anything.default({}.freeze)
   attribute :type, Valkyrie::Types::Symbol
   attribute :date_created, Valkyrie::Types::DateTime
 end

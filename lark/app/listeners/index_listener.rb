@@ -22,7 +22,7 @@ class IndexListener
   #
   # @return [void]
   def on_created(event)
-    indexer.index(data: Concept.new(event.payload))
+    indexer.index(data: Concept.new(id: event.payload[:record_id]))
   end
 
   ##
@@ -31,8 +31,7 @@ class IndexListener
   #
   # @return [void]
   def on_properties_changed(event)
-    resource = indexer.find(event.payload[:id])
-
+    resource = indexer.find(event.payload[:record_id])
     event.payload[:changes].each do |attribute, value|
       resource.set_value(attribute, value)
     end

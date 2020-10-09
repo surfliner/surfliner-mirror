@@ -21,7 +21,7 @@ RSpec.describe Event do
   end
 
   describe '#data' do
-    let(:data) { { id: 'moomin_id', type: :Concept } }
+    let(:data) { { record_id: 'moomin_id', type: :Concept } }
 
     it 'defaults to an empty hash' do
       expect(event.data).to eq({})

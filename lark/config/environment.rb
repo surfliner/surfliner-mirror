@@ -28,6 +28,16 @@ if Lark.config.event_adapter == :sql
     ),
     :sql
   )
+
+  # Register custom queries for event adapter
+  # (see Valkyrie::Persistence::CustomQueryContainer)
+  [FindByEventDataProperty, FindByEventProperty].each do |q|
+    Valkyrie::MetadataAdapter
+      .find(Lark.config.event_adapter)
+      .query_service
+      .custom_queries
+      .register_query_handler(q)
+  end
 end
 
 if Lark.config.index_adapter == :solr
