@@ -31,7 +31,6 @@ data:
   {{- if eq "smtp" .Values.starlight.email.delivery_method }}
   SMTP_AUTHENTICATION: {{ .Values.starlight.email.smtp_settings.authentication }}
   SMTP_HOST: {{ .Values.starlight.email.smtp_settings.address }}
-  SMTP_PASSWORD: {{ .Values.starlight.email.smtp_settings.password }}
   SMTP_PORT: {{ .Values.starlight.email.smtp_settings.port | quote }}
   SMTP_USERNAME: {{ .Values.starlight.email.smtp_settings.user_name }}
   {{- end }}
