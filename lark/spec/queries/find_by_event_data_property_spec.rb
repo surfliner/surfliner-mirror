@@ -11,7 +11,7 @@ RSpec.describe FindByEventDataProperty do
   end
   let(:query_service) { event_adapter.query_service }
   let(:id) { 'a_fake_id' }
-  let(:data) { { record_id: id, pref_label: 'moomin' } }
+  let(:data) { { authority_id: id, pref_label: 'moomin' } }
   let(:event) { Event.new type: :create, data: data }
 
   before do
@@ -27,10 +27,10 @@ RSpec.describe FindByEventDataProperty do
 
   describe '#sql_find_by_event_data_property' do
     it 'can find the authority with value of a property' do
-      result = query.find_by_event_data_property(property: :record_id,
+      result = query.find_by_event_data_property(property: :authority_id,
                                                  value: id)
 
-      expect(result.map { |evn| evn.data[:record_id] }).to include id
+      expect(result.map { |evn| evn.data[:authority_id] }).to include id
     end
 
     it 'has pref_label property' do

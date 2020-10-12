@@ -11,7 +11,7 @@ RSpec.describe FindByEventProperty do
   end
   let(:query_service) { event_adapter.query_service }
   let(:id) { 'a_fake_id' }
-  let(:data) { { record_id: id, pref_label: 'moomin' } }
+  let(:data) { { authority_id: id, pref_label: 'moomin' } }
   let(:event) { Event.new type: :create, data: data }
 
   before do

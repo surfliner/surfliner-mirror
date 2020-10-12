@@ -9,7 +9,7 @@ module Lark
     #   tx = UpdateAuthority.new(event_stream: Lark.config.event_stream,
     #                            adapter:      Lark.config.index_adapter)
     #
-    #   tx.call(attributes: { id: 'record_id', pref_label: 'a label' })
+    #   tx.call(attributes: { id: 'authority_id', pref_label: 'a label' })
     #   # => Success(Concept)
     #
     # @see https://dry-rb.org/gems/dry-transaction/
@@ -37,7 +37,7 @@ module Lark
       def log_change_properties_event(id:, attributes:)
         @event_stream <<
           Event.new(type: :change_properties,
-                    data: { record_id: id, changes: attributes })
+                    data: { authority_id: id, changes: attributes })
         Success(id: id, attributes: attributes)
       end
 
