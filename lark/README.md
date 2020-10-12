@@ -404,6 +404,18 @@ Make sure docker is up and running in development
 docker exec dev_web_1 rake lark:seed
 ```
 
+#### Re-indexing
+
+To re-index a single record with :id
+```
+$ rake reindex[':id']
+```
+
+To re-index all authority records from persisted event data
+```
+$ rake reindex_all
+```
+
 ### Starting Up
 
 Lark is a [Rack][rack] application, and can be deployed with a variety of Ruby
