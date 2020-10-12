@@ -37,6 +37,13 @@ shoreline:discovery:deploy:prod:ucsb:
       --set persistence.downloads.class=gp2
       --set shoreline.email.contact_email=geospatial@library.ucsb.edu
       --set shoreline.theme=ucsb
+      --set starlight.email.delivery_method=smtp
+      --set starlight.email.contact_email=$UCSB_SHORELINE_EMAIL_ADDRESS
+      --set starlight.email.smtp_settings.address=smtp.gmail.com
+      --set starlight.email.smtp_settings.authentication=plain
+      --set starlight.email.smtp_settings.password=$UCSB_SHORELINE_EMAIL_PASSWORD
+      --set starlight.email.smtp_settings.port=587
+      --set starlight.email.smtp_settings.user_name=$UCSB_SHORELINE_EMAIL_ADDRESS
 
 shoreline:discovery:deploy:prod:ucsd:
   extends:
