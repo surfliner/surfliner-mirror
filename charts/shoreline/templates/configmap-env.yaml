@@ -28,7 +28,6 @@ data:
   {{- if eq "smtp" .Values.shoreline.email.delivery_method }}
   SMTP_AUTHENTICATION: {{ .Values.shoreline.email.smtp_settings.authentication }}
   SMTP_HOST: {{ .Values.shoreline.email.smtp_settings.address }}
-  SMTP_PASSWORD: {{ .Values.shoreline.email.smtp_settings.password }}
   SMTP_PORT: {{ .Values.shoreline.email.smtp_settings.port | quote }}
   SMTP_USERNAME: {{ .Values.shoreline.email.smtp_settings.user_name }}
   {{- end }}
