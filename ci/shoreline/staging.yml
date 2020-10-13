@@ -69,13 +69,13 @@ shoreline:discovery:deploy:ucsb-stage:
       --set persistence.downloads.class=gp2
       --set shoreline.sample_data=true
       --set shoreline.theme=ucsb
-      --set starlight.email.delivery_method=smtp
-      --set starlight.email.contact_email=$UCSB_SHORELINE_STAGING_EMAIL_ADDRESS
-      --set starlight.email.smtp_settings.address=smtp.gmail.com
-      --set starlight.email.smtp_settings.authentication=plain
-      --set starlight.email.smtp_settings.password=$UCSB_SHORELINE_STAGING_EMAIL_PASSWORD
-      --set starlight.email.smtp_settings.port=587
-      --set starlight.email.smtp_settings.user_name=$UCSB_SHORELINE_STAGING_EMAIL_ADDRESS
+      --set shoreline.email.delivery_method=smtp
+      --set shoreline.email.contact_email=$UCSB_SHORELINE_STAGING_EMAIL_ADDRESS
+      --set shoreline.email.smtp_settings.address=smtp.gmail.com
+      --set shoreline.email.smtp_settings.authentication=plain
+      --set shoreline.email.smtp_settings.password=$UCSB_SHORELINE_STAGING_EMAIL_PASSWORD
+      --set shoreline.email.smtp_settings.port=587
+      --set shoreline.email.smtp_settings.user_name=$UCSB_SHORELINE_STAGING_EMAIL_ADDRESS
 
 shoreline:discovery:cleanup:ucsb-stage:
   extends:
