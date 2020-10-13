@@ -66,7 +66,7 @@ shoreline:discovery:deploy:ucsb-review:
     - mv ../../charts/shoreline ./chart
     - mv ../../charts/geoserver ./geoserver
     - deploy
-    - run_chart_tests
+    # - run_chart_tests
   environment:
     name: ucsb.review.shoreline
     url: http://shoreline-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
