@@ -15,7 +15,7 @@ lark:deploy:staging:ucsb:
     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE
     DEPLOY_TAG: $CI_COMMIT_SHA # trunk (see only: refs:)
     INGRESS_URL: lark-staging.$KUBE_INGRESS_BASE_DOMAIN
-    HELM_UPGRADE_EXTRA_ARGS: '--set ingress.hosts={lark-staging.$KUBE_INGRESS_BASE_DOMAIN} --set persistence_adapters.index="memory" --set persistence_adapters.event="memory" --set solr.enabled=FALSE --set postgresql.enabled=FALSE'
+    HELM_UPGRADE_EXTRA_ARGS: '--set ingress.hosts={lark-staging.$KUBE_INGRESS_BASE_DOMAIN} --set persistence_adapters.index="memory" --set persistence_adapters.event="memory" --set solr.enabled=FALSE --set postgresql.enabled=FALSE --set lark.import_data=true'
   only:
     refs:
       - trunk
