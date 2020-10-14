@@ -24,6 +24,22 @@ spec:
           image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
+          {{- if .Values.ezid.enabled }}
+            - name: "EZID_ENABLED"
+              value: "true"
+            - name: "EZID_DEFAULT_SHOULDER"
+              value: {{ .Values.ezid.shoulder | quote }}
+            - name: "EZID_USER"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "lark.fullname" . }}
+                  key: ezid-username
+            - name: "EZID_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "lark.fullname" . }}
+                  key: ezid-password
+          {{- end }}
             - name: "INDEX_ADAPTER"
               value: {{ .Values.persistence_adapters.index }}
             - name: "EVENT_ADAPTER"

@@ -30,8 +30,13 @@ module Lark
 
       private
 
-      def mint_id(attributes:, id: SecureRandom.uuid)
+      ##
+      # Mint a unique identifier for authority record
+      def mint_id(attributes:)
+        id = Lark::Minter.mint
         Success(attributes: attributes, id: id)
+      rescue Ezid::Error => e
+        raise Lark::BadRequest, e.message
       end
 
       ##

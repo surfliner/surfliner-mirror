@@ -13,6 +13,12 @@ image:
 nameOverride: ""
 fullnameOverride: ""
 
+ezid:
+  enabled: true
+  shoulder: ark:/99999/fk4
+  username: apitest
+  password: ezid-password
+
 service:
   type: ClusterIP
   port: 80

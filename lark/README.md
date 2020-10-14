@@ -416,6 +416,18 @@ Lark requires to install the following softwares:
 1. [`Solr`][solr] version >= 5.x
 1. [`PostgreSQL`][postgres]
 
+#### Minting ARKs with EZID
+
+By default, Lark will mint identifiers for records using a `SecureRandom.uuid`
+
+If you would like to use an EZID service, you will need to ensure the following
+environment variables are provided to the application.
+
+- `EZID_ENABLED` set to `"true"`
+- `EZID_DEFAULT_SHOULDER` set to your EZID service shoulder. Example: `"ark:/99999/fk4"`
+- `EZID_USER` set to your EZID account username: Example: `"apitest"`
+- `EZID_PASSWORD` set to your EZID account password: Example: `"my-ezid-password"`
+
 #### Gems
 
 To install the Ruby dependencies for the project, do:
