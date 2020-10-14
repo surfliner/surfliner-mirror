@@ -665,8 +665,8 @@
   text-decoration: underline;
 }
 .uv a:focus {
-  outline: thin dotted #333333;
-  outline: 5px auto -webkit-focus-ring-color;
+  outline: auto 2px Highlight;
+  outline: auto 5px -webkit-focus-ring-color;
   outline-offset: -2px;
 }
 .uv img {
@@ -731,8 +731,8 @@
   user-select: none;
 }
 .uv .btn:focus {
-  outline: thin dotted #333333;
-  outline: 5px auto -webkit-focus-ring-color;
+  outline: auto 2px Highlight;
+  outline: auto 5px -webkit-focus-ring-color;
   outline-offset: -2px;
 }
 .uv .btn:hover,
@@ -1106,7 +1106,6 @@ input[type=range]:focus::-webkit-slider-runnable-track {
 }
 /* Firefox */
 input[type=range] {
-  /* fix for FF unable to apply focus style bug  */
   /*required for proper track sizing in FF*/
   width: 300px;
 }
@@ -1379,6 +1378,13 @@ input[type=range]:focus::-ms-fill-upper {
 }
 .uv .headerPanel button.imageBtn {
   float: left;
+  font: 0/0 a;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+  line-height: 0;
+  font-size: 0;
+  color: transparent;
 }
 .uv .headerPanel button.imageBtn i {
   height: 30px;
@@ -1619,8 +1625,8 @@ input[type=range]:focus::-ms-fill-upper {
   opacity: .75;
 }
 .uv .centerPanel .content .attribution .header .close:focus {
-  outline: thin dotted #ffffff;
-  outline: 5px auto -webkit-focus-ring-color;
+  outline: auto 2px #ffffff;
+  outline: auto 5px -webkit-focus-ring-color;
   outline-offset: -2px;
 }
 .uv .centerPanel .content .attribution .main {
@@ -1834,6 +1840,35 @@ input[type=range]:focus::-ms-fill-upper {
   width: 0px;
   border: none;
 }
+.iiif-av-component .hover-preview {
+  position: absolute;
+}
+.iiif-av-component .hover-preview .label {
+  background: rgba(66, 66, 66, 0.85);
+  height: 18px;
+  padding: 5px;
+  color: #fff;
+}
+.iiif-av-component .hover-preview .pointer {
+  height: 6px;
+  position: relative;
+}
+.iiif-av-component .hover-preview .pointer .arrow {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  border-top: 6px solid rgba(66, 66, 66, 0.85);
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+}
+.iiif-av-component .hover-highlight {
+  position: absolute;
+  background: #e2e2e2;
+  height: 20px;
+}
+.iiif-av-component .canvas-timeline-container {
+  border-radius: 0;
+}
 .iiif-av-component .canvas-timeline-container .duration-highlight {
   position: absolute;
   background: chartreuse;
@@ -1862,11 +1897,9 @@ input[type=range]:focus::-ms-fill-upper {
   background: #333;
 }
 .iiif-av-component .ui-slider-range {
-  background: #888888;
+  background: rgba(66, 66, 66, 0.5);
   box-sizing: border-box;
-  border-right: 2px solid #000000;
-  opacity: 0.6;
-  filter: alpha(opacity=60);
+  border-radius: 0;
 }
 .iiif-av-component .ui-slider-handle {
   top: 0px;
@@ -1879,15 +1912,6 @@ input[type=range]:focus::-ms-fill-upper {
 }
 .iiif-av-component .ui-slider-handle:focus {
   outline: none;
-}
-.iiif-av-component .ui-slider-handle:after {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  content: "";
-  border-top: 12px solid #000000;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
 }
 .iiif-av-component .controls-container {
   margin-top: 10px;
@@ -1905,6 +1929,7 @@ input[type=range]:focus::-ms-fill-upper {
   width: 100px;
 }
 .iiif-av-component .btn {
+  font-size: 0;
   background: 0 0;
   border: 0;
 }

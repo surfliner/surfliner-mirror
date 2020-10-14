@@ -21,6 +21,6 @@
   },
   "homepage": "https://gitlab.com/surfliner/surfliner/blob/master/starlight/README.md",
   "dependencies": {
-    "universalviewer": "^3.0.16"
+    "universalviewer": "3.0.22"
   }
 }
