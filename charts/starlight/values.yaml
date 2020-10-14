@@ -39,6 +39,7 @@ starlight:
     max_threads: 5
     queue: sidekiq
     serve_static_files: true
+  sample_data: false
   sitemaps:
     enabled: true
   solr:

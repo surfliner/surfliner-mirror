@@ -64,9 +64,9 @@ starlight:deploy:ucsb-review:
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
       --set ingress.hosts={starlight-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN}
+      --set memcached.architecture=standalone
       --set persistence.enabled=false
       --set postgresql.persistence.enabled=false
-      --set memcached.architecture=standalone
       --set redis.cluster.enabled=false
       --set redis.master.persistence.enabled=false
       --set solr.persistence.enabled=false
@@ -74,6 +74,7 @@ starlight:deploy:ucsb-review:
       --set solr.zookeeper.persistence.enabled=false
       --set solr.zookeeper.replicaCount=2
       --set starlight.auth.method=developer
+      --set starlight.sample_data=true
       --set starlight.sitemaps.enabled=false
 
 starlight:cleanup:ucsb-review:
