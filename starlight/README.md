@@ -81,7 +81,7 @@ To add a custom theme to your Starlight installation, follow these steps:
 We are currently vendoring Universal Viewer and providing a symlink to the
 `public/uv` directory to support cache invalidation when we update to a new
 version. In order to update Universal Viewer to a newer version:
-1. Update with yarn if you haven't already: `yarn install`
+1. Update with yarn if you haven't already: `yarn upgrade`
 1. Update the vendored uv: `bin/uv-update`
 1. Run tests to confirm things are still working
 1. Commit and push your changes

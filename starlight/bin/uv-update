@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # Update from Universal Viewer repo, fingerprint the directory, and symlink the thumbprinted directory into place
-uv_src="./node_modules/universalviewer/uv/."
-uv_dest="./public/uv"
+uv_src="node_modules/universalviewer/uv"
+uv_dest="public/uv"
 echo "Copying over build uv"
-cp -r "$uv_src" "$uv_dest"
+rm -rf "$uv_dest" && cp -pr "$uv_src" "$uv_dest"
 
 # UV is deployed outside the asset pipeline
 # (see https://github.com/UniversalViewer/universalviewer/issues/481)
@@ -13,18 +13,21 @@ cp -r "$uv_src" "$uv_dest"
 # thumbprint for the UV assets ourselves and adding a symlink to the uv directory
 # from a unique path.
 echo "Calculating an MD5 thumbprint for the UV assets"
-md5_thumprint=''
+md5_thumbprint=''
 case "$(uname -s)" in
   Darwin)
-    md5_thumprint=$(tar cf - public/uv | md5 | tee "$uv_dest/.md5")
+    md5_thumbprint=$(tar cf - public/uv | md5)
     ;;
   Linux)
-    md5_thumprint=$(tar cf - public/uv | md5sum | cut -d ' ' -f1 | tee "$uv_dest/.md5")
+    md5_thumbprint=$(tar cf - public/uv | md5sum | cut -d ' ' -f1)
     ;;
   *)
-    echo "unsupport OS detected for calcuating MD5 thumbprint"
+    echo "unsupported OS detected for calcuating MD5 thumbprint"
+    exit 1
     ;;
 esac
+echo "$md5_thumbprint" > "$uv_dest/.md5"
 
 echo "Adding a symlink for the thumbprinted directory"
-ln -s ./uv "$uv_dest-$md5_thumprint"
+rm $uv_dest-*
+ln -s uv "$uv_dest-$md5_thumbprint"
