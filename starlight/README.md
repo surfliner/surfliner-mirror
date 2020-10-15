@@ -124,8 +124,8 @@ You can use the [sample rake file](lib/tasks/sample.rake) to load a sample
 exhibit and generate an administrative user.
 
 ```
-docker-compose -f docker/dev/docker-compose.yml exec web bundle exec rake starlight:seed_admin_user
-docker-compose -f docker/dev/docker-compose.yml exec web bundle exec rake starlight:sample:seed_exhibit
+docker-compose exec web bundle exec rake starlight:seed_admin_user
+docker-compose exec web bundle exec rake starlight:sample:seed_exhibit
 ```
 
 ### Set up a local admin account
