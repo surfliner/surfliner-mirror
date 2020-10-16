@@ -23,6 +23,7 @@ module Lark
   setting :database
   setting :event_adapter, :sql
   setting :index_adapter, :solr
+  setting :minter,        Lark::Minter
   setting :event_stream,  EventStream.instance
 
   ##

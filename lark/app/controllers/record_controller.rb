@@ -31,7 +31,6 @@ class RecordController < ApplicationController
                .new(event_stream: event_stream)
                .call(attributes: parsed_body(format: ctype))
                .value!
-
       [201, response_headers, [serialize(record: record, format: ctype)]]
     end
   end

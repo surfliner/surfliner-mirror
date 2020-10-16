@@ -9,6 +9,7 @@ Bundler.require
 
 Lark.config.event_adapter = ENV['EVENT_ADAPTER'].to_sym
 Lark.config.index_adapter = ENV['INDEX_ADAPTER'].to_sym
+Lark.config.minter = Lark::Minter.for(ENV.fetch('MINTER', :uuid).to_sym)
 
 Valkyrie::MetadataAdapter.register(
   Valkyrie::Persistence::Memory::MetadataAdapter.new,

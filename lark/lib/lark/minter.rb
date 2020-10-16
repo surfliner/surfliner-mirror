@@ -7,18 +7,42 @@ module Lark
   # This service is responsible for creating unique identifier for an Authority record
   #
   # @example
-  #   minter = Minter.mint
+  #   minter = Minter.new
+  #   minter.mint
   #
   class Minter
     ##
-    # @raise [Ezid::Error]
-    # @return [String]
-    def self.mint
-      if ENV.fetch('EZID_ENABLED', '').eql? 'true'
-        Ezid::Identifier.mint.to_s
+    # Minter factory
+    #
+    # @param [Symbol] a minter type
+    # @return [#mint]
+    def self.for(type)
+      case type
+      when :ezid
+        EzidMinter.new
+      when :uuid
+        new
       else
-        SecureRandom.uuid
+        raise ArgumentError, "Unknown minter/id type: #{type}"
       end
+    end
+
+    ##
+    # @return [String]
+    # @raise [Ezid::Error]
+    def mint
+      SecureRandom.uuid
+    end
+  end
+
+  ##
+  # A minter that hits the EZID API
+  class EzidMinter
+    ##
+    # @return [String]
+    # @raise [Ezid::Error]
+    def mint
+      Ezid::Identifier.mint.to_s
     end
   end
 end

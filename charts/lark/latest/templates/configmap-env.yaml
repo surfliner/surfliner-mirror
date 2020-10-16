@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 data:
   {{- if .Values.ezid.enabled }}
-  EZID_ENABLED: "true"
+  MINTER: "ezid"
   EZID_DEFAULT_SHOULDER: {{ .Values.ezid.shoulder | quote }}
   {{- end }}
   INDEX_ADAPTER: {{ .Values.persistence_adapters.index }}

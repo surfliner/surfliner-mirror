@@ -18,8 +18,9 @@ module Lark
 
       ##
       # @param event_stream [#<<]
-      def initialize(event_stream:, **_opts)
+      def initialize(event_stream:, minter: Lark.config.minter, **_opts)
         @event_stream = event_stream
+        @minter = minter
         super
       end
 
@@ -33,7 +34,7 @@ module Lark
       ##
       # Mint a unique identifier for authority record
       def mint_id(attributes:)
-        id = Lark::Minter.mint
+        id = @minter.mint
         Success(attributes: attributes, id: id)
       rescue Ezid::Error => e
         raise Lark::BadRequest, e.message
