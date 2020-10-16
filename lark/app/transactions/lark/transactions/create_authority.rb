@@ -36,7 +36,7 @@ module Lark
       def mint_id(attributes:)
         id = @minter.mint
         Success(attributes: attributes, id: id)
-      rescue Ezid::Error => e
+      rescue Lark::Minter::MinterError => e
         raise Lark::BadRequest, e.message
       end
 

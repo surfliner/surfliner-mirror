@@ -44,5 +44,16 @@ RSpec.describe Lark::EzidMinter do
     it 'returns an ark from ezid' do
       expect(minter.mint).to be ark
     end
+
+
+    context 'when it cannot reach ezid' do
+      before do
+        allow(client).to receive(:mint_identifier).and_raise(Ezid::Error)
+      end
+
+      it 'raises a MinterError' do
+        expect { minter.mint }.to raise_error Lark::Minter::MinterError
+      end
+    end
   end
 end

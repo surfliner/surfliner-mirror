@@ -33,6 +33,8 @@ module Lark
     def mint
       SecureRandom.uuid
     end
+
+    class MinterError < RuntimeError; end
   end
 
   ##
@@ -43,6 +45,8 @@ module Lark
     # @raise [Ezid::Error]
     def mint
       Ezid::Identifier.mint.to_s
+    rescue Ezid::Error => e
+      raise Minter::MinterError, e.message
     end
   end
 end
