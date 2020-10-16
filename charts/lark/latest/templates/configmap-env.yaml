@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "lark.fullname" . }}-env
+  labels:
+    app.kubernetes.io/name: {{ include "lark.name" . }}
+    helm.sh/chart: {{ include "lark.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+data:
+  {{- if .Values.ezid.enabled }}
+  EZID_ENABLED: "true"
+  EZID_DEFAULT_SHOULDER: {{ .Values.ezid.shoulder | quote }}
+  {{- end }}
+  INDEX_ADAPTER: {{ .Values.persistence_adapters.index }}
+  EVENT_ADAPTER: {{ .Values.persistence_adapters.event }}
+  POSTGRES_DB: {{ .Values.postgresql.postgresqlDatabase }}
+  POSTGRES_HOST: {{ template "lark.postgresql.fullname" . }}
+  POSTGRES_PORT: {{ .Values.postgresql.servicePort | quote }}

@@ -23,43 +23,11 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          env:
-          {{- if .Values.ezid.enabled }}
-            - name: "EZID_ENABLED"
-              value: "true"
-            - name: "EZID_DEFAULT_SHOULDER"
-              value: {{ .Values.ezid.shoulder | quote }}
-            - name: "EZID_USER"
-              valueFrom:
-                secretKeyRef:
-                  name: {{ template "lark.fullname" . }}
-                  key: ezid-username
-            - name: "EZID_PASSWORD"
-              valueFrom:
-                secretKeyRef:
-                  name: {{ template "lark.fullname" . }}
-                  key: ezid-password
-          {{- end }}
-            - name: "INDEX_ADAPTER"
-              value: {{ .Values.persistence_adapters.index }}
-            - name: "EVENT_ADAPTER"
-              value: {{ .Values.persistence_adapters.event }}
-            - name: "POSTGRES_DB"
-              value: {{ .Values.postgresql.postgresqlDatabase }}
-            - name: "POSTGRES_HOST"
-              value: {{ template "lark.postgresql.fullname" . }}
-            - name: "POSTGRES_PORT"
-              value: {{ .Values.postgresql.servicePort | quote }}
-            - name: "POSTGRES_USER"
-              valueFrom:
-                secretKeyRef:
-                  name: {{ template "lark.fullname" . }}
-                  key: db-username
-            - name: "POSTGRES_PASSWORD"
-              valueFrom:
-                secretKeyRef:
-                  name: {{ template "lark.fullname" . }}
-                  key: db-password
+          envFrom:
+            - configMapRef:
+                name: {{ include "lark.fullname" . }}-env
+            - secretRef:
+                name: {{ template "lark.fullname" . }}
           ports:
             - name: http
               containerPort: 5000
