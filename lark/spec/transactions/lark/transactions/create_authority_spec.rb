@@ -19,5 +19,35 @@ RSpec.describe Lark::Transactions::CreateAuthority do
       expect(transaction.call(attributes: {}).value!)
         .to have_attributes(id: an_instance_of(Valkyrie::ID))
     end
+
+    context 'when the minter fails' do
+      subject(:transaction) do
+        described_class
+          .new(event_stream: :FAKE_EVENT_STREAM, minter: FailureMinter.new)
+      end
+
+      RSpec::Matchers.define :be_a_transaction_failure do |expected|
+        match do |actual|
+          actual.failure? &&
+            (@reason && actual.failure[:reason] == @reason) &&
+            (@message && actual.failure[:message] == @message)
+        end
+
+        chain :with_reason do |reason|
+          @reason = reason
+        end
+
+        chain :and_message do |message|
+          @message = message
+        end
+      end
+
+      it 'gives a failure result' do
+        expect(transaction.call(attributes: {}))
+          .to be_a_transaction_failure
+          .with_reason(:minter_failed)
+          .and_message('i always fail :(')
+      end
+    end
   end
 end

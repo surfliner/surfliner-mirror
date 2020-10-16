@@ -45,6 +45,16 @@ RSpec.describe RecordController do
         expect(controller.create.first).to eq 415
       end
     end
+
+    context 'when the minter fails' do
+      before do
+        allow(Lark.config).to receive(:minter).and_return(FailureMinter.new)
+      end
+
+      it 'gives a 500 status' do
+        expect(controller.create.first).to eq 500
+      end
+    end
   end
 
   describe '#update' do

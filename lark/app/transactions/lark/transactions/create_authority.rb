@@ -37,7 +37,7 @@ module Lark
         id = @minter.mint
         Success(attributes: attributes, id: id)
       rescue Lark::Minter::MinterError => e
-        raise Lark::BadRequest, e.message
+        Failure(reason: :minter_failed, message: e.message)
       end
 
       ##
