@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require_relative '../../../../config/environment'
 
 RSpec.describe Lark::Transactions::CreateAuthority do
   subject(:transaction) { described_class.new(event_stream: event_stream) }

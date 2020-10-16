@@ -7,6 +7,7 @@ require 'yaml'
 require_relative 'lark/version'
 require_relative 'lark/event_stream'
 require_relative 'lark/indexer'
+require_relative 'lark/minter'
 require_relative 'lark/record_parser'
 require_relative 'lark/record_serializer'
 
