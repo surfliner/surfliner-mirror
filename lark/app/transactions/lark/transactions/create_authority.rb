@@ -50,8 +50,13 @@ module Lark
           Event.new(type: :change_properties,
                     data: { id: id, changes: attributes })
         Success(id: id, attributes: attributes)
-      rescue StandardError => e
-        raise Lark::BadRequest, e.message
+      rescue KeyError => e
+        # @todo this is a refinement of original coarse behavior rescuing
+        # StandardError. our postgres driven event stream raises KeyError when
+        # a bad attribute is passed. this transaction should probably validate
+        # first and make this code dead; the current behavior probably leaves
+        # half-created objects around.
+        Failure(reason: :unknown_attribute, message: e.message)
       end
 
       def log_create_event(attributes:, id:)

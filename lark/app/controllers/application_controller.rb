@@ -36,4 +36,22 @@ class ApplicationController
   def cors_allow_header
     { 'Access-Control-Allow-Origin' => '*' }
   end
+
+  ##
+  # Raise an appropriate error for transaction a failure
+  #
+  # @param [Dry::Monads::Result::Failure] a hash-like object with a `:reason`
+  #
+  # @return [void] this method should never return; it should always raise
+  # @raise [Lark::RequestError]
+  def raise_error_for(failure)
+    case failure[:reason]
+    when :minter_failed
+      raise Lark::RequestError, failure[:message]
+    when :unknown_attribute
+      raise Lark::BadRequest, failure[:message]
+    else
+      raise Lark::RequestError, "Unknown Error: #{failure[:message]}"
+    end
+  end
 end

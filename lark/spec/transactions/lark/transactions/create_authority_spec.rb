@@ -20,26 +20,29 @@ RSpec.describe Lark::Transactions::CreateAuthority do
         .to have_attributes(id: an_instance_of(Valkyrie::ID))
     end
 
+    context 'when the event stream raises a KeyError' do
+      let(:event_stream) { fail_stream.new }
+
+      let(:fail_stream) do
+        Class.new do
+          def <<(event)
+            raise(KeyError, 'bad attribute!') if
+              event.type == :change_properties
+          end
+        end
+      end
+
+      it 'gives a failure result' do
+        expect(transaction.call(attributes: { oh_no: 'bad attribute'}))
+          .to be_a_transaction_failure
+          .with_reason(:unknown_attribute)
+      end
+    end
+
     context 'when the minter fails' do
       subject(:transaction) do
         described_class
           .new(event_stream: :FAKE_EVENT_STREAM, minter: FailureMinter.new)
-      end
-
-      RSpec::Matchers.define :be_a_transaction_failure do |expected|
-        match do |actual|
-          actual.failure? &&
-            (@reason && actual.failure[:reason] == @reason) &&
-            (@message && actual.failure[:message] == @message)
-        end
-
-        chain :with_reason do |reason|
-          @reason = reason
-        end
-
-        chain :and_message do |message|
-          @message = message
-        end
       end
 
       it 'gives a failure result' do
