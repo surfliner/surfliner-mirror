@@ -20,6 +20,14 @@ RSpec.describe Lark::Transactions::CreateAuthority do
         .to have_attributes(id: an_instance_of(Valkyrie::ID))
     end
 
+    context 'with invalid attributes' do
+      it 'gives a failure result' do
+        expect(transaction.call(attributes: { oh_no: 'bad attribute'}))
+          .to be_a_transaction_failure
+          .with_reason(:invalid_attributes)
+      end
+    end
+
     context 'when the event stream raises a KeyError' do
       let(:event_stream) { fail_stream.new }
 
@@ -33,9 +41,9 @@ RSpec.describe Lark::Transactions::CreateAuthority do
       end
 
       it 'gives a failure result' do
-        expect(transaction.call(attributes: { oh_no: 'bad attribute'}))
+        expect(transaction.call(attributes: { pref_label: 'blah' }))
           .to be_a_transaction_failure
-          .with_reason(:invalid_attributes)
+          .with_reason(:unknown_attribute)
       end
     end
 
