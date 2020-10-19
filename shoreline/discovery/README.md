@@ -37,7 +37,7 @@ To setup a development environment:
 
 For running tests:
 ```
-docker-compose exec app bundle exec rspec
+docker-compose exec web bundle exec rspec
 ```
 
 See the [`docker-compose` CLI
