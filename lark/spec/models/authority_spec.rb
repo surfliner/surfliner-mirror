@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'valkyrie'
 require 'valkyrie/specs/shared_specs'
 
 require_relative '../../app/models/authority'

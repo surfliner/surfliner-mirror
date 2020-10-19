@@ -7,11 +7,11 @@ class Authority < Valkyrie::Resource
 
   class << self
     def define_schema(config)
-      config.each do |de|
-        term = de.keys.first
+      config.each do |definition|
+        term = definition.keys.first
 
         attribute term.underscore.to_sym,
-                  type_for(range: de[term]['range']['uri'])
+                  type_for(range: definition[term]['range']['uri'])
       end
 
       attribute :scheme, Valkyrie::Types::Strict::String.default(self::SCHEMA)
