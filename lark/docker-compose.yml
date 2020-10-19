@@ -1,9 +1,11 @@
-version: '3.5'
+version: '3.7'
 services:
   web:
     build:
       dockerfile: lark/Dockerfile
       context: ..
+      target: lark
+    image: lark
     env_file:
       - .env
     command:

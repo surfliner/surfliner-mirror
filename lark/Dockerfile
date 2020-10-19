@@ -1,6 +1,6 @@
 # renovate: datasource=docker depName=ruby versioning=ruby
 ARG RUBY_VERSION=2.7.2
-FROM ruby:$RUBY_VERSION-alpine
+FROM ruby:$RUBY_VERSION-alpine as lark
 
 ARG PROJECTPATH=lark
 ARG DOCKERROOT=/home/${PROJECTPATH}
