@@ -17,7 +17,7 @@ RSpec.describe RecordController do
                     env: headers)
   end
 
-  let(:body) { StringIO.new('{}') }
+  let(:body) { StringIO.new('{ "pref_label": "moomin"}') }
 
   describe '#create' do
     subject(:controller) { described_class.new(request: request) }

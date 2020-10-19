@@ -18,7 +18,7 @@ RSpec.describe 'POST /' do
 
   context 'when posting JSON' do
     let(:ctype)         { 'application/json' }
-    let(:data)          { { pref_label: 'moomin' }.to_json }
+    let(:data)          { { pref_label: 'moomin', note: 'a note' }.to_json }
     let(:query_service) { adapter.query_service }
 
     before { post '/', data, 'CONTENT_TYPE' => ctype }

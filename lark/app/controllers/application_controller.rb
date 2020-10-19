@@ -48,7 +48,7 @@ class ApplicationController
     case failure[:reason]
     when :minter_failed
       raise Lark::RequestError, failure[:message]
-    when :unknown_attribute
+    when :invalid_attributes, :unknown_attribute
       raise Lark::BadRequest, failure[:message]
     else
       raise Lark::RequestError, "Unknown Error: #{failure[:message]}"
