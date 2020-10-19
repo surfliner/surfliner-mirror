@@ -49,6 +49,23 @@ RSpec.describe 'POST /' do
     end
   end
 
+  context 'when posting unexpected attributes' do
+    let(:ctype) { 'application/json' }
+    let(:data)  { [{ made_up_attribute: 'moomin' }].to_json }
+
+    it 'responds with a 400 status code' do
+      post '/', data, 'CONTENT_TYPE' => ctype
+      expect(last_response.status).to eq 400
+    end
+
+    it 'does not create an object' do
+      expect { adapter.query_service.find_all.count }
+        .not_to change { adapter.query_service.find_all.count }
+        .from(0)
+    end
+  end
+
+
   context 'when posting unknown formats' do
     let(:ctype) { 'application/fake' }
     let(:data)  { '' }

@@ -10,13 +10,13 @@ RSpec.describe Lark::Transactions::CreateAuthority do
 
   describe '#call' do
     it 'adds :create to the event stream' do
-      expect { transaction.call(attributes: {}) }
+      expect { transaction.call(attributes: {pref_label: "pref label"}) }
         .to change { event_stream }
         .to include have_attributes(type: :create)
     end
 
     it 'returns an authority with an id' do
-      expect(transaction.call(attributes: {}).value!)
+      expect(transaction.call(attributes: {pref_label: "pref label"}).value!)
         .to have_attributes(id: an_instance_of(Valkyrie::ID))
     end
 
@@ -35,7 +35,7 @@ RSpec.describe Lark::Transactions::CreateAuthority do
       it 'gives a failure result' do
         expect(transaction.call(attributes: { oh_no: 'bad attribute'}))
           .to be_a_transaction_failure
-          .with_reason(:unknown_attribute)
+          .with_reason(:invalid_attributes)
       end
     end
 
@@ -46,7 +46,7 @@ RSpec.describe Lark::Transactions::CreateAuthority do
       end
 
       it 'gives a failure result' do
-        expect(transaction.call(attributes: {}))
+        expect(transaction.call(attributes: {pref_label: "pref label"}))
           .to be_a_transaction_failure
           .with_reason(:minter_failed)
           .and_message('i always fail :(')

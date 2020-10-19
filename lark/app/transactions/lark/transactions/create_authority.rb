@@ -1,7 +1,15 @@
 # frozen_string_literal: true
 
+require 'dry/validation'
+Dry::Validation.load_extensions(:monads)
+
 module Lark
   module Transactions
+    class AuthorityContract < Dry::Validation::Contract
+      params do
+        required(:pref_label).filled(:string)
+      end
+    end
     ##
     # A business transaction handling creation of authorities.
     #
@@ -24,12 +32,22 @@ module Lark
         super
       end
 
+      step :validate_change_properties
       step :mint_id
       step :log_create_event
       step :log_change_properties_event
       step :build_authority
 
       private
+
+      def validate_change_properties(attributes:)
+        result = AuthorityContract.new.call(attributes).to_monad
+        if result.failure?
+          Failure(reason: :invalid_attributes, message: result.failure)
+        else
+          Success(attributes: attributes)
+        end
+      end
 
       ##
       # Mint a unique identifier for authority record
