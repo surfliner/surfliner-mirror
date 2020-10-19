@@ -2,6 +2,7 @@
 
 require 'spec_helper'
 require_relative '../../config/environment'
+require 'rack/test'
 
 RSpec.describe BatchController do
   let(:adapter) do
