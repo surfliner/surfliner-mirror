@@ -1,15 +1,7 @@
 # frozen_string_literal: true
 
-require 'dry/validation'
-Dry::Validation.load_extensions(:monads)
-
 module Lark
   module Transactions
-    class AuthorityContract < Dry::Validation::Contract
-      params do
-        required(:pref_label).filled(:string)
-      end
-    end
     ##
     # A business transaction handling creation of authorities.
     #

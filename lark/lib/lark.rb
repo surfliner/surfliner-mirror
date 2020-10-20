@@ -2,6 +2,7 @@
 
 require 'dry/configurable'
 require 'dry/system/container'
+require 'dry/validation'
 require 'yaml'
 
 require_relative 'lark/version'
@@ -10,6 +11,8 @@ require_relative 'lark/indexer'
 require_relative 'lark/minter'
 require_relative 'lark/record_parser'
 require_relative 'lark/record_serializer'
+
+Dry::Validation.load_extensions(:monads)
 
 ##
 # The top-level module for the Lark project.
