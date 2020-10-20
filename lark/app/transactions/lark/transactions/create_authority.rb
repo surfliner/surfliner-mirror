@@ -33,12 +33,11 @@ module Lark
       private
 
       def validate_change_properties(attributes:)
-        result = AuthorityContract.new.call(attributes).to_monad
-        if result.failure?
-          Failure(reason: :invalid_attributes, message: result.failure)
-        else
-          Success(attributes: attributes)
-        end
+        result = AuthorityContract.new.call(attributes)
+
+        return Success(attributes: attributes) if result.success?
+
+        Failure(reason: :invalid_attributes, message: result)
       end
 
       ##

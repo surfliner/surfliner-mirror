@@ -12,8 +12,6 @@ require_relative 'lark/minter'
 require_relative 'lark/record_parser'
 require_relative 'lark/record_serializer'
 
-Dry::Validation.load_extensions(:monads)
-
 ##
 # The top-level module for the Lark project.
 #
