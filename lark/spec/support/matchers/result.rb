@@ -42,3 +42,14 @@ RSpec::Matchers.define :be_a_transaction_failure do |expected|
     @message = message
   end
 end
+
+RSpec::Matchers.define :be_a_transaction_success do |expected|
+  match do |actual|
+    actual.success? &&
+      (@object.nil? || @object.matches?(actual.value!))
+  end
+
+  chain :with_object do |o|
+    @object = o
+  end
+end

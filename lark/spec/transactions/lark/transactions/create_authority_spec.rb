@@ -20,6 +20,23 @@ RSpec.describe Lark::Transactions::CreateAuthority do
         .to have_attributes(id: an_instance_of(Valkyrie::ID))
     end
 
+    context 'with multiple valid attributes' do
+      let(:attributes) do
+        { pref_label: 'label',
+          note: ['a note'],
+          annotation: ['administrative note'] }
+      end
+
+      # todo: should this yeild a single valued pref_label?
+      it 'returns an object with the attributes' do
+        expect(transaction.call(attributes: attributes))
+          .to be_a_transaction_success
+          .with_object(have_attributes(pref_label: ['label'],
+                                       note: ['a note'],
+                                       annotation: ['administrative note']))
+      end
+    end
+
     context 'with invalid attributes' do
       it 'gives a failure result' do
         expect(transaction.call(attributes: { oh_no: 'bad attribute'}))
