@@ -16,7 +16,5 @@ require_relative 'authority'
 class Agent < Authority
   SCHEMA = 'http://www.w3.org/2004/02/skos/core#ConceptScheme'
 
-  define_schema(
-    YAML.load_file(File.expand_path('../../model/agents.yml', __dir__))
-  )
+  define_schema :agent
 end
