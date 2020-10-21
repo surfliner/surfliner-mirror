@@ -13,7 +13,7 @@ require_relative 'authority'
 #   adapter.query_service.find_by(id: 'my_id') # => <#Agent ...>
 #   adapter.persister.delete(resource: agent)
 #
-class Agent < Authority
+class Agent < Valkyrie::Resource
   SCHEMA = 'http://www.w3.org/2004/02/skos/core#ConceptScheme'
 
   include Lark::Schema(:agent)
