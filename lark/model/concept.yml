@@ -79,21 +79,21 @@
       predicate : "http://www.w3.org/2008/05/skos-xl#literalForm"
       range:
         uri: "rdfs:Literal"
-      cardinality: 1
+      cardinality: "0..1" # this should be a label property
 
   - "label_source":
       definition: "Reference to the external source of the label.  Used to select display label (\"We always want the FAST label, if there is one\") and automatically update label from source vocabulary"
       predicate : "lark:label_source"
       range:
         uri: "xsd:anyURI"
-      cardinality: "0..1"
+      cardinality: "0..1" # this should be a label property
 
   - "campus":
       definition: "Used to indicate campus preference for display label "
       predicate : "lark:campus"
       range:
         uri: "xsd:anyURI"
-      cardinality: "0..*"
+      cardinality: "0..*" # this should be a label property
 
      #This could be either a URI or a controlled value list --> whatever is easier to implement
 

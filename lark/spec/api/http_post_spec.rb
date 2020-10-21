@@ -51,7 +51,7 @@ RSpec.describe 'POST /' do
 
   context 'when posting unexpected attributes' do
     let(:ctype) { 'application/json' }
-    let(:data)  { [{ made_up_attribute: 'moomin' }].to_json }
+    let(:data)  { { made_up_attribute: 'moomin' }.to_json }
 
     it 'responds with a 400 status code' do
       post '/', data, 'CONTENT_TYPE' => ctype
@@ -64,7 +64,6 @@ RSpec.describe 'POST /' do
         .from(0)
     end
   end
-
 
   context 'when posting unknown formats' do
     let(:ctype) { 'application/fake' }
@@ -197,7 +196,7 @@ RSpec.describe 'POST /' do
       expect(last_response.status).to eq 201 # created
     end
 
-    it 'creates three concept' do
+    it 'creates three concepts' do
       expect { post '/batch_import', data, 'CONTENT_TYPE' => ctype }
         .to change { query_service.find_all_of_model(model: Concept).count }
         .by 3
