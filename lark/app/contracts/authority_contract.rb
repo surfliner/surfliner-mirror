@@ -7,14 +7,9 @@ class AuthorityContract < Dry::Validation::Contract
 
   schema { optional(:scheme) }
 
-  def self.[](schema_name_or_config)
+  def self.[](schema_name)
     schema_config =
-      case schema_name_or_config
-      when Symbol
-        YAML.load_file(File.expand_path("../../model/#{schema_name_or_config}.yml", __dir__))
-      else
-        schema_name_or_config
-      end
+      YAML.load_file(File.expand_path("../../model/#{schema_name}.yml", __dir__))
 
     Class.new(self) do
       schema do
