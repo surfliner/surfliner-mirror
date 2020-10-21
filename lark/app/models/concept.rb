@@ -16,5 +16,5 @@ require_relative 'authority'
 class Concept < Authority
   SCHEMA = 'http://www.w3.org/2004/02/skos/core#ConceptScheme'
 
-  define_schema :concept
+  include Lark::Schema(:concept)
 end

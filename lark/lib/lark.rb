@@ -11,6 +11,7 @@ require_relative 'lark/indexer'
 require_relative 'lark/minter'
 require_relative 'lark/record_parser'
 require_relative 'lark/record_serializer'
+require_relative 'lark/schema'
 
 ##
 # The top-level module for the Lark project.
