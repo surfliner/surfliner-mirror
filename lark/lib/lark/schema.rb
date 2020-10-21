@@ -39,8 +39,7 @@ module Lark
       # @!attribute [rw] name
       #   @return [Symbol]
       # @!attribute [rw] cardinality
-      #   @todo maybe make this a Range object?
-      #   @return [String]
+      #   @return [Range]
       # @!attribute [rw] predicate
       #   @return [RDF::URI]
       # @!attribute [rw] range
@@ -54,10 +53,9 @@ module Lark
       end
 
       ##
-      # @todo something like `!cardinality.member?(0)` for `Range` cardinality
       # @return [Boolean]
       def required?
-        cardinality == '1'
+        !cardinality.cover?(0)
       end
 
       ##
@@ -70,7 +68,9 @@ module Lark
         key = config.keys.first
 
         new(name: key.underscore.to_sym).tap do |property|
-          property.cardinality = config[key].fetch('cardinality', '0..*').to_s
+          cardinality_match = config[key].fetch('cardinality', '0..*').to_s.match(/^(\d+)\.{2}?(\d+)?/)
+
+          property.cardinality = Range.new(cardinality_match[1]&.to_i, cardinality_match[2]&.to_i)
           property.definition = config[key].fetch('definition', '')
           property.predicate = RDF::URI.intern(config[key].fetch('predicate'))
           property.range = type_for(range: config[key].fetch('range'))
