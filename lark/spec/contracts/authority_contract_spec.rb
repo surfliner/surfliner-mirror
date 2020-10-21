@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'support/matchers/validations'
 require 'yaml'
 require_relative '../../config/environment'
 
@@ -13,13 +14,6 @@ RSpec.describe AuthorityContract do
 
   context 'with a schema configuration' do
     let(:config) { :concept }
-
-    RSpec::Matchers.define :have_validation_errors_on do |expected|
-      match do |actual|
-        actual.failure? &&
-          Array(expected).all? { |attr| !actual.errors[attr].nil? }
-      end
-    end
 
     it 'requires a pref_label' do
       expect(AuthorityContract[config].new.call({}))
