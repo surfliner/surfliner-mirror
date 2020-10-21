@@ -6,8 +6,16 @@ class Authority < Valkyrie::Resource
   SCHEMA = 'http://www.w3.org/2004/02/skos/core#ConceptScheme'
 
   class << self
-    def define_schema(config)
-      config.each do |definition|
+    def define_schema(schema_name_or_config)
+      schema_config =
+        case schema_name_or_config
+        when Symbol
+          YAML.load_file(File.expand_path("../../model/#{schema_name_or_config}.yml", __dir__))
+        else
+          schema_name_or_config
+        end
+
+      schema_config.each do |definition|
         term = definition.keys.first
 
         attribute term.underscore.to_sym,
