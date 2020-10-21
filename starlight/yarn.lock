@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-universalviewer@3.0.23:
-  version "3.0.23"
-  resolved "https://registry.yarnpkg.com/universalviewer/-/universalviewer-3.0.23.tgz#72e827ac2528bfebbb13954eb2b79481c34c6ea8"
-  integrity sha1-cugnrCUov+u7E5VOsreUgcNMbqg=
+universalviewer@3.0.25:
+  version "3.0.25"
+  resolved "https://registry.yarnpkg.com/universalviewer/-/universalviewer-3.0.25.tgz#da81f4432b094deae944d15198f46ce27db6d34f"
+  integrity sha512-pxCvPUxyNvDF0Fm/vDK0LC1oxCT+8EY2MOJnQUL6OOPbzGGui32ys3y3SHe3Qlpzhowz2xzgUhZYmZZqpyAo1g==

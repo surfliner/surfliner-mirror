@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 # Update from Universal Viewer repo, fingerprint the directory, and symlink the thumbprinted directory into place
 uv_src="node_modules/universalviewer/uv"
