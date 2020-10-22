@@ -74,6 +74,9 @@ RSpec.describe Lark::Reindexer do
     end
 
     before do
+      adapter.persister.wipe!
+      event_adapter.persister.wipe!
+
       adapter.persister.save(resource: authority1)
       adapter.persister.save(resource: authority2)
 
