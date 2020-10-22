@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'support/matchers/result'
 require_relative '../../../../config/environment'
 
 RSpec.describe Lark::Transactions::UpdateAuthority do
@@ -31,6 +32,16 @@ RSpec.describe Lark::Transactions::UpdateAuthority do
     it 'returns an updated authority' do
       expect(transaction.call(id: id, attributes: attributes).value!)
         .to have_attributes(id: authority.id, pref_label: ['Label edited'])
+    end
+
+    context 'with invalid properties' do
+      let(:attributes) { { pref_label: label, not_an_attribute: 'oh no' } }
+
+      it 'fails with :invalid_attributes' do
+        expect(transaction.call(id: id, attributes: attributes))
+          .to be_a_transaction_failure
+          .with_reason(:invalid_attributes)
+      end
     end
   end
 end

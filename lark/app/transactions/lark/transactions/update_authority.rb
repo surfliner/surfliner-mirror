@@ -26,8 +26,19 @@ module Lark
         super
       end
 
+      step :validate_change_properties
       step :log_change_properties_event
       step :build_authority
+
+      private
+
+      def validate_change_properties(id:, attributes:)
+        result = AuthorityContract[:concept].new.call(attributes)
+
+        return Success(id: id, attributes: attributes) if result.success?
+
+        Failure(reason: :invalid_attributes, message: result.errors(full: true).to_h)
+      end
 
       ##
       # Log changes to properties

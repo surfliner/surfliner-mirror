@@ -28,10 +28,10 @@ RSpec.describe 'PUT /{id}' do
         .to include(id: id, pref_label: ['PrefLabel'])
     end
 
-    it 'with PUT responds 204 no_content status' do
+    it 'with PUT responds 200 OK status' do
       put "/#{id}", data, 'CONTENT_TYPE' => ctype
 
-      expect(last_response.status).to eq 204
+      expect(last_response.status).to eq 200
     end
 
     context 'with PUT to update the concept' do
@@ -46,11 +46,43 @@ RSpec.describe 'PUT /{id}' do
           .to include 'Access-Control-Allow-Origin' => '*'
       end
 
-      it 'update the prefLabel' do
+      it 'returns the updated pref_label in the body' do
+        expect(JSON.parse(last_response.body).symbolize_keys)
+          .to include(id: id, pref_label: new_label)
+      end
+
+      it 'updates the prefLabel for subsequent GETs' do
         get "/#{id}"
 
         expect(JSON.parse(last_response.body).symbolize_keys)
           .to include(id: id, pref_label: new_label)
+      end
+
+      context 'with disallowed attributes' do
+        let(:data) { { pref_label: new_label, updated_at:'2100-01-01' }.to_json }
+
+        it 'gives a 400 error' do
+          expect(last_response).to have_attributes status: 400
+        end
+
+        it 'returns a meaningful body' do
+          expect(last_response.body).to include 'updated_at', 'not allowed'
+        end
+      end
+
+      context 'with missing attributes' do
+        let(:data) { { pref_label: new_label, not_an_attribute: :oh_no }.to_json }
+
+        it 'gives a 400 error' do
+          expect(last_response).to have_attributes status: 400
+        end
+
+        it 'does not update the record' do
+          get "/#{id}"
+
+          expect(JSON.parse(last_response.body).symbolize_keys)
+            .to include(id: id, pref_label: ['PrefLabel'])
+        end
       end
     end
 

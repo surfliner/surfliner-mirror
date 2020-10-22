@@ -37,7 +37,7 @@ module Lark
 
         return Success(attributes: attributes) if result.success?
 
-        Failure(reason: :invalid_attributes, message: result)
+        Failure(reason: :invalid_attributes, message: result.errors(full: true))
       end
 
       ##

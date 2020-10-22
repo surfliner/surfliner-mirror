@@ -66,7 +66,8 @@ RSpec.describe RecordController do
       persister.save(resource: FactoryBot.create(:concept))
     end
     let(:params) { { 'id' => authority.id.to_s } }
-    let(:body) { StringIO.new(authority.attributes.to_json) }
+    let(:body) { StringIO.new(serializer.serialize(record: authority)) }
+    let(:serializer) { Lark::RecordSerializer.for(content_type: 'application/json') }
 
     context 'with a listener' do
       let(:listener) { FakeListener.new }
@@ -84,7 +85,15 @@ RSpec.describe RecordController do
       let(:headers) { { 'CONTENT_TYPE' => 'application/fake' } }
 
       it 'gives a 415 status' do
-        expect(controller.create.first).to eq 415
+        expect(controller.update.first).to eq 415
+      end
+    end
+
+    context 'with an invalid attribute' do
+      let(:body) { StringIO.new({ pref_label: ['blah'], not_an_attribute: :oh_no }.to_json) }
+
+      it 'gives a 400 status' do
+        expect(controller.update.first).to eq 400
       end
     end
 
@@ -95,11 +104,11 @@ RSpec.describe RecordController do
 
       let(:body) do
         authority.pref_label = 'Label edited'
-        StringIO.new(authority.attributes.to_json)
+        StringIO.new(serializer.serialize(record: authority))
       end
 
-      it 'gives a 204 no_content status' do
-        expect(controller.update.first).to eq 204
+      it 'gives a 200 OK status' do
+        expect(controller.update.first).to eq 200
       end
     end
   end
