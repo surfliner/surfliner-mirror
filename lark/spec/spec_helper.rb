@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require File.expand_path('../config/environment', __dir__)
 require 'factory_bot'
 require 'fakes/fake_listener'
 require 'fakes/fake_resource'
