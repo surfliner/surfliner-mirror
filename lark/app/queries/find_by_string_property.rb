@@ -1,25 +1,18 @@
 # frozen_string_literal: true
 
+require_relative 'query_basic'
+
 ##
 # Custom query to search authorities by string property
 # @example search with a string property
 #   FindByStringProperty.new(query_service: query_service)
 #                       .find_by_string_property(property: pref_label,
 #                                                value: 'label')
-class FindByStringProperty
+class FindByStringProperty < QueryBasic
   # Access the list of methods exposed for the query
   # @return [Array<Symbol>] query method signatures
   def self.queries
     [:find_by_string_property]
-  end
-
-  attr_reader :query_service
-
-  delegate :connection, to: :query_service
-  delegate :resource_factory, to: :query_service
-
-  def initialize(query_service:)
-    @query_service = query_service
   end
 
   def find_by_string_property(property:, value:)

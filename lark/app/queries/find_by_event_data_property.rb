@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'find_by_string_property'
+require_relative 'query_basic'
 
 ##
 # Custom query to search events by authority id in :data field in SQL
@@ -8,7 +8,7 @@ require_relative 'find_by_string_property'
 #   FindByEventDataProperty.new(query_service: query_service)
 #                          .find_by_event_data_property(property: pref_label,
 #                                                       value: 'label')
-class FindByEventDataProperty < FindByStringProperty
+class FindByEventDataProperty < QueryBasic
   # Access the list of methods exposed for the query
   # @return [Array<Symbol>] query method signatures
   def self.queries
