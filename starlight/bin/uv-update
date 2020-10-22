@@ -2,7 +2,7 @@
 set -e
 
 # Update from Universal Viewer repo, fingerprint the directory, and symlink the thumbprinted directory into place
-uv_src="node_modules/universalviewer/uv"
+uv_src="node_modules/universalviewer/dist"
 uv_dest="public/uv"
 echo "Copying over build uv"
 rm -rf "$uv_dest" && cp -pr "$uv_src" "$uv_dest"
