@@ -14,7 +14,7 @@ module Lark
     ##
     # @!attribute [rw] adapter, event_adapter
     #   @return [Valkyrie::MetadataAdapter]
-    attr_accessor :adapter, :event_adapter, :event_stream
+    attr_accessor :adapter, :event_adapter, :event_stream, :indexer
 
     ##
     # @param adapter [Valkyrie::MetadataAdapter]
@@ -22,11 +22,13 @@ module Lark
                      Valkyrie::MetadataAdapter.find(Lark.config.index_adapter),
                    event_adapter:
                      Valkyrie::MetadataAdapter.find(Lark.config.event_adapter),
-                   event_stream: Lark.config.event_stream)
+                   event_stream: Lark.config.event_stream,
+                   indexer: Lark::Indexer.new)
 
       self.adapter = adapter
       self.event_adapter = event_adapter
       self.event_stream = event_stream
+      self.indexer = indexer
     end
 
     ##
@@ -35,8 +37,8 @@ module Lark
       ids = search_all_records
       ids.each do |id|
         reindex_record(id: id)
-      rescue Lark::NotFound
-        puts "Record doesn't exist: #{id}"
+      rescue Valkyrie::Persistence::ObjectNotFoundError
+        raise Lark::NotFound, "Authority with ID #{id} doesn't exist."
       rescue StandardError => e
         puts "Rescued: #{e.inspect}"
       end
@@ -47,10 +49,13 @@ module Lark
     ##
     # Reindex an existing authority record from event log
     def reindex_record(id:)
-      attributes = retrieve_attributes(id)
-      Lark::Transactions::UpdateAuthority
-        .new(event_stream: event_stream, adapter: adapter)
-        .call(id: id, attributes: attributes)
+      resource = indexer.find(id)
+
+      retrieve_attributes(id).each do |attribute, value|
+        resource.set_value(attribute, value)
+      end
+
+      indexer.index(data: resource)
     end
 
     private
