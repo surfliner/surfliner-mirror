@@ -120,7 +120,7 @@ containers, you can simply comment out or remove the `DATABASE_COMMAND`, to
 ensure it does not run `db:schema:load` in future runs.
 
 ### Load sample data and admin account
-You can use the [sample rake file](lib/tasks/sample.rake) to load a sample
+You can use the [sample rake file](./lib/tasks/starlight.rake) to load a sample
 exhibit and generate an administrative user.  The admin user has the email
 address `admin@localhost` and the password `testing`.  This user and exhibit
 will exist on review deployments in GitLab.
