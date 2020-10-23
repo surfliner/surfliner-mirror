@@ -69,10 +69,10 @@
     "@types/node" "^7.0.65"
     typescript "^2.8.3"
 
-"@iiif/iiif-av-component@0.0.86":
-  version "0.0.86"
-  resolved "https://registry.yarnpkg.com/@iiif/iiif-av-component/-/iiif-av-component-0.0.86.tgz#4a113dd427f0407b288668e756f28b072e48481c"
-  integrity sha512-4HNzHuP1bpPsgts6OymPNrvI5KCi6rEfb9AvMiJW045xXYk08XcoTIkYNeB8nQx5Wp0b3NFnqeodunktZuclLA==
+"@iiif/iiif-av-component@0.0.87":
+  version "0.0.87"
+  resolved "https://registry.yarnpkg.com/@iiif/iiif-av-component/-/iiif-av-component-0.0.87.tgz#48baa21b1730eee65ba12698c6c4f489943bd651"
+  integrity sha512-TONzUsyxy21qCBgoaMdE+wEojrkh57Pj3leCkvBZjO6adrft0l8P/DbVEDLPaVPxvi7PQwQCTT4/Jdc8qfuz5A==
   dependencies:
     "@iiif/base-component" "1.1.3"
     "@iiif/manifold" "1.2.36"
@@ -427,7 +427,7 @@ exjs@BSick7/exjs#0.5.0:
   version "0.5.0"
   resolved "https://codeload.github.com/BSick7/exjs/tar.gz/98195810790c0e61cb5beb510da4b756528f92f2"
 
-exjs@BSick7/exjs#0.5.1:
+"exjs@github:BSick7/exjs#0.5.1":
   version "0.5.1"
   resolved "https://codeload.github.com/BSick7/exjs/tar.gz/87f638b98635fe8ddee36ce964e64bcce6e2bb6d"
 
@@ -669,10 +669,6 @@ jsviews@0.9.83:
   resolved "https://registry.yarnpkg.com/jsviews/-/jsviews-0.9.83.tgz#069b05122833d23155cc3ce2c2d9fb2cf789a98a"
   integrity sha1-BpsFEigz0jFVzDziwtn7LPeJqYo=
 
-"key-codes@github:edsilv/key-codes#v0.0.7":
-  version "0.0.7"
-  resolved "https://codeload.github.com/edsilv/key-codes/tar.gz/c18ff040b716097af23b18ecdbc4e4c1a559691e"
-
 loader-utils@^1.0.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-1.4.0.tgz#c579b5e34cb34b1a74edc6c1fb36bfa371d5a613"
@@ -809,6 +805,11 @@ pdfjs-dist@2.0.161:
   dependencies:
     node-ensure "^0.0.0"
     worker-loader "^1.0.0"
+
+pdfobject@^2.1.1:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/pdfobject/-/pdfobject-2.2.4.tgz#ccb3c191129298a471e9ccb59c88a3ee0b7c7530"
+  integrity sha512-r6Rw9CQWsrY6uqmKvlgFNoupmuRbSt9EsG0sZhSAy3cIk4WgOXyAVmebFSlLhqj6gA5NIEXL3lSEbwOOYfdUvw==
 
 performance-now@^2.1.0:
   version "2.1.0"
@@ -1028,10 +1029,10 @@ typescript@^2.8.3:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.9.2.tgz#1cbf61d05d6b96269244eb6a3bce4bd914e0f00c"
   integrity sha512-Gr4p6nFNaoufRIY4NMdpQRNmgxVIGMs4Fcu/ujdYk3nAZqk7supzBE9idmvfZIlH/Cuj//dvi+019qEue9lV0w==
 
-universalviewer@3.0.27:
-  version "3.0.27"
-  resolved "https://registry.yarnpkg.com/universalviewer/-/universalviewer-3.0.27.tgz#133b87b10ca6ace5e8e331ceab1dda888bb127fa"
-  integrity sha512-lh35TzwH3pFKQ08pblqhmtLUnssU/eDtoJocxjOZPoQDnJGhuWCuLBJt/l1koCwvvzVg+iotVS52tkNU1S+4gg==
+universalviewer@3.0.36:
+  version "3.0.36"
+  resolved "https://registry.yarnpkg.com/universalviewer/-/universalviewer-3.0.36.tgz#210dc9d537143477941131d4a87337d62561f2b9"
+  integrity sha512-67bgmxLSpnEImIKxdD3CoqumJ4wz6KB4a805EREYC2zCOVwulQPbohpzPL9F4i+IH3ikYvAc6V7zL+FFnLtpjw==
   dependencies:
     "@edsilv/exjs" "0.5.1"
     "@edsilv/http-status-codes" "0.0.12"
@@ -1040,7 +1041,7 @@ universalviewer@3.0.27:
     "@edsilv/key-codes" "0.0.9"
     "@edsilv/utils" "0.2.6"
     "@iiif/base-component" "1.1.4"
-    "@iiif/iiif-av-component" "0.0.86"
+    "@iiif/iiif-av-component" "0.0.87"
     "@iiif/iiif-gallery-component" "1.1.13"
     "@iiif/iiif-metadata-component" "1.1.13"
     "@iiif/iiif-tree-component" "1.1.12"
@@ -1063,9 +1064,10 @@ universalviewer@3.0.27:
     opencollective "1.0.3"
     openseadragon "2.2.1"
     pdfjs-dist "2.0.161"
+    pdfobject "^2.1.1"
     requirejs "2.2.0"
     three "0.91.0"
-    virtex3d "0.3.14"
+    virtex3d "0.3.18"
     waveform-data "2.0.2"
     xss "1.0.3"
 
@@ -1095,14 +1097,14 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-virtex3d@0.3.14:
-  version "0.3.14"
-  resolved "https://registry.yarnpkg.com/virtex3d/-/virtex3d-0.3.14.tgz#8b8ec96572ead291ee8a10f8bee1f0df9b32c87e"
-  integrity sha1-i47JZXLq0pHuihD4vuHw35syyH4=
+virtex3d@0.3.18:
+  version "0.3.18"
+  resolved "https://registry.yarnpkg.com/virtex3d/-/virtex3d-0.3.18.tgz#f650613d80105cd0421519903d9ea661e5214cca"
+  integrity sha512-ty9s0U77P+NhHHJKRDm2uQvpoOHDPlJFePxXHpeVaLKFRsHpACEr9Ia55Nw/w6en20oq9rwAKm6V59/cT7kmSw==
   dependencies:
+    "@edsilv/key-codes" "0.0.9"
     "@types/three" "0.91.0"
     "@types/webvr-api" "0.0.31"
-    key-codes "github:edsilv/key-codes#v0.0.7"
     three "0.91.0"
 
 waveform-data@2.0.2:
