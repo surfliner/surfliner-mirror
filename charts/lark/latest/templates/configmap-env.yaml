@@ -16,6 +16,9 @@ data:
   APP_PORT: {{ .Values.service.port | quote }}
   INDEX_ADAPTER: {{ .Values.persistence_adapters.index }}
   EVENT_ADAPTER: {{ .Values.persistence_adapters.event }}
+  {{- if .Values.postgresql.enabled }}
+  DATABASE_COMMAND: "db:migrate"
   POSTGRES_DB: {{ .Values.postgresql.postgresqlDatabase }}
   POSTGRES_HOST: {{ template "lark.postgresql.fullname" . }}
   POSTGRES_PORT: {{ .Values.postgresql.servicePort | quote }}
+  {{- end }}

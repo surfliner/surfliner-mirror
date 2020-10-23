@@ -19,6 +19,21 @@ spec:
         app.kubernetes.io/name: {{ include "lark.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
+      {{- if .Values.postgresql.enabled }}
+      initContainers:
+        - name: db-setup
+          image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "lark.fullname" . }}-env
+            - secretRef:
+                name: {{ template "lark.fullname" . }}
+          command:
+            - sh
+            - -c
+            - db-setup.sh
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
