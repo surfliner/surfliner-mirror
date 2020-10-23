@@ -15,34 +15,53 @@ RSpec.describe Lark::Reindexer do
   end
 
   describe '#reindex(id:)' do
+    subject(:attrs) do
+      event_adapter.persister.save(resource: event_create)
+      event_adapter.persister.save(resource: event_change)
+      event_adapter.persister.save(resource: event_update)
+      reindexer.reindex_record id: id
+
+      query_service.find_by(id: id).attributes
+    end
+
     let(:id) { 'a_fade_id' }
     let(:authority) { Concept.new(id: id, pref_label: 'moomin') }
     let(:data) { { authority_id: id, changes: { pref_label: 'moomin' } } }
     let(:event_create) { Event.new type: :create, data: { authority_id: id, changes: {} } }
     let(:event_change) { Event.new type: :change_properties, data: data }
 
-    let(:data_change) { { authority_id: id, changes: { pref_label: 'moomin edited' } } }
-    let(:event_update) do
-      Event.new type: :change_properties, data: data_change
-    end
-
-    before do
-      adapter.persister.save(resource: authority)
-      event_adapter.persister.save(resource: event_create)
-      event_adapter.persister.save(resource: event_change)
-      event_adapter.persister.save(resource: event_update)
-
-      reindexer.reindex_record id: id
-    end
-
     after do
       adapter.persister.wipe!
       event_adapter.persister.wipe!
     end
 
-    it 'reindex the record' do
-      expect(query_service.find_by(id: id).attributes)
-        .to include(pref_label: ['moomin edited'])
+    context 'with missing authority record' do
+      let(:data_change) { { authority_id: id, changes: { pref_label: 'moomin edited' } } }
+      let(:event_update) { Event.new type: :change_properties, data: data_change }
+
+      before { adapter.persister.save(resource: authority) }
+
+      it 'reindex record' do
+        expect(attrs).to include(pref_label: ['moomin edited'])
+      end
+    end
+
+    context 'with existing authority record' do
+      let(:data_change) do
+        { authority_id: id,
+          changes: { pref_label: 'moomin edited', alternate_label: 'Alternate label' } }
+      end
+      let(:event_update) { Event.new type: :change_properties, data: data_change }
+
+      before { adapter.persister.save(resource: authority) }
+
+      it 'contains :pref_label' do
+        expect(attrs).to include(pref_label: ['moomin edited'])
+      end
+
+      it 'contains :alternate_label' do
+        expect(attrs).to include(alternate_label: ['Alternate label'])
+      end
     end
   end
 

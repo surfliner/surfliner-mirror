@@ -37,8 +37,6 @@ module Lark
       ids = search_all_records
       ids.each do |id|
         reindex_record(id: id)
-      rescue Valkyrie::Persistence::ObjectNotFoundError
-        raise Lark::NotFound, "Authority with ID #{id} doesn't exist."
       rescue StandardError => e
         puts "Rescued: #{e.inspect}"
       end
@@ -51,11 +49,14 @@ module Lark
     def reindex_record(id:)
       resource = indexer.find(id)
 
-      retrieve_attributes(id).each do |attribute, value|
+      attributes = retrieve_attributes(id)
+      attributes.each do |attribute, value|
         resource.set_value(attribute, value)
       end
 
       indexer.index(data: resource)
+    rescue Valkyrie::Persistence::ObjectNotFoundError
+      indexer.index(data: Concept.new(id: id, **attributes))
     end
 
     private
@@ -69,7 +70,7 @@ module Lark
         next unless event.data[:changes]
 
         changes = event.data[:changes]
-        attributes.merge(changes) unless changes.is_a?(Array)
+        attributes = attributes.merge(changes) unless changes.is_a?(Array)
         changes.each_slice(2) { |s| attributes[s[0].to_sym] = s[1] } if changes.is_a?(Array)
       end
 
