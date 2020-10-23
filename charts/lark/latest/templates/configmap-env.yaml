@@ -12,7 +12,8 @@ data:
   MINTER: "ezid"
   EZID_DEFAULT_SHOULDER: {{ .Values.ezid.shoulder | quote }}
   {{- end }}
-  APP_URL: http{{ if .Values.ingress.tls }}s{{ end }}://{{ index .Values.ingress.hosts 0 }}
+  APP_HOST: {{ index .Values.ingress.hosts 0 }}
+  APP_PORT: {{ .Values.service.port | quote }}
   INDEX_ADAPTER: {{ .Values.persistence_adapters.index }}
   EVENT_ADAPTER: {{ .Values.persistence_adapters.event }}
   POSTGRES_DB: {{ .Values.postgresql.postgresqlDatabase }}
