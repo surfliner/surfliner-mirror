@@ -5,7 +5,7 @@ name: starlight
 version: 0.4.0
 dependencies:
   - name: memcached
-    version: 4.2.26
+    version: 4.2.27
     repository: https://charts.bitnami.com/bitnami
     condition: memcached.enabled
   - name: postgresql
