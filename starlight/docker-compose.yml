@@ -62,7 +62,7 @@ services:
     tty: true
 
   memcached:
-    image: bitnami/memcached:1.6.7
+    image: bitnami/memcached:1.6.8
 
   redis:
     image: bitnami/redis:6.0
