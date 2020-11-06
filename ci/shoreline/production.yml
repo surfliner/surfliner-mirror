@@ -18,6 +18,7 @@
       - shoreline/discovery/**/*
 
 shoreline:discovery:deploy:prod:ucsb:
+  needs: ["shoreline:discovery:deploy:ucsb-stage"]
   extends:
     - .shoreline:deploy:production
   environment:
@@ -44,6 +45,7 @@ shoreline:discovery:deploy:prod:ucsb:
       --set shoreline.email.smtp_settings.user_name=$UCSB_SHORELINE_EMAIL_ADDRESS
 
 shoreline:discovery:deploy:prod:ucsd:
+  needs: ["shoreline:discovery:deploy:ucsd-stage"]
   extends:
     - .shoreline:deploy:production
   environment:
