@@ -52,9 +52,9 @@ postgresql:
   enabled: true
   cpu: 1000m
   memory: 1Gi
-  postgresqlUsername: postgres
+  postgresqlUsername: lark
   postgresqlPassword: larkpass
-  postgresqlPostgresPassword: larkpass
+  postgresqlPostgresPassword: adminpass
   postgresqlDatabase: lark-events
   servicePort: 5432
   persistence:

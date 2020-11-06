@@ -4,6 +4,7 @@ lark:api:test:unit:
   needs: ["lark:ruby-build"]
   variables:
     POSTGRES_DB: postgres
+    POSTGRES_ADMIN_PASSWORD: password
     POSTGRES_HOST: localhost
     POSTGRES_PASSWORD: password
     POSTGRES_PORT: 5432

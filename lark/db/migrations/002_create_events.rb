@@ -10,6 +10,7 @@ Sequel.migration do
       DateTime :created_at, index: true, default: ::Sequel::CURRENT_TIMESTAMP
     end
     run 'CREATE INDEX events_data_index_pathops ON events USING gin (data jsonb_path_ops)'
+    run "GRANT ALL PRIVILEGES ON events TO #{ENV.fetch("POSTGRES_USER")}"
   end
   down do
     drop_table :events
