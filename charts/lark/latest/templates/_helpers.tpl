@@ -38,3 +38,11 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- define "lark.postgresql.fullname" -}}
 {{- printf "%s-%s" .Release.Name "postgresql" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{- define "lark.solr.fullname" -}}
+{{- printf "%s-%s" .Release.Name "solr" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "lark.zk.fullname" -}}
+{{- printf "%s-%s" .Release.Name "zookeeper" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

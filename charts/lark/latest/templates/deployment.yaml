@@ -21,6 +21,20 @@ spec:
     spec:
       {{- if .Values.postgresql.enabled }}
       initContainers:
+        - name: configure-solr
+          image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+          envFrom:
+            - configMapRef:
+                name: {{ include "lark.fullname" . }}-env
+            - secretRef:
+                name: {{ template "lark.fullname" . }}
+          command:
+            - sh
+            - -c
+            - >
+              upload-solr-configs.sh /home/lark/app/solr/config &&
+              create-solr-collection.sh
         - name: db-setup
           image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}

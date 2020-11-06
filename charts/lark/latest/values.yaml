@@ -63,6 +63,11 @@ postgresql:
 lark:
   # whether to import data during deployment
   import_data:
+  solr:
+    collectionName: lark
+    port: 8983
+  zookeeper:
+    port: 2181
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
