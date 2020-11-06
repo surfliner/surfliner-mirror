@@ -13,6 +13,7 @@
       - trunk
 
 starlight:deploy:ucsb-production:
+  needs: ["starlight:deploy:ucsb-stage"]
   extends:
     - .starlight:deploy:production
   script:
@@ -39,6 +40,7 @@ starlight:deploy:ucsb-production:
       --set starlight.email.smtp_settings.user_name=$UCSB_STARLIGHT_EMAIL_ADDRESS
 
 starlight:deploy:ucsd-production:
+  needs: ["starlight:deploy:ucsd-stage"]
   extends:
     - .starlight:deploy:production
   environment:
