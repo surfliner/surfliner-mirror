@@ -70,7 +70,7 @@ RSpec.describe 'GET /{id}' do
   end
 
   context 'with basic term search exact match' do
-    let(:pref_label_1) { 'authority 1' }
+    let(:pref_label) { 'authority 1' }
     let(:pref_label_alternate) { 'alternate authority' }
     let(:alternate_label) { 'alternate label' }
 
@@ -126,7 +126,7 @@ RSpec.describe 'GET /{id}' do
     end
 
     context 'with term matched pref_label' do
-      before { get '/search', pref_label: pref_label_1 }
+      before { get '/search', pref_label: pref_label }
 
       it 'gives a 200' do
         expect(last_response.status).to eq 200
@@ -134,7 +134,7 @@ RSpec.describe 'GET /{id}' do
 
       it 'contains the existing authority with pre_label matched' do
         expect(JSON.parse(last_response.body).first.symbolize_keys)
-          .to include(pref_label: [pref_label_1], alternate_label: [])
+          .to include(pref_label: [pref_label], alternate_label: [])
       end
 
       it 'has header for CORS request' do

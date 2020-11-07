@@ -23,12 +23,12 @@ RSpec.describe BatchController do
       described_class.new(request: request)
     end
 
-    let(:authority_1) do
+    let(:authority) do
       persister.save(resource: FactoryBot.create(:concept,
                                                  id: 'test_id1',
                                                  pref_label: 'Label 1'))
     end
-    let(:authority_2) do
+    let(:other_authority) do
       persister.save(resource: FactoryBot.create(:concept,
                                                  id: 'test_id2',
                                                  pref_label: 'Label 2'))
@@ -45,8 +45,8 @@ RSpec.describe BatchController do
 
     context 'with batch of existing authority records' do
       let(:data)  do
-        [{ id: authority_1.id.to_s, pref_label: 'new_label_1' },
-         { id: authority_2.id.to_s, pref_label: 'new_label_2' }].to_json
+        [{ id: authority.id.to_s, pref_label: 'new_label_1' },
+         { id: other_authority.id.to_s, pref_label: 'new_label_2' }].to_json
       end
       let(:body) { StringIO.new(data) }
 

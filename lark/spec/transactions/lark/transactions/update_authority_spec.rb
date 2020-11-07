@@ -14,7 +14,7 @@ RSpec.describe Lark::Transactions::UpdateAuthority do
 
   let(:event_stream) { [] }
   let(:authority) do
-    adatper.persister.save(resource: FactoryBot.create(:concept))
+    adapter.persister.save(resource: FactoryBot.create(:concept))
   end
 
   describe '#call' do

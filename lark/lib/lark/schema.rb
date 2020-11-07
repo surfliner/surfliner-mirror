@@ -18,8 +18,8 @@ module Lark
     ##
     # @param [Symbol] schema_name
     def initialize(schema_name)
-      super
       @schema_name = schema_name
+      super()
     end
 
     ##
@@ -71,7 +71,7 @@ module Lark
       # @param config [Hash] a flat-style Lark configuration entry
       #
       # @return [Property] a property derived from the given configuration
-      def self.from_config(config)
+      def self.from_config(config) # rubocop:disable Metrics/AbcSize
         key = config.keys.first
 
         new(name: key.underscore.to_sym).tap do |property|

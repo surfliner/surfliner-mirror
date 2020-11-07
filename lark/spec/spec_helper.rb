@@ -2,6 +2,7 @@
 
 require 'factory_bot'
 require 'fakes/fake_listener'
+require 'fakes/fake_resource'
 require 'fakes/failure_minter'
 require 'support/build_strategies/valkyrie_create'
 

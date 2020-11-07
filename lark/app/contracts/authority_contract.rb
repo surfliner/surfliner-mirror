@@ -11,11 +11,7 @@ class AuthorityContract < Dry::Validation::Contract
     Class.new(self) do
       schema do
         Lark::Schema(schema_name).each_property do |property|
-          if property.required?
-            required(property.name)
-          else
-            optional(property.name)
-          end
+          property.required? ? required(property.name) : optional(property.name)
         end
       end
     end

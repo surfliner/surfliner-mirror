@@ -82,13 +82,13 @@ RSpec.describe 'POST /' do
   end
 
   context 'when posting to update batch of authorities in JSON' do
-    let(:authority_1) do
+    let(:authority) do
       persister.save(resource: FactoryBot.create(:concept,
                                                  id: 'a_test_id1',
                                                  pref_label: 'Label 1'))
     end
 
-    let(:authority_2) do
+    let(:other_authority) do
       persister.save(resource: FactoryBot.create(:concept,
                                                  id: 'a_test_id2',
                                                  pref_label: 'Label 2'))
@@ -96,8 +96,8 @@ RSpec.describe 'POST /' do
 
     let(:ctype) { 'application/json' }
     let(:data)  do
-      [{ id: authority_1.id.to_s, pref_label: 'new_label_1' },
-       { id: authority_2.id.to_s, pref_label: 'new_label_2' }].to_json
+      [{ id: authority.id.to_s, pref_label: 'new_label_1' },
+       { id: other_authority.id.to_s, pref_label: 'new_label_2' }].to_json
     end
 
     before { post '/batch_edit', data, 'CONTENT_TYPE' => ctype }
@@ -116,18 +116,18 @@ RSpec.describe 'POST /' do
         post '/batch_edit', data, 'CONTENT_TYPE' => ctype
       end
 
-      it 'update the Label for authority_1' do
-        get "/#{authority_1.id}"
+      it 'update the Label for authority' do
+        get "/#{authority.id}"
 
         expect(JSON.parse(last_response.body).symbolize_keys)
-          .to include(id: authority_1.id.to_s, pref_label: ['new_label_1'])
+          .to include(id: authority.id.to_s, pref_label: ['new_label_1'])
       end
 
-      it 'update the Label for authority_2' do
-        get "/#{authority_2.id}"
+      it 'update the Label for other_authority' do
+        get "/#{other_authority.id}"
 
         expect(JSON.parse(last_response.body).symbolize_keys)
-          .to include(id: authority_2.id.to_s, pref_label: ['new_label_2'])
+          .to include(id: other_authority.id.to_s, pref_label: ['new_label_2'])
       end
     end
 

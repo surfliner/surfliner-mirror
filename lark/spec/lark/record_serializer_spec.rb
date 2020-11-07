@@ -23,22 +23,7 @@ RSpec.describe Lark::RecordSerializer do
                      .serialize(record: record)
     end
 
-    before do
-      class Resource < Valkyrie::Resource
-        attribute :label, Valkyrie::Types::Set
-        attribute :note, Valkyrie::Types::Set
-
-        def primary_terms
-          %i[label note]
-        end
-      end
-    end
-
-    after do
-      Object.send(:remove_const, :Resource)
-    end
-
-    let(:record) { Resource.new(id: 'a_fake_id', label: 'Label') }
+    let(:record) { Lark::FakeResource.new(id: 'a_fake_id', label: 'Label') }
 
     it 'return json string' do
       expect(json).to eq JSON.dump(label: ['Label'], note: [], id: 'a_fake_id')
