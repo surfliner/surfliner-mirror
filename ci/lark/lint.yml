@@ -31,7 +31,6 @@ lark-lint:
 
 lark-client-lint:
   stage: lint
-  # reuse the lark_web image; ruby alpine images are missing system dependencies
   image: ruby:2.7-alpine
   script:
     - apk add --no-cache build-base postgresql-dev
