@@ -23,7 +23,7 @@
 #     .with_reason(:another_reason)
 #     .and_message('this is the message passed with the failure')
 #
-RSpec::Matchers.define :be_a_transaction_failure do |expected|
+RSpec::Matchers.define :be_a_transaction_failure do |_expected|
   match do |actual|
     actual.failure? &&
       (@reason.nil? || actual.failure[:reason] == @reason) &&
@@ -43,7 +43,7 @@ RSpec::Matchers.define :be_a_transaction_failure do |expected|
   end
 end
 
-RSpec::Matchers.define :be_a_transaction_success do |expected|
+RSpec::Matchers.define :be_a_transaction_success do |_expected|
   match do |actual|
     actual.success? &&
       (@object.nil? || @object.matches?(actual.value!))

@@ -21,7 +21,7 @@ RSpec.describe AuthorityContract do
     end
 
     it 'does not have include presence errors for attribute that exists' do
-      expect(AuthorityContract[config].new.call({pref_label: 'exists'}))
+      expect(AuthorityContract[config].new.call({ pref_label: 'exists' }))
         .not_to have_validation_errors_on(:pref_label)
     end
   end

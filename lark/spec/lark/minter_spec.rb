@@ -14,13 +14,15 @@ RSpec.describe Lark::Minter do
     end
 
     it 'errors on unexpected minter types' do
-      expect { described_class.for(:NOT_A_MINTER_AT_ALL) }.to raise_error /NOT_A_MINTER_AT_ALL/
+      expect { described_class.for(:NOT_A_MINTER_AT_ALL) }.to(raise_error /NOT_A_MINTER_AT_ALL/))
     end
   end
 
   describe '#mint' do
     subject(:minter) { described_class.new }
+
     let(:uuid) { '20b0d603-0a66-44e5-8596-be9ad32ea4cd' }
+
     before { allow(SecureRandom).to receive(:uuid).and_return(uuid) }
 
     it 'returns an SecureRandom uuid' do
@@ -32,6 +34,7 @@ end
 RSpec.describe Lark::EzidMinter do
   context 'with ezid minting enabled' do
     subject(:minter) { described_class.new }
+
     let(:ark) { 'ark:/99999/fk43f4wd4v' }
     let(:client) { instance_double(Ezid::Client) }
     let(:response) { instance_double(Ezid::MintIdentifierResponse, id: ark) }
@@ -44,7 +47,6 @@ RSpec.describe Lark::EzidMinter do
     it 'returns an ark from ezid' do
       expect(minter.mint).to be ark
     end
-
 
     context 'when it cannot reach ezid' do
       before do

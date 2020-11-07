@@ -28,8 +28,8 @@ class RecordController < ApplicationController
   def create
     with_error_handling do
       result = Lark::Transactions::CreateAuthority
-                 .new(event_stream: event_stream)
-                 .call(attributes: parsed_body(format: ctype))
+               .new(event_stream: event_stream)
+               .call(attributes: parsed_body(format: ctype))
       record = result.value_or { |failure| raise_error_for(failure) }
 
       [201, response_headers, [serialize(record: record, format: ctype)]]

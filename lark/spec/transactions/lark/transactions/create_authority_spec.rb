@@ -6,17 +6,18 @@ require_relative '../../../../config/environment'
 
 RSpec.describe Lark::Transactions::CreateAuthority do
   subject(:transaction) { described_class.new(event_stream: event_stream) }
+
   let(:event_stream)    { [] }
 
   describe '#call' do
     it 'adds :create to the event stream' do
-      expect { transaction.call(attributes: {pref_label: "pref label"}) }
+      expect { transaction.call(attributes: { pref_label: 'pref label' }) }
         .to change { event_stream }
         .to include have_attributes(type: :create)
     end
 
     it 'returns an authority with an id' do
-      expect(transaction.call(attributes: {pref_label: "pref label"}).value!)
+      expect(transaction.call(attributes: { pref_label: 'pref label' }).value!)
         .to have_attributes(id: an_instance_of(Valkyrie::ID))
     end
 
@@ -27,7 +28,7 @@ RSpec.describe Lark::Transactions::CreateAuthority do
           annotation: ['administrative note'] }
       end
 
-      # todo: should this yeild a single valued pref_label?
+      # TODO: should this yeild a single valued pref_label?
       it 'returns an object with the attributes' do
         expect(transaction.call(attributes: attributes))
           .to be_a_transaction_success
@@ -39,7 +40,7 @@ RSpec.describe Lark::Transactions::CreateAuthority do
 
     context 'with invalid attributes' do
       it 'gives a failure result' do
-        expect(transaction.call(attributes: { oh_no: 'bad attribute'}))
+        expect(transaction.call(attributes: { oh_no: 'bad attribute' }))
           .to be_a_transaction_failure
           .with_reason(:invalid_attributes)
       end
@@ -71,7 +72,7 @@ RSpec.describe Lark::Transactions::CreateAuthority do
       end
 
       it 'gives a failure result' do
-        expect(transaction.call(attributes: {pref_label: "pref label"}))
+        expect(transaction.call(attributes: { pref_label: 'pref label' }))
           .to be_a_transaction_failure
           .with_reason(:minter_failed)
           .and_message('i always fail :(')

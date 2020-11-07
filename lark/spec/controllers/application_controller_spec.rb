@@ -7,7 +7,7 @@ RSpec.describe ApplicationController do
   subject(:controller) { Class.new(described_class).new(request: request) }
 
   let(:body)    { StringIO.new('') }
-  let(:headers) { Hash.new }
+  let(:headers) { {} }
   let(:request) { instance_double(Rack::Request, body: body, env: headers) }
 
   describe '#raise_error_for' do

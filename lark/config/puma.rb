@@ -33,14 +33,6 @@
 #
 environment 'production'
 
-# Daemonize the server into the background. Highly suggest that
-# this be combined with "pidfile" and "stdout_redirect".
-#
-# The default is "false".
-#
-# daemonize
-daemonize false
-
 # Store the pid of the server in the file at "path".
 #
 # pidfile '/u/apps/lolcat/tmp/pids/puma.pid'

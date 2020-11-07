@@ -58,8 +58,8 @@ class BatchController < ApplicationController
 
   def create_record(data)
     result = Lark::Transactions::CreateAuthority
-               .new(event_stream: event_stream)
-               .call(attributes: parsed_csv(format: ctype, data: data))
+             .new(event_stream: event_stream)
+             .call(attributes: parsed_csv(format: ctype, data: data))
 
     result.value_or { |failure| raise_error_for(failure) }
   end
