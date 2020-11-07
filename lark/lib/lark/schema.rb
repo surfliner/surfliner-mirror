@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
+##
+# @see lark.rb
 module Lark
   def self.Schema(schema_name)
     Schema.new(schema_name)
   end
 
+  ##
+  # @note use `Lark::Schema(:name)`
   class Schema < Module
     ##
     # @!attribute [r] schema_name
@@ -14,6 +18,7 @@ module Lark
     ##
     # @param [Symbol] schema_name
     def initialize(schema_name)
+      super
       @schema_name = schema_name
     end
 
@@ -34,6 +39,8 @@ module Lark
       schema_config.each { |c| yield Property.from_config(c) }
     end
 
+    ##
+    # @api private
     class Property
       ##
       # @!attribute [rw] name

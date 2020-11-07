@@ -16,8 +16,8 @@ gem 'factory_bot', group: 'test'
 gem 'pry', group: %w[development test]
 gem 'puma'
 gem 'rack-healthcheck', '~> 0.2.0'
-gem 'rack-test', group: 'test'
 gem 'racksh'
+gem 'rack-test', group: 'test'
 gem 'rsolr', '~> 2.3.0'
 gem 'rspec', group: 'test'
 gem 'rubocop', '~> 1.2.0', group: %w[development test]

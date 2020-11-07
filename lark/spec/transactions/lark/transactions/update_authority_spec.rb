@@ -11,11 +11,10 @@ RSpec.describe Lark::Transactions::UpdateAuthority do
   let(:adapter) do
     Valkyrie::MetadataAdapter.find(Lark.config.index_adapter)
   end
-  let(:persister) { adapter.persister }
 
   let(:event_stream) { [] }
   let(:authority) do
-    persister.save(resource: FactoryBot.create(:concept))
+    adatper.persister.save(resource: FactoryBot.create(:concept))
   end
 
   describe '#call' do
