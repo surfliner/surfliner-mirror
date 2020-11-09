@@ -8,9 +8,6 @@ lark-shellcheck:
     - .only-refs-default
     - .only-lark-changes
   needs: []
-  only:
-    changes:
-      - .styles/**/*
 
 lark-lint:
   stage: lint
@@ -23,10 +20,14 @@ lark-lint:
     - bundle exec rubocop
   extends:
     - .only-refs-default
-    - .only-lark-api-changes
   needs: []
   only:
     changes:
+      - .gitlab-ci.yml
+      - ci/lark.yml
+      - ci/lark/**/*
+      - charts/lark/**/*
+      - lark/**/*
       - .styles/**/*
 
 lark-client-lint:
@@ -42,6 +43,12 @@ lark-client-lint:
     - .only-refs-default
     - .only-lark-cli-changes
   needs: []
+
   only:
     changes:
+      - .gitlab-ci.yml
+      - ci/lark.yml
+      - ci/lark/**/*
+      - charts/lark/**/*
+      - lark-client/**/*
       - .styles/**/*
