@@ -1,0 +1,27 @@
+lark:deploy:production:ucsb:
+  stage: production
+  extends: .deploy-lark
+  script:
+    - cd lark
+    - mv ../charts/lark/latest ./chart
+    - deploy
+  allow_failure: true
+  environment:
+    name: ucsb.production.lark
+    url: http://lark.$KUBE_INGRESS_BASE_DOMAIN
+  variables:
+    KUBE_NAMESPACE: lark-prod
+    HELM_RELEASE_NAME: surfliner-lark-prod
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE
+    DEPLOY_TAG: $CI_COMMIT_SHA
+    INGRESS_URL: lark.$KUBE_INGRESS_BASE_DOMAIN
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --set ingress.hosts={lark.$KUBE_INGRESS_BASE_DOMAIN}
+      --set persistence_adapters.index=solr
+      --set persistence_adapters.event=sql
+      --set solr.enabled=true
+      --set postgresql.enabled=true
+      --set lark.import_data=false
+  only:
+    refs:
+      - trunk

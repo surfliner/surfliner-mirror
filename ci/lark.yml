@@ -4,6 +4,7 @@ include:
   - local: ci/lark/test.yml
   - local: ci/lark/review.yml
   - local: ci/lark/staging.yml
+  - local: ci/lark/production.yml
 
 .deploy-lark:
   extends:
