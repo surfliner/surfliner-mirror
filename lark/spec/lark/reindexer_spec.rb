@@ -1,20 +1,22 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require_relative '../../config/environment'
 require_relative '../../lib/lark/reindexer'
 
 RSpec.describe Lark::Reindexer do
   subject(:reindexer) { described_class.new }
 
-  let(:adapter) do
-    Valkyrie::MetadataAdapter.find(Lark.config.index_adapter)
-  end
-  let(:query_service) { adapter.query_service }
-  let(:event_adapter) do
-    Valkyrie::MetadataAdapter.find(Lark.config.event_adapter)
+  let(:index_adapter) { Valkyrie::MetadataAdapter.find(Lark.config.index_adapter) }
+  let(:query_service) { index_adapter.query_service }
+  let(:event_adapter) { Valkyrie::MetadataAdapter.find(Lark.config.event_adapter) }
+
+  before do
+    index_adapter.persister.wipe!
+    event_adapter.persister.wipe!
   end
 
-  describe '#reindex(id:)' do
+  describe '#reindex' do
     subject(:attrs) do
       event_adapter.persister.save(resource: event_create)
       event_adapter.persister.save(resource: event_change)
@@ -30,16 +32,11 @@ RSpec.describe Lark::Reindexer do
     let(:event_create) { Event.new type: :create, data: { authority_id: id, changes: {} } }
     let(:event_change) { Event.new type: :change_properties, data: data }
 
-    after do
-      adapter.persister.wipe!
-      event_adapter.persister.wipe!
-    end
-
     context 'with missing authority record' do
       let(:data_change) { { authority_id: id, changes: { pref_label: 'moomin edited' } } }
       let(:event_update) { Event.new type: :change_properties, data: data_change }
 
-      before { adapter.persister.save(resource: authority) }
+      before { index_adapter.persister.save(resource: authority) }
 
       it 'reindex record' do
         expect(attrs).to include(pref_label: ['moomin edited'])
@@ -53,7 +50,7 @@ RSpec.describe Lark::Reindexer do
       end
       let(:event_update) { Event.new type: :change_properties, data: data_change }
 
-      before { adapter.persister.save(resource: authority) }
+      before { index_adapter.persister.save(resource: authority) }
 
       it 'contains :pref_label' do
         expect(attrs).to include(pref_label: ['moomin edited'])
@@ -93,11 +90,8 @@ RSpec.describe Lark::Reindexer do
     end
 
     before do
-      adapter.persister.wipe!
-      event_adapter.persister.wipe!
-
-      adapter.persister.save(resource: authority1)
-      adapter.persister.save(resource: authority2)
+      index_adapter.persister.save(resource: authority1)
+      index_adapter.persister.save(resource: authority2)
 
       event_adapter.persister.save(resource: event_create1)
       event_adapter.persister.save(resource: event_changes1)
@@ -108,11 +102,6 @@ RSpec.describe Lark::Reindexer do
       event_adapter.persister.save(resource: event_update2)
 
       reindexer.reindex_all
-    end
-
-    after do
-      adapter.persister.wipe!
-      event_adapter.persister.wipe!
     end
 
     it 're-index the record with changes' do
