@@ -49,14 +49,14 @@ module Lark
     def <<(event)
       publisher.publish_event(event)
 
-      adaptor.persister.save(resource: event)
+      adapter.persister.save(resource: event)
     end
 
     ##
-    # Retrieve the Valkyrie adaptor for event
+    # Retrieve the Valkyrie adapter for event
     #
     # @return [Valkyrie::MetadataAdapter]
-    def adaptor
+    def adapter
       Valkyrie::MetadataAdapter.find(Lark.config.event_adapter)
     end
 
