@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require_relative '../../lib/lark/event_stream'
+require_relative '../../config/environment'
 
 RSpec.describe Lark::EventStream do
   subject(:stream) { described_class.instance }
 
   let(:data) { { pref_label: 'moomin', alternate_label: 'alternate label' } }
-  let(:event) { Event.new type: :create, data: data }
+  let(:event) { FactoryBot.build(:event, data: data) }
 
   describe '#<<' do
     it 'returns the event with id' do
