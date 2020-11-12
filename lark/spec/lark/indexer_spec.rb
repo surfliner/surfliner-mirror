@@ -21,10 +21,21 @@ RSpec.describe Lark::Indexer do
   end
 
   describe '#index' do
-    let(:concept) { FactoryBot.build(:concept) }
+    context 'with id' do
+      let(:concept) { FactoryBot.build(:concept) }
 
-    it 'returns a concept' do
-      expect(indexer.index(data: concept)).to be_a Concept
+      it 'returns a concept' do
+        expect(indexer.index(data: concept)).to be_a Concept
+      end
+    end
+
+    context 'with no id' do
+      let(:concept) { Concept.new pref_label: 'moomin' }
+
+      it 'raise ArgumentError' do
+        expect { indexer.index(data: concept) }
+          .to raise_error(ArgumentError, "ID missing: #{concept.inspect}")
+      end
     end
   end
 end

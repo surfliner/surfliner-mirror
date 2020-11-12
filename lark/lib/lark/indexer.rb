@@ -34,6 +34,8 @@ module Lark
     ##
     # @param data [Valkyrie::Resource]
     def index(data:)
+      raise ArgumentError, "ID missing: #{data.inspect}" unless data.id
+
       persister.save(resource: data)
     end
 
