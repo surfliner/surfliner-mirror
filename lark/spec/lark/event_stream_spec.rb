@@ -6,8 +6,11 @@ require_relative '../../config/environment'
 RSpec.describe Lark::EventStream do
   subject(:stream) { described_class.instance }
 
-  let(:data) { { pref_label: 'moomin', alternate_label: 'alternate label' } }
-  let(:event) { FactoryBot.build(:event, data: data) }
+  let(:data) do
+    { authority_id: 'a-fade-id',
+      pref_label: 'moomin', alternate_label: 'alternate label' }
+  end
+  let(:event) { Event.new type: :create, data: data }
 
   describe '#<<' do
     it 'returns the event with id' do
