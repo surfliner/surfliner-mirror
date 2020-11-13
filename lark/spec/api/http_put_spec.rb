@@ -70,7 +70,7 @@ RSpec.describe 'PUT /{id}' do
         end
       end
 
-      context 'with missing attributes' do
+      context 'with invalid attributes' do
         let(:data) { { pref_label: new_label, not_an_attribute: :oh_no }.to_json }
 
         it 'gives a 400 error' do
