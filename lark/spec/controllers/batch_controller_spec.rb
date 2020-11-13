@@ -18,6 +18,10 @@ RSpec.describe BatchController do
                     env: headers)
   end
 
+  before do
+    persister.wipe!
+  end
+
   describe '#batch_update' do
     subject(:controller) do
       described_class.new(request: request)

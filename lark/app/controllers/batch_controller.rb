@@ -30,10 +30,11 @@ class BatchController < ApplicationController
     with_error_handling do
       authorities = parsed_body(format: ctype)
       authorities.each do |attrs|
-        Lark::Transactions::UpdateAuthority
-          .new(event_stream: event_stream, adapter: adapter)
-          .call(id: attrs[:id],
-                attributes: attrs)
+        result = Lark::Transactions::UpdateAuthority
+                 .new(event_stream: event_stream, adapter: adapter)
+                 .call(id: attrs[:id], attributes: attrs)
+
+        result.value_or { |failure| raise_error_for(failure) }
       end
 
       [204, cors_allow_header, []]
