@@ -149,7 +149,12 @@ curl -i -XPUT --data '{"pref_label":"moomin updated"}' -H "Content-Type: applica
 
 Response
 ```
-HTTP/1.1 204 No Content
+HTTP/1.1 200 OK
+Content-Type: application/json
+...
+
+Body:
+{"pref_label":["moomin updated"],"alternate_label":[],"hidden_label":[],"exact_match":[],"close_match":[],"note":[],"scope_note":[],"editorial_note":[],"history_note":[],"definition":[],"scheme":"http://www.w3.org/2004/02/skos/core#ConceptScheme","literal_form":[],"label_source":[],"campus":[],"annotation":[],"id":"c7be4834-929e-43b6-a418-a708f3eceade"}
 
 ```
 
@@ -200,7 +205,7 @@ Content-Length: 36
 
 #### Status
 
-`204` Created
+`200` OK
 
 `400` Bad Request
 
