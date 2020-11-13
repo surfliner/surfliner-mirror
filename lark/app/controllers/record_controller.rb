@@ -54,8 +54,8 @@ class RecordController < ApplicationController
       attrs = parsed_body(format: ctype)
 
       result = Lark::Transactions::UpdateAuthority
-                 .new(event_stream: event_stream, adapter: adapter)
-                 .call(id: params['id'], attributes: attrs)
+               .new(event_stream: event_stream, adapter: adapter)
+               .call(id: params['id'], attributes: attrs)
       record = result.value_or { |failure| raise_error_for(failure) }
 
       [200, cors_allow_header, [serialize(record: record, format: ctype)]]

@@ -69,6 +69,7 @@ RSpec.describe RecordController do
     let(:body) { StringIO.new(serializer.serialize(record: authority)) }
     let(:serializer) { Lark::RecordSerializer.for(content_type: 'application/json') }
 
+    # rubocop:disable RSpec/MultipleMemoizedHelpers
     context 'with a listener' do
       let(:listener) { FakeListener.new }
 
@@ -80,6 +81,7 @@ RSpec.describe RecordController do
           .by 1
       end
     end
+    # rubocop:enable RSpec/MultipleMemoizedHelpers
 
     context 'with an unknown media type' do
       let(:headers) { { 'CONTENT_TYPE' => 'application/fake' } }

@@ -57,32 +57,40 @@ RSpec.describe 'PUT /{id}' do
         expect(JSON.parse(last_response.body).symbolize_keys)
           .to include(id: id, pref_label: new_label)
       end
+    end
 
-      context 'with disallowed attributes' do
-        let(:data) { { pref_label: new_label, updated_at:'2100-01-01' }.to_json }
+    context 'with disallowed attributes PUTing to update concept' do
+      let(:data) { { pref_label: new_label, updated_at: '2100-01-01' }.to_json }
 
-        it 'gives a 400 error' do
-          expect(last_response).to have_attributes status: 400
-        end
-
-        it 'returns a meaningful body' do
-          expect(last_response.body).to include 'updated_at', 'not allowed'
-        end
+      before do
+        put "/#{id}", data, 'CONTENT_TYPE' => ctype
       end
 
-      context 'with invalid attributes' do
-        let(:data) { { pref_label: new_label, not_an_attribute: :oh_no }.to_json }
+      it 'gives a 400 error' do
+        expect(last_response).to have_attributes status: 400
+      end
 
-        it 'gives a 400 error' do
-          expect(last_response).to have_attributes status: 400
-        end
+      it 'returns a meaningful body' do
+        expect(last_response.body).to include 'updated_at', 'not allowed'
+      end
+    end
 
-        it 'does not update the record' do
-          get "/#{id}"
+    context 'with invalid attributes PUTing to update concept' do
+      let(:data) { { pref_label: new_label, not_an_attribute: :oh_no }.to_json }
 
-          expect(JSON.parse(last_response.body).symbolize_keys)
-            .to include(id: id, pref_label: ['PrefLabel'])
-        end
+      before do
+        put "/#{id}", data, 'CONTENT_TYPE' => ctype
+      end
+
+      it 'gives a 400 error' do
+        expect(last_response).to have_attributes status: 400
+      end
+
+      it 'does not update the record' do
+        get "/#{id}"
+
+        expect(JSON.parse(last_response.body).symbolize_keys)
+          .to include(id: id, pref_label: ['PrefLabel'])
       end
     end
 
