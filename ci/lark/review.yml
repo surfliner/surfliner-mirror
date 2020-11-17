@@ -50,7 +50,7 @@ lark:deploy:review:ucsd:
     HELM_RELEASE_NAME: surfliner-lark-$CI_MERGE_REQUEST_ID
     KUBE_NAMESPACE: lark-review
     HELM_UPGRADE_EXTRA_ARGS: '--set ingress.hosts={lark-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN} --set persistence_adapters.index="memory" --set persistence_adapters.event="memory" --set solr.enabled=FALSE --set postgresql.enabled=FALSE --set ezid.password=$EZID_TEST_PASSWORD --set lark.import_data=true'
-    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
   only:
     refs:
       - merge_requests
@@ -80,7 +80,7 @@ lark:stop:review:ucsd:
   stage: review
   variables:
     GIT_STRATEGY: none
-    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
   script:
     - delete
   environment:
