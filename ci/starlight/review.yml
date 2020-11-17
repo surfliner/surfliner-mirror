@@ -26,7 +26,7 @@ starlight:deploy:ucsd-review:
     HELM_UPGRADE_EXTRA_ARGS: >
       --set ingress.hosts={starlight-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN}
       --values $HELM_VALUES_FILE
-    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
   script:
     - cd starlight
     - mv ../charts/starlight ./chart
@@ -43,7 +43,7 @@ starlight:cleanup:ucsd-review:
   allow_failure: true
   variables:
     GIT_STRATEGY: none
-    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
   script:
     - delete
     - delete_stateful_set_pvcs
