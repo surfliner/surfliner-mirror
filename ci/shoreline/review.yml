@@ -33,7 +33,7 @@ shoreline:discovery:deploy:ucsd-review:
       --set solr.replicaCount=1
       --set solr.zookeeper.persistence.enabled=false
       --set solr.zookeeper.replicaCount=1
-    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
   script:
     - cd shoreline/discovery
     - mv ../../charts/shoreline ./chart
@@ -52,7 +52,7 @@ shoreline:discovery:cleanup:ucsd-review:
   allow_failure: true
   variables:
     GIT_STRATEGY: none
-    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
   script:
     - delete
     - delete_stateful_set_pvcs
