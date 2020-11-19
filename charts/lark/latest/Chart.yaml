@@ -9,6 +9,6 @@ dependencies:
     repository: https://kubernetes-charts-incubator.storage.googleapis.com/
     condition: solr.enabled
   - name: postgresql
-    version: 9.8.2
+    version: 9.8.12
     repository: https://charts.bitnami.com/bitnami
     condition: postgresql.enabled
