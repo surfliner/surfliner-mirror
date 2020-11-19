@@ -7,9 +7,9 @@ dependencies:
   version: 9.1.2
 - name: redis
   repository: https://charts.bitnami.com/bitnami
-  version: 12.0.0
+  version: 12.1.1
 - name: solr
   repository: http://storage.googleapis.com/kubernetes-charts-incubator
   version: 1.5.2
-digest: sha256:b2ddaeb99585281deb65db9e415415e951ee45b85ca85731d5094695791cd7b9
-generated: "2020-11-13T18:04:54.850673398Z"
+digest: sha256:a55d1ec7f15b299bd01c7ebea03c9a7de106c060f285c53ed3da37f0cde790d4
+generated: "2020-11-19T15:07:17.646740655Z"
