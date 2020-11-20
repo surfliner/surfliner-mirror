@@ -4,12 +4,12 @@ dependencies:
   version: 5.2.0
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
-  version: 9.8.12
+  version: 10.1.0
 - name: redis
   repository: https://charts.bitnami.com/bitnami
   version: 12.1.1
 - name: solr
   repository: https://lib-helm-repo.ucsd.edu
   version: 1.5.2
-digest: sha256:d0acaa72732572a896e8918ec07095a25413a6c0a6eb059d87491ac065b71df2
-generated: "2020-11-20T11:10:26.631510219-08:00"
+digest: sha256:1bf22a6b04f914447c6302e9cb844bca8f6e456cd6db55f4a4c16d917850e5f8
+generated: "2020-11-20T23:52:57.271320578Z"
