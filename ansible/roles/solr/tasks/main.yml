@@ -1,4 +1,0 @@
----
-- include: prerequisites.yml
-- include: install.yml
-- include: solr_firewall.yml

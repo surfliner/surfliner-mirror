@@ -1,8 +1,0 @@
----
-
-- name: restart Apache
-  systemd:
-    enabled: yes
-    name: httpd
-    state: restarted
-  become: yes

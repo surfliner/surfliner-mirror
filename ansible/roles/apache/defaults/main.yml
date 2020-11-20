@@ -1,6 +1,0 @@
----
-apache_packages:
-  - gcc-c++
-  - httpd-devel
-  - libcurl-devel
-  - mod_xsendfile

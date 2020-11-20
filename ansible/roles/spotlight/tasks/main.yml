@@ -1,4 +1,0 @@
----
-- include: prerequisites.yml
-- include: rails.yml
-- include: systemctl.yml

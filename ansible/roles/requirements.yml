@@ -1,9 +1,0 @@
----
-- src: geerlingguy.postgresql
-  version: '1.4.7'
-
-- src: zzet.rbenv
-  version: '3.4.7'
-
-- src: cmprescott.xml
-  version: '1.0.0'

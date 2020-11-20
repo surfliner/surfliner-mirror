@@ -1,6 +1,0 @@
-/roles/*\.*
-!/roles/requirements.yml
-
-*.retry
-/vars
-inventory
