@@ -1,9 +1,9 @@
 dependencies:
 - name: solr
-  repository: https://kubernetes-charts-incubator.storage.googleapis.com/
+  repository: https://lib-helm-repo.ucsd.edu
   version: 1.5.2
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
   version: 9.8.12
-digest: sha256:431a528c1ebdd428b5e4d805bfd6a2df87ccfeda0e32b19fcafba117ca19ac07
-generated: "2020-11-19T18:40:42.012086107Z"
+digest: sha256:07fd7160a06ad05fdc85af4643b4de62bd39d5e4d72039a9b29f867c6b706c3d
+generated: "2020-11-20T11:11:38.179654719-08:00"

@@ -9,7 +9,7 @@ dependencies:
   repository: https://charts.bitnami.com/bitnami
   version: 12.1.1
 - name: solr
-  repository: http://storage.googleapis.com/kubernetes-charts-incubator
+  repository: https://lib-helm-repo.ucsd.edu
   version: 1.5.2
-digest: sha256:0e3b7f88b519cef6530fd19f0c8f955a2e38ec7397499cc6171bc727bdafd6e8
-generated: "2020-11-19T20:16:41.350913996Z"
+digest: sha256:d0acaa72732572a896e8918ec07095a25413a6c0a6eb059d87491ac065b71df2
+generated: "2020-11-20T11:10:26.631510219-08:00"

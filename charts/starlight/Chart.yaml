@@ -18,5 +18,5 @@ dependencies:
     condition: redis.enabled
   - name: solr
     version: 1.5.2
-    repository: http://storage.googleapis.com/kubernetes-charts-incubator
+    repository: https://lib-helm-repo.ucsd.edu
     condition: solr.enabled
