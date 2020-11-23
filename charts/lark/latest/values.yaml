@@ -41,7 +41,7 @@ persistence_adapters:
 solr:
   image:
     repository: solr
-    tag: 8.6.3
+    tag: 8.7.0
 
 # Configuration for postgresql chart
 # see: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md

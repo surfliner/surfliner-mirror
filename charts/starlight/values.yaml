@@ -98,7 +98,7 @@ persistence:
 solr:
   image:
     repository: solr
-    tag: 8.6.3
+    tag: 8.7.0
 
 # Configuration for memcached chart
 # see: https://github.com/bitnami/charts/blob/master/bitnami/memcached/README.md
