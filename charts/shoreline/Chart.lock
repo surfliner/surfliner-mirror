@@ -1,12 +1,12 @@
 dependencies:
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
-  version: 10.1.0
+  version: 8.10.14
 - name: geoserver
   repository: file://../geoserver
   version: 1.0.0
 - name: solr
   repository: https://lib-helm-repo.ucsd.edu
   version: 1.5.2
-digest: sha256:640d25a3733c2d76b54f3e66cc21fa032648c143a5923265b8c1c5dda25969ca
-generated: "2020-11-20T23:53:23.316288886Z"
+digest: sha256:89f7c30e923c8f2c68c7d4ace3616daadd1503bf1e8806b68f1a1eb3f431b013
+generated: "2020-11-20T11:00:38.825072072-08:00"
