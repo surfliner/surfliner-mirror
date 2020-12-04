@@ -50,7 +50,10 @@ module Importer
       # -o: overwrite existing files in `dest'
       system 'unzip', '-qq', '-j', '-o', file, '-d', dir
 
-      iso = Dir.glob('*iso19139.xml', base: dir)[0]
+      iso = Dir.entries(dir).select do |f|
+        /.*-iso\.xml$/i.match(f)
+      end.first
+
       xml = Nokogiri::XML(File.open("#{dir}/#{iso}"))
 
       id = File.basename(Dir.glob('*.shp', base: dir)[0], '.shp')
