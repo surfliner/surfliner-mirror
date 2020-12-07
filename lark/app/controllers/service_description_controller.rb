@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'application_controller'
-
 ##
 # This controller provides a service description of the API.
 class ServiceDescriptionController < ApplicationController
