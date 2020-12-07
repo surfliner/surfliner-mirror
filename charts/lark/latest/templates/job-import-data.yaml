@@ -20,7 +20,12 @@ spec:
         - name: import-data
           image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["/bin/sh", "-c", "db-wait.sh $APP_HOST:$APP_PORT && bundle exec rake lark:seed"]
+          command:
+            - /bin/sh
+            - -c
+            - >
+              db-wait.sh $APP_HOST:$APP_PORT &&
+              curl -i -XPOST --data-binary @{{.Values.lark.data_file}} -H "Content-Type: application/json" $APP_URL/batch_import
           envFrom:
             - configMapRef:
                 name: {{ include "lark.fullname" . }}-env

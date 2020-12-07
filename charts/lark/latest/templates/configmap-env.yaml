@@ -14,6 +14,7 @@ data:
   {{- end }}
   APP_HOST: {{ index .Values.ingress.hosts 0 }}
   APP_PORT: {{ .Values.service.port | quote }}
+  APP_URL: http{{ if .Values.ingress.tls }}s{{ end }}://{{ index .Values.ingress.hosts 0 }}
   INDEX_ADAPTER: {{ .Values.persistence_adapters.index }}
   EVENT_ADAPTER: {{ .Values.persistence_adapters.event }}
   {{- if .Values.postgresql.enabled }}
