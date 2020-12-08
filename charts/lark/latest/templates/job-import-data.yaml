@@ -1,4 +1,4 @@
-{{- if .Values.lark.import_data }}
+{{- if .Values.lark.import_data.enabled }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -25,7 +25,7 @@ spec:
             - -c
             - >
               db-wait.sh $APP_HOST:$APP_PORT &&
-              curl -i -XPOST --data-binary @{{.Values.lark.data_file}} -H "Content-Type: application/json" $APP_URL/batch_import
+              curl -i -XPOST --data-binary @{{.Values.lark.import_data.data_file}} -H "Content-Type: application/json" $APP_URL/batch_import
           envFrom:
             - configMapRef:
                 name: {{ include "lark.fullname" . }}-env
