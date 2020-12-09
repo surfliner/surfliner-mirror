@@ -21,7 +21,7 @@ lark:deploy:production:ucsb:
       --set persistence_adapters.event=sql
       --set solr.enabled=true
       --set postgresql.enabled=true
-      --set lark.import_data=false
+      --set lark.import_data.enabled=false
   only:
     refs:
       - trunk
