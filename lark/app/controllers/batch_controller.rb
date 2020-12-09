@@ -46,7 +46,7 @@ class BatchController < ApplicationController
     with_error_handling do
       path = '/tmp/lark_import.csv'
       copy_csv_file(path, request)
-      CSV.foreach(path, headers: true, encoding: 'ISO-8859-1') do |row|
+      CSV.foreach(path, headers: true, encoding: 'utf-8') do |row|
         create_record(row.to_hash.to_json)
       end
       File.delete(path) if File.exist?(path)
@@ -69,7 +69,7 @@ class BatchController < ApplicationController
     raise Lark::BadRequest if data.empty?
 
     file = File.open(path, 'wb')
-    file.puts(data)
+    file.puts(data.force_encoding('utf-8'))
     file.close
   end
 end

@@ -211,5 +211,18 @@ RSpec.describe 'POST /' do
         expect(last_response.status).to eq 400
       end
     end
+
+    context 'with multilingual fields' do
+      subject(:record) { query_service.find_all_of_model(model: Concept).first }
+
+      let(:csv_file) { 'UCSD-multilingual-sample.csv' }
+
+      before { post '/batch_import', data, 'CONTENT_TYPE' => ctype }
+
+      it 'creates a concept with fields in multilingual literal form' do
+        expect(record).to include(pref_label: ['"Chʹoe, Yŏng-su. (최 영수.)"@ko-Latn'],
+                                  alternate_label: ['"최 영수"@ko-Hang'])
+      end
+    end
   end
 end
