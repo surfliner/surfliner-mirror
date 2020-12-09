@@ -1,21 +1,63 @@
-lark:deploy:staging:ucsb:
+.lark:deploy:stage:
   stage: staging
-  extends: .deploy-lark
+  extends:
+    - .deploy-lark
   script:
     - cd lark
     - mv ../charts/lark/latest ./chart
     - deploy
   allow_failure: true
-  environment:
-    name: ucsb.staging.lark
-    url: http://lark-staging.$KUBE_INGRESS_BASE_DOMAIN
   variables:
     KUBE_NAMESPACE: lark-staging
     HELM_RELEASE_NAME: surfliner-lark-stage
     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE
     DEPLOY_TAG: $CI_COMMIT_SHA # trunk (see only: refs:)
-    INGRESS_URL: lark-staging.$KUBE_INGRESS_BASE_DOMAIN
-    HELM_UPGRADE_EXTRA_ARGS: '--set ingress.hosts={lark-staging.$KUBE_INGRESS_BASE_DOMAIN} --set persistence_adapters.index="memory" --set persistence_adapters.event="memory" --set solr.enabled=FALSE --set postgresql.enabled=FALSE --set lark.import_data.enabled=true'
   only:
     refs:
       - trunk
+
+lark:deploy:staging:ucsb:
+  extends: .lark:deploy:stage
+  environment:
+    name: ucsb.staging.lark
+    url: http://lark-staging.$KUBE_INGRESS_BASE_DOMAIN
+    on_stop: lark:cleanup:staging:ucsb
+  variables:
+    INGRESS_URL: lark-staging.$KUBE_INGRESS_BASE_DOMAIN
+    HELM_UPGRADE_EXTRA_ARGS: '--set ingress.hosts={lark-staging.$KUBE_INGRESS_BASE_DOMAIN} --set persistence_adapters.index="memory" --set persistence_adapters.event="memory" --set solr.enabled=FALSE --set postgresql.enabled=FALSE --set lark.import_data.enabled=true'
+
+lark:deploy:staging:ucsd:
+  extends: .lark:deploy:stage
+  environment:
+    name: ucsd.staging.lark
+    url: http://lark-staging.$UCSD_STAGING_DOMAIN
+    on_stop: lark:cleanup:staging:ucsd
+  variables:
+    HELM_UPGRADE_EXTRA_ARGS: '--set ingress.hosts={lark-staging.$UCSD_STAGING_DOMAIN} --set persistence_adapters.index="memory" --set persistence_adapters.event="memory" --set solr.enabled=FALSE --set postgresql.enabled=FALSE --set ezid.password=$EZID_TEST_PASSWORD --set lark.import_data.enabled=true'
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+
+lark:cleanup:staging:ucsb:
+  extends:
+    - .lark:deploy:stage
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - delete
+  environment:
+    name: ucsb.staging.lark
+    action: stop
+  when: manual
+
+lark:cleanup:staging:ucsd:
+  extends:
+    - .lark:deploy:stage
+  variables:
+    GIT_STRATEGY: none
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+  script:
+    - delete
+  environment:
+    name: ucsd.staging.lark
+    action: stop
+  when: manual
+  
