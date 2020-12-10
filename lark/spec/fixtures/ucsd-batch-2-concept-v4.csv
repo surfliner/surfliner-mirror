@@ -1,0 +1,77 @@
+identifier,pref_label,alternate_label,hidden_label,exact_match,close_match,scope_note
+http://library.ucsd.edu/ark:/20775/bd0124985k,nuclear outer membrane-endoplasmic reticulum membrane network,,,http://purl.obolibrary.org/obo/GO:0042175|https://www.wikidata.org/wiki/Q21109092,,anatomy
+http://library.ucsd.edu/ark:/20775/bd0124987m,spinal nerves,,,http://purl.obolibrary.org/obo/OMIT:0014009,,anatomy
+http://library.ucsd.edu/ark:/20775/bd01249884,"TS15,forelimb bud",,,http://purl.obolibrary.org/obo/EMAP:1070,,anatomy
+http://library.ucsd.edu/ark:/20775/bd01591107,cortical membranes,,,,,anatomy
+http://library.ucsd.edu/ark:/20775/bd0159113s,human immunodeficiency virus,,,http://purl.obolibrary.org/obo/NCIT:C14219|https://www.wikidata.org/wiki/Q15787,,anatomy
+http://library.ucsd.edu/ark:/20775/bd0159115t,phagocytic vesicle membrane,,,http://purl.obolibrary.org/obo/GO:0030670|https://www.wikidata.org/wiki/Q14875827,,anatomy
+http://library.ucsd.edu/ark:/20775/bd01932405,embryonic cell,,,http://purl.obolibrary.org/obo/CL:0002321|https://www.wikidata.org/wiki/Q882097,,anatomy
+http://library.ucsd.edu/ark:/20775/bd01932426,lipid droplets,,,http://purl.obolibrary.org/obo/OMIT:0028888|https://www.wikidata.org/wiki/Q80948960,,anatomy
+http://library.ucsd.edu/ark:/20775/bb64192001,Paralabrax nebulifer,Barred sand bass,,https://www.wikidata.org/wiki/Q4863299,https://en.wikipedia.org/wiki/Barred_sand_bass,scientific name
+http://library.ucsd.edu/ark:/20775/bb38253214,Panulirus interruptus,California spiny lobster,,https://www.wikidata.org/wiki/Q452353,https://en.wikipedia.org/wiki/California_spiny_lobster,scientific name
+http://library.ucsd.edu/ark:/20775/bb9013081k,Mycteroperca jordani,Gulf grouper,,https://www.wikidata.org/wiki/Q2109519,https://en.wikipedia.org/wiki/Gulf_grouper,scientific name
+http://library.ucsd.edu/ark:/20775/bb31768506,Haliotis corrugata ,Pink abalone,,https://www.wikidata.org/wiki/Q3096257,https://en.wikipedia.org/wiki/Haliotis_corrugata,scientific name
+http://library.ucsd.edu/ark:/20775/bb6077901r,Atractoscion nobilis ,White seabass,,https://www.wikidata.org/wiki/Q1188144,https://en.wikipedia.org/wiki/White_seabass,scientific name
+http://library.ucsd.edu/ark:/20775/bb83304803,Paralichthys woolmani,,,https://www.wikidata.org/wiki/Q2489306,,scientific name
+http://library.ucsd.edu/ark:/20775/bd0125000h,Siphonaptera,,,http://purl.obolibrary.org/obo/NCBITaxon:7509|https://www.wikidata.org/wiki/Q388162,https://en.wikipedia.org/wiki/Flea,scientific name
+http://library.ucsd.edu/ark:/20775/bd0159127b,Aulacodiscus formosus,,,http://purl.obolibrary.org/obo/NCBITaxon_1003206,,scientific name
+http://library.ucsd.edu/ark:/20775/bb9421332z,"Portraits, Group",,"group portraits|Photographs, Group|Portraits, group",http://id.worldcat.org/fast/1072366,,topic
+http://library.ucsd.edu/ark:/20775/bb6588637g,Refuse and refuse disposal,,Refuse disposal|garbage|rubbish,http://id.worldcat.org/fast/1092888,,topic
+http://library.ucsd.edu/ark:/20775/bb8093398r,Constructed language,,,https://www.wikidata.org/wiki/Q33215,http://en.wikipedia.org/wiki/Constructed_language,topic
+http://library.ucsd.edu/ark:/20775/bb8945552n,Culture,,,http://id.worldcat.org/fast/885059,http://en.wikipedia.org/wiki/Culture,topic
+http://library.ucsd.edu/ark:/20775/bb85720141,Ocean tomography,"Ocean acoustic tomography|""Tomografía acústica del océano""@es|""海洋声学探测""@zh-Hans",,http://id.worldcat.org/fast/1043582|https://www.wikidata.org/wiki/Q7076123,http://en.wikipedia.org/wiki/Ocean_acoustic_tomography,topic
+http://library.ucsd.edu/ark:/20775/bb11316744,Skis and skiing,,,http://id.worldcat.org/fast/1120169,http://en.wikipedia.org/wiki/Ski,topic
+http://library.ucsd.edu/ark:/20775/bb5978136d,Surface waves (Oceanography),,,http://id.worldcat.org/fast/1139247,http://en.wikipedia.org/wiki/Surface_wave,topic
+http://library.ucsd.edu/ark:/20775/bb8980001x,3D modeling,,,https://www.wikidata.org/wiki/Q568742,https://en.wikipedia.org/wiki/3D_modeling,topic
+http://library.ucsd.edu/ark:/20775/bb6386122n,3D reconstruction,,,https://www.wikidata.org/wiki/Q4464732,https://en.wikipedia.org/wiki/3D_reconstruction,topic
+http://library.ucsd.edu/ark:/20775/bb7751513z,Acoustic Doppler Current Profiler (ADCP),,,https://www.wikidata.org/wiki/Q624383,https://en.wikipedia.org/wiki/Acoustic_Doppler_current_profiler,topic
+http://library.ucsd.edu/ark:/20775/bb74102145,Acoustic Doppler Velocimetry (ADV),,,https://www.wikidata.org/wiki/Q4674632,https://en.wikipedia.org/wiki/Acoustic_Doppler_velocimetry,topic
+http://library.ucsd.edu/ark:/20775/bb61802908,Blue carbon,,,https://www.wikidata.org/wiki/Q4930066,https://en.wikipedia.org/wiki/Blue_carbon,topic
+http://library.ucsd.edu/ark:/20775/bb3996116r,Brewster angle microscopy (BAM),,,https://www.wikidata.org/wiki/Q16743244,https://en.wikipedia.org/wiki/Brewster_angle_microscope,topic
+http://library.ucsd.edu/ark:/20775/bb8842577m,Carbohydrate,,,https://www.wikidata.org/wiki/Q11358,https://en.wikipedia.org/wiki/Carbohydrate,topic
+http://library.ucsd.edu/ark:/20775/bb0277631p,Ecosystem services,,,https://www.wikidata.org/wiki/Q295865,https://en.wikipedia.org/wiki/Ecosystem_services,topic
+http://library.ucsd.edu/ark:/20775/bb02433741,Sino-Japanese War (1937-1945),,,https://www.wikidata.org/wiki/Q170314,https://en.wikipedia.org/wiki/Second_Sino-Japanese_War,topic
+http://library.ucsd.edu/ark:/20775/bb0548760c,Ukrainian collaborationism with the Axis powers,,,https://www.wikidata.org/wiki/Q1965318,https://en.wikipedia.org/wiki/Ukrainian_collaborationism_with_the_Axis_powers,topic
+http://library.ucsd.edu/ark:/20775/bb2802357c,Tall buildings,,,http://id.worldcat.org/fast/1142303|http://vocab.getty.edu/aat/300004810,,topic
+http://library.ucsd.edu/ark:/20775/bb9662484g,"Lighting, Architectural and decorative",,,http://id.worldcat.org/fast/998669|http://vocab.getty.edu/aat/300052015,,topic
+http://library.ucsd.edu/ark:/20775/bb1573676w,Brutalism (Architecture),,,http://id.worldcat.org/fast/839893|http://vocab.getty.edu/aat/300112048,,topic
+http://library.ucsd.edu/ark:/20775/bb4406466p,Plant containers,,,http://id.worldcat.org/fast/1065363|http://vocab.getty.edu/aat/300237566,,topic
+http://library.ucsd.edu/ark:/20775/bb2632971c,"Otoliths, Fossil",,,http://id.loc.gov/authorities/subjects/sh98000236,,topic
+http://library.ucsd.edu/ark:/20775/bb3145342z,Cnidaria,,,http://id.loc.gov/authorities/subjects/sh98001754,,topic
+http://library.ucsd.edu/ark:/20775/bb69337139,Open source software,,,http://id.loc.gov/authorities/subjects/sh99003437,,topic
+http://library.ucsd.edu/ark:/20775/bb3517646f,Adobe brick,,,http://id.worldcat.org/fast/0796975,,topic
+http://library.ucsd.edu/ark:/20775/bb09237661,Adobe churches,,,http://id.worldcat.org/fast/0796976,,topic
+http://library.ucsd.edu/ark:/20775/bb02423335,Pride and vanity,,,http://id.worldcat.org/fast/1076249,,topic
+http://library.ucsd.edu/ark:/20775/bb0242608n,Indoor swimming pools,,,http://vocab.getty.edu/aat/300251221,,topic
+http://library.ucsd.edu/ark:/20775/bb0242721f,"""Pozole""@es",caldo,,https://www.wikidata.org/wiki/Q515692,https://en.wikipedia.org/wiki/Pozole,topic
+http://library.ucsd.edu/ark:/20775/bb0242965b,Conservatories,,,http://id.worldcat.org/fast/875622,,topic
+http://library.ucsd.edu/ark:/20775/bb0242967c,Monologues with music (Musique concrète),,,,,topic
+http://library.ucsd.edu/ark:/20775/bb0242968w,Parables,,,http://id.worldcat.org/fast/1052768,,topic
+http://library.ucsd.edu/ark:/20775/bb02429707,Toilets,,,http://id.worldcat.org/fast/1152153,,topic
+http://library.ucsd.edu/ark:/20775/bb0243554z,Sacred music,,,http://id.worldcat.org/fast/1103131,,topic
+http://library.ucsd.edu/ark:/20775/bb0277096g,"Quartets (Flutes (2), percussion)",,,http://id.worldcat.org/fast/1190331,,topic
+http://library.ucsd.edu/ark:/20775/bb0277180b,Balls (Parties),,,,,topic
+http://library.ucsd.edu/ark:/20775/bb0277662n,Devices (Heraldry),,,,,topic
+http://library.ucsd.edu/ark:/20775/bb02777597,Left ventricle (LV),,,,,topic
+http://library.ucsd.edu/ark:/20775/bb0278028j,FLEXPART,,,,,topic
+http://library.ucsd.edu/ark:/20775/bb02783789,Molar tooth,,,https://www.wikidata.org/wiki/Q189218,,topic
+http://library.ucsd.edu/ark:/20775/bb0412274q,Pumping stations,,,http://id.worldcat.org/fast/1084018,,topic
+http://library.ucsd.edu/ark:/20775/bb0412353p,Pharmaceutical industry--Research,,,http://id.worldcat.org/fast/1060172,,topic
+http://library.ucsd.edu/ark:/20775/bb0412467p,Heterogeneous chemistry,,,,,topic
+http://library.ucsd.edu/ark:/20775/bb04124822,Lettuce,,,,,topic
+http://library.ucsd.edu/ark:/20775/bb04125255,Worship,,,http://id.worldcat.org/fast/1181450,,topic
+http://library.ucsd.edu/ark:/20775/bb0412861c,Role models,,,http://id.worldcat.org/fast/1099622,,topic
+http://library.ucsd.edu/ark:/20775/bb04136120,Assemblage (Art),,,http://id.worldcat.org/fast/818997,,topic
+http://library.ucsd.edu/ark:/20775/bb0548906g,Observatories,,,http://id.worldcat.org/fast/1042952,,topic
+http://library.ucsd.edu/ark:/20775/bb05493820,Grains,,,http://id.worldcat.org/fast/945891,,topic
+http://library.ucsd.edu/ark:/20775/bb0549383h,Stone houses,,,http://id.worldcat.org/fast/1133858,,topic
+http://library.ucsd.edu/ark:/20775/bb0550135w,Bridal bouquets,,,http://id.worldcat.org/fast/838632,,topic
+http://library.ucsd.edu/ark:/20775/bd0124990g,cellular macromolecule localization,,,http://purl.obolibrary.org/obo/GO:0070727|https://www.wikidata.org/wiki/Q22290869,,topic
+http://library.ucsd.edu/ark:/20775/bd0124992h,intermediate filament cytoskeleton organization,,,http://purl.obolibrary.org/obo/GO:0045104|https://www.wikidata.org/wiki/Q14864161,,topic
+http://library.ucsd.edu/ark:/20775/bd01249952,oral/aboral axis specification,,,http://purl.obolibrary.org/obo/GO:0060834|https://www.wikidata.org/wiki/Q22299111,,topic
+http://library.ucsd.edu/ark:/20775/bd0124996k,post-Golgi vesicle-mediated transport,,,http://purl.obolibrary.org/obo/GO:0006892|https://www.wikidata.org/wiki/Q14888944,,topic
+http://library.ucsd.edu/ark:/20775/bd0124998m,tyrosine phosphorylation,,,https://www.wikidata.org/wiki/Q7861690,,topic
+http://library.ucsd.edu/ark:/20775/bd0159117v,actin binding,,,http://purl.obolibrary.org/obo/GO:0003779|https://www.wikidata.org/wiki/Q14863962,,topic
+http://library.ucsd.edu/ark:/20775/bd0159120q,conjugation with cellular fusion,,,http://purl.obolibrary.org/obo/GO:0000747|https://www.wikidata.org/wiki/Q22271535,,topic
+http://library.ucsd.edu/ark:/20775/bd0159122r,mediolateral convergence,,,,,topic
+http://library.ucsd.edu/ark:/20775/bd0159124s,regulation of gene expression,,,http://purl.obolibrary.org/obo/GO:0010468|https://www.wikidata.org/wiki/Q411391,,topic

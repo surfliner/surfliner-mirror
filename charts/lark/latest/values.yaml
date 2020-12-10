@@ -64,7 +64,7 @@ lark:
   # whether to import data during deployment
   import_data:
     enabled: false
-    data_file: /home/lark/app/spec/fixtures/UCSD_authority_sample_2.csv
+    data_file: /home/lark/app/spec/fixtures/ucsd-batch-2-concept-v4.csv
   solr:
     collectionName: lark
     port: 8983
