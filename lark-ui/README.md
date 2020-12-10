@@ -11,5 +11,11 @@ To setup a development environment:
 1. `docker-compose up`  to run dev environment
 1. Access the application on http://localhost:3000
 
+You can run `RSpec` tests with:
+
+```sh
+docker-compose exec web sh -c 'bundle exec rspec'
+```
+
 [lark]: ../lark/README.md
 [rails]: https://rubyonrails.org/
