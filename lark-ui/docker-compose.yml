@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  web:
+    build:
+      context: ../
+      dockerfile: lark-ui/Dockerfile
+      target: development
+    image: lark-ui/development
+    env_file:
+      - .env
+    stdin_open: true
+    tty: true
+    ports:
+     - '3000:3000'
+    volumes:
+      - .:/home/lark-ui/app:cached
+      - lark-ui_assets:/home/starlight/app/public/assets
+      - lark-ui_tmp:/home/lark-ui/app/tmp
+
+volumes:
+  lark-ui_tmp:
+  lark-ui_assets:
