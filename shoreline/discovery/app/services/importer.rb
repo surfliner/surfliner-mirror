@@ -33,8 +33,41 @@ module Importer
     west: '//xmlns:westBoundLongitude/gco:Decimal'
   }.freeze
 
-  def self.run(file)
-    metadata = JSON.parse(extract(file).to_json)
+  def self.csv(csv:, file_root:)
+    table = CSV.table(csv, encoding: 'UTF-8')
+
+    table.each do |row|
+      if row[:zipfilename].nil?
+        warn "missing field zipfilename"
+        warn row.inspect
+        next
+      end
+
+      zipfile = Pathname.new(file_root).join(row[:zipfilename]).to_s
+
+      self.geoserver(file_path: zipfile)
+      self.run(csv_row: row, file_path: zipfile)
+    end
+  end
+
+  def self.geoserver(file_path:)
+    conn = Geoserver::Publish::Connection.new(
+      # Using internal hostname to avoid the nginx ingress, which limits filesize
+      'url' => "http://#{ENV['GEOSERVER_INTERNAL_HOST']}:#{ENV['GEOSERVER_PORT']}/geoserver/rest",
+      'user' => ENV['GEOSERVER_USER'],
+      'password' => ENV['GEOSERVER_PASSWORD']
+    )
+
+    file = File.read(file_path)
+    file_id = File.basename(file_path, File.extname(file_path))
+    workspace = ENV.fetch('GEOSERVER_WORKSPACE', 'public')
+
+    Geoserver::Publish.create_workspace(workspace_name: workspace, connection: conn)
+    Geoserver::Publish::DataStore.new(conn).upload(workspace_name: workspace, data_store_name: file_id, file: file)
+  end
+
+  def self.run(csv_row:, file_path:)
+    metadata = JSON.parse(extract(file_path).to_json)
     puts metadata
 
     Blacklight.default_index.connection.add(metadata)
