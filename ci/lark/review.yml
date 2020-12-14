@@ -49,7 +49,18 @@ lark:deploy:review:ucsd:
     DEPLOY_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-lark-$CI_MERGE_REQUEST_ID
     KUBE_NAMESPACE: lark-review
-    HELM_UPGRADE_EXTRA_ARGS: '--set ingress.hosts={lark-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN} --set persistence_adapters.index="memory" --set persistence_adapters.event="memory" --set solr.enabled=FALSE --set postgresql.enabled=FALSE --set ezid.password=$EZID_TEST_PASSWORD --set lark.import_data.enabled=true'
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --set ingress.hosts={lark-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN}
+      --set persistence_adapters.index="solr"
+      --set persistence_adapters.event="sql"
+      --set solr.persistence.enabled=false
+      --set solr.replicaCount=1
+      --set solr.zookeeper.persistence.enabled=false
+      --set solr.zookeeper.replicaCount=2
+      --set solr.enabled=true
+      --set postgresql.enabled=true
+      --set ezid.password=$EZID_TEST_PASSWORD
+      --set lark.import_data.enabled=true'
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
   only:
     refs:
