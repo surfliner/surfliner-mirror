@@ -54,6 +54,22 @@ lark:client:test:unit:
       - ci/lark/**/*
       - lark-client/**/*
 
+lark:ui:test:unit:
+  stage: test
+  needs: ["lark:ui:ruby-build"]
+  image: $CI_REGISTRY_IMAGE/lark-ui_web:$CI_COMMIT_SHA
+  script:
+    - cd lark-ui
+    - bundle check || bundle
+    - bundle exec rspec
+  extends:
+    - .only-refs-default
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - ci/lark/**/*
+      - lark-ui/**/*
+
 lark:client:test:integration:
   stage: integration
   needs: ["lark:ruby-build"]

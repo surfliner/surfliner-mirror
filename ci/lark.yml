@@ -25,6 +25,7 @@ include:
       - lark/**/*
       - lark-client/**/*
       - lark-frontend/**/*
+      - lark-ui/**/*
 
 .only-lark-api-changes:
   only:
