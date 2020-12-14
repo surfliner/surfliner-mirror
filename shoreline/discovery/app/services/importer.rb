@@ -40,7 +40,7 @@ module Importer
       if row[:zipfilename].nil?
         warn "missing field zipfilename"
         warn row.inspect
-        next
+        exit 1
       end
 
       zipfile = Pathname.new(file_root).join(row[:zipfilename]).to_s
