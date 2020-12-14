@@ -38,15 +38,15 @@ module Importer
 
     table.each do |row|
       if row[:zipfilename].nil?
-        warn "missing field zipfilename"
+        warn 'missing field zipfilename'
         warn row.inspect
         exit 1
       end
 
       zipfile = Pathname.new(file_root).join(row[:zipfilename]).to_s
 
-      self.geoserver(file_path: zipfile)
-      self.run(csv_row: row, file_path: zipfile)
+      geoserver(file_path: zipfile)
+      run(csv_row: row, file_path: zipfile)
     end
   end
 
@@ -66,7 +66,7 @@ module Importer
     Geoserver::Publish::DataStore.new(conn).upload(workspace_name: workspace, data_store_name: file_id, file: file)
   end
 
-  def self.run(csv_row:, file_path:)
+  def self.run(_csv_row:, file_path:)
     metadata = JSON.parse(extract(file_path).to_json)
     puts metadata
 

@@ -16,10 +16,15 @@ Metrics/AbcSize:
 Metrics/CyclomaticComplexity:
   Max: 8
 
-# Offense count: 3
+# Offense count: 4
 # Configuration parameters: CountComments, CountAsOne, ExcludedMethods.
 Metrics/MethodLength:
   Max: 18
+
+# Offense count: 1
+# Configuration parameters: CountComments, CountAsOne.
+Metrics/ModuleLength:
+  Max: 111
 
 # Offense count: 10
 Style/Documentation:
