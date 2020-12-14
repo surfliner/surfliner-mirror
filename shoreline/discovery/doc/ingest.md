@@ -5,7 +5,6 @@ sends them to both GeoServer and GeoBlacklight:
 
 ```sh
 export SHORELINE_PROVENANCE='Your Institution'
-export SHORELINE_ACCESS=Public
 
 bin/rake shoreline:publish[spec/fixtures/shapefiles/gford-20140000-010002_lakes.zip]
 

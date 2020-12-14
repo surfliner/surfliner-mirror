@@ -19,7 +19,6 @@ module Importer
   }.freeze
 
   EXTRA_FIELDS = {
-    dc_rights_s: ENV.fetch('SHORELINE_ACCESS', 'Public'),
     dct_provenance_s: ENV.fetch('SHORELINE_PROVENANCE', ''),
     dct_references_s: "{\"http://www.opengis.net/def/serviceType/ogc/wfs\":\"http://#{ENV['GEOSERVER_HOST']}:#{ENV['GEOSERVER_PORT']}/geoserver/wfs\", \"http://www.opengis.net/def/serviceType/ogc/wms\":\"http://#{ENV['GEOSERVER_HOST']}:#{ENV['GEOSERVER_PORT']}/geoserver/wms\"}",
     geoblacklight_version: '1.0'
@@ -66,16 +65,25 @@ module Importer
     Geoserver::Publish::DataStore.new(conn).upload(workspace_name: workspace, data_store_name: file_id, file: file)
   end
 
-  def self.run(_csv_row:, file_path:)
-    metadata = JSON.parse(extract(file_path).to_json)
-    puts metadata
+  def self.run(csv_row:, file_path:)
+    metadata = hash_from_xml(file_path)
+               .merge(hash_from_csv(csv_row))
+               .merge(EXTRA_FIELDS).reject { |_k, v| v.blank? }
 
-    Blacklight.default_index.connection.add(metadata)
+    solrdoc = JSON.parse(metadata.to_json)
+
+    Blacklight.default_index.connection.add(solrdoc)
     puts 'Committing changes to Solr'
     Blacklight.default_index.connection.commit
   end
 
-  def self.extract(file)
+  def self.hash_from_csv(row)
+    {
+      dc_rights_s: row[:access] || 'Public'
+    }
+  end
+
+  def self.hash_from_xml(file)
     Dir.mktmpdir do |dir|
       puts "Unzipping #{file} to #{dir}"
 
@@ -90,14 +98,14 @@ module Importer
       xml = Nokogiri::XML(File.open("#{dir}/#{iso}"))
 
       id = File.basename(Dir.glob('*.shp', base: dir)[0], '.shp')
-      makeattrs(id: id, xml: xml)
+      xml_attrs(id: id, xml: xml)
     end
   rescue ArgumentError => e
     warn "No ISO metadata found in #{file}"
     raise e
   end
 
-  def self.makeattrs(options)
+  def self.xml_attrs(options)
     attributes = {}
 
     id = options[:id]
@@ -116,7 +124,7 @@ module Importer
       attributes[k] = options[:xml].xpath(v).map(&:children).flatten.map(&:to_s).map { |s| CGI.unescapeHTML(s) }
     end
 
-    attributes.merge(EXTRA_FIELDS).reject { |_k, v| v.blank? }
+    attributes
   rescue NoMethodError => e
     warn "Could not extract #{k} from #{iso}"
     raise e

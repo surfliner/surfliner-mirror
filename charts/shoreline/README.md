@@ -48,7 +48,6 @@ The following tables lists the configurable parameters of the Shoreline chart an
 | `imagePullSecrets` | Array of pull secrets for the image | `[]` | N/A |
 | `nameOverride` | String to partially override shoreline.fullname template with a string (will prepend the release name) | `""` | N/A |
 | `fullnameOverride` | String to fully override email.fullname template | `""` | N/A |
-| `shoreline.access` | Specify the access level for the object being ingested: “Public” or “Restricted” | `Public` | `SHORELINE_ACCESS` |
 | `shoreline.db_setup_command.name` | Database rake command to run on install/upgrade | `db:migrate` | `DATABASE_COMMAND` |
 | `shoreline.geoblacklightDownloadPath` | Directory where GeoBlacklight stores generated files for download | `db:migrate` | `DATABASE_COMMAND` |
 | `shoreline.provenance` | Specify the source of the object being ingested. e.g. "UC Santa Barbara" | `"UC Santa Barbara"` | `SHORELINE_PROVENANCE` |
