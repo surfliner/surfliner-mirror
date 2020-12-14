@@ -59,6 +59,8 @@ lark:ui:test:unit:
   needs: ["lark:ui:ruby-build"]
   image: $CI_REGISTRY_IMAGE/lark-ui_web:$CI_COMMIT_SHA
   script:
+    - apk add build-base # need to build gem extensions and compile assets
+    - bundle config set without 'development' # to get test group gems back
     - cd lark-ui
     - bundle check || bundle
     - bundle exec rspec
