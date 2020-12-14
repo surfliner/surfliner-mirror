@@ -24,7 +24,18 @@ lark:deploy:staging:ucsb:
     on_stop: lark:cleanup:staging:ucsb
   variables:
     INGRESS_URL: lark-staging.$KUBE_INGRESS_BASE_DOMAIN
-    HELM_UPGRADE_EXTRA_ARGS: '--set ingress.hosts={lark-staging.$KUBE_INGRESS_BASE_DOMAIN} --set persistence_adapters.index="memory" --set persistence_adapters.event="memory" --set solr.enabled=FALSE --set postgresql.enabled=FALSE --set lark.import_data.enabled=true'
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --set ingress.hosts={lark-staging.$KUBE_INGRESS_BASE_DOMAIN}
+      --set persistence_adapters.index="solr"
+      --set persistence_adapters.event="sql"
+      --set solr.persistence.enabled=false
+      --set solr.replicaCount=1
+      --set solr.zookeeper.persistence.enabled=false
+      --set solr.zookeeper.replicaCount=2
+      --set solr.enabled=true
+      --set postgresql.enabled=true
+      --set ezid.password=$EZID_TEST_PASSWORD
+      --set lark.import_data.enabled=true
 
 lark:deploy:staging:ucsd:
   extends: .lark:deploy:stage
@@ -71,4 +82,3 @@ lark:cleanup:staging:ucsd:
     name: ucsd.staging.lark
     action: stop
   when: manual
-  
