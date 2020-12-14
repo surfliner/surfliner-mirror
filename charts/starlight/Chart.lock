@@ -1,7 +1,7 @@
 dependencies:
 - name: memcached
   repository: https://charts.bitnami.com/bitnami
-  version: 5.2.0
+  version: 5.3.1
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
   version: 9.8.12
@@ -11,5 +11,5 @@ dependencies:
 - name: solr
   repository: https://lib-helm-repo.ucsd.edu
   version: 1.5.2
-digest: sha256:d0acaa72732572a896e8918ec07095a25413a6c0a6eb059d87491ac065b71df2
-generated: "2020-11-20T11:10:26.631510219-08:00"
+digest: sha256:4621f59fcbcd213daf5ee95759c84e0b9fbaf6aaeb7a85527566e63046c19b41
+generated: "2020-12-14T10:40:39.106155495-08:00"
