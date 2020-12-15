@@ -9,17 +9,17 @@
 # Offense count: 1
 # Configuration parameters: IgnoredMethods.
 Metrics/AbcSize:
-  Max: 39
+  Max: 37
 
 # Offense count: 4
 # Configuration parameters: CountComments, CountAsOne, ExcludedMethods.
 Metrics/MethodLength:
-  Max: 18
+  Max: 17
 
 # Offense count: 1
 # Configuration parameters: CountComments, CountAsOne.
 Metrics/ModuleLength:
-  Max: 117
+  Max: 126
 
 # Offense count: 10
 Style/Documentation:

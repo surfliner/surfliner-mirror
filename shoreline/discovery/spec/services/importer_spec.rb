@@ -5,7 +5,7 @@ require 'rails_helper'
 require 'rsolr'
 
 RSpec.describe Importer do
-  describe '#run' do
+  describe '#publish_to_geoblacklight' do
     let(:csv) do
       CSV.table(Rails.root.join(
                   'spec',
@@ -30,8 +30,15 @@ RSpec.describe Importer do
       )
     end
 
+    let(:metadata) do
+      described_class.hash_from_xml(file: zipfile)
+                     .merge(described_class.hash_from_csv(row: csv[1]))
+                     .merge({ layer_geom_type_s: 'fake' })
+                     .merge(described_class::EXTRA_FIELDS).reject { |_k, v| v.blank? }
+    end
+
     it 'ingests with the correct attributes' do
-      described_class.run(csv_row: csv[1], file_path: zipfile)
+      described_class.publish_to_geoblacklight(metadata: metadata)
 
       beep = solr.get 'select',
                       params: { q: 'layer_slug_s:gford-20140000-010004_rivers' }

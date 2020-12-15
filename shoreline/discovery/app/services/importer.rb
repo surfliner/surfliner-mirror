@@ -32,7 +32,7 @@ module Importer
     west: '//xmlns:westBoundLongitude/gco:Decimal'
   }.freeze
 
-  def self.csv(csv:, file_root:)
+  def self.ingest_csv(csv:, file_root:)
     table = CSV.table(csv, encoding: 'UTF-8')
 
     table.each do |row|
@@ -41,15 +41,16 @@ module Importer
         warn row.inspect
         exit 1
       end
-
       zipfile = Pathname.new(file_root).join(row[:zipfilename]).to_s
 
-      geoserver(file_path: zipfile)
-      run(csv_row: row, file_path: zipfile)
+      publish_to_geoserver(file_path: zipfile)
+
+      metadata = assemble_attributes(row: row, file: zipfile)
+      publish_to_geoblacklight(metadata: metadata)
     end
   end
 
-  def self.geoserver(file_path:)
+  def self.publish_to_geoserver(file_path:)
     conn = Geoserver::Publish::Connection.new(
       # Using internal hostname to avoid the nginx ingress, which limits filesize
       'url' => "http://#{ENV['GEOSERVER_INTERNAL_HOST']}:#{ENV['GEOSERVER_PORT']}/geoserver/rest",
@@ -65,11 +66,16 @@ module Importer
     Geoserver::Publish::DataStore.new(conn).upload(workspace_name: workspace, data_store_name: file_id, file: file)
   end
 
-  def self.run(csv_row:, file_path:)
-    metadata = hash_from_xml(file_path)
-               .merge(hash_from_csv(csv_row))
-               .merge(EXTRA_FIELDS).reject { |_k, v| v.blank? }
+  def self.assemble_attributes(row:, file:)
+    initial = hash_from_xml(file: file)
 
+    initial
+      .merge(hash_from_csv(row: row))
+      .merge(hash_from_geoserver(id: initial[:layer_slug_s]))
+      .merge(EXTRA_FIELDS).reject { |_k, v| v.blank? }
+  end
+
+  def self.publish_to_geoblacklight(metadata:)
     solrdoc = JSON.parse(metadata.to_json)
 
     Blacklight.default_index.connection.add(solrdoc)
@@ -77,13 +83,19 @@ module Importer
     Blacklight.default_index.connection.commit
   end
 
-  def self.hash_from_csv(row)
+  def self.hash_from_csv(row:)
     {
       dc_rights_s: row[:access] || 'Public'
     }
   end
 
-  def self.hash_from_xml(file)
+  def self.hash_from_geoserver(id:)
+    {
+      layer_geom_type_s: get_layer_type("public:#{id}")
+    }
+  end
+
+  def self.hash_from_xml(file:)
     Dir.mktmpdir do |dir|
       puts "Unzipping #{file} to #{dir}"
 
@@ -115,7 +127,7 @@ module Importer
 
     attributes[:solr_year_i] = year(options[:xml])
     attributes[:solr_geom] = envelope(options[:xml])
-    attributes[:layer_geom_type_s] = type("public:#{id}")
+
     XPATHS.each do |k, v|
       attributes[k] = CGI.unescapeHTML(options[:xml].xpath(v).first.children.first.to_s)
     end
@@ -130,7 +142,7 @@ module Importer
     raise e
   end
 
-  def self.type(name)
+  def self.get_layer_type(name)
     connection = Faraday.new(headers: { 'Content-Type' => 'application/json' })
     connection.basic_auth(
       ENV['GEOSERVER_USER'],
