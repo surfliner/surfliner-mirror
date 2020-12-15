@@ -28,7 +28,6 @@ ingress:
 shoreline:
   db_setup_command: "db:migrate"
   geoblacklightDownloadPath: /data/tmp/cache/downloads
-  provenance: "UC Santa Barbara"
   theme: ""
   # whether to ingest fixture data during deployment
   sample_data:

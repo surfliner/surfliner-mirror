@@ -1,17 +1,10 @@
 # Ingesting objects into Shoreline
 
-The rake task for ingesting data into shoreline takes zipped shapefiles and
-sends them to both GeoServer and GeoBlacklight:
+The rake task for ingesting data into shoreline takes a CSV and ingests the
+specified objects into both GeoServer and GeoBlacklight:
 
 ```sh
-export SHORELINE_PROVENANCE='Your Institution'
-
-bin/rake shoreline:publish[spec/fixtures/shapefiles/gford-20140000-010002_lakes.zip]
-
-# or for multiple at once
-for zip in spec/fixtures/shapefiles/*.zip; do
-  bin/rake shoreline:publish[${zip}]
-done
+SHORELINE_FILE_ROOT=$(pwd)/spec/fixtures/shapefiles bundle exec rake shoreline:ingest[spec/fixtures/csv/Metadata_Extract.csv]
 ```
 
 If you need to remove an ingested item, you can delete it from solr with

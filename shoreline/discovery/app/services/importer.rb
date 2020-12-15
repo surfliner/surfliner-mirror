@@ -19,7 +19,6 @@ module Importer
   }.freeze
 
   EXTRA_FIELDS = {
-    dct_provenance_s: ENV.fetch('SHORELINE_PROVENANCE', ''),
     dct_references_s: "{\"http://www.opengis.net/def/serviceType/ogc/wfs\":\"http://#{ENV['GEOSERVER_HOST']}:#{ENV['GEOSERVER_PORT']}/geoserver/wfs\", \"http://www.opengis.net/def/serviceType/ogc/wms\":\"http://#{ENV['GEOSERVER_HOST']}:#{ENV['GEOSERVER_PORT']}/geoserver/wms\"}",
     geoblacklight_version: '1.0'
   }.freeze
@@ -85,7 +84,8 @@ module Importer
 
   def self.hash_from_csv(row:)
     {
-      dc_rights_s: row[:access] || 'Public'
+      dc_rights_s: row[:access] || 'Public',
+      dct_provenance_s: row[:provenance]
     }
   end
 

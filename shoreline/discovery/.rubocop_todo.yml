@@ -37,9 +37,9 @@ Style/Documentation:
     - 'config/application.rb'
     - 'config/initializers/okcomputer.rb'
 
-# Offense count: 1
+# Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https
 Layout/LineLength:
-  Max: 192
+  Max: 209
