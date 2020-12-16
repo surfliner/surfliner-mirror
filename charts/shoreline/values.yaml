@@ -51,6 +51,12 @@ solr:
   image:
     repository: solr
     tag: 8.7.0
+  # Settings for solr java memory
+  # javaMem: "-Xms2g -Xmx3g"
+  # Settings for zk java memory
+  # zookeeper:
+  #   env:
+  #     JVMFLAGS: "-Xms512m -Xmx1g"
 
 # Configuration for postgresql chart
 # see: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md
