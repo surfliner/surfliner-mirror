@@ -39,6 +39,12 @@ spec:
                 secretKeyRef:
                   name: {{ template "geoserver.fullname" . }}
                   key: adminPassword
+            {{- if .Values.jvm }}
+            - name: "INITIAL_MEMORY"
+              value: {{ .Values.jvm.initialMemory }}
+            - name: "MAXIMUM_MEMORY"
+              value: {{ .Values.jvm.maximumMemory }}
+            {{ end }}
           ports:
             - name: http
               containerPort: 8080
