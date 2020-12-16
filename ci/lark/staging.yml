@@ -43,6 +43,8 @@ lark:deploy:staging:ucsd:
     name: ucsd.staging.lark
     url: http://lark-staging.$UCSD_STAGING_DOMAIN
     on_stop: lark:cleanup:staging:ucsd
+  tags:
+    - ucsd
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
       --set ingress.hosts={lark-staging.$UCSD_STAGING_DOMAIN}
@@ -81,4 +83,6 @@ lark:cleanup:staging:ucsd:
   environment:
     name: ucsd.staging.lark
     action: stop
+  tags:
+    - ucsd
   when: manual

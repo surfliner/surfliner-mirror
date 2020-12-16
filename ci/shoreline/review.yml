@@ -21,6 +21,8 @@ shoreline:discovery:deploy:ucsd-review:
     url: http://shoreline-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
     on_stop: shoreline:discovery:cleanup:ucsd-review
     auto_stop_in: 1 week
+  tags:
+    - ucsd
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
       --set geoserver.ingress.hosts={shoreline-geoserver-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN}
@@ -50,6 +52,8 @@ shoreline:discovery:cleanup:ucsd-review:
     name: ucsd.shoreline.review/$CI_MERGE_REQUEST_ID
     url: http://shoreline-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
     action: stop
+  tags:
+    - ucsd
   when: manual
   allow_failure: true
   variables:

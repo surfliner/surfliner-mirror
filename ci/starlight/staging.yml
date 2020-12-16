@@ -65,6 +65,8 @@ starlight:deploy:ucsd-stage:
     name: ucsd.staging.starlight
     url: http://lib-exhibits-staging.ucsd.edu/
     on_stop: starlight:cleanup:ucsd-stage
+  tags:
+    - ucsd
   variables:
     HELM_ENCODED_VALUES: $UCSD_STARLIGHT_STAGING_VALUES
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
@@ -77,6 +79,8 @@ starlight:cleanup:ucsd-stage:
   environment:
     name: ucsd.staging.starlight
     action: stop
+  tags:
+    - ucsd
   when: manual
   allow_failure: true
   variables:

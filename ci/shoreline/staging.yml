@@ -24,6 +24,8 @@ shoreline:discovery:deploy:ucsd-stage:
   environment:
     name: ucsd.shoreline.staging
     url: http://geodata-staging.ucsd.edu/
+  tags:
+    - ucsd
   variables:
     HELM_ENCODED_VALUES: $UCSD_SHORELINE_STAGING_VALUES
     HELM_UPGRADE_EXTRA_ARGS: >
@@ -41,6 +43,8 @@ shoreline:discovery:cleanup:ucsd-stage:
   environment:
     name: ucsd.shoreline.staging
     action: stop
+  tags:
+    - ucsd
   when: manual
   allow_failure: true
   variables:

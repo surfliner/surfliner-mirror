@@ -46,6 +46,8 @@ starlight:deploy:ucsd-production:
   environment:
     name: ucsd.production.starlight
     url: https://exhibits.ucsd.edu
+  tags:
+    - ucsd
   script:
     - cd starlight
     - mv ../charts/starlight ./chart

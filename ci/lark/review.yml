@@ -62,6 +62,8 @@ lark:deploy:review:ucsd:
       --set ezid.password=$EZID_TEST_PASSWORD
       --set lark.import_data.enabled=true'
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
+  tags:
+    - ucsd
   only:
     refs:
       - merge_requests
@@ -99,6 +101,8 @@ lark:stop:review:ucsd:
     action: stop
   when: manual
   allow_failure: true
+  tags:
+    - ucsd
   only:
     refs:
       - merge_requests

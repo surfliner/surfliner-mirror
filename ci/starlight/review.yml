@@ -21,6 +21,8 @@ starlight:deploy:ucsd-review:
     url: http://starlight-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
     on_stop: starlight:cleanup:ucsd-review
     auto_stop_in: 1 week
+  tags:
+    - ucsd
   variables:
     HELM_ENCODED_VALUES: $UCSD_STARLIGHT_REVIEW_VALUES
     HELM_UPGRADE_EXTRA_ARGS: >
@@ -39,6 +41,8 @@ starlight:cleanup:ucsd-review:
     name: ucsd.starlight.review/$CI_MERGE_REQUEST_ID
     url: http://starlight-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
     action: stop
+  tags:
+    - ucsd
   when: manual
   allow_failure: true
   variables:

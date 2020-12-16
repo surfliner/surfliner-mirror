@@ -51,6 +51,8 @@ shoreline:discovery:deploy:prod:ucsd:
   environment:
     name: ucsd.production.shoreline
     url: http://geodata.ucsd.edu
+  tags:
+    - ucsd
   variables:
     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/shoreline_discovery_app
     DEPLOY_TAG: $CI_COMMIT_SHA
