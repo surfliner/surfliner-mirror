@@ -24,19 +24,11 @@ shoreline:discovery:deploy:ucsd-review:
   tags:
     - ucsd
   variables:
+    HELM_ENCODED_VALUES: $UCSD_SHORELINE_REVIEW_VALUES
     HELM_UPGRADE_EXTRA_ARGS: >
       --set geoserver.ingress.hosts={shoreline-geoserver-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN}
-      --set geoserver.persistence.enabled=false
-      --set geoserver.jvm.initialMemory=128M
-      --set geoserver.jvm.maximumMemory=512M
       --set ingress.hosts={shoreline-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN}
-      --set postgresql.persistence.enabled=false
-      --set shoreline.email.contact_email=awork@ucsd.edu
-      --set shoreline.sample_data=true
-      --set shoreline.theme=ucsd
-      --set solr.replicaCount=1
-      --set solr.zookeeper.persistence.enabled=false
-      --set solr.zookeeper.replicaCount=1
+      --values $HELM_VALUES_FILE
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
   script:
     - cd shoreline/discovery
