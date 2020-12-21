@@ -5,7 +5,7 @@ name: lark
 version: 0.4.5
 dependencies:
   - name: solr
-    version: 1.5.2
+    version: 1.5.3
     repository: https://lib-helm-repo.ucsd.edu
     condition: solr.enabled
   - name: postgresql
