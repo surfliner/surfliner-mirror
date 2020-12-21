@@ -91,6 +91,7 @@ shoreline:discovery:deploy:ucsb-review:
       --set shoreline.sample_data=true
       --set shoreline.theme=ucsb
       --set solr.replicaCount=1
+      --set solr.volumeClaimTemplates.enabled=false
       --set solr.zookeeper.persistence.enabled=false
       --set solr.zookeeper.replicaCount=2
 
