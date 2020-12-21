@@ -10,6 +10,6 @@ dependencies:
   version: 12.1.1
 - name: solr
   repository: https://lib-helm-repo.ucsd.edu
-  version: 1.5.2
-digest: sha256:4621f59fcbcd213daf5ee95759c84e0b9fbaf6aaeb7a85527566e63046c19b41
-generated: "2020-12-14T10:40:39.106155495-08:00"
+  version: 1.5.3
+digest: sha256:25a40a1029eaa33cf32a3d708ba054d51dd92c99a96e7613e57d76b347844274
+generated: "2020-12-21T08:55:02.561595361-08:00"

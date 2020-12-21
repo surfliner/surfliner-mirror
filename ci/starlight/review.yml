@@ -73,7 +73,7 @@ starlight:deploy:ucsb-review:
       --set postgresql.persistence.enabled=false
       --set redis.cluster.enabled=false
       --set redis.master.persistence.enabled=false
-      --set solr.persistence.enabled=false
+      --set solr.volumeClaimTemplates.enabled=false
       --set solr.replicaCount=1
       --set solr.zookeeper.persistence.enabled=false
       --set solr.zookeeper.replicaCount=2

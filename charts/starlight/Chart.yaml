@@ -17,6 +17,6 @@ dependencies:
     repository: https://charts.bitnami.com/bitnami
     condition: redis.enabled
   - name: solr
-    version: 1.5.2
+    version: 1.5.3
     repository: https://lib-helm-repo.ucsd.edu
     condition: solr.enabled
