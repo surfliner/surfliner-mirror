@@ -7,9 +7,9 @@ dependencies:
   version: 9.8.12
 - name: redis
   repository: https://charts.bitnami.com/bitnami
-  version: 12.1.1
+  version: 12.3.2
 - name: solr
   repository: https://lib-helm-repo.ucsd.edu
   version: 1.5.3
-digest: sha256:25a40a1029eaa33cf32a3d708ba054d51dd92c99a96e7613e57d76b347844274
-generated: "2020-12-21T08:55:02.561595361-08:00"
+digest: sha256:7a7607c55461b9f5c8d64c8528a9e591d2a2ca6f577cd2413ad0f8b3b153bf27
+generated: "2021-01-06T15:20:33.602143942-08:00"
