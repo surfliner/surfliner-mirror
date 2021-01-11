@@ -2,7 +2,7 @@
 
 require "spotlight"
 
-if ENV["IIIF_BASE_URL"].present?
+if ENV["S3_BUCKET_NAME"].present?
   module Spotlight
     class FeaturedImageUploader < CarrierWave::Uploader::Base
       # Overrides the default storage directory for S3/Minio uploads
@@ -16,18 +16,20 @@ if ENV["IIIF_BASE_URL"].present?
   end
 
   CarrierWave.configure do |config|
-    config.fog_provider = "fog/aws"
-    config.fog_credentials = {
-      provider: "AWS",
-      aws_access_key_id: ENV.fetch("S3_ACCESS_KEY_ID"),
-      aws_secret_access_key: ENV.fetch("S3_SECRET_ACCESS_KEY"),
-      host: ENV.fetch("S3_HOST"),
-      endpoint: ENV.fetch("S3_ENDPOINT"),
-      path_style: true,
+    config.storage = :aws
+    config.aws_bucket = ENV["S3_BUCKET_NAME"]
+    config.aws_acl = ENV["S3_ACL"]
+
+    config.aws_credentials = {
+      access_key_id: ENV["AWS_ACCESS_KEY_ID"],
+      secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"],
+      region: ENV["AWS_REGION"],
     }
-    config.fog_directory = ENV.fetch("S3_BUCKET")
-    # config.fog_public     = false # optional, defaults to true
-    # config.fog_attributes = { cache_control: "public, max-age=#{365.days.to_i}" } # optional, defaults to {}
-    config.storage = :fog
+
+    # For Minio particulars
+    if ENV["S3_ENDPOINT"]
+      config.aws_credentials[:endpoint] = ENV.fetch("S3_ENDPOINT")
+      config.aws_credentials[:force_path_style] = true
+    end
   end
 end

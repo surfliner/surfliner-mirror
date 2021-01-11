@@ -93,8 +93,9 @@ Spotlight::Engine.config.default_contact_email = ENV["FROM_EMAIL"]
 # ]
 # Spotlight::Engine.config.upload_title_field = nil # Spotlight::UploadFieldConfig.new(...)
 # Spotlight::Engine.config.uploader_storage = :file
+Spotlight::Engine.config.uploader_storage = :aws if ENV["S3_BUCKET_NAME"].present?
 Spotlight::Engine.config.allowed_upload_extensions = %w[jpg jpeg png tif tiff pdf]
-Spotlight::Engine.config.upload_dir = Rails.root.join("public", "uploads")
+Spotlight::Engine.config.upload_dir = Rails.root.join("public", "uploads") unless ENV["S3_BUCKET_NAME"].present?
 
 # Spotlight::Engine.config.featured_image_thumb_size = [400, 300]
 # Spotlight::Engine.config.featured_image_square_size = [400, 400]
