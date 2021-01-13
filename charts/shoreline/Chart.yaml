@@ -14,3 +14,4 @@ dependencies:
   - name: solr
     version: 1.5.3
     repository: https://lib-helm-repo.ucsd.edu
+    condition: solr.enabled
