@@ -16,7 +16,11 @@ data:
   GEOSERVER_PORT: "80"
   GEOSERVER_USER: admin
   POSTGRES_DB: {{ .Values.postgresql.postgresqlDatabase }}
+  {{- if .Values.postgresql.enabled }}
   POSTGRES_HOST: {{ template "shoreline.postgresql.fullname" . }}
+  {{- else }}
+  POSTGRES_HOST: {{ .Values.postgresql.postgresqlHostname }}
+  {{- end }}
   POSTGRES_PORT: {{ .Values.postgresql.servicePort | quote }}
   RAILS_ENV: production
   RAILS_LOG_TO_STDOUT: "true"
@@ -30,7 +34,14 @@ data:
   SMTP_USERNAME: {{ .Values.shoreline.email.smtp_settings.user_name }}
   {{- end }}
   SOLR_CORE_NAME: {{ .Values.shoreline.solr.collectionName }}
+  {{- if .Values.solr.enabled }}
   SOLR_HOST: {{ template "shoreline.solr.fullname" . }}-svc
   SOLR_PORT: "8983"
   ZK_HOST: {{ template "shoreline.zk.fullname" . }}
   ZK_PORT: "2181"
+  {{- else }}
+  SOLR_HOST: {{ .Values.solr.solrHostname }}
+  SOLR_PORT: {{ .Values.solr.solrPort }}
+  ZK_HOST: {{ .Values.solr.zookeeperHostname }}
+  ZK_PORT: {{ .Values.solr.zookeeperPort }}
+  {{- end }}
