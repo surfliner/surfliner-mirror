@@ -46,6 +46,15 @@ starlight:
   solr:
     collectionName: collection1
     port: 8983
+  # s3-compatible storage via Amazon or Minio
+  storage:
+    enabled: false
+    # accessKey: aws/minio access key
+    # acl: aws/minio ACL. e.g: 'bucket-owner-full-control'
+    # bucket: aws/minio storage bucket name
+    # endpointUrl: aws/minio (optional for aws, reguired for minio)
+    # region: aws region: e.g: us-west-2
+    # secretKey: aws/minio secret key
   zookeeper:
     port: 2181
   backups:
@@ -91,7 +100,7 @@ starlight:
 persistence:
   enabled: true
   public:
-    size: 20Gi
+    size: 100Mi
     # class: gp2
 
 # Configuration for solr chart

@@ -70,9 +70,11 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
+          {{- if not .Values.starlight.storage.enabled }}
             - name: public
               mountPath: /home/starlight/app/public/uploads
               subPath: uploads
+          {{- end }}
             - name: public
               mountPath: /home/starlight/app/public/sitemaps
               subPath: sitemaps

@@ -32,7 +32,7 @@ spec:
             topologyKey: kubernetes.io/hostname
       volumes:
         - name: public
-          {{- if .Values.persistence.enabled }}
+          {{- if and .Values.persistence.enabled (not .Values.starlight.storage.enabled) }}
           persistentVolumeClaim:
             claimName: {{ include "starlight.fullname" . }}-rails-public
           {{- else }}
@@ -62,9 +62,11 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
+          {{- if and .Values.persistence.enabled (not .Values.starlight.storage.enabled) }}
             - name: public
               mountPath: /home/starlight/app/public/uploads
               subPath: uploads
+          {{- end }}
             - name: blacklight-locale
               mountPath: /home/starlight/app/config/locales/blacklight.en.yml
               subPath: blacklight.en.yml

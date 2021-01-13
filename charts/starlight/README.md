@@ -65,10 +65,8 @@ The following tables lists the configurable parameters of the Starlight chart an
 | `starlight.backups.import.enabled` | Whether to run the backup import migration jobs (when migrating data from another environment).  | `false` | N/A |
 | `starlight.backups.import.oldAppUrl` | URL for previous environment.  | `nil` | `OLD_APP_URL` |
 | `starlight.backups.export.enabled` | Whether to run the backup export migration jobs.  | `false` | N/A |
-| `starlight.backups.accessKey` | S3/Minio access key.  | `nil` | `AWS_ACCESS_KEY_ID` |
-| `starlight.backups.secretKey` | S3/Minio .  | `nil` | `AWS_SECRET_ACCESS_KEY` |
+| `starlight.storage.enabled` | Whether to use an s3-compatible bucket for application storage.  | `false` | N/A |
 | `starlight.backups.directoryImportPath` | Path to mount public/uploads backup directory into.  | `nil` | `DIRECTORY_IMPORT_PATH` |
-| `starlight.backups.endpointUrl` | S3/Minio endpoint.  | `nil` | `ENDPOINT_URL` |
 | `starlight.backups.bucket` | S3/Minio bucket name.  | `nil` | `BUCKET` |
 | `starlight.backups.dbBucketKey` | S3/Minio database bump key/file.  | `nil` | `DB_BUCKET_KEY` |
 | `starlight.backups.directoryBucketPath` | S3/Minio path to images backup in bucket.  | `nil` | `DIRECTORY_BUCKET_PATH` |
@@ -82,6 +80,12 @@ The following tables lists the configurable parameters of the Starlight chart an
 | `starlight.auth.method` | Application authentication method (`google` or `developer`).  | `developer` | `AUTH_METHOD` |
 | `starlight.auth.google.api_id` | Google authentication API identifier.  | `nil` | `GOOGLE_AUTH_ID` |
 | `starlight.auth.google.secret` | Google authentication API secret.  | `nil` | `GOOGLE_AUTH_SECRET` |
+| `starlight.storage.accessKey` | S3/Minio access key.  | `nil` | `AWS_ACCESS_KEY_ID` |
+| `starlight.storage.acl` | S3/Minio ACL. e.g: 'bucket-owner-full-control'. | `nil` | `S3_ACL` |
+| `starlight.storage.bucket` | S3/Minio bucket name. This bucket will need to allow write/put for the access keypair used, and public `read` access to allow for IIIF viewing. | `nil` | `S3_BUCKET_NAME` |
+| `starlight.storage.endpointUrl` | S3/Minio endpoint URL (required for Minio).  | `nil` | `S3_ENDPOINT` |
+| `starlight.storage.region` | AWS region. e.g: 'us-west-2'.  | `nil` | `AWS_REGION` |
+| `starlight.storage.secretKey` | S3/Minio secret key. | `nil` | `AWS_SECRET_ACCESS_KEY` |
 | `persistence.enabled` | Whether to create persistent volume claims(PVC) for the application.  | `true` | N/A |
 | `persistence.public.size` | Rails public PVC size.  | `5Gi` | N/A |
 | `persistence.public.class` | StorageClassName for your k8s cluster.  | `nil` | N/A |
