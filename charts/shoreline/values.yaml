@@ -78,6 +78,9 @@ postgresql:
   enabled: true
   cpu: 1000m
   memory: 1Gi
+  # If postgresql.enabled is false, then
+  #   * set postgresqlHostname to external postgresql FQDN
+  # postgresqlHostname: external-shoreline-postgresql-fqdn
   postgresqlUsername: shoreline-discovery
   postgresqlPassword: shorelinepass
   postgresqlDatabase: shoreline-discovery
