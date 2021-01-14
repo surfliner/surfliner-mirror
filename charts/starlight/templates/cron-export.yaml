@@ -15,34 +15,10 @@ spec:
             app.kubernetes.io/name: {{ include "starlight.name" . }}-export
             app.kubernetes.io/instance: {{ .Release.Name }}-export
         spec:
-          # ensure we run on the same node as the rails server; only required when
-          # using PVCs that are ReadWriteOnce
-          affinity:
-            podAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-              - labelSelector:
-                  matchExpressions:
-                    - key: component
-                      operator: In
-                      values:
-                        - rails
-                topologyKey: kubernetes.io/hostname
-          volumes:
-          - name: public
-            {{- if .Values.persistence.enabled }}
-            persistentVolumeClaim:
-              claimName: {{ include "starlight.fullname" . }}-rails-public
-            {{- else }}
-            emptyDir: {}
-            {{- end }}
           containers:
           - name: starlight-export
             image: registry.gitlab.com/surfliner/surfliner/surfliner-util:stable
             imagePullPolicy: {{ .Values.image.pullPolicy }}
-            volumeMounts:
-              - name: public
-                mountPath: {{ .Values.starlight.backups.export.sourcePath }}
-                subPath: uploads
             command: ["/bin/sh", "-c", "postgresql-export.sh && file-sync.sh"]
             env:
               - name: "DB_BACKUP_SOURCE"
@@ -65,10 +41,12 @@ spec:
               - name: "PGDATABASE"
                 value: {{ .Values.postgresql.postgresqlDatabase }}
               - name: "AWS_ACCESS_KEY_ID"
-                value: {{ .Values.starlight.backups.export.accessKey }}
+                value: {{ .Values.starlight.storage.accessKey }}
+              - name: "AWS_DEFAULT_REGION"
+                value: {{ .Values.starlight.storage.region }}
               - name: "AWS_SECRET_ACCESS_KEY"
-                value: {{ .Values.starlight.backups.export.secretKey }}
+                value: {{ .Values.starlight.storage.secretKey }}
               - name: "ENDPOINT_URL"
-                value: {{ .Values.starlight.backups.export.endpointUrl }}
+                value: {{ .Values.starlight.storage.endpointUrl }}
           restartPolicy: Never
 {{- end }}

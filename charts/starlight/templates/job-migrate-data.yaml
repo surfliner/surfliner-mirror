@@ -17,34 +17,10 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       restartPolicy: Never
-      # ensure we run on the same node as the rails server; only required when
-      # using PVCs that are ReadWriteOnce
-      affinity:
-        podAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-                - key: component
-                  operator: In
-                  values:
-                    - rails
-            topologyKey: kubernetes.io/hostname
-      volumes:
-        - name: public
-          {{- if .Values.persistence.enabled }}
-          persistentVolumeClaim:
-            claimName: {{ include "starlight.fullname" . }}-rails-public
-          {{- else }}
-          emptyDir: {}
-          {{- end }}
       containers:
       - name: starlight-import
         image: registry.gitlab.com/surfliner/surfliner/surfliner-util:stable
         imagePullPolicy: Always
-        volumeMounts:
-          - name: public
-            mountPath: {{ .Values.starlight.backups.import.destinationPath }}
-            subPath: uploads
         command: ["/bin/sh", "-c", "postgresql-import.sh && file-sync.sh"]
         env:
           - name: "DB_BACKUP_SOURCE"
@@ -67,9 +43,11 @@ spec:
           - name: "PGDATABASE"
             value: {{ .Values.postgresql.postgresqlDatabase }}
           - name: "AWS_ACCESS_KEY_ID"
-            value: {{ .Values.starlight.backups.import.accessKey }}
+            value: {{ .Values.starlight.storage.accessKey }}
+          - name: "AWS_DEFAULT_REGION"
+            value: {{ .Values.starlight.storage.region }}
           - name: "AWS_SECRET_ACCESS_KEY"
-            value: {{ .Values.starlight.backups.import.secretKey }}
+            value: {{ .Values.starlight.storage.secretKey }}
           - name: "ENDPOINT_URL"
-            value: {{ .Values.starlight.backups.import.endpointUrl }}
+            value: {{ .Values.starlight.storage.endpointUrl }}
 {{- end }}
