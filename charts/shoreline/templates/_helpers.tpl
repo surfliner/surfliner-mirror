@@ -62,7 +62,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 
 {{- define "shoreline.solr.fullname" -}}
 {{- if .Values.solr.enabled -}}
-{{- printf "%s-%s" .Release.Name "solr" | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s-%s-svc" .Release.Name "solr" | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
 {{- .Values.solr.solrHostname -}}
 {{- end -}}
