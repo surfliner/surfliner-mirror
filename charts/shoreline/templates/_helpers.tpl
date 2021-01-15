@@ -53,13 +53,25 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
 
 {{- define "shoreline.postgresql.fullname" -}}
+{{- if .Values.postgresql.enabled -}}
 {{- printf "%s-%s" .Release.Name "database" | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
+{{- .Values.postgresql.postgresqlHostname -}}
+{{- end -}}
 {{- end -}}
 
 {{- define "shoreline.solr.fullname" -}}
+{{- if .Values.solr.enabled -}}
 {{- printf "%s-%s" .Release.Name "solr" | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
+{{- .Values.solr.solrHostname -}}
+{{- end -}}
 {{- end -}}
 
 {{- define "shoreline.zk.fullname" -}}
+{{- if .Values.solr.enabled -}}
 {{- printf "%s-%s" .Release.Name "zookeeper" | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
+{{- .Values.solr.zookeeperHostname -}}
+{{- end -}}
 {{- end -}}
