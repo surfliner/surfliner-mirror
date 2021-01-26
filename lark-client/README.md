@@ -7,18 +7,13 @@ This is a Ruby client for the [Lark][lark] server API.
 
 In development, it's helpful to have a Lark server running. See the
 [Lark README.md][lark-readme] for more information. You can do this by running
-the server directly with Rack:
+the server in docker with:
 
 ```sh
-  cd ../lark; bundle exec rackup config.ru
+cd ../lark; docker-compose up --build
 ```
 
-You can also run with docker using:
-
-```sh
-  ../lark/bin/docker-build.sh`
-  ../lark/bin/docker-up.sh`
-```
+The `lark` API should then be available on http://localhost:5000.
 
 ## License
 
