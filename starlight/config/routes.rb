@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   mount Spotlight::Engine, at: "starlight"
   mount Blacklight::Engine => "/"
 
+  # Dynamic robots.txt
+  get "robots.:format" => "robots#index"
+
   # https://github.com/mperham/sidekiq/wiki/Monitoring#devise
   authenticate :user, lambda { |u| u.superadmin? } do
     mount Sidekiq::Web => "/sidekiq"
