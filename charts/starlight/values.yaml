@@ -27,6 +27,7 @@ ingress:
   tls: []
 
 starlight:
+  allow_robots: false # allow crawling via robots.txt
   application:
     name: "Starlight"
     themes: "ucsb,surfliner,ucsd"

@@ -1,4 +1,4 @@
-<% if Rails.env.production? %>
+<% if ENV["ALLOW_ROBOTS"] %>
 User-Agent: *
 Allow: /
 Disallow: /sidekiq

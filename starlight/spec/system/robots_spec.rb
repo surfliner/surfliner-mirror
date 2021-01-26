@@ -4,9 +4,9 @@ require "rails_helper"
 
 RSpec.describe "robots", type: :system do
   context "with a production environment" do
-    before do
-      allow(Rails.env).to receive(:production?).and_return(true)
-    end
+    before { ENV["ALLOW_ROBOTS"] = "true" }
+
+    after { ENV.delete("ALLOW_ROBOTS") }
 
     it "allows robots" do
       visit "/robots.txt"

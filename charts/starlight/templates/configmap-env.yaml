@@ -8,6 +8,9 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 data:
+  {{- if .Values.starlight.allow_robots }}
+  ALLOW_ROBOTS: "true"
+  {{- end }}
   APP_URL: http{{ if .Values.ingress.tls }}s{{ end }}://{{ index .Values.ingress.hosts 0 }}
   AUTH_METHOD: {{ .Values.starlight.auth.method }}
   DATABASE_COMMAND: {{ .Values.starlight.rails.db_setup_command }}
