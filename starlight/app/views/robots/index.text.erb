@@ -2,6 +2,7 @@
 User-Agent: *
 Allow: /
 Disallow: /sidekiq
+Sitemap: <%=ENV["SITEMAPS_HOST"]%>sitemaps/sitemap.xml.gz
 <% else %>
 User-Agent: *
 Disallow: /

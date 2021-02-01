@@ -23,4 +23,30 @@ RSpec.describe "robots", type: :system do
       expect(page).to have_content("Disallow: /")
     end
   end
+
+  context "with sitemaps enabled" do
+    before do
+      ENV["ALLOW_ROBOTS"] = "true"
+      ENV["SITEMAPS_ENABLED"] = "true"
+      ENV["SITEMAPS_HOST"] = "https://s3-us-west-2.amazonaws.com/mybucket/"
+    end
+
+    after do
+      ENV.delete("ALLOW_ROBOTS")
+      ENV.delete("SITEMAPS_ENABLED")
+      ENV.delete("SITEMAPS_HOST")
+    end
+
+    it "specifies a Sitemap entry in the robots.txt file" do
+      visit "/robots.txt"
+      expect(page).to have_content("Sitemap: https://s3-us-west-2.amazonaws.com/mybucket/sitemaps/sitemap.xml.gz")
+    end
+  end
+
+  context "with sitemaps disabled" do
+    it "does not specify a Sitemap entry in the robots.txt file" do
+      visit "/robots.txt"
+      expect(page).to have_no_content("Sitemap:")
+    end
+  end
 end
