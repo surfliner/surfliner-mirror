@@ -1,4 +1,4 @@
-<% if ENV["ALLOW_ROBOTS"] %>
+<% if ENV["ALLOW_ROBOTS"].present? %>
 User-Agent: *
 Allow: /
 Disallow: /sidekiq

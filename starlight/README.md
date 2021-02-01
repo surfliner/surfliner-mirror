@@ -97,7 +97,7 @@ To setup a development environment:
 
 For running tests:
 ```
-docker-compose exec web sh -c 'RAILS_QUEUE=inline RAILS_ENV=test bundle exec rake'
+docker-compose exec web sh -c 'RAILS_QUEUE=inline S3_BUCKET_NAME= RAILS_ENV=test bundle exec rake'
 ```
 
 See the [`docker-compose` CLI

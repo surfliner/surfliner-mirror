@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-if ENV["SITEMAPS_ENABLED"]
+if ENV["SITEMAPS_ENABLED"].present?
   require "aws-sdk-s3"
   require "sitemap_generator"
 
@@ -9,6 +9,7 @@ if ENV["SITEMAPS_ENABLED"]
     # Minio requires the force_path_style option to be set
     # see: https://github.com/kjvarga/sitemap_generator/pull/351
     SitemapGenerator::AwsSdkAdapter.class_eval do
+      # rubocop:disable Style/NegatedIf
       def s3_resource_options
         options = {}
         options[:force_path_style] = true # Minio requirement
@@ -22,6 +23,7 @@ if ENV["SITEMAPS_ENABLED"]
         end
         options
       end
+      # rubocop:enable Style/NegatedIf
     end
 
     SitemapGenerator::Sitemap.adapter = SitemapGenerator::AwsSdkAdapter.new(

@@ -19,7 +19,6 @@ services:
         bundle exec puma -v --debug -b tcp://0.0.0.0:3000
     volumes:
       - .:/home/starlight/app
-      - starlight_uploads:/home/starlight/app/public/uploads
       - starlight_assets:/home/starlight/app/public/assets
       - starlight_tmp:/home/starlight/app/tmp
     ports:
@@ -50,7 +49,6 @@ services:
       - .env
     volumes:
       - .:/home/starlight/app
-      - starlight_uploads:/home/starlight/app/public/uploads
       - starlight_assets:/home/starlight/app/public/assets
       - starlight_tmp:/home/starlight/app/tmp
     entrypoint: sh -ic "bundle exec sidekiq"
@@ -63,6 +61,15 @@ services:
 
   memcached:
     image: bitnami/memcached:1.6.9
+
+  minio:
+    image: bitnami/minio:2021-debian-10
+    ports:
+      - "9000:9000"
+    volumes:
+      - starlight_minio:/data
+    env_file:
+      - .env
 
   redis:
     image: bitnami/redis:6.0
@@ -91,8 +98,8 @@ services:
     image: selenium/standalone-chrome:3.141
 
 volumes:
-  starlight_database:
-  starlight_redis:
-  starlight_uploads:
-  starlight_tmp:
   starlight_assets:
+  starlight_database:
+  starlight_minio:
+  starlight_redis:
+  starlight_tmp:
