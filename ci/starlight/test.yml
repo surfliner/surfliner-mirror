@@ -14,6 +14,7 @@
     RAILS_ENV: "test"
     RAILS_QUEUE: inline
     REPOSITORY_URL: $CI_REPOSITORY_URL
+    S3_BUCKET_NAME: ""
     SELENIUM_URL: "http://localhost:4444/wd/hub/"
     SOLR_CONFIG_COMMIT_SHA: $CI_COMMIT_SHA
     SOLR_CORE_NAME: "starlight-test"
