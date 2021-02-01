@@ -32,6 +32,22 @@ Create chart name and version as used by the chart label.
 {{- end -}}
 
 {{/*
+Create the Sitemap Host URL, as Minio and other s3-compatible providers use endpoint urls.
+*/}}
+{{- define "starlight.sitemaps.host" -}}
+{{- $endpoint := .Values.starlight.storage.endpointUrl -}}
+{{- $bucket := .Values.starlight.storage.bucket -}}
+{{- $region := .Values.starlight.storage.region -}}
+
+{{- if $endpoint }}
+{{- printf "%s/%s/" $endpoint $bucket -}}
+{{- else }}
+{{- printf "https://s3-%s.amazonaws.com/%s/" $region $bucket -}}
+{{- end }}
+
+{{- end -}}
+
+{{/*
 Common labels
 */}}
 {{- define "starlight.labels" -}}
@@ -58,6 +74,10 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 
 {{- define "starlight.memcached.fullname" -}}
 {{- printf "%s-%s" .Release.Name "memcached" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "starlight.minio.fullname" -}}
+{{- printf "%s-%s" .Release.Name "minio" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{- define "starlight.redis.fullname" -}}

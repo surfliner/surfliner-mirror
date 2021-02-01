@@ -31,14 +31,18 @@ data:
   RAILS_QUEUE: {{ .Values.starlight.rails.queue }}
   RAILS_SERVE_STATIC_FILES: {{ .Values.starlight.rails.serve_static_files | quote }}
   REDIS_URL: redis://{{ template "starlight.redis.fullname" . }}-master:6379
-  {{- if .Values.starlight.storage.enabled }}
   AWS_ACCESS_KEY_ID: {{ .Values.starlight.storage.accessKey }}
   AWS_REGION: {{ .Values.starlight.storage.region }}
   S3_ACL: {{ .Values.starlight.storage.acl }}
   S3_BUCKET_NAME: {{ .Values.starlight.storage.bucket }}
-  {{- end }}
   {{- if .Values.starlight.storage.endpointUrl }}
   S3_ENDPOINT: {{ .Values.starlight.storage.endpointUrl }}
+  {{- else if .Values.minio.enabled }}
+  S3_ENDPOINT: http://{{ template "starlight.minio.fullname" . }}:9000
+  {{- end }}
+  {{- if .Values.starlight.sitemaps.enabled }}
+  SITEMAPS_ENABLED: "true"
+  SITEMAPS_HOST: {{ template "starlight.sitemaps.host" . }}
   {{- end }}
   {{- if eq "smtp" .Values.starlight.email.delivery_method }}
   SMTP_AUTHENTICATION: {{ .Values.starlight.email.smtp_settings.authentication }}

@@ -48,13 +48,13 @@ starlight:
     port: 8983
   # s3-compatible storage via Amazon or Minio
   storage:
-    enabled: false
-    # accessKey: aws/minio access key
-    # acl: aws/minio ACL. e.g: 'bucket-owner-full-control'
-    # bucket: aws/minio storage bucket name
+    enabled: true
+    accessKey: starlight-access-key
+    acl: 'bucket-owner-full-control' #aws/minio ACL
+    bucket: starlight
     # endpointUrl: aws/minio (optional for aws, reguired for minio)
-    # region: aws region: e.g: us-west-2
-    # secretKey: aws/minio secret key
+    region: us-west-2
+    secretKey: starlight-secret-key
   zookeeper:
     port: 2181
   backups:
@@ -91,12 +91,6 @@ starlight:
       api_id:
       api_secret:
 
-persistence:
-  enabled: true
-  public:
-    size: 100Mi
-    # class: gp2
-
 # Configuration for solr chart
 # see: https://github.com/helm/charts/blob/master/incubator/solr/values.yaml
 solr:
@@ -122,6 +116,22 @@ memcached:
   image:
     repository: bitnami/memcached
     tag: 1.6.9
+
+# Configuration for minio chart
+# This is currently only used for Review applications in CI/CD pipelines
+# see: https://github.com/bitnami/charts/blob/master/bitnami/minio/README.md
+minio:
+  enabled: false
+  defaultBuckets: starlight:download
+  accessKey:
+    password: starlight-access-key
+  secretKey:
+    password: starlight-secret-key
+  persistence:
+    enabled: false
+  image:
+    repository: bitnami/minio
+    tag: 2021-debian-10
 
 # Configuration for postgresql chart
 # see: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md

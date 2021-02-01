@@ -15,34 +15,10 @@ spec:
             app.kubernetes.io/name: {{ include "starlight.name" . }}-sitemaps
             app.kubernetes.io/instance: {{ .Release.Name }}-sitemaps
         spec:
-          # ensure we run on the same node as the rails server; only required when
-          # using PVCs that are ReadWriteOnce
-          affinity:
-            podAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-              - labelSelector:
-                  matchExpressions:
-                    - key: component
-                      operator: In
-                      values:
-                        - rails
-                topologyKey: kubernetes.io/hostname
-          volumes:
-          - name: public
-            {{- if .Values.persistence.enabled }}
-            persistentVolumeClaim:
-              claimName: {{ include "starlight.fullname" . }}-rails-public
-            {{- else }}
-            emptyDir: {}
-            {{- end }}
           containers:
           - name: {{ .Chart.Name }}-sitemaps
             image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
             imagePullPolicy: {{ .Values.image.pullPolicy }}
-            volumeMounts:
-              - name: public
-                mountPath: /home/starlight/app/public/sitemaps
-                subPath: sitemaps
             args: ["bundle", "exec", "rake", "sitemap:refresh"]
             envFrom:
               - configMapRef:

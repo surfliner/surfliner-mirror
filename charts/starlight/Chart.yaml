@@ -2,12 +2,16 @@ apiVersion: v2
 appVersion: "1.0"
 description: Starlight is based on Spotlight, a framework for the creation and presentation of exhibits.
 name: starlight
-version: 0.4.0
+version: 0.5.0
 dependencies:
   - name: memcached
     version: 5.3.1
     repository: https://charts.bitnami.com/bitnami
     condition: memcached.enabled
+  - name: minio
+    version: 6.1.1
+    repository: https://charts.bitnami.com/bitnami
+    condition: minio.enabled
   - name: postgresql
     version: 9.8.12
     repository: https://charts.bitnami.com/bitnami

@@ -58,14 +58,13 @@ The following tables lists the configurable parameters of the Starlight chart an
 | `starlight.rails.max_threads` | Size of DB connection pool (used by Sidekiq also).  | `5` | `RAILS_MAX_THREADS ` |
 | `starlight.rails.queue` | Which queue adapter for ActiveJob.  | `sidekiq` | `RAILS_QUEUE` |
 | `starlight.rails.serve_static_files` | Whether Rails should not serve files in `public/`.  | `true` | `RAILS_SERVE_STATIC_FILES` |
-| `starlight.sitemap.enabled` | Whether to enable k8s sitemap cron job to ping search engines.  | `true` | N/A |
+| `starlight.sitemaps.enabled` | Whether to enable k8s sitemap cron job to ping search engines. Note that the sitemaps will upload to the same S3/Minio bucket specified by `starlight.storage.bucket` | `true` | N/A |
 | `starlight.solr.collectionName` | Name of Solr collection.  | `collection1` | `SOLR_CORE_NAME` |
 | `starlight.solr.port` | Solr port to use.  | `8983` | `SOLR_PORT` |
 | `starlight.zookeeper.port` | Zookeeper port to use.  | `2181` | `ZK_PORT` |
 | `starlight.backups.import.enabled` | Whether to run the backup import migration jobs (when migrating data from another environment).  | `false` | N/A |
 | `starlight.backups.import.oldAppUrl` | URL for previous environment.  | `nil` | `OLD_APP_URL` |
 | `starlight.backups.export.enabled` | Whether to run the backup export migration jobs.  | `false` | N/A |
-| `starlight.storage.enabled` | Whether to use an s3-compatible bucket for application storage.  | `false` | N/A |
 | `starlight.backups.directoryImportPath` | Path to mount public/uploads backup directory into.  | `nil` | `DIRECTORY_IMPORT_PATH` |
 | `starlight.backups.bucket` | S3/Minio bucket name.  | `nil` | `BUCKET` |
 | `starlight.backups.dbBucketKey` | S3/Minio database bump key/file.  | `nil` | `DB_BUCKET_KEY` |
@@ -86,9 +85,6 @@ The following tables lists the configurable parameters of the Starlight chart an
 | `starlight.storage.endpointUrl` | S3/Minio endpoint URL (required for Minio).  | `nil` | `S3_ENDPOINT` |
 | `starlight.storage.region` | AWS region. e.g: 'us-west-2'.  | `nil` | `AWS_REGION` |
 | `starlight.storage.secretKey` | S3/Minio secret key. | `nil` | `AWS_SECRET_ACCESS_KEY` |
-| `persistence.enabled` | Whether to create persistent volume claims(PVC) for the application.  | `true` | N/A |
-| `persistence.public.size` | Rails public PVC size.  | `5Gi` | N/A |
-| `persistence.public.class` | StorageClassName for your k8s cluster.  | `nil` | N/A |
 
 ### Chart Dependency Parameters
 

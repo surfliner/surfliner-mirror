@@ -52,13 +52,6 @@ spec:
             - -c
             - db-setup.sh
       volumes:
-        - name: public
-          {{- if .Values.persistence.enabled }}
-          persistentVolumeClaim:
-            claimName: {{ include "starlight.fullname" . }}-rails-public
-          {{- else }}
-          emptyDir: {}
-          {{- end }}
         - name: blacklight-locale
           configMap:
             name: {{ include "starlight.fullname" . }}-locales
@@ -70,14 +63,6 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
-          {{- if not .Values.starlight.storage.enabled }}
-            - name: public
-              mountPath: /home/starlight/app/public/uploads
-              subPath: uploads
-          {{- end }}
-            - name: public
-              mountPath: /home/starlight/app/public/sitemaps
-              subPath: sitemaps
             - name: blacklight-locale
               mountPath: /home/starlight/app/config/locales/blacklight.en.yml
               subPath: blacklight.en.yml

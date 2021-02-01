@@ -69,6 +69,7 @@ starlight:deploy:ucsb-review:
     HELM_UPGRADE_EXTRA_ARGS: >
       --set ingress.hosts={starlight-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN}
       --set memcached.architecture=standalone
+      --set minio.enabled=true
       --set persistence.enabled=false
       --set postgresql.persistence.enabled=false
       --set redis.cluster.enabled=false
