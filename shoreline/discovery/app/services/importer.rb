@@ -159,7 +159,7 @@ module Importer
         ready = true
       rescue StandardError => e
         warn "#{name} not ready: #{e}"
-        tries -= tries
+        tries -= 1
       end
       sleep 5
     end
