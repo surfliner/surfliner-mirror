@@ -6,20 +6,20 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 1
+# Offense count: 2
 # Configuration parameters: IgnoredMethods.
 Metrics/AbcSize:
   Max: 37
 
-# Offense count: 4
+# Offense count: 5
 # Configuration parameters: CountComments, CountAsOne, ExcludedMethods.
 Metrics/MethodLength:
-  Max: 17
+  Max: 21
 
 # Offense count: 1
 # Configuration parameters: CountComments, CountAsOne.
 Metrics/ModuleLength:
-  Max: 126
+  Max: 139
 
 # Offense count: 10
 Style/Documentation:
@@ -36,6 +36,15 @@ Style/Documentation:
     - 'app/models/user.rb'
     - 'config/application.rb'
     - 'config/initializers/okcomputer.rb'
+
+# Offense count: 2
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, IgnoredMethods.
+# SupportedStyles: predicate, comparison
+Style/NumericPredicate:
+  Exclude:
+    - 'spec/**/*'
+    - 'app/services/importer.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.

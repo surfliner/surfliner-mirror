@@ -151,6 +151,20 @@ module Importer
 
     url = "http://#{ENV['GEOSERVER_INTERNAL_HOST']}:#{ENV['GEOSERVER_PORT']}/geoserver/rest/layers/#{name}.json"
 
+    ready = false
+    tries = 10
+    until ready || tries == 0
+      begin
+        JSON.parse(connection.get(url).body)
+        ready = true
+      rescue StandardError => e
+        warn "#{name} not ready: #{e}"
+        tries -= tries
+      end
+      sleep 5
+    end
+    raise "--- ERROR: failed to get #{name} from GeoServer" if tries == 0
+
     json = JSON.parse(connection.get(url).body)
     json['layer']['defaultStyle']['name'].titlecase
   end
