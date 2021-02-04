@@ -31,6 +31,8 @@ starlight:
   application:
     name: "Starlight"
     themes: "ucsb,surfliner,ucsd"
+  analytics: {}
+    # webPropertyId: # e.g UA-12345555-11
   port: 3000
   rails:
     db_adapter: postgresql

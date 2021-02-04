@@ -51,6 +51,7 @@ The following tables lists the configurable parameters of the Starlight chart an
 | `starlight.allow_robots` | Whether to allow robots to crawl the application via `robots.txt` | `false` | `ALLOW_ROBOTS` |
 | `starlight.application.name` | Name used in some default Blacklight templates | `Starlight` | N/A |
 | `starlight.application.themes` | Themes made available to the application.  | `ucsb,surfliner,ucsd` | `SPOTLIGHT_THEMES` |
+| `starlight.analytics.webPropertyId` | Your GA Property ID. Example: `UA-1234568-1`.  | `nil` | `GA_WEB_PROPERTY_ID` |
 | `starlight.rails.db_adapter` | Which Rails database adapter to use | `postgresql` | `DB_ADAPTER` |
 | `starlight.rails.db_setup_command` | Database rake task(s) to run when deployment starts | `db:migrate` | `DATABASE_COMMAND` |
 | `starlight.rails.environment` | Rails environment for application.  | `production` | `RAILS_ENV` |
