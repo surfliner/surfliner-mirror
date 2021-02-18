@@ -94,17 +94,35 @@ starlight:
       api_secret:
 
 # Configuration for solr chart
-# see: https://github.com/helm/charts/blob/master/incubator/solr/values.yaml
+# see: https://github.com/bitnami/charts/blob/master/bitnami/solr/values.yaml
 solr:
+  enabled: true
   image:
-    repository: solr
-    tag: 8.7.0
-  # Settings for solr java memory
+    repository: bitnami/solr
+    tag: 8.8.0
+  authentication:
+    enabled: true
+    adminUsername: admin
+    adminPassword: admin
+  coreName: starlight
+  collection: collection1
+  cloudBoostrap: true
+  cloudEnabled: true
+  persistence:
+    enabled: true
+  zookeeper:
+    enabled: true
+    persistence:
+      enabled: true
+# Settings for solr java memory
   # javaMem: "-Xms2g -Xmx3g"
   # Settings for zk java memory
   # zookeeper:
   #   env:
   #     JVMFLAGS: "-Xms512m -Xmx1g"
+  # Set if using external zookeeper
+  # externalZookeeper:
+  #   servers:
 
 # Configuration for memcached chart
 # see: https://github.com/bitnami/charts/blob/master/bitnami/memcached/README.md

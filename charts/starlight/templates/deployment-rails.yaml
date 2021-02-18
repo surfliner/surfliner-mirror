@@ -25,20 +25,20 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       initContainers:
-        - name: configure-solr
+        - name: load-solr-config
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+          imagePullPolicy: Always
           envFrom:
             - configMapRef:
                 name: {{ include "starlight.fullname" . }}-env
             - secretRef:
-                name: {{ template "starlight.fullname" . }}
+                name: {{ include "starlight.fullname" . }}
           command:
             - sh
             - -c
             - >
-              upload-solr-configs.sh /home/starlight/app/solr/config &&
-              create-solr-collection.sh
+              solrcloud-upload-configset.sh /home/starlight/app/solr/config &&
+              solrcloud-create-collection.sh
         - name: setup-db
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: "{{ .Values.image.pullPolicy }}"

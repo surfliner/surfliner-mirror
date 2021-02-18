@@ -12,7 +12,7 @@ dependencies:
   repository: https://charts.bitnami.com/bitnami
   version: 12.8.0
 - name: solr
-  repository: https://lib-helm-repo.ucsd.edu
-  version: 1.5.3
-digest: sha256:99b8cd8266aef03836ce3d9025a2399d237fa7167b881f6fa94f5693366a4156
-generated: "2021-03-01T08:12:59.659906404Z"
+  repository: https://charts.bitnami.com/bitnami
+  version: 0.2.1
+digest: sha256:f4e12f470b69e2c6981043a876848331a33debff1763e180910dee76510f11e7
+generated: "2021-03-01T08:40:40.578587332-08:00"

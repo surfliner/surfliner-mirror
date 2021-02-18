@@ -88,6 +88,16 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- printf "%s-%s" .Release.Name "solr" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{/*
+TODO: support non-auth enabled SOLR url, and external
+*/}}
+{{- define "starlight.solr.url" -}}
+{{- $user := .Values.solr.authentication.adminUsername -}}
+{{- $pass := .Values.solr.authentication.adminPassword -}}
+{{- $collection := .Values.solr.collection -}}
+{{- printf "http://%s:%s@%s-%s:8983/solr/%s" $user $pass .Release.Name "solr" $collection  -}}
+{{- end -}}
+
 {{- define "starlight.zk.fullname" -}}
 {{- printf "%s-%s" .Release.Name "zookeeper" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}

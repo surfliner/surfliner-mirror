@@ -18,7 +18,8 @@ RUN apk --no-cache upgrade && \
   postgresql-dev \
   sqlite-dev \
   tzdata \
-  yarn
+  yarn \
+  zip
 
 RUN gem update bundler
 
