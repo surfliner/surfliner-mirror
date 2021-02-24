@@ -72,7 +72,7 @@ services:
       - .env
 
   redis:
-    image: bitnami/redis:6.0
+    image: bitnami/redis:6.2
     command: redis-server --protected-mode no
     volumes:
       - starlight_redis:/data
