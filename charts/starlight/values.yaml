@@ -98,7 +98,7 @@ starlight:
 solr:
   image:
     repository: solr
-    tag: 8.7.0
+    tag: 8.8.0
   # Settings for solr java memory
   # javaMem: "-Xms2g -Xmx3g"
   # Settings for zk java memory
