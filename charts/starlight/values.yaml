@@ -14,6 +14,10 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+# Use for local development with k3d
+# Will map the sourceFrom directory over the application source directory
+# sourceFrom: /src
+
 service:
   type: ClusterIP
   port: 80

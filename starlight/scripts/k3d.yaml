@@ -1,0 +1,49 @@
+# Development chart settings for k3d deployments
+# sourceFrom is important to allow local development updates to refresh in Helm deployment
+sourceFrom: /src
+image:
+  tag: local
+ingress:
+  enabled: true
+  hosts: ['starlight.k3d.localhost']
+persistence:
+  enabled: false
+minio:
+  enabled: true
+postgresql:
+  persistence:
+    enabled: false
+redis:
+  cluster:
+    enabled: false
+memcached:
+  architecture: standalone
+solr:
+  javaMem: "-Xms512M -Xmx1g"
+  resources:
+   limits:
+     memory: 1Gi
+   requests:
+     memory: 512Mi
+  volumeClaimTemplates:
+    enabled: false
+  replicaCount: 1
+  zookeeper:
+    env:
+      JVMFLAGS: "-Xms512m -Xmx1g"
+    resources:
+     limits:
+       memory: 1Gi
+     requests:
+       memory: 512Mi
+    persistence:
+      enabled: false
+    replicaCount: 1
+starlight:
+  auth:
+    method: developer
+  sitemaps:
+    enabled: false
+  rails:
+    environment: development
+    serve_static_files: false

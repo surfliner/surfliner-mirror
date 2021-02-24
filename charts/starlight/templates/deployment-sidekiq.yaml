@@ -25,6 +25,12 @@ spec:
             items:
               - key: "blacklight.en.yml"
                 path: "blacklight.en.yml"
+        {{- if .Values.sourceFrom }}
+        - name: src
+          hostPath:
+            path: {{ .Values.sourceFrom }}
+            type: DirectoryOrCreate
+        {{- end }}
       initContainers:
       - name: wait-for-database
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -46,6 +52,10 @@ spec:
             - name: blacklight-locale
               mountPath: /home/starlight/app/config/locales/blacklight.en.yml
               subPath: blacklight.en.yml
+          {{- if .Values.sourceFrom }}
+            - name: src
+              mountPath: /home/starlight/app
+          {{- end }}
           envFrom:
             - configMapRef:
                 name: {{ include "starlight.fullname" . }}-env
