@@ -7,7 +7,6 @@
 #
 #   - make setup
 #   - make build # this will fail if you don't have a registry running
-#   - helm dep up ../charts/starlight
 #   - make deploy
 #
 # You'll need a pretty robust amount of disk space on your Docker `data-root`

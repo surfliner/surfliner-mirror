@@ -9,6 +9,9 @@ image_repository="k3d-registry.localhost:$registry_port/starlight_web"
 echo "Creating namespace for deployment..."
 kubectl create namespace "$namespace"
 
+echo "Ensuring Starlight Helm chart dependencies are installed..."
+helm dep up ../charts/starlight
+
 echo "Deployment Starlight using Helm chart into k3d cluster..."
   # --dry-run \
   # --debug \
