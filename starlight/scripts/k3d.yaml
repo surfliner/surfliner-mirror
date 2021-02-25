@@ -33,8 +33,13 @@ postgresql:
 redis:
   cluster:
     enabled: false
+  master:
+    persistence:
+      enabled: false
 memcached:
   architecture: standalone
+  persistence:
+    enabled: false
 solr:
   javaMem: "-Xms512M -Xmx1g"
   resources:
