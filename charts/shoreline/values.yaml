@@ -50,7 +50,7 @@ shoreline:
 solr:
   image:
     repository: solr
-    tag: 8.8.0
+    tag: 8.7.0
   enabled: true
   # If solr.enabled is false, then
   #   * set solrHostname to external solr FQDN

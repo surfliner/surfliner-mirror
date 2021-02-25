@@ -57,7 +57,7 @@ services:
       - .env
 
   solr:
-    image: solr:8.8.0
+    image: solr:8.7.0
     env_file:
       - .env
 
