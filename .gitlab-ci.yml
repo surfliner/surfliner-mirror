@@ -44,7 +44,7 @@ include:
 .kaniko-build:
   stage: build
   image:
-    name: gcr.io/kaniko-project/executor:debug-v1.2.0
+    name: gcr.io/kaniko-project/executor:v1.5.1-debug
     entrypoint: [""]
   before_script:
     - *build_helpers
