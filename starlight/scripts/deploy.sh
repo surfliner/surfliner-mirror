@@ -13,8 +13,6 @@ echo "Ensuring Starlight Helm chart dependencies are installed..."
 helm dep up ../charts/starlight
 
 echo "Deployment Starlight using Helm chart into k3d cluster..."
-  # --dry-run \
-  # --debug \
 helm upgrade \
   --timeout 30m0s \
   --atomic \
