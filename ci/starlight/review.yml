@@ -75,9 +75,7 @@ starlight:deploy:ucsb-review:
       --set redis.cluster.enabled=false
       --set redis.master.persistence.enabled=false
       --set solr.volumeClaimTemplates.enabled=false
-      --set solr.replicaCount=1
       --set solr.zookeeper.persistence.enabled=false
-      --set solr.zookeeper.replicaCount=2
       --set starlight.auth.method=developer
       --set starlight.sample_data=true
       --set starlight.sitemaps.enabled=false
