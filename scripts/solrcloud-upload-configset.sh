@@ -21,8 +21,8 @@ while [ $COUNTER -lt 30 ]; do
       echo "-- ConfigSet for ${CONFDIR} does not exist; creating ..."
       # shellcheck disable=SC2035,SC2086
       (cd "$CONFDIR" && zip -r - *) | curl -X POST $solr_user_settings --header "Content-Type:application/octet-stream" --data-binary @- "$solr_config_upload_url"
-      exit
     fi
+    exit
   fi
   COUNTER=$(( COUNTER+1 ));
   sleep 5s
