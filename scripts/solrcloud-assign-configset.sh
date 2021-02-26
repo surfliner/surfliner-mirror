@@ -7,17 +7,17 @@ if [ "$SOLR_ADMIN_USER" ]; then
 fi
 
 # Solr Cloud Collection API URLs
-solr_collection_status_url="$SOLR_HOST:$SOLR_PORT/api/collections?action=COLSTATUS"
+solr_collection_list_url="$SOLR_HOST:$SOLR_PORT/solr/admin/collections?action=LIST"
 solr_collection_modify_url="$SOLR_HOST:$SOLR_PORT/solr/admin/collections?action=MODIFYCOLLECTION&collection=$SOLR_CORE_NAME&collection.configName=solrconfig"
 
 while [ $COUNTER -lt 30 ]; do
   echo "-- Looking for Solr (${SOLR_HOST}:${SOLR_PORT})..."
   if nc -z "${SOLR_HOST}" "${SOLR_PORT}"; then
-    # shellcheck disable=SC2143
-    if curl --silent $solr_user_settings "$solr_collection_status_url" | grep -q "${SOLR_CORE_HAME}"; then
+    # shellcheck disable=SC2143,SC2086
+    if curl --silent $solr_user_settings "$solr_collection_list_url" | grep -q "${SOLR_CORE_HAME}"; then
       echo "-- Collection ${SOLR_CORE_NAME} exists; setting Starlight ConfigSet ..."
-      curl $solr_user_settings "$solr_collection_modify_url" || exit 1
-      exit 0
+      curl $solr_user_settings "$solr_collection_modify_url"
+      exit
     fi
   fi
   COUNTER=$(( COUNTER+1 ));
