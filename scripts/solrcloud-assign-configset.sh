@@ -15,13 +15,10 @@ while [ $COUNTER -lt 30 ]; do
   if nc -z "${SOLR_HOST}" "${SOLR_PORT}"; then
     # shellcheck disable=SC2143
     if curl --silent $solr_user_settings "$solr_collection_status_url" | grep -q "${SOLR_CORE_HAME}"; then
-      echo "-- Collection ${SOLR_CORE_NAME} already exists; setting ConfigSet ..."
+      echo "-- Collection ${SOLR_CORE_NAME} exists; setting Starlight ConfigSet ..."
       curl $solr_user_settings "$solr_collection_modify_url" || exit 1
-    else
-      echo "-- Collection ${SOLR_CORE_NAME} does not exist; creating ..."
-      curl -H 'Content-type: application/json' $solr_user_settings -d "{create: {name: ${SOLR_CORE_NAME}, config: solrconfig, numShards: 1}}" "${SOLR_HOST}:${SOLR_PORT}/api/collections/" || exit 1
+      exit 0
     fi
-    exit 0
   fi
   COUNTER=$(( COUNTER+1 ));
   sleep 5s

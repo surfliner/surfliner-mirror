@@ -38,7 +38,7 @@ spec:
             - -c
             - >
               solrcloud-upload-configset.sh /home/starlight/app/solr/config &&
-              solrcloud-create-collection.sh
+              solrcloud-assign-configset.sh
         - name: setup-db
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: "{{ .Values.image.pullPolicy }}"
