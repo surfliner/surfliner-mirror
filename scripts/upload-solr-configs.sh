@@ -8,7 +8,7 @@ while [ $COUNTER -lt 30 ]; do
   if echo srvr | nc "${ZK_HOST}" "${ZK_PORT}" | grep -q "Mode"; then
     echo "-- Uploading solrconfig.xml and schema.xml to ZooKeeper ..."
     bundle exec rake solr_utils:upload["${CONFDIR}"]
-    exit 0
+    exit
   fi
   COUNTER=$(( COUNTER+1 ));
   sleep 5s

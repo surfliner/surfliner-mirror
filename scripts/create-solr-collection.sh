@@ -10,7 +10,7 @@ while [ $COUNTER -lt 30 ]; do
       echo "-- Collection ${SOLR_CORE_NAME} does not exist; creating ..."
       curl -H 'Content-type: application/json' -d "{create: {name: ${SOLR_CORE_NAME}, config: solrconfig, numShards: 1}}" "${SOLR_HOST}:${SOLR_PORT}/api/collections/" || exit 1
     fi
-    exit 0
+    exit
   fi
   COUNTER=$(( COUNTER+1 ));
   sleep 5s
