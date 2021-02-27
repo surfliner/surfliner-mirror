@@ -14,7 +14,7 @@ while [ $COUNTER -lt 30 ]; do
   echo "-- Looking for Solr (${SOLR_HOST}:${SOLR_PORT})..."
   if nc -z "${SOLR_HOST}" "${SOLR_PORT}"; then
     # shellcheck disable=SC2143,SC2086
-    if curl --silent $solr_user_settings "$solr_collection_list_url" | grep -q "${SOLR_CORE_HAME}"; then
+    if curl --silent $solr_user_settings "$solr_collection_list_url" | grep -q "${SOLR_CORE_NAME}"; then
       echo "-- Collection ${SOLR_CORE_NAME} exists; setting Starlight ConfigSet ..."
       curl $solr_user_settings "$solr_collection_modify_url"
       exit
