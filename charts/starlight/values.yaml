@@ -48,6 +48,10 @@ starlight:
   solr:
     collectionName: collection1
     port: 8983
+    authentication:
+      enabled: true
+      adminUsername: admin
+      adminPassword: admin
   # s3-compatible storage via Amazon or Minio
   storage:
     enabled: true
