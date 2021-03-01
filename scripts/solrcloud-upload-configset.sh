@@ -15,14 +15,18 @@ while [ $COUNTER -lt 30 ]; do
   echo "-- Looking for Solr (${SOLR_HOST}:${SOLR_PORT})..."
   if nc -z "${SOLR_HOST}" "${SOLR_PORT}"; then
     # shellcheck disable=SC2143,SC2086
-    if curl --silent $solr_user_settings "$solr_config_list_url" | grep -q 'solrconfig'; then
+    if curl --silent --user 'fake:fake' "$solr_config_list_url" | grep -q '401'; then
+      # the solr pods come up and report available before they are ready to accept trusted configs
+      # only try to upload the config if auth is on.
+      if curl --silent $solr_user_settings "$solr_config_list_url" | grep -q 'solrconfig'; then
       echo "-- ConfigSet already exists; skipping creation ...";
-    else
-      echo "-- ConfigSet for ${CONFDIR} does not exist; creating ..."
-      # shellcheck disable=SC2035,SC2086
-      (cd "$CONFDIR" && zip -r - *) | curl -X POST $solr_user_settings --header "Content-Type:application/octet-stream" --data-binary @- "$solr_config_upload_url"
+      else
+        echo "-- ConfigSet for ${CONFDIR} does not exist; creating ..."
+        # shellcheck disable=SC2035,SC2086
+        (cd "$CONFDIR" && zip -r - *) | curl -X POST $solr_user_settings --header "Content-Type:application/octet-stream" --data-binary @- "$solr_config_upload_url"
+      fi
+      exit
     fi
-    exit
   fi
   COUNTER=$(( COUNTER+1 ));
   sleep 5s
