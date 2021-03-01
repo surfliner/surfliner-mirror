@@ -2,11 +2,11 @@ apiVersion: v2
 appVersion: "0.1.0"
 description: Lark is an authority control platform and API.
 name: lark
-version: 0.4.5
+version: 0.5.0
 dependencies:
   - name: solr
-    version: 1.5.3
-    repository: https://lib-helm-repo.ucsd.edu
+    version: 0.2.2
+    repository: https://charts.bitnami.com/bitnami
     condition: solr.enabled
   - name: postgresql
     version: 9.8.12

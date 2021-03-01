@@ -1,9 +1,9 @@
 dependencies:
 - name: solr
-  repository: https://lib-helm-repo.ucsd.edu
-  version: 1.5.3
+  repository: https://charts.bitnami.com/bitnami
+  version: 0.2.2
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
   version: 9.8.12
-digest: sha256:e87afd96c9fe4ce30238252a61a34ffab6a999f51d4a1db59a0106ed7302edf0
-generated: "2020-12-21T08:54:22.025846816-08:00"
+digest: sha256:68fdcd5f09ae1210fc33c6321e0a46376df0eeeebae8cbeef96e194144472860
+generated: "2021-03-01T15:43:23.585293955-08:00"

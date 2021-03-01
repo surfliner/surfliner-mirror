@@ -36,19 +36,6 @@ persistence_adapters:
   index: memory
   event: memory
 
-# Configuration for solr chart
-# see: https://github.com/helm/charts/blob/master/incubator/solr/values.yaml
-solr:
-  image:
-    repository: solr
-    tag: 8.7.0
-  # Settings for solr java memory
-  # javaMem: "-Xms2g -Xmx3g"
-  # Settings for zk java memory
-  # zookeeper:
-  #   env:
-  #     JVMFLAGS: "-Xms512m -Xmx1g"
-
 # Configuration for postgresql chart
 # see: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md
 postgresql:
@@ -66,6 +53,26 @@ postgresql:
   persistence:
     size: 10Gi
 
+solr:
+  enabled: true
+  image:
+    repository: bitnami/solr
+    tag: 8.8.0
+  authentication:
+    enabled: true
+    adminUsername: admin
+    adminPassword: admin
+  coreName: lark
+  collection: collection1
+  cloudBoostrap: true
+  cloudEnabled: true
+  persistence:
+    enabled: true
+  zookeeper:
+    enabled: true
+    persistence:
+      enabled: true
+
 lark:
   # whether to import data during deployment
   import_data:
@@ -74,6 +81,10 @@ lark:
   solr:
     collectionName: lark
     port: 8983
+    authentication:
+      enabled: true
+      adminUsername: admin
+      adminPassword: admin
   zookeeper:
     port: 2181
 

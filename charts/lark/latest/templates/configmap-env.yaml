@@ -24,8 +24,14 @@ data:
   POSTGRES_PORT: {{ .Values.postgresql.servicePort | quote }}
   {{- end }}
   SOLR_CORE_NAME: {{ .Values.lark.solr.collectionName }}
-  SOLR_HOST: {{ template "lark.solr.fullname" . }}-svc
+  SOLR_HOST: {{ template "lark.solr.fullname" . }}
   SOLR_PORT: {{ .Values.lark.solr.port | quote }}
-  SOLR_URL: http://{{ template "lark.solr.fullname" . }}-svc:8983/solr/{{ .Values.lark.solr.collectionName }}
+  {{- if .Values.solr.authentication.enabled }}
+  SOLR_ADMIN_PASSWORD: {{ .Values.solr.authentication.adminPassword }}
+  SOLR_ADMIN_USER: {{ .Values.solr.authentication.adminUsername }}
+  SOLR_URL: http://{{ .Values.solr.authentication.adminUsername}}:{{ .Values.solr.authentication.adminPassword }}@{{ template "lark.solr.fullname" . }}:8983/solr/{{ .Values.lark.solr.collectionName }}
+  {{- else }}
+  SOLR_URL: http://{{ template "lark.solr.fullname" . }}:8983/solr/{{ .Values.lark.solr.collectionName }}
+  {{- end }}
   ZK_HOST: {{ template "lark.zk.fullname" . }}
   ZK_PORT: {{ .Values.lark.zookeeper.port | quote }}

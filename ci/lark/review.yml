@@ -20,9 +20,7 @@ lark:deploy:review:ucsb:
       --set persistence_adapters.index="solr"
       --set persistence_adapters.event="sql"
       --set solr.volumeClaimTemplates.enabled=false
-      --set solr.replicaCount=1
       --set solr.zookeeper.persistence.enabled=false
-      --set solr.zookeeper.replicaCount=2
       --set solr.enabled=true
       --set postgresql.enabled=true
       --set ezid.password=$EZID_TEST_PASSWORD
