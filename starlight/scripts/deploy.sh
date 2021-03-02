@@ -9,6 +9,9 @@ image_repository="k3d-registry.localhost:$registry_port/starlight_web"
 echo "Creating namespace for deployment..."
 kubectl create namespace "$namespace"
 
+echo "Installing Chromium into k3d cluster for running tests..."
+kubectl apply --namespace="$namespace" -f ./scripts/chromium.yaml --wait=true
+
 echo "Ensuring Starlight Helm chart dependencies are installed..."
 helm dep up ../charts/starlight
 
