@@ -11,10 +11,10 @@ menu:
 clean:
 	scripts/clean.sh
 
-deploy:
+deploy: setup
 	scripts/deploy.sh
 
-build:
+build: setup
 	scripts/build.sh
 
 setup:
