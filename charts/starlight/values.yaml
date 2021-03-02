@@ -14,9 +14,11 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-# Use for local development with k3d
-# Will map the sourceFrom directory over the application source directory
-# sourceFrom: /src
+# Used for local development with k3d
+# If true, will mount the local application source directory into /src on all k3d nodes/workers
+developmentVolume:
+  enabled: false
+  path: /src
 
 service:
   type: ClusterIP

@@ -14,7 +14,8 @@
 # 10 GB to be safe. `make clean` should reclaim this space.
 #
 #
-sourceFrom: /src # map local code updates to the Helm deployment
+developmentVolume:
+  enabled: true
 image:
   tag: local
 ingress:

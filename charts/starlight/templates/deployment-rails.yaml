@@ -58,10 +58,10 @@ spec:
             items:
               - key: "blacklight.en.yml"
                 path: "blacklight.en.yml"
-        {{- if .Values.sourceFrom }}
+        {{- if .Values.developmentVolume.enabled }}
         - name: src
           hostPath:
-            path: {{ .Values.sourceFrom }}
+            path: {{ .Values.developmentVolume.path }}
             type: DirectoryOrCreate
         {{- end }}
       containers:
@@ -72,7 +72,7 @@ spec:
             - name: blacklight-locale
               mountPath: /home/starlight/app/config/locales/blacklight.en.yml
               subPath: blacklight.en.yml
-          {{- if .Values.sourceFrom }}
+          {{- if .Values.developmentVolume.enabled }}
             - name: src
               mountPath: /home/starlight/app
           {{- end }}
