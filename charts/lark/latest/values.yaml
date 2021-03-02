@@ -79,7 +79,7 @@ lark:
     enabled: false
     data_file: /home/lark/app/spec/fixtures/ucsd-batch-2-concept-v4.csv
   solr:
-    collectionName: lark
+    collectionName: collection1
     port: 8983
     authentication:
       enabled: true
