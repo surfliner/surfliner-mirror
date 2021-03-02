@@ -9,6 +9,6 @@ k3d cluster create starlight \
   --registry-use k3d-registry.localhost:"$port" \
   --servers 1 \
   --agents 3 \
-  --port 8080:80@loadbalancer \
+  --port 80:80@loadbalancer \
   --volume "$(pwd)":/src@all \
   --wait

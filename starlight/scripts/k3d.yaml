@@ -13,8 +13,6 @@
 # for the ephemeral storage and volume claims in the deployment, at least
 # 10 GB to be safe. `make clean` should reclaim this space.
 #
-# Helm will tell you your deployment is at a place, but it's really at
-# http://starlight.k3d.localhost:8080.
 #
 sourceFrom: /src # map local code updates to the Helm deployment
 image:
