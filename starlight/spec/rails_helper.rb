@@ -5,7 +5,10 @@ require "capybara"
 require "spec_helper"
 require "webmock/rspec"
 
-ENV["RAILS_ENV"] ||= "test"
+ENV["RAILS_ENV"] = "test"
+ENV["RAILS_QUEUE"] = "inline"
+ENV["S3_BUCKET_NAME"] = ""
+
 require File.expand_path("../config/environment", __dir__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
