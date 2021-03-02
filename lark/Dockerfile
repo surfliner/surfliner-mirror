@@ -15,7 +15,8 @@ RUN apk update && apk add \
     libxslt \
     libxslt-dev \
     postgresql \
-    postgresql-dev
+    postgresql-dev \
+    zip
 
 RUN gem update bundler
 
