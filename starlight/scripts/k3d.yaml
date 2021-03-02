@@ -40,23 +40,10 @@ memcached:
   persistence:
     enabled: false
 solr:
-  javaMem: "-Xms512M -Xmx1g"
-  resources:
-   limits:
-     memory: 1Gi
-   requests:
-     memory: 512Mi
-  volumeClaimTemplates:
+  persistence:
     enabled: false
   replicaCount: 3
   zookeeper:
-    env:
-      JVMFLAGS: "-Xms512m -Xmx1g"
-    resources:
-     limits:
-       memory: 1Gi
-     requests:
-       memory: 512Mi
     persistence:
       enabled: false
     replicaCount: 3
