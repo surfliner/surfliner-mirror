@@ -41,7 +41,7 @@ services:
       - .:/home/shoreline/discovery/app
 
   geoserver:
-    image: kartoza/geoserver:2.17.2
+    image: kartoza/geoserver:2.18.2
     volumes:
       - shoreline_geoserver_data:/data
     env_file:
