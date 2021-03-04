@@ -65,6 +65,7 @@ lark:stop:review:ucsb:
   stage: review
   variables:
     GIT_STRATEGY: none
+    KUBE_NAMESPACE: lark-review
   script:
     - delete
   environment:
@@ -83,6 +84,7 @@ lark:stop:review:ucsd:
   stage: review
   variables:
     GIT_STRATEGY: none
+    KUBE_NAMESPACE: lark-review
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
   script:
     - delete
