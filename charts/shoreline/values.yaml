@@ -52,6 +52,8 @@ solr:
     repository: solr
     tag: 8.7.0
   enabled: true
+  authentication:
+    enabled: false
   # If solr.enabled is false, then
   #   * set solrHostname to external solr FQDN
   #   * set solrPort to external solr port
@@ -61,6 +63,10 @@ solr:
   # solrPort: "8983"
   # zookeeperHostname: external-shoreline-zookeeper-fqdn
   # zookeeperPort: "2181"
+  # authentication:
+  #   enabled: true
+  #   adminUsername: admin
+  #   adminPassword: admin
   # Settings for solr java memory
   # javaMem: "-Xms2g -Xmx3g"
   # Settings for zk java memory

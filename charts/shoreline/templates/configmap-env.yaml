@@ -32,5 +32,9 @@ data:
   SOLR_CORE_NAME: {{ .Values.shoreline.solr.collectionName }}
   SOLR_HOST: {{ template "shoreline.solr.fullname" . }}
   SOLR_PORT: {{ .Values.solr.solrPort | default "8983" | quote }}
+  {{- if .Values.solr.authentication.enabled }}
+  SOLR_ADMIN_PASSWORD: {{ .Values.solr.authentication.adminPassword }}
+  SOLR_ADMIN_USER: {{ .Values.solr.authentication.adminUsername }}
+  {{- end }}
   ZK_HOST: {{ template "shoreline.zk.fullname" . }}
   ZK_PORT: {{ .Values.solr.zookeeperPort | default "2181" | quote }}
