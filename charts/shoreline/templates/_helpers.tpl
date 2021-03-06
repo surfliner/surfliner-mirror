@@ -75,6 +75,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- $pass := .Values.solr.authentication.adminPassword -}}
 {{- $collection := .Values.shoreline.solr.collectionName -}}
 {{- printf "http://%s:%s@%s-%s:8983/solr/%s" $user $pass .Release.Name "solr" $collection  -}}
+{{- printf "http://%s:%s@%s:%s/solr/%s" $user $pass .Values.solr.solrHostname .Values.solr.solrPort "solr" $collection  -}}
 {{- end -}}
 {{- end -}}
 
