@@ -68,6 +68,16 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
 {{- end -}}
 
+{{- define "shoreline.solr.url" -}}
+{{- if .Values.solr.enabled -}}
+{{- else -}}
+{{- $user := .Values.solr.authentication.adminUsername -}}
+{{- $pass := .Values.solr.authentication.adminPassword -}}
+{{- $collection := .Values.solr.collection -}}
+{{- printf "http://%s:%s@%s-%s:8983/solr/%s" $user $pass .Release.Name "solr" $collection  -}}
+{{- end -}}
+{{- end -}}
+
 {{- define "shoreline.zk.fullname" -}}
 {{- if .Values.solr.enabled -}}
 {{- printf "%s-%s" .Release.Name "zookeeper" | trunc 63 | trimSuffix "-" -}}

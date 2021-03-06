@@ -26,7 +26,7 @@ RSpec.describe Importer do
 
     let(:solr) do
       RSolr.connect(
-        url: "http://#{ENV['SOLR_HOST']}:#{ENV['SOLR_PORT']}/solr/#{ENV['SOLR_CORE_NAME']}"
+        url: ENV['SOLR_URL'] || "http://#{ENV['SOLR_HOST']}:#{ENV['SOLR_PORT']}/solr/#{ENV['SOLR_CORE_NAME']}"
       )
     end
 

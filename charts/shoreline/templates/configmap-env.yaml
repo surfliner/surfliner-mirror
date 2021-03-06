@@ -35,6 +35,7 @@ data:
   {{- if .Values.solr.authentication.enabled }}
   SOLR_ADMIN_PASSWORD: {{ .Values.solr.authentication.adminPassword }}
   SOLR_ADMIN_USER: {{ .Values.solr.authentication.adminUsername }}
+  SOLR_URL: {{ template "shoreline.solr.url" . }}
   {{- end }}
   ZK_HOST: {{ template "shoreline.zk.fullname" . }}
   ZK_PORT: {{ .Values.solr.zookeeperPort | default "2181" | quote }}

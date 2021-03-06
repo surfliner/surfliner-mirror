@@ -1,9 +1,9 @@
 development:
   adapter: solr
-  url: <%= "http://#{ENV.fetch('SOLR_HOST')}:#{ENV.fetch('SOLR_PORT')}/solr/#{ENV.fetch('SOLR_CORE_NAME')}" %>
+  url: <%= ENV['SOLR_URL'] || "http://#{ENV.fetch('SOLR_HOST')}:#{ENV.fetch('SOLR_PORT')}/solr/#{ENV.fetch('SOLR_CORE_NAME')}" %>
 test: &test
   adapter: solr
-  url: <%= "http://#{ENV.fetch('SOLR_HOST')}:#{ENV.fetch('SOLR_PORT')}/solr/#{ENV.fetch('SOLR_CORE_NAME')}" %>
+  url: <%= ENV['SOLR_URL'] ||  "http://#{ENV.fetch('SOLR_HOST')}:#{ENV.fetch('SOLR_PORT')}/solr/#{ENV.fetch('SOLR_CORE_NAME')}" %>
 production:
   adapter: solr
-  url: <%= "http://#{ENV.fetch('SOLR_HOST')}:#{ENV.fetch('SOLR_PORT')}/solr/#{ENV.fetch('SOLR_CORE_NAME')}" %>
+  url: <%= ENV['SOLR_URL'] || "http://#{ENV.fetch('SOLR_HOST')}:#{ENV.fetch('SOLR_PORT')}/solr/#{ENV.fetch('SOLR_CORE_NAME')}" %>
