@@ -211,7 +211,7 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.6)
-    dalli (2.7.10)
+    dalli (2.7.11)
     database_cleaner (1.99.0)
     database_cleaner-active_record (1.99.0)
       activerecord
@@ -602,7 +602,7 @@ DEPENDENCIES
   capybara (= 3.35.3)
   capybara-screenshot (= 1.0.25)
   carrierwave-aws (= 1.5.0)
-  dalli (= 2.7.10)
+  dalli (= 2.7.11)
   database_cleaner-active_record (= 1.99.0)
   devise (= 4.7.3)
   devise-guests (= 0.7.0)
