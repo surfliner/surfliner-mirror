@@ -2,6 +2,7 @@
   stage: production
   extends:
     - .helm3-deploy
+    - .only-shoreline-changes
   script:
     - cd shoreline/discovery
     - mv ../../charts/shoreline ./chart
@@ -10,12 +11,6 @@
   only:
     refs:
       - trunk
-    changes:
-      - ci/shoreline/**/*
-      - charts/shoreline/**/*
-      - charts/geoserver/**/*
-      - shoreline/discovery/Dockerfile
-      - shoreline/discovery/**/*
 
 shoreline:discovery:deploy:prod:ucsb:
   needs: ["shoreline:discovery:deploy:ucsb-stage"]
