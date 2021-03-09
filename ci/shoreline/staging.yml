@@ -80,6 +80,12 @@ shoreline:discovery:deploy:ucsb-stage:
       --set shoreline.email.smtp_settings.password=$UCSB_SHORELINE_STAGING_EMAIL_PASSWORD
       --set shoreline.email.smtp_settings.port=587
       --set shoreline.email.smtp_settings.user_name=$UCSB_SHORELINE_STAGING_EMAIL_ADDRESS
+      --set solr.enabled=false
+      --set solr.authentication.enabled=true
+      --set solr.authentication.adminUsername=admin
+      --set solr.authentication.adminPassword=tOR1f6b0O6
+      --set solr.solrHostname=dld-search-staging-solr.solr-staging.svc.cluster.local
+      --set solr.zookeeperHostname=dld-search-staging-zookeeper.solr-staging.svc.cluster.local
 
 shoreline:discovery:cleanup:ucsb-stage:
   extends:

@@ -6,9 +6,15 @@ if [ "$SOLR_ADMIN_USER" ]; then
   solr_user_settings="--user $SOLR_ADMIN_USER:$SOLR_ADMIN_PASSWORD"
 fi
 
+if [ "$SOLR_CONFIG_NAME"]; then
+  solr_config_name="$SOLR_CONFIG_NAME"
+else
+  solr_config_name="solrconfig"
+fi
+
 # Solr Cloud Collection API URLs
 solr_collection_list_url="$SOLR_HOST:$SOLR_PORT/solr/admin/collections?action=LIST"
-solr_collection_modify_url="$SOLR_HOST:$SOLR_PORT/solr/admin/collections?action=MODIFYCOLLECTION&collection=$SOLR_CORE_NAME&collection.configName=solrconfig"
+solr_collection_modify_url="$SOLR_HOST:$SOLR_PORT/solr/admin/collections?action=MODIFYCOLLECTION&collection=$SOLR_CORE_NAME&collection.configName=$solr_config_name"
 
 while [ $COUNTER -lt 30 ]; do
   echo "-- Looking for Solr (${SOLR_HOST}:${SOLR_PORT})..."

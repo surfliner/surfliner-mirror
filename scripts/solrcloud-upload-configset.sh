@@ -7,9 +7,16 @@ CONFDIR="${1}"
 if [ "$SOLR_ADMIN_USER" ]; then
   solr_user_settings="--user $SOLR_ADMIN_USER:$SOLR_ADMIN_PASSWORD"
 fi
+
+if [ "$SOLR_CONFIG_NAME"]; then
+  solr_config_name="$SOLR_CONFIG_NAME"
+else
+  solr_config_name="solrconfig"
+fi
+
 # Solr Cloud ConfigSet API URLs
 solr_config_list_url="http://$SOLR_HOST:$SOLR_PORT/api/cluster/configs?omitHeader=true"
-solr_config_upload_url="http://$SOLR_HOST:$SOLR_PORT/solr/admin/configs?action=UPLOAD&name=solrconfig"
+solr_config_upload_url="http://$SOLR_HOST:$SOLR_PORT/solr/admin/configs?action=UPLOAD&name=$solr_config_name"
 
 while [ $COUNTER -lt 30 ]; do
   echo "-- Looking for Solr (${SOLR_HOST}:${SOLR_PORT})..."
@@ -18,7 +25,7 @@ while [ $COUNTER -lt 30 ]; do
     if curl --silent --user 'fake:fake' "$solr_config_list_url" | grep -q '401'; then
       # the solr pods come up and report available before they are ready to accept trusted configs
       # only try to upload the config if auth is on.
-      if curl --silent $solr_user_settings "$solr_config_list_url" | grep -q 'solrconfig'; then
+      if curl --silent $solr_user_settings "$solr_config_list_url" | grep -q "$solr_config_name"; then
       echo "-- ConfigSet already exists; skipping creation ...";
       else
         echo "-- ConfigSet for ${CONFDIR} does not exist; creating ..."

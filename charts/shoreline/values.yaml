@@ -34,6 +34,7 @@ shoreline:
   suppressTools: false
   solr:
     collectionName: collection1
+    # configName: shorelineconf
   email:
     contact_email: shoreline@example.edu
     delivery_method: letter_opener_web # or: smtp
