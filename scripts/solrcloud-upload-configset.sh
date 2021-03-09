@@ -8,11 +8,7 @@ if [ "$SOLR_ADMIN_USER" ]; then
   solr_user_settings="--user $SOLR_ADMIN_USER:$SOLR_ADMIN_PASSWORD"
 fi
 
-if [ "$SOLR_CONFIG_NAME"]; then
-  solr_config_name="$SOLR_CONFIG_NAME"
-else
-  solr_config_name="solrconfig"
-fi
+solr_config_name="${SOLR_CONFIG_NAME:-solrconfig}"
 
 # Solr Cloud ConfigSet API URLs
 solr_config_list_url="http://$SOLR_HOST:$SOLR_PORT/api/cluster/configs?omitHeader=true"
