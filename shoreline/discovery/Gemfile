@@ -28,7 +28,7 @@ gem 'rails',                   '~> 5.2.4'
 gem 'rsolr',                   '>= 1.0', '< 3'
 gem 'rspec-its',               group: [:test]
 gem 'rspec_junit_formatter',   group: [:test]
-gem 'rspec-rails',             '~> 4.0', group: [:test]
+gem 'rspec-rails',             '~> 5.0', group: [:test]
 gem 'rubocop',                 '< 1.0', group: %i[development test]
 gem 'rubocop-rails',           group: %i[development test]
 gem 'rubocop-rspec',           group: %i[development test]

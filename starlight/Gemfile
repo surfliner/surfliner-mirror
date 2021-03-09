@@ -53,7 +53,7 @@ group :development, :test do
   gem "pry-rails", "0.3.9"
   gem "pry-rescue", "1.5.2"
   gem "rspec_junit_formatter", "0.4.1"
-  gem "rspec-rails", "4.0.1"
+  gem "rspec-rails", "5.0.0"
   gem "rubocop-rails_config", "0.12.4"
   gem "rubocop-rspec", "1.41.0"
   gem "scss_lint", "0.59.0", require: false
