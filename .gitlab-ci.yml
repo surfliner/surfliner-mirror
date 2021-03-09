@@ -63,7 +63,7 @@ include:
 .helm3_deploy_helpers: &helm3_deploy_helpers |
   function deploy() {
     download_chart_dependencies
-
+    decode_helm_values_files
     if helm ls --namespace="$KUBE_NAMESPACE" -q | grep -q "$HELM_RELEASE_NAME"; then
       echo "Deploying new release: $HELM_RELEASE_NAME..."
     else
@@ -76,6 +76,7 @@ include:
         --timeout 15m0s \
         --set image.repository="$DEPLOY_IMAGE" \
         --set image.tag="$DEPLOY_TAG" \
+        $HELM_UPGRADE_VALUES_FILES_ARGS \
         $HELM_UPGRADE_EXTRA_ARGS \
         --namespace="$KUBE_NAMESPACE" \
         "$HELM_RELEASE_NAME" \
@@ -123,6 +124,20 @@ include:
     if [ "$HELM_ENCODED_VALUES" ]; then
       echo "HELM_ENCODED_VALUES CI/CD variable found. Decoding and creating HELM_VALUES_FILE"
       echo ${HELM_ENCODED_VALUES} | base64 -d > $HELM_VALUES_FILE
+    fi
+  }
+
+  function decode_helm_values_files(){
+    COUNTER=0
+    if [ "$HELM_ENCODED_VALUES_FILES" ]; then
+      for values in $(echo $HELM_ENCODED_VALUES_FILES | sed "s/,/ /g")
+      do
+        echo "HELM_ENCODED_VALUES_FILES CI/CD variable found. Decoding and creating HELM_UPGRADE_FILE_VALUES_ARGS"
+        filename="helm-values-$COUNTER.yaml"
+        echo ${values} | base64 -d > $filename
+        HELM_UPGRADE_FILE_VALUES_ARGS="$HELM_UPGRADE_FILE_VALUES_ARGS --values $filename"
+        COUNTER=$(( COUNTER+1 ));
+      done
     fi
   }
 
