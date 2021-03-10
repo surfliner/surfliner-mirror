@@ -17,10 +17,6 @@ lark:deploy:production:ucsb:
     INGRESS_URL: lark.$KUBE_INGRESS_BASE_DOMAIN
     HELM_UPGRADE_EXTRA_ARGS: >
       --set ingress.hosts={lark.$KUBE_INGRESS_BASE_DOMAIN}
-      --set persistence_adapters.index=solr
-      --set persistence_adapters.event=sql
-      --set solr.enabled=true
-      --set postgresql.enabled=true
   only:
     refs:
       - trunk
