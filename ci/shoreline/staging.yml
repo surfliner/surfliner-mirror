@@ -1,8 +1,8 @@
 .shoreline:deploy:stage:
   stage: staging
   extends:
-    - .only-refs-default
     - .helm3-deploy
+    - .only-shoreline-changes
   variables:
     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/shoreline_discovery_app
     DEPLOY_TAG: $CI_COMMIT_SHA
@@ -11,12 +11,6 @@
   only:
     refs:
       - trunk
-    changes:
-      - ci/shoreline/**/*
-      - charts/shoreline/**/*
-      - charts/geoserver/**/*
-      - shoreline/discovery/Dockerfile
-      - shoreline/discovery/**/*
 
 shoreline:discovery:deploy:ucsd-stage:
   extends:
