@@ -76,7 +76,7 @@ include:
         --timeout 15m0s \
         --set image.repository="$DEPLOY_IMAGE" \
         --set image.tag="$DEPLOY_TAG" \
-        $HELM_UPGRADE_VALUES_FILES_ARGS \
+        $HELM_UPGRADE_FILE_VALUES_ARGS \
         $HELM_UPGRADE_EXTRA_ARGS \
         --namespace="$KUBE_NAMESPACE" \
         "$HELM_RELEASE_NAME" \
@@ -135,7 +135,7 @@ include:
         echo "HELM_ENCODED_VALUES_FILES CI/CD variable found. Decoding and creating HELM_UPGRADE_FILE_VALUES_ARGS"
         filename="helm-values-$COUNTER.yaml"
         echo ${values} | base64 -d > $filename
-        HELM_UPGRADE_FILE_VALUES_ARGS="$HELM_UPGRADE_FILE_VALUES_ARGS --values $filename"
+        export HELM_UPGRADE_FILE_VALUES_ARGS="$HELM_UPGRADE_FILE_VALUES_ARGS --values $filename"
         COUNTER=$(( COUNTER+1 ));
       done
     fi

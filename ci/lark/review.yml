@@ -15,13 +15,12 @@ lark:deploy:review:ucsb:
     DEPLOY_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-lark-$CI_MERGE_REQUEST_ID
     KUBE_NAMESPACE: lark-review
+    HELM_ENCODED_VALUES_FILES: $SURFLINER_SOLR_BASE_REVIEW
     HELM_UPGRADE_EXTRA_ARGS: >
       --set ezid.password=$EZID_TEST_PASSWORD
       --set ingress.hosts={lark-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN}
       --set lark.import_data.enabled=true
       --set postgresql.persistence.enabled=false
-      --set solr.persistence.enabled=false
-      --set solr.zookeeper.persistence.enabled=false
   only:
     refs:
       - merge_requests
