@@ -408,7 +408,6 @@ DEPENDENCIES
   okcomputer (~> 1.18)
   optimist
   pg (~> 1.1.4)
-  popper_js (~> 1.14)
   pry-rails (~> 0.3)
   puma (~> 5.0)
   rails (~> 5.2.4)

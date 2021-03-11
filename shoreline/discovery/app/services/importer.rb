@@ -41,6 +41,7 @@ module Importer
         exit 1
       end
       zipfile = Pathname.new(file_root).join(row[:zipfilename]).to_s
+      puts "-- Processing #{zipfile}"
 
       publish_to_geoserver(file_path: zipfile)
 
@@ -60,6 +61,8 @@ module Importer
     file = File.read(file_path)
     file_id = File.basename(file_path, File.extname(file_path))
     workspace = ENV.fetch('GEOSERVER_WORKSPACE', 'public')
+
+    puts "-- Publishing to GeoServer as #{file_id}"
 
     Geoserver::Publish.create_workspace(workspace_name: workspace, connection: conn)
     Geoserver::Publish::DataStore.new(conn).upload(workspace_name: workspace, data_store_name: file_id, file: file)
