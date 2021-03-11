@@ -21,7 +21,6 @@ gem 'nokogiri',                '~> 1.11.0'
 gem 'okcomputer',              '~> 1.18'
 gem 'optimist'
 gem 'pg',                      '~> 1.1.4'
-gem 'popper_js',               '~> 1.14'
 gem 'pry-rails',               '~> 0.3', group: %i[development test]
 gem 'puma',                    '~> 5.0'
 gem 'rails',                   '~> 5.2.4'
