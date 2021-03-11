@@ -20,7 +20,7 @@ gem 'racksh'
 gem 'rack-test', group: 'test'
 gem 'rsolr', '~> 2.3.0'
 gem 'rspec', group: 'test'
-gem 'rubocop', '~> 1.2.0', group: %w[development test]
+gem 'rubocop', '~> 1.11.0', group: %w[development test]
 gem 'rubocop-rspec', group: %w[development test]
 gem 'shotgun', group: 'development'
 gem 'sinatra', '~> 2.1.0'

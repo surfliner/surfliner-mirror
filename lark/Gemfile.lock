@@ -36,7 +36,7 @@ GEM
       zeitwerk (~> 2.2, >= 2.2.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
-    ast (2.4.1)
+    ast (2.4.2)
     builder (3.2.4)
     capybara (3.33.0)
       addressable
@@ -171,8 +171,8 @@ GEM
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
     oj (3.10.15)
-    parallel (1.19.2)
-    parser (2.7.2.0)
+    parallel (1.20.1)
+    parser (3.0.0.0)
       ast (~> 2.4.1)
     pg (1.2.3)
     pry (0.13.1)
@@ -239,21 +239,21 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-support (3.10.0)
-    rubocop (1.2.0)
+    rubocop (1.11.0)
       parallel (~> 1.10)
-      parser (>= 2.7.1.5)
+      parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
-      regexp_parser (>= 1.8)
+      regexp_parser (>= 1.8, < 3.0)
       rexml
-      rubocop-ast (>= 1.0.1)
+      rubocop-ast (>= 1.2.0, < 2.0)
       ruby-progressbar (~> 1.7)
-      unicode-display_width (>= 1.4.0, < 2.0)
-    rubocop-ast (1.1.1)
+      unicode-display_width (>= 1.4.0, < 3.0)
+    rubocop-ast (1.4.1)
       parser (>= 2.7.1.5)
     rubocop-rspec (2.0.0)
       rubocop (~> 1.0)
       rubocop-ast (>= 1.1.0)
-    ruby-progressbar (1.10.1)
+    ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.2)
     sequel (5.38.0)
     sequel_pg (1.14.0)
@@ -273,7 +273,7 @@ GEM
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
     uber (0.1.0)
-    unicode-display_width (1.7.0)
+    unicode-display_width (2.0.0)
     valkyrie (2.1.1)
       activemodel
       activesupport
@@ -321,7 +321,7 @@ DEPENDENCIES
   racksh
   rsolr (~> 2.3.0)
   rspec
-  rubocop (~> 1.2.0)
+  rubocop (~> 1.11.0)
   rubocop-rspec
   shotgun
   sinatra (~> 2.1.0)
