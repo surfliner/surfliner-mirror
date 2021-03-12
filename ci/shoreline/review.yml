@@ -71,6 +71,7 @@ shoreline:discovery:deploy:ucsb-review:
     on_stop: shoreline:discovery:cleanup:ucsb-review
     auto_stop_in: 4 days
   variables:
+    HELM_ENCODED_VALUES_FILES: $SURFLINER_SOLR_BASE_REVIEW
     HELM_UPGRADE_EXTRA_ARGS: >
       --set email.enabled=false
       --set geoserver.ingress.hosts={shoreline-geoserver-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN}
@@ -82,10 +83,6 @@ shoreline:discovery:deploy:ucsb-review:
       --set shoreline.email.contact_email=geospatial@library.ucsb.edu
       --set shoreline.sample_data=true
       --set shoreline.theme=ucsb
-      --set solr.replicaCount=1
-      --set solr.volumeClaimTemplates.enabled=false
-      --set solr.zookeeper.persistence.enabled=false
-      --set solr.zookeeper.replicaCount=2
 
 shoreline:discovery:cleanup:ucsb-review:
   extends:
