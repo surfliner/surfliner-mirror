@@ -28,7 +28,7 @@ ingress:
 shoreline:
   db_setup_command: "db:migrate"
   geoblacklightDownloadPath: /data/tmp/cache/downloads
-  theme: ""
+  theme: "ucsb"
   # whether to ingest fixture data during deployment
   sample_data:
   suppressTools: false
