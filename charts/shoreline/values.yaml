@@ -49,13 +49,38 @@ shoreline:
 # Configuration for solr chart
 # see: https://github.com/helm/charts/blob/master/incubator/solr/values.yaml
 solr:
-  image:
-    repository: solr
-    tag: 8.7.0
   enabled: true
+  image:
+    repository: bitnami/solr
+    tag: 8.8.1-debian-10-r6
   authentication:
-    enabled: false
-  # If solr.enabled is false, then
+    enabled: true
+    adminUsername: admin
+    adminPassword: admin
+  coreName: shoreline
+  collection: collection1
+  cloudBoostrap: true
+  cloudEnabled: true
+  # replicas: 3 # scale the stateful set up/down
+  # persistence:
+  #   enabled: false # uncomment to disable PVCs for disposable solr
+  # Settings for solr java memory
+  # javaMem: "-Xms2g -Xmx3g"
+  # resources: # set k8s memory resources to align with jvm settings
+  #   limits:
+  #     memory: 3Gi
+  #     cpu: 1
+  #   requests:
+  #     memory: 2Gi
+  #     cpu: 250m
+  # Settings for zk java memory
+  # zookeeper:
+  #   env:
+  #     JVMFLAGS: "-Xms512m -Xmx1g"
+  #   persistence:
+  #     enabled: false # uncomment to disable PVCs for disposable zk
+  #
+  # To use an external/preexisting solr, set solr.enabled to false, then
   #   * set solrHostname to external solr FQDN
   #   * set solrPort to external solr port
   #   * set zookeeperHostname to external zookeeper FQDN
@@ -64,16 +89,6 @@ solr:
   # solrPort: "8983"
   # zookeeperHostname: external-shoreline-zookeeper-fqdn
   # zookeeperPort: "2181"
-  # authentication:
-  #   enabled: true
-  #   adminUsername: admin
-  #   adminPassword: admin
-  # Settings for solr java memory
-  # javaMem: "-Xms2g -Xmx3g"
-  # Settings for zk java memory
-  # zookeeper:
-  #   env:
-  #     JVMFLAGS: "-Xms512m -Xmx1g"
 
 # Configuration for postgresql chart
 # see: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md

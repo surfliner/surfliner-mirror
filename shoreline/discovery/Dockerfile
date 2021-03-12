@@ -11,7 +11,8 @@ RUN apk --no-cache upgrade && apk --no-cache add \
       libxml2-dev \
       libxslt-dev \
       nodejs \
-      postgresql-dev
+      postgresql-dev \
+      zip
 
 WORKDIR ${DOCKERROOT}/discovery/app
 COPY ${PROJECTPATH}/discovery/Gemfile* ${DOCKERROOT}/discovery/app/

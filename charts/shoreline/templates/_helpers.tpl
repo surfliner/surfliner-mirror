@@ -62,22 +62,19 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 
 {{- define "shoreline.solr.fullname" -}}
 {{- if .Values.solr.enabled -}}
-{{- printf "%s-%s-svc" .Release.Name "solr" | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s-%s" .Release.Name "solr" | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
 {{- .Values.solr.solrHostname -}}
 {{- end -}}
 {{- end -}}
 
 {{- define "shoreline.solr.url" -}}
-{{- if .Values.solr.enabled -}}
-{{- else -}}
 {{- $user := .Values.solr.authentication.adminUsername -}}
 {{- $pass := .Values.solr.authentication.adminPassword -}}
 {{- $collection := .Values.shoreline.solr.collectionName -}}
-{{- $host := .Values.solr.solrHostname -}}
+{{- $host := (include "shoreline.solr.fullname" .) -}}
 {{- $port := "8983" -}}
 {{- printf "http://%s:%s@%s:%s/solr/%s" $user $pass $host $port $collection  -}}
-{{- end -}}
 {{- end -}}
 
 {{- define "shoreline.zk.fullname" -}}
