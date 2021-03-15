@@ -21,7 +21,10 @@ spec:
     spec:
       volumes:
         - name: "data"
-          {{- if .Values.persistence.enabled }}
+          {{- if and .Values.persistence.enabled .Values.persistence.existingClaim }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.existingClaim }}
+          {{- else if .Values.persistence.enabled }}
           persistentVolumeClaim:
             claimName: "{{ include "geoserver.fullname" . }}-data"
           {{ else }}
