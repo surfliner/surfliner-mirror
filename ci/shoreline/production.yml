@@ -27,6 +27,7 @@ shoreline:discovery:deploy:prod:ucsb:
     HELM_RELEASE_NAME: surfliner-shoreline-prod
     HELM_UPGRADE_EXTRA_ARGS: >
       --set geoserver.ingress.hosts={geoserver.geodata.library.ucsb.edu}
+      --set geoserver.persistence.existingClaim=shoreline-geoserver-data
       --set ingress.hosts={geodata.library.ucsb.edu}
       --set persistence.downloads.class=gp2
       --set solr.enabled=false
