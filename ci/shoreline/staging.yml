@@ -63,6 +63,7 @@ shoreline:discovery:deploy:ucsb-stage:
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
       --set geoserver.ingress.hosts={shoreline-geoserver-staging.$KUBE_INGRESS_BASE_DOMAIN}
+      --set geoserver.persistence.existingClaim=surfliner-shoreline-stage-geoserver-data-1
       --set ingress.hosts={shoreline-staging.$KUBE_INGRESS_BASE_DOMAIN}
       --set persistence.downloads.class=gp2
       --set shoreline.sample_data=true
