@@ -1,0 +1,54 @@
+# Auto generated files with errors to ignore.
+# Remove from this list as you refactor files.
+---
+ignore:
+- Gemfile
+- app/controllers/catalog_controller.rb
+- app/lib/database_url.rb
+- app/models/solr_document.rb
+- app/models/user.rb
+- config/application.rb
+- config/deploy/production.rb
+- config/environments/production.rb
+- config/environments/staging.rb
+- config/environments/test.rb
+- config/initializers/carrierwave_s3.rb
+- config/initializers/friendly_id.rb
+- config/initializers/iiif_helpers.rb
+- config/initializers/spotlight_initializer.rb
+- config/initializers/translation.rb
+- config/puma.rb
+- config/routes.rb
+- db/migrate/20180712191446_create_searches.blacklight.rb
+- db/migrate/20180712191501_devise_create_users.rb
+- db/migrate/20180712191520_create_friendly_id_slugs.rb
+- db/migrate/20180712191524_create_versions.rb
+- db/migrate/20180712191549_devise_invitable_add_to_users.rb
+- db/migrate/20180712191552_create_spotlight_pages.spotlight.rb
+- db/migrate/20180712191559_add_missing_unique_indices.spotlight.rb
+- db/migrate/20180712191562_create_contacts.spotlight.rb
+- db/migrate/20180712191563_create_contact_emails.spotlight.rb
+- db/migrate/20180712191564_create_resources.spotlight.rb
+- db/migrate/20180712191566_create_spotlight_main_navigations.spotlight.rb
+- db/migrate/20180712191570_add_layout_options_to_exhibit.spotlight.rb
+- db/migrate/20180712191577_add_field_type_to_custom_fields.spotlight.rb
+- db/migrate/20180712191580_change_collation_for_tag_names.spotlight.rb
+- db/migrate/20180712191585_remove_default_from_spotlight_exhibit.spotlight.rb
+- db/migrate/20180712191590_change_roles_to_support_polymorphic_associations.spotlight.rb
+- db/migrate/20180712191598_add_resource_to_solr_document_sidecar.spotlight.rb
+- db/migrate/20180712191600_add_document_index_to_solr_document_sidecar.spotlight.rb
+- db/migrate/20180712191603_migrate_tags_to_sidecars.spotlight.rb
+- db/migrate/20180712191605_add_missing_indexes_on_taggings.spotlight.rb
+- db/migrate/20180712191607_create_translations.spotlight.rb
+- db/migrate/20180822233601_change_type_of_taggings_taggable.rb
+- lib/tasks/starlight.rake
+- spec/helpers/application_helper_spec.rb
+- spec/lib/database_url_spec.rb
+- spec/lib/manifest_service_spec.rb
+- spec/models/user_spec.rb
+- spec/rails_helper.rb
+- spec/support/capybara_selenium.rb
+- spec/support/omniauth.rb
+- spec/system/create_exhibit_spec.rb
+- spec/system/pdf_display_spec.rb
+- spec/system/search_spec.rb

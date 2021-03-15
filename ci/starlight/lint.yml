@@ -20,7 +20,7 @@ starlight-lint:
     - apk add --no-cache build-base git postgresql-dev sqlite-dev
     - gem update bundler
     - bundle check || bundle
-    - bundle exec rubocop
+    - bundle exec standardrb
   extends: .only-refs-default
   needs: []
   only:
