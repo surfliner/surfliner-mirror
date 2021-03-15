@@ -24,4 +24,4 @@ shell:
 	scripts/shell.sh
 
 test:
-	scripts/test.sh
+	scripts/test.sh "$(TEST_ARGS)"
