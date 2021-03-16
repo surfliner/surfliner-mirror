@@ -26,7 +26,7 @@ service:
 ingress:
   enabled: true
   annotations: {}
-  hosts: ["lark.local"] # provide hosts if ingress is enabled
+  hosts: ['lark.local']
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
