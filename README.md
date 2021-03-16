@@ -80,7 +80,8 @@ Within the Project Surfliner context, there are two types of teams:
 * **Project Team**: the entire active Surfliner team, including Product Owners, Tech Leads, Developers & Domain Experts for all products under active development.
 * **Product Team**: the group of people currently working on a given product; including Product Owner, Tech Lead, Developers & Domain Experts.
 
-While not involved in daily development work, the project also includes these two other vitality important roles:
+While not necessarily involved in daily development work, the project also includes these two other vitality important roles:
+* **Campus Project Owner (when needed)**: responsible for ensuring that the needs of their campus stakeholders are considered in the development of each product
 * **Project Champion**: higher level administrators who help with resourcing, advocacy, and clearing major blockers
 * **Project Sponsors**: the University Librarian for each campus partner 
 * **Stakeholders**: individuals who are responsible for informing the decisions that product teams make and have specific knowledge and influence that help the product. Stakeholders include:
@@ -91,7 +92,7 @@ While not involved in daily development work, the project also includes these tw
   * etc...
 
 ### Team Meetings
-The current workcycle runs from Wednesday, October 7 to Tuesday, December 15, 2020.  The meetings below are for this time period only.
+All Surfliner sprints include a mix of project-wide and per product team meetings. The current workcycle runs from Wednesday, October 7 to Tuesday, December 15, 2020.  The meetings below are for this time period only. 
 
 #### Project-wide
 **Project Surfliner Daily Standup**<br/> 
@@ -99,6 +100,13 @@ Daily, 10:30-10:45am (*except last day of each sprint*)<br/>
 [https://ucsb.zoom.us/j/310736504](https://ucsb.zoom.us/j/310736504)<br/> 
 *Purpose*: Daily meeting during the sprint to discuss ongoing work and blockers.<br/>
 *Required*: Project Team<br/>
+
+**Project Surfliner Sprint Review**<br/>
+Last day of each sprint, 10:30-11:30am<br/>
+Use DSU Zoom link: [https://ucsb.zoom.us/j/310736504](https://ucsb.zoom.us/j/310736504)<br/>
+*Purpose*: Informal meeting on the last day of the sprint to show what the product team(s) has accomplished during the sprint, typically taking the form of a demo. Demos are recorded. The Product Owner(s) & Tech Lead(s) for products in sprint are responsible for demo content & ensuring the demo gets recorded and shared.<br/>
+*Required*: Product Owner(s) & Tech Lead(s) for products in sprint<br/>
+*Optional*: Project Team<br/>
 
 **Project Surfliner Sprint Retrospective**<br/>
 Last day of each sprint, 2:00-3:00pm<br/>
@@ -121,38 +129,6 @@ Regular meetings every other Monday, 11am-12pm (*starting June 29, 2020*)<br/>
 *Purpose*: Meeting the week before the next sprint to negotiate and select tickets on that sprint.<br/>
 *Required*: Shoreline/Starlight Tech Leads plus DevOps Sprint Team Developers<br/>
 *Optional*: Shoreline/Starlight Product Owners, other Tech Leads<br/>
-
-**DevOps Sprint Review**<br/>
-Last day of each sprint, 10:30-11:30am (*starting June 30, 2020*)<br/>
-Use DSU Zoom link: [https://ucsb.zoom.us/j/310736504](https://ucsb.zoom.us/j/310736504)<br/>
-*Purpose*: Informal meeting on the last day of the sprint to show what team has accomplished during the sprint, typically taking the form of a demo. Demos are recorded. The Product Owner & Tech Lead are responsible for demo content & ensuring the demo gets recorded and shared.<br/>
-*Required*: Shoreline/Starlight Tech Leads<br/>
-*Optional*: Shoreline/Starlight Product Owners & DevOps Sprint Team Members<br/>
-
-#### Shoreline Product Team
-Shoreline sprints during this workcycle are focused on planning for upcoming development work. 
-
-**Shoreline Backlog Refinement/Sprint Planning**<br/>
-Initial meeting Tuesday, October 6, 2020, 2:30pm-3:20pm<br/>
-Regular meetings every other Tuesday, 12:30pm-2:00pm (*starting October 20, 2020*)<br/>
-[https://ucsb.zoom.us/j/87872262924](https://ucsb.zoom.us/j/87872262924)<br/>
-*Purpose*: Meeting to refine the backlog of tickets and negotiate and select tickets for that sprint.<br/>
-*Required*: Shoreline Product Owner & Subject Matter Experts<br/>
-*Optional*: Shoreline Tech Lead<br/>
-
-**Shoreline Sprint Review**<br/>
-Last day of each sprint except the last sprint, 9:30-10:20am (*starting October 20, 2020*)<br/>
-[https://ucsb.zoom.us/j/81461805916](https://ucsb.zoom.us/j/81461805916)<br/>
-*Purpose*: Informal meeting on the last day of the sprint to document what team has accomplished during the sprint. The Product Owner and SME are responsible for review content.<br/>
-*Required*: Shoreline Product Owner & Subject Matter Experts<br/>
-*Optional*: Shoreline Tech Lead<br/>
-
-**Shoreline Sprint Demo**<br/>
-Last day of work cycle, 9:30-10:20am (*December 15, 2020*)<br/>
-[https://ucsb.zoom.us/j/81461805916](https://ucsb.zoom.us/j/81461805916)<br/>
-*Purpose*: Informal demo on the last day of the work cycle to show what team has accomplished. Demos are recorded. The Product Owner & Subject Matter Expert are responsible for demo content & ensuring the demo gets recorded and shared.<br/>
-*Required*: Shoreline Product Owner & Subject Matter Expert<br/>
-*Optional*: Shoreline Tech Lead<br/>
 
 # Communication Channels
 - **Blog**: [https://surfliner.ucsd.edu](https://surfliner.ucsd.edu)
