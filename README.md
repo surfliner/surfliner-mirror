@@ -80,7 +80,7 @@ Within the Project Surfliner context, there are two types of teams:
 * **Project Team**: the entire active Surfliner team, including Product Owners, Tech Leads, Developers & Domain Experts for all products under active development.
 * **Product Team**: the group of people currently working on a given product; including Product Owner, Tech Lead, Developers & Domain Experts.
 
-While not necessarily involved in daily development work, the project also includes these two other vitality important roles:
+While not necessarily involved in daily development work, the project also includes these other vitality important roles:
 * **Campus Project Owner (when needed)**: responsible for ensuring that the needs of their campus stakeholders are considered in the development of each product
 * **Project Champion**: higher level administrators who help with resourcing, advocacy, and clearing major blockers
 * **Project Sponsors**: the University Librarian for each campus partner 
