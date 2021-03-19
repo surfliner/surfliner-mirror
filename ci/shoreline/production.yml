@@ -24,6 +24,7 @@ shoreline:discovery:deploy:prod:ucsb:
     DEPLOY_TAG: $CI_COMMIT_SHA
     INGRESS_URL: shoreline.$KUBE_INGRESS_BASE_DOMAIN
     KUBE_NAMESPACE: shoreline-prod
+    HELM_ENCODED_VALUES_FILES: $UCSB_SOLR_PROD_AUTH
     HELM_RELEASE_NAME: surfliner-shoreline-prod
     HELM_UPGRADE_EXTRA_ARGS: >
       --set geoserver.ingress.hosts={geoserver.geodata.library.ucsb.edu}
@@ -31,9 +32,6 @@ shoreline:discovery:deploy:prod:ucsb:
       --set ingress.hosts={geodata.library.ucsb.edu}
       --set persistence.downloads.class=gp2
       --set solr.enabled=false
-      --set solr.authentication.enabled=true
-      --set solr.authentication.adminUsername=admin
-      --set solr.authentication.adminPassword=TZWYau1Oop
       --set solr.solrHostname=dld-search-solr.solr-prod.svc.cluster.local
       --set solr.zookeeperHostname=dld-search-zookeeper.solr-prod.svc.cluster.local
       --set shoreline.solr.collectionName=shoreline-geodata
