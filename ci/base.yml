@@ -1,4 +1,4 @@
 include:
-  - local: ci/base/failure_notification.yml
+  - local: ci/base/result_notification.yml
   - local: ci/base/maintanence.yml
   - local: ci/base/renovate.yml

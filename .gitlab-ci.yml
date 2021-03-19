@@ -7,7 +7,7 @@ stages:
   - review
   - staging
   - production
-  - failure_notification
+  - result_notification
 
 include:
   - local: ci/base.yml
