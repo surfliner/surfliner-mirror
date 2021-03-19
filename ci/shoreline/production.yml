@@ -24,15 +24,9 @@ shoreline:discovery:deploy:prod:ucsb:
     DEPLOY_TAG: $CI_COMMIT_SHA
     INGRESS_URL: shoreline.$KUBE_INGRESS_BASE_DOMAIN
     KUBE_NAMESPACE: shoreline-prod
-    HELM_ENCODED_VALUES_FILES: $UCSB_SOLR_PROD_AUTH
+    HELM_ENCODED_VALUES_FILES: $UCSB_SOLR_PROD_AUTH, $UCSB_SHORELINE_GEOSERVER_PROD
     HELM_RELEASE_NAME: surfliner-shoreline-prod
     HELM_UPGRADE_EXTRA_ARGS: >
-      --set geoserver.ingress.hosts={geoserver.geodata.library.ucsb.edu}
-      --set geoserver.persistence.existingClaim=shoreline-geoserver-data
-      --set geoserver.jvm.initialMemory=2G
-      --set geoserver.jvm.maximumMemory=4G
-      --set geoserver.resources.requests.memory=2Gi
-      --set geoserver.resources.limits.memory=4Gi
       --set ingress.hosts={geodata.library.ucsb.edu}
       --set persistence.downloads.class=gp2
       --set solr.enabled=false
