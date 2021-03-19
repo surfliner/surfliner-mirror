@@ -4,9 +4,9 @@ dependencies:
   version: 8.10.14
 - name: geoserver
   repository: file://../geoserver
-  version: 1.1.0
+  version: 1.2.0
 - name: solr
   repository: https://charts.bitnami.com/bitnami
   version: 0.2.3
-digest: sha256:072872302d9045a791c2ad576d867c30cfaf3c8a7e641d62868f3a84f7650a72
-generated: "2021-03-15T12:16:24.913516125-07:00"
+digest: sha256:585a44da166088a5d8b8b3d6ca4fe4bdad3788ae7c8e45081bfd30f0562b7581
+generated: "2021-03-19T13:52:24.732129834-07:00"
