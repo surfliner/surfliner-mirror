@@ -1,16 +1,14 @@
 /*
- *= require blacklight_oembed.css.scss
  *= require blacklight_gallery.css.scss
  *= require bootstrap-tagsinput
  *= require openseadragon.css
  *= require openseadragon/openseadragon
 */
 
-@import 'bootstrap-sprockets';
 @import 'bootstrap';
-
 @import 'blacklight/blacklight';
 @import 'spotlight/spotlight';
+@import 'spotlight/variables_bootstrap';
 
 @import 'sir-trevor/main';
 @import 'leaflet';
@@ -255,7 +253,7 @@ footer {
   padding-top: 54px;
 }
 
-@media all and (min-width: $screen-md) {
+@include media-breakpoint-up(md) {
   .footer-box + .footer-box {
     padding-left: 30px;
   }

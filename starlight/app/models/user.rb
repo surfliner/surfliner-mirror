@@ -2,8 +2,6 @@
 
 class User < ApplicationRecord
   include Spotlight::User
-  attr_accessible :email if Blacklight::Utils.needs_attr_accessible?
-
   # Devise Invitable tries to set a password, but we're not using passwords for Omniauth
   # So this is a dummy/noop attribute
   attr_accessor :password unless ENV["AUTH_METHOD"] == "database"

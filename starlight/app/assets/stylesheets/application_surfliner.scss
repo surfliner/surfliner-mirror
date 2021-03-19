@@ -1,23 +1,11 @@
 /*
 /*
- *= require blacklight_oembed.css.scss
  *= require blacklight_gallery.css.scss
  *= require bootstrap-tagsinput
  *= require openseadragon.css
  *= require openseadragon/openseadragon
 */
 
-@import 'bootstrap-sprockets';
-@import 'bootstrap';
-
-@import 'blacklight/blacklight';
-@import 'spotlight/spotlight';
-
-@import 'sir-trevor/main';
-@import 'leaflet';
-
-@import 'themes/ucsb/default-variables';
-@import 'themes/ucsb/overrides';
 @import 'application_ucsb';
 
 @mixin inline($separator, $distance) {

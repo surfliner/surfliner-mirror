@@ -10,25 +10,18 @@
  * ./THEMENAME/bootstrap/assets/stylesheets/bootstrap/_variables.scss
  */
 
-// Grid
-$screen-xs: 480px !default;
-$screen-sm: 768px !default;
-$screen-md: 992px !default;
-$screen-lg: 1230px !default;
-$screen-max: 1680px !default;
-
-// Set the proper directory for the Bootstrap Glyphicon font.
-$icon-font-path: '../bootstrap/assets/fonts/bootstrap/';
+// removed in bootstrap 4
+$navbar-height: 50px !default;
 
 // Mixins
 @mixin center() {
   box-sizing: border-box;
   margin-left: auto;
   margin-right: auto;
-  max-width: $screen-lg;
+  max-width: map-get($grid-breakpoints, "lg");
   padding-left: 15px;
-  padding-right: 15px; 
-  @media all and (min-width: $screen-md) {
+  padding-right: 15px;
+  @include media-breakpoint-up(md) {
     padding-left: 30px;
     padding-right: 30px;
   }
@@ -183,7 +176,6 @@ $base-danger-red:             #ff4136;
 $danger-red-darken-20:        #cf0b00;
 $base-info-blue:              #0074d9;
 
-
 // Link color
 $link-color:                  $base-navy;
 $link-color-light:            $base-interactive-blue;
@@ -207,11 +199,18 @@ $button-disabled:             #9caab5;
 $button-disabled-border:      #d4d4d4;
 $button-disabled-background:  #edeef0;
 
-
 $background-gray:             #e8ecf0;
 $background-mist:             $mist-lighten-20;
 $border-color:                $lightgray-lighten-6;
 $border-color-dark:           $lightgray-darken-20;
+
+$theme-colors: (
+  "danger": $base-danger-red,
+  "info": $base-info-blue,
+  "primary": $base-navy,
+  "success": $base-success-green,
+  "warning": $base-warning-yellow
+);
 
 $background-colors: // background, display, header, body, link, caption
 	( '#ffffff'
@@ -227,21 +226,21 @@ $background-colors: // background, display, header, body, link, caption
       '#{$lightgray-darken-60}',
       '#{$base-interactive-blue}',
       '#{$lightgray-darken-60}'
-    ) 
+    )
   , '#{$base-lightgray}'
     ( '#{$lightgray-darken-80}',
       '#{$lightgray-darken-80}',
       '#{$lightgray-darken-60}',
       '#{$base-interactive-blue}',
       '#{$lightgray-darken-60}'
-    ) 
+    )
   , '#{$base-mist}'
     ( '#{$lightgray-darken-80}',
       '#{$lightgray-darken-80}',
       '#{$lightgray-darken-60}',
       '#{$lightgray-darken-60}',
       '#{$lightgray-darken-60}'
-    ) 
+    )
   , '#{$mist-lighten-20}'
     ( '#{$lightgray-darken-80}',
       '#{$lightgray-darken-80}',
@@ -283,7 +282,7 @@ $background-colors: // background, display, header, body, link, caption
       '#{$lightgray-darken-60}',
       '#{$lightgray-darken-60}',
       '#{$lightgray-darken-60}'
-    ) 
+    )
   , '#{$base-navy}'
     ( '#{$base-white}',
       '#{$base-white}',
@@ -318,7 +317,7 @@ $background-colors: // background, display, header, body, link, caption
       '#{$lightgray-darken-80}',
       '#{$lightgray-darken-80}',
       '#{$lightgray-darken-80}'
-    ) 
+    )
   , '#{$coral-darken-15-desat-15}'
     ( '#{$base-white}',
       '#{$base-white}',
@@ -355,7 +354,7 @@ Color field presets
 #000000
 */
 
-// Padding 
+// Padding
 $blade-padding-values: ('none':0, '1':1, '2':2, '3':3, '4':4);
 $blade-padding: 36px 0 36px 0;
 $mobile-blade-padding: 0 0 36px 0;

@@ -26,10 +26,10 @@
     display: table-cell;
     // Reset rounded corners
     &:first-child .form-control:first-child {
-      @include border-left-radius($border-radius-base);
+      @include border-left-radius($border-radius);
     }
     &:last-child .form-control:first-child {
-      @include border-right-radius($border-radius-base);
+      @include border-right-radius($border-radius);
     }
   }
   select {
@@ -43,7 +43,7 @@
     }
   }
   &:after {
-    color: $brand-primary;
+    color: theme-color("primary");
     content: '▼';
     font-style: normal;
     font-weight: 400;
@@ -65,13 +65,13 @@
       font-family: 'Glyphicons Halflings';
     }
     .has-error & {
-      color: $state-danger-text;
+      color: theme-color("danger");
     }
     .has-success & {
-      color: $state-success-text;
+      color: theme-color("success");
     }
     .has-warning & {
-      color: $state-warning-text;
+      color: theme-color("warning");
     }
   }
 }
@@ -99,4 +99,10 @@
       margin-right: 0;
     }
   }
+}
+
+// Form text inputs
+input.form-control {
+  border-radius: 0 !important;
+  height: 100% !important;
 }

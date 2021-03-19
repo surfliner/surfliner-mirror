@@ -15,7 +15,9 @@ namespace :starlight do
   end
 
   task migrate_iiif_content: [:environment] do
-    abort "\nYou must supply APP_URL and OLD_APP_URL environment variables for this task.\n\n" unless ENV["APP_URL"] && ENV["OLD_APP_URL"]
+    unless ENV["APP_URL"] && ENV["OLD_APP_URL"]
+      abort "\nYou must supply APP_URL and OLD_APP_URL environment variables for this task.\n\n"
+    end
 
     hostname = ENV["APP_URL"]
     old_hostname = ENV["OLD_APP_URL"]

@@ -1,10 +1,11 @@
-default: &default
+development:
   adapter: solr
   url: <%= ENV.fetch("SOLR_URL") %>
 
-development:
-  <<: *default
 test: &test
-  <<: *default
+  adapter: solr
+  url: <%= ENV.fetch("SOLR_URL") %>
+
 production:
-  <<: *default
+  adapter: solr
+  url: <%= ENV.fetch("SOLR_URL") %>
