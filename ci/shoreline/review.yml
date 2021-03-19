@@ -78,6 +78,8 @@ shoreline:discovery:deploy:ucsb-review:
       --set geoserver.persistence.enabled=false
       --set geoserver.jvm.initialMemory=128M
       --set geoserver.jvm.maximumMemory=512M
+      --set geoserver.resources.requests.memory=128M
+      --set geoserver.resources.limits.memory=640M
       --set ingress.hosts={shoreline-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN}
       --set postgresql.persistence.enabled=false
       --set shoreline.email.contact_email=geospatial@library.ucsb.edu

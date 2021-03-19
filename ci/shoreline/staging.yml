@@ -64,6 +64,10 @@ shoreline:discovery:deploy:ucsb-stage:
     HELM_UPGRADE_EXTRA_ARGS: >
       --set geoserver.ingress.hosts={shoreline-geoserver-staging.$KUBE_INGRESS_BASE_DOMAIN}
       --set geoserver.persistence.existingClaim=surfliner-shoreline-stage-geoserver-data-1
+      --set geoserver.jvm.initialMemory=1G
+      --set geoserver.jvm.maximumMemory=2G
+      --set geoserver.resources.requests.memory=1Gi
+      --set geoserver.resources.limits.memory=2Gi
       --set ingress.hosts={shoreline-staging.$KUBE_INGRESS_BASE_DOMAIN}
       --set persistence.downloads.class=gp2
       --set shoreline.sample_data=true

@@ -29,6 +29,10 @@ shoreline:discovery:deploy:prod:ucsb:
     HELM_UPGRADE_EXTRA_ARGS: >
       --set geoserver.ingress.hosts={geoserver.geodata.library.ucsb.edu}
       --set geoserver.persistence.existingClaim=shoreline-geoserver-data
+      --set geoserver.jvm.initialMemory=2G
+      --set geoserver.jvm.maximumMemory=4G
+      --set geoserver.resources.requests.memory=2Gi
+      --set geoserver.resources.limits.memory=4Gi
       --set ingress.hosts={geodata.library.ucsb.edu}
       --set persistence.downloads.class=gp2
       --set solr.enabled=false
