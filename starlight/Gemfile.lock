@@ -626,6 +626,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-nulldb-adapter
   blacklight (= 7.15.2)
   blacklight-gallery (= 3.0.1)
   blacklight-oembed (>= 0.1.0)

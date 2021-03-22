@@ -7,7 +7,7 @@ Translation = I18n::Backend::ActiveRecord::Translation
 
 # Don't allow initializer to break if DB doesn't exist yet
 # see: https://github.com/projectblacklight/spotlight/issues/2133
-begin
+if ENV.fetch('DB_ADAPTER', 'nulldb') != 'nulldb' && Translation.table_exists?
   ##
   # Sets up the new Spotlight Translation backend, backed by ActiveRecord. To
   # turn on the ActiveRecord backend, uncomment the following lines.
