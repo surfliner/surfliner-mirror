@@ -8,7 +8,7 @@ gem "blacklight-oembed", ">= 0.1.0"
 gem "blacklight-spotlight",
     git: "https://github.com/ucsblibrary/spotlight.git",
     branch: "ucsb"
-gem "bootsnap", "1.7.2"
+gem "bootsnap", "1.7.3"
 gem "carrierwave-aws", "1.5.0"
 gem "dalli", "2.7.11"
 gem "devise", "4.7.3"

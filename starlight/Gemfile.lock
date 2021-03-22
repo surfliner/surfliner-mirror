@@ -155,7 +155,7 @@ GEM
       bootstrap-sass (~> 3.0)
       rails
       ruby-oembed
-    bootsnap (1.7.2)
+    bootsnap (1.7.3)
       msgpack (~> 1.0)
     bootstrap-sass (3.4.1)
       autoprefixer-rails (>= 5.2.1)
@@ -588,7 +588,7 @@ DEPENDENCIES
   blacklight-gallery (>= 0.3.0)
   blacklight-oembed (>= 0.1.0)
   blacklight-spotlight!
-  bootsnap (= 1.7.2)
+  bootsnap (= 1.7.3)
   byebug (= 11.1.3)
   capistrano (= 3.14.1)
   capistrano-bundler (= 1.6.0)
