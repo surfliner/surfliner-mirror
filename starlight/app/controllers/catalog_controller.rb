@@ -2,6 +2,7 @@
 
 class CatalogController < ApplicationController
   include Blacklight::Catalog
+  include Blacklight::DefaultComponentConfiguration
 
   # https://gitlab.com/surfliner/surfliner/issues/149
   CatalogController.blacklight_config.show.document_actions.delete(:sms)
