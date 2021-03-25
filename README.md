@@ -92,7 +92,7 @@ While not necessarily involved in daily development work, the project also inclu
   * etc...
 
 ### Team Meetings
-All Surfliner sprints include a mix of project-wide and per product team meetings. The current workcycle runs from Wednesday, October 7 to Tuesday, December 15, 2020.  The meetings below are for this time period only. 
+All Surfliner sprints include a mix of project-wide and per product team meetings. 
 
 #### Project-wide
 **Project Surfliner Daily Standup**<br/> 
@@ -122,7 +122,8 @@ Last day of each sprint<br/>
 *Required*: Product Owner and Tech Lead plus Product Team Developers<br/>
 *Optional*: Subject Matter Experts<br/>
 
-### Meeting Schedules: Work Cycle March 31 - May 25, 2021
+### Meeting Schedules for the Current Work Cycle
+The current workcycle runs from Wednesday, March 31 to Tuesday, May 25, 2021.  The meetings below are for this time period only. 
 
 #### Project-wide
 **Project Surfliner Daily Standup**<br/> 
