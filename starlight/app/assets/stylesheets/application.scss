@@ -10,16 +10,15 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require blacklight_gallery.css.scss
- *= require openseadragon.css
+ *= require blacklight_gallery/default
  *= require bootstrap-tagsinput
  *= require openseadragon/openseadragon
  */
 
+@import 'spotlight/variables_bootstrap';
 @import 'bootstrap';
 @import 'blacklight/blacklight';
 @import 'spotlight/spotlight';
-@import 'spotlight/variables_bootstrap';
 
 @import 'sir-trevor/main';
 @import 'leaflet';

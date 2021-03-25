@@ -1,18 +1,4 @@
-/*
-/*
- *= require blacklight_gallery.css.scss
- *= require bootstrap-tagsinput
- *= require openseadragon.css
- *= require openseadragon/openseadragon
-*/
-
-@import 'bootstrap';
-@import 'blacklight/blacklight';
-@import 'spotlight/spotlight';
-@import 'spotlight/variables_bootstrap';
-
-@import 'sir-trevor/main';
-@import 'leaflet';
+@import 'application';
 @import url("https://fonts.googleapis.com/css?family=Roboto");
 
 //---
