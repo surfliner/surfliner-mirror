@@ -96,39 +96,55 @@ All Surfliner sprints include a mix of project-wide and per product team meeting
 
 #### Project-wide
 **Project Surfliner Daily Standup**<br/> 
-Daily, 10:30-10:45am (*except last day of each sprint*)<br/>
-[https://ucsb.zoom.us/j/310736504](https://ucsb.zoom.us/j/310736504)<br/> 
+Daily except last day of each sprint<br/>
 *Purpose*: Daily meeting during the sprint to discuss ongoing work and blockers.<br/>
 *Required*: Project Team<br/>
 
 **Project Surfliner Sprint Review**<br/>
-Last day of each sprint, 10:30-11:30am<br/>
-Use DSU Zoom link: [https://ucsb.zoom.us/j/310736504](https://ucsb.zoom.us/j/310736504)<br/>
+Last day of each sprint<br/>
 *Purpose*: Informal meeting on the last day of the sprint to show what the product team(s) has accomplished during the sprint, typically taking the form of a demo. Demos are recorded. The Product Owner(s) & Tech Lead(s) for products in sprint are responsible for demo content & ensuring the demo gets recorded and shared.<br/>
 *Required*: Product Owner(s) & Tech Lead(s) for products in sprint<br/>
 *Optional*: Project Team<br/>
 
 **Project Surfliner Sprint Retrospective**<br/>
-Last day of each sprint, 2:00-3:00pm<br/>
-[https://ucsb.zoom.us/j/99140390905](https://ucsb.zoom.us/j/99140390905)<br/> 
+Last day of each sprint<br/>
 *Purpose*: Meeting on the last day of the sprint to discuss how things went and what to change for future sprints.<br/>
 *Required*: Project Team<br/>
 
-#### DevOps Sprint Team
-**DevOps Backlog Refinement**<br/>
-Regular meetings every other Monday, 11am-12pm (*starting June 22, 2020*)<br/>
-[https://ucsb.zoom.us/j/91321846191](https://ucsb.zoom.us/j/91321846191)<br/>
+#### Product Team
+**Backlog Refinement**<br/>
 *Purpose*: Meeting, as needed, prior to Sprint Planning to refine & prioritize tickets.<br/>
-*Required*: Shoreline/Starlight Tech Leads<br/>
-*Optional*: Shoreline/Starlight Product Owners, other Tech Leads & DevOps Sprint Team Developers<br/>
+*Required*: Product Owner, Tech Lead<br/>
+*Optional*: other Developers, Subject Matter Experts, stakeholders<br/>
 
-**DevOps Sprint Planning**<br/>
-Initial meeting Tuesday June 16, 2020, 11am-12pm<br/>
-Regular meetings every other Monday, 11am-12pm (*starting June 29, 2020*)<br/>
-[https://ucsb.zoom.us/j/97113833320](https://ucsb.zoom.us/j/97113833320)<br/>
+**Sprint Planning**<br/>
 *Purpose*: Meeting the week before the next sprint to negotiate and select tickets on that sprint.<br/>
-*Required*: Shoreline/Starlight Tech Leads plus DevOps Sprint Team Developers<br/>
-*Optional*: Shoreline/Starlight Product Owners, other Tech Leads<br/>
+*Required*: Product Owner and Tech Lead plus Product Team Developers<br/>
+*Optional*: Subject Matter Experts<br/>
+
+### Meeting Schedules: Work Cycle March 31 - May 25, 2021
+
+#### Project-wide
+**Project Surfliner Daily Standup**<br/> 
+Daily, 10:30-10:45am (*except last day of each sprint*)<br/>
+[https://ucsb.zoom.us/j/310736504](https://ucsb.zoom.us/j/310736504)<br/> 
+
+**Project Surfliner Sprint Review**<br/>
+Last day of each sprint, 10:30-11:30am<br/>
+Use DSU Zoom link: [https://ucsb.zoom.us/j/310736504](https://ucsb.zoom.us/j/310736504)<br/>
+
+**Project Surfliner Sprint Retrospective**<br/>
+Last day of each sprint, 2:00-3:00pm<br/>
+[https://ucsb.zoom.us/j/99140390905](https://ucsb.zoom.us/j/99140390905)<br/> 
+
+#### Comet Sprint Team
+**Backlog Refinement**<br/>
+Every other (day), (time) (*starting (date)*)<br/>
+[Zoom link URL](text)<br/>
+
+**Sprint Planning**<br/>
+(cadence, i.e. every other (day)), (time) (*starting (date)*)<br/>
+[Zoom link URL](text)<br/>
 
 # Communication Channels
 - **Blog**: [https://surfliner.ucsd.edu](https://surfliner.ucsd.edu)
