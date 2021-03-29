@@ -73,7 +73,7 @@ services:
 
   redis:
     image: bitnami/redis:6.2
-    command: redis-server --protected-mode no
+    command: redis-server --protected-mode no --stop-writes-on-bgsave-error no
     volumes:
       - starlight_redis:/data
 
