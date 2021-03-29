@@ -140,12 +140,12 @@ Last day of each sprint, 2:00-3:00pm<br/>
 
 #### Comet Sprint Team
 **Backlog Refinement**<br/>
-Every other (day), (time) (*starting (date)*)<br/>
-[Zoom link URL](text)<br/>
+Every other Friday, 2:00-3:00pm (*starting April 9, 2021*)<br/>
+[https://ucsd.zoom.us/j/96682551377?pwd=SWhTU0taK2pXY2lnM2d4aWIycVpYQT09](https://ucsd.zoom.us/j/96682551377?pwd=SWhTU0taK2pXY2lnM2d4aWIycVpYQT09)<br/>
 
 **Sprint Planning**<br/>
-(cadence, i.e. every other (day)), (time) (*starting (date)*)<br/>
-[Zoom link URL](text)<br/>
+Every other Monday, 2:00-3:00pm (*starting April 12*)<br/>
+[https://ucsd.zoom.us/j/98518941689?pwd=akxYNkdFbFo3VHJ5dkszRGFPckt1Zz09](https://ucsd.zoom.us/j/98518941689?pwd=akxYNkdFbFo3VHJ5dkszRGFPckt1Zz09)<br/>
 
 # Communication Channels
 - **Blog**: [https://surfliner.ucsd.edu](https://surfliner.ucsd.edu)
