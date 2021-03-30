@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Hyrax.config do |config|
+  config.disable_wings = true
+
   # Register roles that are expected by your implementation.
   # @see Hyrax::RoleRegistry for additional details.
   # @note there are magical roles as defined in Hyrax::RoleRegistry::MAGIC_ROLES
