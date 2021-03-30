@@ -212,10 +212,10 @@ GEM
       rexml
     crass (1.0.6)
     dalli (2.7.11)
-    database_cleaner (1.99.0)
-    database_cleaner-active_record (1.99.0)
-      activerecord
-      database_cleaner (~> 1.99.0)
+    database_cleaner-active_record (2.0.0)
+      activerecord (>= 5.a)
+      database_cleaner-core (~> 2.0.0)
+    database_cleaner-core (2.0.1)
     declarative (0.0.20)
     declarative-option (0.1.0)
     deprecation (1.0.0)
@@ -601,7 +601,7 @@ DEPENDENCIES
   capybara-screenshot (= 1.0.25)
   carrierwave-aws (= 1.5.0)
   dalli (= 2.7.11)
-  database_cleaner-active_record (= 1.99.0)
+  database_cleaner-active_record (= 2.0.0)
   devise (= 4.7.3)
   devise-guests (= 0.7.0)
   dotenv-rails (= 2.7.6)
