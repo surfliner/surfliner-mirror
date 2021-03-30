@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Hyrax.config do |config|
   # Register roles that are expected by your implementation.
   # @see Hyrax::RoleRegistry for additional details.
@@ -275,6 +276,6 @@ end
 
 Date::DATE_FORMATS[:standard] = "%m/%d/%Y"
 
-Qa::Authorities::Local.register_subauthority('subjects', 'Qa::Authorities::Local::TableBasedAuthority')
-Qa::Authorities::Local.register_subauthority('languages', 'Qa::Authorities::Local::TableBasedAuthority')
-Qa::Authorities::Local.register_subauthority('genres', 'Qa::Authorities::Local::TableBasedAuthority')
+Qa::Authorities::Local.register_subauthority("subjects", "Qa::Authorities::Local::TableBasedAuthority")
+Qa::Authorities::Local.register_subauthority("languages", "Qa::Authorities::Local::TableBasedAuthority")
+Qa::Authorities::Local.register_subauthority("genres", "Qa::Authorities::Local::TableBasedAuthority")

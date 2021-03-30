@@ -11,7 +11,7 @@ class AddPermissionTemplateToSipityWorkflow < ActiveRecord::Migration[5.2]
 
     # Doing an inline data migration
     begin
-      if Hyrax::PermissionTemplate.column_names.include?('workflow_id')
+      if Hyrax::PermissionTemplate.column_names.include?("workflow_id")
         Hyrax::PermissionTemplate.each do |permission_template|
           workflow_id = permission_template.workflow_id
           next unless workflow_id
