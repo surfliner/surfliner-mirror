@@ -12,6 +12,7 @@ RUN apk --no-cache upgrade && apk --no-cache add \
       libxslt-dev \
       nodejs \
       postgresql-dev \
+      shared-mime-info \
       zip
 
 WORKDIR ${DOCKERROOT}/discovery/app

@@ -17,13 +17,14 @@ gem 'geoserver-publish',       '~> 0.3'
 gem 'jbuilder',                '~> 2.5'
 gem 'jquery-rails',            '~> 4.3'
 gem 'letter_opener_web'
+gem 'mimemagic',               '0.4.2'
 gem 'nokogiri',                '~> 1.11.0'
 gem 'okcomputer',              '~> 1.18'
 gem 'optimist'
 gem 'pg',                      '~> 1.1.4'
 gem 'pry-rails',               '~> 0.3', group: %i[development test]
 gem 'puma',                    '~> 5.0'
-gem 'rails',                   '~> 5.2.4'
+gem 'rails',                   '5.2.5'
 gem 'rsolr',                   '>= 1.0', '< 3'
 gem 'rspec-its',               group: [:test]
 gem 'rspec_junit_formatter',   group: [:test]
