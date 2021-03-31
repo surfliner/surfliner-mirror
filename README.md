@@ -16,8 +16,7 @@
   * [Team Roles](#team-roles)
   * [Team Meetings](#team-meetings)
     * [Project-wide](#project-wide)
-    * [DevOps Sprint Team](#devops-sprint-team)
-    * [Shoreline Product Team](#shoreline-product-team)
+    * [Comet Sprint Team](#comet-sprint-team)
 * [Communication Channels](#communication-channels)
 
 ## About
