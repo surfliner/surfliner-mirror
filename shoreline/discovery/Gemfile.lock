@@ -417,7 +417,7 @@ DEPENDENCIES
   rspec-its
   rspec-rails (~> 5.0)
   rspec_junit_formatter
-  rubocop (< 1.11.1)
+  rubocop (< 1.12.1)
   rubocop-rails
   rubocop-rspec
   sass-rails (~> 6.0)
