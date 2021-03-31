@@ -5,7 +5,7 @@ name: lark
 version: 0.5.0
 dependencies:
   - name: solr
-    version: 0.2.5
+    version: 0.3.0
     repository: https://charts.bitnami.com/bitnami
     condition: solr.enabled
   - name: postgresql
