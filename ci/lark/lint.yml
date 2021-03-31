@@ -13,7 +13,7 @@ lark-lint:
   stage: lint
   image: ruby:2.7-alpine
   script:
-    - apk add --no-cache build-base postgresql-dev
+    - apk add --no-cache build-base postgresql-dev shared-mime-info
     - cd lark
     - gem update bundler
     - bundle check || bundle

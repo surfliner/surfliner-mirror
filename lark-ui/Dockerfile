@@ -10,6 +10,7 @@ RUN apk --no-cache upgrade && apk --no-cache add \
   curl \
   libxml2-dev \
   libxslt-dev \
+  shared-mime-info \
   tzdata
 
 WORKDIR ${DOCKERROOT}/app
