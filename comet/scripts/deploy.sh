@@ -29,7 +29,8 @@ else
   kubectl --context $context apply --namespace="surfliner-utilities" -f ../k3d/chromium.yaml --wait=true
 fi
 
-helm dep up ../../hyrax/chart/hyrax
+helm repo add ucsd-helm https://lib-helm-repo.ucsd.edu
+helm repo update
 
 echo "Deploying Hyrax using Helm chart into k3d cluster..."
 helm upgrade \
@@ -40,4 +41,4 @@ helm upgrade \
   --set worker.image.repository="$image_repository" \
   --values="$values_file" \
   "$release" \
-  ../../hyrax/chart/hyrax
+  ucsd-helm/hyrax
