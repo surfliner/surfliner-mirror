@@ -14,6 +14,9 @@ else
   . ./scripts/build.sh
 fi
 
+echo "Ensuring kubectl uses k3d-surfliner-dev context/cluster..."
+kubectl config use-context k3d-surfliner-dev
+
 if kubectl get namespaces | grep -q $namespace; then
   echo "Namespace $namespace already exists, skipping creation..."
 else
