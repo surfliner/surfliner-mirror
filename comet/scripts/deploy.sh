@@ -5,9 +5,11 @@ namespace="comet-development"
 release=${RELEASE_NAME:=comet}
 values_file=${VALUES_FILE:=scripts/k3d.yaml}
 registry_port=${REGISTRY_PORT:=41906}
+
+git_sha="$(git rev-parse HEAD)"
 image_repository="k3d-registry.localhost:$registry_port/comet_web"
 
-if docker image inspect "$image_repository:local" > /dev/null 2>&1; then
+if docker image inspect "$image_repository:${git_sha}" > /dev/null 2>&1; then
   echo "Comet container image already exists in Registry, skipping build..."
 else
   echo "Building and pushing Comet container image to Registry..."
@@ -38,7 +40,9 @@ helm upgrade \
   --kube-context="$context" \
   --namespace="$namespace" \
   --set image.repository="$image_repository" \
+  --set image.tag="${git_sha}" \
   --set worker.image.repository="$image_repository" \
+  --set worker.image.tag="${git_sha}" \
   --values="$values_file" \
   "$release" \
   ucsd-helm/hyrax
