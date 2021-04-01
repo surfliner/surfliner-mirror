@@ -1,0 +1,7 @@
+comet:ruby-build:
+  extends:
+    - .kaniko-build
+    - .only-refs-default
+    - .only-comet-changes
+  script:
+    - build_image_for "comet" "comet_web"

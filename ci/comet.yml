@@ -1,0 +1,15 @@
+include:
+  - local: ci/comet/build.yml
+  # - local: ci/comet/lint.yml
+  # - local: ci/comet/test.yml
+
+.only-comet-changes:
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - ci/comet.yml
+      - ci/comet/**/*
+      - charts/comet/**/*
+      - gems/**/*
+      - comet/Dockerfile
+      - comet/**/*

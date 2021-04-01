@@ -11,6 +11,7 @@ stages:
 
 include:
   - local: ci/base.yml
+  - local: ci/comet.yml
   - local: ci/lark.yml
   - local: ci/shoreline.yml
   - local: ci/starlight.yml
