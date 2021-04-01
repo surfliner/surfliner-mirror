@@ -1,0 +1,39 @@
+image:
+  tag: local
+ingress:
+  enabled: true
+  hosts:
+    - host: 'comet.k3d.localhost'
+      paths: ['/']
+brandingVolume:
+  enabled: false
+derivativesVolume:
+  enabled: false
+uploadsVolume:
+  enabled: false
+worker:
+  image:
+    tag: local
+fcrepo:
+  enabled: true # fixme
+solr:
+  persistence:
+    enabled: false
+  replicaCount: 2
+  zookeeper:
+    persistence:
+      enabled: false
+    replicaCount: 2
+memcached:
+  architecture: standalone
+  persistence:
+    enabled: false
+redis:
+  cluster:
+    enabled: false
+  master:
+    persistence:
+      enabled: false
+postgresql:
+  persistence:
+    enabled: false
