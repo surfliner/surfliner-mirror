@@ -1,6 +1,6 @@
 include:
   - local: ci/comet/build.yml
-  # - local: ci/comet/lint.yml
+  - local: ci/comet/lint.yml
   # - local: ci/comet/test.yml
 
 .only-comet-changes:

@@ -1,0 +1,31 @@
+comet-shellcheck:
+  stage: lint
+  image: koalaman/shellcheck-alpine:v0.7.1
+  needs: []
+  script:
+    - cd comet
+    - find . -name tmp -prune -o -type f -exec awk 'FNR == 1 && /^#!.*sh/{print FILENAME}' {} + | xargs shellcheck
+  extends: .only-refs-default
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - .styles/**/*
+      - comet/**/*
+
+comet-lint:
+  stage: lint
+  image: ruby:2.7.2-alpine
+  script:
+    - cd comet
+    - apk add --no-cache build-base git postgresql-dev
+    - gem update bundler
+    - bundle check || bundle
+    - bundle exec standardrb
+  extends: .only-refs-default
+  needs: []
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - .styles/**/*
+      - comet/**/*
+      - ci/comet/**/*
