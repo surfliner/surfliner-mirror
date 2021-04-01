@@ -14,6 +14,12 @@ uploadsVolume:
 worker:
   image:
     tag: local
+minio:
+  enabled: true
+  accessKey:
+    password: comet-access-key
+  secretKey:
+    password: comet-secret
 fcrepo:
   enabled: true # fixme
 solr:
