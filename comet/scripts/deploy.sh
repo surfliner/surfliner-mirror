@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 
+context="k3d-surfliner-dev"
 namespace="comet-development"
 release=${RELEASE_NAME:=comet}
 values_file=${VALUES_FILE:=scripts/k3d.yaml}
@@ -14,21 +15,18 @@ else
   . ./scripts/build.sh
 fi
 
-echo "Ensuring kubectl uses k3d-surfliner-dev context/cluster..."
-kubectl config use-context k3d-surfliner-dev
-
-if kubectl get namespaces | grep -q $namespace; then
+if kubectl --context $context get namespaces | grep -q $namespace; then
   echo "Namespace $namespace already exists, skipping creation..."
 else
   echo "Creating namespace for deployment..."
-  kubectl create namespace "$namespace"
+  kubectl --context $context create namespace "$namespace"
 fi
 
-if kubectl get deployments.apps -n $namespace | grep -q "chrome"; then
+if kubectl --context $context get deployments.apps -n $namespace | grep -q "chrome"; then
   echo "Chromium container and service already installed, skipping creation..."
 else
   echo "Installing Chromium into k3d cluster for running tests..."
-  kubectl apply --namespace="surfliner-utilities" -f ../k3d/chromium.yaml --wait=true
+  kubectl --context $context apply --namespace="surfliner-utilities" -f ../k3d/chromium.yaml --wait=true
 fi
 
 helm dep up ../../hyrax/chart/hyrax
@@ -36,6 +34,7 @@ helm dep up ../../hyrax/chart/hyrax
 echo "Deploying Hyrax using Helm chart into k3d cluster..."
 helm upgrade \
   --install \
+  --kube-context="$context" \
   --namespace="$namespace" \
   --set image.repository="$image_repository" \
   --set worker.image.repository="$image_repository" \
