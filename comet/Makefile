@@ -13,8 +13,8 @@ clean:
 deploy: setup
 	scripts/deploy.sh
 
-drop: 
-    scripts/drop.sh
+drop:
+	scripts/drop.sh
 
 build: setup
 	scripts/build.sh
