@@ -11,6 +11,14 @@ derivativesVolume:
   enabled: false
 uploadsVolume:
   enabled: false
+extraVolumeMounts:
+   - name: local-app
+     mountPath: /app/samvera/hyrax-webapp
+extraVolumes:
+ - name: local-app
+   hostPath:
+     path: /src
+     type: DirectoryOrCreate
 worker:
   image:
     tag: local
