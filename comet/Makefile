@@ -3,7 +3,8 @@
 menu:
 	@echo 'build: Build a Comet container image and push it to the k3d local registry'
 	@echo 'clean: Delete the surfliner-dev k3d/k3s cluster'
-	@echo 'deploy: Deploy the Starlight helm chart into the k3d/k3s cluster'
+	@echo 'deploy: Deploy the Comet helm chart into the k3d/k3s cluster'
+	@echo 'drop: Delete the namespace of the Comet development deployment'
 	@echo 'setup: Create a surfliner-dev k3d/k3s cluster'
 
 clean:
@@ -11,6 +12,8 @@ clean:
 
 deploy: setup
 	scripts/deploy.sh
+
+drop: scripts/deploy.sh
 
 build: setup
 	scripts/build.sh
