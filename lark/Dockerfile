@@ -1,5 +1,5 @@
 # renovate: datasource=docker depName=ruby versioning=ruby
-ARG RUBY_VERSION=2.7.2
+ARG RUBY_VERSION=2.7.3
 FROM ruby:$RUBY_VERSION-alpine as lark
 
 ARG PROJECTPATH=lark

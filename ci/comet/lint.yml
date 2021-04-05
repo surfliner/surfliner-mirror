@@ -14,7 +14,7 @@ comet-shellcheck:
 
 comet-lint:
   stage: lint
-  image: ruby:2.7.2-alpine
+  image: ruby:2.7.3-alpine
   script:
     - cd comet
     - apk add --no-cache build-base git postgresql-dev
