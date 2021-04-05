@@ -22,6 +22,9 @@ extraVolumes:
 worker:
   image:
     tag: local
+extraEnvVars:
+  - name: "RAILS_LOG_TO_STDOUT"
+    value: "true"
 minio:
   enabled: true
   accessKey:
