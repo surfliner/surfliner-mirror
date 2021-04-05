@@ -16,13 +16,9 @@ The install process is much easier with a package manager.
 
 For Mac, we use brew.  The install instructions are here: https://brew.sh/
 
-**TL;DR**
-
 `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
 
 On Windows, we care going to use Chocolatey.  The install instructions are here: https://chocolatey.org/install
-
-**TL;DR**
 
 `Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))`
 
