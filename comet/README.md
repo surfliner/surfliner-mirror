@@ -12,6 +12,12 @@ The current practice for Comet development is to use a k3s variant and work in t
 
 Before you panic, it's not that hard...we are going to cover the TL;DR install for Macs and Windows machines.  We are also going to install a Rancher UI on the local k8s cluster to make things a little more friendly.
 
+For both environments, you need to install docker.
+
+**Mac** https://docs.docker.com/docker-for-mac/install/
+
+**Windows** https://docs.docker.com/docker-for-windows/install/
+
 The install process is much easier with a package manager.
 
 For Mac, we use brew.  The install instructions are here: https://brew.sh/
