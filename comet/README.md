@@ -26,3 +26,22 @@ On Windows, we care going to use Chocolatey.  The install instructions are here:
 
 `Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))`
 
+Now we need to install helm.
+
+**Mac** https://helm.sh/docs/intro/install/
+
+`brew install helm`
+
+**Windows** https://helm.sh/docs/intro/install/
+
+`choco install kubernetes-helm`
+
+Then kubectl.
+
+**Mac** https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/#install-with-homebrew-on-macos
+
+`brew install kubectl`
+
+**Windows** https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/#install-on-windows-using-chocolatey-or-scoop
+
+`choco install kubernetes-cli`
