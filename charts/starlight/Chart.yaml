@@ -5,7 +5,7 @@ name: starlight
 version: 0.5.0
 dependencies:
   - name: memcached
-    version: 5.8.0
+    version: 5.8.1
     repository: https://charts.bitnami.com/bitnami
     condition: memcached.enabled
   - name: minio
