@@ -18,6 +18,10 @@ For both environments, you need to install docker.
 
 **Windows** https://docs.docker.com/docker-for-windows/install/
 
+On a Mac, you will also need to install the Command Line Tools for Xcode.
+
+`xcode-select --install`
+
 The install process is much easier with a package manager.
 
 For Mac, we use brew.  The install instructions are here: https://brew.sh/
