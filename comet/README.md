@@ -41,3 +41,13 @@ Then kubectl.
 **Windows** https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/#install-on-windows-using-chocolatey-or-scoop
 
 `choco install kubernetes-cli`
+
+And finally, k3d.
+
+**Mac** https://k3d.io/
+
+`brew install k3d`
+
+**Windows** https://k3d.io/
+
+`choco install k3d`
