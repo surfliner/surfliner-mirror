@@ -17,6 +17,13 @@ else
   . ./scripts/build.sh
 fi
 
+if kubectl --context $context get namespaces | grep -q 'surfliner-utilities'; then
+  echo "Namespace surfliner-utilities already exists, skipping creation..."
+else
+  echo "Creating surfliner-utilities namespace..."
+  kubectl --context $context create namespace surfliner-utilities
+fi
+
 if kubectl --context $context get namespaces | grep -q $namespace; then
   echo "Namespace $namespace already exists, skipping creation..."
 else
@@ -24,11 +31,11 @@ else
   kubectl --context $context create namespace "$namespace"
 fi
 
-if kubectl --context $context get deployments.apps -n $namespace | grep -q "chrome"; then
+if kubectl --context $context get deployments.apps -n surfliner-utilities | grep -q "chrome"; then
   echo "Chromium container and service already installed, skipping creation..."
 else
   echo "Installing Chromium into k3d cluster for running tests..."
-  kubectl --context $context apply --namespace="surfliner-utilities" -f ../k3d/chromium.yaml --wait=true
+  kubectl --context $context apply --namespace=surfliner-utilities -f ../k3d/chromium.yaml --wait=true
 fi
 
 helm repo add ucsd-helm https://lib-helm-repo.ucsd.edu
