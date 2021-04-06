@@ -22,6 +22,17 @@ extraVolumes:
 worker:
   image:
     tag: local
+  extraVolumeMounts:
+    - name: local-app
+      mountPath: /app/samvera/hyrax-webapp
+  extraVolumes:
+    - name: local-app
+      hostPath:
+        path: /src
+        type: DirectoryOrCreate
+  extraEnvVars:
+    - name: "RAILS_LOG_TO_STDOUT"
+      value: "true"
 extraEnvVars:
   - name: "RAILS_LOG_TO_STDOUT"
     value: "true"
