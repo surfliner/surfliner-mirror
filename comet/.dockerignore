@@ -1,0 +1,6 @@
+*~
+.git
+
+# ignore k3d config and make scripts
+./scripts/*
+Makefile
