@@ -3,15 +3,38 @@
 Comet is a staff facing digital object management system. Comet is based on
 [Samvera][samvera] software and uses the [Hyrax][hyrax] engine.
 
-[hyrax]: https://hyrax.samvera.org/
-[samvera]: https://samvera.org/
 
-# Setting up a development environment
+## Setting up a development environment
 
-The current practice for Comet development is to use a k3s variant and work in that with helm deployments.
+The current practice for Comet development is to use a `k3s` tool called `k3d`
+which creates containerized `k3s` clusters.
 
-Before you panic, it's not that hard...we are going to cover the TL;DR install for Macs and Windows machines.  We are also going to install a Rancher UI on the local k8s cluster to make things a little more friendly.
+You will need the following tools installed on your local machine:
 
+* [Docker][docker]
+* [kubectl][kubectl]
+* [Helm][helm]
+* [k3d][k3d]
+
+Additionally, you will want some way of monitoring and managing the application
+deployments into the `k3s` cluster. There are a variety of tools for doing this:
+
+* [k9s][k9s] - A terminal-based tool for managing k8s clusters
+* [Rancher][rancher] - Provides a very nice UI, but a heavier weight
+    installation locally.
+* Using `kubectl` and `helm` directly. There are times where this is best, but
+    is likely a last resort for regular monitoring.
+
+There are likely other tools in this space as well. As of this writing our team
+currently has experience with both `k9s` and `Rancher`, so these are currently
+recommended.
+
+In general, it is advisable to keep all of these tools up to date. The
+Kubernetes development space and related tooling moves quickly.
+
+For Mac and Windows specific setup of the tooling above, see the section below.
+
+### Dependency installation for Mac and Windows
 For both environments, you need to install docker.
 
 **Mac** https://docs.docker.com/docker-for-mac/install/
@@ -61,3 +84,12 @@ And finally, k3d.
 **Windows** https://k3d.io/
 
 `choco install k3d`
+
+[docker]: https://docs.docker.com/engine/install/
+[helm]: https://helm.sh/docs/intro/install/
+[hyrax]: https://hyrax.samvera.org/
+[k3d]: https://github.com/rancher/k3d/#get
+[k9s]: https://github.com/derailed/k9s
+[kubectl]: https://kubernetes.io/docs/tasks/tools/
+[rancher]: https://rancher.com/docs/rancher/v2.5/en/installation/install-rancher-on-k8s/
+[samvera]: https://samvera.org/
