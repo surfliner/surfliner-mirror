@@ -5,6 +5,7 @@ ingress:
   hosts:
     - host: 'comet.k3d.localhost'
       paths: ['/']
+skipHyraxEngineSeed: "true"
 brandingVolume:
   enabled: false
 derivativesVolume:
@@ -43,7 +44,7 @@ minio:
   secretKey:
     password: comet-secret
 fcrepo:
-  enabled: true # fixme
+  enabled: false
 solr:
   persistence:
     enabled: false
