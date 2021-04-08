@@ -1,6 +1,10 @@
 *~
 .git
 
+# ignore tmp and public web files that change as application runs
+./tmp/*
+./public/*
+
 # ignore k3d config and make scripts
 ./scripts/*
 Makefile
