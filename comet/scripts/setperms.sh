@@ -23,6 +23,7 @@ then
     echo "Setting permissions..."
     sudo chown -R 1001:101 public
     sudo chown -R 1001:101 tmp
+    sudo -k
 else
     echo "Again, the development environment will NOT work unless"
     echo "these permissions are set:"
