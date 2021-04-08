@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
 
-publicowner=`stat -c '%u' public`
+publicowner=$(stat -c '%u' public)
 if [ "$publicowner" = "101" ]; then
-  tmpowner=`stat -c '%u' tmp`
+  tmpowner=$(stat -c '%u' tmp)
   if [ "$tmpowner" = "101" ]; then
     exit 1;
   fi
@@ -22,7 +22,7 @@ echo "answer 'n', copy the above commands, and run them yourself."
 echo "Currently, the development environment will NOT work if those"
 echo "permissions are not set correctly."
 
-echo "Would you like me to set the permissions? (y/n):" 
+echo "Would you like me to set the permissions? (y/n):"
 read -r yn;
 echo ""
 
@@ -40,4 +40,3 @@ else
     echo "chown -R 1001:101 tmp"
     echo ""
 fi
-
