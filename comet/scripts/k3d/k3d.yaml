@@ -29,8 +29,6 @@ extraVolumes:
      path: /src
      type: DirectoryOrCreate
 worker:
-  image:
-    tag: local
   replicaCount: 1
   extraVolumeMounts:
     - name: local-app
@@ -50,6 +48,8 @@ extraEnvVars:
     value: "true"
   - name: "RAILS_ENV"
     value: "development"
+  - name: "RAILS_QUEUE"
+    value: "sidekiq"
 minio:
   enabled: true
   persistence:

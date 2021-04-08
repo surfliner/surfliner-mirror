@@ -11,6 +11,7 @@ comet:test:unit:
     POSTGRES_PASSWORD: "postgres"
     POSTGRES_USER: "postgres"
     RAILS_ENV: "test"
+    RAILS_QUEUE: "inline"
   script:
     - cd /app/samvera/hyrax-webapp
     - bundle check || bundle

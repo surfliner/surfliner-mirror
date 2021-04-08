@@ -4,4 +4,12 @@ comet:ruby-build:
     - .only-refs-default
     - .only-comet-changes
   script:
-    - build_image_for "comet" "comet_web"
+    - build_image_for "comet" "comet_web" "comet"
+
+comet:worker-build:
+  extends:
+    - .kaniko-build
+    - .only-refs-default
+    - .only-comet-changes
+  script:
+    - build_image_for "comet" "comet_worker_web" "comet-worker"

@@ -8,6 +8,7 @@ registry_port=${REGISTRY_PORT:=41906}
 
 git_sha="$(git rev-parse HEAD)"
 image_repository="k3d-registry.localhost:$registry_port/comet_web"
+worker_image_repository="k3d-registry.localhost:$registry_port/comet_worker_web"
 
 if docker image inspect "$image_repository:${git_sha}" > /dev/null 2>&1; then
   echo "Comet container image already exists in Registry, skipping build..."
@@ -48,7 +49,7 @@ helm upgrade \
   --namespace="$namespace" \
   --set image.repository="$image_repository" \
   --set image.tag="${git_sha}" \
-  --set worker.image.repository="$image_repository" \
+  --set worker.image.repository="$worker_image_repository" \
   --set worker.image.tag="${git_sha}" \
   --values="$values_file" \
   "$release" \

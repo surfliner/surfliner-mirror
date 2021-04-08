@@ -27,6 +27,14 @@ module Comet
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
+    config.active_job.queue_adapter = ENV["RAILS_QUEUE"]&.to_sym
+
+    if ENV["RAILS_LOG_TO_STDOUT"].present?
+      logger = ActiveSupport::Logger.new($stdout)
+      logger.formatter = config.log_formatter
+      config.logger = ActiveSupport::TaggedLogging.new(logger)
+    end
+
     configure do
       config.middleware.delete ActiveFedora::LdpCache
     end

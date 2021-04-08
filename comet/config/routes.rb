@@ -1,3 +1,5 @@
+require "sidekiq/web"
+
 Rails.application.routes.draw do
   mount Blacklight::Engine => "/"
 
@@ -13,6 +15,11 @@ Rails.application.routes.draw do
   root "hyrax/homepage#index"
   curation_concerns_basic_routes
   concern :exportable, Blacklight::Routes::Exportable.new
+  #
+  # https://github.com/mperham/sidekiq/wiki/Monitoring#devise
+  authenticate :user, lambda { |u| u.superadmin? } do
+    mount Sidekiq::Web => "/sidekiq"
+  end
 
   resources :solr_documents, only: [:show], path: "/catalog", controller: "catalog" do
     concerns :exportable
