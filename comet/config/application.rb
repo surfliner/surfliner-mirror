@@ -29,11 +29,10 @@ module Comet
 
     config.active_job.queue_adapter = ENV["RAILS_QUEUE"]&.to_sym
 
-    if ENV["RAILS_LOG_TO_STDOUT"].present?
-      logger = ActiveSupport::Logger.new($stdout)
-      logger.formatter = config.log_formatter
-      config.logger = ActiveSupport::TaggedLogging.new(logger)
-    end
+    # Always log to stdout by default
+    logger = ActiveSupport::Logger.new($stdout)
+    logger.formatter = config.log_formatter
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
 
     configure do
       config.middleware.delete ActiveFedora::LdpCache
