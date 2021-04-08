@@ -52,6 +52,8 @@ extraEnvVars:
     value: "development"
 minio:
   enabled: true
+  persistence:
+    enabled: false
   accessKey:
     password: comet-access-key
   secretKey:
