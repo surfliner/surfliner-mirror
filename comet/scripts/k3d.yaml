@@ -31,6 +31,7 @@ extraVolumes:
 worker:
   image:
     tag: local
+  replicaCount: 1
   extraVolumeMounts:
     - name: local-app
       mountPath: /app/samvera/hyrax-webapp
