@@ -1,0 +1,55 @@
+ingress:
+  enabled: true
+livenessProbe:
+  enabled: true
+  path: "/healthz"
+  initialDelaySeconds: 10
+readinessProbe:
+  enabled: true
+  path: "/healthz"
+  initialDelaySeconds: 10
+skipHyraxEngineSeed: "true"
+brandingVolume:
+  enabled: false
+derivativesVolume:
+  enabled: false
+uploadsVolume:
+  enabled: false
+worker:
+  extraEnvVars:
+    - name: "RAILS_LOG_TO_STDOUT"
+      value: "true"
+extraEnvVars:
+  - name: "RAILS_LOG_TO_STDOUT"
+    value: "true"
+minio:
+  enabled: true
+  persistence:
+    enabled: false
+  accessKey:
+    password: comet-access-key
+  secretKey:
+    password: comet-secret
+fcrepo:
+  enabled: false
+solr:
+  persistence:
+    enabled: false
+  replicaCount: 2
+  zookeeper:
+    persistence:
+      enabled: false
+    replicaCount: 2
+memcached:
+  architecture: standalone
+  persistence:
+    enabled: false
+redis:
+  cluster:
+    enabled: false
+  master:
+    persistence:
+      enabled: false
+postgresql:
+  persistence:
+    enabled: false

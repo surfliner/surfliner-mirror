@@ -1,0 +1,90 @@
+.comet:deploy:review:
+  stage: review
+  extends:
+    - .only-comet-changes
+    - .helm3-deploy
+  variables:
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/comet_web
+    DEPLOY_TAG: $CI_COMMIT_SHA
+    HELM_RELEASE_NAME: surfliner-comet-$CI_MERGE_REQUEST_ID
+    KUBE_NAMESPACE: comet-review
+  needs: ["comet:ruby-build"]
+  only:
+    refs:
+      - merge_requests
+
+comet:deploy:ucsd-review:
+  extends:
+    - .comet:deploy:review
+  environment:
+    name: ucsd.comet.review/$CI_MERGE_REQUEST_ID
+    url: http://comet-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
+    on_stop: comet:cleanup:ucsd-review
+    auto_stop_in: 1 week
+  tags:
+    - ucsd
+  variables:
+    HELM_ENCODED_VALUES: $UCSD_COMET_REVIEW_VALUES
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --set ingress.hosts[0].host=comet-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
+      --set ingress.hosts[0].paths={'/'}
+      --set worker.image.repository=$CI_REGISTRY_IMAGE/comet_worker_web
+      --set worker.image.tag=$CI_COMMIT_SHA
+      --values comet/scripts/review-deploy.yaml
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
+  script:
+    - deploy ucsd-helm/hyrax
+
+comet:cleanup:ucsd-review:
+  extends:
+    - .comet:deploy:review
+  environment:
+    name: ucsd.comet.review/$CI_MERGE_REQUEST_ID
+    url: http://comet-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
+    action: stop
+  tags:
+    - ucsd
+  when: manual
+  allow_failure: true
+  variables:
+    GIT_STRATEGY: none
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
+  script:
+    - delete
+    - delete_stateful_set_pvcs
+
+comet:deploy:ucsb-review:
+  extends:
+    - .helm3-deploy
+    - .comet:deploy:review
+  script:
+    - deploy ucsd-helm/hyrax
+  environment:
+    name: ucsb.review.comet
+    url: http://comet-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
+    on_stop: comet:cleanup:ucsb-review
+    auto_stop_in: 4 days
+  variables:
+    HELM_ENCODED_VALUES_FILES: $SURFLINER_SOLR_BASE_REVIEW
+    HELM_ENCODED_VALUES: $UCSB_REVIEW_SOLR_VALUES
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --set ingress.hosts[0].host=comet-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
+      --set ingress.hosts[0].paths={'/'}
+      --set worker.image.repository=$CI_REGISTRY_IMAGE/comet_worker_web
+      --set worker.image.tag=$CI_COMMIT_SHA
+      --values comet/scripts/review-deploy.yaml
+
+comet:cleanup:ucsb-review:
+  extends:
+    - .helm3-deploy
+    - .comet:deploy:review
+  environment:
+    name: ucsb.review.comet
+    action: stop
+  when: manual
+  allow_failure: true
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - delete
+    - delete_stateful_set_pvcs

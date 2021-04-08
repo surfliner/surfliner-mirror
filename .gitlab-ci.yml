@@ -63,10 +63,17 @@ include:
   # Helm 3 deployment helper functions
 .helm3_deploy_helpers: &helm3_deploy_helpers |
   function deploy() {
-    chart="${1}"
-    cd "${chart}" || exit 1
+    helm repo add ucsd-helm https://lib-helm-repo.ucsd.edu
+    helm repo update
 
-    download_chart_dependencies
+    chart="${1}"
+
+    if [ -d "${chart}" ]; then
+      cd "${chart}" || exit 1
+      download_chart_dependencies
+      chart="."
+    fi
+
     decode_helm_values_files
     if helm ls --namespace="$KUBE_NAMESPACE" -q | grep -q "$HELM_RELEASE_NAME"; then
       echo "Deploying new release: $HELM_RELEASE_NAME..."
@@ -83,8 +90,9 @@ include:
         $HELM_UPGRADE_FILE_VALUES_ARGS \
         $HELM_UPGRADE_EXTRA_ARGS \
         --namespace="$KUBE_NAMESPACE" \
+        --create-namespace \
         "$HELM_RELEASE_NAME" \
-        .
+        "${chart}"
   }
 
   # Run Helm chart tests for a deployment
@@ -116,10 +124,6 @@ include:
   function rollback() {
     echo "Rolling back to previous release of: $HELM_RELEASE_NAME..."
     helm rollback --wait --namespace "$KUBE_NAMESPACE" "$HELM_RELEASE_NAME"
-  }
-
-  function ensure_namespace() {
-    kubectl get namespace "$KUBE_NAMESPACE" || kubectl create namespace "$KUBE_NAMESPACE"
   }
 
   # Support supplying a base64-encoded helm values file for deployment
@@ -165,4 +169,3 @@ include:
     - *helm3_deploy_helpers
     - setup_kube_config
     - setup_helm_values_file
-    - ensure_namespace
