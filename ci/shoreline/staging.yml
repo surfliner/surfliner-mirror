@@ -26,10 +26,7 @@ shoreline:discovery:deploy:ucsd-stage:
       --values $HELM_VALUES_FILE
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
   script:
-    - cd shoreline/discovery
-    - mv ../../charts/shoreline ./chart
-    - mv ../../charts/geoserver ./geoserver
-    - deploy
+    - deploy ./charts/shoreline
 
 shoreline:discovery:cleanup:ucsd-stage:
   extends:
@@ -53,10 +50,7 @@ shoreline:discovery:deploy:ucsb-stage:
   extends:
     - .shoreline:deploy:stage
   script:
-    - cd shoreline/discovery
-    - mv ../../charts/shoreline ./chart
-    - mv ../../charts/geoserver ./geoserver
-    - deploy
+    - deploy ./charts/shoreline
   environment:
     name: ucsb.staging.shoreline
     url: http://shoreline-staging.$KUBE_INGRESS_BASE_DOMAIN

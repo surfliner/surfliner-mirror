@@ -30,9 +30,7 @@ starlight:deploy:ucsd-review:
       --values $HELM_VALUES_FILE
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
   script:
-    - cd starlight
-    - mv ../charts/starlight ./chart
-    - deploy
+    - deploy ./charts/starlight
 
 starlight:cleanup:ucsd-review:
   extends:
@@ -57,9 +55,7 @@ starlight:deploy:ucsb-review:
     - .helm3-deploy
     - .starlight:deploy:review
   script:
-    - cd starlight
-    - mv ../charts/starlight ./chart
-    - deploy
+    - deploy ./charts/starlight
   environment:
     name: ucsb.review.starlight
     url: http://starlight-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN

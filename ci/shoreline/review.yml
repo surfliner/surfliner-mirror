@@ -31,10 +31,7 @@ shoreline:discovery:deploy:ucsd-review:
       --values $HELM_VALUES_FILE
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
   script:
-    - cd shoreline/discovery
-    - mv ../../charts/shoreline ./chart
-    - mv ../../charts/geoserver ./geoserver
-    - deploy
+    - deploy ./charts/shoreline
     - run_chart_tests
 
 shoreline:discovery:cleanup:ucsd-review:
@@ -60,10 +57,7 @@ shoreline:discovery:deploy:ucsb-review:
     - .helm3-deploy
     - .shoreline:deploy:review
   script:
-    - cd shoreline/discovery
-    - mv ../../charts/shoreline ./chart
-    - mv ../../charts/geoserver ./geoserver
-    - deploy
+    - deploy ./charts/shoreline
     # - run_chart_tests
   environment:
     name: ucsb.review.shoreline

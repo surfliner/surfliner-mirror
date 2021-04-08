@@ -2,9 +2,7 @@ lark:deploy:review:ucsb:
   stage: review
   extends: .deploy-lark
   script:
-    - cd lark
-    - mv ../charts/lark/latest ./chart
-    - deploy
+    - deploy ./charts/lark/latest
   environment:
     name: ucsb.review.lark/$CI_MERGE_REQUEST_ID
     url: http://lark-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
@@ -30,9 +28,7 @@ lark:deploy:review:ucsd:
   stage: review
   extends: .deploy-lark
   script:
-    - cd lark
-    - mv ../charts/lark/latest ./chart
-    - deploy
+    - deploy ./charts/lark/latest
   environment:
     name: ucsd.review.lark/$CI_MERGE_REQUEST_ID
     url: http://lark-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN

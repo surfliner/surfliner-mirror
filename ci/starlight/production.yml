@@ -17,9 +17,7 @@ starlight:deploy:ucsb-production:
   extends:
     - .starlight:deploy:production
   script:
-    - cd starlight
-    - mv ../charts/starlight ./chart
-    - deploy
+    - deploy ./charts/starlight
   environment:
     name: ucsb.production.starlight
     url: http://starlight.$KUBE_INGRESS_BASE_DOMAIN
@@ -49,9 +47,7 @@ starlight:deploy:ucsd-production:
   tags:
     - ucsd
   script:
-    - cd starlight
-    - mv ../charts/starlight ./chart
-    - deploy
+    - deploy ./charts/starlight
   variables:
     HELM_ENCODED_VALUES: $UCSD_STARLIGHT_PRODUCTION_VALUES
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD

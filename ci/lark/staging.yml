@@ -3,9 +3,7 @@
   extends:
     - .deploy-lark
   script:
-    - cd lark
-    - mv ../charts/lark/latest ./chart
-    - deploy
+    - deploy ./charts/lark/latest
   allow_failure: true
   variables:
     KUBE_NAMESPACE: lark-staging

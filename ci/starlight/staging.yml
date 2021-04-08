@@ -16,9 +16,7 @@ starlight:deploy:ucsb-stage:
   extends:
     - .starlight:deploy:stage
   script:
-    - cd starlight
-    - mv ../charts/starlight ./chart
-    - deploy
+    - deploy ./charts/starlight
   environment:
     name: ucsb.staging.starlight
     url: http://starlight-staging.$KUBE_INGRESS_BASE_DOMAIN
@@ -58,9 +56,7 @@ starlight:deploy:ucsd-stage:
   extends:
     - .starlight:deploy:stage
   script:
-    - cd starlight
-    - mv ../charts/starlight ./chart
-    - deploy
+    - deploy ./charts/starlight
   environment:
     name: ucsd.staging.starlight
     url: http://lib-exhibits-staging.ucsd.edu/

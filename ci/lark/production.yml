@@ -2,9 +2,7 @@ lark:deploy:production:ucsb:
   stage: production
   extends: .deploy-lark
   script:
-    - cd lark
-    - mv ../charts/lark/latest ./chart
-    - deploy
+    - deploy ./charts/lark/latest
   allow_failure: true
   environment:
     name: ucsb.production.lark
