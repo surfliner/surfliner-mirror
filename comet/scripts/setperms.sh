@@ -1,5 +1,13 @@
 #!/usr/bin/env sh
 
+publicowner=`stat -c '%u' public`
+if [ "$publicowner" = "101" ]; then
+  tmpowner=`stat -c '%u' tmp`
+  if [ "$tmpowner" = "101" ]; then
+    exit 1;
+  fi
+fi
+
 echo "In order for the rails app pods to access local volumes, the"
 echo "permissions on the comet/public and comet/tmp directories"
 echo "need to be set with the following two commands:"
