@@ -5,6 +5,14 @@ ingress:
   hosts:
     - host: 'comet.k3d.localhost'
       paths: ['/']
+livenessProbe:
+  enabled: true
+  path: "/healthz"
+  initialDelaySeconds: 10
+readinessProbe:
+  enabled: true
+  path: "/healthz"
+  initialDelaySeconds: 10
 skipHyraxEngineSeed: "true"
 brandingVolume:
   enabled: false
