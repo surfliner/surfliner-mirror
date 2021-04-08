@@ -42,9 +42,13 @@ worker:
   extraEnvVars:
     - name: "RAILS_LOG_TO_STDOUT"
       value: "true"
+    - name: "RAILS_ENV"
+      value: "development"
 extraEnvVars:
   - name: "RAILS_LOG_TO_STDOUT"
     value: "true"
+  - name: "RAILS_ENV"
+    value: "development"
 minio:
   enabled: true
   accessKey:
