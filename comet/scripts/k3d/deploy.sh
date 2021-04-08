@@ -3,7 +3,7 @@
 context="k3d-surfliner-dev"
 namespace="comet-development"
 release=${RELEASE_NAME:=comet}
-values_file=${VALUES_FILE:=scripts/k3d.yaml}
+values_file=${VALUES_FILE:=scripts/k3d/k3d.yaml}
 registry_port=${REGISTRY_PORT:=41906}
 
 git_sha="$(git rev-parse HEAD)"
@@ -15,7 +15,7 @@ if docker image inspect "$image_repository:${git_sha}" > /dev/null 2>&1; then
 else
   echo "Building and pushing Comet container image to Registry..."
   # shellcheck disable=SC1091
-  . ./scripts/build.sh
+  . ./scripts/k3d/build.sh
 fi
 
 if kubectl --context $context get namespaces | grep -q 'surfliner-utilities'; then
