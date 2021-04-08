@@ -3,6 +3,15 @@
 Comet is a staff facing digital object management system. Comet is based on
 [Samvera][samvera] software and uses the [Hyrax][hyrax] engine.
 
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+- [Comet](#comet)
+    - [Setting up a development environment](#setting-up-a-development-environment)
+        - [Dependency installation for Mac and Windows](#dependency-installation-for-mac-and-windows)
+        - [Provisioning the development environment](#provisioning-the-development-environment)
+
+<!-- markdown-toc end -->
 
 ## Setting up a development environment
 
@@ -84,6 +93,15 @@ And finally, k3d.
 **Windows** https://k3d.io/
 
 `choco install k3d`
+
+### Provisioning the development environment
+
+1. `make setperms` (currently we have to modify local file permissions because
+   the Docker containers run as non-root)
+1. `make setup` (create the K8s cluster, namespace, etc. if needed)
+1. `make build` (create the Comet Docker image and push it to the local k3d
+   registry)
+1. `make deploy` (deploy Comet to the local k3d cluster)
 
 [docker]: https://docs.docker.com/engine/install/
 [helm]: https://helm.sh/docs/intro/install/
