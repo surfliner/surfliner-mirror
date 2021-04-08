@@ -9,19 +9,19 @@ menu:
 	@echo 'setperms" Set permissions to allow pods to access local volumes'
 
 clean:
-	scripts/clean.sh
+	scripts/k3d/clean.sh
 
 deploy: setup
-	scripts/deploy.sh
+	scripts/k3d/deploy.sh
 
 drop:
-	scripts/drop.sh
+	scripts/k3d/drop.sh
 
 build: setup
-	scripts/build.sh
+	scripts/k3d/build.sh
 
 setup:
-	scripts/setup.sh
+	scripts/k3d/setup.sh
 
 setperms:
-	scripts/setperms.sh
+	scripts/k3d/setperms.sh
