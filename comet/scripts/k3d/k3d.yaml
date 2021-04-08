@@ -62,11 +62,13 @@ fcrepo:
   enabled: false
 solr:
   persistence:
-    enabled: false
+    enabled: true
+    size: 1Gi
   replicaCount: 2
   zookeeper:
     persistence:
-      enabled: false
+      enabled: true
+      size: 100Mi
     replicaCount: 2
 memcached:
   architecture: standalone
