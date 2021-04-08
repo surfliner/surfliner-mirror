@@ -24,6 +24,8 @@ RUN apk --no-cache add bash \
   perl
 USER app
 
+CMD ["bundle", "exec", "puma"]
+
 RUN mkdir -p /app/fits && \
     cd /app/fits && \
     wget https://github.com/harvard-lts/fits/releases/download/1.5.0/fits-1.5.0.zip -O fits.zip && \
