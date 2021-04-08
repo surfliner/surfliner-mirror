@@ -14,8 +14,9 @@ echo "answer 'n', copy the above commands, and run them yourself."
 echo "Currently, the development environment will NOT work if those"
 echo "permissions are not set correctly."
 
-read -p "Would you like me to set the permissions? (y/n)" yn 
-echo    # (optional) move to a new line
+echo "Would you like me to set the permissions? (y/n):" 
+read -r yn;
+echo ""
 
 if [ "$yn" = "Y" ] || [ "$yn" = "y" ]
 then
