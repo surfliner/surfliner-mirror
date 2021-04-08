@@ -22,7 +22,7 @@ echo "answer 'n', copy the above commands, and run them yourself."
 echo "Currently, the development environment will NOT work if those"
 echo "permissions are not set correctly."
 
-echo -n "Would you like me to set the permissions? (y/n):" 
+echo "Would you like me to set the permissions? (y/n):" 
 read -r yn;
 echo ""
 
