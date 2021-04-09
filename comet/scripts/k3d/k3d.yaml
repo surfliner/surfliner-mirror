@@ -20,6 +20,38 @@ derivativesVolume:
   enabled: false
 uploadsVolume:
   enabled: false
+extraInitContainers:
+  - name: db-wait
+    image: "busybox"
+    command:
+      - sh
+      - -c
+      - >-
+        while ! nc -z "$DB_HOST" "$DB_PORT"; do
+          echo "waiting for $DB_HOST:$DB_PORT"
+          sleep 1
+        done
+    envFrom:
+      - configMapRef:
+          name: comet-hyrax-env
+  - name: ensure-metadata-db-exists
+    image: "bitnami/postgresql:latest"
+    command:
+      - sh
+      - -c
+      - >-
+        echo "Ensuring database: $METADATA_DATABASE_NAME exists";
+        PGPASSWORD=$DB_PASSWORD PGHOST=$DB_HOST PGUSER=$DB_USERNAME; export PGPASSWORD PGHOST PGUSER;
+        psql -tc "SELECT 1 FROM pg_database WHERE datname = '$METADATA_DATABASE_NAME'" | grep -q 1 ||
+        createdb -e -w $METADATA_DATABASE_NAME
+    envFrom:
+      - configMapRef:
+          name: comet-hyrax-env
+      - secretRef:
+          name: comet-hyrax
+    env:
+    - name: "METADATA_DATABASE_NAME"
+      value: "comet_metadata_development"
 extraVolumeMounts:
    - name: local-app
      mountPath: /app/samvera/hyrax-webapp
@@ -39,11 +71,15 @@ worker:
         path: /src
         type: DirectoryOrCreate
   extraEnvVars:
+    - name: "METADATA_DATABASE_NAME"
+      value: "comet_metadata_development"
     - name: "RAILS_LOG_TO_STDOUT"
       value: "true"
     - name: "RAILS_ENV"
       value: "development"
 extraEnvVars:
+  - name: "METADATA_DATABASE_NAME"
+    value: "comet_metadata_development"
   - name: "RAILS_LOG_TO_STDOUT"
     value: "true"
   - name: "RAILS_ENV"
