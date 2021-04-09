@@ -541,6 +541,7 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
+    oj (3.11.3)
     okcomputer (1.18.4)
     openseadragon (0.6.0)
       rails (> 3.2.0)
@@ -759,6 +760,10 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
+    sequel (5.43.0)
+    sequel_pg (1.14.0)
+      pg (>= 0.18.0, != 1.2.0)
+      sequel (>= 4.38.0)
     shex (0.5.2)
       ebnf (~> 1.1)
       json-ld (>= 2.2, < 4.0)
@@ -844,6 +849,11 @@ GEM
       rdf-vocab
       reform
       reform-rails
+    valkyrie-sequel (2.1.0)
+      oj
+      sequel
+      sequel_pg
+      valkyrie (~> 2.1.0)
     warden (1.2.9)
       rack (>= 2.0.9)
     webdrivers (4.6.0)
@@ -891,6 +901,7 @@ DEPENDENCIES
   turbolinks (= 5.2.1)
   twitter-typeahead-rails (= 0.11.1.pre.corejavascript)
   uglifier (= 4.2.0)
+  valkyrie-sequel (~> 2.1.0)
   webdrivers (= 4.6.0)
 
 BUNDLED WITH

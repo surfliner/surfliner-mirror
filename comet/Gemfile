@@ -24,6 +24,7 @@ gem "sidekiq", "6.2.1"
 gem "turbolinks", "5.2.1"
 gem "twitter-typeahead-rails", "0.11.1.pre.corejavascript"
 gem "uglifier", "4.2.0"
+gem "valkyrie-sequel", "~> 2.1.0"
 
 group :development do
   gem "listen", ">= 3.0.5", "< 3.5.2"
