@@ -11,7 +11,7 @@ gem 'dry-events', '~> 0.2.0'
 gem 'dry-system', '~> 0.18.0'
 gem 'dry-transaction', '~> 0.13.0'
 gem 'dry-validation', '~> 1.5'
-gem 'ezid-client', '1.8'
+gem 'ezid-client', '1.9.0'
 gem 'factory_bot', group: 'test'
 gem 'pry', group: %w[development test]
 gem 'puma'
