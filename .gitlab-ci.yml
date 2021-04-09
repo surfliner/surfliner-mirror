@@ -63,7 +63,8 @@ include:
   # Helm 3 deployment helper functions
 .helm3_deploy_helpers: &helm3_deploy_helpers |
   function deploy() {
-    chart="${1}/"
+    chart="${1}"
+    cd "${chart}" || exit 1
 
     download_chart_dependencies
     decode_helm_values_files
@@ -83,7 +84,7 @@ include:
         $HELM_UPGRADE_EXTRA_ARGS \
         --namespace="$KUBE_NAMESPACE" \
         "$HELM_RELEASE_NAME" \
-        "${chart}"
+        .
   }
 
   # Run Helm chart tests for a deployment
@@ -94,10 +95,8 @@ include:
 
   # Install chart dependencies
   function download_chart_dependencies(){
-    chart="${1}/"
-
     echo "Downloading Helm chart dependencies.."
-    helm dependency update "${chart}"
+    helm dependency update .
   }
 
   function delete() {
