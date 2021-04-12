@@ -3,7 +3,7 @@
 context="k3d-surfliner-dev"
 namespace="comet-development"
 release=${RELEASE_NAME:=comet}
-values_file=${VALUES_FILE:=scripts/k3d/k3d.yaml}
+values_file=${VALUES_FILE:=../charts/snippets/comet/k3d.yaml}
 registry_port=${REGISTRY_PORT:=41906}
 
 git_sha="$(git rev-parse HEAD)"

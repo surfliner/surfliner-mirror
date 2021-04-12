@@ -24,7 +24,6 @@ comet:deploy:ucsd-review:
   tags:
     - ucsd
   variables:
-    HELM_ENCODED_VALUES_FILES: $COMET_RAILS_INIT_CONTAINERS
     HELM_ENCODED_VALUES: $UCSD_COMET_REVIEW_VALUES
     HELM_UPGRADE_EXTRA_ARGS: >
       --set ingress.hosts[0].host=comet-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
@@ -34,7 +33,8 @@ comet:deploy:ucsd-review:
       --set extraInitContainers[0].envFrom[0].configMapRef.name=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax-env
       --set extraInitContainers[1].envFrom[0].configMapRef.name=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax-env
       --set extraInitContainers[1].envFrom[1].secretRef.name=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax
-      --values comet/scripts/review-deploy.yaml
+      --values charts/snippets/comet/init-containers.yaml
+      --values charts/snippets/comet/review-deploy.yaml
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
   script:
     - deploy ucsd-helm/hyrax
@@ -69,7 +69,6 @@ comet:deploy:ucsb-review:
     on_stop: comet:cleanup:ucsb-review
     auto_stop_in: 4 days
   variables:
-    HELM_ENCODED_VALUES_FILES: $SURFLINER_SOLR_BASE_REVIEW,$COMET_RAILS_INIT_CONTAINERS
     HELM_ENCODED_VALUES: $UCSB_REVIEW_SOLR_VALUES
     HELM_UPGRADE_EXTRA_ARGS: >
       --set ingress.hosts[0].host=comet-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
@@ -79,7 +78,9 @@ comet:deploy:ucsb-review:
       --set extraInitContainers[0].envFrom[0].configMapRef.name=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax-env
       --set extraInitContainers[1].envFrom[0].configMapRef.name=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax-env
       --set extraInitContainers[1].envFrom[1].secretRef.name=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax
-      --values comet/scripts/review-deploy.yaml
+      --values charts/snippets/surfliner/solr-review.yaml
+      --values charts/snippets/comet/init-containers.yaml
+      --values charts/snippets/comet/review-deploy.yaml
 
 comet:cleanup:ucsb-review:
   extends:

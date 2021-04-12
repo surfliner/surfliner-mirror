@@ -1,0 +1,31 @@
+solr:
+  replicaCount: 2
+  persistence:
+    enabled: false
+  authentication:
+    enabled: true
+    adminUsername: admin
+    adminPassword: admin
+  javaMem: "-Xms512m -Xmx1g"
+  resources:
+   limits:
+      memory: 1Gi
+      cpu: 1
+   requests:
+      memory: 512Mi
+      cpu: 250m
+  zookeeper:
+    replicaCount: 2
+    persistence:
+      enabled: false
+    env:
+      JVMFLAGS: "-Xms256m -Xmx512m"
+    resources:
+      limits:
+        memory: 512Mi
+        cpu: 350m
+      requests:
+        memory: 128Mi
+        cpu: 100m
+    persistence:
+      enabled: false
