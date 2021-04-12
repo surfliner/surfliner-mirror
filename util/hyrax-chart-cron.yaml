@@ -1,0 +1,44 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: publish-hyrax-chart
+spec:
+  schedule: "*/10 * * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: publish-hyrax-chart
+            image: "dtzar/helm-kubectl:3.5.3"
+            imagePullPolicy: IfNotPresent
+            command:
+            - sh
+            - -c
+            - >
+              apk --no-cache upgrade && apk add --no-cache git;
+              helm plugin install https://github.com/chartmuseum/helm-push.git;
+              helm repo add ucsd-repo https://lib-helm-repo.ucsd.edu;
+              git clone https://github.com/samvera/hyrax.git /tmp/hyrax;
+              cd /tmp/hyrax;
+              helm dep up chart/hyrax;
+              helm push ./chart/hyrax ucsd-repo
+            env:
+              - name: HELM_REPO_USERNAME
+                value: admitone
+            envFrom:
+              - secretRef:
+                  name: ucsd-chart-auth
+          restartPolicy: Never
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ucsd-chart-auth
+type: Opaque
+data:
+  HELM_REPO_PASSWORD: <PUT_THE_REAL_PASSWORD_HERE_BASE64>
