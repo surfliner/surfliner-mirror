@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Hyrax.config do |config|
+  # Injected via `rails g hyrax:work_resource GenericObject`
+  config.register_curation_concern :generic_object
   config.disable_wings = true
 
   # Register roles that are expected by your implementation.
@@ -231,12 +233,8 @@ Hyrax.config do |config|
   # How long to hold the lock in milliseconds
   # config.lock_time_to_live = 60_000
 
-  # When your application is ready to use the valkyrie index instead of the one
-  # maintained by active fedora, you will need to set this to true. You will
-  # also need to update your Blacklight configuration.
-  # config.query_index_from_valkyrie = false
-
-  ## Configure index adapter for Valkyrie::Resources to use solr readonly indexer
+  # use comet's valkyrie index for search
+  config.query_index_from_valkyrie = false
   config.index_adapter = :comet_index
 
   # disable browse_everything. we may want to re-add this later,
@@ -276,6 +274,7 @@ Qa::Authorities::Local.register_subauthority("languages", "Qa::Authorities::Loca
 Qa::Authorities::Local.register_subauthority("genres", "Qa::Authorities::Local::TableBasedAuthority")
 
 [Hyrax::CustomQueries::Navigators::CollectionMembers,
+
   Hyrax::CustomQueries::Navigators::ChildFilesetsNavigator,
   Hyrax::CustomQueries::Navigators::ChildWorksNavigator,
   Hyrax::CustomQueries::FindAccessControl,
@@ -285,6 +284,14 @@ Qa::Authorities::Local.register_subauthority("genres", "Qa::Authorities::Local::
   Hyrax::CustomQueries::FindFileMetadata,
   Hyrax::CustomQueries::Navigators::FindFiles].each do |handler|
   Hyrax.query_service.custom_queries.register_query_handler(handler)
+end
+
+# just to satisfy a strict type check
+module Wings
+  module Valkyrie
+    class MetadataAdapter
+    end
+  end
 end
 
 Hyrax::Resource.class_eval do

@@ -24,3 +24,8 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 end
+
+# register a test adapter for unit tests
+Valkyrie::MetadataAdapter
+  .register(Valkyrie::Persistence::Memory::MetadataAdapter.new,
+    :test_adapter)
