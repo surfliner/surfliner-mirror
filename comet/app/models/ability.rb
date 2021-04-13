@@ -7,4 +7,14 @@ class Ability
   # Define any customized permissions here.
   def custom_permissions
   end
+
+  ##
+  # @note just assume everyone can deposit works; what are they here for
+  #   otherwise? anyway, we imagine that the reasons folks might not have
+  #   access will be different from Hyrax's reasons.
+  #
+  # @return [Boolean]
+  def can_create_any_work?
+    true
+  end
 end
