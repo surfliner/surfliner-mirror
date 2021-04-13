@@ -275,6 +275,18 @@ Qa::Authorities::Local.register_subauthority("subjects", "Qa::Authorities::Local
 Qa::Authorities::Local.register_subauthority("languages", "Qa::Authorities::Local::TableBasedAuthority")
 Qa::Authorities::Local.register_subauthority("genres", "Qa::Authorities::Local::TableBasedAuthority")
 
+[Hyrax::CustomQueries::Navigators::CollectionMembers,
+  Hyrax::CustomQueries::Navigators::ChildFilesetsNavigator,
+  Hyrax::CustomQueries::Navigators::ChildWorksNavigator,
+  Hyrax::CustomQueries::FindAccessControl,
+  Hyrax::CustomQueries::FindCollectionsByType,
+  Hyrax::CustomQueries::FindManyByAlternateIds,
+  Hyrax::CustomQueries::FindIdsByModel,
+  Hyrax::CustomQueries::FindFileMetadata,
+  Hyrax::CustomQueries::Navigators::FindFiles].each do |handler|
+  Hyrax.query_service.custom_queries.register_query_handler(handler)
+end
+
 Hyrax::Resource.class_eval do
   def self._hyrax_default_name_class
     Hyrax::Name
