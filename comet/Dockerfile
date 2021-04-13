@@ -3,6 +3,7 @@ FROM registry.gitlab.com/surfliner/surfliner/hyrax-base:$HYRAX_IMAGE_VERSION as 
 
 ARG PROJECTPATH=comet
 
+COPY --chown=1001:101 $PROJECTPATH/scripts/db-migrate-seed.sh /app/samvera/db-migrate-seed.sh
 COPY --chown=1001:101 $PROJECTPATH/Gemfile /app/samvera/hyrax-webapp
 COPY --chown=1001:101 $PROJECTPATH/Gemfile.lock /app/samvera/hyrax-webapp
 RUN bundle install --jobs "$(nproc)"
@@ -40,4 +41,3 @@ COPY --chown=1001:101 $PROJECTPATH /app/samvera/hyrax-webapp
 COPY --from=comet /usr/local/bundle /usr/local/bundle
 
 CMD bundle exec sidekiq
-

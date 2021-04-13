@@ -19,6 +19,8 @@ unless ENV["DB_ADAPTER"] == "nulldb" || Rails.env.test?
   Valkyrie::MetadataAdapter.register(
     Valkyrie::Sequel::MetadataAdapter.new(connection: connection), :comet_metadata_store
   )
+
+  Valkyrie.config.metadata_adapter = :comet_metadata_store
 end
 
 Valkyrie::IndexingAdapter.register(CometIndexingAdapter.new, :comet_index)
