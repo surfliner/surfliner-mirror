@@ -1,0 +1,5 @@
+---
+proxy_deposit:
+  enabled: false
+transfer_works:
+  enabled: false
