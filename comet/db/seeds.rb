@@ -12,4 +12,9 @@ if Rails.env.development?
   end
 
   [ucsb, ucsd].each { |user| puts "\nAdmin user: #{user.user_key}:admin_password" }
+
+  puts "\n== Creating default Project (AdministrativeSet)"
+  project = Hyrax::AdministrativeSet.new(title: "Default Project")
+  Hyrax.persister.save(resource: project)
+  Hyrax.index_adapter.save(resource: project)
 end
