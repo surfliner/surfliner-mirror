@@ -239,16 +239,9 @@ Hyrax.config do |config|
   ## Configure index adapter for Valkyrie::Resources to use solr readonly indexer
   config.index_adapter = :comet_index
 
-  # If browse-everything has been configured, load the configs.  Otherwise, set to nil.
-  begin
-    if defined? BrowseEverything
-      config.browse_everything = BrowseEverything.config
-    else
-      Rails.logger.warn "BrowseEverything is not installed"
-    end
-  rescue Errno::ENOENT
-    config.browse_everything = nil
-  end
+  # disable browse_everything. we may want to re-add this later,
+  # or consider other mechanisms for uploading external cloud content.
+  config.browse_everything = nil
 
   ## Register all directories which can be used to ingest from the local file
   # system.
