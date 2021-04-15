@@ -103,6 +103,33 @@ And finally, k3d.
    registry)
 1. `make deploy` (deploy Comet to the local k3d cluster)
 
+#### Customizing Helm Values in Deployment
+It may be the case that one needs to specify difference Helm values than are
+used by the default `k3d.yaml` file. To do this:
+
+- Create an additional `yaml` file with the values you need to update or change
+- Export an environment variable name `LOCAL_VALUES_FILE` and set the value to
+    the path to your `yaml` file
+- Run `make deploy`
+
+Example:
+
+With a `yaml` file stored in `/tmp/local-comet-values.yaml`
+
+```yaml
+ingress:
+  enabled: true
+  hosts:
+    - host: 'comet.k3d.my-server'
+      paths: ['/']
+```
+
+```sh
+export LOCAL_VALUES_FILE="/tmp/local-comet-values.yaml"
+make deploy
+```
+
+
 [docker]: https://docs.docker.com/engine/install/
 [helm]: https://helm.sh/docs/intro/install/
 [hyrax]: https://hyrax.samvera.org/

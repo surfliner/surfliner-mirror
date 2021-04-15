@@ -52,5 +52,6 @@ helm upgrade \
   --set worker.image.repository="$worker_image_repository" \
   --set worker.image.tag="${git_sha}" \
   --values="$values_file" \
+  ${LOCAL_VALUES_FILE+--values="$LOCAL_VALUES_FILE"} \
   "$release" \
   ucsd-helm/hyrax
