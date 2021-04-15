@@ -27,7 +27,6 @@ comet:deploy:staging:ucsb:
       --set extraInitContainers[0].envFrom[0].configMapRef.name=surfliner-comet-stage-hyrax-env
       --set extraInitContainers[1].envFrom[0].configMapRef.name=surfliner-comet-stage-hyrax-env
       --set extraInitContainers[1].envFrom[1].secretRef.name=surfliner-comet-stage-hyrax
-      --set ingress.hosts={comet-staging.$KUBE_INGRESS_BASE_DOMAIN}
       --set uploadsVolume.storageClass=efs-sc
       --set worker.image.repository=$CI_REGISTRY_IMAGE/comet_worker_web
       --set worker.image.tag=$CI_COMMIT_SHA
