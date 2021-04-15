@@ -1,0 +1,10 @@
+.gitlab-ci.yml
+CONTRIBUTING.md
+LICENSE
+README.md
+renovate.json
+
+.styles/*
+ci/*
+docs/*
+charts/*
