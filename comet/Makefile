@@ -6,7 +6,8 @@ menu:
 	@echo 'deploy: Deploy the Comet helm chart into the k3d/k3s cluster'
 	@echo 'drop: Delete the namespace of the Comet development deployment'
 	@echo 'setup: Create a surfliner-dev k3d/k3s cluster'
-	@echo 'setperms" Set permissions to allow pods to access local volumes'
+	@echo 'setperms: Set permissions to allow pods to access local volumes'
+	@echo 'test: Run the comet test suite'
 
 clean:
 	scripts/k3d/clean.sh
@@ -25,3 +26,6 @@ setup:
 
 setperms:
 	scripts/k3d/setperms.sh
+
+test:
+	scripts/k3d/test.sh

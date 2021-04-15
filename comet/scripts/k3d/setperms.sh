@@ -14,6 +14,7 @@ echo "need to be set with the following two commands:"
 echo ""
 echo "chown -R 1001:101 public"
 echo "chown -R 1001:101 tmp"
+echo "chown -R 1001:101 spec"
 echo ""
 echo "This will require the sudo or administrator password.  If you"
 echo "answer 'y' to the prompt, you will be asked for that password"
@@ -31,6 +32,7 @@ then
     echo "Setting permissions..."
     sudo chown -R 1001:101 public
     sudo chown -R 1001:101 tmp
+    sudo chown -R 1001:101 spec
     sudo -k
 else
     echo "Again, the development environment will NOT work unless"
@@ -38,5 +40,6 @@ else
     echo ""
     echo "chown -R 1001:101 public"
     echo "chown -R 1001:101 tmp"
+    echo "chown -R 1001:101 spec"
     echo ""
 fi
