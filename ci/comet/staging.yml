@@ -1,0 +1,47 @@
+.comet:deploy:stage:
+  stage: staging
+  extends:
+    - .helm3-deploy
+    - .only-comet-changes
+  variables:
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/comet_web
+    DEPLOY_TAG: $CI_COMMIT_SHA
+    HELM_RELEASE_NAME: surfliner-comet-stage
+    KUBE_NAMESPACE: comet-staging
+  only:
+    refs:
+      - trunk
+
+comet:deploy:staging:ucsb:
+  extends: .comet:deploy:stage
+  script:
+    - deploy ucsd-helm/hyrax
+  environment:
+    name: ucsb.staging.comet
+    url: http://comet-staging.$KUBE_INGRESS_BASE_DOMAIN
+    on_stop: comet:cleanup:staging:ucsb
+  variables:
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --set brandingVolume.storageClass=efs-sc
+      --set derivativesVolume.storageClass=efs-sc
+      --set extraInitContainers[0].envFrom[0].configMapRef.name=surfliner-comet-stage-hyrax-env
+      --set extraInitContainers[1].envFrom[0].configMapRef.name=surfliner-comet-stage-hyrax-env
+      --set extraInitContainers[1].envFrom[1].secretRef.name=surfliner-comet-stage-hyrax
+      --set ingress.hosts={comet-staging.$KUBE_INGRESS_BASE_DOMAIN}
+      --set uploadsVolume.storageClass=efs-sc
+      --set worker.image.repository=$CI_REGISTRY_IMAGE/comet_worker_web
+      --set worker.image.tag=$CI_COMMIT_SHA
+      --values charts/snippets/comet/init-containers.yaml
+      --values charts/snippets/comet/staging-deploy.yaml
+
+comet:cleanup:staging:ucsb:
+  extends:
+    - .comet:deploy:stage
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - delete
+  environment:
+    name: ucsb.staging.comet
+    action: stop
+  when: manual

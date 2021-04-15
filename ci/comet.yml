@@ -3,6 +3,7 @@ include:
   - local: ci/comet/lint.yml
   - local: ci/comet/test.yml
   - local: ci/comet/review.yml
+  - local: ci/comet/staging.yml
 
 .only-comet-changes:
   only:
