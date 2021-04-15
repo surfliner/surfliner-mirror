@@ -12,7 +12,7 @@ COPY --chown=1001:101 $PROJECTPATH /app/samvera/hyrax-webapp
 RUN RAILS_ENV=production SECRET_KEY_BASE=`bin/rake secret` DB_ADAPTER=nulldb DATABASE_URL='postgresql://fake' bundle exec rake assets:precompile
 
 ENTRYPOINT ["/app/samvera/hyrax-webapp/scripts/entrypoint.sh"]
-CMD ["bundle", "exec", "puma", "-v", "-b", "tcp://0.0.0.0:3000"]
+CMD ["bundle", "exec", "puma"]
 
 
 # Comet worker image
