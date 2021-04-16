@@ -9,9 +9,11 @@ include:
   only:
     changes:
       - .gitlab-ci.yml
-      - ci/comet.yml
-      - ci/comet/**/*
       - charts/comet/**/*
-      - gems/**/*
-      - comet/Dockerfile
+      - charts/snippets/comet/*
+      - charts/snippets/surfliner/*
+      - ci/comet/**/*
+      - ci/comet.yml
       - comet/**/*
+      - comet/Dockerfile
+      - gems/**/*
