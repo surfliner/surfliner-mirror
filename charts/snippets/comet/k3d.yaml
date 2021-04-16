@@ -89,7 +89,8 @@ extraEnvVars:
 minio:
   enabled: true
   persistence:
-    enabled: false
+    enabled: true
+    size: 1Gi
   accessKey:
     password: comet-access-key
   secretKey:
@@ -105,7 +106,7 @@ solr:
     persistence:
       enabled: true
       size: 100Mi
-    replicaCount: 2
+    replicaCount: 3
 memcached:
   architecture: standalone
   persistence:
@@ -115,7 +116,9 @@ redis:
     enabled: false
   master:
     persistence:
-      enabled: false
+      enabled: true
+      size: 256Mi
 postgresql:
   persistence:
-    enabled: false
+    enabled: true
+    size: 1Gi
