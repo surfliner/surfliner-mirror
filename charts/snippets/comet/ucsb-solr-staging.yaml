@@ -1,0 +1,9 @@
+solr:
+  enabled: false
+  authentication:
+    enabled: true
+    adminUsername: admin
+
+solrExistingSecret: solr-admin-password
+externalSolrHost: dld-search-staging-solr.solr-staging.svc.cluster.local
+externalSolrUser: admin

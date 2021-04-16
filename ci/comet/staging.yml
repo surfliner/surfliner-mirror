@@ -27,11 +27,14 @@ comet:deploy:staging:ucsb:
       --set extraInitContainers[0].envFrom[0].configMapRef.name=surfliner-comet-stage-hyrax-env
       --set extraInitContainers[1].envFrom[0].configMapRef.name=surfliner-comet-stage-hyrax-env
       --set extraInitContainers[1].envFrom[1].secretRef.name=surfliner-comet-stage-hyrax
+      --set ingress.hosts[0].host=comet-staging.eks.dld.library.ucsb.edu
+      --set ingress.hosts[0].paths={'/'}
       --set uploadsVolume.storageClass=efs-sc
       --set worker.image.repository=$CI_REGISTRY_IMAGE/comet_worker_web
       --set worker.image.tag=$CI_COMMIT_SHA
       --values charts/snippets/comet/init-containers.yaml
       --values charts/snippets/comet/staging-deploy.yaml
+      --values charts/snippets/comet/ucsb-solr-staging.yaml
 
 comet:cleanup:staging:ucsb:
   extends:
