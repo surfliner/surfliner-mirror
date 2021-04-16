@@ -28,7 +28,7 @@ comet:deploy:staging:ucsb:
       --set extraInitContainers[1].envFrom[0].configMapRef.name=surfliner-comet-stage-hyrax-env
       --set extraInitContainers[1].envFrom[1].secretRef.name=surfliner-comet-stage-hyrax
       --set ingress.hosts[0].host=comet-staging.eks.dld.library.ucsb.edu
-      --set ingress.hosts[0].paths={'/'}
+      --set ingress.hosts[0].paths[0].path='/'
       --set uploadsVolume.storageClass=efs-sc
       --set worker.image.repository=$CI_REGISTRY_IMAGE/comet_worker_web
       --set worker.image.tag=$CI_COMMIT_SHA
@@ -67,7 +67,7 @@ comet:deploy:staging:ucsd:
       --set extraInitContainers[1].envFrom[0].configMapRef.name=surfliner-comet-stage-hyrax-env
       --set extraInitContainers[1].envFrom[1].secretRef.name=surfliner-comet-stage-hyrax
       --set ingress.hosts[0].host=lib-comet-staging.ucsd.edu
-      --set ingress.hosts[0].paths={'/'}
+      --set ingress.hosts[0].paths[0].path='/'
       --set ingress.tls[0].hosts[0]=lib-comet-staging.ucsd.edu
       --set ingress.tls[0].secretName=tls-secret
       --set uploadsVolume.storageClass=longhorn-nfs
