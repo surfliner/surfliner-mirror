@@ -73,7 +73,7 @@ starlight:deploy:ucsb-review:
       --set starlight.auth.method=developer
       --set starlight.sample_data=true
       --set starlight.sitemaps.enabled=false
-      --values ../snippets/surfliner/solr-review.yaml
+      --values charts/snippets/surfliner/solr-review.yaml
 
 starlight:cleanup:ucsb-review:
   extends:

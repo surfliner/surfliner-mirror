@@ -78,7 +78,7 @@ shoreline:discovery:deploy:ucsb-review:
       --set shoreline.email.contact_email=geospatial@library.ucsb.edu
       --set shoreline.sample_data=true
       --set shoreline.theme=ucsb
-      --values ../snippets/surfliner/solr-review.yaml
+      --values charts/snippets/surfliner/solr-review.yaml
 
 shoreline:discovery:cleanup:ucsb-review:
   extends:

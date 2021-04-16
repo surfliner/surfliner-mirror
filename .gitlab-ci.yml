@@ -66,9 +66,10 @@ include:
     chart="${1}"
 
     if [ -d "${chart}" ]; then
+      pushd "$(pwd)"
       cd "${chart}" || exit 1
       download_chart_dependencies
-      chart="."
+      popd
     fi
 
     decode_helm_values_files

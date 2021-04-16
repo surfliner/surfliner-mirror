@@ -18,7 +18,7 @@ lark:deploy:review:ucsb:
       --set ingress.hosts={lark-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN}
       --set lark.import_data.enabled=true
       --set postgresql.persistence.enabled=false
-      --values ../../snippets/surfliner/solr-review.yaml
+      --values charts/snippets/surfliner/solr-review.yaml
   only:
     refs:
       - merge_requests
