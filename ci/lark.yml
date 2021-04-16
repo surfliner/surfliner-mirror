@@ -18,9 +18,10 @@ include:
   only:
     changes:
       - .gitlab-ci.yml
-      - ci/lark.yml
-      - ci/lark/**/*
       - charts/lark/**/*
+      - charts/snippets/surfliner/*
+      - ci/lark/**/*
+      - ci/lark.yml
       - gems/**/*
       - lark/**/*
       - lark-client/**/*
