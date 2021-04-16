@@ -34,15 +34,24 @@ podSecurityContext:
   fsGroupChangePolicy: "OnRootMismatch"
 
 worker:
+  replicaCount: 2
   podSecurityContext:
     runAsUser: 1001
     runAsGroup: 101
     fsGroup: 101
     fsGroupChangePolicy: "OnRootMismatch"
-    resources:
-      requests:
-        cpu: 100m
-        memory: 256Mi
-      limits:
-        cpu: 1
-        memory: 512Mi
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 1
+      memory: 512Mi
+
+resources:
+  limits:
+    memory: 1Gi
+    cpu: 1
+  requests:
+    memory: 350Mi
+    cpu: 100m
