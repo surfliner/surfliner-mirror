@@ -17,3 +17,10 @@ include:
       - comet/**/*
       - comet/Dockerfile
       - gems/**/*
+
+.comet-chart-deploy:
+  variables:
+    HELM_EXPERIMENTAL_OCI: 1
+  script:
+    - helm pull oci://ghcr.io/samvera/hyrax/hyrax-helm --version 0.12.0 --untar --untardir charts
+    - deploy ./charts/hyrax

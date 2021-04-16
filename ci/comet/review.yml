@@ -16,6 +16,7 @@
 comet:deploy:ucsd-review:
   extends:
     - .comet:deploy:review
+    - .comet-chart-deploy
   environment:
     name: ucsd.comet.review/$CI_MERGE_REQUEST_ID
     url: http://comet-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
@@ -36,8 +37,6 @@ comet:deploy:ucsd-review:
       --values charts/snippets/comet/init-containers.yaml
       --values charts/snippets/comet/review-deploy.yaml
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
-  script:
-    - deploy ucsd-helm/hyrax
 
 comet:cleanup:ucsd-review:
   extends:
@@ -61,8 +60,7 @@ comet:deploy:ucsb-review:
   extends:
     - .helm3-deploy
     - .comet:deploy:review
-  script:
-    - deploy ucsd-helm/hyrax
+    - .comet-chart-deploy
   environment:
     name: ucsb.review.comet
     url: http://comet-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN

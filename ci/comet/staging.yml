@@ -13,9 +13,9 @@
       - trunk
 
 comet:deploy:staging:ucsb:
-  extends: .comet:deploy:stage
-  script:
-    - deploy ucsd-helm/hyrax
+  extends:
+    - .comet:deploy:stage
+    - .comet-chart-deploy
   environment:
     name: ucsb.staging.comet
     url: http://comet-staging.$KUBE_INGRESS_BASE_DOMAIN
@@ -49,9 +49,9 @@ comet:cleanup:staging:ucsb:
   when: manual
 
 comet:deploy:staging:ucsd:
-  extends: .comet:deploy:stage
-  script:
-    - deploy ucsd-helm/hyrax
+  extends:
+    - .comet:deploy:stage
+    - .comet-chart-deploy
   environment:
     name: ucsd.staging.comet
     url: https://lib-comet-staging.ucsd.edu

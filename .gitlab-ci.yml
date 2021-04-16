@@ -63,9 +63,6 @@ include:
   # Helm 3 deployment helper functions
 .helm3_deploy_helpers: &helm3_deploy_helpers |
   function deploy() {
-    helm repo add ucsd-helm https://lib-helm-repo.ucsd.edu
-    helm repo update
-
     chart="${1}"
 
     if [ -d "${chart}" ]; then
