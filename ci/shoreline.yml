@@ -10,10 +10,11 @@ include:
   only:
     changes:
       - .gitlab-ci.yml
-      - ci/shoreline.yml
-      - ci/shoreline/**/*
       - charts/geoserver/**/*
       - charts/shoreline/**/*
+      - charts/snippets/surfliner/*
+      - ci/shoreline/**/*
+      - ci/shoreline.yml
       - gems/**/*
-      - shoreline/discovery/Dockerfile
       - shoreline/discovery/**/*
+      - shoreline/discovery/Dockerfile
