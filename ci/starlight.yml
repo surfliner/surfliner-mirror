@@ -10,9 +10,10 @@ include:
   only:
     changes:
       - .gitlab-ci.yml
-      - ci/starlight.yml
-      - ci/starlight/**/*
+      - charts/snippets/surfliner/*
       - charts/starlight/**/*
+      - ci/starlight/**/*
+      - ci/starlight.yml
       - gems/**/*
-      - starlight/Dockerfile
       - starlight/**/*
+      - starlight/Dockerfile
