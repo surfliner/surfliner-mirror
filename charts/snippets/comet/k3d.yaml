@@ -4,7 +4,8 @@ ingress:
   enabled: true
   hosts:
     - host: 'comet.k3d.localhost'
-      paths: ['/']
+      paths:
+        - path: /
 livenessProbe:
   enabled: true
   path: "/healthz"

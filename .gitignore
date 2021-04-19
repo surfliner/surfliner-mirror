@@ -9,3 +9,5 @@
 
 # Ignore downloaded helm charts
 **/charts/*.tgz
+# Ignore Hyrax helm chart download
+**/charts/hyrax
