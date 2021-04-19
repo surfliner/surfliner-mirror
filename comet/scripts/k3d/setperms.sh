@@ -10,11 +10,13 @@ fi
 
 echo "In order for the rails app pods to access local volumes, the"
 echo "permissions on the comet/public and comet/tmp directories"
-echo "need to be set with the following two commands:"
+echo "need to be set with the following commands:"
 echo ""
 echo "chown -R 1001:101 public"
 echo "chown -R 1001:101 tmp"
 echo "chown -R 1001:101 spec"
+echo "chown -R 1001:101 db/schema.rb"
+echo "chown -R 1001:101 Gemfile.lock"
 echo ""
 echo "This will require the sudo or administrator password.  If you"
 echo "answer 'y' to the prompt, you will be asked for that password"
@@ -33,6 +35,8 @@ then
     sudo chown -R 1001:101 public
     sudo chown -R 1001:101 tmp
     sudo chown -R 1001:101 spec
+    sudo chown -R 1001:101 db/schema.rb
+    sudo chown -R 1001:101 Gemfile.lock
     sudo -k
 else
     echo "Again, the development environment will NOT work unless"
@@ -41,5 +45,7 @@ else
     echo "chown -R 1001:101 public"
     echo "chown -R 1001:101 tmp"
     echo "chown -R 1001:101 spec"
+    echo "chown -R 1001:101 db/schema.rb"
+    echo "chown -R 1001:101 Gemfile.lock"
     echo ""
 fi
