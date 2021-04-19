@@ -2,16 +2,15 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 
 if Rails.env.development?
+  provider = ENV["AUTH_METHOD"]
   puts "\n== Creating development admin users"
-  ucsb = User.where(email: "comet-admin@library.ucsb.edu").first_or_create do |f|
-    f.password = "admin_password"
-  end
+  ucsb = User.find_or_create_by(email: "comet-admin@library.ucsb.edu",
+                                provider: provider)
 
-  ucsd = User.where(email: "comet-admin@library.ucsd.edu").first_or_create do |f|
-    f.password = "admin_password"
-  end
+  ucsd = User.find_or_create_by(email: "comet-admin@library.ucsd.edu",
+                                provider: provider)
 
-  [ucsb, ucsd].each { |user| puts "\nAdmin user: #{user.user_key}:admin_password" }
+  [ucsb, ucsd].each { |user| puts "\nAdmin user email: #{user.user_key}" }
 
   puts "\n== Creating default Project (AdministrativeSet)"
   project = Hyrax::AdministrativeSet.new(title: "Default Project")

@@ -72,6 +72,8 @@ worker:
         path: /src
         type: DirectoryOrCreate
   extraEnvVars:
+    - name: "AUTH_METHOD"
+      value: "developer"
     - name: "METADATA_DATABASE_NAME"
       value: "comet_metadata_development"
     - name: "RAILS_LOG_TO_STDOUT"
@@ -85,6 +87,8 @@ worker:
     - name: "REPOSITORY_S3_SECRET_KEY"
       value: "comet-secret"
 extraEnvVars:
+  - name: "AUTH_METHOD"
+    value: "developer"
   - name: "METADATA_DATABASE_NAME"
     value: "comet_metadata_development"
   - name: "RAILS_LOG_TO_STDOUT"
