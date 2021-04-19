@@ -1,9 +1,11 @@
 development:
   adapter: solr
-  url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:#{ENV.fetch('SOLR_DEVELOPMENT_PORT', 8983)}/solr/hydra-development" %>
+  url: <%= sprintf "http://%s:%s@%s:%s/solr/%s", ENV["SOLR_ADMIN_USER"], ENV["SOLR_ADMIN_PASSWORD"], ENV["SOLR_HOST"], ENV["SOLR_PORT"], ENV["SOLR_COLLECTION_NAME"] %>
+
 test: &test
   adapter: solr
-  url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:#{ENV.fetch('SOLR_TEST_PORT', 8985)}/solr/hydra-test" %>
+  url: <%= sprintf "http://%s:%s@%s:%s/solr/%s", ENV["SOLR_ADMIN_USER"], ENV["SOLR_ADMIN_PASSWORD"], ENV["SOLR_HOST"], ENV["SOLR_PORT"], ENV["SOLR_COLLECTION_NAME"] %>
+
 production:
   adapter: solr
-  url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:8983/solr/blacklight-core" %>
+  url: <%= sprintf "http://%s:%s@%s:%s/solr/%s", ENV["SOLR_ADMIN_USER"], ENV["SOLR_ADMIN_PASSWORD"], ENV["SOLR_HOST"], ENV["SOLR_PORT"], ENV["SOLR_COLLECTION_NAME"] %>
