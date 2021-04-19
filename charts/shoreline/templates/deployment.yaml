@@ -17,6 +17,7 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       initContainers:
+        {{- if .Values.shoreline.loadSolrConfigSet }}
         - name: load-solr-config
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: Always
@@ -31,6 +32,7 @@ spec:
             - >
               solrcloud-upload-configset.sh /home/shoreline/discovery/app/solr/conf &&
               solrcloud-assign-configset.sh
+        {{- end }}
         - name: setup-db
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: "{{ .Values.image.pullPolicy }}"
