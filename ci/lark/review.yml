@@ -25,6 +25,7 @@ lark:deploy:review:ucsb:
       - tags
 
 lark:deploy:review:ucsd:
+  allow_failure: true
   stage: review
   extends: .deploy-lark
   script:
