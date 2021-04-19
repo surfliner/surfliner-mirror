@@ -41,7 +41,7 @@ fi
 
 HELM_EXPERIMENTAL_OCI=1 \
   helm pull oci://ghcr.io/samvera/hyrax/hyrax-helm \
-    --version 0.13.1 \
+    --version 0.13.2 \
     --untar \
     --untardir charts
 
