@@ -25,6 +25,8 @@ RUN apk --no-cache add bash \
   mediainfo \
   openjdk11-jre \
   perl
+RUN bundle check || bundle install --jobs "$(nproc)"
+
 USER app
 
 RUN mkdir -p /app/fits && \
