@@ -214,6 +214,7 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.8)
     connection_pool (2.2.3)
+    content_disposition (1.0.0)
     crass (1.0.6)
     declarative (0.0.20)
     declarative-builder (0.1.0)
@@ -236,6 +237,8 @@ GEM
       declarative-option (< 0.2.0)
       representable (>= 2.4.0, <= 3.1.0)
       uber (< 0.2.0)
+    down (5.2.0)
+      addressable (~> 2.5)
     draper (4.0.1)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
@@ -772,6 +775,9 @@ GEM
       rdf-xsd (>= 2.2, < 4.0)
       sparql (>= 2.2, < 4.0)
       sxp (~> 1.0)
+    shrine (3.3.0)
+      content_disposition (~> 1.0)
+      down (~> 5.1)
     sidekiq (6.2.1)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
@@ -854,6 +860,10 @@ GEM
       sequel
       sequel_pg
       valkyrie (~> 2.1.0)
+    valkyrie-shrine (0.5.0)
+      aws-sdk-s3 (~> 1)
+      shrine (>= 2.0, < 4.0)
+      valkyrie (> 1.0)
     warden (1.2.9)
       rack (>= 2.0.9)
     webdrivers (4.6.0)
@@ -902,6 +912,7 @@ DEPENDENCIES
   twitter-typeahead-rails (= 0.11.1.pre.corejavascript)
   uglifier (= 4.2.0)
   valkyrie-sequel (~> 2.1.0)
+  valkyrie-shrine (~> 0.5)
   webdrivers (= 4.6.0)
 
 BUNDLED WITH

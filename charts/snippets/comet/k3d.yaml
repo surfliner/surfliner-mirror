@@ -78,6 +78,12 @@ worker:
       value: "true"
     - name: "RAILS_ENV"
       value: "development"
+    - name: "REPOSITORY_S3_ACCESS_KEY"
+      value: "comet-access-key"
+    - name: "REPOSITORY_S3_BUCKET"
+      value: "cometdev"
+    - name: "REPOSITORY_S3_SECRET_KEY"
+      value: "comet-secret"
 extraEnvVars:
   - name: "METADATA_DATABASE_NAME"
     value: "comet_metadata_development"
@@ -87,6 +93,12 @@ extraEnvVars:
     value: "development"
   - name: "RAILS_QUEUE"
     value: "sidekiq"
+  - name: "REPOSITORY_S3_ACCESS_KEY"
+    value: "comet-access-key"
+  - name: "REPOSITORY_S3_BUCKET"
+    value: "cometdev"
+  - name: "REPOSITORY_S3_SECRET_KEY"
+    value: "comet-secret"
 minio:
   enabled: true
   persistence:
@@ -96,6 +108,7 @@ minio:
     password: comet-access-key
   secretKey:
     password: comet-secret
+  defaultBuckets: cometdev
 fcrepo:
   enabled: false
 solr:
