@@ -8,17 +8,16 @@ readinessProbe:
   enabled: true
   path: "/healthz"
   initialDelaySeconds: 5
-worker:
-  extraEnvVars:
-    - name: "METADATA_DATABASE_NAME"
-      value: "comet_metadata"
-    - name: "RAILS_LOG_TO_STDOUT"
-      value: "true"
 extraEnvVars:
   - name: "METADATA_DATABASE_NAME"
     value: "comet_metadata"
   - name: "RAILS_LOG_TO_STDOUT"
     value: "true"
+extraEnvFrom:
+  - configMapRef:
+      name: comet-staging-s3-bucket
+  - secretRef:
+      name: comet-staging-iam-keys
 minio:
   enabled: false
 fcrepo:
@@ -37,6 +36,16 @@ worker:
     runAsGroup: 101
     fsGroup: 101
     fsGroupChangePolicy: "OnRootMismatch"
+  extraEnvVars:
+    - name: "METADATA_DATABASE_NAME"
+      value: "comet_metadata"
+    - name: "RAILS_LOG_TO_STDOUT"
+      value: "true"
+  extraEnvFrom:
+    - configMapRef:
+        name: comet-staging-s3-bucket
+    - secretRef:
+        name: comet-staging-iam-keys
   resources:
     requests:
       cpu: 100m
