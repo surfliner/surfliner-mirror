@@ -13,6 +13,7 @@
       - trunk
 
 shoreline:discovery:deploy:ucsd-stage:
+  allow_failure: true
   extends:
     - .shoreline:deploy:stage
   environment:

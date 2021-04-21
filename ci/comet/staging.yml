@@ -49,6 +49,7 @@ comet:cleanup:staging:ucsb:
   when: manual
 
 comet:deploy:staging:ucsd:
+  allow_failure: true
   extends:
     - .comet:deploy:stage
     - .comet-chart-deploy

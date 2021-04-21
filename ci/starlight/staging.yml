@@ -53,6 +53,7 @@ starlight:cleanup:ucsb-stage:
     - delete_stateful_set_pvcs
 
 starlight:deploy:ucsd-stage:
+  allow_failure: true
   extends:
     - .starlight:deploy:stage
   script:
