@@ -1,0 +1,7 @@
+lark:
+  import_data:
+    enabled: true
+postgresql:
+  enabled: true
+  persistence:
+    enabled: false
