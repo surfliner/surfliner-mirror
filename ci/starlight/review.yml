@@ -14,7 +14,6 @@
       - merge_requests
 
 starlight:deploy:ucsd-review:
-  allow_failure: true
   extends:
     - .starlight:deploy:review
   environment:

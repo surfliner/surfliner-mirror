@@ -14,7 +14,6 @@
       - merge_requests
 
 comet:deploy:ucsd-review:
-  allow_failure: true
   extends:
     - .comet:deploy:review
     - .comet-chart-deploy
