@@ -41,7 +41,7 @@ unless building
   }
 
   if ENV["MINIO_ENDPOINT"].present?
-    shrine_s3_options[:endpoint] = "http://#{ENV["MINIO_ENDPOINT"]}:9000"
+    shrine_s3_options[:endpoint] = "http://#{ENV["MINIO_ENDPOINT"]}:#{ENV.fetch("MINIO_PORT", 9000)}"
     shrine_s3_options[:force_path_style] = true
   end
 
