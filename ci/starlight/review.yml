@@ -24,10 +24,10 @@ starlight:deploy:ucsd-review:
   tags:
     - ucsd
   variables:
-    HELM_ENCODED_VALUES: $UCSD_STARLIGHT_REVIEW_VALUES
     HELM_UPGRADE_EXTRA_ARGS: >
       --set ingress.hosts={starlight-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN}
-      --values $HELM_VALUES_FILE
+      --values charts/snippets/starlight/review.yaml
+      --values charts/snippets/surfliner/solr-review.yaml
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
   script:
     - deploy ./charts/starlight
@@ -64,15 +64,7 @@ starlight:deploy:ucsb-review:
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
       --set ingress.hosts={starlight-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN}
-      --set memcached.architecture=standalone
-      --set minio.enabled=true
-      --set persistence.enabled=false
-      --set postgresql.persistence.enabled=false
-      --set redis.cluster.enabled=false
-      --set redis.master.persistence.enabled=false
-      --set starlight.auth.method=developer
-      --set starlight.sample_data=true
-      --set starlight.sitemaps.enabled=false
+      --values charts/snippets/starlight/review.yaml
       --values charts/snippets/surfliner/solr-review.yaml
 
 starlight:cleanup:ucsb-review:

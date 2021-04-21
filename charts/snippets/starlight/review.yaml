@@ -1,0 +1,21 @@
+persistence:
+  enabled: false
+minio:
+  enabled: true
+postgresql:
+  persistence:
+    enabled: false
+redis:
+  cluster:
+    enabled: false
+  master:
+    persistence:
+      enabled: false
+memcached:
+  architecture: standalone
+starlight:
+  auth:
+    method: developer
+  sitemaps:
+    enabled: false
+  sample_data: true
