@@ -24,11 +24,13 @@ shoreline:discovery:deploy:ucsd-review:
   tags:
     - ucsd
   variables:
-    HELM_ENCODED_VALUES: $UCSD_SHORELINE_REVIEW_VALUES
     HELM_UPGRADE_EXTRA_ARGS: >
       --set geoserver.ingress.hosts={shoreline-geoserver-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN}
       --set ingress.hosts={shoreline-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN}
-      --values $HELM_VALUES_FILE
+      --set shoreline.email.contact_email=geodata@ucsd.edu
+      --set shoreline.theme=ucsd
+      --values charts/snippets/shoreline/review.yaml
+      --values charts/snippets/surfliner/solr-review.yaml
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
   script:
     - deploy ./charts/shoreline
@@ -66,18 +68,11 @@ shoreline:discovery:deploy:ucsb-review:
     auto_stop_in: 4 days
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
-      --set email.enabled=false
       --set geoserver.ingress.hosts={shoreline-geoserver-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN}
-      --set geoserver.persistence.enabled=false
-      --set geoserver.jvm.initialMemory=512M
-      --set geoserver.jvm.maximumMemory=512M
-      --set geoserver.resources.requests.memory=512M
-      --set geoserver.resources.limits.memory=1Gi
       --set ingress.hosts={shoreline-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN}
-      --set postgresql.persistence.enabled=false
       --set shoreline.email.contact_email=geospatial@library.ucsb.edu
-      --set shoreline.sample_data=true
       --set shoreline.theme=ucsb
+      --values charts/snippets/shoreline/review.yaml
       --values charts/snippets/surfliner/solr-review.yaml
 
 shoreline:discovery:cleanup:ucsb-review:
