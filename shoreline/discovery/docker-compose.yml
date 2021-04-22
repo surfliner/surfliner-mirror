@@ -62,7 +62,7 @@ services:
       - .env
 
   zk:
-    image: zookeeper:3.6
+    image: zookeeper:3.7
     env_file:
       - .env
 
