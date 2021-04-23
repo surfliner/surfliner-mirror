@@ -50,10 +50,6 @@ For both environments, you need to install docker.
 
 **Windows** https://docs.docker.com/docker-for-windows/install/
 
-On a Mac, you will also need to install the Command Line Tools for Xcode.
-
-`xcode-select --install`
-
 The install process is much easier with a package manager.
 
 For Mac, we use brew.  The install instructions are here: https://brew.sh/
@@ -63,6 +59,14 @@ For Mac, we use brew.  The install instructions are here: https://brew.sh/
 On Windows, we care going to use Chocolatey.  The install instructions are here: https://chocolatey.org/install
 
 `Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))`
+
+On a Mac, you will also need to install the Command Line Tools for Xcode to support the 'make' command.
+
+`xcode-select --install`
+
+On windows.
+
+`choco install make`
 
 Now we need to install helm.
 
