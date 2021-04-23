@@ -56,4 +56,5 @@ unless building
 end
 
 Valkyrie.config.metadata_adapter = :comet_metadata_store
+Hyrax.query_service.instance_variable_set(:@id_type, :bigint)
 Valkyrie::IndexingAdapter.register(CometIndexingAdapter.new, :comet_index)
