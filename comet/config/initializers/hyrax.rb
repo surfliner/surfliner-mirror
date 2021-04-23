@@ -299,3 +299,15 @@ Hyrax::Resource.class_eval do
     Hyrax::Name
   end
 end
+
+class CometTransactionContainer
+  extend Dry::Container::Mixin
+
+  namespace "work_resource" do |steps|
+    steps.register "add_file_sets" do
+      Hyrax::Transactions::Steps::AddFileSets.new(handler: InlineUploadHandler)
+    end
+  end
+end
+
+Hyrax::Transactions::Container.merge(CometTransactionContainer)
