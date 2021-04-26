@@ -274,7 +274,7 @@ Devise.setup do |config|
   case ENV["AUTH_METHOD"]
   when "google"
     config.omniauth :google_oauth2, ENV.fetch("GOOGLE_AUTH_ID"), ENV.fetch("GOOGLE_AUTH_SECRET")
-  when "developer"
+  else # "developer"
     config.omniauth :developer
   end
 
