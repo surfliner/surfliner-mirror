@@ -8,9 +8,10 @@ gem "coffee-rails", "5.0.0"
 gem "declarative-option", "0.1.0"
 gem "devise", "4.7.3"
 gem "devise-guests", "0.7.0"
+gem "ezid-client", "1.9.0"
 gem "hyrax",
   git: "https://github.com/samvera/hyrax.git",
-  branch: "master"
+  branch: "main"
 gem "jbuilder", "2.11.2"
 gem "jquery-rails", "4.4.0"
 gem "okcomputer", "1.18.4"

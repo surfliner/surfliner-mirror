@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/samvera/hyrax.git
-  revision: e9d068b0a641d4ea65ac4998177fa46556b425ba
-  branch: master
+  revision: ab6c75616e3e87c0e9dfa3bb2ac483abada31edf
+  branch: main
   specs:
     hyrax (3.0.1)
       active-fedora (~> 13.1, >= 13.1.2)
@@ -137,7 +137,7 @@ GEM
     awesome_nested_set (3.4.0)
       activerecord (>= 4.0.0, < 7.0)
     aws-eventstream (1.1.1)
-    aws-partitions (1.447.0)
+    aws-partitions (1.448.0)
     aws-sdk-core (3.114.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
@@ -146,7 +146,7 @@ GEM
     aws-sdk-kms (1.43.0)
       aws-sdk-core (~> 3, >= 3.112.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.93.1)
+    aws-sdk-s3 (1.94.0)
       aws-sdk-core (~> 3, >= 3.112.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.1)
@@ -315,6 +315,9 @@ GEM
     ethon (0.14.0)
       ffi (>= 1.15.0)
     execjs (2.7.0)
+    ezid-client (1.9.0)
+      hashie (~> 3.4, >= 3.4.3)
+      nokogiri
     faraday (0.17.4)
       multipart-post (>= 1.2, < 3)
     faraday-encoding (0.0.5)
@@ -372,7 +375,7 @@ GEM
       tilt
     hamster (3.0.0)
       concurrent-ruby (~> 1.0)
-    hashie (4.1.0)
+    hashie (3.6.0)
     hiredis (0.6.3)
     htmlentities (4.3.4)
     http_logger (0.6.0)
@@ -929,6 +932,7 @@ DEPENDENCIES
   declarative-option (= 0.1.0)
   devise (= 4.7.3)
   devise-guests (= 0.7.0)
+  ezid-client (= 1.9.0)
   hyrax!
   jbuilder (= 2.11.2)
   jquery-rails (= 4.4.0)
@@ -958,4 +962,4 @@ DEPENDENCIES
   webdrivers (= 4.6.0)
 
 BUNDLED WITH
-   2.2.15
+   2.2.16
