@@ -4,6 +4,7 @@ include:
   - local: ci/comet/test.yml
   - local: ci/comet/review.yml
   - local: ci/comet/staging.yml
+  - local: ci/comet/production.yml
 
 .only-comet-changes:
   only:

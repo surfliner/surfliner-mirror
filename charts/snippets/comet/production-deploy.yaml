@@ -1,0 +1,63 @@
+ingress:
+  enabled: true
+livenessProbe:
+  enabled: true
+  path: "/healthz"
+  initialDelaySeconds: 5
+readinessProbe:
+  enabled: true
+  path: "/healthz"
+  initialDelaySeconds: 5
+extraEnvVars:
+  - name: "METADATA_DATABASE_NAME"
+    value: "comet_metadata"
+  - name: "RAILS_LOG_TO_STDOUT"
+    value: "true"
+extraEnvFrom:
+  - configMapRef:
+      name: comet-production-s3-bucket
+  - secretRef:
+      name: comet-production-iam-keys
+minio:
+  enabled: false
+fcrepo:
+  enabled: false
+
+podSecurityContext:
+  runAsUser: 1001
+  runAsGroup: 101
+  fsGroup: 101
+  fsGroupChangePolicy: "OnRootMismatch"
+
+worker:
+  replicaCount: 2
+  podSecurityContext:
+    runAsUser: 1001
+    runAsGroup: 101
+    fsGroup: 101
+    fsGroupChangePolicy: "OnRootMismatch"
+  extraEnvVars:
+    - name: "METADATA_DATABASE_NAME"
+      value: "comet_metadata"
+    - name: "RAILS_LOG_TO_STDOUT"
+      value: "true"
+  extraEnvFrom:
+    - configMapRef:
+        name: comet-production-s3-bucket
+    - secretRef:
+        name: comet-production-iam-keys
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 1
+      memory: 512Mi
+
+resources:
+  limits:
+    memory: 1Gi
+    cpu: 1
+  requests:
+    memory: 350Mi
+    cpu: 100m

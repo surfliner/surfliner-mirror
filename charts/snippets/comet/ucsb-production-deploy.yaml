@@ -1,0 +1,15 @@
+ingress:
+  enabled: true
+  hosts:
+    - host: comet.eks.dld.library.ucsb.edu
+      paths:
+        - path: '/'
+
+brandingVolume:
+  storageClass: efs-sc
+
+derivativesVolume:
+  storageClass: efs-sc
+
+uploadsVolume:
+  storageClass: efs-sc
