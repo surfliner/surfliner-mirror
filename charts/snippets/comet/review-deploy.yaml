@@ -23,6 +23,8 @@ worker:
       value: "comet_metadata"
     - name: "RAILS_LOG_TO_STDOUT"
       value: "true"
+    - name: "REPOSITORY_S3_BUCKET"
+      value: "comet-review"
 extraEnvVars:
   - name: "AUTH_METHOD"
     value: "developer"
@@ -30,10 +32,13 @@ extraEnvVars:
     value: "comet_metadata"
   - name: "RAILS_LOG_TO_STDOUT"
     value: "true"
+  - name: "REPOSITORY_S3_BUCKET"
+    value: "comet-review"
 minio:
   enabled: true
   persistence:
     enabled: false
+  defaultBuckets: comet-review
   accessKey:
     password: comet-access-key
   secretKey:
