@@ -35,6 +35,7 @@ comet:deploy:staging:ucsb:
       --values charts/snippets/comet/init-containers.yaml
       --values charts/snippets/comet/staging-deploy.yaml
       --values charts/snippets/comet/ucsb-solr-staging.yaml
+      --values charts/snippets/comet/ucsb-staging-deploy.yaml
 
 comet:cleanup:staging:ucsb:
   extends:

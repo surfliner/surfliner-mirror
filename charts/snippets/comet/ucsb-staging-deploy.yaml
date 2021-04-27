@@ -1,0 +1,6 @@
+extraEnvVars:
+  - name: "AUTH_METHOD"
+    value: "google"
+extraEnvFrom:
+  - secretRef:
+      name: comet-staging-oauth
