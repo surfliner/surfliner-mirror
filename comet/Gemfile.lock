@@ -900,10 +900,10 @@ GEM
       rdf-vocab
       reform (~> 2.2)
       reform-rails
-    valkyrie-sequel (2.1.0)
-      oj
-      sequel
-      sequel_pg
+    valkyrie-sequel (2.2.0)
+      oj (~> 3.0)
+      sequel (~> 5.0)
+      sequel_pg (~> 1.0)
       valkyrie (~> 2.1.0)
     valkyrie-shrine (0.5.0)
       aws-sdk-s3 (~> 1)
@@ -957,7 +957,7 @@ DEPENDENCIES
   standard (= 1.0.5)
   turbolinks (= 5.2.1)
   uglifier (= 4.2.0)
-  valkyrie-sequel (~> 2.1.0)
+  valkyrie-sequel (~> 2.2.0)
   valkyrie-shrine (~> 0.5)
   webdrivers (= 4.6.0)
 
