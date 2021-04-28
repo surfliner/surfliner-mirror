@@ -7,8 +7,6 @@ require "valkyrie/shrine/checksum/s3"
 # skip much of this setup if we're just building the app image
 building = (ENV["DB_ADAPTER"] == "nulldb")
 
-Valkyrie::Sequel::QueryService::ACCEPTABLE_UUID = %r{.*}
-
 if building || Rails.env.test?
   Valkyrie::MetadataAdapter
     .register(Valkyrie::Persistence::Memory::MetadataAdapter.new,
