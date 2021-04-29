@@ -11,7 +11,7 @@ gem "blacklight-spotlight",
 gem "bootsnap", "1.7.4"
 gem "carrierwave-aws", "1.5.0"
 gem "dalli", "2.7.11"
-gem "devise", "4.7.3"
+gem "devise", "4.8.0"
 gem "devise-guests", "0.7.0"
 gem "friendly_id", "5.4.2"
 gem "jquery-rails", "4.4.0"
