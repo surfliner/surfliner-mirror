@@ -1,5 +1,5 @@
-ARG HYRAX_IMAGE_VERSION=comet
-FROM registry.gitlab.com/surfliner/surfliner/hyrax-base:$HYRAX_IMAGE_VERSION as comet
+ARG HYRAX_IMAGE_VERSION=3.0.1
+FROM ghcr.io/samvera/hyrax/hyrax-base:$HYRAX_IMAGE_VERSION as comet
 
 ARG PROJECTPATH=comet
 
