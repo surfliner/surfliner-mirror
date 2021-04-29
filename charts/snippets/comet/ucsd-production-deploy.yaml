@@ -1,11 +1,16 @@
 ingress:
   enabled: true
   hosts:
-    - host: comet.eks.dld.library.ucsb.edu
+    - host: lib-comet.ucsd.edu
       paths:
         - path: '/'
-
+  tls:
+    - hosts:
+        - lib-comet.ucsd.edu
+      secretName: tls-secret
 extraEnvVars:
+  - name: "AUTH_METHOD"
+    value: "google"
   - name: "METADATA_DATABASE_NAME"
     value: "comet_metadata"
   - name: "RAILS_LOG_TO_STDOUT"
@@ -15,8 +20,12 @@ extraEnvFrom:
       name: comet-production-s3-bucket
   - secretRef:
       name: comet-production-iam-keys
+  - secretRef:
+      name: comet-production-oauth
 worker:
   extraEnvVars:
+    - name: "AUTH_METHOD"
+      value: "google"
     - name: "METADATA_DATABASE_NAME"
       value: "comet_metadata"
     - name: "RAILS_LOG_TO_STDOUT"
@@ -26,12 +35,14 @@ worker:
         name: comet-production-s3-bucket
     - secretRef:
         name: comet-production-iam-keys
+    - secretRef:
+        name: comet-production-oauth
 
 brandingVolume:
-  storageClass: efs-sc
+  storageClass: longhorn-nfs
 
 derivativesVolume:
-  storageClass: efs-sc
+  storageClass: longhorn-nfs
 
 uploadsVolume:
-  storageClass: efs-sc
+  storageClass: longhorn-nfs
