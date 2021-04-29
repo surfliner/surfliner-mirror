@@ -38,7 +38,6 @@ starlight:deploy:ucsb-production:
       --set starlight.email.smtp_settings.user_name=$UCSB_STARLIGHT_EMAIL_ADDRESS
 
 starlight:deploy:ucsd-production:
-  allow_failure: true
   needs: ["starlight:deploy:ucsd-stage"]
   extends:
     - .starlight:deploy:production

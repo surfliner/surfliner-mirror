@@ -41,7 +41,6 @@ shoreline:discovery:deploy:prod:ucsb:
       --set shoreline.email.smtp_settings.user_name=$UCSB_SHORELINE_EMAIL_ADDRESS
 
 shoreline:discovery:deploy:prod:ucsd:
-  allow_failure: true
   needs: ["shoreline:discovery:deploy:ucsd-stage"]
   extends:
     - .shoreline:deploy:production

@@ -28,7 +28,6 @@ lark:deploy:staging:ucsb:
       --set lark.import_data.enabled=true
 
 lark:deploy:staging:ucsd:
-  allow_failure: true
   extends: .lark:deploy:stage
   environment:
     name: ucsd.staging.lark
