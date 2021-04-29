@@ -10,7 +10,7 @@ RSpec.describe InlineUploadHandler do
   let(:object) { Hyrax.persister.save(resource: GenericObject.new) }
   let(:upload) { Hyrax::UploadedFile.create(user: user, file: file) }
   let(:uploads) { [upload, Hyrax::UploadedFile.create(user: user, file: file_2)] }
-  let(:user) { User.create(email: "moomin@example.com", password: "password") }
+  let(:user) { User.create(email: "moomin@example.com") }
 
   describe "#attach" do
     let(:listener) { Hyrax::Specs::AppendingSpyListener.new }
