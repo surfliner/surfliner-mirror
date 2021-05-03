@@ -15,6 +15,8 @@ extraEnvFrom:
       name: comet-production-s3-bucket
   - secretRef:
       name: comet-production-iam-keys
+  - secretRef:
+      name: ezid-credentials
 worker:
   extraEnvVars:
     - name: "METADATA_DATABASE_NAME"
@@ -26,6 +28,8 @@ worker:
         name: comet-production-s3-bucket
     - secretRef:
         name: comet-production-iam-keys
+    - secretRef:
+        name: ezid-credentials
 
 brandingVolume:
   storageClass: efs-sc
