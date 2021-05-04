@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-gem "bootsnap", "1.7.4", require: false
+gem "bootsnap", "1.7.5", require: false
 gem "bootstrap-sass", "3.4.1"
 gem "coffee-rails", "5.0.0"
 gem "declarative-option", "0.1.0"
