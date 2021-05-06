@@ -30,6 +30,14 @@ RSpec.configure do |config|
   end
 
   config.include Capybara::RSpecMatchers, type: :input
+
+  config.before(:each, type: :system) do
+    if ENV['SKIP_SELENIUM']
+      driven_by(:rack_test)
+    else
+      driven_by(:selenium_chrome_headless_sandboxless)
+    end
+  end
 end
 
 # register a test adapter for unit tests

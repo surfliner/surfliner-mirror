@@ -7,5 +7,4 @@ RSpec.describe "Search", type: :system, js: true do
     visit "/"
     expect(page).to have_content('Search Comet')
   end
-
 end
