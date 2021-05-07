@@ -24,7 +24,7 @@ gem 'optimist'
 gem 'pg',                      '~> 1.1.4'
 gem 'pry-rails',               '~> 0.3', group: %i[development test]
 gem 'puma',                    '~> 5.0'
-gem 'rails',                   '5.2.6'
+gem 'rails',                   '5.2.5'
 gem 'rsolr',                   '>= 1.0', '< 3'
 gem 'rspec-its',               group: [:test]
 gem 'rspec_junit_formatter',   group: [:test]
