@@ -1,0 +1,156 @@
+---
+#-------------------
+# M3 Metadata Model
+#-------------------
+
+# UCSB Comet Profile
+# Based on the ADRL 2.1 Data Dictionary: https://docs.google.com/spreadsheets/d/1D4Kd92HpWiwxQssEA15bWsMlO_Zguw3IgDhITCfZ9ik/edit?usp=sharing
+
+m3_version: "1.0.beta1"
+
+# Administrative information about the profile/model
+
+profile:
+  responsibility: https://library.ucsb.edu/
+  responsibility_statement: UC Santa Barbara Library
+  date_modified: "2021-05-04"
+  type: UCSB Comet
+  version: 0.1
+
+#---------------------------------------------------------
+# Mapping Definitions
+#---------------------------------------------------------
+# Definition of the mappings to different services or target schemas referenced in the profile.
+#
+# mappings:
+#   prefix: the abbreviation used to indicate the mapping target
+#   name: a fuller name of the mapping
+
+mappings:
+  dpla:
+    name: Digital Public Library of America
+  dc:
+    name: Dublin Core
+
+# Class Definitions
+
+classes:
+  Collection:
+    display_label: "Collection"
+#   schema_uri:  URI for the class, from a local or shared ontology.
+  Generic:
+    display_label: "Generic Object"
+#   schema_uri:  URI for the class, from a local or shared ontology.
+  Geospatial:
+    display_label: "Geospatial Object"
+#   schema_uri:  URI for the class, from a local or shared ontology.
+
+# Property Definitions
+
+  title:
+    display_label: 
+      default: "Title"
+    definition:  
+      default: "Formal or supplied title for the resource."
+      Geospatial: "This field represents the title that will be uploaded to the ISO XML."
+    usage_guidelines:  
+      Geospatial: "Follow our local standards to form a title following the convention: Feature Type/Data Theme, Geographic Coverage, Ground Condition Date."
+      Collection: "For archival collections, this represents the formal title for the group of materials. For geospatial collections, This value displays the collection title shown in the original ArcGIS metadata XML."
+    requirement: required
+    sample_value: 
+      - "On the road"
+    property_uri: http://purl.org/dc/terms/title
+    available_on:
+      class:
+        - Collection
+        - Generic
+        - Geospatial
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    cardinality:
+      minimum: 1
+      maximum: 1
+    index_documentation: "Title should be indexed as searchable and displayable."
+#     indexing: a list of dynamic field names, taken from a controlled list;
+#       Choose a value from this list.
+#         displayable - store as string, multi-valued
+#         facetable - index as a string, multi-valued
+#         searchable - index the specific data type, multi-valued
+#         sortable - index the specific data type
+#         stored_searchable - index and store the specific data type, multi-valued
+#         stored_sortable - index and store as string
+#         symbol - index and store as string, multi-valued
+#         fulltext_searchable - index as text, multi-valued with termVectors if enabled        
+    mapping:
+      dpla: "http://purl.org/dc/terms/title"
+      
+  title_alternative:
+    display_label: 
+      default: "Alternative title"
+    definition:  
+      default: "Alternative or other additional title for the resource."
+    requirement: recommended, if applicable
+    usage_guidelines:
+      Geospatial: "Enter an alternative title (i.e. English translation of non-latin character title; map sheet code)."
+    sample_value: 
+      - "There and Back Again"
+    property_uri: http://purl.org/dc/terms/alternative
+    available_on:
+      class:
+        - Collection
+        - Generic
+        - Geospatial
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    cardinality:
+      minimum: 0
+    index_documentation: "Alternative title should be indexed as searchable and displayable."        
+#     indexing: a list of dynamic field names, taken from a controlled list;
+#       Choose a value from this list.
+#         displayable - store as string, multi-valued
+#         facetable - index as a string, multi-valued
+#         searchable - index the specific data type, multi-valued
+#         sortable - index the specific data type
+#         stored_searchable - index and store the specific data type, multi-valued
+#         stored_sortable - index and store as string
+#         symbol - index and store as string, multi-valued
+#         fulltext_searchable - index as text, multi-valued with termVectors if enabled        
+    mapping:
+      dpla: "http://purl.org/dc/terms/alternative"
+      
+  title_filing:
+    display_label: 
+      default: "Filing title"
+    definition:  
+      default: "A modified form of the formal collection title which controls the sort order when browsing collection lists."
+    usage_guidelines:  
+      default: Use to record the filing title (see OAC Best Practices) for the collection.
+    requirement: required
+    sample_value: 
+      - "Abel (Theodore F.) Papers"
+    property_uri: http://purl.org/dc/terms/alternative
+# Does the predicate here need to be unique?
+    available_on:
+      class:
+        - Collection
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    cardinality:
+      minimum: 1
+      maximum: 1
+    index_documentation: "Filing title should be indexed as searchable and displayable."
+# The filing title should be used when creating the browseable lists of collections.          
+#     indexing: a list of dynamic field names, taken from a controlled list;
+#       Choose a value from this list.
+#         displayable - store as string, multi-valued
+#         facetable - index as a string, multi-valued
+#         searchable - index the specific data type, multi-valued
+#         sortable - index the specific data type
+#         stored_searchable - index and store the specific data type, multi-valued
+#         stored_sortable - index and store as string
+#         symbol - index and store as string, multi-valued
+#         fulltext_searchable - index as text, multi-valued with termVectors if enabled        
+    mapping:
+      dpla: "http://purl.org/dc/terms/alternative"
+      
+
