@@ -1,6 +1,6 @@
 The Surliner Manual TOC
 ========================
 
-1. Setting up a development environment
-	* [Comet](https://gitlab.com/surfliner/surfliner/-/blob/setupdocs/docs/themanual/comet/devsetup.md).
+1. Comet
+	* [Setting up a development environment.](https://gitlab.com/surfliner/surfliner/-/blob/setupdocs/docs/themanual/comet/devsetup.md).
 
