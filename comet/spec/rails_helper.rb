@@ -7,6 +7,7 @@ require File.expand_path("../config/environment", __dir__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require "rspec/rails"
 # Add additional requires below this line. Rails is not loaded until this point!
+require "hyrax/specs/capybara"
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
@@ -23,6 +24,12 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+  config.after(:each, type: :feature) do
+    Capybara.reset_sessions!
+    page.driver.reset!
+  end
+
+  config.include Capybara::RSpecMatchers, type: :input
 end
 
 # register a test adapter for unit tests
