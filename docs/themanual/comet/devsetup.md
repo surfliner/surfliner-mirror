@@ -1,4 +1,4 @@
-## Setting up a development environment
+## Setting up a development environment for Comet
 
 The current practice for Comet development is to use a `k3s` tool called `k3d`
 which creates containerized `k3s` clusters.
