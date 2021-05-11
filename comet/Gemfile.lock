@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/samvera/hyrax.git
-  revision: 28402e68d572c6a6adbb9415e3ce196089f64438
+  revision: d19fd3e6295adc15dc386921ee78f32dcbb7d82d
   branch: main
   specs:
-    hyrax (3.0.1)
+    hyrax (3.0.2)
       active-fedora (~> 13.1, >= 13.1.2)
       almond-rails (~> 0.1)
       awesome_nested_set (~> 3.1)
@@ -132,12 +132,12 @@ GEM
     amazing_print (1.3.0)
     arel (9.0.0)
     ast (2.4.2)
-    autoprefixer-rails (10.2.4.0)
-      execjs
+    autoprefixer-rails (10.2.5.0)
+      execjs (< 2.8.0)
     awesome_nested_set (3.4.0)
       activerecord (>= 4.0.0, < 7.0)
     aws-eventstream (1.1.1)
-    aws-partitions (1.451.0)
+    aws-partitions (1.453.0)
     aws-sdk-core (3.114.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
@@ -659,7 +659,7 @@ GEM
       thor (>= 0.19.0, < 2.0)
     rainbow (3.0.0)
     rake (13.0.3)
-    rb-fsevent (0.10.4)
+    rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rdf (3.1.13)
@@ -847,7 +847,7 @@ GEM
     simple_form (5.1.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
-    slop (4.8.2)
+    slop (4.9.0)
     sparql (3.1.6)
       builder (~> 3.2)
       ebnf (~> 2.1)
@@ -969,6 +969,7 @@ DEPENDENCIES
   selenium-webdriver (= 3.142.7)
   sidekiq (= 6.2.1)
   standard (= 1.1.1)
+  tinymce-rails (= 5.7.1)
   turbolinks (= 5.2.1)
   uglifier (= 4.2.0)
   valkyrie-sequel (~> 2.2.0)
