@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 class CometObjectShowPresenter < Hyrax::WorkShowPresenter
-  def member_presenters
-    super.to_a
-  end
-
   private
 
   ##
