@@ -111,7 +111,7 @@ Hyrax.config do |config|
   # Should work creation require file upload, or can a work be created first
   # and a file added at a later time?
   # The default is true.
-  # config.work_requires_files = true
+  config.work_requires_files = false
 
   # How many rows of items should appear on the work show view?
   # The default is 10
