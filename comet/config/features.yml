@@ -3,3 +3,5 @@ proxy_deposit:
   enabled: false
 transfer_works:
   enabled: false
+show_deposit_agreement:
+  enabled: false
