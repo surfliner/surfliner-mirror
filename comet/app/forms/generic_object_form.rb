@@ -6,7 +6,6 @@
 # @see https://github.com/samvera/hyrax/wiki/Hyrax-Valkyrie-Usage-Guide#forms
 # @see https://github.com/samvera/valkyrie/wiki/ChangeSets-and-Dirty-Tracking
 class GenericObjectForm < Hyrax::Forms::ResourceForm(GenericObject)
-  include Hyrax::FormFields(:basic_metadata)
   include Hyrax::FormFields(:ucsb_model)
 
   # Define custom form fields using the Valkyrie::ChangeSet interface
