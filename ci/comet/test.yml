@@ -3,7 +3,7 @@ comet:test:unit:
   image: $CI_REGISTRY_IMAGE/comet_web:$CI_COMMIT_SHA
   needs: ["comet:ruby-build"]
   services:
-    - name: bitnami/postgresql:12.6.0
+    - name: bitnami/postgresql:12.7.0
       alias: postgres
     - name: bitnami/redis:6.2
       alias: redis
