@@ -4,6 +4,7 @@ en:
     search:
       fields:
         facet:
+          admin_set_sim: Project
           based_near_label_sim: Location
           creator_sim: Creator
           file_format_sim: Format
@@ -29,6 +30,7 @@ en:
           rights_statement_tesim: Rights Statement
           subject_tesim: Subject
         show:
+          admin_set: 'In Project:'
           based_near_tesim: Location
           contributor_tesim: Contributor
           creator_tesim: Creator
@@ -45,14 +47,124 @@ en:
           rights_statement_tesim: Rights Statement
           subject_tesim: Subject
           title_tesim: Title
+  helpers:
+    action:
+      admin_set:
+        new: Create a new Project
+    submit:
+      admin_set:
+        create: Create Project
+        update: Save Project
   hyrax:
     account_name: My Institution Account Id
+    admin:
+      admin_sets:
+        delete:
+          error_default_set: Project cannot be deleted as it is the default Project
+          error_not_empty: Project cannot be deleted. There are objects managed by this Project.
+          notification: Project deleted.
+        document_list:
+          edit: Edit
+          no_works:  The Project does not contain any works.
+          title: List of items managed by this Project
+        edit:
+          header: 'Edit Project: %{title}'
+          permission_update_errors:
+            error: Invalid update option for permission template.
+            no_date: A date is required for the selected release option.
+            no_embargo: An embargo period is required for the selected option.
+            nothing: Select release options before pressing save.
+          permission_update_notices:
+            new_admin_set: The Project '%{name}' has been created. Use the additional tabs to define other aspects of the Project.
+            participants: "The Project's participant rights have been updated"
+            updated_admin_set: The Project '%{name}' has been updated.
+            visibility: "The Projct's release & visibility settings have been updated."
+            workflow: "The Project's workflow has been updated."
+          depositors:
+            action: Action
+            agent_name: Depositors of this Project
+            empty: No depositors have been added to this Project.
+            help: Depositors can add new works to the Project
+          managers:
+            action: Action
+            agent_name: Managers of the Project
+            empty: No managers have been added.
+            help: Managers of the Project can edit the set metadata, participants, and release and visibility settings. Managers can also edit work metadata, add to or remove files from a work, and add new works to the Project.
+            remove: Remove
+            title: Managers
+            type: Type
+          registered_users: Registered Users
+          viewers:
+            action: Action
+            agent_name: Viewers of This Set
+            empty: No viewers have been added to the Project.
+            help: Viewers can view works in the set regardless of the visibility settings applied to the work. For example, viewers can view works in this set even if the works are currently embargoed or restricted.
+            remove: Remove
+            title: Viewers
+            type: Type
+        form_visibility:
+          cancel: Cancel
+          page_description: Release and visibility settings determine the options available to depositors when submitting a work. Changes to these settings do not affect previously deposited works.
+          release:
+            description: Set embargoes and lease polices for the Project.
+            fixed: Depositor must choose embargo -- delay release of all works for the duration of the embargo period.
+            no_delay: Do not allow embargoes or leases
+            title: Release
+            varies:
+              any: Depositor can choose any embargo length; leases are allowed
+              between: 'Depositor can choose embargo up to date:'
+              description: 'Allow depositor to choose settings:'
+              embargo:
+                1yr: 1 year after deposit
+                2yrs: 2 years after deposit
+                3yrs: 3 years after deposit
+                6mos: 6 months after deposit
+                select: Select embargo period..
+              period: 'Depositor can choose embargo period up to:'
+          visibility:
+            description: Set visibility policies for the Project. Setting honors embargo policies.
+            everyone: Public - depositor can only choose public visibility setting
+            institution: Institution -- depositor can only select institution visibility setting
+            restricted: Private -- depositor can only select private for visibility. Access is restricted to repository administrators, managers, and viewers. Must be used with "No embargo" setting above.
+            title: Visibility
+            varies: All settings allowed -- depositor can choose. Must use this option to allow leases.
+        form_workflow:
+          cancel: Cancel
+          no_workflows: There are no workflows to select.
+          page_description: Each Project has a workflow associated with it. This workflow is applied to all works added to the Project. Select the workflow below.
+        new:
+          header: Create New Project
+        show:
+          breadcrumb: View Set
+          header: Project
+          item_list_header: Works in this Project
+        show_actions:
+          confirm_delete: Are you sure you wish to delete the Project? This action cannot be undone.
+    collection_type:
+      admin_set_title: Project
+    dashboard:
+      admin_sets:
+        admin_set: Project
+        files: Files
+        subtitle: Recent activity
+        title: Projects
+        works: Works
     directory:
       suffix: "@example.org"
     footer:
       copyright_html: "<strong>Copyright &copy; 2018 Samvera</strong> Licensed under the Apache License, Version 2.0"
       service_html: A service of <a href="https://surfliner.ucsd.edu/" class="navbar-link" target="_blank">Project Surfliner</a>.
+    homepage:
+      admin_sets:
+        link: View all projects
+        tab_label: Explore Projects
+        thumbnail: thumbnail
+        title: Explore Projects
     institution_name: Surfliner
     institution_name_full: Project Surfliner, University of California
     product_name: Comet
     product_twitter_handle: "@SamveraRepo"
+  simple_form:
+    labels:
+      defaults:
+        admin_set_id: Project
