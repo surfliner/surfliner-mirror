@@ -1,9 +1,9 @@
 @import 'application';
 @import url("https://fonts.googleapis.com/css?family=Roboto");
 
-//---
+//------------------------------------------------------------------------------
 // SASS Variables
-//---
+//------------------------------------------------------------------------------
 
 $color-appbar: #0b4a67;
 $color-appbar-accent: #033851;
@@ -18,20 +18,20 @@ $color-sidebar-bright: #fff;
 $color-sidebar-active-parent: #004663;
 $color-sidebar-hover: #006a96;
 
-//---
+//------------------------------------------------------------------------------
 // App Bar
-//---
+//------------------------------------------------------------------------------
 
 #app-bar
 {
   background: $color-appbar;
 
   // Buttons
-  .nav > li > a
+  .navbar-nav > li > a
   {
     color: $color-appbar-text;
   }
-  .nav > li > a:hover
+  .navbar-nav > li > a:hover
   {
     color: $color-appbar-bright;
   }
@@ -42,9 +42,75 @@ $color-sidebar-hover: #006a96;
   }
 }
 
-//---
+/* MEDIA QUERIES - Remember, Bootstrap is "Mobile first" */
+@media (min-width: 768px) {
+  #app-bar {
+
+    min-height: 30px;
+    max-height: 30px;
+
+		.navbar-nav > li {
+			height: 30px;
+		}
+
+    .navbar-nav > li > a {
+      padding-top: 5px;
+      padding-bottom: 5px;
+			display: inline-block;
+			height: 30px;
+      font-size: 75%;
+      padding: 5px 10px;
+    }
+
+    .navbar-nav > li > a[data-behavior="contact-link"] {
+      margin-right: 5px;
+    }
+  }
+}
+@media (max-width: 767px) {
+
+  #app-bar {
+
+    border-color: $color-appbar-bright;
+
+    .navbar-nav .open .dropdown-menu .divider {
+      background-color: $color-appbar-accent;
+    }
+
+    .navbar-collapse, #facet-panel-collapse, .navbar-form {
+      border-color: $color-appbar-dark;
+    }
+
+    .navbar-collapse, #facet-panel-collapse {
+      box-shadow: inset 0 1px 0 $color-appbar-accent;
+    }
+
+    .navbar-right > ul {
+      margin: 0 -15px;
+    }
+
+    .navbar-nav .open .dropdown-menu > li > a {
+      color: $color-appbar-text;
+    }
+
+    .navbar-nav .open .dropdown-menu > li > a:hover {
+      color: $color-appbar-bright;
+    }
+
+    .navbar-toggle, .facets-toggle {
+      border-color: $color-appbar-accent;
+    }
+
+    .navbar-toggle:focus, .facets-toggle:focus, .navbar-toggle:hover, .facets-toggle:hover {
+      border-color: $color-appbar-accent;
+      background-color: $color-appbar-dark;
+    }
+  }
+}
+
+//------------------------------------------------------------------------------
 // Campus-like HTML (Decorator v5)
-//---
+//------------------------------------------------------------------------------
 
 body
 {
@@ -53,9 +119,9 @@ body
   margin-bottom: 0 !important;
 }
 
-//---
+//------------------------------------------------------------------------------
 // Campus-like Header
-//---
+//------------------------------------------------------------------------------
 
 .layout-header {
 
@@ -68,15 +134,12 @@ body
     padding: 1.5em 0;
   }
 
-  .layout-container {
-    max-width: 1200px;
-    margin: 0 auto;
+	.title-header {
     display: flex;
-    align-items: center;
+		align-items: center;
   }
 
-  .title-header {
-    width:50%;
+  .title-header a {
     color: #000;
     font-size: 21.6px;
     letter-spacing: 1px;
@@ -84,27 +147,51 @@ body
     text-transform: uppercase;
   }
 
-  .title-header:hover {
+  .title-header a:hover {
     color: #666;
     text-decoration: none;
   }
 
-  .title-logo {
-    width: 50%;
+  .title-logo a {
     height: 46px;
     overflow: hidden;
   }
 
-  .title-logo > img{
+  .title-logo a > img {
     float: right;
     width: 225px;
     height: 46px;
   }
 }
 
-//---
+/* MEDIA QUERIES - Remember, Bootstrap is "Mobile first" */
+@media (max-width: 767px) {
+  .layout-header {
+
+    .layout-title {
+      height: 61px;
+      padding: 15px 0;
+    }
+
+    .title-header a {
+      font-size: 18px;
+      letter-spacing: normal;
+    }
+
+    .title-logo {
+      height: 31px;
+    }
+
+    .title-logo a > img{
+      width: 150px;
+      height: 31px;
+    }
+  }
+}
+
+//------------------------------------------------------------------------------
 // Campus-like Breadcrumbs
-//---
+//------------------------------------------------------------------------------
 
 .breadcrumbs-container {
 
@@ -114,7 +201,6 @@ body
 
     background-color: transparent;
     color: #666;
-    display: inline;
     font-size: 80%;
     padding: 0;
 
@@ -132,11 +218,11 @@ body
   }
 }
 
-//---
+//------------------------------------------------------------------------------
 // Campus-like Left-hand Navigation Menu
 //    - Note: "Feature pages" & "About pages" render this menu differently
 //    - Note: "Dashboard" pages draw menu like "About pages"
-//---
+//------------------------------------------------------------------------------
 
 #main-container {
 
@@ -272,28 +358,44 @@ body
   }
 }
 
-//---
+//------------------------------------------------------------------------------
 // Masthead
-//---
+//------------------------------------------------------------------------------
 
 .masthead {
   background-color: #006a96;
   .site-title-container {
     max-height: none; // Title fix
-    .site-title {
-      color: #fff;
-      text-transform: uppercase;
-      font-size: 30px;
-      font-weight: 700;
-      white-space: normal; // Title fix
-      width: 100%;
+    .site-title-wrapper {
+			margin: 32px 0;
+			text-transform: uppercase;
+			font-weight: 700;
+			white-space: normal; // Title fix
+			padding: 0;
+			.site-title {
+				color: #fff;
+				font-size: 1rem;
+				width: 100%;
+			}
       small {
         color: rgba(255, 255, 255, 0.75);
-        font-size: 14px;
-        line-height: 1.2;
+        font-size: 0.8rem;
+        line-height: 1;
+				display: block !important;
+				padding-bottom: 0 !important;
       }
     }
   }
+	#exhibit-navbar {
+		background: #182b4988;
+		.nav-link {
+			color: #fff;
+		}
+		#search {
+			background: #182b49;
+			border-color: #182b49;
+		}
+	}
 }
 
 .image-masthead {
@@ -304,9 +406,41 @@ body
   }
 }
 
-//---
+/* MEDIA QUERIES - Remember, Bootstrap is "Mobile first" */
+@media (min-width: 768px)
+{
+  .masthead {
+    .site-title-container {
+			.site-title-wrapper {
+				.site-title {
+					font-size: 1.5rem;
+				}
+				small {
+					font-size: 1.2rem !important;
+				}
+			}
+    }
+  }
+}
+@media (min-width: 992px) {
+  .masthead {
+    .site-title-container {
+      .site-title-wrapper {
+        margin: 64px 0;
+				.site-title {
+					font-size: 2rem;
+				}
+				small {
+					font-size: 1.4rem !important;
+				}
+      }
+    }
+  }
+}
+
+//------------------------------------------------------------------------------
 // Campus-like Footer
-//---
+//------------------------------------------------------------------------------
 
 .footer {
 
@@ -352,9 +486,23 @@ body
   }
 }
 
-//---
+/* MEDIA QUERIES - Remember, Bootstrap is "Mobile first" */
+@media (max-width: 767px) {
+  .footer {
+
+    padding-right: 0;
+    padding-left: 0;
+
+    .footer-logo {
+      float: none;
+      margin-top: 15px;
+    }
+  }
+}
+
+//------------------------------------------------------------------------------
 // Other Tweaks (Non-campus theme related)
-//---
+//------------------------------------------------------------------------------
 
 // Nav Bar Search Form (Adds white space below form)
 #new_contact_form {
@@ -368,61 +516,14 @@ body
   }
 }
 
-//---
-// Media Queries
-//    - Remember: Bootstrap is "Mobile first"
-//---
+/* MEDIA QUERIES - Remember, Bootstrap is "Mobile first" */
 
 // Medium devices (Tablets, 768px and up)
-@media (min-width: 768px)
-{
-  // App Bar [Tablet/Desktop Views]
-  #app-bar {
-
-    min-height: 30px;
-    max-height: 30px;
-
-    .navbar-nav > li > a {
-      padding-top: 5px;
-      padding-bottom: 5px;
-    }
-
-    // Buttons
-    .nav > li > a {
-      font-size: 85%;
-      padding: 5px 10px;
-    }
-
-    .nav > li> a[data-behavior="contact-link"] {
-      margin-right: 5px;
-    }
-  }
-
-  // Masthead [Tablet/Desktop Views]
-  .masthead {
-    .site-title-container {
-      .site-title {
-        font-size: 36px;
-        small {
-          font-size: 20px;
-        }
-      }
-    }
-  }
+@media (min-width: 768px) {
 }
 
 // Large devices (Desktops, 992px and up)
 @media (min-width: 992px) {
-
-  // Masthead [Tablet/Desktop Views]
-  .masthead {
-    .site-title-container {
-      .site-title {
-        margin: 64px 0;
-      }
-    }
-  }
-
 }
 
 // Extra large devices (Large desktops, 1200px and up)
@@ -432,83 +533,9 @@ body
 // Mobile View
 @media (max-width: 767px) {
 
-  // App Bar [Mobile view]
-  #app-bar {
-
-    border-color: $color-appbar-bright;
-
-    .navbar-nav .open .dropdown-menu .divider {
-      background-color: $color-appbar-accent;
-    }
-
-    .navbar-collapse, #facet-panel-collapse, .navbar-form {
-      border-color: $color-appbar-dark;
-    }
-
-    .navbar-collapse, #facet-panel-collapse {
-      box-shadow: inset 0 1px 0 $color-appbar-accent;
-    }
-
-    .navbar-right > ul {
-      margin: 0 -15px;
-    }
-
-    .navbar-nav .open .dropdown-menu > li > a {
-      color: $color-appbar-text;
-    }
-
-    .navbar-nav .open .dropdown-menu > li > a:hover {
-      color: $color-appbar-bright;
-    }
-
-    .navbar-toggle, .facets-toggle {
-      border-color: $color-appbar-accent;
-    }
-
-    .navbar-toggle:focus, .facets-toggle:focus, .navbar-toggle:hover, .facets-toggle:hover {
-      border-color: $color-appbar-accent;
-      background-color: $color-appbar-dark;
-    }
-  }
-
   // Nav Bar Search Form (Fixes oddball horizontal scroll overflow issue) [Mobile view]
   .navbar-form {
     padding: 0;
     margin: 0 15px;
-  }
-
-  // Campus-like Header [Mobile View]
-  .layout-header {
-
-    .layout-title {
-      height: 61px;
-      padding: 15px 0;
-    }
-
-    .title-header {
-      font-size: 18px;
-      letter-spacing: normal;
-    }
-
-    .title-logo {
-      height: 31px;
-    }
-
-    .title-logo > img{
-      width: 150px;
-      height: 31px;
-    }
-  }
-
-  // Campus-like Footer [Mobile view]
-  .footer {
-
-    padding-right: 0;
-    padding-left: 0;
-
-    .footer-logo {
-      float: none;
-      margin-top: 15px;
-    }
   }
 }
