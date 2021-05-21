@@ -40,6 +40,9 @@ $color-sidebar-hover: #006a96;
     color: $color-appbar-bright;
     background-color: $color-appbar-dark;
   }
+	.dropdown-menu {
+		border-radius: 0;
+	}
 }
 
 /* MEDIA QUERIES - Remember, Bootstrap is "Mobile first" */
@@ -65,6 +68,13 @@ $color-sidebar-hover: #006a96;
     .navbar-nav > li > a[data-behavior="contact-link"] {
       margin-right: 5px;
     }
+
+		.dropdown-menu {
+			margin-top: 1px;
+			a {
+				font-size: 0.75rem;
+			}
+		}
   }
 }
 @media (max-width: 767px) {
@@ -364,6 +374,9 @@ body
 
 .masthead {
   background-color: #006a96;
+	.background-container {
+		filter: blur(0);
+	}
   .site-title-container {
     max-height: none; // Title fix
     .site-title-wrapper {
