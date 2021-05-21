@@ -5,7 +5,7 @@
 
 @mixin inline($separator, $distance) {
   &, & > li {
-    /* http://www.alistapart.com/articles/taminglists/ */
+    // http://www.alistapart.com/articles/taminglists/
     display: inline-block;
     margin: 0;
     padding-left: 0;
@@ -25,66 +25,180 @@
 // Header
 // ------
 
-// to match #eyebrow
-.header-navbar {
-  height: 36px;
-}
-.navbar {
-  min-height: 36px;
-}
-
-.navbar-default {
-  border: 0;
-}
-
 #eyebrow {
-  a:hover,
-  a:focus {
-    text-decoration: none;
-  }
+	background: $base-navy;
+	.navbar {
+		background: $base-navy;
+		border: 0;
 
-  .edu-link:hover {
-    text-decoration: underline;
-  }
+		.navbar-brand {
+			font-size: 0.75rem;
+			color: #fff;
+			text-decoration: none !important;
+			&:hover {
+				text-decoration: underline !important;
+			}
+		}
+		.navbar-nav > li {
+			padding: 1rem;
+		}
+		.navbar-nav > li > a {
+			color: #fff;
+			text-transform: uppercase;
+			text-decoration: none !important;
+		}
 
-  .dropdown-menu {
-    background-color: $base-navy;
+		#navbarSupportedContent {
+			padding: 0;
+			background-color: $base-navy;
+		}
+
+		.dropdown-menu {
+			background-color: $base-navy;
+			border-radius: 0;
+			box-shadow: none;
+		}
+
+	}
+}
+
+/* MEDIA QUERIES - Bootstrap is mobile first */
+@media (min-width: 768px) {
+	#eyebrow {
+		.navbar {
+			min-height: 36px;
+			max-height: 36px;
+	
+			.navbar-nav {
+				margin-top: 0;
+			}
+	
+			.navbar-nav > li {
+				height: 36px;
+				display: flex;
+				align-items: center;
+				padding: 0;
+			}
+		
+			.navbar-nav > li > a {
+				padding-top: 5px;
+				padding-bottom: 5px;
+				font-size: 75%;
+				padding: 5px 10px;
+				text-decoration: none;
+			}
+	
+			.navbar-nav > li > a[data-behavior="contact-link"] {
+				margin-right: 5px;
+			}
+
+			.dropdown-menu {
+				box-shadow: 0 2px 5px rgba(0, 0, 0, 0.175);
+				padding: 0.5rem 0;
+				margin-top: 0 !important;;
+				li > a:hover {
+					background-color: $navy-darken-4 !important;
+				}
+				a {
+					text-transform: none !important;
+					font-size: 0.8rem;
+				}
+			}
+
+		}
+	}
+}
+
+// --------
+// Masthead
+// --------
+
+.masthead {
+	.background-container {
+		filter: blur(0);
+	}
+  .site-title-container {
+    max-height: none; // Title fix
+    .site-title-wrapper {
+			margin: 32px 0;
+			padding: 0;
+			.site-title {
+				color: #fff;
+				font-size: 1rem;
+				width: 100%;
+			}
+      small {
+        color: rgba(255, 255, 255, 0.75);
+        font-size: 0.8rem;
+        line-height: 1;
+				display: block !important;
+				padding-bottom: 0 !important;
+      }
+    }
+  }
+	.exhibit-navbar {
+		background-color: $base-lightgray !important;
+		border-color: $base-lightgray !important;
+		.nav-item {
+			padding: 0.5rem 1rem;
+		}
+		.nav-link {
+			color: $base-navy !important;
+			text-transform: none !important;
+	
+			:hover,
+			:active {
+				color: $base-navy !important;
+			}
+		}
+		#search {
+			max-height: 46px;
+			background: $base-navy;
+		}
+	}
+}
+
+.image-masthead {
+  .btn-primary {
+    background-color: #444;
+    border-color: #666;
     border-radius: 0;
-    left: inherit;
-    margin-top: 10px !important;
-    padding: 0;
-    right: 0;
-
-    li > a:hover {
-      background-color: $navy-darken-4 !important;
-    }
-
-    a {
-      padding: 12px 24px;
-      text-transform: none !important;
-    }
   }
 }
 
-// love overriding bootstrap
-.dropdown-menu, .twitter-typeahead .tt-menu {
-  float: none;
-  left: inherit;
-  top: inherit;
+/* MEDIA QUERIES - Bootstrap is mobile first */
+@media (min-width: 768px) {
+  .masthead {
+    .site-title-container {
+			.site-title-wrapper {
+				.site-title {
+					font-size: 1.5rem;
+				}
+				small {
+					font-size: 1.2rem !important;
+				}
+			}
+    }
+  }
 }
-
-body:not(.toolbar-tray-open) .nav > li.dropdown.open .dropdown-menu, body:not(.toolbar-tray-open) .nav > li.dropdown.open .twitter-typeahead .tt-menu, .twitter-typeahead body:not(.toolbar-tray-open) .nav > li.dropdown.open .tt-menu {
-  left: inherit;
-  right: inherit;
-  width: auto;
+@media (min-width: 992px) {
+  .masthead {
+    .site-title-container {
+      .site-title-wrapper {
+				.site-title {
+					font-size: 2rem;
+				}
+				small {
+					font-size: 1.4rem !important;
+				}
+      }
+    }
+  }
 }
 
 //////////
 // BROWSE
 //////////
-ul.navbar-nav {
-  margin-top: 10px;
-}
 
 // hyperspecificity because bootstrap :)
 .image-masthead .navbar ul.nav.navbar-nav > li {
@@ -92,6 +206,7 @@ ul.navbar-nav {
 }
 
 #main-container {
+	padding: 0 30px !important;
   .label {
     color: $white;
     padding: 5px;
@@ -216,6 +331,9 @@ footer {
     margin-bottom: 16px;
     padding-bottom: 10px;
   }
+	.container {
+		padding: 0 30px !important;
+	}
 }
 
 .seal {
@@ -249,10 +367,10 @@ footer {
 //////////
 // MISC
 //////////
-.row {
-  margin-left: inherit;
-  margin-right: inherit;
-}
+//.row {
+//  margin-left: inherit;
+//  margin-right: inherit;
+//}
 
 .st__content-block--text {
   margin-bottom: 10px;
@@ -272,20 +390,6 @@ footer {
 
   .sidenav.contacts .contact-photo + div[itemprop] ~ div[itemprop] {
     margin: 0;
-  }
-}
-
-.exhibit-navbar {
-  background-color: $base-lightgray !important;
-  border-color: $base-lightgray !important;
-
-  .navbar-brand {
-    color: $base-navy !important;
-
-    :hover,
-    :active {
-      color: $base-navy !important;
-    }
   }
 }
 

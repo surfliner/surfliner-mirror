@@ -1,58 +1,41 @@
-<div id="header-navbar" class="navbar navbar-default navbar-static-top navbar-inverse" role="banner">
-  <div id="eyebrow">
-    <div class="inner">
-      <div class="items">
-        <div class="item">
-          <%= link_to "University of California, Santa Barbara", main_app.root_path, class: "edu-link" %>
-        </div>
-        <div class="item">
-          <div class="inner">
+<section id="eyebrow">
+	<nav id="app-bar" class="navbar navbar-expand-md navbar-dark container">
 
-            <%= render_nav_actions do |config, action|%>
-              <div><%= action %></div>
-            <% end %>
+		<%= link_to "University of California, Santa Barbara", main_app.root_path, class: "navbar-brand" %>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-            <div>
-              <ul class="flat">
-                <%= render '/spotlight/shared/locale_picker' %>
-                <% if current_user %>
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=current_user%> <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                      <% if can? :manage, Spotlight::Site.instance %>
-                        <li><%= link_to t(:'spotlight.header_links.edit_site'), spotlight.edit_site_path %></li>
-                      <% end %>
-                      <% if can? :create, Spotlight::Exhibit %>
-                        <li>
-                          <%= link_to t(:'spotlight.header_links.create_exhibit'), spotlight.new_exhibit_path %>
-                        </li>
-                      <% end %>
-                      <% if current_exhibit && can?(:curate, current_exhibit) %>
-                        <li>
-                          <%= link_to t('spotlight.header_links.dashboard'), spotlight.exhibit_dashboard_path(current_exhibit) %>
-                        </li>
-                      <% end %>
+			<ul class="navbar-nav ml-auto">
+				<%= render_nav_actions do |config, action|%>
+					<li class="nav-item"><%= action %></li>
+				<% end %>
+				<%= render '/spotlight/shared/locale_picker' %>
+				<% if current_user %>
+					<li class="nav-item dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" class="nav-link"><%=current_user%> <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<% if can? :manage, Spotlight::Site.instance %>
+								<li class="nav-item"><%= link_to t(:'spotlight.header_links.edit_site'), spotlight.edit_site_path, class: "nav-link" %></li>
+							<% end %>
+							<% if can? :create, Spotlight::Exhibit %>
+								<li class="nav-item"><%= link_to t(:'spotlight.header_links.create_exhibit'), spotlight.new_exhibit_path, class: "nav-link" %></li>
+							<% end %>
+							<% if current_exhibit && can?(:curate, current_exhibit) %>
+								<li class="nav-item"><%= link_to t('spotlight.header_links.dashboard'), spotlight.exhibit_dashboard_path(current_exhibit), class: "nav-link" %></li>
+							<% end %>
+							<li class="nav-item"><%= link_to t('spotlight.header_links.logout'), main_app.destroy_user_session_path, class: "nav-link" %></li>
+						</ul>
+					</li>
+				<% else %>
+					<li class="nav-item"><%= link_to t('spotlight.header_links.login'), main_app.new_user_session_path, class: "nav-link" %></li>
+				<% end %>
+				<% if current_exhibit and show_contact_form? %>
+					<li class="nav-item"><%= link_to t('spotlight.header_links.contact'), spotlight.new_exhibit_contact_form_path(current_exhibit), data: {behavior: 'contact-link', target: 'report-problem-form', class: "nav-link" } %></li>
+				<% end %>
+			</ul>
 
-                      <li>
-                        <%= link_to t('spotlight.header_links.logout'), main_app.destroy_user_session_path %>
-                      </li>
-                    </ul>
-                  </li>
-                <% else %>
-                  <li>
-                    <%= link_to t('spotlight.header_links.login'), main_app.new_user_session_path %>
-                  </li>
-                <% end %>
-                <% if current_exhibit and show_contact_form? %>
-                  <li>
-                    <%= link_to t('spotlight.header_links.contact'), spotlight.new_exhibit_contact_form_path(current_exhibit), data: {behavior: 'contact-link', target: 'report-problem-form' } %>
-                  </li>
-                <% end %>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+		</div>
+	</nav>
+</section>
