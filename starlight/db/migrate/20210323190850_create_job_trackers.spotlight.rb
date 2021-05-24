@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # This migration comes from spotlight (originally 20210122082032)
 
 class CreateJobTrackers < ActiveRecord::Migration[5.2]

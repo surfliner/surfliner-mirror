@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # This migration comes from spotlight (originally 20210126123041)
 
 class CreateEvents < ActiveRecord::Migration[5.2]

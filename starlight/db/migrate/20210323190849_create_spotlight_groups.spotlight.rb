@@ -2,11 +2,11 @@
 class CreateSpotlightGroups < ActiveRecord::Migration[5.2]
   def self.up
     create_table :spotlight_groups do |t|
-      t.string     :slug
-      t.text       :title
+      t.string :slug
+      t.text :title
       t.references :exhibit
-      t.integer    :weight, default: 50
-      t.boolean    :published
+      t.integer :weight, default: 50
+      t.boolean :published
 
       t.timestamps
     end
