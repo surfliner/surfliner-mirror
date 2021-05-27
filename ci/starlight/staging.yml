@@ -36,6 +36,9 @@ starlight:deploy:ucsb-stage:
       --set starlight.email.smtp_settings.password=$UCSB_STARLIGHT_STAGING_EMAIL_PASSWORD
       --set starlight.email.smtp_settings.port=587
       --set starlight.email.smtp_settings.user_name=$UCSB_STARLIGHT_STAGING_EMAIL_ADDRESS
+      --set starlight.storage.accessKey=$UCSB_STARLIGHT_STAGING_S3_ACCESS_KEY
+      --set starlight.storage.bucket=starlight-s3-staging
+      --set starlight.storage.secretKey=$UCSB_STARLIGHT_STAGING_S3_SECRET_KEY
 
 starlight:cleanup:ucsb-stage:
   extends:
