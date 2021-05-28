@@ -47,8 +47,11 @@
 
 starlight:test:system:
   extends: .starlight:test
+  variables:
+    RAILS_ENV: test
   script:
-    - RAILS_ENV=test bundle exec rspec --tag type:system --format progress --format RspecJunitFormatter --out rspec.xml
+    - bundle exec rake db:migrate
+    - bundle exec rspec --tag type:system --format progress --format RspecJunitFormatter --out rspec.xml
   artifacts:
     name: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
     reports:
@@ -59,8 +62,11 @@ starlight:test:system:
 
 starlight:test:unit:
   extends: .starlight:test
+  variables:
+    RAILS_ENV: test
   script:
-    - RAILS_ENV=test bundle exec rspec --tag ~type:system --format progress --format RspecJunitFormatter --out rspec.xml
+    - bundle exec rake db:migrate
+    - bundle exec rspec --tag ~type:system --format progress --format RspecJunitFormatter --out rspec.xml
   artifacts:
     name: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
     reports:
