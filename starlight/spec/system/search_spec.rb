@@ -49,7 +49,7 @@ RSpec.describe "search", :clean, type: :system, js: true do
       expect(Spotlight::Exhibit.count).to eq 1
       visit("/starlight/the-anna-s-c-blake-manual-training-school/resources/new")
       click_link "Upload multiple items"
-      expect(page).to have_content "CSV File"
+      expect(page).to have_content "CSV file"
       page.attach_file("resources_csv_upload[url]", csv_file_path)
       click_button "Add item"
       visit search_url
