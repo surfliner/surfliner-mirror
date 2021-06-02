@@ -186,7 +186,7 @@ postgresql:
 redis:
   image:
     repository: bitnami/redis
-    tag: 6.2.3
+    tag: 6.2.4
   usePassword: false
 
 resources: {}
