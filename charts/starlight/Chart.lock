@@ -4,7 +4,7 @@ dependencies:
   version: 5.12.1
 - name: minio
   repository: https://charts.bitnami.com/bitnami
-  version: 6.7.9
+  version: 6.7.16
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
   version: 9.8.12
@@ -14,5 +14,5 @@ dependencies:
 - name: solr
   repository: https://charts.bitnami.com/bitnami
   version: 0.3.3
-digest: sha256:a7fc2e13f412ffc5f536a2c79b2c2494e3ee0d9a75317e0bb25d3a0ea8adf7bf
-generated: "2021-05-25T12:52:59.688304712-07:00"
+digest: sha256:08447940760b4b53b478f5786998b20dda43a085a51ee01aea9b867d5f776d00
+generated: "2021-06-02T19:56:42.696350534Z"
