@@ -25,7 +25,7 @@ spec:
             - configMapRef:
                 name: {{ include "starlight.fullname" . }}-env
             - secretRef:
-                name: {{ template "starlight.fullname" . }}
+                name: {{ template "starlight.secretName" . }}
           command: ["/bin/sh"]
           args: ["-c", "bundle exec rake starlight:migrate_iiif_content"]
 {{- end }}

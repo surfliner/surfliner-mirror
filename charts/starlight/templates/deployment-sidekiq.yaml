@@ -39,7 +39,7 @@ spec:
           - configMapRef:
               name: {{ include "starlight.fullname" . }}-env
           - secretRef:
-              name: {{ template "starlight.fullname" . }}
+              name: {{ template "starlight.secretName" . }}
         args:
         - /bin/sh
         - -c

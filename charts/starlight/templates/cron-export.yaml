@@ -34,7 +34,7 @@ spec:
               - name: "PGPASSWORD"
                 valueFrom:
                   secretKeyRef:
-                    name: {{ template "starlight.fullname" . }}
+                    name: {{ template "starlight.secretName" . }}
                     key: POSTGRES_ADMIN_PASSWORD
               - name: "PGUSER"
                 value: postgres

@@ -93,6 +93,16 @@ Alternatively, if postgresqlHostname is set, we use that which allows for an ext
 {{- printf "%s-%s" .Release.Name "solr" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+Supports using an existing secret instead of one built using the Chart
+*/}}
+{{- define "starlight.secretName" -}}
+{{- if .Values.existingSecret.enabled -}}
+{{- .Values.existingSecret.name -}}
+{{- else -}}
+{{ include "starlight.fullname" . }}
+{{- end -}}
+{{- end -}}
+
 {{/*
 TODO: support non-auth enabled SOLR url, and external
 */}}

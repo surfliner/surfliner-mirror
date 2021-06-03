@@ -14,6 +14,11 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+# Set to true if a Secret already exists in the namespace for the Deployment
+existingSecret:
+  name: starlight
+  enabled: false
+
 # Used for local development with k3d
 # If true, will mount the local application source directory into /src on all k3d nodes/workers
 developmentVolume:
