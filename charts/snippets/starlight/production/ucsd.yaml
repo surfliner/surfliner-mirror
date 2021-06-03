@@ -1,0 +1,54 @@
+ingress:
+  hosts:
+    - exhibits.ucsd.edu
+  tls:
+    - hosts:
+        - exhibits.ucsd.edu
+      secretName: tls-secret
+existingSecret:
+  enabled: true
+
+postgresql:
+  enabled: false
+  postgresqlHostname: heisenberg.ucsd.edu
+  postgresqlDatabase: starlight
+starlight:
+  allow_robots: true
+  application:
+    name: "Digital Exhibits"
+  analytics:
+    webPropertyId: UA-3409104-68
+  storage:
+    enabled: true
+    accessKey: uhedJUGHTahvohloo1Oh
+    acl: bucket-owner-full-control
+    bucket: starlight-production
+    endpointUrl: https://lib-minio.ucsd.edu:9006
+    region: us-west-2
+  backups:
+    import:
+      dbBackupSource: s3://starlight-production-backups/starlight.dmp
+      dbBackupDestination: /tmp/starlight-backup.dmp
+      destinationPath: s3://starlight-production/uploads
+      enabled: true
+      oldAppUrl: https://exhibits.ucsd.edu
+      sourcePath: s3://starlight-production-backups/uploads
+    export:
+      dbBackupDestination: s3://ucsd/starlight-k8s.dmp
+      dbBackupSource: /tmp/starlight-backup.dmp
+      destinationPath: s3://starlight-production-backups/uploads
+      enabled: true
+      schedule: "30 8 * * *"
+      sourcePath: s3://starlight-production/uploads
+  sitemaps:
+    enabled: true
+  email:
+    from_address: digitalexhibits@ucsd.edu
+    delivery_method: smtp
+    smtp_settings:
+      address: smtp.ucsd.edu
+      port: 587
+      user_name: digitalexhibits
+      authentication: login
+  auth:
+    method: google

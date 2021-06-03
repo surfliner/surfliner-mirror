@@ -49,7 +49,6 @@ starlight:deploy:ucsd-production:
   script:
     - deploy ./charts/starlight
   variables:
-    HELM_ENCODED_VALUES: $UCSD_STARLIGHT_PRODUCTION_VALUES
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
     HELM_UPGRADE_EXTRA_ARGS: >
-      --values $HELM_VALUES_FILE
+      --values charts/snippets/starlight/production/ucsd.yaml
