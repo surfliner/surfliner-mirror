@@ -88,46 +88,63 @@ version. In order to update Universal Viewer to a newer version:
 
 ## Developing locally
 
-You will need Docker and Docker Compose installed on your host/local system.
+The current practice for Starlight development is to use a `k3s` tool called `k3d`
+which creates containerized `k3s` clusters.
 
-To setup a development environment:
-1. `docker-compose build` to build images (`docker-compose up --build` does not work)
-1. `docker-compose up`  to run dev environment
-1. Access the application on http://localhost:3000
+You will need the following tools installed on your local machine:
 
-For running tests:
+* [Docker][docker]
+* [kubectl][kubectl]
+* [Helm][helm]
+* [k3d][k3d]
+
+Additionally, you will want some way of monitoring and managing the application
+deployments into the `k3s` cluster. There are a variety of tools for doing this:
+
+* [k9s][k9s] - A terminal-based tool for managing k8s clusters
+* [Rancher][rancher] - Provides a very nice UI, but a heavier weight
+    installation locally.
+* Using `kubectl` and `helm` directly. There are times where this is best, but
+    is likely a last resort for regular monitoring.
+
+There are likely other tools in this space as well. As of this writing our team
+currently has experience with both `k9s` and `Rancher`, so these are currently
+recommended.
+
+In general, it is advisable to keep all of these tools up to date. The
+Kubernetes development space and related tooling moves quickly.
+
+### Provisioning the development environment
+
+1. `make setup` (create the K8s cluster, namespace, etc. if needed)
+1. `make build` (create the Starlight Docker image and push it to the local k3d
+   registry)
+1. `make deploy` (deploy Starlight to the local k3d cluster)
+
+#### Customizing Helm Values in Deployment
+It may be the case that one needs to specify difference Helm values than are
+used by the default `k3d.yaml` file. To do this:
+
+- Create an additional `yaml` file with the values you need to update or change
+- Export an environment variable name `LOCAL_VALUES_FILE` and set the value to
+    the path to your `yaml` file
+- Run `make deploy`
+
+Example:
+
+With a `yaml` file stored in `/tmp/local-starlight-values.yaml`
+
+```yaml
+ingress:
+  enabled: true
+  hosts:
+    - host: 'starlight.k3d.my-server'
+      paths: ['/']
 ```
-docker-compose exec web sh -c 'RAILS_QUEUE=inline S3_BUCKET_NAME= RAILS_ENV=test bundle exec rake'
-```
 
-See the [`docker-compose` CLI
-reference](https://docs.docker.com/compose/reference/overview/) for more on commands.
-
-#### Persisting Data during Docker development
-The docker entrypoint script will read an environment variable named
-`DATABASE_COMMAND` that allows you to determine what database rake commands are
-run when the container is started.
-
-By default in `.env.docker` and `.env.docker.test` this will run `db:create
-db:schema:load`. This is desirable because if someone is developing locally
-without docker they are likely using `sqlite3` whereas if someone is using
-docker they will be using `postgres`. So any `db:migrate` commands will
-potentially generate conflicts. However, it means that each `up` command will
-wipe any existing data, which may be problematic during development.
-
-If you wish to persist data across sessions, after the initial creation of the
-containers, you can simply comment out or remove the `DATABASE_COMMAND`, to
-ensure it does not run `db:schema:load` in future runs.
-
-### Load sample data and admin account
-You can use the [sample rake file](./lib/tasks/starlight.rake) to load a sample
-exhibit and generate an administrative user.  The admin user has the email
-address `admin@localhost` and the password `testing`.  This user and exhibit
-will exist on review deployments in GitLab.
-
-```
-docker-compose exec web bundle exec rake starlight:seed_admin_user
-docker-compose exec web bundle exec rake starlight:sample:seed_exhibit
+```sh
+export LOCAL_VALUES_FILE="/tmp/local-starlight-values.yaml"
+make deploy
 ```
 
 ### Set up a local admin account
@@ -137,3 +154,12 @@ docker-compose exec web bundle exec rake starlight:sample:seed_exhibit
 
 ## Email settings
 1. Set `ENV['FROM_EMAIL']` to whatever email address alert emails should come from.
+
+[docker]: https://docs.docker.com/engine/install/
+[helm]: https://helm.sh/docs/intro/install/
+[hyrax]: https://hyrax.samvera.org/
+[k3d]: https://github.com/rancher/k3d/#get
+[k9s]: https://github.com/derailed/k9s
+[kubectl]: https://kubernetes.io/docs/tasks/tools/
+[rancher]: https://rancher.com/docs/rancher/v2.5/en/installation/install-rancher-on-k8s/
+[samvera]: https://samvera.org/
