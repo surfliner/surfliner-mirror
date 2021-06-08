@@ -56,7 +56,7 @@ spec:
             - configMapRef:
                 name: {{ include "starlight.fullname" . }}-env
             - secretRef:
-                name: {{ template "starlight.fullname" . }}
+                name: {{ template "starlight.secretName" . }}
           command: ['sh', '-c', 'bundle exec sidekiq']
       {{- with .Values.nodeSelector }}
       nodeSelector:

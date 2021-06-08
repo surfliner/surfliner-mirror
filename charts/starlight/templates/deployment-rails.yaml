@@ -46,7 +46,7 @@ spec:
             - configMapRef:
                 name: {{ include "starlight.fullname" . }}-env
             - secretRef:
-                name: {{ template "starlight.fullname" . }}
+                name: {{ template "starlight.secretName" . }}
           command:
             - sh
             - -c
@@ -76,7 +76,7 @@ spec:
             - configMapRef:
                 name: {{ include "starlight.fullname" . }}-env
             - secretRef:
-                name: {{ template "starlight.fullname" . }}
+                name: {{ template "starlight.secretName" . }}
           ports:
             - name: http
               containerPort: 3000
