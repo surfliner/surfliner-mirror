@@ -31,6 +31,7 @@ starlight:
       dbBackupDestination: /tmp/starlight-backup.dmp
       destinationPath: s3://starlight-production/uploads
       enabled: false
+      solrReindex: true
       oldAppUrl: https://exhibits.ucsd.edu
       sourcePath: s3://starlight-production-backups/uploads
     export:

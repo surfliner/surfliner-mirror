@@ -29,6 +29,7 @@ starlight:
       enabled: false
       oldAppUrl: https://exhibits.ucsd.edu
       sourcePath: s3://starlight-production-backups/uploads
+      solrReindex: true
   sitemaps:
     enabled: false
   email:
