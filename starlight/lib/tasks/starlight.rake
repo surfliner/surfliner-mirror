@@ -29,9 +29,6 @@ namespace :starlight do
       sql = "UPDATE #{u[:table]} SET #{u[:column]} = replace(#{u[:column]}, '#{old_hostname}', '#{hostname}')"
       ActiveRecord::Base.connection.execute(sql)
     end
-
-    puts "Generating new Solr index.."
-    Rake::Task["spotlight:reindex"].invoke
   end
 
   namespace :sample do

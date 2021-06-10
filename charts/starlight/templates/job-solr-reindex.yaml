@@ -1,24 +1,24 @@
-{{- if .Values.starlight.backups.import.enabled -}}
+{{- if .Values.starlight.backups.import.solrReindex -}}
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ include "starlight.fullname" . }}-migrate-iiif
+  name: {{ include "starlight.fullname" . }}-solr-reindex
   labels:
 {{ include "starlight.labels" . | indent 4 }}
   annotations:
     "helm.sh/hook": post-install
     "helm.sh/hook-delete-policy": hook-succeeded
-    "helm.sh/hook-weight": "5"
+    "helm.sh/hook-weight": "10"
 spec:
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "starlight.name" . }}-migrate-iiif
+        app.kubernetes.io/name: {{ include "starlight.name" . }}-solr-reindex
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       restartPolicy: Never
       containers:
-        - name: starlight-migrate-iiif-urls
+        - name: starlight-solr-reindex
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
@@ -27,5 +27,5 @@ spec:
             - secretRef:
                 name: {{ template "starlight.secretName" . }}
           command: ["/bin/sh"]
-          args: ["-c", "bundle exec rake starlight:migrate_iiif_content"]
+          args: ["-c", "bundle exec rake spotlight:reindex"]
 {{- end }}
