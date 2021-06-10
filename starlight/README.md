@@ -121,6 +121,18 @@ Kubernetes development space and related tooling moves quickly.
    registry)
 1. `make deploy` (deploy Starlight to the local k3d cluster)
 
+The application will be available, by default, at:
+
+```sh
+http://starlight.k3d.localhost
+```
+
+And the Minio/S3 UI is available at:
+
+```sh
+http://starlight-minio.k3d.localhost
+```
+
 #### Customizing Helm Values in Deployment
 It may be the case that one needs to specify difference Helm values than are
 used by the default `k3d.yaml` file. To do this:

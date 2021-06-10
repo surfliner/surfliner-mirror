@@ -7,6 +7,9 @@ persistence:
   enabled: false
 minio:
   enabled: true
+  ingress:
+    enabled: true
+    hostname: starlight-minio.k3d.localhost
 postgresql:
   persistence:
     enabled: false
