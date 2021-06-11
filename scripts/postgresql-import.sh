@@ -2,8 +2,11 @@
 set -e
 
 echo "Downloading $PGDATABASE database backup..."
-aws --endpoint-url "$ENDPOINT_URL" s3 cp "$DB_BACKUP_SOURCE" "$DB_BACKUP_DESTINATION"
-
+if [ -z "$ENDPOINT_URL" ]; then
+  aws s3 cp "$DB_BACKUP_SOURCE" "$DB_BACKUP_DESTINATION"
+else
+  aws --endpoint-url "$ENDPOINT_URL" s3 cp "$DB_BACKUP_SOURCE" "$DB_BACKUP_DESTINATION"
+fi
 # Ensure we can interact with the database
 while ! nc -z "$PGHOST" 5432
 do
