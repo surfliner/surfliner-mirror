@@ -127,10 +127,16 @@ The application will be available, by default, at:
 http://starlight.k3d.localhost
 ```
 
-And the Minio/S3 UI is available at:
+The Minio/S3 UI is available at:
 
 ```sh
 http://starlight-minio.k3d.localhost
+```
+
+The Solr UI is available at:
+
+```sh
+http://starlight-solr.k3d.localhost
 ```
 
 #### Customizing Helm Values in Deployment

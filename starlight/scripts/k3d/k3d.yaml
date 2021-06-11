@@ -27,6 +27,9 @@ solr:
   persistence:
     enabled: false
   replicaCount: 3
+  ingress:
+    enabled: true
+    hostname: starlight-solr.k3d.localhost
   zookeeper:
     persistence:
       enabled: false
