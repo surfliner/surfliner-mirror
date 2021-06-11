@@ -26,7 +26,7 @@ spec:
               - name: "DB_BACKUP_DESTINATION"
                 value: {{ .Values.starlight.backups.export.dbBackupDestination }}
               - name: "DESTINATION_PATH"
-                value: {{ .Values.starlight.backups.export.destinationPath }}
+                value: s3://{{ .Values.starlight.storage.bucket }}
               - name: "SOURCE_PATH"
                 value: {{ .Values.starlight.backups.export.sourcePath }}
               - name: "PGHOST"

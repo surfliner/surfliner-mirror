@@ -23,22 +23,7 @@ starlight:deploy:ucsb-stage:
     on_stop: starlight:cleanup:ucsb-stage
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
-      --set ingress.hosts={starlight-staging.$KUBE_INGRESS_BASE_DOMAIN}
-      --set persistence.cache.class=gp2
-      --set persistence.public.class=gp2
-      --set starlight.auth.google.api_id=$UCSB_STAGE_GOOGLE_ID
-      --set starlight.auth.google.api_secret=$UCSB_STAGE_GOOGLE_SECRET
-      --set starlight.auth.method=google
-      --set starlight.email.delivery_method=smtp
-      --set starlight.email.from_address=$UCSB_STARLIGHT_STAGING_EMAIL_ADDRESS
-      --set starlight.email.smtp_settings.address=smtp.gmail.com
-      --set starlight.email.smtp_settings.authentication=plain
-      --set starlight.email.smtp_settings.password=$UCSB_STARLIGHT_STAGING_EMAIL_PASSWORD
-      --set starlight.email.smtp_settings.port=587
-      --set starlight.email.smtp_settings.user_name=$UCSB_STARLIGHT_STAGING_EMAIL_ADDRESS
-      --set starlight.storage.accessKey=$UCSB_STARLIGHT_STAGING_S3_ACCESS_KEY
-      --set starlight.storage.bucket=starlight-uploads-staging
-      --set starlight.storage.secretKey=$UCSB_STARLIGHT_STAGING_S3_SECRET_KEY
+      --values charts/snippets/starlight/staging/ucsb.yaml
 
 starlight:cleanup:ucsb-stage:
   extends:

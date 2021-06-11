@@ -1,0 +1,44 @@
+ingress:
+  hosts:
+    - starlight-staging.eks.dld.library.ucsb.edu
+existingSecret:
+  enabled: true
+persistence:
+  cache:
+    class: gp2
+  public:
+    class: gp2
+postgresql:
+  enabled: false
+  postgresqlDatabase: starlight-staging
+  postgresqlHostname: starlight-staging-postgresql.postgresql-staging
+  postgresqlUsername: starlight
+starlight:
+  application:
+    name: "Starlight"
+  backups:
+    import:
+      enabled: true
+      dbBackupSource: s3://starlight-migrate-staging/starlight-stage.2021-06-10.sql
+      dbBackupDestination: /tmp/starlight-backup.dmp
+      oldAppUrl: http://starlight-stage.library.ucsb.edu
+      sourcePath: s3://starlight-uploads-staging/uploads
+      solrReindex: true
+  storage:
+    enabled: true
+    accessKey: AKIAV5LYGG4AN76W5ZGV
+    acl: bucket-owner-full-control
+    bucket: starlight-uploads-staging
+    region: us-west-2
+  sitemaps:
+    enabled: false
+  email:
+    from_address: library-spotlight@ucsb.edu
+    delivery_method: smtp
+    smtp_settings:
+      address: smtp.gmail.com
+      port: 587
+      user_name: library-spotlight-staging@ucsb.edu
+      authentication: plain
+  auth:
+    method: google

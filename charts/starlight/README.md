@@ -155,11 +155,10 @@ Export:
 | `backups.import.accessKey` | S3/Minio access key | `nil` | `AWS_ACCESS_KEY_ID` |
 | `backups.import.dbBackupSource` | s3:// URL or local file path for psql backup source file | `nil` | `DB_BACKUP_SOURCE` |
 | `backups.import.dbBackupDestination` | s3:// URL or local file path for psql backup destination file | `nil` | `DB_BACKUP_DESTINATION` |
-| `backups.import.destinationPath` | s3:// URL or local file directory for where images should be imported in the new deployed environment. Will be copied from `backups.import.sourcePath` | `nil` | `DESTINATION_PATH` |
 | `backups.import.endpointUrl` | S3/Minio endpoint URL | `nil` | `ENDPOINT_URL` |
 | `backups.import.oldAppUrl` | URL for previous system, used for iiif url migration. e.g. `https://exhibits.ucsd.edu` | `nil` | `ENDPOINT_URL` |
 | `backups.import.secretKey` | S3/Minio secret key | `nil` | `AWS_SECRET_ACCESS_KEY` |
-| `backups.import.sourcePath` | s3:// URL or local directory path to images directory backup. Will be copied to `backups.import.destinationPath` | `nil` | `SOURCE_PATH` |
+| `backups.import.sourcePath` | s3:// URL or local directory path to images directory backup. Will be copied to `storage.bucket` | `nil` | `SOURCE_PATH` |
 
 #### Export Configuration
 
@@ -169,11 +168,10 @@ Export:
 | `backups.export.accessKey` | S3/Minio access key | `nil` | `AWS_ACCESS_KEY_ID` |
 | `backups.export.dbBackupSource` | s3:// URL or local file path for psql backup source file | `nil` | `DB_BACKUP_SOURCE` |
 | `backups.export.dbBackupDestination` | s3:// URL or local file path for psql backup destination file | `nil` | `DB_BACKUP_DESTINATION` |
-| `backups.export.destinationPath` | s3:// URL or local file directory for where images should be exported. Will be copied from `backups.export.sourcePath` | `nil` | `DESTINATION_PATH` |
 | `backups.export.endpointUrl` | S3/Minio endpoint URL | `nil` | `ENDPOINT_URL` |
 | `backups.export.schedule` | k8s cron schedule for export. e.g: `30 8 * * *` | `nil` | N/A |
 | `backups.export.secretKey` | S3/Minio secret key | `nil` | `AWS_SECRET_ACCESS_KEY` |
-| `backups.export.sourcePath` | s3:// URL or local directory path to images directory in the currently deployed environment. Will be copied to `backups.export.destinationPath` | `nil` | `SOURCE_PATH` |
+| `backups.export.sourcePath` | s3:// URL or local directory path to images directory in the currently deployed environment. Will be copied to `storage.bucket` | `nil` | `SOURCE_PATH` |
 
 Note: If setting up an S3 bucket for import or export, which relies on the `sync` option
 in the `aws-cli` tool, you will need to ensure that you set a `ListBucket`

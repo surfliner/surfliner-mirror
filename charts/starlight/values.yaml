@@ -88,7 +88,6 @@ starlight:
       adminPassword: admin
   # s3-compatible storage via Amazon or Minio
   storage:
-    enabled: true
     accessKey: starlight-access-key
     acl: 'bucket-owner-full-control' #aws/minio ACL
     bucket: starlight
@@ -101,16 +100,14 @@ starlight:
     import:
       enabled: false
       solrReindex: false # flag to run a full solr reindex on import/initial deploy
-      # dbBackupSource: s3:// URL or local file path for psql database backup source file. e.g: s3://ucsd/starlight.dmp or /tmp/starlight-backup.dmp
+      # dbBackupSource: s3:// URL or local file path for importing psql database backup source. e.g: s3://ucsd/starlight.dmp or /tmp/starlight-backup.dmp
       # dbBackupDestination: s3:// URL or local file path for psql database backup destination file. e.g: s3://ucsd/starlight.dmp or /tmp/starlight-backup.dmp
-      # destinationPath: s3:// URL or local directory path to destination path. e.g. s3://my-bucket/uploads or /uploads
       # oldAppUrl: url for previous system, used for iiif url migration. i.e. https://exhibits.ucsd.edu
-      # sourcePath: s3:// URL or local directory path to source path. e.g. s3://my-bucket/uploads or /uploads
+      # sourcePath: s3:// URL or local directory path for importing image upload backup source. e.g. s3://my-bucket/uploads or /uploads
     export:
       enabled: false
       # dbBackupSource: s3:// URL or local file path for psql database backup source file. e.g: s3://ucsd/starlight.dmp or /tmp/starlight-backup.dmp
       # dbBackupDestination: s3:// URL or local file path for psql database backup destination file. e.g: s3://ucsd/starlight.dmp or /tmp/starlight-backup.dmp
-      # destinationPath: s3:// URL or local directory path to destination path. e.g. s3://my-bucket/uploads or /uploads
       # schedule: k8s cron schedule for exports. e.g. "30 8 * * *"
       # sourcePath: s3:// URL or local directory path to source path. e.g. s3://my-bucket/uploads or /uploads
   email:

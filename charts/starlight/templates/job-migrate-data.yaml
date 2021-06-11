@@ -28,7 +28,7 @@ spec:
           - name: "DB_BACKUP_DESTINATION"
             value: {{ .Values.starlight.backups.import.dbBackupDestination }}
           - name: "DESTINATION_PATH"
-            value: {{ .Values.starlight.backups.import.destinationPath }}
+            value: s3://{{ .Values.starlight.storage.bucket }}
           - name: "SOURCE_PATH"
             value: {{ .Values.starlight.backups.import.sourcePath }}
           - name: "PGHOST"
@@ -47,7 +47,10 @@ spec:
           - name: "AWS_DEFAULT_REGION"
             value: {{ .Values.starlight.storage.region }}
           - name: "AWS_SECRET_ACCESS_KEY"
-            value: {{ .Values.starlight.storage.secretKey }}
+            valueFrom:
+              secretKeyRef:
+                name: {{ template "starlight.secretName" . }}
+                key: AWS_SECRET_ACCESS_KEY
           - name: "ENDPOINT_URL"
             value: {{ .Values.starlight.storage.endpointUrl }}
 {{- end }}
