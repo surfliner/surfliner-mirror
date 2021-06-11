@@ -42,6 +42,10 @@ starlight:
   rails:
     environment: development
     serve_static_files: false
+
+extraContainerConfiguration:
+  stdin: true
+  tty: true
 extraVolumeMounts:
    - name: local-app
      mountPath: /home/starlight/app

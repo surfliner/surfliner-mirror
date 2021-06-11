@@ -58,6 +58,9 @@ spec:
             - secretRef:
                 name: {{ template "starlight.secretName" . }}
           command: ['sh', '-c', 'bundle exec sidekiq']
+          {{- with .Values.extraContainerConfiguration }}
+          {{- toYaml . | nindent 10 }}
+          {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

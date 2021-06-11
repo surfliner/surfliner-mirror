@@ -32,6 +32,16 @@ existingSecret:
 extraVolumeMounts: []
 extraVolumes: []
 
+# Extra container spec configuration
+# Example: (enabling pry debugging for local development)
+# Note: with this enabled, one can `kubectl attach` to a running container with a binding.pry breakpoint
+#
+#extraContainerConfiguration:
+# stdin: true
+# tty: true
+extraContainerConfiguration: []
+
+
 service:
   type: ClusterIP
   port: 80

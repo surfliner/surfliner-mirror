@@ -139,6 +139,14 @@ The Solr UI is available at:
 http://starlight-solr.k3d.localhost
 ```
 
+#### Debugging in k3d/k3s with Pry
+Starlight includes the [`pry`][pry] gem for debugging.
+
+In order to use `binding.pry` in a k3d/k8s environment, one needs to use the
+[`kubectl attach` command][k8s-attach]. Writing out command by hand is
+cumbersome, so we recommend using [k9s][k9s] and using the built-in `Attach`
+command available when viewing container information within the UI.
+
 #### Customizing Helm Values in Deployment
 It may be the case that one needs to specify difference Helm values than are
 used by the default `k3d.yaml` file. To do this:
@@ -177,7 +185,9 @@ make deploy
 [helm]: https://helm.sh/docs/intro/install/
 [hyrax]: https://hyrax.samvera.org/
 [k3d]: https://github.com/rancher/k3d/#get
+[k8s-attach]: https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#attach
 [k9s]: https://github.com/derailed/k9s
 [kubectl]: https://kubernetes.io/docs/tasks/tools/
+[pry]: https://pry.github.io/
 [rancher]: https://rancher.com/docs/rancher/v2.5/en/installation/install-rancher-on-k8s/
 [samvera]: https://samvera.org/
