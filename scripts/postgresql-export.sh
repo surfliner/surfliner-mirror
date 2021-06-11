@@ -11,4 +11,8 @@ done
 echo "Creating database backup for $PGDATABASE..."
 pg_dump -Fc -f "$DB_BACKUP_SOURCE"
 echo "Uploading database backup to S3/Minio bucket..."
-aws --endpoint-url "$ENDPOINT_URL" s3 cp "$DB_BACKUP_SOURCE" "$DB_BACKUP_DESTINATION"
+if [ -z "$ENDPOINT_URL" ]; then
+  aws s3 cp "$DB_BACKUP_SOURCE" "$DB_BACKUP_DESTINATION"
+else
+  aws --endpoint-url "$ENDPOINT_URL" s3 cp "$DB_BACKUP_SOURCE" "$DB_BACKUP_DESTINATION"
+fi
