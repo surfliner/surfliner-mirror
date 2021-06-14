@@ -17,8 +17,8 @@ spec:
         spec:
           containers:
           - name: starlight-export
-            image: registry.gitlab.com/surfliner/surfliner/surfliner-util:stable
-            imagePullPolicy: {{ .Values.image.pullPolicy }}
+            image: "{{ .Values.util.image.repository }}:{{ .Values.util.image.tag }}"
+            imagePullPolicy: "{{ .Values.util.image.pullPolicy }}"
             command: ["/bin/sh", "-c", "postgresql-export.sh && file-sync.sh"]
             env:
               - name: "DB_BACKUP_SOURCE"
