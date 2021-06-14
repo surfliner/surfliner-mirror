@@ -23,7 +23,7 @@ RSpec.describe "Import and Display a Work", :clean, type: :system, js: true do
       click_link "Create new exhibit"
       fill_in("Title", with: "Test Exhibit")
       fill_in("Tag list", with: "testing")
-      click_button "Save"
+      click_button "Create Exhibit"
       expect(page).to have_content "The exhibit was created."
       expect(Spotlight::Exhibit.count).to eq 1
       exhibit = Spotlight::Exhibit.first
