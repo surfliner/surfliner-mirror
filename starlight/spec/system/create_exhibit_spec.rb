@@ -8,7 +8,6 @@ RSpec.describe "Import and Display a Work", :clean, type: :system, js: true do
   let(:site_admin)      { FactoryBot.create(:omniauth_site_admin) }
 
   before do
-    enable_selenium_file_detector
     stub_http_image_uploads
     omniauth_setup_dev_auth_for(site_admin)
     sign_in
@@ -33,9 +32,11 @@ RSpec.describe "Import and Display a Work", :clean, type: :system, js: true do
       expect(exhibit.title).to eq "Test Exhibit"
       visit("/starlight/test-exhibit/resources/new")
       click_link "Upload multiple items"
-      expect(page).to have_content "CSV File"
+      expect(page).to have_content "CSV file"
       page.attach_file("resources_csv_upload[url]", csv_file_path)
-      click_button "Add item"
+      within "#new_resources_csv_upload" do
+        click_button "Add item"
+      end
       visit "/starlight/test-exhibit/catalog?utf8=%E2%9C%93&exhibit_id=test-exhibit&search_field=all_fields&q="
       expect(page).to have_content "Colima dog in Santa Rosilia"
 

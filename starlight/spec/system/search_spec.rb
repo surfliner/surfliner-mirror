@@ -30,7 +30,6 @@ RSpec.describe "search", :clean, type: :system, js: true do
   let(:attribution)     { "Whitman" }
 
   before do
-    enable_selenium_file_detector
     stub_http_image_uploads
 
     allow(Spotlight::DefaultThumbnailJob).to receive(:perform_later)
