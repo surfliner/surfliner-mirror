@@ -3,7 +3,7 @@
 class SearchBuilder < Blacklight::SearchBuilder
   include Blacklight::Solr::SearchBuilderBehavior
 
-  include Spotlight::AccessControlsEnforcementSearchBuilder
+  include Spotlight::SearchBuilder
 
   ##
   # @example Adding a new step to the processor chain
