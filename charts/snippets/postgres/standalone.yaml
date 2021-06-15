@@ -1,15 +1,13 @@
 # Configuration for postgresql chart
 # https://github.com/bitnami/charts/tree/master/bitnami/postgresql#parameters
-postgresql:
-  image:
-    repository: bitnami/postgresql
-    tag: 12.7.0
-  cpu: 1000m
-  memory: 1Gi
-  # postgresqlUsername: user
-  # postgresqlPassword: pass
-  # postgresqlDatabase: db
-  # postgresqlPostgresPassword: admin
-  servicePort: 5432
-  persistence:
-    size: 10Gi
+image:
+  repository: bitnami/postgresql
+  tag: 12.7.0
+cpu: 1000m
+memory: 1Gi
+postgresqlUsername: starlight
+postgresqlDatabase: starlight-staging
+existingSecret: starlight-staging-postgres
+servicePort: 5432
+persistence:
+  size: 10Gi
