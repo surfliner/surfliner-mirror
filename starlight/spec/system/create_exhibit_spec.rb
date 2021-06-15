@@ -8,7 +8,6 @@ RSpec.describe "Import and Display a Work", :clean, type: :system, js: true do
   let(:site_admin)      { FactoryBot.create(:omniauth_site_admin) }
 
   before do
-    stub_http_image_uploads
     omniauth_setup_dev_auth_for(site_admin)
     sign_in
     allow(Spotlight::DefaultThumbnailJob).to receive(:perform_later)
@@ -24,19 +23,20 @@ RSpec.describe "Import and Display a Work", :clean, type: :system, js: true do
       fill_in("Tag list", with: "testing")
       click_button "Create Exhibit"
       expect(page).to have_content "The exhibit was created."
+      visit "/starlight/test-exhibit/edit"
+      page.check("exhibit_published")
+      click_button "Save changes"
       expect(Spotlight::Exhibit.count).to eq 1
-      exhibit = Spotlight::Exhibit.first
-      exhibit.published = true
-      exhibit.save
-      exhibit.reindex_later
-      expect(exhibit.title).to eq "Test Exhibit"
+      expect(Spotlight::Exhibit.first.published).to be true
       visit("/starlight/test-exhibit/resources/new")
+      stubbed_upload = stub_http_image_uploads
       click_link "Upload multiple items"
       expect(page).to have_content "CSV file"
       page.attach_file("resources_csv_upload[url]", csv_file_path)
       within "#new_resources_csv_upload" do
         click_button "Add item"
       end
+      expect(stubbed_upload).to have_been_requested
       visit "/starlight/test-exhibit/catalog?utf8=%E2%9C%93&exhibit_id=test-exhibit&search_field=all_fields&q="
       expect(page).to have_content "Colima dog in Santa Rosilia"
 
