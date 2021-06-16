@@ -15,4 +15,12 @@ do
 done
 
 echo "Restoring database backup $PGDATABASE"
-pg_restore --clean --single-transaction --verbose -U "$PGUSER" -d "$PGDATABASE" "$DB_BACKUP_DESTINATION"
+pg_restore \
+  --clean \
+  --if-exists \
+  --verbose \
+  -U "$PGUSER" \
+  --no-owner \
+  --role="$PGUSER" \
+  -d "$PGDATABASE" \
+  "$DB_BACKUP_DESTINATION"
