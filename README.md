@@ -131,7 +131,7 @@ Daily, 10:30-10:45am (*except last day of each sprint*)<br/>
 
 **Project Surfliner Sprint Review**<br/>
 Last day of each sprint, 10:30-11:30am<br/>
-Use DSU Zoom link: [https://ucsb.zoom.us/j/310736504](https://ucsb.zoom.us/j/310736504)<br/>
+[https://ucsd.zoom.us/j/5296465230](https://ucsd.zoom.us/j/5296465230)<br/>
 
 **Project Surfliner Sprint Retrospective**<br/>
 Last day of each sprint, 2:00-3:00pm<br/>
