@@ -41,6 +41,11 @@ extraVolumes: []
 # tty: true
 extraContainerConfiguration: []
 
+# Used by k3d local development environment
+# see: templates/job-create-test-db
+testDatabase:
+  enabled: false
+  name: starlight_db_test
 
 service:
   type: ClusterIP

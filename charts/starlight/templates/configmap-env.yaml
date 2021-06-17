@@ -64,5 +64,8 @@ data:
   SOLR_HOST: {{ template "starlight.solr.fullname" . }}
   SOLR_PORT: {{ .Values.starlight.solr.port | quote }}
   SPOTLIGHT_THEMES: {{ .Values.starlight.application.themes }}
+  {{- if .Values.testDatabase.enabled }}
+  TEST_POSTGRES_DB: {{ .Values.testDatabase.name }}
+  {{- end }}
   ZK_HOST: {{ template "starlight.zk.fullname" . }}
   ZK_PORT: {{ .Values.starlight.zookeeper.port | quote }}

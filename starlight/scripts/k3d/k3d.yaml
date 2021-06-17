@@ -1,5 +1,7 @@
 image:
   tag: local
+testDatabase:
+  enabled: true
 ingress:
   enabled: true
   hosts: ['starlight.k3d.localhost']
@@ -54,3 +56,22 @@ extraVolumes:
    hostPath:
      path: /src
      type: DirectoryOrCreate
+extraInitContainers:
+- name: starlight-create-test-db
+  image: registry.gitlab.com/surfliner/surfliner/surfliner-util:stable
+  imagePullPolicy: Always
+  command:
+    - /bin/sh
+    - -c
+    - db-wait.sh development-postgresql:5432 createdb --owner starlight
+  env:
+    - name: "PGHOST"
+      value: development-postgresql
+    - name: "PGPASSWORD"
+      value: starlight_admin
+    - name: "PGUSER"
+      value: postgres
+    - name: "PGDATABASE"
+      value: starlight_db_test
+    - name: "PGOWNER"
+      value: starlight
