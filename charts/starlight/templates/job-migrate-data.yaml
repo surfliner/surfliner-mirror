@@ -40,6 +40,8 @@ spec:
                 key: POSTGRES_ADMIN_PASSWORD
           - name: "PGUSER"
             value: postgres
+          - name: "PG_RUNTIME_USER"
+            value: {{ .Values.postgresql.postgresqlUsername }}
           - name: "PGDATABASE"
             value: {{ .Values.postgresql.postgresqlDatabase }}
           - name: "AWS_ACCESS_KEY_ID"
