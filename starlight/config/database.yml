@@ -9,27 +9,11 @@ development:
   url: <%= DatabaseURL.build(ENV, "development") %>
 
 test:
-<<<<<<< HEAD
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") %>
   timeout: 5000
   url: <%= DatabaseURL.build(ENV, "test") %>
-||||||| parent of cd6f1e08 (starlight: use 3.x upstream)
-  <<: *default
-=======
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") %>
-  timeout: 5000
-  url: <%= DatabaseURL.build(ENV) %>
->>>>>>> cd6f1e08 (starlight: use 3.x upstream)
 
 production:
-<<<<<<< HEAD
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") %>
   timeout: 5000
   url: <%= DatabaseURL.build(ENV, "production") %>
-||||||| parent of cd6f1e08 (starlight: use 3.x upstream)
-  <<: *default
-=======
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") %>
-  timeout: 5000
-  url: <%= DatabaseURL.build(ENV) %>
->>>>>>> cd6f1e08 (starlight: use 3.x upstream)
