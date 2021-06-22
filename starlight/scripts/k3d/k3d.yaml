@@ -63,7 +63,7 @@ extraInitContainers:
   command:
     - /bin/sh
     - -c
-    - db-wait.sh development-postgresql:5432 createdb --owner starlight
+    - db-wait.sh development-postgresql:5432 createdb.sh
   env:
     - name: "PGHOST"
       value: development-postgresql
