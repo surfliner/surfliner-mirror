@@ -58,7 +58,7 @@ extraVolumes:
      type: DirectoryOrCreate
 extraInitContainers:
 - name: starlight-create-test-db
-  image: registry.gitlab.com/surfliner/surfliner/surfliner-util:stable
+  image: local
   imagePullPolicy: Always
   command:
     - /bin/sh

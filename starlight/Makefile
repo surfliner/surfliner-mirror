@@ -18,8 +18,13 @@ deploy: setup
 drop:
 	scripts/k3d/drop.sh
 
-build: registry
+build-util: registry
+	scripts/k3d/build-util.sh
+
+build-app: registry
 	scripts/k3d/build.sh
+
+build: build-util build-app
 
 registry:
 	scripts/k3d/registry.sh
