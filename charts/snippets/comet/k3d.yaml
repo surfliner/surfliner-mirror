@@ -91,6 +91,8 @@ extraEnvVars:
     value: "developer"
   - name: "CAPYBARA_SERVER"
     value: "http://comet-hyrax.comet-development:3010"
+  - name: "CAPYBARA_PORT"
+    value: "3010"
   - name: "HUB_URL"
     value: "http://chrome.surfliner-utilities:4444/wd/hub"
   - name: "METADATA_DATABASE_NAME"
@@ -108,7 +110,7 @@ extraEnvVars:
   - name: "REPOSITORY_S3_SECRET_KEY"
     value: "comet-secret"
   - name: "SKIP_SELENIUM"
-    value: "1"
+    value: ""
 minio:
   enabled: true
   persistence:
