@@ -18,7 +18,7 @@ starlight:
     name: "Starlight"
   backups:
     import:
-      enabled: true
+      enabled: false
       dbBackupSource: s3://starlight-migrate-staging/starlight-stage.2021-06-10.sql
       dbBackupDestination: /tmp/starlight-backup.dmp
       oldAppUrl: http://starlight-stage.library.ucsb.edu
