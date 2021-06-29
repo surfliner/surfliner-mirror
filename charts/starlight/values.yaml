@@ -48,11 +48,12 @@ extraVolumes: []
 # tty: true
 extraContainerConfiguration: []
 
-# Used by k3d local development environment
-# see: templates/job-create-test-db
-testDatabase:
-  enabled: false
-  name: starlight_db_test
+# additional environment variables, evaluated as a template. e.g.
+#
+#  extraEnvVars:
+#    - name: TEST_SOLR_URL
+#      value: "my-test-solr-url"
+extraEnvVars: []
 
 service:
   type: ClusterIP

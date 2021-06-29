@@ -57,6 +57,8 @@ spec:
                 name: {{ include "starlight.fullname" . }}-env
             - secretRef:
                 name: {{ template "starlight.secretName" . }}
+          env:
+            {{- toYaml .Values.extraEnvVars | nindent 12 }}
           command: ['sh', '-c', 'bundle exec sidekiq']
           {{- with .Values.extraContainerConfiguration }}
           {{- toYaml . | nindent 10 }}

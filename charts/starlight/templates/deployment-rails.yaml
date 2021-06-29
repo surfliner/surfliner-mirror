@@ -80,6 +80,8 @@ spec:
                 name: {{ include "starlight.fullname" . }}-env
             - secretRef:
                 name: {{ template "starlight.secretName" . }}
+          env:
+            {{- toYaml .Values.extraEnvVars | nindent 12 }}
           ports:
             - name: http
               containerPort: 3000
