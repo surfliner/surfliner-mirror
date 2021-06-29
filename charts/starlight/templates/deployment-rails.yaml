@@ -25,9 +25,6 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       initContainers:
-        {{- with .Values.extraInitContainers }}
-        {{- toYaml . | nindent 8 }}
-        {{- end }}
         - name: load-solr-config
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: Always
@@ -54,6 +51,9 @@ spec:
             - sh
             - -c
             - db-setup.sh
+        {{- with .Values.extraInitContainers }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       volumes:
         - name: blacklight-locale
           configMap:

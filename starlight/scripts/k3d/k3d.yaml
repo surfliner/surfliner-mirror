@@ -1,7 +1,5 @@
 image:
   tag: local
-testDatabase:
-  enabled: true
 ingress:
   enabled: true
   hosts: ['starlight.k3d.localhost']
@@ -45,6 +43,11 @@ starlight:
     environment: development
     serve_static_files: false
 
+extraEnvVars:
+  - name: "TEST_SOLR_URL"
+    value: "http://admin:admin@development-solr:8983/solr/testCollection"
+  - name: "TEST_POSTGRES_DB"
+    value: "starlight_db_test"
 extraContainerConfiguration:
   stdin: true
   tty: true
@@ -58,7 +61,6 @@ extraVolumes:
      type: DirectoryOrCreate
 extraInitContainers:
 - name: starlight-create-test-db
-  image: local
   imagePullPolicy: Always
   command:
     - /bin/sh
@@ -75,3 +77,22 @@ extraInitContainers:
       value: starlight_db_test
     - name: "PGOWNER"
       value: starlight
+- name: starlight-create-test-solr-collection
+  imagePullPolicy: Always
+  command:
+    - /bin/sh
+    - -c
+    - db-wait.sh development-solr:8983 solrcloud-create-collection.sh
+  env:
+    - name: "SOLR_HOST"
+      value: development-solr
+    - name: "SOLR_PORT"
+      value: "8983"
+    - name: "SOLR_ADMIN_USER"
+      value: admin
+    - name: "SOLR_ADMIN_PASSWORD"
+      value: admin
+    - name: "SOLR_COLLECTION_NAME"
+      value: testCollection
+    - name: "SOLR_COLLECTION_SHARDS"
+      value: "2"

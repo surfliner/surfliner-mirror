@@ -4,7 +4,7 @@ development:
 
 test: &test
   adapter: solr
-  url: <%= ENV.fetch("SOLR_URL") %>
+  url: <%= ENV.fetch("TEST_SOLR_URL") { ENV.fetch("SOLR_URL") } %>
 
 production:
   adapter: solr
