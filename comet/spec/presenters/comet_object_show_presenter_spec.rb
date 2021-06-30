@@ -11,7 +11,7 @@ RSpec.describe CometObjectShowPresenter do
     let(:members) { [] }
 
     it "is empty" do
-      expect(presenter.member_presenters).to be_empty
+      expect(presenter.member_presenters).to be_none
     end
 
     context "with members" do
