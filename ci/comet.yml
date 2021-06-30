@@ -23,5 +23,5 @@ include:
   variables:
     HELM_EXPERIMENTAL_OCI: 1
   script:
-    - helm pull oci://ghcr.io/samvera/hyrax/hyrax-helm --version 0.15.0 --untar --untardir charts
+    - helm pull oci://ghcr.io/samvera/hyrax/hyrax-helm --version 0.21.0 --untar --untardir charts
     - deploy ./charts/hyrax
