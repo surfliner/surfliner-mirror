@@ -7,7 +7,7 @@ require File.expand_path("../config/environment", __dir__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require "rspec/rails"
 # Add additional requires below this line. Rails is not loaded until this point!
-require "support/chromium_driver.rb"
+require "support/chromium_driver"
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
@@ -34,7 +34,7 @@ RSpec.configure do |config|
   config.before(:each, type: :system) do
     Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"
 
-    if ENV["SKIP_SELENIUM"] == '1'
+    if ENV["SKIP_SELENIUM"] == "1"
       driven_by(:rack_test)
     else
       driven_by(:selenium_standalone_chrome_headless_sandboxless)
