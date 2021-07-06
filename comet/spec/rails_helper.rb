@@ -34,7 +34,7 @@ RSpec.configure do |config|
   config.before(:each, type: :system) do
     Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"
 
-    if ENV["SKIP_SELENIUM"] == "1"
+    if ENV["SKIP_SELENIUM"].present?
       driven_by(:rack_test)
     else
       driven_by(:selenium_standalone_chrome_headless_sandboxless)
