@@ -4,7 +4,11 @@ development:
 
 test: &test
   adapter: solr
+  <% if ENV["SOLR_ADMIN_USER"].present? %>
   url: <%= sprintf "http://%s:%s@%s:%s/solr/%s", ENV["SOLR_ADMIN_USER"], ENV["SOLR_ADMIN_PASSWORD"], ENV["SOLR_HOST"], ENV["SOLR_PORT"], ENV["SOLR_COLLECTION_NAME"] %>
+  <% else %>
+  url: <%= sprintf "http://%s:%s/solr/%s", ENV["SOLR_HOST"], ENV["SOLR_PORT"], ENV["SOLR_COLLECTION_NAME"] %>
+  <% end %>
 
 production:
   adapter: solr

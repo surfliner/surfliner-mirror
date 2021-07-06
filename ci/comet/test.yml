@@ -21,6 +21,7 @@ comet:test:unit:
     REDIS_HOST: "redis"
     REDIS_PASSWORD: "redispass"
     SOLR_CORE_NAME: comet-test
+    SOLR_COLLECTION_NAME: comet-test
     SOLR_HOST: solr
     SOLR_PORT: 8983
     ZK_HOST: zk
