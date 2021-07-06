@@ -7,9 +7,9 @@ comet:test:unit:
       alias: postgres
     - name: bitnami/redis:6.2
       alias: redis
-    - name: bitnami/solr:8
+    - name: solr:8.8.0
       alias: solr
-    - name: bitnami/zookeeper:3
+    - name: zookeeper:3.6
       alias: zk
   variables:
     DATABASE_URL: "postgres://postgres:postgres@localhost/comet-test"
@@ -20,22 +20,16 @@ comet:test:unit:
     RAILS_QUEUE: "inline"
     REDIS_HOST: "redis"
     REDIS_PASSWORD: "redispass"
-    SOLR_ADMIN_USER: admin
-    SOLR_ADMIN_PASS: admin
-    SOLR_ADMIN_PASSWORD: admin
-    SOLR_CLOUD_BOOTSTRAP: "yes"
-    SOLR_COLLECTION_NAME: comet-test
-    SOLR_ENABLE_AUTHENTICATION: "yes"
-    SOLR_ENABLE_CLOUD_MODE: "yes"
+    SOLR_CORE_NAME: comet-test
     SOLR_HOST: solr
     SOLR_PORT: 8983
-    SOLR_ZK_HOSTS: zk:2181
+    ZK_HOST: zk
+    ZK_PORT: 2181
   before_script:
-    - >-
-      solrcloud-upload-configset.sh /app/samvera/hyrax-webapp/solr/conf
-      solrcloud-assign-configset.sh
-  script:
     - cd /app/samvera/hyrax-webapp
+    - upload-solr-configs.sh /app/samvera/hyrax-webapp/solr/conf
+    - create-solr-collection.sh
+  script:
     - bundle check || bundle
     - rake db:create db:migrate
     - bundle exec rspec
