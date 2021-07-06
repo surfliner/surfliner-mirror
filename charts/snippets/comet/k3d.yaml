@@ -119,6 +119,9 @@ minio:
   secretKey:
     password: comet-secret
   defaultBuckets: cometdev
+  ingress:
+    enabled: true
+    hostname: comet-minio.k3d.localhost
 fcrepo:
   enabled: false
 solr:
@@ -126,6 +129,9 @@ solr:
     enabled: true
     size: 1Gi
   replicaCount: 2
+  ingress:
+    enabled: true
+    hostname: comet-solr.k3d.localhost
   zookeeper:
     persistence:
       enabled: true

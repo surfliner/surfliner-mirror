@@ -92,6 +92,24 @@ And finally, k3d.
    registry)
 1. `make deploy` (deploy Comet to the local k3d cluster)
 
+The application will be available, by default, at:
+
+```sh
+http://comet.k3d.localhost
+```
+
+The Minio/S3 UI is available at:
+
+```sh
+http://comet-minio.k3d.localhost
+```
+
+The Solr UI is available at:
+
+```sh
+http://comet-solr.k3d.localhost
+```
+
 #### Customizing Helm Values in Deployment
 It may be the case that one needs to specify difference Helm values than are
 used by the default `k3d.yaml` file. To do this:
