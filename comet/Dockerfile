@@ -2,12 +2,16 @@ ARG HYRAX_IMAGE_VERSION=3.0.1
 FROM ghcr.io/samvera/hyrax/hyrax-base:$HYRAX_IMAGE_VERSION as comet
 
 ARG PROJECTPATH=comet
+ARG DOCKERROOT=/app/samvera
 
-COPY --chown=1001:101 $PROJECTPATH/scripts/db-migrate-seed.sh /app/samvera/db-migrate-seed.sh
-COPY --chown=1001:101 $PROJECTPATH/Gemfile* /app/samvera/hyrax-webapp/
+ENV PATH="$DOCKERROOT/scripts:$PATH"
+
+COPY --chown=1001:101 $PROJECTPATH/scripts/db-migrate-seed.sh $DOCKERROOT/db-migrate-seed.sh
+COPY --chown=1001:101 $PROJECTPATH/Gemfile* $DOCKERROOT/hyrax-webapp/
 RUN bundle install --jobs "$(nproc)"
 
-COPY --chown=1001:101 $PROJECTPATH /app/samvera/hyrax-webapp
+COPY --chown=1001:101 $PROJECTPATH $DOCKERROOT/hyrax-webapp
+COPY --chown=1001:101 scripts ${DOCKERROOT}/scripts/
 RUN RAILS_ENV=production SECRET_KEY_BASE=`bin/rake secret` DB_ADAPTER=nulldb DATABASE_URL='postgresql://fake' bundle exec rake assets:precompile
 
 ENTRYPOINT ["/app/samvera/hyrax-webapp/scripts/entrypoint.sh"]
