@@ -11,8 +11,12 @@ comet:test:unit:
       alias: solr
     - name: zookeeper:3.6
       alias: zk
+    - name: selenium/standalone-chrome:88.0
+      alias: chrome
   variables:
+    CAPYBARA_PORT: 3010
     DATABASE_URL: "postgres://postgres:postgres@localhost/comet-test"
+    HUB_URL: "http://localhost:4444/wd/hub/"
     POSTGRES_DB: "comet-test"
     POSTGRES_PASSWORD: "postgres"
     POSTGRES_USER: "postgres"
@@ -20,8 +24,8 @@ comet:test:unit:
     RAILS_QUEUE: "inline"
     REDIS_HOST: "redis"
     REDIS_PASSWORD: "redispass"
-    SOLR_CORE_NAME: comet-test
     SOLR_COLLECTION_NAME: comet-test
+    SOLR_CORE_NAME: comet-test
     SOLR_HOST: solr
     SOLR_PORT: 8983
     ZK_HOST: zk
