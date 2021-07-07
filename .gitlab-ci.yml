@@ -102,7 +102,9 @@ include:
   # Install chart dependencies
   function download_chart_dependencies(){
     echo "Downloading Helm chart dependencies.."
-    helm dependency update .
+    helm repo add bitnami https://charts.bitnami.com/bitnami
+
+    helm dependency build .
   }
 
   function delete() {
