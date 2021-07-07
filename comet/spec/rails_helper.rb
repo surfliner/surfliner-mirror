@@ -46,3 +46,9 @@ end
 Valkyrie::MetadataAdapter
   .register(Valkyrie::Persistence::Memory::MetadataAdapter.new,
     :test_adapter)
+
+# register/use the memory storage adapter for tests
+Valkyrie::StorageAdapter
+  .register(Valkyrie::Storage::Memory.new,
+    :memory)
+Valkyrie.config.storage_adapter = :memory
