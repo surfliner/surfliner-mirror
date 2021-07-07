@@ -3,5 +3,7 @@
 class GenericObject < Hyrax::Work
   attribute :ark, Valkyrie::Types::ID
 
-  include Hyrax::Schema(:ucsb_model)
+  Comet::Application.config.metadata_models.each do |m|
+    include Hyrax::Schema(m)
+  end
 end

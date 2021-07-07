@@ -4,7 +4,10 @@
 #  `rails generate hyrax:work_resource GenericObject`
 class GenericObjectIndexer < Hyrax::ValkyrieWorkIndexer
   include Hyrax::Indexer(:basic_metadata)
-  include Hyrax::Indexer(:ucsb_model)
+
+  Comet::Application.config.metadata_models.each do |m|
+    include Hyrax::Indexer(m)
+  end
 
   # Uncomment this block if you want to add custom indexing behavior:
   #  def to_solr
