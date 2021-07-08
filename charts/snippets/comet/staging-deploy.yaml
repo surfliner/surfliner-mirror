@@ -41,3 +41,12 @@ resources:
   requests:
     memory: 350Mi
     cpu: 100m
+
+worker:
+  resources:
+    limits:
+      memory: 1Gi
+      cpu: 1
+    requests:
+      memory: 350Mi
+      cpu: 500m
