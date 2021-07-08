@@ -7,7 +7,6 @@
     "fileMatch": ["^ci/.*\\.ya?ml$"]
   },
   "bundler": { "enabled": true },
-  "prConcurrentLimit": 5,
   "prHourlyLimit": 5,
   "rebaseWhen": "never",
   "labels": [ "dependencies" ],
