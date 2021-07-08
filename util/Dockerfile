@@ -1,4 +1,4 @@
-FROM alpine:3.13.5 as surfliner-util
+FROM alpine:3.14.0 as surfliner-util
 
 RUN apk --no-cache upgrade && \
     apk add --no-cache \
