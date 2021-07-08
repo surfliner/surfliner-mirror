@@ -334,7 +334,7 @@ GEM
     ethon (0.14.0)
       ffi (>= 1.15.0)
     execjs (2.7.0)
-    ezid-client (1.9.0)
+    ezid-client (1.9.1)
       hashie (~> 3.4, >= 3.4.3)
       nokogiri
     faraday (0.17.4)
@@ -953,7 +953,7 @@ DEPENDENCIES
   declarative-option (= 0.1.0)
   devise (= 4.8.0)
   devise-guests (= 0.7.0)
-  ezid-client (= 1.9.0)
+  ezid-client (= 1.9.1)
   hyrax!
   jbuilder (= 2.11.2)
   jquery-rails (= 4.4.0)

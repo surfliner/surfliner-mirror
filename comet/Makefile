@@ -33,3 +33,6 @@ setperms:
 
 test:
 	scripts/k3d/test.sh
+
+lint:
+	scripts/k3d/lint.sh
