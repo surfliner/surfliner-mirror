@@ -86,7 +86,7 @@ services:
       POSTGRESQL_PASSWORD: postgres_pass
 
   solr:
-    image: solr:8.8.2
+    image: solr:8.9.0
     env_file:
       - .env
 
