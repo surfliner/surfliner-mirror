@@ -5,10 +5,10 @@ if Rails.env.development?
   provider = ENV["AUTH_METHOD"]
   puts "\n== Creating development admin users"
   ucsb = User.find_or_create_by(email: "comet-admin@library.ucsb.edu",
-                                provider: provider)
+    provider: provider)
 
   ucsd = User.find_or_create_by(email: "comet-admin@library.ucsd.edu",
-                                provider: provider)
+    provider: provider)
 
   [ucsb, ucsd].each { |user| puts "\nAdmin user email: #{user.user_key}" }
 
