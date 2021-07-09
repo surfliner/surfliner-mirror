@@ -3,7 +3,5 @@
 class GenericObject < Hyrax::Work
   attribute :ark, Valkyrie::Types::ID
 
-  Comet::Application.config.metadata_models.each do |m|
-    include Hyrax::Schema(m)
-  end
+  include Hyrax::Schema(:noop, schema_loader: ::EnvSchemaLoader.new)
 end

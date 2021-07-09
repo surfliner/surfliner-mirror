@@ -29,11 +29,6 @@ module Comet
 
     config.active_job.queue_adapter = ENV["RAILS_QUEUE"]&.to_sym
 
-    config.metadata_models = ENV["METADATA_MODELS"]
-      .to_s
-      .split(",")
-      .map(&:to_sym)
-
     # Always log to stdout by default
     logger = ActiveSupport::Logger.new($stdout)
     logger.formatter = config.log_formatter
