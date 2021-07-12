@@ -1,3 +1,11 @@
+postgresql:
+  enabled: false
+
+externalPostgresql:
+  database: comet-staging
+  host: comet-staging-postgresql.postgresql-staging
+  username: comet
+
 extraEnvVars:
   - name: "AUTH_METHOD"
     value: "google"
@@ -12,6 +20,8 @@ extraEnvFrom:
       name: comet-staging-iam-keys
   - secretRef:
       name: comet-staging-oauth
+  - secretRef:
+      name: comet-postgres
 worker:
   extraEnvVars:
     - name: "AUTH_METHOD"
@@ -27,4 +37,3 @@ worker:
         name: comet-staging-iam-keys
     - secretRef:
         name: comet-staging-oauth
-
