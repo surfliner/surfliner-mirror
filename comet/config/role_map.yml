@@ -11,3 +11,13 @@ production:
   admin:
     - comet-admin@library.ucsb.edu
     - comet-admin@library.ucsd.edu
+    - adunn@ucsb.edu
+    - tnbrickman@ucsd.edu
+    - crissmeyer@ucsb.edu
+    - tchu@ucsd.edu
+    - mstuart@ucsd.edu
+    - rstanonik@ucsd.edu
+    - mcritchlow@ucsd.edu
+    - tomjohnson@ucsb.edu
+    - ahutt@ucsd.edu
+    - gamontoya@ucsd.edu
