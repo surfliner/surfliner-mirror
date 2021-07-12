@@ -5,5 +5,5 @@ Comet is a staff facing digital object management system. Comet is based on
 
 **Table of Contents**
 
-* [ Setting up a development environment ] : https://gitlab.com/surfliner/surfliner/-/blob/trunk/docs/themanual/comet/devsetup.md 
-
+* [ Setting up a development environment ] : https://gitlab.com/surfliner/surfliner/-/blob/trunk/docs/themanual/comet/devsetup.md
+* [Configuring metadata] : https://gitlab.com/surfliner/surfliner/-/blob/trunk/docs/themanual/comet/metadata.md

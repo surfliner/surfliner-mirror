@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# this class overrides the standard schema loader to read schema names from the
+# environment, instead of taking an argument
 class EnvSchemaLoader < Hyrax::SimpleSchemaLoader
   def metadata_models
     @metadata_models ||= ENV["METADATA_MODELS"]
