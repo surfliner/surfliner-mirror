@@ -238,7 +238,7 @@ GEM
     optimist (3.0.1)
     orm_adapter (0.5.0)
     parallel (1.20.1)
-    parser (3.0.1.1)
+    parser (3.0.2.0)
       ast (~> 2.4.1)
     pg (1.1.4)
     popper_js (1.16.0)
@@ -417,7 +417,7 @@ DEPENDENCIES
   rspec-its
   rspec-rails (~> 5.0)
   rspec_junit_formatter
-  rubocop (< 1.16.1)
+  rubocop (< 1.18.4)
   rubocop-rails
   rubocop-rspec
   sass-rails (~> 6.0)
