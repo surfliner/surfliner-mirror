@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "Components", type: :system, js: true do
-  let(:user) { User.create(email: "comet-admin@example.com") }
+  let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
 
   before { login_as(user) }
 
@@ -12,17 +12,24 @@ RSpec.describe "Components", type: :system, js: true do
     click_on "Works"
     click_on "Add new work"
 
-    require 'pry'; binding.pry
-
     fill_in("Title", with: "Parent Object")
     choose("generic_object_visibility_open")
     click_on("Save")
 
-    click_button("Attach child")
+    expect(page).to have_content("Parent Object")
+
+    parent_id = page.current_path.split('/').last
+
+    click_button("Add Component")
     click_on("Attach Generic object")
 
     fill_in("Title", with: "Component Object")
     choose("generic_object_visibility_open")
     click_on("Save")
+
+    component_id = page.current_path.split('/').last
+    parent = Hyrax.query_service.find_by(id: parent_id)
+
+    expect(parent.member_ids).to contain_exactly(component_id)
   end
 end

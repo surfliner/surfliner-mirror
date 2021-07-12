@@ -140,6 +140,16 @@ en:
           item_list_header: Works in this Project
         show_actions:
           confirm_delete: Are you sure you wish to delete the Project? This action cannot be undone.
+    base:
+      form_child_work_relationships:
+        attach_new_work: Deposit new work as component of this object
+        caption: This work currently has these components
+        confirm:
+          text: Removing this component will not remove it from the repository, only from the parent object. Are you sure you want to remove this component?
+      show_actions:
+        attach_child: Add Component
+      work_button_row:
+        attach_child: Add Component
     collection_type:
       admin_set_title: Project
     dashboard:
