@@ -60,7 +60,7 @@ group :development, :test do
   gem "scss_lint_reporter_checkstyle", "0.2.0", require: false
   gem "standard", "1.1.5"
   gem "selenium-webdriver", "3.142.7"
-  gem "shoulda-matchers", "4.5.1"
+  gem "shoulda-matchers", "5.0.0"
   gem "sqlite3", "1.4.2"
   gem "webdrivers", "4.6.0", require: false
   gem "webmock", "3.13.0"
