@@ -12,6 +12,6 @@ dependencies:
     version: 1.2.0
     repository: file://../geoserver
   - name: solr
-    version: 0.3.3
+    version: 1.0.3
     repository: https://charts.bitnami.com/bitnami
     condition: solr.enabled
