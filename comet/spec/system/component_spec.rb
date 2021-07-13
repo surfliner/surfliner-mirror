@@ -18,7 +18,7 @@ RSpec.describe "Components", type: :system, js: true do
 
     expect(page).to have_content("Parent Object")
 
-    parent_id = page.current_path.split('/').last
+    parent_id = page.current_path.split("/").last
 
     click_button("Add Component")
     click_on("Attach Generic object")
@@ -27,7 +27,7 @@ RSpec.describe "Components", type: :system, js: true do
     choose("generic_object_visibility_open")
     click_on("Save")
 
-    component_id = page.current_path.split('/').last
+    component_id = page.current_path.split("/").last
     parent = Hyrax.query_service.find_by(id: parent_id)
 
     expect(parent.member_ids).to contain_exactly(component_id)
