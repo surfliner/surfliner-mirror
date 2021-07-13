@@ -1,3 +1,9 @@
+ingress:
+  hosts:
+    - host: comet-staging.eks.dld.library.ucsb.edu
+      paths:
+        - path: '/'
+
 postgresql:
   enabled: false
 
@@ -5,6 +11,15 @@ externalPostgresql:
   database: comet-staging
   host: comet-staging-postgresql.postgresql-staging
   username: comet
+
+brandingVolume:
+  storageClass: efs-sc
+
+derivativesVolume:
+  storageClass: efs-sc
+
+uploadsVolume:
+  storageClass: efs-sc
 
 extraEnvVars:
   - name: "AUTH_METHOD"
@@ -37,3 +52,5 @@ worker:
         name: comet-staging-iam-keys
     - secretRef:
         name: comet-staging-oauth
+    - secretRef:
+        name: comet-postgres

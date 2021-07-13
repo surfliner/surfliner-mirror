@@ -22,14 +22,10 @@ comet:deploy:staging:ucsb:
     on_stop: comet:cleanup:staging:ucsb
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
-      --set brandingVolume.storageClass=efs-sc
-      --set derivativesVolume.storageClass=efs-sc
       --set extraInitContainers[0].envFrom[0].configMapRef.name=surfliner-comet-stage-hyrax-env
       --set extraInitContainers[1].envFrom[0].configMapRef.name=surfliner-comet-stage-hyrax-env
       --set extraInitContainers[1].envFrom[1].secretRef.name=surfliner-comet-stage-hyrax
-      --set ingress.hosts[0].host=comet-staging.eks.dld.library.ucsb.edu
-      --set ingress.hosts[0].paths[0].path='/'
-      --set uploadsVolume.storageClass=efs-sc
+      --set extraInitContainers[1].envFrom[2].secretRef.name=comet-postgres
       --set worker.image.repository=$CI_REGISTRY_IMAGE/comet_worker_web
       --set worker.image.tag=$CI_COMMIT_SHA
       --values charts/snippets/comet/init-containers.yaml
