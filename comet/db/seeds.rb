@@ -11,7 +11,11 @@ if Rails.env.development?
     provider: provider)
 
   [ucsb, ucsd].each { |user| puts "\nAdmin user email: #{user.user_key}" }
+end
 
+projects = Hyrax.query_service.find_all_of_model(model: Hyrax::AdministrativeSet)
+
+if projects.none?
   puts "\n== Creating default Project (AdministrativeSet)"
   project = Hyrax::AdministrativeSet.new(title: "Default Project")
   project = Hyrax.persister.save(resource: project)
