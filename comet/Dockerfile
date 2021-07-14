@@ -4,6 +4,10 @@ FROM ghcr.io/samvera/hyrax/hyrax-base:$HYRAX_IMAGE_VERSION as comet
 ARG PROJECTPATH=comet
 ARG DOCKERROOT=/app/samvera
 
+USER root
+RUN apk --no-cache add less
+USER app
+
 COPY --chown=1001:101 $PROJECTPATH/scripts/db-migrate-seed.sh $DOCKERROOT/db-migrate-seed.sh
 COPY --chown=1001:101 $PROJECTPATH/Gemfile* $DOCKERROOT/hyrax-webapp/
 COPY --chown=1001:101 gems ${DOCKERROOT}/gems/
