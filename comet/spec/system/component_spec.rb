@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe "Components", type: :system, js: true do
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
 
-  before { login_as(user) }
+  before { sign_in user }
 
   it "can attach new objects as components" do
     visit "/dashboard"
