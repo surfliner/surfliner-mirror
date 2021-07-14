@@ -168,6 +168,7 @@ Export:
 | `backups.export.accessKey` | S3/Minio access key | `nil` | `AWS_ACCESS_KEY_ID` |
 | `backups.export.dbBackupSource` | s3:// URL or local file path for psql backup source file | `nil` | `DB_BACKUP_SOURCE` |
 | `backups.export.dbBackupDestination` | s3:// URL or local file path for psql backup destination file | `nil` | `DB_BACKUP_DESTINATION` |
+| `backups.export.destinationPath` | s3:// URL for images directory backups | `nil` | `DESTINATION_PATH` |
 | `backups.export.endpointUrl` | S3/Minio endpoint URL | `nil` | `ENDPOINT_URL` |
 | `backups.export.schedule` | k8s cron schedule for export. e.g: `30 8 * * *` | `nil` | N/A |
 | `backups.export.secretKey` | S3/Minio secret key | `nil` | `AWS_SECRET_ACCESS_KEY` |

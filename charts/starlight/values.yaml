@@ -116,6 +116,7 @@ starlight:
       enabled: false
       # dbBackupSource: s3:// URL or local file path for psql database backup source file. e.g: s3://ucsd/starlight.dmp or /tmp/starlight-backup.dmp
       # dbBackupDestination: s3:// URL or local file path for psql database backup destination file. e.g: s3://ucsd/starlight.dmp or /tmp/starlight-backup.dmp
+      # destinationPath: s3:// URL for image backups. e.g: s3://my-bucket/starlight-image-backups
       # schedule: k8s cron schedule for exports. e.g. "30 8 * * *"
       # sourcePath: s3:// URL or local directory path to source path. e.g. s3://my-bucket/uploads or /uploads
   email:
