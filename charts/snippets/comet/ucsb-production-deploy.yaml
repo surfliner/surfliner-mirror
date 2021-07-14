@@ -5,6 +5,14 @@ ingress:
       paths:
         - path: '/'
 
+postgresql:
+  enabled: false
+
+externalPostgresql:
+  database: comet-prod
+  host: comet-prod-postgresql.postgresql-prod
+  username: comet
+
 extraEnvVars:
   - name: "METADATA_DATABASE_NAME"
     value: "comet_metadata"
@@ -19,6 +27,8 @@ extraEnvFrom:
       name: comet-production-iam-keys
   - secretRef:
       name: ezid-credentials
+  - secretRef:
+      name: comet-postgres
 worker:
   extraEnvVars:
     - name: "METADATA_DATABASE_NAME"
@@ -34,6 +44,8 @@ worker:
         name: comet-production-iam-keys
     - secretRef:
         name: ezid-credentials
+    - secretRef:
+        name: comet-postgres
 
 brandingVolume:
   storageClass: efs-sc
