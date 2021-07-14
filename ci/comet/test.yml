@@ -41,6 +41,5 @@ comet:test:unit:
   extends:
     - .only-refs-default
     - .only-comet-changes
-  allow_failure: true
   tags:
     - kubernetes
