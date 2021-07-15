@@ -21,6 +21,9 @@ derivativesVolume:
   enabled: false
 uploadsVolume:
   enabled: false
+extraContainerConfiguration:
+  stdin: true
+  tty: true
 extraInitContainers:
   - name: db-wait
     image: "busybox"
