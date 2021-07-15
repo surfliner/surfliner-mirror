@@ -31,6 +31,8 @@ extraEnvFrom:
       name: ezid-credentials
   - secretRef:
       name: comet-postgres
+  - secretRef:
+      name: comet-production-oauth
 worker:
   extraEnvVars:
     - name: "AUTH_METHOD"
@@ -50,6 +52,8 @@ worker:
         name: ezid-credentials
     - secretRef:
         name: comet-postgres
+    - secretRef:
+        name: comet-production-oauth
 
 brandingVolume:
   storageClass: efs-sc
