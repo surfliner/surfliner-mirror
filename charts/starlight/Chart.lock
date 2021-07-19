@@ -1,7 +1,7 @@
 dependencies:
 - name: memcached
   repository: https://charts.bitnami.com/bitnami
-  version: 5.13.4
+  version: 5.13.5
 - name: minio
   repository: https://charts.bitnami.com/bitnami
   version: 7.1.3
@@ -14,5 +14,5 @@ dependencies:
 - name: solr
   repository: https://charts.bitnami.com/bitnami
   version: 1.0.4
-digest: sha256:1a78329c71a327d774cdbd5c30c72de677b72a69050e92bfa9b6525cf3272075
-generated: "2021-07-16T10:09:43.433245343Z"
+digest: sha256:60425fefeec3969730127ac2041b6b4837311b5701fffa141ff275a7c3fbc679
+generated: "2021-07-19T13:09:44.56116771Z"
