@@ -9,7 +9,7 @@ existingSecret:
   enabled: true
 postgresql:
   enabled: false
-  postgresqlHostname: wwhite.ucsd.edu
+  postgresqlHostname: lib-psql-stage.ucsd.edu
   postgresqlDatabase: starlight
 starlight:
   application:
