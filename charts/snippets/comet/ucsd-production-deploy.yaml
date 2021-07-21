@@ -22,6 +22,8 @@ extraEnvFrom:
       name: comet-production-iam-keys
   - secretRef:
       name: comet-production-oauth
+  - secretRef:
+      name: comet-production-ezid-credentials
 worker:
   extraEnvVars:
     - name: "AUTH_METHOD"
@@ -37,6 +39,8 @@ worker:
         name: comet-production-iam-keys
     - secretRef:
         name: comet-production-oauth
+    - secretRef:
+        name: comet-production-ezid-credentials
 
 brandingVolume:
   storageClass: longhorn-nfs

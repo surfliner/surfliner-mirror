@@ -12,6 +12,8 @@ extraEnvFrom:
       name: comet-staging-iam-keys
   - secretRef:
       name: comet-staging-oauth
+  - secretRef:
+      name: comet-staging-ezid-credentials
 worker:
   extraEnvVars:
     - name: "AUTH_METHOD"
@@ -27,4 +29,6 @@ worker:
         name: comet-staging-iam-keys
     - secretRef:
         name: comet-staging-oauth
+    - secretRef:
+        name: comet-staging-ezid-credentials
 
