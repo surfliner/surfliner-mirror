@@ -542,7 +542,7 @@ GEM
       shex (~> 0.6, >= 0.6.1)
       sparql (~> 3.1, >= 3.1.5)
       sparql-client (~> 3.1, >= 3.1.2)
-    listen (3.5.1)
+    listen (3.6.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     loofah (2.10.0)
@@ -963,7 +963,7 @@ DEPENDENCIES
   hyrax!
   jbuilder (= 2.11.2)
   jquery-rails (= 4.4.0)
-  listen (>= 3.0.5, < 3.5.2)
+  listen (>= 3.0.5, < 3.6.1)
   okcomputer (= 1.18.4)
   omniauth-google-oauth2 (= 0.8.2)
   pg (= 1.2.3)
