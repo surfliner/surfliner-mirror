@@ -10,7 +10,7 @@ if projects.none?
   Hyrax.index_adapter.save(resource: project)
 
   puts "\n== Creating PermissionTemplate for default AdministrativeSet #{project.id}"
-  Hyrax::PermissionTemplate.find_or_create_by!(source_id: project.id.to_s)
+  permission_template = Hyrax::PermissionTemplate.find_or_create_by!(source_id: project.id.to_s)
 
   # TODO: feature spec: create a work assigned to workflow, log in as reviewer, approve or take some action
   puts "\n== Loading workflows"
@@ -20,18 +20,26 @@ end
 if Rails.env.development?
   provider = ENV["AUTH_METHOD"]
   puts "\n== Creating development admin users"
-  ucsb = User.find_or_create_by(email: "comet-admin@library.ucsb.edu",
-    provider: provider)
 
-  ucsd = User.find_or_create_by(email: "comet-admin@library.ucsd.edu",
-    provider: provider)
+  admins = [
+    User.find_or_create_by!(email: "comet-admin@library.ucsb.edu", provider: provider),
+    User.find_or_create_by!(email: "comet-admin@library.ucsd.edu", provider: provider)
+  ]
+  admins.each { |user| puts "\nAdmin user email: #{user.user_key}" }
 
-  [ucsb, ucsd].each { |user| puts "\nAdmin user email: #{user.user_key}" }
+  admins.each do |user|
+    email = user.user_key
+    puts "\n== Assigning all workflow roles to #{email}"
+    Sipity::WorkflowRole.all.each do |wf_role|
+      Sipity::WorkflowResponsibility.find_or_create_by!(agent_id: user.to_sipity_agent.id, workflow_role_id: wf_role.role_id)
+    end
 
-  puts "\n== Assigning all workflow roles to admin users"
-  [ucsb, ucsd].each { |user| user.to_sipity_agent }
-  Sipity::WorkflowRole.all.each do |wf_role|
-    Sipity::WorkflowResponsibility.find_or_create_by!(agent_id: ucsb.sipity_agent.id, workflow_role_id: wf_role.role_id)
-    Sipity::WorkflowResponsibility.find_or_create_by!(agent_id: ucsd.sipity_agent.id, workflow_role_id: wf_role.role_id)
+    puts "\n== Assigning permissions to #{email}"
+    Hyrax::PermissionTemplateAccess.create!(
+      permission_template: permission_template,
+      agent_type: "user",
+      agent_id: email,
+      access: Hyrax::PermissionTemplateAccess::MANAGE
+    )
   end
 end
