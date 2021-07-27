@@ -122,7 +122,7 @@ Last day of each sprint<br/>
 *Optional*: Subject Matter Experts<br/>
 
 ### Meeting Schedules for the Current Work Cycle
-The current workcycle runs from Wednesday, March 31 to Tuesday, May 25, 2021.  The meetings below are for this time period only. 
+The current workcycle runs from Wednesday, August 18 to Tuesday, October, 2021.  The meetings below are for this time period only. 
 
 #### Project-wide
 **Project Surfliner Daily Standup**<br/> 
@@ -145,6 +145,15 @@ Every other Friday, 2:00-3:00pm (*starting April 9, 2021*)<br/>
 **Sprint Planning**<br/>
 Every other Monday, 2:00-3:00pm (*starting April 12*)<br/>
 [https://ucsd.zoom.us/j/98518941689?pwd=akxYNkdFbFo3VHJ5dkszRGFPckt1Zz09](https://ucsd.zoom.us/j/98518941689?pwd=akxYNkdFbFo3VHJ5dkszRGFPckt1Zz09)<br/>
+
+#### Shoreline Sprint Team
+**Backlog Refinement**<br/>
+Tuesday, August 17, 1:00-2:30pm (*backlog refinement during the workcycle will be done during sprint planning meeting*)<br/>
+[https://ucsb.zoom.us/j/87872262924?pwd=ZE10N29uZkVuYkVSUHcvTmZUN3NRdz09](https://ucsb.zoom.us/j/87872262924?pwd=ZE10N29uZkVuYkVSUHcvTmZUN3NRdz09)<br/>
+
+**Sprint Planning**<br/>
+Every other Tuesday, 3:00-4:00pm (*starting August 17*)<br/>
+[https://ucsb.zoom.us/j/87872262924?pwd=ZE10N29uZkVuYkVSUHcvTmZUN3NRdz09](https://ucsb.zoom.us/j/87872262924?pwd=ZE10N29uZkVuYkVSUHcvTmZUN3NRdz09)<br/>
 
 # Communication Channels
 - **Blog**: [https://surfliner.ucsd.edu](https://surfliner.ucsd.edu)
