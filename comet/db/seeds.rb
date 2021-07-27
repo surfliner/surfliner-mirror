@@ -8,14 +8,17 @@ if projects.none?
   project = Hyrax::AdministrativeSet.new(title: "Default Project")
   project = Hyrax.persister.save(resource: project)
   Hyrax.index_adapter.save(resource: project)
-
-  puts "\n== Creating PermissionTemplate for default AdministrativeSet #{project.id}"
-  permission_template = Hyrax::PermissionTemplate.find_or_create_by!(source_id: project.id.to_s)
-
-  # TODO: feature spec: create a work assigned to workflow, log in as reviewer, approve or take some action
-  puts "\n== Loading workflows"
-  Rake::Task["hyrax:workflow:load"].execute
+else
+  project = projects.find { |p| p.title.include?("Default Project") }
 end
+
+puts "\n== Ensuring PermissionTemplate for exists for default AdministrativeSet #{project.id}"
+permission_template = Hyrax::PermissionTemplate.find_or_create_by!(source_id: project.id.to_s)
+
+# TODO: feature spec: create a work assigned to workflow, log in as reviewer,
+# approve or take some action
+puts "\n== Loading workflows"
+Rake::Task["hyrax:workflow:load"].execute
 
 if Rails.env.development?
   provider = ENV["AUTH_METHOD"]
