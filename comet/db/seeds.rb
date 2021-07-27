@@ -38,7 +38,7 @@ if Rails.env.development?
     end
 
     puts "\n== Assigning permissions to #{email}"
-    Hyrax::PermissionTemplateAccess.create!(
+    Hyrax::PermissionTemplateAccess.find_or_create_by!(
       permission_template: permission_template,
       agent_type: "user",
       agent_id: email,
