@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 
-pod="$(kubectl get pods --namespace=comet-development "--selector=app.kubernetes.io/name=hyrax" --no-headers | cut -d " " -f 1 | grep -v "worker")"
+context="k3d-surfliner-dev"
 
-kubectl exec -it --namespace=comet-development "$pod" -- /bin/sh -c "bundle exec rspec $*"
+pod="$(kubectl --context ${context} get pods --namespace=comet-development "--selector=app.kubernetes.io/name=hyrax" --no-headers | cut -d " " -f 1 | grep -v "worker")"
 
+kubectl --context "${context}" exec -it --namespace=comet-development "${pod}" -- /bin/sh -c "bundle exec rspec $*"
