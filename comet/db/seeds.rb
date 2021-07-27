@@ -20,29 +20,27 @@ permission_template = Hyrax::PermissionTemplate.find_or_create_by!(source_id: pr
 puts "\n== Loading workflows"
 Rake::Task["hyrax:workflow:load"].execute
 
-if Rails.env.development?
-  provider = ENV["AUTH_METHOD"]
-  puts "\n== Creating development admin users"
+provider = ENV["AUTH_METHOD"]
+puts "\n== Creating development admin users"
 
-  admins = [
-    User.find_or_create_by!(email: "comet-admin@library.ucsb.edu", provider: provider),
-    User.find_or_create_by!(email: "comet-admin@library.ucsd.edu", provider: provider)
-  ]
-  admins.each { |user| puts "\nAdmin user email: #{user.user_key}" }
+admins = ::User.group_service.map["admin"].map do |role|
+  User.find_or_create_by!(email: role, provider: provider)
+end
 
-  admins.each do |user|
-    email = user.user_key
-    puts "\n== Assigning all workflow roles to #{email}"
-    Sipity::WorkflowRole.all.each do |wf_role|
-      Sipity::WorkflowResponsibility.find_or_create_by!(agent_id: user.to_sipity_agent.id, workflow_role_id: wf_role.role_id)
-    end
+admins.each { |user| puts "\nAdmin user email: #{user.user_key}" }
 
-    puts "\n== Assigning permissions to #{email}"
-    Hyrax::PermissionTemplateAccess.find_or_create_by!(
-      permission_template: permission_template,
-      agent_type: "user",
-      agent_id: email,
-      access: Hyrax::PermissionTemplateAccess::MANAGE
-    )
+admins.each do |user|
+  email = user.user_key
+  puts "\n== Assigning all workflow roles to #{email}"
+  Sipity::WorkflowRole.all.each do |wf_role|
+    Sipity::WorkflowResponsibility.find_or_create_by!(agent_id: user.to_sipity_agent.id, workflow_role_id: wf_role.role_id)
   end
+
+  puts "\n== Assigning permissions to #{email}"
+  Hyrax::PermissionTemplateAccess.find_or_create_by!(
+    permission_template: permission_template,
+    agent_type: "user",
+    agent_id: email,
+    access: Hyrax::PermissionTemplateAccess::MANAGE
+  )
 end
