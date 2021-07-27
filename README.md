@@ -122,7 +122,7 @@ Last day of each sprint<br/>
 *Optional*: Subject Matter Experts<br/>
 
 ### Meeting Schedules for the Current Work Cycle
-The current workcycle runs from Wednesday, August 18 to Tuesday, October, 2021.  The meetings below are for this time period only. 
+The current workcycle runs from Wednesday, August 18 to Tuesday, October 12, 2021.  The meetings below are for this time period only. 
 
 #### Project-wide
 **Project Surfliner Daily Standup**<br/> 
