@@ -734,7 +734,7 @@ GEM
       rexml (~> 3.2)
     redic (1.5.3)
       hiredis
-    redis (4.3.1)
+    redis (4.4.0)
     redis-namespace (1.8.1)
       redis (>= 3.0.4)
     redlock (1.2.1)
@@ -972,7 +972,7 @@ DEPENDENCIES
   pry-rescue (= 1.5.2)
   puma (= 3.12.6)
   rails (= 5.2.6)
-  redis (= 4.3.1)
+  redis (= 4.4.0)
   rsolr (= 2.3.0)
   rspec-rails (= 5.0.1)
   rspec_junit_formatter (= 0.4.1)
