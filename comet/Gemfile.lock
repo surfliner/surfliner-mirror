@@ -881,7 +881,7 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     ssrf_filter (1.0.7)
-    standard (1.1.6)
+    standard (1.1.7)
       rubocop (= 1.18.4)
       rubocop-performance (= 1.11.4)
     sxp (1.1.0)
@@ -982,7 +982,7 @@ DEPENDENCIES
   selenium-webdriver (= 3.142.7)
   sidekiq (= 6.2.1)
   solr_utils!
-  standard (= 1.1.6)
+  standard (= 1.1.7)
   tinymce-rails (= 5.8.2)
   turbolinks (= 5.2.1)
   uglifier (= 4.2.0)
