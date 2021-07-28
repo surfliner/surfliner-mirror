@@ -5,7 +5,8 @@
     - .helm3-deploy
   variables:
     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/starlight_web
-    DEPLOY_TAG: $CI_COMMIT_SHA
+    # TODO: revert when UCSB theme is updated for Spotlight 3
+    DEPLOY_TAG: 3ce66849462bc7ed949ae36a861e36907fba0137
     HELM_RELEASE_NAME: surfliner-starlight-prod
     KUBE_NAMESPACE: starlight-prod
   only:
