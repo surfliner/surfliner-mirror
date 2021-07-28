@@ -24,19 +24,7 @@ starlight:deploy:ucsb-production:
     url: http://starlight.$KUBE_INGRESS_BASE_DOMAIN
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
-      --set ingress.hosts={starlight.$KUBE_INGRESS_BASE_DOMAIN}
-      --set persistence.cache.class=gp2
-      --set persistence.public.class=gp2
-      --set starlight.auth.google.api_id=$UCSB_PROD_GOOGLE_ID
-      --set starlight.auth.google.api_secret=$UCSB_PROD_GOOGLE_SECRET
-      --set starlight.auth.method=google
-      --set starlight.email.delivery_method=smtp
-      --set starlight.email.from_address=$UCSB_STARLIGHT_EMAIL_ADDRESS
-      --set starlight.email.smtp_settings.address=smtp.gmail.com
-      --set starlight.email.smtp_settings.authentication=plain
-      --set starlight.email.smtp_settings.password=$UCSB_STARLIGHT_EMAIL_PASSWORD
-      --set starlight.email.smtp_settings.port=587
-      --set starlight.email.smtp_settings.user_name=$UCSB_STARLIGHT_EMAIL_ADDRESS
+      --values charts/snippets/starlight/staging/ucsb.yaml
 
 starlight:deploy:ucsd-production:
   needs: ["starlight:deploy:ucsd-stage"]

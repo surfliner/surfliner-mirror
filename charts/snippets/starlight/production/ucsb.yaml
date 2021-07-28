@@ -1,0 +1,39 @@
+ingress:
+  hosts:
+    - starlight.eks.dld.library.ucsb.edu
+existingSecret:
+  enabled: true
+postgresql:
+  enabled: false
+  postgresqlDatabase: starlight-prod
+  postgresqlHostname: starlight-prod-postgresql.postgresql-prod
+  postgresqlUsername: starlight
+starlight:
+  application:
+    name: "Starlight"
+  backups:
+    import:
+      enabled: false
+      dbBackupSource: s3://starlight-migrate-prod/starlight-prod.2021.07.29.sql
+      dbBackupDestination: /tmp/starlight-backup.dmp
+      oldAppUrl: http://starlight.library.ucsb.edu
+      sourcePath: s3://starlight-uploads-prod/uploads
+      solrReindex: true
+  storage:
+    enabled: true
+    accessKey: AKIAV5LYGG4AHTG7NMFD
+    acl: bucket-owner-full-control
+    bucket: starlight-uploads-prod
+    region: us-west-2
+  sitemaps:
+    enabled: false
+  email:
+    from_address: library-spotlight@ucsb.edu
+    delivery_method: smtp
+    smtp_settings:
+      address: smtp.gmail.com
+      port: 587
+      user_name: library-spotlight@ucsb.edu
+      authentication: plain
+  auth:
+    method: google
