@@ -19,6 +19,10 @@ permission_template = Hyrax::PermissionTemplate.find_or_create_by!(source_id: pr
 # approve or take some action
 puts "\n== Loading workflows"
 Rake::Task["hyrax:workflow:load"].execute
+puts "\n== Activating surfliner_default workflow"
+
+Sipity::Workflow.activate!(permission_template: permission_template,
+                           workflow_name: 'surfliner_default')
 
 provider = Devise.omniauth_providers.first
 puts "\n== Creating #{provider} admin users"
