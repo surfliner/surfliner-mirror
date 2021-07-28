@@ -15,12 +15,12 @@ RSpec.describe "Base Workflow", type: :system, js: true do
     fill_in("Title", with: "Object in Workflow")
     choose("generic_object_visibility_open")
     click_on "Relationships"
-    select "Default Project", :from => "generic_object_admin_set_id"
+    select "Default Project", from: "generic_object_admin_set_id"
     click_on("Save")
 
     id = page.current_path.split("/").last
     workflow_entity = Sipity::Entity(Hyrax.query_service.find_by(id: id))
 
-    # expect(workflow_entity.workflow_state).to eq 'OMG'
+    expect(workflow_entity.workflow_state).to have_attribute name: "in_review"
   end
 end
