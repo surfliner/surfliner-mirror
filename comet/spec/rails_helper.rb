@@ -2,6 +2,8 @@
 require "spec_helper"
 
 ENV["RAILS_ENV"] ||= "test"
+ENV["DATABASE_URL"] = ENV["DATABASE_TEST_URL"] ||
+                      ENV["DATABASE_URL"].gsub("hyrax?pool", "hyrax-test?pool")
 
 require File.expand_path("../config/environment", __dir__)
 # Prevent database truncation if the environment is production
@@ -11,7 +13,11 @@ require "rspec/rails"
 require "support/chromium_driver"
 
 begin
-  ActiveRecord::Migration.maintain_test_schema!
+  db_config = ActiveRecord::Base.configurations[ENV["RAILS_ENV"]]
+  ActiveRecord::Tasks::DatabaseTasks.create(db_config)
+  ActiveRecord::Migrator.migrations_paths = [Pathname.new(ENV["RAILS_ROOT"]).join("db", "migrate").to_s]
+  ActiveRecord::Tasks::DatabaseTasks.migrate
+  ActiveRecord::Base.descendants.each(&:reset_column_information)
 rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1

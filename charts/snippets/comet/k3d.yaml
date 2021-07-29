@@ -47,7 +47,10 @@ extraInitContainers:
         echo "Ensuring database: $METADATA_DATABASE_NAME exists";
         PGPASSWORD=$DB_PASSWORD PGHOST=$DB_HOST PGUSER=$DB_USERNAME; export PGPASSWORD PGHOST PGUSER;
         psql -tc "SELECT 1 FROM pg_database WHERE datname = '$METADATA_DATABASE_NAME'" | grep -q 1 ||
-        createdb -e -w $METADATA_DATABASE_NAME
+        createdb -e -w $METADATA_DATABASE_NAME;
+        echo "Ensuring database: hyrax-test exists";
+        psql -tc "SELECT 1 FROM pg_database WHERE datname = 'hyrax-test'" | grep -q 1 ||
+        createdb -e -w hyrax-test;
     envFrom:
       - configMapRef:
           name: comet-hyrax-env
