@@ -6,8 +6,8 @@ to another.
 
 ## Export PostgreSQL database
 
-Create a DB dump from the source database.  Ideally, the version of `pg_dump`
-should match the version of the new, target database, rather than the source:
+Create a DB dump from the source database.  Ideally, **the version of `pg_dump`
+should match the version of the new, target database,** rather than the source:
 
 ```
 pg_dump -Fc "${DATABASE_URL}" > spotight-export.datetime.dump
