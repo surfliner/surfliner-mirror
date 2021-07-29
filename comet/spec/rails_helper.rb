@@ -3,7 +3,7 @@ require "spec_helper"
 
 ENV["RAILS_ENV"] ||= "test"
 ENV["DATABASE_URL"] = ENV["DATABASE_TEST_URL"] ||
-                      ENV["DATABASE_URL"].gsub("hyrax?pool", "hyrax-test?pool")
+  ENV["DATABASE_URL"].gsub("hyrax?pool", "hyrax-test?pool")
 
 require File.expand_path("../config/environment", __dir__)
 # Prevent database truncation if the environment is production
