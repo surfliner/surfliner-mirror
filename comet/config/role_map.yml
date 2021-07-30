@@ -9,8 +9,6 @@ test:
 
 production:
   admin:
-    - comet-admin@library.ucsb.edu
-    - comet-admin@library.ucsd.edu
     - adunn@ucsb.edu
     - tnbrickman@ucsd.edu
     - crissmeyer@ucsb.edu
