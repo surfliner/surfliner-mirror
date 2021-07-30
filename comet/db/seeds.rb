@@ -20,8 +20,8 @@ permission_template = Hyrax::PermissionTemplate.find_or_create_by!(source_id: pr
 puts "\n== Loading workflows"
 Rake::Task["hyrax:workflow:load"].execute
 
-provider = ENV["AUTH_METHOD"]
-puts "\n== Creating development admin users"
+provider = Devise.omniauth_providers.first
+puts "\n== Creating #{provider} admin users"
 
 admins = ::User.group_service.map["admin"].map do |role|
   User.find_or_create_by!(email: role, provider: provider)
