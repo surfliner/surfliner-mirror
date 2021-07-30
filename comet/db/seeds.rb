@@ -23,7 +23,8 @@ Rake::Task["hyrax:workflow:load"].execute
 provider = Devise.omniauth_providers.first
 puts "\n== Creating #{provider} admin users"
 
-admins = ::User.group_service.map["admin"].map do |role|
+roles = YAML.safe_load(IO.read(Rails.root.join("config", "role_map.yml")))[Rails.env]["admin"]
+admins = roles.map do |role|
   User.find_or_create_by!(email: role, provider: provider)
 end
 
