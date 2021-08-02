@@ -15,6 +15,7 @@ readinessProbe:
   path: "/healthz"
   initialDelaySeconds: 10
 skipHyraxEngineSeed: "true"
+skipDbMigrateSeed: true
 brandingVolume:
   enabled: false
 derivativesVolume:
@@ -51,6 +52,20 @@ extraInitContainers:
         echo "Ensuring database: hyrax-test exists";
         psql -tc "SELECT 1 FROM pg_database WHERE datname = 'hyrax-test'" | grep -q 1 ||
         createdb -e -w hyrax-test;
+    envFrom:
+      - configMapRef:
+          name: comet-hyrax-env
+      - secretRef:
+          name: comet-hyrax
+    env:
+    - name: "METADATA_DATABASE_NAME"
+      value: "comet_metadata_development"
+  - name: db-setup
+    imagePullPolicy: Always
+    command:
+      - sh
+      - -c
+      - db-migrate-seed.sh
     envFrom:
       - configMapRef:
           name: comet-hyrax-env
