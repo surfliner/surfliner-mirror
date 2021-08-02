@@ -28,6 +28,7 @@ comet:deploy:production:ucsb:
       --set extraInitContainers[1].envFrom[0].configMapRef.name=surfliner-comet-prod-hyrax-env
       --set extraInitContainers[1].envFrom[1].secretRef.name=surfliner-comet-prod-hyrax
       --set extraInitContainers[1].envFrom[2].secretRef.name=comet-postgres
+      --set extraInitContainers[2].image=$CI_REGISTRY_IMAGE/comet_worker_web:$CI_COMMIT_SHA
       --values charts/snippets/comet/init-containers.yaml
       --values charts/snippets/comet/production-deploy.yaml
       --values charts/snippets/comet/ucsb-production-deploy.yaml
@@ -63,6 +64,7 @@ comet:deploy:production:ucsd:
       --set extraInitContainers[0].envFrom[0].configMapRef.name=surfliner-comet-prod-hyrax-env
       --set extraInitContainers[1].envFrom[0].configMapRef.name=surfliner-comet-prod-hyrax-env
       --set extraInitContainers[1].envFrom[1].secretRef.name=surfliner-comet-prod-hyrax
+      --set extraInitContainers[2].image=$CI_REGISTRY_IMAGE/comet_worker_web:$CI_COMMIT_SHA
       --values charts/snippets/comet/init-containers.yaml
       --values charts/snippets/comet/production-deploy.yaml
       --values charts/snippets/comet/ucsd-production-deploy.yaml
