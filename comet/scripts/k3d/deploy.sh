@@ -54,6 +54,8 @@ helm upgrade \
   --set image.tag="${git_sha}" \
   --set worker.image.repository="$worker_image_repository" \
   --set worker.image.tag="${git_sha}" \
+  --set extraInitContainers[2].image.repository="${image_repository}" \
+  --set extraInitContainers[2].image.tag="${git_sha}" \
   --values="$values_file" \
   ${LOCAL_VALUES_FILE+--values="$LOCAL_VALUES_FILE"} \
   "$release" \

@@ -59,6 +59,27 @@ extraInitContainers:
     env:
     - name: "METADATA_DATABASE_NAME"
       value: "comet_metadata_development"
+  - name: create-test-solr-collection
+    imagePullPolicy: Always
+    command:
+      - /bin/sh
+      - -c
+      - /app/samvera/scripts/db-wait.sh comet-solr:8983 /app/samvera/scripts/solrcloud-create-collection.sh
+    env:
+      - name: "SOLR_HOST"
+        value: comet-solr
+      - name: "SOLR_PORT"
+        value: "8983"
+      - name: "SOLR_ADMIN_USER"
+        value: admin
+      - name: "SOLR_ADMIN_PASSWORD"
+        value: admin
+      - name: "SOLR_CONFIG_NAME"
+        value: comet-hyrax
+      - name: "SOLR_COLLECTION_NAME"
+        value: testCollection
+      - name: "SOLR_COLLECTION_SHARDS"
+        value: "2"
 extraVolumeMounts:
    - name: local-app
      mountPath: /app/samvera/hyrax-webapp
