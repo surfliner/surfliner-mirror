@@ -1,6 +1,6 @@
 # renovate: datasource=docker depName=ruby versioning=ruby
 ARG RUBY_VERSION=2.7.4
-FROM ruby:$RUBY_VERSION-alpine as starlight
+FROM ruby:$RUBY_VERSION-alpine3.13 as starlight
 
 ARG PROJECTPATH=starlight
 ARG DOCKERROOT=/home/${PROJECTPATH}
