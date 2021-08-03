@@ -7,6 +7,6 @@ dependencies:
   version: 1.2.0
 - name: solr
   repository: https://charts.bitnami.com/bitnami
-  version: 2.0.1
-digest: sha256:477a50caab0de08e5a0f9c1168b40b89d6a3dd864b75355c526f9724f6993b80
-generated: "2021-08-02T14:10:48.3120708Z"
+  version: 1.0.5
+digest: sha256:8a457f54945a3c96c579cab306217c5139666156e847802c0658738bb08ffef3
+generated: "2021-07-27T00:11:16.221026057Z"
