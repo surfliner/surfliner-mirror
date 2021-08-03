@@ -29,7 +29,7 @@ build: build-util build-app
 registry:
 	scripts/k3d/registry.sh
 
-setup:
+setup: registry
 	scripts/k3d/setup.sh
 
 test:
