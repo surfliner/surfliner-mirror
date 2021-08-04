@@ -28,7 +28,7 @@ spec:
           - name: "DB_BACKUP_DESTINATION"
             value: {{ .Values.starlight.backups.import.dbBackupDestination }}
           - name: "DESTINATION_PATH"
-            value: s3://{{ .Values.starlight.storage.bucket }}
+            value: s3://{{ .Values.starlight.storage.bucket }}/uploads
           - name: "SOURCE_PATH"
             value: {{ .Values.starlight.backups.import.sourcePath }}
           - name: "PGHOST"
