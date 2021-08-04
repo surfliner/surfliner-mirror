@@ -1,22 +1,10 @@
-comet:test:unit:
+.comet:test:
   stage: test
   image: $CI_REGISTRY_IMAGE/comet_web:$CI_COMMIT_SHA
   needs: ["comet:ruby-build"]
-  services:
-    - name: bitnami/postgresql:12.7.0
-      alias: postgres
-    - name: bitnami/redis:6.2
-      alias: redis
-    - name: solr:8.8.0
-      alias: solr
-    - name: zookeeper:3.6
-      alias: zk
-    - name: selenium/standalone-chrome:88.0
-      alias: chrome
   variables:
     CAPYBARA_PORT: 3010
     DATABASE_URL: "postgres://postgres:postgres@localhost/comet-test"
-    HUB_URL: "http://localhost:4444/wd/hub/"
     POSTGRES_DB: "comet-test"
     POSTGRES_PASSWORD: "postgres"
     POSTGRES_USER: "postgres"
@@ -34,12 +22,42 @@ comet:test:unit:
     - cd /app/samvera/hyrax-webapp
     - /app/samvera/scripts/upload-solr-configs.sh /app/samvera/hyrax-webapp/solr/conf
     - /app/samvera/scripts/create-solr-collection.sh
-  script:
     - bundle check || bundle
     - rake db:create db:migrate
-    - bundle exec rspec
   extends:
     - .only-refs-default
     - .only-comet-changes
   tags:
     - kubernetes
+
+comet:test:unit:
+  extends: .comet:test
+  services:
+    - name: bitnami/postgresql:12.7.0
+      alias: postgres
+    - name: bitnami/redis:6.2
+      alias: redis
+    - name: solr:8.8.0
+      alias: solr
+    - name: zookeeper:3.6
+      alias: zk
+  script:
+    - bundle exec rspec --tag ~type:system
+
+comet:test:system:
+  extends: .comet:test
+  variables:
+    HUB_URL: "http://localhost:4444/wd/hub/"
+  services:
+    - name: bitnami/postgresql:12.7.0
+      alias: postgres
+    - name: bitnami/redis:6.2
+      alias: redis
+    - name: solr:8.8.0
+      alias: solr
+    - name: zookeeper:3.6
+      alias: zk
+    - name: selenium/standalone-chrome:88.0
+      alias: chrome
+  script:
+    - bundle exec rspec --tag type:system
