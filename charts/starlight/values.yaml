@@ -170,6 +170,16 @@ solr:
   # externalZookeeper:
   #   servers:
 
+  # To use an external/preexisting solr/zk, set solr.enabled to false, then
+  #   * set solrHostname to external solr FQDN
+  #   * set solrPort to external solr port
+  #   * set zookeeperHostname to external zookeeper FQDN
+  #   * set zookeeperPort to external zookeeper port
+  # solrHostname: external-starlight-solr-fqdn
+  # solrPort: "8983"
+  # zookeeperHostname: external-starlight-zookeeper-fqdn
+  # zookeeperPort: "2181"
+
 # Configuration for memcached chart
 # see: https://github.com/bitnami/charts/blob/master/bitnami/memcached/README.md
 memcached:

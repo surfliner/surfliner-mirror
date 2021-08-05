@@ -89,10 +89,8 @@ Alternatively, if postgresqlHostname is set, we use that which allows for an ext
 {{- printf "%s-%s" .Release.Name "redis" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "starlight.solr.fullname" -}}
-{{- printf "%s-%s" .Release.Name "solr" | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
 
+{{/*
 Supports using an existing secret instead of one built using the Chart
 */}}
 {{- define "starlight.secretName" -}}
@@ -104,15 +102,35 @@ Supports using an existing secret instead of one built using the Chart
 {{- end -}}
 
 {{/*
-TODO: support non-auth enabled SOLR url, and external
+Solr hostname, supporting external hostname as well
+*/}}
+{{- define "starlight.solr.fullname" -}}
+{{- if .Values.solr.enabled -}}
+{{- printf "%s-%s" .Release.Name "solr" | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
+{{- .Values.solr.solrHostname -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Solr URL, which requires authentication is enabled
 */}}
 {{- define "starlight.solr.url" -}}
 {{- $user := .Values.solr.authentication.adminUsername -}}
 {{- $pass := .Values.solr.authentication.adminPassword -}}
 {{- $collection := .Values.solr.collection -}}
-{{- printf "http://%s:%s@%s-%s:8983/solr/%s" $user $pass .Release.Name "solr" $collection  -}}
+{{- $host := (include "starlight.solr.fullname" .) -}}
+{{- $port := "8983" -}}
+{{- printf "http://%s:%s@%s:%s/solr/%s" $user $pass $host $port $collection  -}}
 {{- end -}}
 
+{{/*
+Zookeeper hostname, supporting external hostname as well
+*/}}
 {{- define "starlight.zk.fullname" -}}
+{{- if .Values.solr.enabled -}}
 {{- printf "%s-%s" .Release.Name "zookeeper" | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
+{{- .Values.solr.zookeeperHostname -}}
+{{- end -}}
 {{- end -}}
