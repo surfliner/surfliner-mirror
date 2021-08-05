@@ -25,6 +25,7 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       initContainers:
+        {{- if .Values.starlight.loadSolrConfigSet }}
         - name: load-solr-config
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: Always
@@ -39,6 +40,7 @@ spec:
             - >
               solrcloud-upload-configset.sh /home/starlight/app/solr/config &&
               solrcloud-assign-configset.sh
+        {{- end }}
         - name: setup-db
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: "{{ .Values.image.pullPolicy }}"

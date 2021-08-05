@@ -70,6 +70,7 @@ ingress:
 
 starlight:
   allow_robots: false # allow crawling via robots.txt
+  loadSolrConfigSet: true # use false to skip solr configset maintenance init container
   application:
     name: "Starlight"
     themes: "ucsb,surfliner,ucsd"
