@@ -1,19 +1,14 @@
 #!/bin/sh
-
-FILES=${*}
-
 COUNTER=0
 while [ $COUNTER -lt 120 ]; do
   echo "-- Looking for GeoServer at ${GEOSERVER_INTERNAL_HOST}:${GEOSERVER_PORT} ..."
   if nc -z "${GEOSERVER_INTERNAL_HOST}" "${GEOSERVER_PORT}" ; then
     echo "-- Found GeoServer; ingesting..."
 
-    for shape in ${FILES}; do
-      echo "-- Ingesting ${shape}..."
-      bundle exec rake shoreline:publish["${shape}"]
-    done
+    # shellcheck disable=SC2102
+    SHORELINE_FILE_ROOT=${*} bundle exec rake shoreline:ingest[spec/fixtures/csv/Ingest03.csv]
 
-    exit 0
+    exit $?
   fi
   COUNTER=$(( COUNTER+1 ));
   sleep 2s

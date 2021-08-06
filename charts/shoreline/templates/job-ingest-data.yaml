@@ -21,7 +21,7 @@ spec:
           imagePullPolicy: "{{ .Values.image.pullPolicy }}"
           command:
             - /home/shoreline/discovery/app/bin/ingest.sh
-            - /home/shoreline/discovery/app/spec/fixtures/shapefiles/*
+            - /home/shoreline/discovery/app/spec/fixtures/shapefiles
           envFrom:
             - configMapRef:
                 name: {{ include "shoreline.fullname" . }}-env
