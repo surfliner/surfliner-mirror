@@ -112,6 +112,10 @@ postgresql:
     size: 10Gi
 
 geoserver:
+  enabled: true
+  # If geoserver.enabled is false, then
+  #   * set geoserverHostname to external geoserver FQDN
+  # geoserverHostname: external-shoreline-geoserver-fqdn
   admin:
     password: shorelinegeo
   persistence:

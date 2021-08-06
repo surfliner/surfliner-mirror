@@ -49,7 +49,11 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
 
 {{- define "shoreline.geoserver.fullname" -}}
+{{- if .Values.geoserver.enabled -}}
 {{- printf "%s-%s" .Release.Name "geoserver" | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
+{{- .Values.geoserver.geoserverHostname -}}
+{{- end -}}
 {{- end -}}
 
 {{- define "shoreline.postgresql.fullname" -}}
