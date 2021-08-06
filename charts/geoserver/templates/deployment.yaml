@@ -39,20 +39,11 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          env:
-            - name: "GEOSERVER_DATA_DIR"
-              value: /data
-            - name: "GEOSERVER_ADMIN_PASSWORD"
-              valueFrom:
-                secretKeyRef:
-                  name: {{ template "geoserver.fullname" . }}
-                  key: adminPassword
-            {{- if .Values.jvm }}
-            - name: "INITIAL_MEMORY"
-              value: {{ .Values.jvm.initialMemory }}
-            - name: "MAXIMUM_MEMORY"
-              value: {{ .Values.jvm.maximumMemory }}
-            {{ end }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "geoserver.fullname" . }}-env
+            - secretRef:
+                name: {{ include "geoserver.fullname" . }}
           ports:
             - name: http
               containerPort: 8080
@@ -77,7 +68,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - name: "data"
-              mountPath: /data
+              mountPath: {{ .Values.dataDirectory }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

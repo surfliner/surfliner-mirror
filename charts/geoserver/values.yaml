@@ -13,13 +13,16 @@ nameOverride: ""
 fullnameOverride: ""
 healthz: /geoserver
 
+# Data directory for Geoserver
+dataDirectory: /data
+
 # Override JVM values
 # see: https://github.com/kartoza/docker-geoserver/blob/master/.env#L16-L19
 # see: https://docs.geoserver.org/stable/en/user/production/container.html#optimize-your-jvm
 # image defaults:
-# jvm:
-#   initialMemory: 2G
-#   maximumMemory: 4G
+jvm:
+  initialMemory: 2G
+  maximumMemory: 4G
 
 service:
   type: ClusterIP
@@ -38,6 +41,7 @@ ingress:
 
 admin:
   password: geoserver
+  username: admin
 
 persistence:
   enabled: true

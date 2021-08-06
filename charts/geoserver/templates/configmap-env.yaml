@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "geoserver.fullname" . }}-env
+  labels:
+{{ include "geoserver.labels" . | indent 4 }}
+data:
+  GEOSERVER_ADMIN_USER: {{ .Values.admin.username }}
+  GEOSERVER_DATA_DIR: {{ .Values.dataDirectory }}
+  INITIAL_MEMORY: {{ .Values.jvm.initialMemory }}
+  MAXIMUM_MEMORY: {{ .Values.jvm.maximumMemory }}
