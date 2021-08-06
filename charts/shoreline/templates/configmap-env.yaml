@@ -12,8 +12,8 @@ data:
   DELIVERY_METHOD: {{ .Values.shoreline.email.delivery_method }}
   GEOBLACKLIGHT_DOWNLOAD_PATH: {{ .Values.shoreline.geoblacklightDownloadPath }}
   GEOSERVER_HOST: {{ template "shoreline.geoserver.fullname" . }}
-  GEOSERVER_PORT: "80"
-  GEOSERVER_USER: admin
+  GEOSERVER_PORT: {{ .Values.geoserver.service.port | default "80" | quote }}
+  GEOSERVER_USER: {{ .Values.geoserver.admin.username }}
   POSTGRES_DB: {{ .Values.postgresql.postgresqlDatabase }}
   POSTGRES_HOST: {{ template "shoreline.postgresql.fullname" . }}
   POSTGRES_PORT: {{ .Values.postgresql.servicePort | quote }}

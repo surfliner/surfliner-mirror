@@ -117,6 +117,7 @@ geoserver:
   #   * set geoserverHostname to external geoserver FQDN
   # geoserverHostname: external-shoreline-geoserver-fqdn
   admin:
+    username: admin
     password: shorelinegeo
   persistence:
     enabled: true
