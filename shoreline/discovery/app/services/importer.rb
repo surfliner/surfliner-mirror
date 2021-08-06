@@ -52,8 +52,7 @@ module Importer
 
   def self.publish_to_geoserver(file_path:)
     conn = Geoserver::Publish::Connection.new(
-      # Using internal hostname to avoid the nginx ingress, which limits filesize
-      'url' => "http://#{ENV['GEOSERVER_INTERNAL_HOST']}:#{ENV['GEOSERVER_PORT']}/geoserver/rest",
+      'url' => "http://#{ENV['GEOSERVER_HOST']}:#{ENV['GEOSERVER_PORT']}/geoserver/rest",
       'user' => ENV['GEOSERVER_USER'],
       'password' => ENV['GEOSERVER_PASSWORD']
     )
@@ -152,7 +151,7 @@ module Importer
       ENV['GEOSERVER_PASSWORD']
     )
 
-    url = "http://#{ENV['GEOSERVER_INTERNAL_HOST']}:#{ENV['GEOSERVER_PORT']}/geoserver/rest/layers/#{name}.json"
+    url = "http://#{ENV['GEOSERVER_HOST']}:#{ENV['GEOSERVER_PORT']}/geoserver/rest/layers/#{name}.json"
 
     ready = false
     tries = 10

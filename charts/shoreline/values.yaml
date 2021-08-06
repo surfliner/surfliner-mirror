@@ -117,6 +117,8 @@ geoserver:
   persistence:
     enabled: true
   ingress:
+    annotations:
+      nginx.ingress.kubernetes.io/proxy-body-size: 512m
     enabled: true
     hosts: ['geoserver.local']
     tls: []
