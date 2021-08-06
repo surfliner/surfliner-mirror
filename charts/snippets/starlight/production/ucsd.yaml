@@ -35,12 +35,7 @@ starlight:
       oldAppUrl: https://exhibits.ucsd.edu
       sourcePath: s3://starlight-production-backups/uploads
     export:
-      dbBackupDestination: s3://ucsd/starlight-k8s.dmp
-      dbBackupSource: /tmp/starlight-backup.dmp
-      destinationPath: s3://starlight-production-backups/uploads
-      enabled: true
-      schedule: "30 8 * * *"
-      sourcePath: s3://starlight-production/uploads
+      enabled: false
   sitemaps:
     enabled: true
   email:
