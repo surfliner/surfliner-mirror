@@ -25,7 +25,7 @@ spec:
             - configMapRef:
                 name: {{ include "shoreline.fullname" . }}-env
             - secretRef:
-                name: {{ include "shoreline.fullname" . }}
+                name: {{ template "shoreline.secretName" . }}
           command:
             - sh
             - -c
@@ -40,7 +40,7 @@ spec:
             - configMapRef:
                 name: {{ include "shoreline.fullname" . }}-env
             - secretRef:
-                name: {{ template "shoreline.fullname" . }}
+                name: {{ template "shoreline.secretName" . }}
           command:
             - sh
             - -c
@@ -59,7 +59,7 @@ spec:
             - configMapRef:
                 name: {{ include "shoreline.fullname" . }}-env
             - secretRef:
-                name: {{ template "shoreline.fullname" . }}
+                name: {{ template "shoreline.secretName" . }}
           ports:
             - name: http
               containerPort: 3000

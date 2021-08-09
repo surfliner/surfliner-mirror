@@ -25,6 +25,11 @@ ingress:
   hosts: ['shoreline.local']
   tls: []
 
+# Set to true if a Secret already exists in the namespace for the Deployment
+existingSecret:
+  name: shoreline
+  enabled: false
+
 shoreline:
   db_setup_command: "db:migrate"
   geoblacklightDownloadPath: /data/tmp/cache/downloads

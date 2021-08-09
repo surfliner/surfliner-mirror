@@ -44,6 +44,17 @@ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
 
+{{/*
+Supports using an existing secret instead of one built using the Chart
+*/}}
+{{- define "shoreline.secretName" -}}
+{{- if .Values.existingSecret.enabled -}}
+{{- .Values.existingSecret.name -}}
+{{- else -}}
+{{ include "shoreline.fullname" . }}
+{{- end -}}
+{{- end -}}
+
 {{- define "shoreline.email.fullname" -}}
 {{- printf "%s-%s" .Release.Name "email" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
