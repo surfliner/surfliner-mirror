@@ -21,9 +21,8 @@ shoreline:discovery:deploy:ucsd-stage:
   tags:
     - ucsd
   variables:
-    HELM_ENCODED_VALUES: $UCSD_SHORELINE_STAGING_VALUES
     HELM_UPGRADE_EXTRA_ARGS: >
-      --values $HELM_VALUES_FILE
+      --values charts/snippets/shoreline/staging/ucsd.yaml
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
   script:
     - deploy ./charts/shoreline
