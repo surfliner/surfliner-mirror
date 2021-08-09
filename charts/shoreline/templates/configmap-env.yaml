@@ -30,13 +30,8 @@ data:
   {{- end }}
   SOLR_CORE_NAME: {{ .Values.shoreline.solr.collectionName }}
   SOLR_CONFIG_NAME: {{ .Values.shoreline.solr.configName | default "shorelineconf" | quote }}
-  {{- if .Values.solr.enabled }}
   SOLR_HOST: {{ template "shoreline.solr.fullname" . }}
   SOLR_PORT: {{ .Values.solr.solrPort | default "8983" | quote }}
-  {{- else }}
-  SOLR_HOST: {{ .Values.solr.solrHostname }}
-  SOLR_PORT: {{ .Values.solr.solrPort | default "8983" | quote }}
-  {{- end }}
   SOLR_URL: {{ template "shoreline.solr.url" . }}
   SOLR_ADMIN_PASSWORD: {{ .Values.solr.authentication.adminPassword }}
   SOLR_ADMIN_USER: {{ .Values.solr.authentication.adminUsername }}
