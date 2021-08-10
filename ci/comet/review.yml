@@ -33,7 +33,9 @@ comet:deploy:ucsd-review:
       --set worker.image.tag=$CI_COMMIT_SHA
       --set extraInitContainers[0].envFrom[0].configMapRef.name=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax-env
       --set extraInitContainers[1].envFrom[0].configMapRef.name=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax-env
+      --set extraInitContainers[2].envFrom[0].configMapRef.name=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax-env
       --set extraInitContainers[1].envFrom[1].secretRef.name=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax
+      --set extraInitContainers[2].envFrom[1].secretRef.name=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax
       --set extraInitContainers[2].image=$CI_REGISTRY_IMAGE/comet_worker_web:$CI_COMMIT_SHA
       --values charts/snippets/comet/init-containers.yaml
       --values charts/snippets/comet/review-deploy.yaml
@@ -78,7 +80,9 @@ comet:deploy:ucsb-review:
       --set worker.image.tag=$CI_COMMIT_SHA
       --set extraInitContainers[0].envFrom[0].configMapRef.name=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax-env
       --set extraInitContainers[1].envFrom[0].configMapRef.name=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax-env
+      --set extraInitContainers[2].envFrom[0].configMapRef.name=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax-env
       --set extraInitContainers[1].envFrom[1].secretRef.name=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax
+      --set extraInitContainers[2].envFrom[1].secretRef.name=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax
       --set extraInitContainers[2].image=$CI_REGISTRY_IMAGE/comet_worker_web:$CI_COMMIT_SHA
       --values charts/snippets/surfliner/solr-review.yaml
       --values charts/snippets/comet/init-containers.yaml
