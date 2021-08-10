@@ -5,6 +5,8 @@ ENV["RAILS_ENV"] ||= "test"
 ENV["DATABASE_URL"] = ENV["DATABASE_TEST_URL"] ||
   ENV["DATABASE_URL"].gsub("hyrax?pool", "hyrax-test?pool")
 
+ENV["SOLR_URL"] = ENV["SOLR_TEST_URL"] if ENV["SOLR_TEST_URL"]
+
 require File.expand_path("../config/environment", __dir__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?

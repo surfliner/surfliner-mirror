@@ -130,6 +130,8 @@ worker:
       value: "cometdev"
     - name: "REPOSITORY_S3_SECRET_KEY"
       value: "comet-secret"
+    - name: "SOLR_TEST_URL"
+      value: "http://admin:admin@comet-development:8983/solr/testCollection"
 extraEnvVars:
   - name: "AUTH_METHOD"
     value: "developer"
@@ -157,6 +159,8 @@ extraEnvVars:
     value: "comet-secret"
   - name: "SKIP_SELENIUM"
     value: ""
+  - name: "SOLR_TEST_URL"
+    value: "http://admin:admin@comet-development:8983/solr/testCollection"
 minio:
   enabled: true
   persistence:
