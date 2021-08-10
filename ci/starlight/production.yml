@@ -24,7 +24,7 @@ starlight:deploy:ucsb-production:
     url: http://starlight.$KUBE_INGRESS_BASE_DOMAIN
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
-      --values charts/snippets/starlight/staging/ucsb.yaml
+      --values charts/snippets/starlight/production/ucsb.yaml
 
 starlight:deploy:ucsd-production:
   needs: ["starlight:deploy:ucsd-stage"]
