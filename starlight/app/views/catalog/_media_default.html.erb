@@ -1,1 +1,3 @@
+<% if document.response.docs.first['iiif_manifest_url_ssi'].present? %>
 <%= render resource_render_type(document), document: document, upload_path: resource_upload_path(document) %>
+<% end %>
