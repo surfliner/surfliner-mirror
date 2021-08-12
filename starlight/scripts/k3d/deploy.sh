@@ -17,7 +17,7 @@ else
   . ./scripts/k3d/build.sh
 fi
 
-if docker image inspect "$image_repository:$git_sha" > /dev/null 2>&1; then
+if docker image inspect "$util_image_repository:$git_sha" > /dev/null 2>&1; then
   echo "Util container image already exists in Registry, skipping build..."
 else
   echo "Building and pushing util container image to Registry..."
