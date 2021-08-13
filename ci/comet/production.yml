@@ -13,6 +13,7 @@
       - trunk
 
 comet:deploy:production:ucsb:
+  needs: ["comet:deploy:staging:ucsb"]
   extends:
     - .comet:deploy:production
     - .comet-chart-deploy
@@ -54,6 +55,7 @@ comet:cleanup:production:ucsb:
   when: manual
 
 comet:deploy:production:ucsd:
+  needs: ["comet:deploy:staging:ucsd"]
   extends:
     - .comet:deploy:production
     - .comet-chart-deploy
