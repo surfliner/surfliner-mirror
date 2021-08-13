@@ -5,6 +5,8 @@ namespace="comet-development"
 release=${RELEASE_NAME:=comet}
 values_file=${VALUES_FILE:=../charts/snippets/comet/k3d.yaml}
 registry_port=${REGISTRY_PORT:=41906}
+hyrax_version="0.22.0"
+hyrax_chart_directory='charts/hyrax'
 
 git_sha="$(git rev-parse HEAD)"
 image_repository="k3d-registry.localhost:$registry_port/comet_web"
@@ -39,9 +41,15 @@ else
   kubectl --context $context apply --namespace=surfliner-utilities -f ../k3d/chromium.yaml --wait=true
 fi
 
+# This is to ensure we don't accidentally keep cached older hyrax charts locally
+if test -d "$hyrax_chart_directory" && ! grep -q "$hyrax_version" "$hyrax_chart_directory/Chart.yaml"; then
+  echo "Older hyrax chart found in $hyrax_chart_directory. Removing..."
+  echo rm -rf charts/hyrax*
+fi
+
 HELM_EXPERIMENTAL_OCI=1 \
   helm pull oci://ghcr.io/samvera/hyrax/hyrax-helm \
-    --version 0.22.0 \
+    --version "$hyrax_version" \
     --untar \
     --untardir charts
 
