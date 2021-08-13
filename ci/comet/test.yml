@@ -33,7 +33,7 @@
 comet:test:unit:
   extends: .comet:test
   services:
-    - name: bitnami/postgresql:12.7.0
+    - name: bitnami/postgresql:12.8.0
       alias: postgres
     - name: bitnami/redis:6.2
       alias: redis
@@ -49,7 +49,7 @@ comet:test:system:
   variables:
     HUB_URL: "http://localhost:4444/wd/hub/"
   services:
-    - name: bitnami/postgresql:12.7.0
+    - name: bitnami/postgresql:12.8.0
       alias: postgres
     - name: bitnami/redis:6.2
       alias: redis
