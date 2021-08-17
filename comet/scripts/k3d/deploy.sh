@@ -44,7 +44,7 @@ fi
 # This is to ensure we don't accidentally keep cached older hyrax charts locally
 if test -d "$hyrax_chart_directory" && ! grep -q "$hyrax_version" "$hyrax_chart_directory/Chart.yaml"; then
   echo "Older hyrax chart found in $hyrax_chart_directory. Removing..."
-  echo rm -rf charts/hyrax*
+  rm -rf charts/hyrax*
 fi
 
 HELM_EXPERIMENTAL_OCI=1 \
