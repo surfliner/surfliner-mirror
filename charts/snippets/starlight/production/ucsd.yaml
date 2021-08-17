@@ -10,7 +10,7 @@ existingSecret:
 
 postgresql:
   enabled: false
-  postgresqlHostname: heisenberg.ucsd.edu
+  postgresqlHostname: lib-psql-prod.ucsd.edu
   postgresqlDatabase: starlight
 starlight:
   allow_robots: true
