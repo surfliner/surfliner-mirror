@@ -31,6 +31,14 @@ namespace :starlight do
     end
   end
 
+  task migrate_widget_content: [:environment] do
+    unless ENV["S3_ENDPOINT"]
+      abort "\nYou must supply S3_ENDPOINT environment variables for this task.\n\n"
+    end
+
+    TrevorURL.all(/^\/uploads/, "#{ENV["S3_ENDPOINT"]}/uploads")
+  end
+
   namespace :sample do
     desc "Load Blake exhibit and content"
     task seed_exhibit: [:environment] do
