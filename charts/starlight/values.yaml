@@ -99,7 +99,7 @@ starlight:
     accessKey: starlight-access-key
     acl: 'bucket-owner-full-control' #aws/minio ACL
     bucket: starlight
-    endpointUrl: https://starlight.s3.us-west-2.amazonaws.com
+    # endpointUrl: aws/minio (optional for aws, reguired for minio)
     region: us-west-2
     secretKey: starlight-secret-key
   zookeeper:
@@ -107,6 +107,7 @@ starlight:
   backups:
     import:
       enabled: false
+      # asset_host: new host for CMS assets. e.g.: https://starlight-uploads-prod.s3.us-west-2.amazonaws.com
       solrReindex: false # flag to run a full solr reindex on import/initial deploy
       # dbBackupSource: s3:// URL or local file path for importing psql database backup source. e.g: s3://ucsd/starlight.dmp or /tmp/starlight-backup.dmp
       # dbBackupDestination: s3:// URL or local file path for psql database backup destination file. e.g: s3://ucsd/starlight.dmp or /tmp/starlight-backup.dmp

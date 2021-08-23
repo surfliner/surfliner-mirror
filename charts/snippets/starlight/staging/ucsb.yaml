@@ -1,3 +1,7 @@
+# TODO: revert when UCSB theme is updated for Spotlight 3
+image:
+  tag: af316a147890154712503b4a0f3774f9fcacce09
+
 ingress:
   hosts:
     - starlight-staging.eks.dld.library.ucsb.edu
@@ -18,8 +22,9 @@ starlight:
     name: "Starlight"
   backups:
     import:
-      enabled: true
-      dbBackupSource: s3://starlight-migrate-staging/starlight-stage.2021-06-10.sql
+      enabled: false
+      asset_host: https://starlight-uploads-staging.s3.us-west-2.amazonaws.com
+      dbBackupSource: s3://starlight-migrate-staging/starlight-staging.2021.06.30.dump
       dbBackupDestination: /tmp/starlight-backup.dmp
       oldAppUrl: http://starlight-stage.library.ucsb.edu
       sourcePath: s3://starlight-uploads-staging/uploads

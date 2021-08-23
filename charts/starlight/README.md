@@ -66,6 +66,7 @@ The following tables lists the configurable parameters of the Starlight chart an
 | `starlight.solr.port` | Solr port to use.  | `8983` | `SOLR_PORT` |
 | `starlight.zookeeper.port` | Zookeeper port to use.  | `2181` | `ZK_PORT` |
 | `starlight.backups.import.enabled` | Whether to run the backup import migration jobs (when migrating data from another environment).  | `false` | N/A |
+| `starlight.backups.import.asset_host` | The new host from where images uploaded through the CMS will be served; used for rewriting URLs  | `nil` | `ASSET_HOST` |
 | `starlight.backups.import.oldAppUrl` | URL for previous environment.  | `nil` | `OLD_APP_URL` |
 | `starlight.backups.export.enabled` | Whether to run the backup export migration jobs.  | `false` | N/A |
 | `starlight.backups.directoryImportPath` | Path to mount public/uploads backup directory into.  | `nil` | `DIRECTORY_IMPORT_PATH` |
@@ -85,7 +86,7 @@ The following tables lists the configurable parameters of the Starlight chart an
 | `starlight.storage.accessKey` | S3/Minio access key.  | `nil` | `AWS_ACCESS_KEY_ID` |
 | `starlight.storage.acl` | S3/Minio ACL. e.g: 'bucket-owner-full-control'. | `nil` | `S3_ACL` |
 | `starlight.storage.bucket` | S3/Minio bucket name. This bucket will need to allow write/put for the access keypair used, and public `read` access to allow for IIIF viewing. | `nil` | `S3_BUCKET_NAME` |
-| `starlight.storage.endpointUrl` | S3/Minio endpoint URL (required)  | `nil` | `S3_ENDPOINT` |
+| `starlight.storage.endpointUrl` | S3/Minio endpoint URL (required for Minio).  | `nil` | `S3_ENDPOINT` |
 | `starlight.storage.region` | AWS region. e.g: 'us-west-2'.  | `nil` | `AWS_REGION` |
 | `starlight.storage.secretKey` | S3/Minio secret key. | `nil` | `AWS_SECRET_ACCESS_KEY` |
 
