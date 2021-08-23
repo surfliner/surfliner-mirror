@@ -8,6 +8,11 @@ postgresql:
   postgresqlDatabase: starlight-prod
   postgresqlHostname: starlight-prod-postgresql.postgresql-prod
   postgresqlUsername: starlight
+solr:
+  enabled: true
+  authentication:
+    enabled: true
+  existingSecret: starlight-solr-prod
 starlight:
   application:
     name: "Starlight"
