@@ -5,19 +5,10 @@ module TrevorURL
   # @param [RegExp] regexp
   # @param [String] string
   def self.gsub_urls(block, regexp, string)
-    block.item.each_value do |v|
+    block.item&.each_value do |v|
       v["url"] = v["url"].gsub(regexp, string)
     end
     block
-  end
-
-  # @param [RegExp] regexp
-  # @param [String] string
-  def self.all(regexp, string)
-    Spotlight::FeaturePage.all.each do |page|
-      page.content = rewrite_content(page.content, regexp, string)
-      page.save
-    end
   end
 
   # @param [Spotlight::PageContent] content
@@ -28,6 +19,17 @@ module TrevorURL
       next block unless block.instance_of?(SirTrevorRails::Blocks::UploadedItemsBlock)
 
       gsub_urls(block, regexp, string)
+    end
+  end
+
+  # @param [RegExp] regexp
+  # @param [String] string
+  def self.all(regexp, string)
+    Spotlight::Page.all.each do |page|
+      updated_content = rewrite_content(page.content, regexp, string)
+
+      page.content = updated_content
+      page.save
     end
   end
 end

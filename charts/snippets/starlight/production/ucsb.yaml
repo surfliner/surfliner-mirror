@@ -24,6 +24,7 @@ starlight:
     accessKey: AKIAV5LYGG4AHTG7NMFD
     acl: bucket-owner-full-control
     bucket: starlight-uploads-prod
+    endpointUrl: starlight-uploads-prod.s3.us-west-2.amazonaws.com
     region: us-west-2
   sitemaps:
     enabled: false
