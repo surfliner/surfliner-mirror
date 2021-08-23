@@ -1,3 +1,7 @@
+# TODO: revert when UCSB theme is updated for Spotlight 3
+image:
+  tag: af316a147890154712503b4a0f3774f9fcacce09
+
 ingress:
   hosts:
     - starlight.eks.dld.library.ucsb.edu
@@ -19,6 +23,7 @@ starlight:
   backups:
     import:
       enabled: false
+      asset_host: https://starlight-uploads-prod.s3.us-west-2.amazonaws.com
       dbBackupSource: s3://starlight-migrate-prod/starlight-prod.2021.07.29.sql
       dbBackupDestination: /tmp/starlight-backup.dmp
       oldAppUrl: http://starlight.library.ucsb.edu
@@ -29,7 +34,6 @@ starlight:
     accessKey: AKIAV5LYGG4AHTG7NMFD
     acl: bucket-owner-full-control
     bucket: starlight-uploads-prod
-    endpointUrl: starlight-uploads-prod.s3.us-west-2.amazonaws.com
     region: us-west-2
   sitemaps:
     enabled: false

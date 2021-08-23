@@ -12,6 +12,9 @@ data:
   ALLOW_ROBOTS: "true"
   {{- end }}
   APP_URL: http{{ if .Values.ingress.tls }}s{{ end }}://{{ index .Values.ingress.hosts 0 }}
+  {{- if .Values.starlight.backups.import.asset_host }}
+  ASSET_HOST: {{.Values.starlight.backups.import.asset_host }}
+  {{- end }}
   AUTH_METHOD: {{ .Values.starlight.auth.method }}
   DATABASE_COMMAND: {{ .Values.starlight.rails.db_setup_command }}
   DELIVERY_METHOD: {{ .Values.starlight.email.delivery_method }}

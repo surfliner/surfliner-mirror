@@ -22,8 +22,6 @@ starlight:deploy:ucsb-production:
     name: ucsb.production.starlight
     url: http://starlight.$KUBE_INGRESS_BASE_DOMAIN
   variables:
-    # TODO: revert when UCSB theme is updated for Spotlight 3
-    DEPLOY_TAG: 3ce66849462bc7ed949ae36a861e36907fba0137
     HELM_UPGRADE_EXTRA_ARGS: >
       --values charts/snippets/starlight/production/ucsb.yaml
 
