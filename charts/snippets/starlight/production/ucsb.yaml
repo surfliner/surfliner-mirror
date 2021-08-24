@@ -1,6 +1,6 @@
 # TODO: revert when UCSB theme is updated for Spotlight 3
 image:
-  tag: af316a147890154712503b4a0f3774f9fcacce09
+  tag: 17c670abeb78a7d156ad115abbce27999e2c1300
 
 ingress:
   hosts:
