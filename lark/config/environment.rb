@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-require 'dotenv/load' unless ENV['RACK_ENV'] == 'production'
+require "dotenv/load" unless ENV["RACK_ENV"] == "production"
 
-require_relative 'application'
-require 'bundler'
+require_relative "application"
+require "bundler"
 
 Bundler.require
 
-Lark.config.event_adapter = ENV['EVENT_ADAPTER'].to_sym
-Lark.config.index_adapter = ENV['INDEX_ADAPTER'].to_sym
-Lark.config.minter = Lark::Minter.for(ENV.fetch('MINTER', :uuid).to_sym)
+Lark.config.event_adapter = ENV["EVENT_ADAPTER"].to_sym
+Lark.config.index_adapter = ENV["INDEX_ADAPTER"].to_sym
+Lark.config.minter = Lark::Minter.for(ENV.fetch("MINTER", :uuid).to_sym)
 
 Valkyrie::MetadataAdapter.register(
   Valkyrie::Persistence::Memory::MetadataAdapter.new,
@@ -17,7 +17,7 @@ Valkyrie::MetadataAdapter.register(
 )
 
 if Lark.config.event_adapter == :sql
-  require_relative 'database'
+  require_relative "database"
   Lark.config.database = DATABASE
 
   ##
@@ -45,7 +45,7 @@ if Lark.config.index_adapter == :solr
   # Register solr metadata adapter with RSolr connection for SOLR persistence
   Valkyrie::MetadataAdapter.register(
     Valkyrie::Persistence::Solr::MetadataAdapter
-      .new(connection: RSolr.connect(url: ENV['SOLR_URL'])),
+      .new(connection: RSolr.connect(url: ENV["SOLR_URL"])),
     :solr
   )
 
@@ -58,7 +58,7 @@ if Lark.config.index_adapter == :solr
     .register_query_handler(FindByStringProperty)
 end
 
-require_relative 'initializers/healthchecks'
-require_relative 'initializers/healthchecks_complete'
+require_relative "initializers/healthchecks"
+require_relative "initializers/healthchecks_complete"
 
 Lark.config.event_stream.subscribe(IndexListener.new)

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'concerns/record_controller_behavior'
+require_relative "concerns/record_controller_behavior"
 
 ##
 # A controller that resolves searching of authority records.
@@ -11,14 +11,14 @@ class SearchController < ApplicationController
   # exact search for known terms: pref_label, alternate_label
   def exact_search
     with_error_handling do
-      return [400, response_headers, ['Unknown search term.']] if
+      return [400, response_headers, ["Unknown search term."]] if
         search_term(params).empty?
 
       rs = search params
 
       return [404, cors_allow_header, []] if rs.count.zero?
 
-      data = serialize(record: rs, format: 'application/json')
+      data = serialize(record: rs, format: "application/json")
       [200, response_headers, [data]]
     end
   end
@@ -30,9 +30,9 @@ class SearchController < ApplicationController
   # An empty string will be return when no supported terms found.
   # @param params [Hash] the request parameters map
   def search_term(params)
-    return '' unless params.key?('pref_label') || params.key?('alternate_label')
+    return "" unless params.key?("pref_label") || params.key?("alternate_label")
 
-    params.key?('pref_label') ? 'pref_label' : 'alternate_label'
+    params.key?("pref_label") ? "pref_label" : "alternate_label"
   end
 
   ##
@@ -40,17 +40,17 @@ class SearchController < ApplicationController
   # Serialized an array of authority records
   def serialize(record:, format:)
     buf = StringIO.new
-    buf << '['
+    buf << "["
 
     record.each do |re|
-      buf << ',' if buf.size > 1
+      buf << "," if buf.size > 1
 
       buf << Lark::RecordSerializer
-             .for(content_type: format)
-             .serialize(record: re)
+        .for(content_type: format)
+        .serialize(record: re)
     end
 
-    buf << ']'
+    buf << "]"
 
     buf.string
   end
@@ -61,7 +61,7 @@ class SearchController < ApplicationController
   def search(params)
     label = search_term params
     FindByStringProperty.new(query_service: query_service)
-                        .find_by_string_property(property: label,
-                                                 value: params[label])
+      .find_by_string_property(property: label,
+        value: params[label])
   end
 end

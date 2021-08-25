@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'dry/transaction'
-require 'rack/healthcheck'
-require 'sinatra'
-require 'valkyrie'
-require_relative '../lib/lark'
+require "dry/transaction"
+require "rack/healthcheck"
+require "sinatra"
+require "valkyrie"
+require_relative "../lib/lark"
 
 ##
 # Lark is an authority control platform.
@@ -21,49 +21,49 @@ module Lark
   # @see http://sinatrarb.com/intro.html
   # @see https://rack.github.io/
   class Application < Sinatra::Base
-    use Rack::Healthcheck::Middleware, '/healthz'
+    use Rack::Healthcheck::Middleware, "/healthz"
 
-    get '/' do
+    get "/" do
       ServiceDescriptionController.new(request: request).show
     end
 
-    get '/search' do
+    get "/search" do
       SearchController.new(params: params).exact_search
     end
 
-    get '/:id' do
+    get "/:id" do
       RecordController.new(params: params).show
     end
 
-    post '/batch_edit' do
+    post "/batch_edit" do
       BatchController.new(request: request).batch_update
     end
 
-    post '/batch_import' do
+    post "/batch_import" do
       BatchController.new(request: request).batch_import
     end
 
-    post '/' do
+    post "/" do
       RecordController.new(request: request).create
     end
 
-    put '/:id' do
+    put "/:id" do
       RecordController.new(request: request, params: params).update
     end
 
-    options '/' do
+    options "/" do
       ServiceDescriptionController.new(params: params).options
     end
 
-    options '/search' do
+    options "/search" do
       SearchController.new(params: params).options
     end
 
-    options '/batch_edit' do
+    options "/batch_edit" do
       BatchController.new(params: params).options
     end
 
-    options '/:id' do
+    options "/:id" do
       RecordController.new(params: params).options
     end
   end

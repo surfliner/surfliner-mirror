@@ -14,7 +14,7 @@ module RecordControllerBehavior
   end
 
   def ctype
-    request.env['CONTENT_TYPE']
+    request.env["CONTENT_TYPE"]
   end
 
   def parsed_body(format:)

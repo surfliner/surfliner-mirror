@@ -1,30 +1,30 @@
 # frozen_string_literal: true
 
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem 'capybara_discoball', '~> 0.1.0', group: 'test'
-gem 'dotenv', group: %w[development test]
-gem 'dry-configurable', '~> 0.12.0'
-gem 'dry-events', '~> 0.3.0'
-gem 'dry-system', '~> 0.18.0'
-gem 'dry-transaction', '~> 0.13.0'
-gem 'dry-validation', '~> 1.5'
-gem 'ezid-client', '1.9.1'
-gem 'factory_bot', group: 'test'
-gem 'pry', group: %w[development test]
-gem 'puma'
-gem 'rack-healthcheck', '~> 0.2.0'
-gem 'racksh'
-gem 'rack-test', group: 'test'
-gem 'rsolr', '~> 2.3.0'
-gem 'rspec', group: 'test'
-gem 'rubocop', '~> 1.20.0', group: %w[development test]
-gem 'rubocop-rspec', group: %w[development test]
-gem 'shotgun', group: 'development'
-gem 'sinatra', '~> 2.1.0'
-gem 'solr_utils', path: '../gems/solr_utils'
-gem 'timecop', group: 'test'
-gem 'valkyrie', '2.2.0'
-gem 'valkyrie-sequel', '2.2.1'
+gem "capybara_discoball", "~> 0.1.0", group: "test"
+gem "dotenv", group: %w[development test]
+gem "dry-configurable", "~> 0.12.0"
+gem "dry-events", "~> 0.3.0"
+gem "dry-system", "~> 0.18.0"
+gem "dry-transaction", "~> 0.13.0"
+gem "dry-validation", "~> 1.5"
+gem "ezid-client", "1.9.1"
+gem "factory_bot", group: "test"
+gem "pry", group: %w[development test]
+gem "puma"
+gem "rack-healthcheck", "~> 0.2.0"
+gem "racksh"
+gem "rack-test", group: "test"
+gem "rsolr", "~> 2.3.0"
+gem "rspec", group: "test"
+gem "rubocop-rspec", group: %w[development test]
+gem "shotgun", group: "development"
+gem "sinatra", "~> 2.1.0"
+gem "solr_utils", path: "../gems/solr_utils"
+gem "standard", "1.3.0"
+gem "timecop", group: "test"
+gem "valkyrie", "2.2.0"
+gem "valkyrie-sequel", "2.2.1"

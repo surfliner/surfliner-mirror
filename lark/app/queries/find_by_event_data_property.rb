@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'query_basic'
+require_relative "query_basic"
 
 ##
 # Custom query to search events by authority id in :data field in SQL

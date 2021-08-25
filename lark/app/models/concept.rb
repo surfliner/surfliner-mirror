@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'authority'
+require_relative "authority"
 
 ##
 # A full Concept record built from/saved to the index.
@@ -14,7 +14,7 @@ require_relative 'authority'
 #   adapter.persister.delete(resource: concept)
 #
 class Concept < Valkyrie::Resource
-  SCHEMA = 'http://www.w3.org/2004/02/skos/core#ConceptScheme'
+  SCHEMA = "http://www.w3.org/2004/02/skos/core#ConceptScheme"
 
   include Lark::Schema(:concept)
 end

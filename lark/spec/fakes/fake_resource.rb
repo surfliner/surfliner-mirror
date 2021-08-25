@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'valkyrie'
+require "valkyrie"
 
 module Lark
   ##

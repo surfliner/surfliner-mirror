@@ -57,7 +57,7 @@ module Lark
       def log_change_properties_event(id:, attributes:)
         @event_stream <<
           Event.new(type: :change_properties,
-                    data: { authority_id: id, changes: attributes })
+            data: {authority_id: id, changes: attributes})
         Success(id: id, attributes: attributes)
       rescue KeyError => e
         # @todo this is a refinement of original coarse behavior rescuing
@@ -69,7 +69,7 @@ module Lark
       end
 
       def log_create_event(attributes:, id:)
-        @event_stream << Event.new(type: :create, data: { authority_id: id, changes: {} })
+        @event_stream << Event.new(type: :create, data: {authority_id: id, changes: {}})
 
         Success(attributes: attributes, id: id)
       end

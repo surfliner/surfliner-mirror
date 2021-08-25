@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'dry/events/publisher'
+require "dry/events/publisher"
 
 module Lark
   ##
@@ -78,8 +78,8 @@ module Lark
       include Dry::Events::Publisher[:lark]
 
       EVENT_TYPES = {
-        create: 'created',
-        change_properties: 'properties_changed'
+        create: "created",
+        change_properties: "properties_changed"
       }.freeze
 
       EVENT_TYPES.each_value { |name| register_event(name) }

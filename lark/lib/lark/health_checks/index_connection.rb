@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'rack/healthcheck/checks/base'
-require 'rack/healthcheck/type'
+require "rack/healthcheck/checks/base"
+require "rack/healthcheck/type"
 
 module Lark
   module HealthChecks
@@ -22,7 +22,7 @@ module Lark
       def check
         Lark::Indexer.new
         @status = true
-      rescue StandardError => _e
+      rescue => _e
         @status = false
       end
     end

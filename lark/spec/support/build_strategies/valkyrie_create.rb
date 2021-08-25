@@ -14,13 +14,13 @@ class ValkyrieCreate
 
     evaluation.notify(:after_build, instance)
 
-    adapter   = Valkyrie::MetadataAdapter.find(Lark.config.index_adapter)
+    adapter = Valkyrie::MetadataAdapter.find(Lark.config.index_adapter)
     persister = adapter.persister
 
-    evaluation.notify(:before_create,          instance)
+    evaluation.notify(:before_create, instance)
     evaluation.notify(:before_valkyrie_create, instance)
     instance = persister.save(resource: instance)
-    evaluation.notify(:after_create,          instance)
+    evaluation.notify(:after_create, instance)
     evaluation.notify(:after_valkyrie_create, instance)
 
     instance

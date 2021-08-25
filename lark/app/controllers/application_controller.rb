@@ -14,8 +14,8 @@ class ApplicationController
   # @param params  [Hash<String, String>]
   # @param request [Rack::Request]
   def initialize(params: nil, request: nil, config: Lark.config)
-    @config  = config
-    @params  = params
+    @config = config
+    @params = params
     @request = request
   end
 
@@ -28,13 +28,13 @@ class ApplicationController
   end
 
   def response_headers
-    { 'Content-Type' => 'application/json' }.merge(cors_allow_header)
+    {"Content-Type" => "application/json"}.merge(cors_allow_header)
   end
 
   ##
   # The header to support CORS
   def cors_allow_header
-    { 'Access-Control-Allow-Origin' => '*' }
+    {"Access-Control-Allow-Origin" => "*"}
   end
 
   ##

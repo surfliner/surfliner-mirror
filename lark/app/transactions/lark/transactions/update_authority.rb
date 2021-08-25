@@ -21,7 +21,7 @@ module Lark
       # @param adapter [Valkyrie::MetadataAdapter]
       # @param event_stream [#<<]
       def initialize(event_stream:, adapter:, **_opts)
-        @adapter      = adapter
+        @adapter = adapter
         @event_stream = event_stream
         super
       end
@@ -48,7 +48,7 @@ module Lark
       def log_change_properties_event(id:, attributes:)
         @event_stream <<
           Event.new(type: :change_properties,
-                    data: { authority_id: id, changes: attributes })
+            data: {authority_id: id, changes: attributes})
         Success(id: id, attributes: attributes)
       end
 

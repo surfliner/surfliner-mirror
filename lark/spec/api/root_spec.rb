@@ -1,33 +1,33 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-require 'rack/test'
+require "spec_helper"
+require "rack/test"
 
-require_relative '../../config/environment'
+require_relative "../../config/environment"
 
-RSpec.describe 'GET /' do
+RSpec.describe "GET /" do
   include ::Rack::Test::Methods
 
   let(:app) { Lark.application }
 
-  before { get '/' }
+  before { get "/" }
 
-  it 'returns 200' do
+  it "returns 200" do
     expect(last_response.status).to eq 200
   end
 
-  it 'defaults to a json response' do
+  it "defaults to a json response" do
     expect(last_response.headers)
-      .to include 'Content-Type' => 'application/json'
+      .to include "Content-Type" => "application/json"
   end
 
-  it 'provides an api service description' do
+  it "provides an api service description" do
     expect(JSON.parse(last_response.body))
-      .to include 'version' => an_instance_of(String)
+      .to include "version" => an_instance_of(String)
   end
 
-  it 'has header for CORS request' do
+  it "has header for CORS request" do
     expect(last_response.headers)
-      .to include 'Access-Control-Allow-Origin' => '*'
+      .to include "Access-Control-Allow-Origin" => "*"
   end
 end

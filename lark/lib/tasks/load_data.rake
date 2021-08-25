@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require_relative '../../config/environment'
-require_relative '../../app/transactions/lark/transactions/create_authority'
-require_relative '../lark/record_parsers/json_parser'
+require_relative "../../config/environment"
+require_relative "../../app/transactions/lark/transactions/create_authority"
+require_relative "../lark/record_parsers/json_parser"
 
 namespace :lark do
-  desc 'load dummy records'
+  desc "load dummy records"
   task seed: :environment do
     import_data(
-      YAML.load_file(File.expand_path('../../config/dummy_record.yml', __dir__))
+      YAML.load_file(File.expand_path("../../config/dummy_record.yml", __dir__))
     )
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'ezid-client'
+require "ezid-client"
 
 module Lark
   ##

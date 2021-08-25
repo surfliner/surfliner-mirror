@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-require 'dotenv/tasks' unless ENV['RACK_ENV'] == 'production'
+require "dotenv/tasks" unless ENV["RACK_ENV"] == "production"
 
-Dir.glob('lib/tasks/*.rake').each { |r| load r }
+Dir.glob("lib/tasks/*.rake").each { |r| load r }

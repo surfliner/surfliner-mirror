@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'record_parsers/json_parser'
+require_relative "record_parsers/json_parser"
 
 module Lark
   ##
@@ -16,7 +16,7 @@ module Lark
     # @return [#parse]
     def self.for(content_type:)
       case content_type
-      when 'application/json', 'text/csv'
+      when "application/json", "text/csv"
         RecordParsers::JSONParser.new
       else
         raise UnsupportedMediaType, content_type

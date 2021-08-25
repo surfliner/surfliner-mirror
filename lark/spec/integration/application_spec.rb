@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-require 'capybara_discoball'
+require "spec_helper"
+require "capybara_discoball"
 
-require_relative '../../config/environment'
+require_relative "../../config/environment"
 
 RSpec.describe Lark::Application do
   # We really want to start this server only once for the whole suite, so we use
@@ -25,14 +25,14 @@ RSpec.describe Lark::Application do
     end
   end
 
-  it 'round-trips new Authorities' do
-    data    = { id: 'a_fake_id', pref_label: 'Moomin' }.to_json
-    headers = { 'Content-Type' => 'application/json' }
+  it "round-trips new Authorities" do
+    data = {id: "a_fake_id", pref_label: "Moomin"}.to_json
+    headers = {"Content-Type" => "application/json"}
 
-    body          = Net::HTTP.post(app_uri, data, headers).body
-    new_record_id = JSON.parse(body)['id']
+    body = Net::HTTP.post(app_uri, data, headers).body
+    new_record_id = JSON.parse(body)["id"]
 
     expect(Net::HTTP.get(app_uri + new_record_id))
-      .to be_json_for(id: new_record_id, pref_label: ['Moomin'])
+      .to be_json_for(id: new_record_id, pref_label: ["Moomin"])
   end
 end

@@ -15,7 +15,7 @@ module Lark
     # @return [#serialize]
     def self.for(content_type:)
       case content_type
-      when 'application/json'
+      when "application/json"
         new
       else
         raise UnsupportedMediaType, content_type
@@ -29,9 +29,9 @@ module Lark
     def serialize(record:)
       reserved_attributes = record.class.reserved_attributes
       record.attributes
-            .except(*reserved_attributes)
-            .merge(id: record.id.to_s)
-            .to_json
+        .except(*reserved_attributes)
+        .merge(id: record.id.to_s)
+        .to_json
     end
   end
 end

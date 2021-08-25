@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'rack/healthcheck/checks/base'
-require 'rack/healthcheck/type'
+require "rack/healthcheck/checks/base"
+require "rack/healthcheck/type"
 
 module Lark
   module HealthChecks

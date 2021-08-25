@@ -31,7 +31,7 @@
 #
 # The default is "development".
 #
-environment 'production'
+environment "production"
 
 # Store the pid of the server in the file at "path".
 #

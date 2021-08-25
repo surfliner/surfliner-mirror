@@ -5,13 +5,13 @@ Sequel.migration do
     run 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp"'
     create_table :orm_resources do
       column :id, :uuid, default: Sequel.function(:uuid_generate_v4), primary_key: true
-      column :metadata, :jsonb, default: '{}', index: { type: :gin }
+      column :metadata, :jsonb, default: "{}", index: {type: :gin}
       String :internal_resource, index: true
       Integer :lock_version, index: true
       DateTime :created_at, index: true, default: ::Sequel::CURRENT_TIMESTAMP
       DateTime :updated_at, index: true
     end
-    run 'CREATE INDEX orm_resources_metadata_index_pathops ON orm_resources USING gin (metadata jsonb_path_ops)'
+    run "CREATE INDEX orm_resources_metadata_index_pathops ON orm_resources USING gin (metadata jsonb_path_ops)"
     run "GRANT ALL PRIVILEGES ON orm_resources TO #{ENV.fetch("POSTGRES_USER")}"
   end
   down do

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'rack/healthcheck/checks/base'
-require 'rack/healthcheck/type'
-require 'net/http'
-require 'uri'
+require "rack/healthcheck/checks/base"
+require "rack/healthcheck/type"
+require "net/http"
+require "uri"
 
 module Lark
   module HealthChecks
@@ -25,9 +25,9 @@ module Lark
 
         uri = URI(url)
         http = Net::HTTP.new(uri.host, uri.port)
-        response = http.get('/')
-        @status = response.code == '302'
-      rescue StandardError => _e
+        response = http.get("/")
+        @status = response.code == "302"
+      rescue => _e
         @status = false
       end
     end

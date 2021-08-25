@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'ezid_minter'
+require_relative "ezid_minter"
 
 module Lark
   ##

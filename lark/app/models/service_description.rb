@@ -24,6 +24,6 @@ class ServiceDescription
   ##
   # @return [Hash] a hash representation of this object
   def to_h
-    { version: version }
+    {version: version}
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'csv'
-require_relative 'concerns/record_controller_behavior'
+require "csv"
+require_relative "concerns/record_controller_behavior"
 
 ##
 # A controller that resolves requests for handling batch of authority records.
@@ -15,9 +15,9 @@ class BatchController < ApplicationController
   # Access-Control-Max-Age: 86400 (delta seconds, 24 hours)
   def options
     response_headers = {
-      'Access-Control-Allow-Methods' => 'POST, OPTIONS',
-      'Access-Control-Allow-Headers' => 'Content-Type',
-      'Access-Control-Max-Age' => '86400'
+      "Access-Control-Allow-Methods" => "POST, OPTIONS",
+      "Access-Control-Allow-Headers" => "Content-Type",
+      "Access-Control-Max-Age" => "86400"
     }
 
     [204, response_headers.merge(cors_allow_header), []]
@@ -30,8 +30,8 @@ class BatchController < ApplicationController
       authorities = parsed_body(format: ctype)
       authorities.each do |attrs|
         result = Lark::Transactions::UpdateAuthority
-                 .new(event_stream: event_stream, adapter: adapter)
-                 .call(id: attrs[:id], attributes: attrs)
+          .new(event_stream: event_stream, adapter: adapter)
+          .call(id: attrs[:id], attributes: attrs)
 
         result.value_or { |failure| raise_error_for(failure) }
       end
@@ -44,9 +44,9 @@ class BatchController < ApplicationController
   # Import authority records from CSV file
   def batch_import
     with_error_handling do
-      path = '/tmp/lark_import.csv'
+      path = "/tmp/lark_import.csv"
       copy_csv_file(path, request)
-      CSV.foreach(path, headers: true, encoding: 'utf-8') do |row|
+      CSV.foreach(path, headers: true, encoding: "utf-8") do |row|
         create_record(row.to_hash.to_json)
       end
       File.delete(path) if File.exist?(path)
@@ -58,8 +58,8 @@ class BatchController < ApplicationController
 
   def create_record(data)
     result = Lark::Transactions::CreateAuthority
-             .new(event_stream: event_stream)
-             .call(attributes: parsed_csv(format: ctype, data: data))
+      .new(event_stream: event_stream)
+      .call(attributes: parsed_csv(format: ctype, data: data))
 
     result.value_or { |failure| raise_error_for(failure) }
   end
@@ -68,8 +68,8 @@ class BatchController < ApplicationController
     data = request.body.read
     raise Lark::BadRequest if data.empty?
 
-    file = File.open(path, 'wb')
-    file.puts(data.force_encoding('utf-8'))
+    file = File.open(path, "wb")
+    file.puts(data.force_encoding("utf-8"))
     file.close
   end
 end

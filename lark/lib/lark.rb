@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
-require 'dry/configurable'
-require 'dry/system/container'
-require 'dry/validation'
-require 'yaml'
+require "dry/configurable"
+require "dry/system/container"
+require "dry/validation"
+require "yaml"
 
-require_relative 'lark/version'
-require_relative 'lark/event_stream'
-require_relative 'lark/indexer'
-require_relative 'lark/minter'
-require_relative 'lark/record_parser'
-require_relative 'lark/record_serializer'
-require_relative 'lark/schema'
-require_relative 'lark/reindexer'
+require_relative "lark/version"
+require_relative "lark/event_stream"
+require_relative "lark/indexer"
+require_relative "lark/minter"
+require_relative "lark/record_parser"
+require_relative "lark/record_serializer"
+require_relative "lark/schema"
+require_relative "lark/reindexer"
 
 ##
 # The top-level module for the Lark project.
@@ -26,8 +26,8 @@ module Lark
   setting :database
   setting :event_adapter, :sql
   setting :index_adapter, :solr
-  setting :minter,        Lark::Minter
-  setting :event_stream,  EventStream.instance
+  setting :minter, Lark::Minter
+  setting :event_stream, EventStream.instance
 
   ##
   # The core container for the application.
@@ -41,7 +41,7 @@ module Lark
       config.auto_register = %w[app]
     end
 
-    load_paths!('lib', 'app')
+    load_paths!("lib", "app")
   end
 
   ##

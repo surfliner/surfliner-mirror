@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-if ENV.fetch('EVENT_ADAPTER', :sql).to_sym == :sql
-  require 'sequel'
-  require 'sequel/adapters/postgresql'
-  require 'sequel/core'
-  require 'sequel_pg'
-  require_relative '../../config/database'
-  require 'logger'
+if ENV.fetch("EVENT_ADAPTER", :sql).to_sym == :sql
+  require "sequel"
+  require "sequel/adapters/postgresql"
+  require "sequel/core"
+  require "sequel_pg"
+  require_relative "../../config/database"
+  require "logger"
 
   namespace :db do
-    desc 'Create Database ...'
+    desc "Create Database ..."
     task :create do
       puts "Database connection info: #{DATABASE_AS_ADMIN.inspect}"
       connection = Sequel.connect(DATABASE_AS_ADMIN, logger: Logger.new($stderr))
@@ -21,19 +21,19 @@ if ENV.fetch('EVENT_ADAPTER', :sql).to_sym == :sql
       end
     end
 
-    desc 'Run migrations ...'
+    desc "Run migrations ..."
     task :migrate, [:version] do |t, args|
       Sequel.extension :migration
       version = args[:version].to_i if args[:version] && t
       Sequel.connect(DATABASE_AS_ADMIN, logger: Logger.new($stderr)) do |db|
-        Sequel::Migrator.run(db, 'db/migrations', target: version)
+        Sequel::Migrator.run(db, "db/migrations", target: version)
       end
     rescue PG::ConnectionBad => e
       puts "Database connection failed on: #{DATABASE_AS_ADMIN.inspect}"
       raise e
     end
 
-    desc 'Drop Database ...'
+    desc "Drop Database ..."
     task :drop do
       new_connection = Sequel.connect(DATABASE_AS_ADMIN, logger: Logger.new($stderr))
       new_connection.execute "DROP DATABASE IF EXISTS #{DATABASE_AS_ADMIN[:database]}"

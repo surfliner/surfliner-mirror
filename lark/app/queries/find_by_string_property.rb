@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'query_basic'
+require_relative "query_basic"
 
 ##
 # Custom query to search authorities by string property
@@ -36,9 +36,9 @@ class FindByStringProperty < QueryBasic
   def solr_search(query)
     docs = Valkyrie::Persistence::Solr::Queries::DefaultPaginator.new
     while docs.has_next?
-      results = connection.paginate(docs.next_page, docs.per_page, 'select',
-                                    params: { q: query })
-      docs = results['response']['docs']
+      results = connection.paginate(docs.next_page, docs.per_page, "select",
+        params: {q: query})
+      docs = results["response"]["docs"]
       docs.each do |doc|
         yield resource_factory.to_resource(object: doc)
       end
