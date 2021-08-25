@@ -38,7 +38,7 @@ lark-client-lint:
     - cd lark-client
     - gem update bundler
     - bundle check || bundle
-    - bundle exec rubocop
+    - bundle exec standardrb
   extends:
     - .only-refs-default
     - .only-lark-cli-changes
