@@ -2,7 +2,7 @@
 
 module ApplicationHelper
   def current_theme
-    @current_theme ||= ENV['SHORELINE_THEME']
+    @current_theme ||= ENV["SHORELINE_THEME"]
   end
 
   def themed_stylesheet_link_tag(tag)
@@ -19,6 +19,6 @@ module ApplicationHelper
 
   # Tools pane
   def show_doc_actions?
-    !ActiveModel::Type::Boolean.new.cast(ENV['SHORELINE_SUPPRESS_TOOLS']) && super
+    !ActiveModel::Type::Boolean.new.cast(ENV["SHORELINE_SUPPRESS_TOOLS"]) && super
   end
 end

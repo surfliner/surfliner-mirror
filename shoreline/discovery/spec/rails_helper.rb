@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../config/environment', __dir__)
+require "spec_helper"
+ENV["RAILS_ENV"] ||= "test"
+require File.expand_path("../config/environment", __dir__)
 # Prevent database truncation if the environment is production
-abort('The Rails env is running in production mode!') if Rails.env.production?
-require 'rspec/rails'
-require 'rspec/its'
-require 'capybara'
+abort("The Rails env is running in production mode!") if Rails.env.production?
+require "rspec/rails"
+require "rspec/its"
+require "capybara"
 
-Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each do |f|
+Dir[Rails.root.join("spec", "support", "**", "*.rb")].sort.each do |f|
   require f
 end
 

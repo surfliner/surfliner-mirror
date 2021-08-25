@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'blacklight/catalog'
+require "blacklight/catalog"
 
 class CatalogController < ApplicationController
   include Blacklight::Catalog
@@ -16,8 +16,8 @@ class CatalogController < ApplicationController
     ## @see https://lucene.apache.org/solr/guide/6_6/common-query-parameters.html
     ## @see https://lucene.apache.org/solr/guide/6_6/the-dismax-query-parser.html#TheDisMaxQueryParser-Theq.altParameter
     config.default_solr_params = {
-      start: 0,
-      'q.alt' => '*:*'
+      :start => 0,
+      "q.alt" => "*:*"
     }
 
     ## Default rows returned from Solr
@@ -29,8 +29,8 @@ class CatalogController < ApplicationController
     ## parameters included in the Blacklight-jetty document requestHandler.
     #
     config.default_document_solr_params = {
-      qt: 'document',
-      q: '{!raw f=layer_slug_s v=$id}'
+      qt: "document",
+      q: "{!raw f=layer_slug_s v=$id}"
     }
 
     # solr field configuration for search results/index views
@@ -41,10 +41,10 @@ class CatalogController < ApplicationController
 
     # solr field configuration for document/show views
 
-    config.show.display_type_field = 'format'
-    config.show.partials << 'show_default_viewer_container'
-    config.show.partials << 'show_default_attribute_table'
-    config.show.partials << 'show_default_viewer_information'
+    config.show.display_type_field = "format"
+    config.show.partials << "show_default_viewer_container"
+    config.show.partials << "show_default_attribute_table"
+    config.show.partials << "show_default_viewer_information"
 
     ##
     # Configure the index document presenter.
@@ -72,25 +72,25 @@ class CatalogController < ApplicationController
 
     FIELDS = Settings.FIELDS
 
-    config.add_facet_field FIELDS.PROVENANCE, label: 'Institution',
+    config.add_facet_field FIELDS.PROVENANCE, label: "Institution",
                                               limit: 8,
-                                              partial: 'icon_facet'
+                                              partial: "icon_facet"
 
-    config.add_facet_field FIELDS.CREATOR, label: 'Author', limit: 8
-    config.add_facet_field FIELDS.PUBLISHER, label: 'Publisher', limit: 8
-    config.add_facet_field FIELDS.SUBJECT, label: 'Subject', limit: 8
-    config.add_facet_field FIELDS.SPATIAL_COVERAGE, label: 'Place', limit: 8
-    config.add_facet_field FIELDS.PART_OF, label: 'Collection', limit: 8
+    config.add_facet_field FIELDS.CREATOR, label: "Author", limit: 8
+    config.add_facet_field FIELDS.PUBLISHER, label: "Publisher", limit: 8
+    config.add_facet_field FIELDS.SUBJECT, label: "Subject", limit: 8
+    config.add_facet_field FIELDS.SPATIAL_COVERAGE, label: "Place", limit: 8
+    config.add_facet_field FIELDS.PART_OF, label: "Collection", limit: 8
 
-    config.add_facet_field FIELDS.YEAR, label: 'Year', limit: 10
+    config.add_facet_field FIELDS.YEAR, label: "Year", limit: 10
 
-    config.add_facet_field FIELDS.RIGHTS, label: 'Access',
+    config.add_facet_field FIELDS.RIGHTS, label: "Access",
                                           limit: 8,
-                                          partial: 'icon_facet'
-    config.add_facet_field FIELDS.GEOM_TYPE, label: 'Data type',
+                                          partial: "icon_facet"
+    config.add_facet_field FIELDS.GEOM_TYPE, label: "Data type",
                                              limit: 8,
-                                             partial: 'icon_facet'
-    config.add_facet_field FIELDS.FILE_FORMAT, label: 'Format',
+                                             partial: "icon_facet"
+    config.add_facet_field FIELDS.FILE_FORMAT, label: "Format",
                                                limit: 8
 
     # Have BL send all facet field names to Solr, which has been the default
@@ -111,34 +111,34 @@ class CatalogController < ApplicationController
     # item_prop: [String] property given to span with Schema.org item property
     # link_to_search: [Boolean] that can be passed to link to a facet search
     # helper_method: [Symbol] method that can be used to render the value
-    config.add_show_field FIELDS.CREATOR, label: 'Author(s)', itemprop: 'author'
+    config.add_show_field FIELDS.CREATOR, label: "Author(s)", itemprop: "author"
     config.add_show_field FIELDS.DESCRIPTION,
-                          label: 'Description',
-                          itemprop: 'description',
-                          helper_method: :render_value_as_truncate_abstract
+      label: "Description",
+      itemprop: "description",
+      helper_method: :render_value_as_truncate_abstract
     config.add_show_field FIELDS.PUBLISHER,
-                          label: 'Publisher',
-                          itemprop: 'publisher'
+      label: "Publisher",
+      itemprop: "publisher"
     config.add_show_field FIELDS.PART_OF,
-                          label: 'Collection',
-                          itemprop: 'isPartOf'
+      label: "Collection",
+      itemprop: "isPartOf"
     config.add_show_field FIELDS.SPATIAL_COVERAGE,
-                          label: 'Place(s)',
-                          itemprop: 'spatial',
-                          link_to_facet: true
+      label: "Place(s)",
+      itemprop: "spatial",
+      link_to_facet: true
     config.add_show_field FIELDS.SUBJECT,
-                          label: 'Subject(s)',
-                          itemprop: 'keywords',
-                          link_to_facet: true
+      label: "Subject(s)",
+      itemprop: "keywords",
+      link_to_facet: true
     config.add_show_field FIELDS.YEAR,
-                          label: 'Year',
-                          itemprop: 'year'
+      label: "Year",
+      itemprop: "year"
     config.add_show_field FIELDS.PROVENANCE,
-                          label: 'Held by',
-                          link_to_facet: true
+      label: "Held by",
+      link_to_facet: true
     config.add_show_field(
       FIELDS.REFERENCES,
-      label: 'More details at',
+      label: "More details at",
       accessor: [:external_url],
       if: proc { |_, _, doc| doc.external_url },
       helper_method: :render_references_url
@@ -162,7 +162,7 @@ class CatalogController < ApplicationController
     # request handler? The one set in config[:default_solr_parameters][:qt],
     # since we aren't specifying it otherwise.
 
-    config.add_search_field 'all_fields', label: 'All Fields'
+    config.add_search_field "all_fields", label: "All Fields"
     # config.add_search_field 'dc_title_ti', :label => 'Title'
     # config.add_search_field 'dc_description_ti', :label => 'Description'
 
@@ -216,12 +216,12 @@ class CatalogController < ApplicationController
     # label in pulldown is followed by the name of the SOLR field to sort by and
     # whether the sort is ascending or descending (it must be asc or desc
     # except in the relevancy case).
-    config.add_sort_field 'score desc, dc_title_sort asc', label: 'relevance'
-    config.add_sort_field 'dc_title_sort asc', label: 'title'
+    config.add_sort_field "score desc, dc_title_sort asc", label: "relevance"
+    config.add_sort_field "dc_title_sort asc", label: "title"
     config.add_sort_field "#{FIELDS.YEAR} desc, dc_title_sort asc",
-                          label: 'year'
+      label: "year"
     config.add_sort_field "#{FIELDS.PUBLISHER} asc, dc_title_sort asc",
-                          label: 'publisher'
+      label: "publisher"
 
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.
@@ -229,17 +229,17 @@ class CatalogController < ApplicationController
 
     # Nav actions from Blacklight
     config.add_nav_action(:bookmark,
-                          partial: 'blacklight/nav/bookmark',
-                          if: :render_bookmarks_control?)
+      partial: "blacklight/nav/bookmark",
+      if: :render_bookmarks_control?)
     config.add_nav_action(:search_history,
-                          partial: 'blacklight/nav/search_history')
+      partial: "blacklight/nav/search_history")
 
     # Tools from Blacklight
     config.add_results_collection_tool(:sort_widget)
     config.add_results_collection_tool(:per_page_widget)
     config.add_show_tools_partial(:bookmark,
-                                  partial: 'bookmark_control',
-                                  if: :render_bookmarks_control?)
+      partial: "bookmark_control",
+      if: :render_bookmarks_control?)
     config.add_show_tools_partial(:email, callback: :email_action,
                                           validator: :validate_email_params)
     config.add_show_tools_partial(:sms, if: :render_sms_action?,
@@ -268,17 +268,17 @@ class CatalogController < ApplicationController
 
     # Custom tools for GeoBlacklight
     config.add_show_tools_partial :web_services, if: document_has_references
-    config.add_show_tools_partial :metadata,     if: document_has_references
+    config.add_show_tools_partial :metadata, if: document_has_references
 
     config.add_show_tools_partial(:arcgis,
-                                  partial: 'arcgis',
-                                  if: document_has_arcgis_urls)
+      partial: "arcgis",
+      if: document_has_arcgis_urls)
     config.add_show_tools_partial(:carto,
-                                  partial: 'carto',
-                                  if: document_has_carto_reference)
+      partial: "carto",
+      if: document_has_carto_reference)
     config.add_show_tools_partial(:data_dictionary,
-                                  partial: 'data_dictionary',
-                                  if: document_has_data_dictionary)
+      partial: "data_dictionary",
+      if: document_has_data_dictionary)
 
     # Configure basemap provider for GeoBlacklight maps (uses https only basemap
     # providers with open licenses)
@@ -291,10 +291,10 @@ class CatalogController < ApplicationController
     # 'flatBlue'
     # 'midnightCommander'
 
-    config.basemap_provider = 'positron'
+    config.basemap_provider = "positron"
 
     # Configuration for autocomplete suggestor
     config.autocomplete_enabled = true
-    config.autocomplete_path = 'suggest'
+    config.autocomplete_path = "suggest"
   end
 end

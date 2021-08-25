@@ -20,7 +20,7 @@ shoreline:discovery:lint:
     - cd shoreline/discovery
     - gem update bundler
     - bundle check || bundle install --jobs "$(nproc)"
-    - bundle exec rubocop
+    - bundle exec standardrb
   extends: .only-refs-default
   needs: []
   only:

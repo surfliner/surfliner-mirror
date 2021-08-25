@@ -5,7 +5,7 @@ class ContactForm
   include ActiveModel::Model
   attr_accessor :contact_method, :name, :email, :subject, :message
   validates :email, :name, :subject, :message, presence: true
-  validates :email, format: /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i,
+  validates :email, format: /\A([\w.%+\-]+)@([\w\-]+\.)+(\w{2,})\z/i,
                     allow_blank: true
 
   # - can't use this without ActiveRecord::Base validates_inclusion_of
@@ -22,8 +22,8 @@ class ContactForm
   def headers
     {
       subject: subject,
-      to: ENV['CONTACT_EMAIL'],
-      from: ENV['CONTACT_EMAIL'],
+      to: ENV["CONTACT_EMAIL"],
+      from: ENV["CONTACT_EMAIL"],
       cc: email
     }
   end

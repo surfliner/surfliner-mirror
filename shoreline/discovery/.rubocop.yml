@@ -1,4 +1,0 @@
-inherit_from:
-  - .rubocop_todo.yml
-  - ../../.styles/rubocop_surfliner.yml
-  - ../../.styles/rubocop_rspec_surfliner.yml

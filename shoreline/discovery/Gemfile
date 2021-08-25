@@ -1,41 +1,39 @@
 # frozen_string_literal: true
 
-source 'https://rubygems.org'
+source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem 'blacklight',              '~> 7.6.0'
-gem 'bootsnap',                '>= 1.1.0', require: false
-gem 'bootstrap',               '~> 4.3'
-gem 'byebug',                  platforms: %i[mri mingw x64_mingw], group: %i[development test]
-gem 'capybara',                group: [:test]
-gem 'devise',                  '~> 4.6'
-gem 'devise-guests',           '~> 0.6'
-gem 'dotenv-rails',            '~> 2.7', group: %i[development test]
-gem 'factory_bot_rails',       group: [:test]
-gem 'geoblacklight',           '~> 3.3.0'
-gem 'geoserver-publish',       '~> 0.3'
-gem 'jbuilder',                '~> 2.5'
-gem 'jquery-rails',            '~> 4.3'
-gem 'letter_opener_web'
-gem 'mimemagic',               '0.4.3'
-gem 'nokogiri',                '~> 1.12.0'
-gem 'okcomputer',              '~> 1.18'
-gem 'optimist'
-gem 'pg',                      '~> 1.1.4'
-gem 'pry-rails',               '~> 0.3', group: %i[development test]
-gem 'puma',                    '~> 5.0'
-gem 'rails',                   '5.2.6'
-gem 'rsolr',                   '>= 1.0', '< 3'
-gem 'rspec-its',               group: [:test]
-gem 'rspec_junit_formatter',   group: [:test]
-gem 'rspec-rails',             '~> 5.0', group: [:test]
-gem 'rubocop',                 '< 1.20.1', group: %i[development test]
-gem 'rubocop-rails',           group: %i[development test]
-gem 'rubocop-rspec',           group: %i[development test]
-gem 'sass-rails',              '~> 6.0'
-gem 'solr_utils',              path: '../../gems/solr_utils'
-gem 'turbolinks',              '~> 5.2'
-gem 'twitter-typeahead-rails', '0.11.1'
-gem 'tzinfo-data',             '~> 1.2021.0'
-gem 'uglifier',                '>= 1.3.0'
-gem 'web-console',             group: [:development]
+gem "blacklight", "~> 7.6.0"
+gem "bootsnap", ">= 1.1.0", require: false
+gem "bootstrap", "~> 4.3"
+gem "byebug", platforms: %i[mri mingw x64_mingw], group: %i[development test]
+gem "capybara", group: [:test]
+gem "devise", "~> 4.6"
+gem "devise-guests", "~> 0.6"
+gem "dotenv-rails", "~> 2.7", group: %i[development test]
+gem "factory_bot_rails", group: [:test]
+gem "geoblacklight", "~> 3.3.0"
+gem "geoserver-publish", "~> 0.3"
+gem "jbuilder", "~> 2.5"
+gem "jquery-rails", "~> 4.3"
+gem "letter_opener_web"
+gem "mimemagic", "0.4.3"
+gem "nokogiri", "~> 1.12.0"
+gem "okcomputer", "~> 1.18"
+gem "optimist"
+gem "pg", "~> 1.1.4"
+gem "pry-rails", "~> 0.3", group: %i[development test]
+gem "puma", "~> 5.0"
+gem "rails", "5.2.6"
+gem "rsolr", ">= 1.0", "< 3"
+gem "rspec-its", group: [:test]
+gem "rspec_junit_formatter", group: [:test]
+gem "rspec-rails", "~> 5.0", group: [:test]
+gem "sass-rails", "~> 6.0"
+gem "solr_utils", path: "../../gems/solr_utils"
+gem "standard", "1.3.0"
+gem "turbolinks", "~> 5.2"
+gem "twitter-typeahead-rails", "0.11.1"
+gem "tzinfo-data", "~> 1.2021.0"
+gem "uglifier", ">= 1.3.0"
+gem "web-console", group: [:development]

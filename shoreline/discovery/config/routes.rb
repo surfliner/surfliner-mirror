@@ -1,24 +1,24 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  mount Blacklight::Engine => '/'
-  root to: 'catalog#index'
+  mount Blacklight::Engine => "/"
+  root to: "catalog#index"
   concern :searchable, Blacklight::Routes::Searchable.new
 
   resource :catalog,
-           only: [:index],
-           as: 'catalog',
-           path: '/catalog',
-           controller: 'catalog' do
+    only: [:index],
+    as: "catalog",
+    path: "/catalog",
+    controller: "catalog" do
     concerns :searchable
   end
   devise_for :users
   concern :exportable, Blacklight::Routes::Exportable.new
 
   resources :solr_documents,
-            only: [:show],
-            path: '/catalog',
-            controller: 'catalog' do
+    only: [:show],
+    path: "/catalog",
+    controller: "catalog" do
     concerns :exportable
   end
 
@@ -26,16 +26,16 @@ Rails.application.routes.draw do
     concerns :exportable
 
     collection do
-      delete 'clear'
+      delete "clear"
     end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  mount Geoblacklight::Engine => 'geoblacklight'
+  mount Geoblacklight::Engine => "geoblacklight"
   concern :gbl_exportable, Geoblacklight::Routes::Exportable.new
   resources :solr_documents,
-            only: [:show],
-            path: '/catalog',
-            controller: 'catalog' do
+    only: [:show],
+    path: "/catalog",
+    controller: "catalog" do
     concerns :gbl_exportable
   end
   concern :gbl_wms, Geoblacklight::Routes::Wms.new
@@ -49,8 +49,8 @@ Rails.application.routes.draw do
   resources :download, only: [:show]
 
   # Contact form routes
-  post 'contact' => 'contact_form#create', as: :contact_form_index
-  get 'contact' => 'contact_form#new'
+  post "contact" => "contact_form#create", :as => :contact_form_index
+  get "contact" => "contact_form#new"
 
-  mount LetterOpenerWeb::Engine, at: '/letter_opener' if ENV.fetch('DELIVERY_METHOD', '').eql? 'letter_opener_web'
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if ENV.fetch("DELIVERY_METHOD", "").eql? "letter_opener_web"
 end

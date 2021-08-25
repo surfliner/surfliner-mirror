@@ -4,7 +4,8 @@
 class ContactFormController < ApplicationController
   before_action :build_contact_form
 
-  def new; end
+  def new
+  end
 
   def create
     if @contact_form.valid? # a valid form is probably not spam
@@ -20,7 +21,7 @@ class ContactFormController < ApplicationController
 
   def handle_create_exception(exception)
     logger.error("Contact form failed to send: #{exception.inspect}")
-    flash.now[:error] = 'Sorry, this message was not delivered. ' \
+    flash.now[:error] = "Sorry, this message was not delivered. " \
                         "#{@contact_form.errors.full_messages.first}"
     render :new
   end
@@ -28,7 +29,8 @@ class ContactFormController < ApplicationController
   # Override this method if you want to perform additional operations
   # when a email is successfully sent, such as sending a confirmation
   # response to the user.
-  def after_deliver; end
+  def after_deliver
+  end
 
   private
 
@@ -46,14 +48,14 @@ class ContactFormController < ApplicationController
 
   def deliver!
     ContactMailer.contact(@contact_form).deliver_now
-    flash.now[:notice] = 'Thank you for your message!'
+    flash.now[:notice] = "Thank you for your message!"
     after_deliver
   end
 
   def flash_form_invalid_message
-    flash.now[:error] = 'Sorry, this message was not sent successfully. '
+    flash.now[:error] = "Sorry, this message was not sent successfully. "
     flash.now[:error] <<
-      @contact_form.errors.full_messages.map(&:to_s).join(', ')
+      @contact_form.errors.full_messages.map(&:to_s).join(", ")
   end
 end
 # rubocop:enable Style/FrozenStringLiteralComment
