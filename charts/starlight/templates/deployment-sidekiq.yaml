@@ -60,6 +60,8 @@ spec:
           env:
             {{- toYaml .Values.extraEnvVars | nindent 12 }}
           command: ['sh', '-c', 'bundle exec sidekiq']
+          resources:
+            {{- toYaml .Values.workerResources | nindent 12 }}
           {{- with .Values.extraContainerConfiguration }}
           {{- toYaml . | nindent 10 }}
           {{- end }}
