@@ -15,9 +15,9 @@ class CatalogController < ApplicationController
     config.show.oembed_field = :oembed_url_ssm
     config.show.tile_source_field = :content_metadata_image_iiif_info_ssm
 
-    config.view.gallery.partials = [:index_header, :index]
-    config.view.masonry.partials = [:index]
-    config.view.slideshow.partials = [:index]
+    config.view.gallery.document_component = Blacklight::Gallery::DocumentComponent
+    config.view.masonry.document_component = Blacklight::Gallery::DocumentComponent
+    config.view.slideshow.document_component = Blacklight::Gallery::SlideshowComponent
 
     config.show.partials = [
       :show_header,
