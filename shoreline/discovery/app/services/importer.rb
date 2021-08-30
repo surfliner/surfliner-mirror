@@ -105,9 +105,9 @@ module Importer
       # -o: overwrite existing files in `dest'
       system "unzip", "-qq", "-j", "-o", file, "-d", dir
 
-      iso = Dir.entries(dir).select do |f|
+      iso = Dir.entries(dir).find do |f|
         /.*-iso\.xml$/i.match(f)
-      end.first
+      end
 
       xml = Nokogiri::XML(File.open("#{dir}/#{iso}"))
 
