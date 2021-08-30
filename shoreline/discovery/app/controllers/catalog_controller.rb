@@ -70,27 +70,27 @@ class CatalogController < ApplicationController
     # :show may be set to false if you don't want the facet to be drawn in the
     # facet bar
 
-    FIELDS = Settings.FIELDS
+    fields = Settings.FIELDS
 
-    config.add_facet_field FIELDS.PROVENANCE, label: "Institution",
+    config.add_facet_field fields.PROVENANCE, label: "Institution",
                                               limit: 8,
                                               partial: "icon_facet"
 
-    config.add_facet_field FIELDS.CREATOR, label: "Author", limit: 8
-    config.add_facet_field FIELDS.PUBLISHER, label: "Publisher", limit: 8
-    config.add_facet_field FIELDS.SUBJECT, label: "Subject", limit: 8
-    config.add_facet_field FIELDS.SPATIAL_COVERAGE, label: "Place", limit: 8
-    config.add_facet_field FIELDS.PART_OF, label: "Collection", limit: 8
+    config.add_facet_field fields.CREATOR, label: "Author", limit: 8
+    config.add_facet_field fields.PUBLISHER, label: "Publisher", limit: 8
+    config.add_facet_field fields.SUBJECT, label: "Subject", limit: 8
+    config.add_facet_field fields.SPATIAL_COVERAGE, label: "Place", limit: 8
+    config.add_facet_field fields.PART_OF, label: "Collection", limit: 8
 
-    config.add_facet_field FIELDS.YEAR, label: "Year", limit: 10
+    config.add_facet_field fields.YEAR, label: "Year", limit: 10
 
-    config.add_facet_field FIELDS.RIGHTS, label: "Access",
+    config.add_facet_field fields.RIGHTS, label: "Access",
                                           limit: 8,
                                           partial: "icon_facet"
-    config.add_facet_field FIELDS.GEOM_TYPE, label: "Data type",
+    config.add_facet_field fields.GEOM_TYPE, label: "Data type",
                                              limit: 8,
                                              partial: "icon_facet"
-    config.add_facet_field FIELDS.FILE_FORMAT, label: "Format",
+    config.add_facet_field fields.FILE_FORMAT, label: "Format",
                                                limit: 8
 
     # Have BL send all facet field names to Solr, which has been the default
@@ -100,10 +100,10 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    config.add_index_field FIELDS.YEAR
-    config.add_index_field FIELDS.CREATOR
-    config.add_index_field FIELDS.DESCRIPTION, helper_method: :snippit
-    config.add_index_field FIELDS.PUBLISHER
+    config.add_index_field fields.YEAR
+    config.add_index_field fields.CREATOR
+    config.add_index_field fields.DESCRIPTION, helper_method: :snippit
+    config.add_index_field fields.PUBLISHER
 
     # solr fields to be displayed in the show (single result) view
     #  The ordering of the field names is the order of the display
@@ -111,33 +111,33 @@ class CatalogController < ApplicationController
     # item_prop: [String] property given to span with Schema.org item property
     # link_to_search: [Boolean] that can be passed to link to a facet search
     # helper_method: [Symbol] method that can be used to render the value
-    config.add_show_field FIELDS.CREATOR, label: "Author(s)", itemprop: "author"
-    config.add_show_field FIELDS.DESCRIPTION,
+    config.add_show_field fields.CREATOR, label: "Author(s)", itemprop: "author"
+    config.add_show_field fields.DESCRIPTION,
       label: "Description",
       itemprop: "description",
       helper_method: :render_value_as_truncate_abstract
-    config.add_show_field FIELDS.PUBLISHER,
+    config.add_show_field fields.PUBLISHER,
       label: "Publisher",
       itemprop: "publisher"
-    config.add_show_field FIELDS.PART_OF,
+    config.add_show_field fields.PART_OF,
       label: "Collection",
       itemprop: "isPartOf"
-    config.add_show_field FIELDS.SPATIAL_COVERAGE,
+    config.add_show_field fields.SPATIAL_COVERAGE,
       label: "Place(s)",
       itemprop: "spatial",
       link_to_facet: true
-    config.add_show_field FIELDS.SUBJECT,
+    config.add_show_field fields.SUBJECT,
       label: "Subject(s)",
       itemprop: "keywords",
       link_to_facet: true
-    config.add_show_field FIELDS.YEAR,
+    config.add_show_field fields.YEAR,
       label: "Year",
       itemprop: "year"
-    config.add_show_field FIELDS.PROVENANCE,
+    config.add_show_field fields.PROVENANCE,
       label: "Held by",
       link_to_facet: true
     config.add_show_field(
-      FIELDS.REFERENCES,
+      fields.REFERENCES,
       label: "More details at",
       accessor: [:external_url],
       if: proc { |_, _, doc| doc.external_url },
@@ -218,9 +218,9 @@ class CatalogController < ApplicationController
     # except in the relevancy case).
     config.add_sort_field "score desc, dc_title_sort asc", label: "relevance"
     config.add_sort_field "dc_title_sort asc", label: "title"
-    config.add_sort_field "#{FIELDS.YEAR} desc, dc_title_sort asc",
+    config.add_sort_field "#{fields.YEAR} desc, dc_title_sort asc",
       label: "year"
-    config.add_sort_field "#{FIELDS.PUBLISHER} asc, dc_title_sort asc",
+    config.add_sort_field "#{fields.PUBLISHER} asc, dc_title_sort asc",
       label: "publisher"
 
     # If there are more than this many search results, no spelling ("did you
