@@ -234,7 +234,8 @@ redis:
   image:
     repository: bitnami/redis
     tag: 6.2.5
-  usePassword: false
+  auth:
+    enabled: false
 
 # set in the individual deployment configurations;
 # see e.g. ../snippets/starlight/production/ucsb.yaml

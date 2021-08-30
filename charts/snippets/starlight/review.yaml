@@ -6,8 +6,7 @@ postgresql:
   persistence:
     enabled: false
 redis:
-  cluster:
-    enabled: false
+  architecture: standalone
   master:
     persistence:
       enabled: false
