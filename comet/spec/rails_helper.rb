@@ -25,6 +25,16 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
+# register a test adapter for unit tests
+Valkyrie::MetadataAdapter
+  .register(Valkyrie::Persistence::Memory::MetadataAdapter.new,
+    :test_adapter)
+
+# register/use the memory storage adapter for tests
+Valkyrie::StorageAdapter
+  .register(Valkyrie::Storage::Memory.new,
+    :memory)
+
 RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.use_transactional_fixtures = true
@@ -36,6 +46,18 @@ RSpec.configure do |config|
   config.after(:each, type: :feature) do
     Capybara.reset_sessions!
     page.driver.reset!
+  end
+
+  config.around(:example, :metadata_adapter) do |example|
+    Valkyrie.config.metadata_adapter = example.metadata[:metadata_adapter]
+    example.run
+    Valkyrie.config.metadata_adapter = :comet_metadata_store
+  end
+
+  config.around(:example, :storage_adapter) do |example|
+    Valkyrie.config.storage_adapter = example.metadata[:storage_adapter]
+    example.run
+    Valkyrie.config.storage_adapter = :repository_s3
   end
 
   config.include Capybara::RSpecMatchers, type: :input
@@ -52,14 +74,3 @@ RSpec.configure do |config|
     end
   end
 end
-
-# register a test adapter for unit tests
-Valkyrie::MetadataAdapter
-  .register(Valkyrie::Persistence::Memory::MetadataAdapter.new,
-    :test_adapter)
-
-# register/use the memory storage adapter for tests
-Valkyrie::StorageAdapter
-  .register(Valkyrie::Storage::Memory.new,
-    :memory)
-Valkyrie.config.storage_adapter = :memory

@@ -2,7 +2,7 @@
 
 require "hyrax/specs/spy_listener"
 
-RSpec.describe InlineUploadHandler do
+RSpec.describe InlineUploadHandler, storage_adapter: :memory do
   subject(:service) { described_class.new(work: object) }
 
   let(:file) { Tempfile.new("image.jp2") }
