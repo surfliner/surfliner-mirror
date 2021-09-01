@@ -74,6 +74,8 @@ extraInitContainers:
     env:
     - name: "METADATA_DATABASE_NAME"
       value: "comet_metadata_development"
+    - name: "RAILS_ENV"
+      value: "development"
   - name: create-test-solr-collection
     imagePullPolicy: Always
     command:
