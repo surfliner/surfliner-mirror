@@ -20,7 +20,11 @@ module Hyrax
     end
 
     def send_file_contents(file_set)
-      self.response_body = "abc"
+      self.status = 200
+      file_id = file_set.file_ids.first
+      file = Hyrax.storage_adapter.find_by(id: file_id)
+      file.rewind
+      self.response_body = file.read
     end
   end
 end

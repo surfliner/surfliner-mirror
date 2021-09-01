@@ -1,12 +1,11 @@
 # frozen_string_literal: true
-
 require "rails_helper"
 
 RSpec.describe Hyrax::DownloadsController do
   routes { Hyrax::Engine.routes }
   let(:user) { User.create(email: "moomin@example.com") }
   let(:file_set) { Hyrax.persister.save(resource: Hyrax::FileSet.new) }
-  let(:file) { Tempfile.new("moomin.jpg").tap { |f| f.write("abc") } }
+  let(:file) { Tempfile.new("moomin.jpg").tap { |f| f.write("def") } }
   let(:upload) { Hyrax.storage_adapter.upload(resource: file_set, file: file, original_filename: "Moomin.jpg") }
 
   describe "#show" do
@@ -19,6 +18,8 @@ RSpec.describe Hyrax::DownloadsController do
       it "sends the original file" do
         sign_in user
         allow(controller).to receive(:authorize!).with(:download, file_set.id).and_return true
+        file_set.file_ids << upload.id
+        Hyrax.persister.save(resource: file_set)        
         get :show, params: {id: file_set.id}
         file.rewind
         expect(response.body).to eq file.read
