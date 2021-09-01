@@ -8,9 +8,16 @@ RSpec.describe "Components", type: :system, js: true do
   before { sign_in user }
 
   it "can create a new collection and add object" do
+    visit "/admin/collection_types"
+    click_on "Create new collection type"
+    fill_in("Type name", with: "Curated Collection")
+    click_on "Save"
+
     visit "/dashboard"
     click_on "Collections"
-    # click_on "New Collection"
+    expect(page).to have_link("New Collection")
+
     # TODO: create and add objects to a collectiony
+    # click_on "New Collection"
   end
 end
