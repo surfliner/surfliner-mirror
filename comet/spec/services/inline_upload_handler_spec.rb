@@ -40,6 +40,13 @@ RSpec.describe InlineUploadHandler, storage_adapter: :memory do
             an_instance_of(Valkyrie::ID))
       end
 
+      it "adds file members to the FileSet" do
+        expect { service.attach }
+          .to change { Hyrax.query_service.find_members(resource: object).flat_map(&:file_ids) }
+          .to contain_exactly(an_instance_of(Valkyrie::ID),
+            an_instance_of(Valkyrie::ID))
+      end
+
       it "creates persisted filesets" do
         service.attach
 
