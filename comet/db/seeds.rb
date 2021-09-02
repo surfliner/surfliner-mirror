@@ -48,3 +48,7 @@ admins.each do |user|
     access: Hyrax::PermissionTemplateAccess::MANAGE
   )
 end
+
+# Create default user collection type to enable the New Collection button
+puts "\n== Creating default user collection type"
+Rake::Task["hyrax:default_collection_types:create"].execute
