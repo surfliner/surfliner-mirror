@@ -48,11 +48,18 @@ comet:test:system:
   extends: .comet:test
   variables:
     HUB_URL: "http://localhost:4444/wd/hub/"
+    MINIO_ACCESS_KEY: "minio-access-key"
+    MINIO_DEFAULT_BUCKETS: "comet-test-bucket"
+    MINIO_ENDPOINT: "minio"
+    MINIO_SECRET_KEY: "minio-secret-key"
+    REPOSITORY_S3_BUCKET: "comet-test-bucket"
   services:
     - name: bitnami/postgresql:12.8.0
       alias: postgres
     - name: bitnami/redis:6.2
       alias: redis
+    - name: bitnami/minio:2021-debian-10
+      alias: minio
     - name: solr:8.8.0
       alias: solr
     - name: zookeeper:3.6
