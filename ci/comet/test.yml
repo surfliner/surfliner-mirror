@@ -68,8 +68,3 @@ comet:test:system:
       alias: chrome
   script:
     - bundle exec rspec --tag type:system
-  artifacts:
-    when: on_failure
-    expire_in: 1 week
-    paths:
-      - /app/samvera/hyrax-webapp/tmp/screenshots
