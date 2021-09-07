@@ -1,0 +1,47 @@
+ingress:
+  hosts:
+    - geodata.ucsd.edu
+  tls:
+    - hosts:
+        - geodata.ucsd.edu
+      secretName: tls-secret
+
+existingSecret:
+  enabled: true
+  name: shoreline-prod
+
+shoreline:
+  theme: ucsd
+  provenance: UC San Diego
+  sample_data: true
+  email:
+    contact_email: geodata@ucsd.edu
+    delivery_method: smtp
+    smtp_settings:
+      address: smtp.ucsd.edu
+      port: 587
+      user_name: geodata
+      authentication: login
+
+solr:
+  enabled: false
+  solrHostname: lib-solr-prod.ucsd.edu
+  solrPort: "8990"
+  zookeeperHostname: lib-solr-prod.ucsd.edu
+  zookeeperPort: "8993"
+  authentication:
+    adminUsername: sadmin
+
+geoserver:
+  enabled: false
+  geoserverHostname: lib-geoserver-docker.ucsd.edu
+  service:
+    port: "8700"
+  admin:
+    username: gadmin
+
+postgresql:
+  enabled: false
+  postgresqlHostname: lib-psql-prod.ucsd.edu
+  postgresqlUsername: shoreline_discovery
+  postgresqlDatabase: shoreline_discovery

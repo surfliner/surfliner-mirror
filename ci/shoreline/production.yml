@@ -55,6 +55,5 @@ shoreline:discovery:deploy:prod:ucsd:
     KUBE_NAMESPACE: shoreline-prod
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
     HELM_RELEASE_NAME: surfliner-shoreline-prod
-    HELM_ENCODED_VALUES: $UCSD_SHORELINE_PRODUCTION_VALUES
     HELM_UPGRADE_EXTRA_ARGS: >
-      --values $HELM_VALUES_FILE
+      --values charts/snippets/shoreline/production/ucsd.yaml
