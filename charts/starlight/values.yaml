@@ -88,13 +88,6 @@ starlight:
   sample_data: false
   sitemaps:
     enabled: true
-  solr:
-    collectionName: collection1
-    port: 8983
-    authentication:
-      enabled: true
-      adminUsername: admin
-      adminPassword: admin
   # s3-compatible storage via Amazon or Minio
   storage:
     enabled: true
@@ -104,8 +97,6 @@ starlight:
     # endpointUrl: aws/minio (optional for aws, reguired for minio)
     region: us-west-2
     secretKey: starlight-secret-key
-  zookeeper:
-    port: 2181
   backups:
     import:
       enabled: false

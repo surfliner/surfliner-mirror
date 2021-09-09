@@ -56,9 +56,9 @@ data:
   SMTP_PORT: {{ .Values.starlight.email.smtp_settings.port | quote }}
   SMTP_USERNAME: {{ .Values.starlight.email.smtp_settings.user_name }}
   {{- end }}
-  SOLR_CORE_NAME: {{ .Values.starlight.solr.collectionName }}
+  SOLR_CORE_NAME: {{ .Values.solr.collection }}
   SOLR_HOST: {{ template "starlight.solr.fullname" . }}
-  SOLR_PORT: {{ .Values.starlight.solr.port | default "8983" | quote }}
+  SOLR_PORT: {{ .Values.solr.solrPort | default "8983" | quote }}
   SPOTLIGHT_THEMES: {{ .Values.starlight.application.themes }}
   ZK_HOST: {{ template "starlight.zk.fullname" . }}
-  ZK_PORT: {{ .Values.starlight.zookeeper.port | quote }}
+  ZK_PORT: {{ .Values.solr.zookeeperPort | default "2181" | quote }}
