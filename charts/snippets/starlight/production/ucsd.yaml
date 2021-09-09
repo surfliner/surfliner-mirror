@@ -12,6 +12,12 @@ postgresql:
   enabled: false
   postgresqlHostname: lib-psql-prod.ucsd.edu
   postgresqlDatabase: starlight
+solr:
+  enabled: false
+  solrHostname: lib-solr-prod.ucsd.edu
+  solrPort: "9000"
+  zookeeperHostname: lib-solr-prod.ucsd.edu
+  zookeeperPort: "9003"
 starlight:
   allow_robots: true
   application:
