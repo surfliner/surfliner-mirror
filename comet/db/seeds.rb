@@ -37,7 +37,7 @@ admins.each do |user|
   email = user.user_key
   puts "\n== Assigning all workflow roles to #{email}"
   Sipity::WorkflowRole.all.each do |wf_role|
-    Sipity::WorkflowResponsibility.find_or_create_by!(agent_id: user.to_sipity_agent.id, workflow_role_id: wf_role.role_id)
+    Sipity::WorkflowResponsibility.find_or_create_by!(agent_id: user.to_sipity_agent.id, workflow_role_id: wf_role.id)
   end
 
   puts "\n== Assigning permissions to #{email}"
