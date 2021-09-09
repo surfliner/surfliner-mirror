@@ -36,7 +36,7 @@ module Hyrax
 
         Hyrax.logger.warn "template found: #{template.inspect}"
 
-        access = Hyrax::PermissionTemplateAccess.where(permission_template_id: template.source_id, agent_id: current_user.email, access: "manage")
+        access = Hyrax::PermissionTemplateAccess.where(permission_template_id: template.id, agent_id: current_user.user_key, access: Hyrax::PermissionTemplateAccess::MANAGE)
 
         Hyrax.logger.warn "access calculated for #{current_user}: #{access.inspect}"
 
