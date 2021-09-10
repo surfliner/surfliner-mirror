@@ -20,11 +20,33 @@ module Hyrax
     end
 
     def send_file_contents(file_set)
+      response.headers['Accept-Ranges'] = 'bytes'
       self.status = 200
       file_id = file_set.file_ids.first
       file = Hyrax.storage_adapter.find_by(id: file_id)
+      prepare_file_headers(file_id)
       file.rewind
       self.response_body = file.read
     end
+
+    #def asset
+    #  @asset ||= ActiveFedora::Base.find(params[asset_param_key])
+    #end
+
+    def prepare_file_headers(file_id)
+      file_metadata = Hyrax.custom_queries.find_file_metadata_by(id: file_id)
+      #send_file_headers! content_options(file_metadata)
+      response.headers['Content-Disposition'] = "attachment; filename=#{file_metadata.original_filename}"
+      response.headers['Content-Type'] = file_metadata.mime_type
+      response.headers['Content-Length'] ||= file_metadata.size.to_s
+      # Prevent Rack::ETag from calculating a digest over body
+      # todo - how to get asset
+      #response.headers['Last-Modified'] = asset.modified_date.utc.strftime("%a, %d %b %Y %T GMT")
+      self.content_type = file_metadata.mime_type
+    end
+
+    def content_options(file_metadata)
+      { disposition: 'attachment', type: file_metadata.mime_type, filename: file_metadata.original_filename }
+    end    
   end
 end
