@@ -4,8 +4,13 @@ require "rails_helper"
 
 RSpec.describe "FileDownload", type: :system, js: true do
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsd.edu") }
+  let(:workflow_name) { "surfliner_default" }
 
-  before { sign_in user }
+  before {
+    sign_in user
+    setup_workflow_for(user)
+  }
+
   after { sign_out user }
 
   it "can attach and download a file" do
@@ -31,7 +36,7 @@ RSpec.describe "FileDownload", type: :system, js: true do
     object_id = page.current_path.split("/").last
     object = Hyrax.query_service.find_by(id: object_id)
     fileset_id = object.member_ids.first
-    visit("/downloads/#{fileset_id}?local=en")
-    expect(page).to have_content("abcd")
+
+    expect(page).to have_link("Download", visible: :all)
   end
 end
