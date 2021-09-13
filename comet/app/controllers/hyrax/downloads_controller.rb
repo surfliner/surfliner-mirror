@@ -7,7 +7,6 @@ module Hyrax
     before_action :authorize_download!
     def show
       file_set_id = params.require(:id)
-
       file = Hyrax.query_service.find_by(id: file_set_id)
       send_file_contents(file)
     end
@@ -29,16 +28,11 @@ module Hyrax
       self.response_body = file.read
     end
 
-    #def asset
-    #  @asset ||= ActiveFedora::Base.find(params[asset_param_key])
-    #end
-
     def prepare_file_headers(file_id)
       file_metadata = Hyrax.custom_queries.find_file_metadata_by(id: file_id)
-      #send_file_headers! content_options(file_metadata)
       response.headers['Content-Disposition'] = "attachment; filename=#{file_metadata.original_filename}"
       response.headers['Content-Type'] = file_metadata.mime_type
-      response.headers['Content-Length'] ||= file_metadata.size.to_s
+      response.headers['Content-Length'] ||= file_metadata.size.first
       # Prevent Rack::ETag from calculating a digest over body
       # todo - how to get asset
       #response.headers['Last-Modified'] = asset.modified_date.utc.strftime("%a, %d %b %Y %T GMT")

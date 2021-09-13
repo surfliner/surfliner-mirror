@@ -49,8 +49,8 @@ class InlineUploadHandler < Hyrax::WorkUploadsHandler
         .upload(resource: file_metadata,
           file: File.open(uploader.file.file),
           original_filename: file_metadata.original_filename)
-
       file_metadata.file_identifier = uploaded.id
+      file_metadata.size = uploaded.size
       Hyrax.persister.save(resource: file_metadata)
     end
   end
