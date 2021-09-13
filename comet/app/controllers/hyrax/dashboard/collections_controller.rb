@@ -7,7 +7,8 @@ module Hyrax
       before_action :authenticate_user!
 
       def new
-        @collection = Hyrax::PcdmCollection.new
+        @collection = Hyrax::PcdmCollection
+          .new(collection_type_gid: collection_type.to_global_id)
         @form = CollectionForm.new(@collection)
       end
 
@@ -20,13 +21,21 @@ module Hyrax
         @form.validate(permitted) &&
           collection = Hyrax.persister.save(resource: @form.sync)
 
-        redirect_to(edit_dashboard_collection_path(collection),
+        redirect_to(dashboard_collection_path(collection),
           notice: t("hyrax.dashboard.my.action.collection_create_success"))
       end
 
       def edit
         @collection = Hyrax.query_service.find_by(id: params[:id])
         @form = CollectionForm.new(@collection)
+      end
+
+      private
+
+      def collection_type
+        id = params[:collection_type_id].presence || default_collection_type.idy
+
+        Hyrax::CollectionType.find(id)
       end
     end
   end
