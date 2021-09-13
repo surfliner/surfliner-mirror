@@ -34,8 +34,7 @@ module Hyrax
       response.headers['Content-Type'] = file_metadata.mime_type
       response.headers['Content-Length'] ||= file_metadata.size.first
       # Prevent Rack::ETag from calculating a digest over body
-      # todo - how to get asset
-      #response.headers['Last-Modified'] = asset.modified_date.utc.strftime("%a, %d %b %Y %T GMT")
+      response.headers['Last-Modified'] = file_metadata.updated_at.utc.strftime("%a, %d %b %Y %T GMT")
       self.content_type = file_metadata.mime_type
     end
 
