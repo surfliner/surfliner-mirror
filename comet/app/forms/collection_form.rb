@@ -3,7 +3,8 @@
 ##
 # @see https://github.com/samvera/valkyrie/wiki/ChangeSets-and-Dirty-Tracking
 class CollectionForm < Valkyrie::ChangeSet
-  property :title
+  property :title, required: true
+  property :collection_type_gid, required: true
 
   class << self
     def model_class

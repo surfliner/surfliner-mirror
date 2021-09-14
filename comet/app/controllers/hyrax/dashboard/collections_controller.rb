@@ -2,9 +2,13 @@
 
 module Hyrax
   module Dashboard
-    class CollectionsController < Hyrax::My::CollectionsController
+    class CollectionsController < ApplicationController
       with_themed_layout "dashboard"
       before_action :authenticate_user!
+
+      load_and_authorize_resource(only: :show,
+        class: Hyrax::PcdmCollection,
+        instance_name: :collection)
 
       def new
         @collection = Hyrax::PcdmCollection
@@ -13,15 +17,17 @@ module Hyrax
       end
 
       def create
-        permitted = params.require(:pcdm_collection).permit(:title)
+        permitted = params.require(:pcdm_collection).permit(title: [])
+        permitted = permitted.merge(collection_type_gid: params.require(:collection_type_gid))
         Hyrax.logger.debug(permitted)
         @collection = Hyrax::PcdmCollection.new
         @form = CollectionForm.new(@collection)
 
         @form.validate(permitted) &&
           collection = Hyrax.persister.save(resource: @form.sync)
+        Hyrax.index_adapter.save(resource: collection)
 
-        redirect_to(dashboard_collection_path(collection),
+        redirect_to(my_collections_path,
           notice: t("hyrax.dashboard.my.action.collection_create_success"))
       end
 
@@ -30,12 +36,21 @@ module Hyrax
         @form = CollectionForm.new(@collection)
       end
 
+      def show
+        @presenter =
+          Hyrax::CollectionPresenter.new(@collection, current_ability)
+      end
+
       private
 
       def collection_type
-        id = params[:collection_type_id].presence || default_collection_type.idy
+        id = params[:collection_type_id].presence || default_collection_type.id
 
         Hyrax::CollectionType.find(id)
+      end
+
+      def default_collection_type
+        Hyrax::CollectionType.find_or_create_default_collection_type
       end
     end
   end

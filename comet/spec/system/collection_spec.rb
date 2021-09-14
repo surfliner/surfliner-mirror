@@ -17,7 +17,14 @@ RSpec.describe "Components", type: :system, js: true do
     click_on "Collections"
     expect(page).to have_link("New Collection")
 
-    # TODO: create and add objects to a collectiony
-    # click_on "New Collection"
+    click_on "New Collection"
+    fill_in("Title", with: "System Spec Collection")
+
+    expect { click_on("Save") }
+      .to change { Hyrax.query_service.count_all_of_model(model: Hyrax::PcdmCollection) }
+      .by 1
+
+    expect(page).to have_content("Collection was successfully created.")
+    # expect(page).to have_content("System Spec Collection")
   end
 end
