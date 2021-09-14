@@ -19,7 +19,7 @@ module Hyrax
     end
 
     def send_file_contents(file_set)
-      response.headers['Accept-Ranges'] = 'bytes'
+      response.headers["Accept-Ranges"] = "bytes"
       self.status = 200
       file_id = file_set.file_ids.first
       file = Hyrax.storage_adapter.find_by(id: file_id)
@@ -30,16 +30,16 @@ module Hyrax
 
     def prepare_file_headers(file_id)
       file_metadata = Hyrax.custom_queries.find_file_metadata_by(id: file_id)
-      response.headers['Content-Disposition'] = "attachment; filename=#{file_metadata.original_filename}"
-      response.headers['Content-Type'] = file_metadata.mime_type
-      response.headers['Content-Length'] ||= file_metadata.size.first
+      response.headers["Content-Disposition"] = "attachment; filename=#{file_metadata.original_filename}"
+      response.headers["Content-Type"] = file_metadata.mime_type
+      response.headers["Content-Length"] ||= file_metadata.size.first
       # Prevent Rack::ETag from calculating a digest over body
-      response.headers['Last-Modified'] = file_metadata.updated_at.utc.strftime("%a, %d %b %Y %T GMT")
+      response.headers["Last-Modified"] = file_metadata.updated_at.utc.strftime("%a, %d %b %Y %T GMT")
       self.content_type = file_metadata.mime_type
     end
 
     def content_options(file_metadata)
-      { disposition: 'attachment', type: file_metadata.mime_type, filename: file_metadata.original_filename }
-    end    
+      {disposition: "attachment", type: file_metadata.mime_type, filename: file_metadata.original_filename}
+    end
   end
 end

@@ -33,10 +33,6 @@ RSpec.describe "FileDownload", type: :system, js: true do
     click_on("Save")
 
     expect(page).to have_content("Test Upload and Download Object")
-    object_id = page.current_path.split("/").last
-    object = Hyrax.query_service.find_by(id: object_id)
-    fileset_id = object.member_ids.first
-
     expect(page).to have_link("Download", visible: :all)
   end
 end
