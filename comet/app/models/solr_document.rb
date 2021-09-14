@@ -24,4 +24,12 @@ class SolrDocument
 
   # Do content negotiation for AF models.
   use_extension(Hydra::ContentNegotiation)
+
+  # override
+  # https://github.com/samvera/hyrax/blob/main/app/models/concerns/hyrax/solr_document_behavior.rb#L50
+  # since ActiveFedoraDummyModel doesn't return the correct Valkyrized GID with
+  # #to_global_id
+  def to_model
+    @model ||= Hyrax.query_service.find_by(id: id)
+  end
 end
