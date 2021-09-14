@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Components", type: :system, js: true do
+RSpec.describe "Collections", type: :system, js: true do
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
 
   before { sign_in user }
@@ -25,6 +25,6 @@ RSpec.describe "Components", type: :system, js: true do
       .by 1
 
     expect(page).to have_content("Collection was successfully created.")
-    # expect(page).to have_content("System Spec Collection")
+    expect(page).to have_content("System Spec Collection")
   end
 end

@@ -4,6 +4,7 @@
 # @see https://github.com/samvera/valkyrie/wiki/ChangeSets-and-Dirty-Tracking
 class CollectionForm < Valkyrie::ChangeSet
   property :title, required: true
+  property :depositor, required: true
   property :collection_type_gid, required: true
 
   class << self
