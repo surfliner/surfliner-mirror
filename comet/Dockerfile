@@ -5,7 +5,10 @@ ARG PROJECTPATH=comet
 ARG DOCKERROOT=/app/samvera
 
 USER root
-RUN apk --no-cache add less
+RUN apk --no-cache add \
+  git \
+  less \
+  postgresql-client
 USER app
 
 COPY --chown=1001:101 $PROJECTPATH/scripts/db-migrate-seed.sh $DOCKERROOT/db-migrate-seed.sh

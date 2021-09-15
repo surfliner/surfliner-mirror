@@ -1,0 +1,159 @@
+version: '3.7'
+
+services:
+  web:
+    build:
+      context: ..
+      dockerfile: comet/Dockerfile
+      target: comet
+    image: comet
+    stdin_open: true
+    tty: true
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - RAILS_ROOT=/app/samvera/hyrax-webapp
+    depends_on:
+      - chrome
+      - db_migrate
+      - minio
+      - memcached
+      - postgres
+      - redis
+      - solr
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app/samvera/hyrax-engine
+      - hyrax-derivatives:/app/samvera/hyrax-webapp/derivatives
+      - hyrax-uploads:/app/samvera/hyrax-webapp/uploads
+      - rails-public:/app/samvera/hyrax-webapp/public
+      - rails-tmp:/app/samvera/hyrax-webapp/tmp
+    networks:
+      - comet
+
+  sidekiq:
+    build:
+      context: ..
+      dockerfile: comet/Dockerfile
+      target: comet-worker
+    image: comet-worker
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - db_migrate
+      - minio
+      - memcached
+      - postgres
+      - redis
+      - solr
+    volumes:
+      - .:/app/samvera/hyrax-engine:cached
+      - hyrax-derivatives:/app/samvera/hyrax-webapp/derivatives
+      - hyrax-uploads:/app/samvera/hyrax-webapp/uploads
+      - sidekiq-public:/app/samvera/hyrax-webapp/public
+      - sidekiq-tmp:/app/samvera/hyrax-webapp/tmp
+    networks:
+      - comet
+
+  chrome:
+    image: selenium/standalone-chrome:3.141
+    logging:
+      driver: none
+    volumes:
+      - /dev/shm:/dev/shm
+    shm_size: 2G
+    ports:
+      - "4444:4444"
+      - "5959:5900"
+    networks:
+      - comet
+
+  db_migrate:
+    image: comet-web
+    env_file:
+      - .env
+    command:
+      - sh
+      - -c
+      - >
+        echo "Ensuring database: $METADATA_DATABASE_NAME exists" &&
+        PGPASSWORD=$DB_PASSWORD PGHOST=$DB_HOST PGUSER=$DB_USERNAME PGDATABASE=$DB_NAME; export PGPASSWORD PGHOST PGUSER PGDATABASE &&
+        while ! psql -tc "SELECT * FROM pg_database"; do echo "-- Waiting for PGSQL ..."; sleep 5s; done &&
+        psql -tc "SELECT 1 FROM pg_database WHERE datname = '$METADATA_DATABASE_NAME'" | grep -q 1 || createdb -e -w $METADATA_DATABASE_NAME &&
+        db-wait.sh "${SOLR_HOST}:${SOLR_PORT}" db-migrate-seed.sh
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app/samvera/hyrax-engine:cached
+      - rails-public:/app/samvera/hyrax-webapp/public
+      - rails-tmp:/app/samvera/hyrax-webapp/tmp
+    networks:
+      - comet
+
+  postgres:
+    image: postgres:latest
+    restart: always
+    env_file:
+      - .env
+    # ports:
+    #   - "5432:5432"
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+      - comet
+
+  memcached:
+    image: bitnami/memcached
+    ports:
+      - '11211:11211'
+    networks:
+      - comet
+
+  minio:
+    image: bitnami/minio:2021
+    ports:
+      - "9000:9000"
+    volumes:
+      - comet_minio:/data
+    env_file:
+      - .env
+
+  redis:
+    image: redis:5-alpine
+    volumes:
+      - redis:/data
+    networks:
+      - comet
+
+  solr:
+    image: bitnami/solr:8.9.0
+    # ports:
+    #   - 8983:8983
+    env_file:
+      - .env
+    volumes:
+      - ./solr/conf:/opt/comet
+      - solr_home:/var/solr/data:cached
+    networks:
+      - comet
+
+volumes:
+  db:
+  hyrax-derivatives:
+  hyrax-uploads:
+  rails-public:
+  rails-tmp:
+  redis:
+  sidekiq-public:
+  sidekiq-tmp:
+  solr_home:
+  comet_minio:
+
+networks:
+  comet:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: br-comet

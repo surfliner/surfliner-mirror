@@ -39,3 +39,4 @@ RUN DB_ADAPTER=nulldb DATABASE_URL='postgresql://fake' bundle exec rake assets:p
 
 CMD ["bundle", "exec", "puma", "-b", "tcp://0.0.0.0:3000"]
 ENTRYPOINT ["/bin/sh", "bin/docker-entrypoint.sh"]
+
