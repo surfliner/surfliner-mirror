@@ -36,6 +36,11 @@ extraInitContainers:
       - sh
       - -c
       - db-migrate-seed.sh
+    envFrom:
+      - configMapRef:
+          name: comet-hyrax-env
+      - secretRef:
+          name: comet-hyrax
     env:
     - name: "METADATA_DATABASE_NAME"
       value: "comet_metadata"
