@@ -6,6 +6,9 @@ class Ability
 
   # Define any customized permissions here.
   def custom_permissions
+    can :read, Hyrax::PcdmCollection do |collection|
+      test_read(collection.id)
+    end
   end
 
   ##

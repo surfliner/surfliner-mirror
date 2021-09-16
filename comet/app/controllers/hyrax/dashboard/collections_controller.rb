@@ -17,16 +17,20 @@ module Hyrax
       end
 
       def create
-        require 'pry'; binding.pry
         permitted = params.require(:pcdm_collection).permit(title: [])
         permitted = permitted.merge(collection_type_gid: params.require(:collection_type_gid))
         permitted = permitted.merge(depositor: current_user.user_key)
         Hyrax.logger.debug(permitted)
         @collection = Hyrax::PcdmCollection.new
+
         @form = CollectionForm.new(@collection)
 
         @form.validate(permitted) &&
           collection = Hyrax.persister.save(resource: @form.sync)
+        Collections::PermissionsCreateService.create_default(collection: collection, creating_user: current_user)
+        pm = collection.permission_manager
+        pm.read_users += [current_user.user_key]
+        pm.acl.save
         Hyrax.index_adapter.save(resource: collection)
 
         redirect_to(my_collections_path,
