@@ -1,4 +1,4 @@
-<% provide :page_title, I18n.t('bhyrax.dashboard.batch_uploads.title') %>
+<% provide :page_title, I18n.t("hyrax.dashboard.batch_uploads.title") %>
 
 <div class="row" style="padding-bottom: 30px;">
   <div class="col-xs-8 main-header">
@@ -21,10 +21,10 @@
 
   <div class="row">
     <div class="form-group">
-      <%= f.label :files_location, t('hyrax.dashboard.batch_uploads.files_location_label'), class: "col-xs-2 control-label"%>
+      <%= f.label :files_location, t("hyrax.dashboard.batch_uploads.files_location_label"), class: "col-xs-2 control-label"%>
       <div class="col-xs-6"><%= f.text_field :files_location, class: "form-control", required: true %></div>
     </div>
   </div>
 
-  <%= f.submit value: t('hyrax.dashboard.batch_uploads.button_label'), class: "btn btn-primary" %>
+  <%= f.submit value: t("hyrax.dashboard.batch_uploads.button_label"), class: "btn btn-primary" %>
 <% end %>
