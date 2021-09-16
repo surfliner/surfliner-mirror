@@ -36,9 +36,12 @@ RSpec.describe "Generic Objects", type: :system, js: true, storage_adapter: :mem
     it "can create a new object and assign a Collection to it after creation" do
       visit "/dashboard/my/works"
       click_on "Add new work"
+
       fill_in("Title", with: "My Title")
+      choose("generic_object_visibility_open")
       click_on "Save"
 
+      expect(page).to have_content("My Title")
       click_on "Add to collection"
       # TODO: expect it not to fail with a visibility error
     end

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Collections", type: :system, js: true do
+RSpec.describe "Collections", storage_adapter: :memory, metadata_adapter: :test_adapter, type: :system, js: true do
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
 
   before { sign_in user }
@@ -15,6 +15,7 @@ RSpec.describe "Collections", type: :system, js: true do
 
     visit "/dashboard"
     click_on "Collections"
+    sleep(3)
     expect(page).to have_link("New Collection")
 
     click_on "New Collection"

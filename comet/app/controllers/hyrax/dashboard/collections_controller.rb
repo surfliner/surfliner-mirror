@@ -17,6 +17,7 @@ module Hyrax
       end
 
       def create
+        require 'pry'; binding.pry
         permitted = params.require(:pcdm_collection).permit(title: [])
         permitted = permitted.merge(collection_type_gid: params.require(:collection_type_gid))
         permitted = permitted.merge(depositor: current_user.user_key)
