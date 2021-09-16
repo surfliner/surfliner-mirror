@@ -1,0 +1,106 @@
+version: '3.7'
+
+services:
+  web:
+    build:
+      context: ..
+      dockerfile: starlight/Dockerfile
+      target: starlight
+    image: starlight
+    env_file:
+      - .env
+    command:
+      - sh
+      - -c
+      - >
+        upload-solr-configs.sh /home/starlight/app/solr/config &&
+        create-solr-collection.sh &&
+        bin/docker-entrypoint.sh &&
+        bundle exec puma -v --debug -b tcp://0.0.0.0:3000
+    volumes:
+      - .:/home/starlight/app
+      - starlight_assets:/home/starlight/app/public/assets
+      - starlight_tmp:/home/starlight/app/tmp
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db_migrate
+      - database
+      - memcached
+      - redis
+      - solr
+    stdin_open: true
+    tty: true
+
+  db_migrate:
+    image: starlight
+    env_file:
+      - .env
+    entrypoint: ["sh", "-c"]
+    command: db-setup.sh
+    depends_on:
+      - database
+    volumes:
+      - .:/home/starlight/app
+
+  sidekiq:
+    image: starlight
+    env_file:
+      - .env
+    volumes:
+      - .:/home/starlight/app
+      - starlight_assets:/home/starlight/app/public/assets
+      - starlight_tmp:/home/starlight/app/tmp
+    entrypoint: sh -ic "bundle exec sidekiq"
+    depends_on:
+      - database
+      - redis
+      - solr
+    stdin_open: true
+    tty: true
+
+  memcached:
+    image: bitnami/memcached:1.6.10
+
+  minio:
+    image: bitnami/minio:2021-debian-10
+    ports:
+      - "9000:9000"
+    volumes:
+      - starlight_minio:/data
+    env_file:
+      - .env
+
+  redis:
+    image: bitnami/redis:6.2
+    command: redis-server --protected-mode no --stop-writes-on-bgsave-error no
+    volumes:
+      - starlight_redis:/data
+
+  database:
+    image: bitnami/postgresql:12.8.0
+    volumes:
+      - starlight_database:/var/lib/postgresql/data
+    environment:
+      POSTGRESQL_DATABASE: starlight-dev
+      POSTGRESQL_PASSWORD: postgres_pass
+
+  solr:
+    image: solr:8.9.0
+    env_file:
+      - .env
+
+  zk:
+    image: zookeeper:3.7
+    env_file:
+      - .env
+
+  chrome:
+    image: selenium/standalone-chrome:91.0
+
+volumes:
+  starlight_assets:
+  starlight_database:
+  starlight_minio:
+  starlight_redis:
+  starlight_tmp:
