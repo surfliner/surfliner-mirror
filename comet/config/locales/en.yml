@@ -31,3 +31,13 @@
 
 en:
   hello: "Hello world"
+  hyrax:
+    dashboard:
+      batch_uploads:
+        button_label: "Submit"
+        files_location_label: "Files Location"
+        header: "Add New Works by Batch"
+        source_file_label: "Source File"
+        title: "Batch Upload"
+      sidebar:
+        batch_uploads: "Batch Upload"
