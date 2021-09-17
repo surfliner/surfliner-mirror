@@ -131,7 +131,9 @@ Daily, 10:30-10:45am (*except last day of each sprint*)<br/>
 
 **Project Surfliner Sprint Review**<br/>
 Last day of each sprint, 10:30-11:30am<br/>
-[https://ucsd.zoom.us/j/5296465230](https://ucsd.zoom.us/j/5296465230)<br/>
+- Sprint 7: [https://ucsd.zoom.us/j/96403196320?pwd=M1lnNkJYUGtwWWhmaFpzQVF2bjVJQT09](https://ucsd.zoom.us/j/96403196320?pwd=M1lnNkJYUGtwWWhmaFpzQVF2bjVJQT09)
+- Sprint 8: [https://ucsd.zoom.us/j/96079242068?pwd=THRHcXhMMFJDKzAzMGlvb1l4bFVMZz09](https://ucsd.zoom.us/j/96079242068?pwd=THRHcXhMMFJDKzAzMGlvb1l4bFVMZz09)
+- Sprint 9 [https://ucsd.zoom.us/j/91655988423?pwd=SzBNQkZpM29Ra1RhMGt5YWJaa3hkQT09](https://ucsd.zoom.us/j/91655988423?pwd=SzBNQkZpM29Ra1RhMGt5YWJaa3hkQT09)<br/>
 
 **Project Surfliner Sprint Retrospective**<br/>
 Last day of each sprint, 2:00-3:00pm<br/>
@@ -139,12 +141,13 @@ Last day of each sprint, 2:00-3:00pm<br/>
 
 #### Comet Sprint Team
 **Backlog Refinement**<br/>
-Every other Friday, 2:00-3:00pm (*starting April 9, 2021*)<br/>
-[https://ucsd.zoom.us/j/96682551377?pwd=SWhTU0taK2pXY2lnM2d4aWIycVpYQT09](https://ucsd.zoom.us/j/96682551377?pwd=SWhTU0taK2pXY2lnM2d4aWIycVpYQT09)<br/>
+Every other Friday, 2:00-3:00pm<br/>
+[https://ucsd.zoom.us/j/94997641541?pwd=MXhxeU5wK0drTHE2RHpqOHZKMEVTdz09](https://ucsd.zoom.us/j/94997641541?pwd=MXhxeU5wK0drTHE2RHpqOHZKMEVTdz09)<br/>
 
 **Sprint Planning**<br/>
-Every other Monday, 2:00-3:00pm (*starting April 12*)<br/>
-[https://ucsd.zoom.us/j/98518941689?pwd=akxYNkdFbFo3VHJ5dkszRGFPckt1Zz09](https://ucsd.zoom.us/j/98518941689?pwd=akxYNkdFbFo3VHJ5dkszRGFPckt1Zz09)<br/>
+Every other Monday, 2:00-3:00pm<br/>
+- Sprint 8: [https://ucsd.zoom.us/j/92587034179?pwd=bVVNMk1lSTNJUUtuNTRvb0FHUnBNQT09](https://ucsd.zoom.us/j/92587034179?pwd=bVVNMk1lSTNJUUtuNTRvb0FHUnBNQT09)
+- Sprint 9: [https://ucsd.zoom.us/j/97102182916?pwd=UEZtVlltWUsvMmV6YWhsaytKcGoyQT09](https://ucsd.zoom.us/j/97102182916?pwd=UEZtVlltWUsvMmV6YWhsaytKcGoyQT09)<br/>
 
 #### Shoreline Sprint Team
 **Backlog Refinement**<br/>
