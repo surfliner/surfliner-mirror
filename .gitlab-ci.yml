@@ -83,6 +83,7 @@ include:
         --install \
         --atomic \
         --timeout 15m0s \
+        --debug \
         --set image.repository="$DEPLOY_IMAGE" \
         --set image.tag="$DEPLOY_TAG" \
         $HELM_UPGRADE_FILE_VALUES_ARGS \
