@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-
 RSpec.describe Hyrax::Dashboard::CollectionsController, storage_adapter: :memory, metadata_adapter: :test_adapter, type: :controller do
   routes { Hyrax::Engine.routes }
   let(:user) { User.create(email: "moomin@example.com") }
