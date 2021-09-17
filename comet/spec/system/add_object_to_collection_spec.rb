@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-#
+
 # TODO:  "visibility_ssi":"restricted" -> we have no way of setting this in the collection form.
 #   And the "Add the collection" button on the Work page complains about this
 #   Even with visibility defaulting to "restricted" I would still expect the User can use their own restricted
