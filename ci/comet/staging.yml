@@ -19,7 +19,6 @@ comet:deploy:staging:ucsb:
   environment:
     name: ucsb.staging.comet
     url: http://comet-staging.$KUBE_INGRESS_BASE_DOMAIN
-    on_stop: comet:cleanup:staging:ucsb
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
       --set extraInitContainers[0].envFrom[0].configMapRef.name=surfliner-comet-stage-hyrax-env
@@ -59,7 +58,6 @@ comet:deploy:staging:ucsd:
   environment:
     name: ucsd.staging.comet
     url: https://lib-comet-staging.ucsd.edu
-    on_stop: comet:cleanup:staging:ucsd
   tags:
     - ucsd
   variables:
