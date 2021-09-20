@@ -302,3 +302,5 @@ class CometTransactionContainer
 end
 
 Hyrax::Transactions::Container.merge(CometTransactionContainer)
+
+Hyrax::DashboardController.sidebar_partials[:repository_content] << "hyrax/dashboard/sidebar/batch_upload"
