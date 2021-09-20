@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-class BatchUpload < ActiveFedora::Base
-  attr_accessor :source_file, :files_location
-  validates :source_file, :files_location, presence: true
-
-  def create_or_update
-    raise "This is a read only record"
+class BatchUpload < Struct.new(:source_file, :files_location)
+  # Required to back a form
+  def persisted?
+    false
   end
 end
