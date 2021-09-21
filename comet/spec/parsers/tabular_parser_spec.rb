@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe Comet::TabularParser do
+RSpec.describe TabularParser do
   subject(:parser) { described_class.new }
 
   describe ".for" do

@@ -15,11 +15,9 @@ module Hyrax
 
       Hyrax.logger.debug(permitted)
 
-      ##
-      # TODO: Handle CSV/Excel? source, build object metadata and ingest files
       source_path = permitted[:source_file].path
 
-      Comet::TabularParser
+      ::TabularParser
         .for(content_type: permitted[:source_file].content_type)
         .parse(source_path)
         .each_with_index do |row, i|

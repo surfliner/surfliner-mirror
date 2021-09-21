@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require_relative "../../../../lib/comet/tabular_parsers/csv_parser"
+require_relative "../../../app/parsers/tabular_parsers/csv_parser"
 
-RSpec.describe Comet::TabularParsers::CSVParser do
+RSpec.describe TabularParsers::CSVParser do
   subject(:parser) { described_class.new }
 
   describe "#parse" do
