@@ -2,6 +2,8 @@
 
 module Hyrax
   class BatchUploadsController < ApplicationController
+    include BatchUploadsControllerBehavior
+
     with_themed_layout "dashboard"
     before_action :authenticate_user!
 
@@ -26,6 +28,7 @@ module Hyrax
         .each_with_index do |row, i|
         ##
         # TODO: Convert data, build object metadata and ingest files
+        ingest_object(row.with_indifferent_access, permitted[:files_location])
       end
 
       redirect_to(new_batch_upload_path,
@@ -33,3 +36,4 @@ module Hyrax
     end
   end
 end
+
