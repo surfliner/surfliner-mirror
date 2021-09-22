@@ -9,7 +9,7 @@ RSpec.describe TabularParsers::CSVParser do
   describe "#parse" do
     let(:csv_file) { Rails.root.join("spec", "fixtures", "batch.csv") }
     let(:data) do
-      {"object unique id" => "obj#1", "level" => "Object", "file name" => "image.jpg", "title" => "Test Object"}
+      {"object unique id" => "obj#1", "level" => "Object", "file name" => "image.jpg", "title" => "Batch ingest object"}
     end
 
     it "parses csv file" do

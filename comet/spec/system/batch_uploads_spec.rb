@@ -2,12 +2,18 @@
 
 require "rails_helper"
 
-RSpec.describe "BatchUploads", type: :system, js: true do
+RSpec.describe "BatchUploads", storage_adapter: :memory, metadata_adapter: :test_adapter, type: :system, js: true do
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
   let(:source_file) { Rails.root.join("spec", "fixtures", "batch.csv") }
   let(:s3_enabled_default) { Rails.application.config.staging_area_s3_enabled }
+  let(:files_location) { Rails.root.join("spec", "fixtures") }
 
-  before { sign_in user }
+  let(:approving_user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
+
+  before do
+    setup_workflow_for(user)
+    sign_in user
+  end
 
   after { Rails.application.config.staging_area_s3_enabled = s3_enabled_default }
 
