@@ -14,7 +14,7 @@ module TabularParsers
 
       [].tap do |rows|
         CSV.foreach(file, options) do |row|
-          rows << row.to_h.with_indifferent_access
+          rows << row.to_h
         end
       end
     rescue CSV::MalformedCSVError => e
