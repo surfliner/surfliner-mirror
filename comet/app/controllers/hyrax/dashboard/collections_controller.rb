@@ -25,13 +25,16 @@ module Hyrax
 
         @form = CollectionForm.new(@collection)
 
-        @form.validate(permitted) &&
+        if @form.validate(permitted)
           collection = Hyrax.persister.save(resource: @form.sync)
-        Collections::PermissionsCreateService.create_default(collection: collection, creating_user: current_user)
-        pm = collection.permission_manager
-        pm.read_users += [current_user.user_key]
-        pm.acl.save
-        Hyrax.index_adapter.save(resource: collection)
+          Hyrax::Collections::PermissionsCreateService.create_default(collection: collection, creating_user: current_user)
+          collection.permission_manager.read_users += [current_user.user_key]
+          collection.permission_manager.acl.save
+          Hyrax.logger.debug("collection.permission_manager edit groups and users after PermissionsCreateService")
+          Hyrax.logger.debug(collection.permission_manager.edit_groups.to_a)
+          Hyrax.logger.debug(collection.permission_manager.edit_users.to_a)
+          Hyrax.index_adapter.save(resource: collection)
+        end
 
         redirect_to(my_collections_path,
           notice: t("hyrax.dashboard.my.action.collection_create_success"))
