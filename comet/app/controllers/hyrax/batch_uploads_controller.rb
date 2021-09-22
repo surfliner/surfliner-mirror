@@ -36,4 +36,3 @@ module Hyrax
     end
   end
 end
-

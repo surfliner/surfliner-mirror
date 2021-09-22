@@ -24,8 +24,8 @@ class ObjectIngestJob < CreateWorkJob
       status << work_actor.create(env)
     end
 
-    return log.fail!('No records ingested!') if components.count.zero?
+    return log.fail!("No records ingested!") if components.count.zero?
     return log.success! if status.first
-    log.fail!(works.first.errors.full_messages.join('\n'))
+    log.fail!(works.first.errors.full_messages.join("\n"))
   end
 end
