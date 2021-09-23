@@ -65,6 +65,10 @@ RSpec.configure do |config|
     page.driver.reset!
   end
 
+  config.before(:each, type: :system) do
+    Hyrax.index_adapter.wipe!
+  end
+
   config.around(:example, :metadata_adapter) do |example|
     Valkyrie.config.metadata_adapter = example.metadata[:metadata_adapter]
     example.run
