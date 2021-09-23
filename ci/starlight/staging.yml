@@ -5,7 +5,8 @@
     - .helm3-deploy
   variables:
     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/starlight_web
-    DEPLOY_TAG: $CI_COMMIT_SHA
+    # TODO: revert when UCSB theme is updated for Spotlight 3
+    # DEPLOY_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-starlight-stage
     KUBE_NAMESPACE: starlight-staging
   only:
@@ -22,6 +23,7 @@ starlight:deploy:ucsb-stage:
     url: http://starlight-staging.$KUBE_INGRESS_BASE_DOMAIN
     on_stop: starlight:cleanup:ucsb-stage
   variables:
+    DEPLOY_TAG: 17c670abeb78a7d156ad115abbce27999e2c1300
     HELM_UPGRADE_EXTRA_ARGS: >
       --values charts/snippets/starlight/staging/ucsb.yaml
 
@@ -52,6 +54,7 @@ starlight:deploy:ucsd-stage:
   tags:
     - ucsd
   variables:
+    DEPLOY_TAG: $CI_COMMIT_SHA
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
     HELM_UPGRADE_EXTRA_ARGS: >
       --values charts/snippets/starlight/staging/ucsd.yaml
