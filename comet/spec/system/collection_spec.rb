@@ -7,7 +7,7 @@ RSpec.describe "Collections", storage_adapter: :memory, metadata_adapter: :test_
 
   before { sign_in user }
 
-  xit "can create a new collection and add object" do
+  it "can create a new collection and add object" do
     visit "/admin/collection_types"
     click_on "Create new collection type"
     fill_in("Type name", with: "Curated Collection")
