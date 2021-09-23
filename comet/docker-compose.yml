@@ -122,7 +122,9 @@ services:
       - .env
 
   redis:
-    image: redis:5-alpine
+    image: bitnami/redis:6.2
+    env_file:
+      - .env
     volumes:
       - redis:/data
     networks:
