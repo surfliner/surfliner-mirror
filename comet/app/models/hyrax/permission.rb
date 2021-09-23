@@ -13,8 +13,7 @@ module Hyrax
     include Dry::Equalizer(:access_to, :agent, :mode)
 
     attribute :access_to, Valkyrie::Types::ID
-    attribute :agent,     Valkyrie::Types::String
-    attribute :mode,      Valkyrie::Types::Symbol
+    attribute :agent, Valkyrie::Types::String
+    attribute :mode, Valkyrie::Types::Symbol
   end
 end
-

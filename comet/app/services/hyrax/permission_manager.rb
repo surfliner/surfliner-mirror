@@ -34,8 +34,8 @@ module Hyrax
   # @see Hyrax::Permission
   class PermissionManager
     DISCOVER = :discover
-    EDIT     = :edit
-    READ     = :read
+    EDIT = :edit
+    READ = :read
 
     ##
     # @!attribute [rw] acl
@@ -145,7 +145,7 @@ module Hyrax
         acl.permissions.each do |permission|
           next unless permission.mode.to_sym == mode
           next unless permission.agent.starts_with?(Hyrax::Group.name_prefix)
-          yielder << permission.agent.gsub(Hyrax::Group.name_prefix, '')
+          yielder << permission.agent.gsub(Hyrax::Group.name_prefix, "")
         end
       end
     end
@@ -157,7 +157,7 @@ module Hyrax
         next unless permission.mode.to_sym == mode
         next unless permission.agent.starts_with?(Hyrax::Group.name_prefix)
 
-        group_name = permission.agent.gsub(Hyrax::Group.name_prefix, '')
+        group_name = permission.agent.gsub(Hyrax::Group.name_prefix, "")
         next if groups.include?(group_name)
 
         acl.revoke(mode).from(Group.new(group_name))
@@ -197,4 +197,3 @@ module Hyrax
     end
   end
 end
-
