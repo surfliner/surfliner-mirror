@@ -72,7 +72,7 @@ services:
       - comet
 
   db_migrate:
-    image: comet-web
+    image: comet
     env_file:
       - .env
     command:
