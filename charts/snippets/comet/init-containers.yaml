@@ -1,17 +1,4 @@
-extraInitContainers:
-  - name: db-wait
-    image: "busybox"
-    command:
-      - sh
-      - -c
-      - >-
-        while ! nc -z "$DB_HOST" "$DB_PORT"; do
-          echo "waiting for $DB_HOST:$DB_PORT"
-          sleep 1
-        done
-    envFrom:
-      - configMapRef:
-          name: comet-hyrax-env
+dbPreSetupInitContainer:
   - name: ensure-metadata-db-exists
     image: "bitnami/postgresql:latest"
     command:
@@ -24,18 +11,9 @@ extraInitContainers:
         createdb -e -w $METADATA_DATABASE_NAME
     envFrom:
       - configMapRef:
-          name: comet-hyrax-env
+          name: surfliner-comet-prod-hyrax-env
       - secretRef:
-          name: comet-hyrax
-    env:
-    - name: "METADATA_DATABASE_NAME"
-      value: "comet_metadata"
-  - name: db-setup
-    imagePullPolicy: Always
-    command:
-      - sh
-      - -c
-      - db-migrate-seed.sh
+          name: surfliner-comet-prod-hyrax
     env:
     - name: "METADATA_DATABASE_NAME"
       value: "comet_metadata"

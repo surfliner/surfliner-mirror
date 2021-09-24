@@ -5,7 +5,7 @@ namespace="comet-development"
 release=${RELEASE_NAME:=comet}
 values_file=${VALUES_FILE:=../charts/snippets/comet/k3d.yaml}
 registry_port=${REGISTRY_PORT:=41906}
-hyrax_version="0.22.0"
+hyrax_version="1.0.0"
 hyrax_chart_directory='charts/hyrax'
 
 git_sha="$(git rev-parse HEAD)"
@@ -62,8 +62,6 @@ helm upgrade \
   --set image.tag="${git_sha}" \
   --set worker.image.repository="$worker_image_repository" \
   --set worker.image.tag="${git_sha}" \
-  --set extraInitContainers[2].image="${image_repository}:${git_sha}" \
-  --set extraInitContainers[3].image="${image_repository}:${git_sha}" \
   --values="$values_file" \
   ${LOCAL_VALUES_FILE+--values="$LOCAL_VALUES_FILE"} \
   "$release" \
