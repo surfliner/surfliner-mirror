@@ -1,6 +1,5 @@
 ingress:
   enabled: true
-skipDbMigrateSeed: true
 livenessProbe:
   enabled: true
   path: "/healthz"

@@ -11,7 +11,6 @@ readinessProbe:
   path: "/healthz"
   initialDelaySeconds: 10
 skipHyraxEngineSeed: "true"
-skipDbMigrateSeed: true
 brandingVolume:
   enabled: false
 derivativesVolume:
