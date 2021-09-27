@@ -26,7 +26,7 @@ RSpec.describe Hyrax::Dashboard::CollectionsController, storage_adapter: :memory
 
   describe "#create" do
     it "redirects to sign in" do
-      post :create, params: {pcdm_collection: {title: ["my title"]}}
+      post :create, params: {pcdm_collection: {title: ["My Title"]}}
 
       expect(response).to redirect_to("/users/sign_in")
     end
@@ -38,7 +38,7 @@ RSpec.describe Hyrax::Dashboard::CollectionsController, storage_adapter: :memory
 
       it "gives a succesful response" do
         expect do
-          post :create, params: {pcdm_collection: {title: ["my title"]},
+          post :create, params: {pcdm_collection: {title: ["My Title"]},
                                  collection_type_gid: collection_type.to_global_id}
         end
           .to change { Hyrax.query_service.count_all_of_model(model: Hyrax::PcdmCollection) }
