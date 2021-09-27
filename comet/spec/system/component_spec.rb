@@ -7,7 +7,7 @@ RSpec.describe "Components", type: :system, js: true do
 
   before { sign_in user }
 
-  it "can attach new objects as components" do
+  xit "can attach new objects as components" do
     visit "/dashboard"
     click_on "Works"
     click_on "Add new work"
