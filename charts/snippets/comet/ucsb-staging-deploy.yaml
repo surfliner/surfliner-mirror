@@ -34,9 +34,9 @@ dbPreSetupInitContainer:
         createdb -e -w $METADATA_DATABASE_NAME
     envFrom:
       - configMapRef:
-          name: surfliner-comet-prod-hyrax-env
+          name: surfliner-comet-stage-hyrax-env
       - secretRef:
-          name: surfliner-comet-prod-hyrax
+          name: surfliner-comet-stage-hyrax
       - secretRef:
           name: comet-postgres
     env:
