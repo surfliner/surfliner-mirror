@@ -25,7 +25,7 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - .:/app/samvera/hyrax-engine
+      - .:/app/samvera/hyrax-webapp
       - hyrax-derivatives:/app/samvera/hyrax-webapp/derivatives
       - hyrax-uploads:/app/samvera/hyrax-webapp/uploads
       - rails-public:/app/samvera/hyrax-webapp/public
