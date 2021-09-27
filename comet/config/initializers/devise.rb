@@ -274,8 +274,11 @@ Devise.setup do |config|
   case ENV["AUTH_METHOD"]
   when "google"
     config.omniauth :google_oauth2, ENV.fetch("GOOGLE_AUTH_ID"), ENV.fetch("GOOGLE_AUTH_SECRET")
-  else # "developer"
+  when "developer"
     config.omniauth :developer
+  else
+    raise("Unknown auth provider #{ENV.fetch("AUTH_METHOD", "[none]")}") unless
+      ENV["DB_ADAPTER"] == "nulldb" # raise unless we are building the image
   end
 
   # ==> Warden configuration
