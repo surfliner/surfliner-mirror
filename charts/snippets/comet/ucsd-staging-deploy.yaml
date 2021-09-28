@@ -32,3 +32,11 @@ worker:
     - secretRef:
         name: comet-staging-ezid-credentials
 
+brandingVolume:
+  storageClass: nfs-client
+
+derivativesVolume:
+  storageClass: nfs-client
+
+uploadsVolume:
+  storageClass: nfs-client
