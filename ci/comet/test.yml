@@ -3,6 +3,7 @@
   image: $CI_REGISTRY_IMAGE/comet_web:$CI_COMMIT_SHA
   needs: ["comet:ruby-build"]
   variables:
+    AUTH_METHOD: "developer"
     CAPYBARA_PORT: 3010
     DATABASE_URL: "postgres://postgres:postgres@localhost/comet-test"
     POSTGRES_DB: "comet-test"
@@ -47,6 +48,7 @@ comet:test:unit:
 comet:test:system:
   extends: .comet:test
   variables:
+    AUTH_METHOD: "developer"
     HUB_URL: "http://localhost:4444/wd/hub/"
     MINIO_ACCESS_KEY: "minio-access-key"
     MINIO_DEFAULT_BUCKETS: "comet-test-bucket"
