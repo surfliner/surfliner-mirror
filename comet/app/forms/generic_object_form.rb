@@ -15,5 +15,21 @@ class GenericObjectForm < Hyrax::Forms::ResourceForm(GenericObject)
   # if you want a field in the form, but it doesn't have a directly corresponding
   # model attribute, make it virtual
   #
-  # property :user_input_not_destined_for_the_model, virtual: true
+
+  # This property is passed by the form when collections are associated with GenericObjects
+  # Particularly important, is that in the cases we've identified thusfar, the member_of_collections_ids params is
+  # empty, so we rely on this param to populate the former
+  property :member_of_collections_attributes, virtual: true,
+           populator: :interpret_collections_attributes
+
+
+  def interpret_collections_attributes(opts)
+    return unless self.member_of_collection_ids.present?
+
+    member_attributes = self.input_params.permit(member_of_collections_attributes: {}).to_h
+    self.member_of_collection_ids =
+      member_attributes["member_of_collections_attributes"].each_with_object(model.member_of_collection_ids.dup) do |(_, attribute), member_ids|
+        member_ids << attribute["id"]
+      end
+  end
 end
