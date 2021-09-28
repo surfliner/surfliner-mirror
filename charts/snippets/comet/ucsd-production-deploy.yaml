@@ -41,12 +41,3 @@ worker:
         name: comet-production-oauth
     - secretRef:
         name: comet-production-ezid-credentials
-
-brandingVolume:
-  storageClass: longhorn-nfs
-
-derivativesVolume:
-  storageClass: longhorn-nfs
-
-uploadsVolume:
-  storageClass: longhorn-nfs
