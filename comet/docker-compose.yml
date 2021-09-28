@@ -10,6 +10,7 @@ services:
     stdin_open: true
     tty: true
     restart: always
+    user: root
     env_file:
       - .env
     environment:
@@ -40,6 +41,7 @@ services:
       target: comet-worker
     image: comet-worker
     restart: always
+    user: root
     env_file:
       - .env
     depends_on:
