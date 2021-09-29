@@ -41,3 +41,12 @@ worker:
         name: comet-production-oauth
     - secretRef:
         name: comet-production-ezid-credentials
+        
+brandingVolume:
+  storageClass: nfs-client
+
+derivativesVolume:
+  storageClass: nfs-client
+
+uploadsVolume:
+  storageClass: nfs-client
