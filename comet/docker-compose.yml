@@ -117,11 +117,14 @@ services:
   minio:
     image: bitnami/minio:2021
     ports:
-      - "9000:9000"
+      - '9001:9001'
+      - '9000:9000'
     volumes:
       - comet_minio:/data
     env_file:
       - .env
+    networks:
+      - comet
 
   redis:
     image: bitnami/redis:6.2
