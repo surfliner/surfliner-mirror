@@ -22,11 +22,10 @@ class GenericObjectForm < Hyrax::Forms::ResourceForm(GenericObject)
   property :member_of_collections_attributes, virtual: true,
            populator: :interpret_collections_attributes
 
-
   def interpret_collections_attributes(opts)
-    return unless self.member_of_collection_ids.present?
+    return unless member_of_collection_ids.present?
 
-    member_attributes = self.input_params.permit(member_of_collections_attributes: {}).to_h
+    member_attributes = input_params.permit(member_of_collections_attributes: {}).to_h
     self.member_of_collection_ids =
       member_attributes["member_of_collections_attributes"].each_with_object(model.member_of_collection_ids.dup) do |(_, attribute), member_ids|
         member_ids << attribute["id"]
