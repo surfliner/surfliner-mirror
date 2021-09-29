@@ -25,7 +25,6 @@ comet:deploy:ucsd-review:
   tags:
     - ucsd
   variables:
-    HELM_ENCODED_VALUES: $UCSD_COMET_REVIEW_VALUES
     HELM_UPGRADE_EXTRA_ARGS: >
       --set ingress.hosts[0].host=comet-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
       --set ingress.hosts[0].paths[0].path='/'
