@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-# Generated via
-#  `rails generate hyrax:work_resource GenericObject`
-#
+##
 # @see https://github.com/samvera/hyrax/wiki/Hyrax-Valkyrie-Usage-Guide#forms
 # @see https://github.com/samvera/valkyrie/wiki/ChangeSets-and-Dirty-Tracking
 class GenericObjectForm < Hyrax::Forms::ResourceForm(GenericObject)
@@ -23,8 +21,6 @@ class GenericObjectForm < Hyrax::Forms::ResourceForm(GenericObject)
            populator: :interpret_collections_attributes
 
   def interpret_collections_attributes(opts)
-    return unless member_of_collection_ids.present?
-
     member_attributes = input_params.permit(member_of_collections_attributes: {}).to_h
     self.member_of_collection_ids =
       member_attributes["member_of_collections_attributes"].each_with_object(model.member_of_collection_ids.dup) do |(_, attribute), member_ids|
