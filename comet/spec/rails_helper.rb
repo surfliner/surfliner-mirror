@@ -4,6 +4,7 @@ Rails.application.load_tasks
 
 require "spec_helper"
 
+ENV["RAILS_QUEUE"] = "inline"
 ENV["RAILS_ENV"] ||= "test"
 ENV["DATABASE_URL"] = ENV["DATABASE_TEST_URL"] ||
   ENV["DATABASE_URL"].gsub("hyrax?pool", "hyrax-test?pool")
