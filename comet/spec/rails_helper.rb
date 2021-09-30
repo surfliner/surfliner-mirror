@@ -65,7 +65,7 @@ RSpec.configure do |config|
     page.driver.reset!
   end
 
-  config.before(:each, type: :system) do
+  config.before do
     Hyrax.index_adapter.wipe!
   end
 
