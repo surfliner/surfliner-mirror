@@ -24,10 +24,20 @@ module Hyrax
 
       source_path = permitted[:source_file].path
 
-      ::TabularParser
+      source_validator = ::BatchUploadsValidator.validator_for("batch_uploads_validation")
+
+      rows = ::TabularParser
         .for(content_type: permitted[:source_file].content_type)
         .parse(source_path)
-        .each_with_index do |row, i|
+
+      # Validate headers
+      invalid_headers = source_validator.invalid_headers(rows.first)
+      if invalid_headers.any?
+        redirect_to(new_batch_upload_path,
+          alert: "Validation failed! Invalid headers: #{invalid_headers.join(", ")}.")
+      end
+
+      rows.each_with_index do |row, i|
         # TODO: override license, visibility, embargo_release_date etc. From form?
 
         # TODO: AdministrativeSet submitted from form?

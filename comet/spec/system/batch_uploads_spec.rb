@@ -6,6 +6,7 @@ RSpec.describe "BatchUploads", type: :system, js: true do
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
   let(:source_file) { Rails.root.join("spec", "fixtures", "batch.csv") }
   let(:s3_enabled_default) { Rails.application.config.staging_area_s3_enabled }
+  let(:invalid_source_file) { Rails.root.join("spec", "fixtures", "batch_invalid.csv") }
 
   let(:approving_user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
 
@@ -77,5 +78,18 @@ RSpec.describe "BatchUploads", type: :system, js: true do
 
       expect(page).to have_link("Download the file")
     end
+  end
+
+  it "can see invalid headers message for batch ingest" do
+    visit "/dashboard"
+    click_on "Batch Uploads"
+
+    expect(page).to have_content("Add New Works by Batch")
+
+    attach_file "Source File", invalid_source_file
+    fill_in("Files Location", with: "/tmp")
+    click_button "Submit"
+
+    expect(page).to have_content("Validation failed! Invalid headers: invalid header.")
   end
 end
