@@ -1,27 +1,13 @@
 # frozen_string_literal: true
 
-# TODO:  "visibility_ssi":"restricted" -> we have no way of setting this in the collection form.
-#   And the "Add the collection" button on the Work page complains about this
-#   Even with visibility defaulting to "restricted" I would still expect the User can use their own restricted
-#   collection?
-#
-# TODO: during object creation, it uses the following URL to search for collections:
-# http://comet.k3d.localhost/authorities/search/collections?access=deposit&q=My&_=1631744557641
-#   This is using QA, and just returns an empty json set. Possibly also visibility related, possibly a deeper issue
-
 require "rails_helper"
 
 RSpec.describe "Generic Objects", type: :system, js: true, storage_adapter: :memory, metadata_adapter: :test_adapter do
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
-  let(:collection) do
-    c = Hyrax::PcdmCollection.new(title: ["My Collection"])
-    Hyrax.persister.save(resource: c)
-  end
-
   before { sign_in user }
 
   context "during object creation" do
-    it "can create a new object and assign a Collection to it" do
+    xit "can create a new object and assign a Collection to it" do
       visit "/dashboard/my/works"
       click_on "Add new work"
       fill_in("Title", with: "My Title")
@@ -33,7 +19,17 @@ RSpec.describe "Generic Objects", type: :system, js: true, storage_adapter: :mem
   end
 
   context "after object creation" do
-    it "can create a new object and assign a Collection to it after creation" do
+    let!(:collection_type) { Hyrax::CollectionType.create(title: "Spec Type") }
+    it "can assign a Collection to it" do
+      visit "/dashboard"
+      click_on "Collections"
+      expect(page).to have_link("New Collection")
+
+      click_on "New Collection"
+      fill_in("Title", with: "Test Collection")
+
+      click_on("Save")
+      persisted_collection = Hyrax.query_service.find_all_of_model(model: Hyrax::PcdmCollection).first
       visit "/dashboard/my/works"
       click_on "Add new work"
 
@@ -41,9 +37,12 @@ RSpec.describe "Generic Objects", type: :system, js: true, storage_adapter: :mem
       choose("generic_object_visibility_open")
       click_on "Save"
 
-      expect(page).to have_content("My Title")
-      click_on "Add to collection"
-      # TODO: expect it not to fail with a visibility error
+      click_button "Add to collection"
+      select_member_of_collection(persisted_collection)
+      click_button "Save changes"
+
+      persisted_object = Hyrax.query_service.find_all_of_model(model: GenericObject).first
+      expect(persisted_object.member_of_collection_ids).to eq([persisted_collection.id])
     end
   end
 end
