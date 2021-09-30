@@ -20,7 +20,7 @@ RSpec.describe "Generic Objects", type: :system, js: true, storage_adapter: :mem
 
   context "after object creation" do
     let!(:collection_type) { Hyrax::CollectionType.create(title: "Spec Type") }
-    it "can assign a Collection to it" do
+    xit "can assign a Collection to it" do
       visit "/dashboard"
       click_on "Collections"
       expect(page).to have_link("New Collection")
