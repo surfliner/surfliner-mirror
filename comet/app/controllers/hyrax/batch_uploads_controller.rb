@@ -35,6 +35,7 @@ module Hyrax
       if invalid_headers.any?
         redirect_to(new_batch_upload_path,
           alert: "Validation failed! Invalid headers: #{invalid_headers.join(", ")}.")
+        return
       end
 
       rows.each_with_index do |row, i|
