@@ -4,7 +4,6 @@ Rails.application.load_tasks
 
 require "spec_helper"
 
-ENV["RAILS_QUEUE"] = "inline"
 ENV["RAILS_ENV"] ||= "test"
 ENV["DATABASE_URL"] = ENV["DATABASE_TEST_URL"] ||
   ENV["DATABASE_URL"].gsub("hyrax?pool", "hyrax-test?pool")
@@ -17,6 +16,8 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require "rspec/rails"
 # Add additional requires below this line. Rails is not loaded until this point!
 Dir[Rails.root.join("spec", "support", "**", "*.rb")].sort.each { |f| require f }
+
+ActiveJob::Base.queue_adapter = :test
 
 begin
   db_config = ActiveRecord::Base.configurations[ENV["RAILS_ENV"]]
