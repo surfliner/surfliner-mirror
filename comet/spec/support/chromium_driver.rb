@@ -13,3 +13,5 @@ end
 
 Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
 Capybara.server_port = ENV["CAPYBARA_PORT"]
+Capybara.default_max_wait_time = ENV.fetch('CAPYBARA_WAIT_TIME', 10) # We may have a slow application, let's give it some time.
+
