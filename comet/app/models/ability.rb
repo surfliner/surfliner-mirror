@@ -9,6 +9,10 @@ class Ability
     can :read, Hyrax::PcdmCollection do |collection|
       test_read(collection.id)
     end
+
+    can :deposit, Hyrax::PcdmCollection do |collection|
+      Hyrax::Collections::PermissionsService.can_deposit_in_collection?(ability: self, collection_id: collection.id.to_s)
+    end
   end
 
   ##
