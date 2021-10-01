@@ -15,8 +15,11 @@ RSpec.describe Hyrax::GenericObjectsController, storage_adapter: :memory, metada
 
       it "persists the collection id for the object" do
         sign_in user
-        collection_id = Hyrax.persister.save(resource: collection).id
-        post :create, params: {generic_object: {title: "Test Object",
+
+        persisted_collection = Hyrax.persister.save(resource: collection)
+        collection_id = persisted_collection.id
+
+        post :create, params: {generic_object: {title: "Test for #{collection_id}",
                                                 language: [""],
                                                 title_alternative: [""],
                                                 title_filing: [""],
@@ -24,7 +27,11 @@ RSpec.describe Hyrax::GenericObjectsController, storage_adapter: :memory, metada
                                                 visibility: "restricted",
                                                 member_of_collection_ids: ""}}
 
-        persisted_object = Hyrax.query_service.find_all_of_model(model: GenericObject).first
+        gobjs = Hyrax.query_service.find_all_of_model(model: GenericObject)
+        persisted_object = gobjs.find do |gob|
+          gob.title == ["Test for #{collection_id}"]
+        end
+
         expect(persisted_object.member_of_collection_ids).to eq([collection_id])
       end
     end
