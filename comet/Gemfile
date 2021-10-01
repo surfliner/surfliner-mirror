@@ -38,6 +38,7 @@ group :development, :test do
   gem "byebug", "11.1.3"
   gem "capybara", "~> 3.29"
   gem "capybara-screenshot", "~> 1.0"
+  gem "database_cleaner-active_record", "2.0.1"
   gem "pry-byebug", "3.9.0"
   gem "pry-doc", "1.2.0"
   gem "pry-rails", "0.3.9"
@@ -46,6 +47,6 @@ group :development, :test do
   gem "rspec-rails", "5.0.2"
   gem "scss_lint", "0.59.0", require: false
   gem "scss_lint_reporter_checkstyle", "0.2.0", require: false
-  gem "standard", "1.3.0"
   gem "selenium-webdriver", "3.142.7"
+  gem "standard", "1.3.0"
 end

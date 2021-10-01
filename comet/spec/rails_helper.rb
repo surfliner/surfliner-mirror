@@ -60,11 +60,11 @@ RSpec.configure do |config|
 
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
-  # arbitrary gems may also be filtered via:
-  # config.filter_gems_from_backtrace("gem name")
-  config.after(:each, type: :system) do
-    Capybara.reset_sessions!
-    page.driver.reset!
+
+  DatabaseCleaner.allow_remote_database_url = true
+  config.before :suite do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
   end
 
   config.before do
@@ -103,5 +103,16 @@ RSpec.configure do |config|
     else
       driven_by(:selenium_standalone_chrome_headless_sandboxless)
     end
+  end
+
+  # arbitrary gems may also be filtered via:
+  # config.filter_gems_from_backtrace("gem name")
+  config.after(:each, type: :system) do
+    Capybara.reset_sessions!
+    page.driver.reset!
+  end
+
+  config.after do
+    DatabaseCleaner.clean
   end
 end
