@@ -1,22 +1,21 @@
 @import 'application';
 @import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url("https://library.ucsd.edu/assets/resources/campus.css");
 
 //------------------------------------------------------------------------------
 // SASS Variables
 //------------------------------------------------------------------------------
 
-$color-appbar: #0b4a67;
-$color-appbar-accent: #033851;
+$color-appbar: #182B49;
+$color-appbar-accent: #182B49;
 $color-appbar-dark: #012536;
 $color-appbar-bright: #fff;
 $color-appbar-text: rgba(255,255,255,0.666);
 
-$color-sidebar: #eeeeee;
+$color-sidebar: #fff;
 $color-sidebar-accent: #d8d7d7;
-$color-sidebar-dark: #333;
-$color-sidebar-bright: #fff;
-$color-sidebar-active-parent: #004663;
-$color-sidebar-hover: #006a96;
+$color-sidebar-dark: #00629b;
+$color-sidebar-active-parent: #004268;
 
 //------------------------------------------------------------------------------
 // App Bar
@@ -42,6 +41,7 @@ $color-sidebar-hover: #006a96;
   }
 	.dropdown-menu {
 		border-radius: 0;
+		box-shadow: 0 6px 12px rgba(0,0,0,.175);
 	}
 }
 
@@ -77,7 +77,7 @@ $color-sidebar-hover: #006a96;
 		}
   }
 }
-@media (max-width: 767px) {
+@media (max-width: 767.98px) {
 
   #app-bar {
 
@@ -115,6 +115,13 @@ $color-sidebar-hover: #006a96;
       border-color: $color-appbar-accent;
       background-color: $color-appbar-dark;
     }
+
+		#bookmarks_nav {
+			padding-top: 8px;
+			padding-bottom: 8px;
+			display: block;
+		}
+
   }
 }
 
@@ -239,97 +246,93 @@ body
   #sidebar {
 
     .nav-heading {
-      border: 1px solid $color-sidebar-accent;
-      border-bottom: none;
-      background-color: $color-sidebar;
-      color: $color-sidebar-dark;
-      font-size: 140%;
-      text-shadow: 0 1px 1px #FFF;
-      font-weight: normal;
+      border: 1px solid $color-sidebar-accent !important;
+			background: #d8d7d744;
+      border-bottom: none !important;
+      color: #016691;
+      font-size: 22.4px;
+			margin: 0;
+			padding: 1em;
+			display: block;
     }
 
     // "Feature pages"
     > ol {
       border: 1px solid $color-sidebar-accent;
       border-bottom: none;
-      background-color: $color-sidebar;
+			margin-bottom: 0;
       > li {
         border-bottom: 1px solid $color-sidebar-accent;
         margin-top: 0;
-        > h4 {
-          margin: 0 !important;
+        > h2 {
           display: block;
+					margin-bottom: 0;
+					a {
+						color: $color-sidebar-active-parent;
+						padding: 1em;
+						font-weight: 700;
+					}
         }
         a {
           color: $color-sidebar-dark;
-          padding: 1em;
+					display: block;
+					font-weight: 700;
           &:hover {
-            background-color: $color-sidebar-hover;
-            color: $color-sidebar-bright;
+						color: #484949;
           }
         }
       }
       .active {
-        background: $color-sidebar-bright !important;
-        color: $color-sidebar-active-parent !important;
-        font-weight: 700 !important;
-        h4 {
-          color: $color-sidebar-active-parent !important;
-          font-weight: 700 !important;
-          padding: 1em;
+				h2 {
+					background: #FFFEE6;
+					padding: 1em;
+					font-weight: 700;
+					color: $color-sidebar-active-parent !important;
           cursor: pointer;
-        }
-        .subsection li {
-          background-color: $color-sidebar;
-          font-weight: normal;
-          padding: 0;
-          h4 {
-            padding: 0;
-          }
-        }
+				}
       }
       .subsection {
+				margin-bottom: 0;
+				padding: 0;
         li {
           list-style-type: none;
           border-top: 1px solid $color-sidebar-accent;
           border-bottom: none;
           font-size: 13.6px;
           margin: 0 !important;
-          border-left: 21.6px solid transparent;
         }
         .active {
-          color: $color-sidebar-active-parent !important;
-          font-weight: 700;
-          padding: 1em;
-        }
+					background: #FFFEE6;
+          color: $color-sidebar-dark !important;
+					padding: 1em 1em 1em 2em;
+					cursor: pointer;
+				}
+				a {
+					padding: 1em 1em 1em 2em;
+				}
       }
     }
 
     // "About pages"
     > ul {
-      border: 1px solid $color-sidebar-accent;
-      border-bottom: none;
-      background-color: $color-sidebar;
-      li {
-        border-bottom: 1px solid $color-sidebar-accent;
-        margin-top: 0;
-        a {
-          color: $color-sidebar-dark;
-          padding: 1em;
-          &:hover {
-            background-color: $color-sidebar-hover;
-            color: $color-sidebar-bright;
-          }
-        }
-      }
-      .active {
-        background: $color-sidebar-bright !important;
-        a, h4 {
-          background: $color-sidebar-bright !important;
-          color: $color-sidebar-active-parent !important;
-          font-weight: 700;
-        }
-      }
+			border: 1px solid $color-sidebar-accent;
+			border-bottom: none;
+			li {
+				border-bottom: 1px solid $color-sidebar-accent;
+				margin-top: 0;
+				a {
+					color: $color-sidebar-active-parent;
+					padding: 1em;
+					font-weight: 700;
+					&:hover {
+						color: #484949;
+						text-decoration: underline;
+					}
+				}
+			}
+			.active {
+				background: #FFFEE6;
+			}
     }
 
     .contacts-header {
@@ -343,9 +346,13 @@ body
       margin: 0 0 21.6px 0;
       border: none;
       background-color: transparent;
+			border: 1px solid #d8d7d7 !important;
       li {
         border: none;
         background-color: transparent;
+				padding: 15px !important;
+				margin-bottom: 0 !important;
+				border-bottom: 1px solid #d8d7d7 !important;
         div {
           font-size: 90%;
           line-height: 1.4;
@@ -360,6 +367,9 @@ body
           }
         }
       }
+			li:last-child {
+				border-bottom: none !important;
+			}
     }
   }
 
@@ -368,17 +378,72 @@ body
   }
 }
 
+@media (max-width: 991.98px) {
+	#main-container {
+		div:last-child {
+			flex-direction: column-reverse;
+		}
+		#sidebar {
+			margin-top: 45px;
+		}
+	}
+}
+@media (max-width: 767.98px) {
+	#main-container {
+		#content {
+			.page-title {
+				font-size: 1.5rem;
+			}
+		}
+	}
+}
+
+// Fixes buttons wrapped in menu <ul>
+#sidebar {
+	.nav-pills {
+		border: none !important;
+		.nav-item {
+			width: 100%;
+			border: none !important;
+			a {
+				width: 100%;
+				margin: 0;
+				padding: 0;
+				background: #007bff;
+				color: #fff !important;
+				border: none;
+				text-decoration: none !important;
+			}	
+			a:hover {
+				background: #0069d9;
+			}
+		}
+	}
+}
+
+// Contacts
+#sidebar {
+	.contacts {
+		border: 1px solid gray;
+		li {
+			padding: 15px;
+			margin-bottom: 0;
+		}
+	}
+}
+
 //------------------------------------------------------------------------------
 // Masthead
 //------------------------------------------------------------------------------
 
 .masthead {
-  background-color: #006a96;
+  background-color: #747678;
 	.background-container {
 		filter: blur(0);
 	}
   .site-title-container {
     max-height: none; // Title fix
+		padding: 15px 30px !important;
     .site-title-wrapper {
 			margin: 32px 0;
 			text-transform: uppercase;
@@ -400,13 +465,45 @@ body
     }
   }
 	#exhibit-navbar {
-		background: #182b4988;
-		.nav-link {
-			color: #fff;
+		background: #00629B;
+		padding: 0;
+		.navbar-nav {
+			.nav-item {
+				a[aria-expanded="true"] {
+					background-color: #014663
+				}
+				.nav-link {
+					color: #fff;
+					padding: 15px;
+				}
+				.nav-link:hover {
+					background-color: #014663;
+				}	
+			}
 		}
+
 		#search {
-			background: #182b49;
-			border-color: #182b49;
+			background: #004268;
+			border-color: #182B49;
+		}
+		#search:hover {
+			background-color: #182B49;
+		}
+		.dropdown-menu {
+			background-color: #004268;
+			border: none;
+			box-shadow: 0 6px 12px rgba(0,0,0,.175);
+			border-radius: unset;
+			padding-top: 0;
+			padding-bottom: 0;
+			.dropdown-item {
+				font-size: 14px;
+				color: #fff;
+				padding: 6px 20px;
+			}
+			.dropdown-item:hover {
+				color: #262626;
+				background-color: #f5f5f5;			}
 		}
 	}
 }
@@ -450,6 +547,31 @@ body
     }
   }
 }
+@media (max-width: 767.98px) {
+	#exhibit-navbar {
+		.navbar-nav {
+			.nav-item {
+				.nav-link {
+					padding: 8px 15px !important;
+					font-size: 14px;
+				}
+			}
+		}
+		.exhibit-search-form {
+			margin: 0 !important;
+			padding: 0 15px 8px 15px !important;
+		}
+	}
+
+	.masthead {
+		.site-title-container {
+			.site-title-wrapper {
+				margin: 15px 0 !important;
+			}
+		}
+	}
+
+}
 
 //------------------------------------------------------------------------------
 // Campus-like Footer
@@ -457,7 +579,7 @@ body
 
 .footer {
 
-  background-color: #006a96;
+  background-color: #00629B;
   padding: 21.6px;
   color: #fff;
   font-size: .9em;
