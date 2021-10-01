@@ -10,7 +10,7 @@
     "test": "jest --coverage"
   },
   "dependencies": {
-    "axios": "^0.21.0",
+    "axios": "^0.22.0",
     "core-js": "^2.6.5",
     "vue": "^2.6.11",
     "vue-axios": "^3.0.0",
