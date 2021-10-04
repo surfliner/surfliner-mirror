@@ -47,10 +47,83 @@ module Hyrax
 
       def show
         @presenter =
-          Hyrax::CollectionPresenter.new(@collection, current_ability)
+          Hyrax::CollectionPresenter.new(curation_concern, current_ability)
+        query_collection_members
+      end
+
+      def repository
+        blacklight_config.repository || Blacklight::Solr::Repository.new(blacklight_config)
       end
 
       private
+
+      def query_collection_members
+        member_works
+        # TODO commenting member_subcollections and parent_collections out, because they fail when the following method is called in
+        # NestedCollectionQueryService:
+        #  return [] unless parent.try(:nestable?)
+        #  and
+        #  return [] unless child.try(:nestable?)
+        #  This _should_ be fine, but isn't because the CollectionPresenter does things like this (the guard should probably be `blank?`)
+        #      def total_parent_collections
+        #       parent_collections.nil? ? 0 : parent_collections.response['numFound']
+        #     end
+        #
+
+        # member_subcollections if collection_type.nestable?
+        # parent_collections if collection_type.nestable? && action_name == 'show'
+      end
+
+      # Instantiate the membership query service
+      def collection_member_service
+        @collection_member_service ||= Collections::CollectionMemberSearchService.new(scope: self, collection: @presenter, params: params_for_query)
+      end
+
+      # You can override this method if you need to provide additional
+      # inputs to the search builder. For example:
+      #   search_field: 'all_fields'
+      # @return <Hash> the inputs required for the collection member search builder
+      def params_for_query
+        params.merge(q: params[:cq])
+      end
+
+      def member_works
+        @response = collection_member_service.available_member_works
+        @member_docs = @response.documents
+        @members_count = @response.total
+      end
+
+      def member_subcollections
+        results = collection_member_service.available_member_subcollections
+        @subcollection_solr_response = results
+        @subcollection_docs = results.documents
+        @subcollection_count = @presenter.nil? ? 0 : @subcollection_count = @presenter.subcollection_count = results.total
+      end
+
+      def parent_collections
+        page = params[:parent_collection_page].to_i
+        query = Hyrax::Collections::NestedCollectionQueryService
+        @presenter.parent_collections = query.parent_collections(child: @collection, scope: self, page: page)
+      end
+
+      def curation_concern
+        # Query Solr for the collection.
+        # run the solr query to find the collection members
+        response, _docs = single_item_search_service.search_results
+        curation_concern = response.documents.first
+        raise CanCan::AccessDenied unless curation_concern
+        curation_concern
+      end
+
+      def single_item_search_service
+        Hyrax::SearchService.new(config: blacklight_config, user_params: params.except(:q, :page), scope: self, search_builder_class: SingleCollectionSearchBuilder)
+      end
+
+      # Instantiates the search builder that builds a query for a single item
+      # this is useful in the show view.
+      def single_item_search_builder
+        search_service.search_builder
+      end
 
       def collection_type
         id = params[:collection_type_id].presence || default_collection_type.id

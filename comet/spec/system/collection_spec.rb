@@ -28,7 +28,7 @@ RSpec.describe "Collections", storage_adapter: :memory, metadata_adapter: :test_
     expect(page).to have_content("System Spec Collection")
 
     # TODO: teach collection controller to use a new non-Solr presenter
-    # click_on("Display all details of System Spec Collection")
-    # expect(page).to have_content("System Spec Collection")
+    click_on("Display all details of System Spec Collection")
+    expect(page).to have_content("System Spec Collection")
   end
 end
