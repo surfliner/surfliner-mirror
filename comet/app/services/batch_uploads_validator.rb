@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "yaml"
-require File.expand_path("../../config/environment", __dir__)
 
 ##
 # This is a simple yaml config-driven schema loader
@@ -37,6 +36,6 @@ class BatchUploadsValidator
   # @param [#to_s] schema_name
   # @return [Hash]
   def self.schema_config(schema_name)
-    YAML.safe_load(File.open("#{::Rails.root}/config/metadata/#{schema_name}.yaml"))
+    YAML.load_file(File.expand_path("../../config/metadata/#{schema_name}.yaml", __dir__))
   end
 end
