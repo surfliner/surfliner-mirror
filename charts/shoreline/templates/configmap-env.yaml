@@ -23,15 +23,19 @@ data:
   SHORELINE_SUPPRESS_TOOLS: {{ .Values.shoreline.suppressTools | quote }}
   SHORELINE_THEME: {{ .Values.shoreline.theme }}
   {{- if eq "smtp" .Values.shoreline.email.delivery_method }}
-  SMTP_AUTHENTICATION: {{ .Values.shoreline.email.smtp_settings.authentication }}
   SMTP_HOST: {{ .Values.shoreline.email.smtp_settings.address }}
   SMTP_PORT: {{ .Values.shoreline.email.smtp_settings.port | quote }}
+  SMTP_AUTHENTICATION: {{ .Values.shoreline.email.smtp_settings.authentication }}
   SMTP_USERNAME: {{ .Values.shoreline.email.smtp_settings.user_name }}
   {{- end }}
-  SOLR_CORE_NAME: {{ .Values.shoreline.solr.collectionName }}
-  SOLR_CONFIG_NAME: {{ .Values.shoreline.solr.configName | default "shorelineconf" | quote }}
+  SOLR_CORE_NAME: {{ template "shoreline.solr.collection_core_name" . }}
+  SOLR_CONFIG_NAME: {{ .Values.solr.configName | default "shorelineconf" | quote }}
   SOLR_HOST: {{ template "shoreline.solr.fullname" . }}
   SOLR_PORT: {{ .Values.solr.solrPort | default "8983" | quote }}
+  {{- if .Values.solr.authentication.enabled }}
   SOLR_ADMIN_USER: {{ .Values.solr.authentication.adminUsername }}
+  {{- end }}
+  {{- if eq "cloud" .Values.solr.runMode }}
   ZK_HOST: {{ template "shoreline.zk.fullname" . }}
   ZK_PORT: {{ .Values.solr.zookeeperPort | default "2181" | quote }}
+  {{- end }}

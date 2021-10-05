@@ -83,13 +83,25 @@ Supports using an existing secret instead of one built using the Chart
 {{- end -}}
 {{- end -}}
 
+{{- define "shoreline.solr.collection_core_name" -}}
+{{- if eq "cloud" .Values.solr.runMode -}}
+{{- .Values.solr.collection -}}
+{{- else if eq "standalone" .Values.solr.runMode -}}
+{{- .Values.solr.coreName -}}
+{{- end -}}
+{{- end -}}
+
 {{- define "shoreline.solr.url" -}}
+{{- $collection_core := (include "shoreline.solr.collection_core_name" .) -}}
+{{- $host := (include "shoreline.solr.fullname" .) -}}
+{{- $port := .Values.solr.solrPort | default "8983" -}}
+{{- if .Values.solr.authentication.enabled -}}
 {{- $user := .Values.solr.authentication.adminUsername -}}
 {{- $pass := .Values.solr.authentication.adminPassword -}}
-{{- $collection := .Values.shoreline.solr.collectionName -}}
-{{- $host := (include "shoreline.solr.fullname" .) -}}
-{{- $port := "8983" -}}
-{{- printf "http://%s:%s@%s:%s/solr/%s" $user $pass $host $port $collection  -}}
+{{- printf "http://%s:%s@%s:%s/solr/%s" $user $pass $host $port $collection_core -}}
+{{- else -}}
+{{- printf "http://%s:%s/solr/%s" $host $port $collection_core -}}
+{{- end -}}
 {{- end -}}
 
 {{- define "shoreline.zk.fullname" -}}

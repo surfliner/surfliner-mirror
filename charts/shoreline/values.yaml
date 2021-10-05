@@ -38,9 +38,6 @@ shoreline:
   # whether to ingest fixture data during deployment
   sample_data:
   suppressTools: false
-  solr:
-    collectionName: collection1
-    # configName: shorelineconf
   email:
     contact_email: shoreline@example.edu
     delivery_method: letter_opener_web # or: smtp
@@ -55,6 +52,7 @@ shoreline:
 # Configuration for solr chart
 # see: https://github.com/helm/charts/blob/master/incubator/solr/values.yaml
 solr:
+  runMode: cloud # Solr server mode - can be either cloud or standalone
   enabled: true
   image:
     repository: bitnami/solr
@@ -63,8 +61,9 @@ solr:
     enabled: true
     adminUsername: admin
     adminPassword: admin
-  coreName: shoreline
-  collection: collection1
+  configName: shorelineconf
+  coreName: shoreline # use if solr.runMode is standalone
+  collection: collection1 # use if solr.runMode is cloud
   cloudBoostrap: true
   cloudEnabled: true
   # replicas: 3 # scale the stateful set up/down
@@ -87,6 +86,7 @@ solr:
   #     enabled: false # uncomment to disable PVCs for disposable zk
   #
   # To use an external/preexisting solr, set solr.enabled to false, then
+  #   * set runMode to standalone or cloud
   #   * set solrHostname to external solr FQDN
   #   * set solrPort to external solr port
   #   * set zookeeperHostname to external zookeeper FQDN
@@ -95,6 +95,7 @@ solr:
   # solrPort: "8983"
   # zookeeperHostname: external-shoreline-zookeeper-fqdn
   # zookeeperPort: "2181"
+  # If runMode is standalone, then omit zookeeper variables
 
 # Configuration for postgresql chart
 # see: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md
