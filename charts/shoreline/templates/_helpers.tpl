@@ -75,6 +75,14 @@ Supports using an existing secret instead of one built using the Chart
 {{- end -}}
 {{- end -}}
 
+{{- define "shoreline.solr.cloudEnabled" -}}
+{{- if .Values.solr.enabled -}}
+{{- .Values.solr.cloudEnabled }}
+{{- else -}}
+{{- or (eq "cloud" (lower .Values.solrRunMode)) (eq "cloud" (lower .Values.solr.runMode)) -}}
+{{- end -}}
+{{- end -}}
+
 {{- define "shoreline.solr.fullname" -}}
 {{- if .Values.solr.enabled -}}
 {{- printf "%s-%s" .Release.Name "solr" | trunc 63 | trimSuffix "-" -}}
