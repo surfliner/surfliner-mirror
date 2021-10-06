@@ -33,7 +33,6 @@ existingSecret:
 shoreline:
   db_setup_command: "db:migrate"
   geoblacklightDownloadPath: /data/tmp/cache/downloads
-  loadSolrConfigSet: true # use false to skip solr configset maintenance init container
   theme: "ucsb"
   # whether to ingest fixture data during deployment
   sample_data:
