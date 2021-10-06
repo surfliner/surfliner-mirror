@@ -25,6 +25,8 @@ starlight:
       oldAppUrl: http://starlight.library.ucsb.edu
       sourcePath: s3://starlight-migrate-prod/uploads
       solrReindex: true
+  rails:
+    max_threads: 10
   storage:
     enabled: true
     accessKey: AKIAV5LYGG4AHTG7NMFD

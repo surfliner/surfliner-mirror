@@ -25,6 +25,8 @@ starlight:
       oldAppUrl: http://starlight-stage.library.ucsb.edu
       sourcePath: s3://starlight-uploads-staging/uploads
       solrReindex: true
+  rails:
+    max_threads: 7
   storage:
     enabled: true
     accessKey: AKIAV5LYGG4AN76W5ZGV
@@ -43,3 +45,19 @@ starlight:
       authentication: plain
   auth:
     method: google
+
+resources:
+  limits:
+    cpu: 2000m
+    memory: 1500Mi
+  requests:
+    cpu: 1000m
+    memory: 500Mi
+
+workerResources:
+  limits:
+    cpu: 1000m
+    memory: 1000Mi
+  requests:
+    cpu: 500m
+    memory: 500Mi
