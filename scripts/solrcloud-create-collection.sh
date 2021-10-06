@@ -7,7 +7,7 @@ if [ "$SOLR_ADMIN_USER" ]; then
 fi
 
 solr_config_name="${SOLR_CONFIG_NAME:-solrconfig}"
-solr_collection_name="${SOLR_COLLECTION_NAME:-collection1}"
+solr_collection_name="${SOLR_CORE_NAME:-collection1}"
 solr_collection_shards="${SOLR_COLLECTION_SHARDS:-2}"
 
 # Solr Cloud Collection API URLs
