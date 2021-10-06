@@ -29,7 +29,7 @@ shoreline:discovery:deploy:prod:ucsb:
       --set solr.enabled=false
       --set solr.solrHostname=dld-search-solr.solr-prod.svc.cluster.local
       --set solr.zookeeperHostname=dld-search-zookeeper.solr-prod.svc.cluster.local
-      --set shoreline.solr.collectionName=shoreline-geodata
+      --set solr.collection=shoreline-geodata
       --set shoreline.email.contact_email=geospatial@library.ucsb.edu
       --set shoreline.theme=ucsb
       --set shoreline.email.delivery_method=smtp
