@@ -9,6 +9,7 @@ gem "declarative-option", "0.1.0"
 gem "devise", "4.8.0"
 gem "devise-guests", "0.7.0"
 gem "ezid-client", "1.9.1"
+gem "fog-aws", "3.12.0"
 gem "hyrax",
   git: "https://github.com/samvera/hyrax.git",
   branch: "main"

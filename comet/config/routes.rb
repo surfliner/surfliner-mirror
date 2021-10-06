@@ -32,6 +32,8 @@ Rails.application.routes.draw do
     concerns :exportable
   end
 
+  resources :staging, only: "index"
+
   resources :bookmarks do
     concerns :exportable
 
