@@ -92,9 +92,9 @@ Supports using an existing secret instead of one built using the Chart
 {{- end -}}
 
 {{- define "shoreline.solr.collection_core_name" -}}
-{{- if eq "cloud" .Values.solr.runMode -}}
+{{- if (include "shoreline.solr.cloudEnabled" .) -}}
 {{- .Values.solr.collection -}}
-{{- else if eq "standalone" .Values.solr.runMode -}}
+{{- else -}}
 {{- .Values.solr.coreName -}}
 {{- end -}}
 {{- end -}}

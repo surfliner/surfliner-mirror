@@ -35,7 +35,7 @@ data:
   {{- if .Values.solr.authentication.enabled }}
   SOLR_ADMIN_USER: {{ .Values.solr.authentication.adminUsername }}
   {{- end }}
-  {{- if eq "cloud" .Values.solr.runMode }}
+  {{- if (include "shoreline.solr.cloudEnabled" .) }}
   ZK_HOST: {{ template "shoreline.zk.fullname" . }}
   ZK_PORT: {{ .Values.solr.zookeeperPort | default "2181" | quote }}
   {{- end }}
