@@ -13,6 +13,7 @@ include:
       - charts/geoserver/**/*
       - charts/shoreline/**/*
       - charts/snippets/surfliner/*
+      - charts/snippets/shoreline/**/*
       - ci/shoreline/**/*
       - ci/shoreline.yml
       - gems/**/*
