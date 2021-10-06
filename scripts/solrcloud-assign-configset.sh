@@ -7,20 +7,21 @@ if [ "$SOLR_ADMIN_USER" ]; then
 fi
 
 solr_config_name="${SOLR_CONFIG_NAME:-solrconfig}"
+solr_collection_name="${SOLR_CORE_NAME:-collection1}"
 
 # Solr Cloud Collection API URLs
 solr_collection_list_url="$SOLR_HOST:$SOLR_PORT/solr/admin/collections?action=LIST"
-solr_collection_modify_url="$SOLR_HOST:$SOLR_PORT/solr/admin/collections?action=MODIFYCOLLECTION&collection=$SOLR_CORE_NAME&collection.configName=$solr_config_name"
+solr_collection_modify_url="$SOLR_HOST:$SOLR_PORT/solr/admin/collections?action=MODIFYCOLLECTION&collection=$solr_collection_name&collection.configName=$solr_config_name"
 
 while [ $COUNTER -lt 30 ]; do
   echo "-- Looking for Solr (${SOLR_HOST}:${SOLR_PORT})..."
   if nc -z "${SOLR_HOST}" "${SOLR_PORT}"; then
     # shellcheck disable=SC2143,SC2086
-    echo $SOLR_CORE_NAME
+    echo $solr_collection_name
     echo $solr_user_settings
     echo $solr_collection_modify_url
-    if curl --silent $solr_user_settings "$solr_collection_list_url" | grep -q "${SOLR_CORE_NAME}"; then
-      echo "-- Collection ${SOLR_CORE_NAME} exists; setting ConfigSet ..."
+    if curl --silent $solr_user_settings "$solr_collection_list_url" | grep -q "${solr_collection_name}"; then
+      echo "-- Collection ${solr_collection_name} exists; setting ConfigSet ..."
       curl $solr_user_settings "$solr_collection_modify_url"
       exit
     fi
