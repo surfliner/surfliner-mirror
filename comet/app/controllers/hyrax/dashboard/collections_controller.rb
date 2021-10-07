@@ -59,19 +59,8 @@ module Hyrax
 
       def query_collection_members
         member_works
-        # TODO commenting member_subcollections and parent_collections out, because they fail when the following method is called in
-        # NestedCollectionQueryService:
-        #  return [] unless parent.try(:nestable?)
-        #  and
-        #  return [] unless child.try(:nestable?)
-        #  This _should_ be fine, but isn't because the CollectionPresenter does things like this (the guard should probably be `blank?`)
-        #      def total_parent_collections
-        #       parent_collections.nil? ? 0 : parent_collections.response['numFound']
-        #     end
-        #
-
-        # member_subcollections if collection_type.nestable?
-        # parent_collections if collection_type.nestable? && action_name == 'show'
+        member_subcollections if collection_type.nestable?
+        parent_collections if collection_type.nestable? && action_name == "show"
       end
 
       # Instantiate the membership query service
