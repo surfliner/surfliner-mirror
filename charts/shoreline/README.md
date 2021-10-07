@@ -48,6 +48,7 @@ The following tables lists the configurable parameters of the Shoreline chart an
 | `imagePullSecrets` | Array of pull secrets for the image | `[]` | N/A |
 | `nameOverride` | String to partially override shoreline.fullname template with a string (will prepend the release name) | `""` | N/A |
 | `fullnameOverride` | String to fully override email.fullname template | `""` | N/A |
+| `shoreline.disableSolrConfigInit` | Boolean flag to override use of the init container that manages the configset and collection via the Solr Cloud APIs | false | N/A |
 | `shoreline.db_setup_command.name` | Database rake command to run on install/upgrade | `db:migrate` | `DATABASE_COMMAND` |
 | `shoreline.geoblacklightDownloadPath` | Directory where GeoBlacklight stores generated files for download | `db:migrate` | `DATABASE_COMMAND` |
 | `shoreline.theme` | Shoreline theme to apply to deployment | `""` | `SHORELINE_THEME` |
@@ -94,8 +95,8 @@ See: https://github.com/helm/charts/blob/master/incubator/solr/values.yaml
 
 | Parameter | Description | Default | Environment Variable |
 | --------- | ----------- | ------- | -------------------- |
-| `solr.runMode` | Defines if the instance of Solr is running in `cloud` or `standalone` mode | `cloud` | N/A |
-| `solr.enabled` | Defines if this chart should provision/configure Solr | `true` | N/A |
+| `solr.runMode` | Defines if the instance of Solr is running in `cloud` or `standalone` mode; only used when `solr.enabled` is `false` | `cloud` | N/A |
+| `solr.enabled` | Defines if this chart should provision/configure Solr using the dependency chart | `true` | N/A |
 | `solr.solrHostname` | Defines the hostname of the server running Solr (only set if `solr.enabled` is `false`) | `nil` | `SOLR_HOST` |
 | `solr.solrPort` | Defines the network port Solr can be accessed (only set if `solr.enabled` is `false`) | `8983` | `SOLR_PORT` |
 | `solr.zookeeperHostname` | Defines the hostname of the server running Zookeeper (only set if `solr.enabled` is `false` and `solr.runMode` is `cloud`) | `nil` | `ZK_HOST` |
@@ -108,18 +109,18 @@ See: https://github.com/helm/charts/blob/master/incubator/solr/values.yaml
 
 **SolrCloud vs. Standalone Solr**
 
-You have the option to run an instance of Solr either as a part of the helm install or not managed by the chart (external). This is configured using the `solr.enabled` value. 
+You have the option to run an instance of Solr either as a part of the helm install or not managed by the chart (external). This is configured using the `solr.enabled` value.
 
-When set to `true`, the Solr environment that comes with the chart is SolrCloud, and the chart will automatically set-up and configure the application to integrate with this instance. 
+When set to `true`, the Solr environment that comes with the chart is SolrCloud, and the chart will automatically set-up and configure the application to integrate with this instance.
 
-When set to `false`, you have the option to run an instance of Solr using either SolrCloud or standalone. This is configured using the `solr.runMode` value. You also need to set additional values to configure the application to integrate with the external Solr instance (reference the solr parameters chart above). 
+When set to `false`, you have the option to run an instance of Solr using either SolrCloud or standalone. This is configured using the `solr.runMode` value. You also need to set additional values to configure the application to integrate with the external Solr instance (reference the solr parameters chart above).
 
 Differences to note about SolrCloud and Standalone:
 - Collections versus Cores
-  - SolrCloud uses the concept of _collections_ whereas Standalone uses _cores_. This is why we have the two values `solr.collectionName` and `solr.coreName` - be sure to se these accordingly. 
+  - SolrCloud uses the concept of _collections_ whereas Standalone uses _cores_. This is why we have the two values `solr.collectionName` and `solr.coreName` - be sure to se these accordingly.
 - Zookeeper
-  - SolrCloud comprises a set of Solr nodes and Zookeeper nodes. If you are running Standalone Solr, zookeeper nodes are not present and those values are not needed. 
+  - SolrCloud comprises a set of Solr nodes and Zookeeper nodes. If you are running Standalone Solr, zookeeper nodes are not present and those values are not needed.
 
 **Solr Authentication**
 
-If you are using an external Solr environment, you have the option to use or disable Basic Authentication for the appliation to access Solr. Be sure to set the `solr.authentication` appropriately. 
+If you are using an external Solr environment, you have the option to use or disable Basic Authentication for the appliation to access Solr. Be sure to set the `solr.authentication` appropriately.
