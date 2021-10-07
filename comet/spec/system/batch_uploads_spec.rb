@@ -5,8 +5,14 @@ require "rails_helper"
 RSpec.describe "Collections", type: :system, js: true do
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
   let(:source_file) { Rails.root.join("spec", "fixtures", "batch.csv") }
+  let(:s3_minio_staging_enabled) { Rails.application.config.s3_minio_staging_enabled }
 
-  before { sign_in user }
+  before do
+    Rails.application.config.s3_minio_staging_enabled = false
+    sign_in user
+  end
+
+  after { Rails.application.config.s3_minio_staging_enabled = s3_minio_staging_enabled }
 
   it "can see the button for batch ingest and load the form" do
     visit "/dashboard"
