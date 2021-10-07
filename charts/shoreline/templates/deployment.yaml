@@ -17,7 +17,7 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       initContainers:
-        {{- if (include "shoreline.solr.cloudEnabled" .) }}
+        {{- if and (include "shoreline.solr.cloudEnabled" .) (not .Values.shoreline.disableSolrConfigInit) }}
         - name: load-solr-config
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: Always

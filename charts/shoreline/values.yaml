@@ -31,6 +31,7 @@ existingSecret:
   enabled: false
 
 shoreline:
+  disableSolrConfigInit: false
   db_setup_command: "db:migrate"
   geoblacklightDownloadPath: /data/tmp/cache/downloads
   theme: "ucsb"
