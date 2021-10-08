@@ -3,7 +3,7 @@
 ##
 # A S3/Minio staging handler with fog/aws
 # for batch ingest directory lookup and file download
-class StagingS3Handler
+class StagingAreaS3Handler
   attr_accessor :fog_storage, :bucket, :prefix
 
   ##

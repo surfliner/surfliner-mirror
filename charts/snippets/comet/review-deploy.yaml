@@ -26,6 +26,8 @@ extraEnvVars:
     value: "true"
   - name: "REPOSITORY_S3_BUCKET"
     value: "comet-review"
+  - name: "STAGING_AREA_S3_BUCKET"
+    value: "comet-staging-area-review"
 minio:
   enabled: true
   persistence:
@@ -77,6 +79,8 @@ worker:
       value: "true"
     - name: "REPOSITORY_S3_BUCKET"
       value: "comet-review"
+    - name: "STAGING_AREA_S3_BUCKET"
+      value: "comet-staging-area-review"
   resources:
     limits:
       memory: 512Mi

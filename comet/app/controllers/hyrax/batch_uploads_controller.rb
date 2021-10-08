@@ -12,7 +12,7 @@ module Hyrax
 
     def create
       permitted = params.require(:batch_upload).permit(:source_file, :files_location)
-      if Rails.application.config.s3_minio_staging_enabled
+      if Rails.application.config.staging_area_s3_enabled
         permitted = permitted.merge(files_location: params.require(:files_location))
       end
 

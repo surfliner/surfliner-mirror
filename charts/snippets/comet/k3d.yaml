@@ -131,6 +131,8 @@ worker:
       value: "cometdev"
     - name: "REPOSITORY_S3_SECRET_KEY"
       value: "comet-secret"
+    - name: "STAGING_AREA_S3_BUCKET"
+      value: "comet-staging-area-dev"
     - name: "SOLR_TEST_URL"
       value: "http://admin:admin@comet-development:8983/solr/testCollection"
 extraEnvVars:
@@ -158,6 +160,8 @@ extraEnvVars:
     value: "cometdev"
   - name: "REPOSITORY_S3_SECRET_KEY"
     value: "comet-secret"
+  - name: "STAGING_AREA_S3_BUCKET"
+    value: "comet-staging-area-dev"
   - name: "SKIP_SELENIUM"
     value: ""
   - name: "SOLR_TEST_URL"

@@ -34,24 +34,11 @@ module Comet
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)
 
+    # default to use S3/Minio staging
+    config.staging_area_s3_enabled = true
+
     configure do
       config.middleware.delete ActiveFedora::LdpCache
-
-      # Staging S3/Minio lookup with fog/aws for batch ingest
-      fog_connection_options = {
-        aws_access_key_id: ENV["REPOSITORY_S3_ACCESS_KEY"] || ENV["MINIO_ACCESS_KEY"],
-        aws_secret_access_key: ENV["REPOSITORY_S3_SECRET_KEY"] || ENV["MINIO_SECRET_KEY"],
-        region: ENV.fetch("REPOSITORY_S3_REGION", "us-east-1")
-      }
-
-      if ENV["MINIO_ENDPOINT"].present?
-        fog_connection_options[:endpoint] = "http://#{ENV["MINIO_ENDPOINT"]}:#{ENV.fetch("MINIO_PORT", 9000)}"
-        fog_connection_options[:path_style] = true
-      end
-
-      config.fog_connection_options = fog_connection_options
-      # default to use S3/Minio staging
-      config.s3_minio_staging_enabled = true
     end
   end
 end

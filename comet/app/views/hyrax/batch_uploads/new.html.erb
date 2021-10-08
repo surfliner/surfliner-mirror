@@ -23,7 +23,7 @@
     <div class="form-group">
       <%= f.label :files_location, t("hyrax.dashboard.batch_uploads.files_location_label"), class: "col-xs-2 control-label"%>
       <div class="col-xs-6">
-        <% if Rails.application.config.s3_minio_staging_enabled %>
+        <% if Rails.application.config.staging_area_s3_enabled %>
           <% if @files_location.present? %><!-- S3/Minio staging -->
             <%= text_field_tag 'files_location_label', @files_location_label, size: '120', disabled: true %>
             <%= hidden_field_tag 'files_location', @files_location %>
@@ -33,7 +33,7 @@
                       data: {
                         placeholder: t('hyrax.dashboard.batch_uploads.placeholders.files_location'),
                         autocomplete: 'collection',
-                        'autocomplete-url' => Rails.application.routes.url_helpers.staging_index_path
+                        'autocomplete-url' => Rails.application.routes.url_helpers.staging_area_index_path
                       } %>
           <% end %><!-- end S3/Minio staging -->
         <% else %>

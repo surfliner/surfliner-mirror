@@ -3,21 +3,17 @@
 require "json"
 require "fog/aws"
 
-class StagingController < ApplicationController
+class StagingAreaController < ApplicationController
   def index
     q = params["q"].nil? ? "" : params["q"]
 
-    fog_connection_options = Rails.application.config.fog_connection_options
-    staging_bucket = ENV.fetch("REPOSITORY_S3_BUCKET")
-    s3_handler = StagingS3Handler.new(fog_connection_options: fog_connection_options,
-      bucket: staging_bucket,
-      prefix: "")
+    s3_handler = Rails.application.config.staging_area_s3_handler
 
     directories = {}.tap do |pro|
       s3_handler.list_files.each do |mf|
         path = mf.key
         path = path.rindex("/").nil? || !path.downcase.start_with?(q.downcase) ? "" : path[0..path.rindex("/")]
-        pro[path] = {id: path, label: [path], value: path} unless pro.include?(path) || path.blank?
+        pro[path.downcase] = {id: path, label: [path], value: path} unless pro.include?(path.downcase) || path.blank?
       end
     end.sort.to_h.values
 
