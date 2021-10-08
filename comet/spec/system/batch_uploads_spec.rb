@@ -7,23 +7,48 @@ RSpec.describe "Collections", type: :system, js: true do
   let(:source_file) { Rails.root.join("spec", "fixtures", "batch.csv") }
   let(:s3_enabled_default) { Rails.application.config.staging_area_s3_enabled }
 
-  before do
-    Rails.application.config.staging_area_s3_enabled = false
-    sign_in user
-  end
+  before { sign_in user }
 
   after { Rails.application.config.staging_area_s3_enabled = s3_enabled_default }
 
-  it "can see the button for batch ingest and load the form" do
-    visit "/dashboard"
-    click_on "Batch Uploads"
+  context "with local staging" do
+    before { Rails.application.config.staging_area_s3_enabled = false }
 
-    expect(page).to have_content("Add New Works by Batch")
+    it "can see the button for batch ingest and load the form" do
+      visit "/dashboard"
+      click_on "Batch Uploads"
 
-    attach_file "Source File", source_file
-    fill_in("Files Location", with: "/tmp")
-    click_button "Submit"
+      expect(page).to have_content("Add New Works by Batch")
 
-    expect(page).to have_content("Batch upload submitted successfully.")
+      attach_file "Source File", source_file
+      fill_in("Files Location", with: "/tmp")
+      click_button "Submit"
+
+      expect(page).to have_content("Batch upload submitted successfully.")
+    end
+  end
+
+  context "with S3/Minio staging enabled" do
+    let(:file) { Tempfile.new("image.jpg").tap { |f| f.write("A fade image!") } }
+    let(:s3_key) { "my-project/image.jpg" }
+
+    before do
+      Rails.application.config.staging_area_s3_enabled = true
+      staging_area_upload(s3_key: s3_key, source_file: file)
+    end
+
+    it "can see the button for batch ingest and load the form" do
+      visit "/dashboard"
+      click_on "Batch Uploads"
+
+      expect(page).to have_content("Add New Works by Batch")
+
+      attach_file "Source File", source_file
+      select_s3_path("my-project/")
+
+      click_button "Submit"
+
+      expect(page).to have_content("Batch upload submitted successfully.")
+    end
   end
 end
