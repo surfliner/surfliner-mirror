@@ -44,5 +44,59 @@ RSpec.describe "Generic Objects", type: :system, js: true, storage_adapter: :mem
       persisted_object = Hyrax.query_service.find_all_of_model(model: GenericObject).first
       expect(persisted_object.member_of_collection_ids).to eq([persisted_collection.id])
     end
+
+    it "can assign multiple Collections to it" do
+      visit "/dashboard"
+      click_on "Collections"
+      expect(page).to have_link("New Collection")
+
+      click_on "New Collection"
+      fill_in("Title", with: "Test Collection 1")
+
+      click_on("Save")
+
+      visit "/dashboard"
+      click_on "Collections"
+      expect(page).to have_link("New Collection")
+
+      click_on "New Collection"
+      fill_in("Title", with: "Test Collection 2")
+
+      click_on("Save")
+
+      expect(page).to have_content("Test Collection 2")
+
+      persisted_collections = Hyrax.query_service.find_all_of_model(model: Hyrax::PcdmCollection)
+      persisted_collection1 = persisted_collections.find do |col|
+        col.title == ["Test Collection 1"]
+      end
+      persisted_collection2 = persisted_collections.find do |col|
+        col.title == ["Test Collection 2"]
+      end
+
+      visit "/dashboard/my/works"
+      click_on "Add new work"
+
+      fill_in("Title", with: "My Title")
+      choose("generic_object_visibility_open")
+      click_on "Save"
+
+      click_button "Add to collection"
+      select_member_of_collection(persisted_collection1)
+      click_button "Save changes"
+
+      gobjs = Hyrax.query_service.find_all_of_model(model: GenericObject)
+      persisted_object = gobjs.find do |gob|
+        gob.title == ["My Title"]
+      end
+
+      visit main_app.hyrax_generic_object_path(id: persisted_object.id.to_s,
+        locale: "en")
+      click_button "Add to collection"
+      select_member_of_collection(persisted_collection2)
+      click_button "Save changes"
+
+      expect(persisted_object.member_of_collection_ids).to contain_exactly(persisted_collection1.id, persisted_collection2.id)
+    end
   end
 end
