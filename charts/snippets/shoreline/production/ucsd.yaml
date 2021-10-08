@@ -25,12 +25,14 @@ shoreline:
 
 solr:
   enabled: false
+  runMode: standalone
   solrHostname: lib-solr-prod.ucsd.edu
-  solrPort: "8990"
-  zookeeperHostname: lib-solr-prod.ucsd.edu
-  zookeeperPort: "8993"
+  solrPort: "9010"
+  coreName: geodata
   authentication:
+    enabled: true
     adminUsername: sadmin
+
 
 geoserver:
   enabled: false
