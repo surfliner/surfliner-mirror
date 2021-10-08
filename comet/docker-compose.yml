@@ -30,7 +30,6 @@ services:
       - hyrax-derivatives:/app/samvera/hyrax-webapp/derivatives
       - hyrax-uploads:/app/samvera/hyrax-webapp/uploads
       - rails-public:/app/samvera/hyrax-webapp/public
-      - rails-tmp:/app/samvera/hyrax-webapp/tmp
     networks:
       - comet
 
