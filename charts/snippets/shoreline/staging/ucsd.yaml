@@ -28,7 +28,7 @@ solr:
   runMode: standalone
   solrHostname: lib-solr-stage.ucsd.edu
   solrPort: "9010"
-  corename: geodata
+  coreName: geodata
   authentication:
     enabled: true
     adminUsername: sadmin
