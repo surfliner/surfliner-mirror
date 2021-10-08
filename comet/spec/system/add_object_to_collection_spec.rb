@@ -20,7 +20,8 @@ RSpec.describe "Generic Objects", type: :system, js: true, storage_adapter: :mem
 
   context "after object creation" do
     let!(:collection_type) { Hyrax::CollectionType.create(title: "Spec Type") }
-    xit "can assign a Collection to it" do
+
+    it "can assign a Collection to it" do
       visit "/dashboard"
       click_on "Collections"
       expect(page).to have_link("New Collection")
@@ -43,6 +44,13 @@ RSpec.describe "Generic Objects", type: :system, js: true, storage_adapter: :mem
 
       persisted_object = Hyrax.query_service.find_all_of_model(model: GenericObject).first
       expect(persisted_object.member_of_collection_ids).to eq([persisted_collection.id])
+
+      visit "/dashboard"
+      click_on "Collections"
+      click_on("Display all details of Test Collection")
+
+      expect(page).to have_content("Test Collection")
+      expect(page).to have_content("My Title")
     end
 
     it "can assign multiple Collections to it" do
