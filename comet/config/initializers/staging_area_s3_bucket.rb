@@ -2,11 +2,14 @@
 
 require "fog/aws"
 
-# skip this setup if we're just building the app image
-unless ENV["DB_ADAPTER"] == "nulldb"
+aws_access_key_id = ENV["REPOSITORY_S3_ACCESS_KEY"] || ENV["MINIO_ACCESS_KEY"]
+aws_secret_access_key = ENV["REPOSITORY_S3_SECRET_KEY"] || ENV["MINIO_SECRET_KEY"]
+
+# skip this setup if just building the app image or no aws configuration
+unless ENV["DB_ADAPTER"] == "nulldb" || aws_access_key_id.nil? || aws_secret_access_key.nil?
   fog_connection_options = {
-    aws_access_key_id: ENV["REPOSITORY_S3_ACCESS_KEY"] || ENV["MINIO_ACCESS_KEY"],
-    aws_secret_access_key: ENV["REPOSITORY_S3_SECRET_KEY"] || ENV["MINIO_SECRET_KEY"],
+    aws_access_key_id: aws_access_key_id,
+    aws_secret_access_key: aws_secret_access_key,
     region: ENV.fetch("REPOSITORY_S3_REGION", "us-east-1")
   }
 
