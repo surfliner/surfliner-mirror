@@ -25,6 +25,14 @@ class StagingAreaS3Handler
   end
 
   ##
+  # Create file url for S3 file by key
+  # @param key[String]
+  # return [String] url expired in a week
+  def file_url(key)
+    @bucket.files.get(key).url(Time.zone.now + 7.day.to_i)
+  end
+
+  ##
   # Copy file from S3/Minio to local disk storage
   # @param s3_key[String]
   # @param dest_file[String] - the path to local storage
