@@ -13,7 +13,5 @@ def select_member_of_collection(collection) # rubocop:disable Metrics/MethodLeng
     current_time = Time.now.to_f
   end
 
-  within ".select2-result" do
-    find("span", text: collection.title.first).click
-  end
+  all("li.select2-result span").first.click
 end
