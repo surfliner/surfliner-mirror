@@ -79,7 +79,7 @@ Supports using an existing secret instead of one built using the Chart
 {{- if .Values.solr.enabled -}}
 {{- .Values.solr.cloudEnabled }}
 {{- else -}}
-{{- or (eq "cloud" (lower .Values.solrRunMode)) (eq "cloud" (lower .Values.solr.runMode)) -}}
+{{- or (eq "cloud" (lower (default "" .Values.solrRunMode))) (eq "cloud" (lower (default "" .Values.solr.runMode))) }}
 {{- end -}}
 {{- end -}}
 
@@ -92,7 +92,7 @@ Supports using an existing secret instead of one built using the Chart
 {{- end -}}
 
 {{- define "shoreline.solr.collection_core_name" -}}
-{{- if (include "shoreline.solr.cloudEnabled" .) -}}
+{{- if eq (include "shoreline.solr.cloudEnabled" .) "true" -}}
 {{- .Values.solr.collection -}}
 {{- else -}}
 {{- .Values.solr.coreName -}}
