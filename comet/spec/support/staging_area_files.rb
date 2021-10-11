@@ -1,20 +1,33 @@
 ##
-# Upload file to S3/Minio with fog/aws.
+# Mock fog/aws connection.
 # @param [source_file] the destination file
 # @param [s3_key] the key for the file in S3/Minio
-def staging_area_upload(bucket:, s3_key:, source_file:)
-  Rails.application.config.staging_area_s3_connection
-    .directories.get(bucket).files.create(key: s3_key, body: File.open(source_file))
+def mock_fog_connection
+  Fog.mock!
+  fog_connection_options = {
+    aws_access_key_id: "minio-access-key",
+    aws_secret_access_key: "minio-secret-key",
+    region: "us-east-1",
+    endpoint: "http://minio:9000",
+    path_style: true
+  }
+  Fog::Storage.new(provider: "AWS", **fog_connection_options)
 end
 
 ##
-# Download file from S3/Minio with S3 url
-# @param [dest_file] the destination file
-# @param [s3_url] the S3 file url
-def download_s3_file(s3_url:, dest_file:)
-  File.open(dest_file, "wb") do |f|
-    URI.parse(s3_url).open do |uri|
-      f.write(uri.read)
-    end
+# Upload file to S3/Minio with fog/aws.
+# @param [fog_connection] Fog::Storage
+# @param [source_file] the destination file
+# @param [s3_key] the key for the file in S3/Minio
+def staging_area_upload(fog_connection:, bucket:, s3_key:, source_file:)
+  # Create the bucket if it doesn't exist
+  begin
+    fog_connection.head_bucket(bucket)
+  rescue Excon::Error::NotFound
+    puts "-- Creating buchet #{bucket}"
+    fog_connection.directories.create(key: bucket)
   end
+
+  fog_connection.directories.get(bucket).files
+    .create(key: s3_key, body: File.open(source_file))
 end

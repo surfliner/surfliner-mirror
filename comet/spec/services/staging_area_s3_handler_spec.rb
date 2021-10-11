@@ -3,25 +3,27 @@
 require "rails_helper"
 
 RSpec.describe StagingAreaS3Handler do
-  subject { Rails.application.config.staging_area_s3_handler }
+  subject { described_class.new(connection: fog_connection, bucket: s3_bucket, prefix: "") }
 
-  let(:s3_bucket) { ENV.fetch("STAGING_AREA_S3_BUCKET", "comet-staging-area-#{Rails.env}") }
+  let(:fog_connection) { mock_fog_connection }
+  let(:s3_bucket) { "comet-staging-area-test" }
   let(:file) { Tempfile.new("image.jpg").tap { |f| f.write("A fade image!") } }
   let(:s3_key) { "project-files/image.jpg" }
 
-  before { staging_area_upload(bucket: s3_bucket, s3_key: s3_key, source_file: file) }
+  before {
+    staging_area_upload(fog_connection: fog_connection,
+      bucket: s3_bucket, s3_key: s3_key, source_file: file)
+  }
 
   it "list files" do
-    expect(subject.list_files).not_to be_empty
+    expect(subject.list_files.length).to eq 1
   end
 
-  context "download file from S3/Minio with S3 file URL" do
-    let(:dest_file) { File.absolute_path(Tempfile.new("image.jpg")) }
+  context "S3 file URL" do
+    let(:file_url) { subject.file_url(s3_key) }
 
-    before { download_s3_file(s3_url: subject.file_url(s3_key), dest_file: dest_file) }
-
-    it "a valid S3 url" do
-      expect(File.open(dest_file).read).to eq file.read
+    it "a valid url" do
+      expect(file_url =~ URI::DEFAULT_PARSER.make_regexp).to eq 0
     end
   end
 

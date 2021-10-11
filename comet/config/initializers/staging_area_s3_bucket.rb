@@ -18,21 +18,21 @@ unless ENV["DB_ADAPTER"] == "nulldb" || aws_access_key_id.nil? || aws_secret_acc
     fog_connection_options[:path_style] = true
   end
 
-  s3_connection = Fog::Storage.new(provider: "AWS", **fog_connection_options)
-  Rails.application.config.staging_area_s3_connection = s3_connection
+  fog_connection = Fog::Storage.new(provider: "AWS", **fog_connection_options)
+  Rails.application.config.staging_area_s3_connection = fog_connection
 
   # Create the bucket if it doesn't exist
   s3_bucket = ENV.fetch("STAGING_AREA_S3_BUCKET", "comet-staging-area-#{Rails.env}")
   begin
     puts "-- Using staging area bucket: #{s3_bucket}"
-    s3_connection.head_bucket(s3_bucket)
+    fog_connection.head_bucket(s3_bucket)
   rescue Excon::Error::NotFound
     puts "-- Creating buchet #{s3_bucket}"
-    s3_connection.put_bucket(s3_bucket)
+    fog_connection.put_bucket(s3_bucket)
   end
 
   Rails.application.config.staging_area_s3_handler =
-    StagingAreaS3Handler.new(fog_connection_options: fog_connection_options,
+    StagingAreaS3Handler.new(connection: fog_connection,
       bucket: s3_bucket,
       prefix: "")
 end

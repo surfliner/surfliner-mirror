@@ -35,7 +35,8 @@ RSpec.describe "Collections", type: :system, js: true do
 
     before do
       Rails.application.config.staging_area_s3_enabled = true
-      staging_area_upload(bucket: s3_bucket, s3_key: s3_key, source_file: file)
+      staging_area_upload(fog_connection: Rails.application.config.staging_area_s3_connection,
+        bucket: s3_bucket, s3_key: s3_key, source_file: file)
     end
 
     it "can see the button for batch ingest and load the form" do
