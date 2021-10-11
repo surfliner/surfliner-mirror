@@ -31,10 +31,11 @@ RSpec.describe "Collections", type: :system, js: true do
   context "with S3/Minio staging enabled" do
     let(:file) { Tempfile.new("image.jpg").tap { |f| f.write("A fade image!") } }
     let(:s3_key) { "my-project/image.jpg" }
+    let(:s3_bucket) { ENV.fetch("STAGING_AREA_S3_BUCKET", "comet-staging-area-#{Rails.env}") }
 
     before do
       Rails.application.config.staging_area_s3_enabled = true
-      staging_area_upload(s3_key: s3_key, source_file: file)
+      staging_area_upload(bucket: s3_bucket, s3_key: s3_key, source_file: file)
     end
 
     it "can see the button for batch ingest and load the form" do

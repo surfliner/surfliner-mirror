@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require "spec_helper"
+require "rails_helper"
 
 RSpec.describe StagingAreaS3Handler do
   subject { Rails.application.config.staging_area_s3_handler }
 
-  let(:s3_bucket) { ENV.fetch("STAGING_AREA_S3_BUCKET") }
+  let(:s3_bucket) { ENV.fetch("STAGING_AREA_S3_BUCKET", "comet-staging-area-#{Rails.env}") }
   let(:file) { Tempfile.new("image.jpg").tap { |f| f.write("A fade image!") } }
   let(:s3_key) { "project-files/image.jpg" }
 
