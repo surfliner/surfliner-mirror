@@ -37,7 +37,7 @@ geoserver:
   enabled: false
   geoserverHostname: lib-geoserver-docker.ucsd.edu
   service:
-    port: "8600"
+    port: "8643"
   admin:
     username: gadmin
 
