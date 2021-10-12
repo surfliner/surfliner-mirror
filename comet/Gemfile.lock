@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/samvera/hyrax.git
-  revision: 8f5d63428cf73a15f6738fc2c23a85a8b9cf14eb
+  revision: 662e31199a9c3427c0dac64842f47d6ee4fdfd19
   branch: main
   specs:
     hyrax (3.1.0)
@@ -352,7 +352,7 @@ GEM
     font-awesome-rails (4.7.0.7)
       railties (>= 3.2, < 7)
     gems (1.2.0)
-    geocoder (1.6.7)
+    geocoder (1.7.0)
     globalid (0.5.2)
       activesupport (>= 5.0)
     google-api-client (0.53.0)

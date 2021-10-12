@@ -30,6 +30,8 @@ RSpec.describe "FileDownload", type: :system, storage_adapter: :memory, metadata
     fill_in("Title", with: "Test Upload and Download Object")
     choose("generic_object_visibility_open")
 
+    # sure that the form fields are fully populated
+    sleep(1.seconds)
     click_on("Save")
 
     expect(page).to have_content("Test Upload and Download Object")
