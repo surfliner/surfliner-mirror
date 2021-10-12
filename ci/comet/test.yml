@@ -1,7 +1,7 @@
 .comet:test:
   stage: test
   image: $CI_REGISTRY_IMAGE/comet_web:$CI_COMMIT_SHA
-  needs: ["comet:ruby-build"]
+  needs: ["comet:build:app"]
   variables:
     AUTH_METHOD: "developer"
     CAPYBARA_PORT: 3010

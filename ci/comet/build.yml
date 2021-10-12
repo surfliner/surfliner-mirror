@@ -1,8 +1,17 @@
-comet:ruby-build:
+.comet:build:
   extends:
     - .kaniko-build
     - .only-refs-default
     - .only-comet-changes
+
+comet:build:app:
+  extends:
+    - .comet:build
   script:
     - build_image_for "comet" "comet_web" "comet"
+
+comet:build:worker:
+  extends:
+    - .comet:build
+  script:
     - build_image_for "comet" "comet_worker_web" "comet-worker"

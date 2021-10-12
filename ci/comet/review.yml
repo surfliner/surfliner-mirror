@@ -8,7 +8,7 @@
     DEPLOY_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-comet-$CI_MERGE_REQUEST_ID
     KUBE_NAMESPACE: comet-review
-  needs: ["comet:ruby-build"]
+  needs: ["comet:build:app", "comet:build:worker"]
   only:
     refs:
       - merge_requests
