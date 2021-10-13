@@ -14,7 +14,7 @@ USER app
 COPY --chown=1001:101 $PROJECTPATH/scripts/db-migrate-seed.sh $DOCKERROOT/db-migrate-seed.sh
 COPY --chown=1001:101 $PROJECTPATH/Gemfile* $DOCKERROOT/hyrax-webapp/
 COPY --chown=1001:101 gems ${DOCKERROOT}/gems/
-RUN bundle install --jobs "$(nproc)"
+RUN bundle check || bundle install --jobs "$(nproc)"
 
 COPY --chown=1001:101 $PROJECTPATH $DOCKERROOT/hyrax-webapp
 COPY --chown=1001:101 scripts ${DOCKERROOT}/scripts/
