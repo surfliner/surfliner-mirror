@@ -79,6 +79,9 @@ RSpec.describe "Generic Objects", type: :system, js: true, storage_adapter: :mem
 
       fill_in("Title", with: "My Title")
       choose("generic_object_visibility_open")
+
+      # ensure that the form fields are fully populated
+      sleep(1.seconds)
       click_on "Save"
 
       click_button "Add to collection"
