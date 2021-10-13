@@ -19,6 +19,10 @@ RSpec.describe StagingAreaS3Handler do
     expect(subject.list_files.length).to eq 1
   end
 
+  it "list paths" do
+    expect(subject.get_paths("project")).to include("project-files/")
+  end
+
   context "S3 file URL" do
     let(:file_url) { subject.file_url(s3_key) }
 

@@ -48,4 +48,17 @@ class StagingAreaS3Handler
       end
     end
   end
+
+  ##
+  # List the paths in the bucket
+  # @q [String] - search keyword
+  def get_paths(q)
+    [].tap do |pro|
+      list_files.each do |mf|
+        path = mf.key
+        path = path.rindex("/").nil? || !path.downcase.start_with?(q.downcase) ? "" : path[0..path.rindex("/")]
+        pro << path unless pro.include?(path) || path.blank?
+      end
+    end
+  end
 end

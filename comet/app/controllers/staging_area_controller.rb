@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "json"
-require "fog/aws"
 
 class StagingAreaController < ApplicationController
   def index
@@ -10,10 +9,8 @@ class StagingAreaController < ApplicationController
     s3_handler = Rails.application.config.staging_area_s3_handler
 
     directories = {}.tap do |pro|
-      s3_handler.list_files.each do |mf|
-        path = mf.key
-        path = path.rindex("/").nil? || !path.downcase.start_with?(q.downcase) ? "" : path[0..path.rindex("/")]
-        pro[path.downcase] = {id: path, label: [path], value: path} unless pro.include?(path.downcase) || path.blank?
+      s3_handler.get_paths(q).each do |path|
+        pro[path.downcase] = {id: path, label: [path], value: path}
       end
     end.sort.to_h.values
 
