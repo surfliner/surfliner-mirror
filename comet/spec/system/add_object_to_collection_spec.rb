@@ -27,17 +27,17 @@ RSpec.describe "Generic Objects", type: :system, js: true, storage_adapter: :mem
       expect(page).to have_link("New Collection")
 
       click_on "New Collection"
-      fill_in("Title", with: "Test Collection")
+      fill_in("Title", with: "Test Collection 3")
 
       click_on("Save")
-      persisted_collections = Hyrax.query_service.find_all_of_model(model: Hyrax::PcdmCollection)
-      persisted_collection = persisted_collections.find do |col|
-        col.title == ["Test Collection"]
+      persisted_colls = Hyrax.query_service.find_all_of_model(model: Hyrax::PcdmCollection)
+      persisted_coll = persisted_colls.find do |col|
+        col.title == ["Test Collection 3"]
       end
       visit "/dashboard/my/works"
       click_on "Add new work"
 
-      fill_in("Title", with: "My Title")
+      fill_in("Title", with: "My Title 2")
       choose("generic_object_visibility_open")
 
       # ensure that the form fields are fully populated
@@ -45,21 +45,21 @@ RSpec.describe "Generic Objects", type: :system, js: true, storage_adapter: :mem
       click_on "Save"
 
       click_button "Add to collection"
-      select_member_of_collection(persisted_collection)
+      select_member_of_collection(persisted_coll)
       click_button "Save changes"
 
-      gobjs = Hyrax.query_service.find_all_of_model(model: GenericObject)
-      persisted_object = gobjs.find do |gob|
-        gob.title == ["My Title"]
+      objs = Hyrax.query_service.find_all_of_model(model: GenericObject)
+      persisted_obj = objs.find do |gob|
+        gob.title == ["My Title 2"]
       end
-      expect(persisted_object.member_of_collection_ids).to eq([persisted_collection.id])
+      expect(persisted_obj.member_of_collection_ids).to eq([persisted_coll.id])
 
       visit "/dashboard"
       click_on "Collections"
-      click_on("Display all details of Test Collection")
+      click_on("Display all details of Test Collection 3")
 
-      expect(page).to have_content("Test Collection")
-      expect(page).to have_content("My Title")
+      expect(page).to have_content("Test Collection 3")
+      expect(page).to have_content("My Title 2")
     end
 
     it "can assign multiple Collections to it" do
