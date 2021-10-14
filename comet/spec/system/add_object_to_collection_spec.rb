@@ -30,19 +30,28 @@ RSpec.describe "Generic Objects", type: :system, js: true, storage_adapter: :mem
       fill_in("Title", with: "Test Collection")
 
       click_on("Save")
-      persisted_collection = Hyrax.query_service.find_all_of_model(model: Hyrax::PcdmCollection).first
+      persisted_collections = Hyrax.query_service.find_all_of_model(model: Hyrax::PcdmCollection)
+      persisted_collection = persisted_collections.find do |col|
+        col.title == ["Test Collection"]
+      end
       visit "/dashboard/my/works"
       click_on "Add new work"
 
       fill_in("Title", with: "My Title")
       choose("generic_object_visibility_open")
+
+      # ensure that the form fields are fully populated
+      sleep(1.seconds)
       click_on "Save"
 
       click_button "Add to collection"
       select_member_of_collection(persisted_collection)
       click_button "Save changes"
 
-      persisted_object = Hyrax.query_service.find_all_of_model(model: GenericObject).first
+      gobjs = Hyrax.query_service.find_all_of_model(model: GenericObject)
+      persisted_object = gobjs.find do |gob|
+        gob.title == ["My Title"]
+      end
       expect(persisted_object.member_of_collection_ids).to eq([persisted_collection.id])
 
       visit "/dashboard"
