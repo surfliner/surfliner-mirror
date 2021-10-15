@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/samvera/hyrax.git
-  revision: 662e31199a9c3427c0dac64842f47d6ee4fdfd19
+  revision: 8feff97c2cef47101fe8ce784a6fdcdedb31cdc1
   branch: main
   specs:
     hyrax (3.1.0)
@@ -145,7 +145,7 @@ GEM
     awesome_nested_set (3.4.0)
       activerecord (>= 4.0.0, < 7.0)
     aws-eventstream (1.2.0)
-    aws-partitions (1.513.0)
+    aws-partitions (1.516.0)
     aws-sdk-core (3.121.1)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
@@ -334,7 +334,7 @@ GEM
     equivalent-xml (0.6.0)
       nokogiri (>= 1.4.3)
     erubi (1.10.0)
-    ethon (0.14.0)
+    ethon (0.15.0)
       ffi (>= 1.15.0)
     execjs (2.8.1)
     ezid-client (1.9.1)
@@ -462,7 +462,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
-    json (2.5.1)
+    json (2.6.0)
     json-canonicalization (0.2.1)
     json-ld (3.1.10)
       htmlentities (~> 4.3)
