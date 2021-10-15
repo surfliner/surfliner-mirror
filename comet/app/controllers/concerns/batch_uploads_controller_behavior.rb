@@ -145,8 +145,9 @@ module BatchUploadsControllerBehavior
   ##
   # Persist the batch upload record
   # @param permitted [Hash] - the permitted parameters
-  def persist_batch_upload_record(permitted:)
-    source_content = permitted.key?(:source_file) ? File.read(permitted[:source_file].path) : ""
+  # @param source_file [String]- the location of the csv source file.
+  def persist_batch_upload_record(permitted:, source_file:)
+    source_content = source_file ? File.open(source_file).read : ""
     files_location = permitted.key?(:files_location) ? permitted[:files_location] : ""
     batch_id = "b#{Time.now.strftime("%Y%m%d%H%M%S%L")}"
     @batch_record = BatchUpload.new(batch_id: batch_id,

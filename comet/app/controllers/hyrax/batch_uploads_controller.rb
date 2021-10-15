@@ -8,6 +8,8 @@ module Hyrax
     before_action :authenticate_user!
 
     def new
+      @batch_upload_option = params[:option]
+      @batch_upload_options = BatchUpload.ingest_options
       @batch_upload = BatchUpload.new
       @form = BatchUploadForm.new(@batch_upload)
     end
@@ -20,14 +22,18 @@ module Hyrax
 
       Hyrax.logger.debug(permitted)
 
-      persist_batch_upload_record(permitted: permitted)
+      ingest_option = params[:option]
+      source_path = ingest_option == BatchUpload.files_only_ingest ?
+        create_csv_sources_with_files(permitted[:files_location]) : permitted[:source_file].path
+      content_type = ingest_option == BatchUpload.files_only_ingest ?
+        "text/csv" : permitted[:source_file].content_type
 
-      source_path = permitted[:source_file].path
+      persist_batch_upload_record(permitted: permitted, source_file: source_path)
 
       source_validator = ::BatchUploadsValidator.validator_for("batch_uploads_validation")
 
       rows = ::TabularParser
-        .for(content_type: permitted[:source_file].content_type)
+        .for(content_type: content_type)
         .parse(source_path)
 
       # Validate headers
@@ -52,6 +58,17 @@ module Hyrax
 
       redirect_to(my_works_path,
         notice: t("hyrax.dashboard.batch_uploads.submission_success"))
+    end
+
+    private
+
+    ##
+    # Create CSV source for files found
+    # @param files_path [String] - the path to the files
+    # @return [TempFile] for the CSV source file created
+    def create_csv_sources_with_files(files_path)
+      # TODO: Create temp CSV source instead of using the dummy example file
+      Tempfile.new("files-only.csv").tap { |f| f.write("File name") }
     end
   end
 end

@@ -7,6 +7,14 @@ class BatchUpload < ApplicationRecord
 
   belongs_to :user
 
+  def self.ingest_options
+    %w[metadata+files files-only]
+  end
+
+  def self.files_only_ingest
+    "files-only"
+  end
+
   # Required to back a form
   def persisted?
     false

@@ -56,6 +56,7 @@ en:
         button_label: "Submit"
         files_location_label: "Files Location"
         header: "Add New Works by Batch"
+        ingest_option_label: "Ingest Option: "
         source_file_label: "Source File"
         submission_success: "Successfully ingest objects in batch."
         title: "Batch Upload"
