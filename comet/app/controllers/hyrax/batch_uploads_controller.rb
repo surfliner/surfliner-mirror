@@ -67,8 +67,16 @@ module Hyrax
     # @param files_path [String] - the path to the files
     # @return [TempFile] for the CSV source file created
     def create_csv_sources_with_files(files_path)
-      # TODO: Create temp CSV source instead of using the dummy example file
-      Tempfile.new("files-only.csv").tap { |f| f.write("File name") }
+      headers = ["object unique id", "level", "file name", "title"]
+      csv_file = Tempfile.new("files-only.csv")
+      CSV.open(csv_file, "wb") do |csv|
+        csv << headers
+        Dir.entries(files_path).each do |f|
+          csv << [f, "object", f, f] if File.file?("#{files_path}/#{f}")
+        end
+      end
+
+      csv_file.path
     end
   end
 end
