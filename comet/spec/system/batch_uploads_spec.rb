@@ -6,7 +6,6 @@ RSpec.describe "BatchUploads", storage_adapter: :memory, metadata_adapter: :test
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
   let(:source_file) { Rails.root.join("spec", "fixtures", "batch.csv") }
   let(:s3_enabled_default) { Rails.application.config.staging_area_s3_enabled }
-  let(:headers) { "object unique id,level,file name,title" }
 
   let(:approving_user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
 
@@ -34,9 +33,9 @@ RSpec.describe "BatchUploads", storage_adapter: :memory, metadata_adapter: :test
 
       expect(page).to have_content("Successfully ingest objects in batch.")
       expect(page).to have_content("Batch ingest object")
-      expect(page).to have_content("In review")
 
       find("#documents").first(:link, "Batch ingest object").click
+      expect(page).to have_link("Review and Approval")
       expect(page).to have_link("image.jpg")
 
       click_on "image.jpg"
@@ -69,9 +68,9 @@ RSpec.describe "BatchUploads", storage_adapter: :memory, metadata_adapter: :test
 
       expect(page).to have_content("Successfully ingest objects in batch.")
       expect(page).to have_content("Batch ingest object")
-      expect(page).to have_content("In review")
 
       find("#documents").first(:link, "Batch ingest object").click
+      expect(page).to have_link("Review and Approval")
       expect(page).to have_link("image.jpg")
 
       click_on "image.jpg"

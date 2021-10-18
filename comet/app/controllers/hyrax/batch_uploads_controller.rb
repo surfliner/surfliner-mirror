@@ -37,7 +37,7 @@ module Hyrax
         # TODO: build object/component relationship, link to collections etc.
       end
 
-      redirect_to(dashboard_works_path,
+      redirect_to(my_works_path,
         notice: t("hyrax.dashboard.batch_uploads.submission_success"))
     end
   end
