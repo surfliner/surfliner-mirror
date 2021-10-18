@@ -135,7 +135,7 @@ services:
       - comet
 
   solr:
-    image: bitnami/solr:8.10.0
+    image: bitnami/solr:8.10.1
     ports:
       - 8983:8983
     env_file:
