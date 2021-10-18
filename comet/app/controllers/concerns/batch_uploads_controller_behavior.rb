@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "csv"
+
 ##
 # A base module to resolve requests for batch uploads.
 module BatchUploadsControllerBehavior
@@ -147,12 +149,43 @@ module BatchUploadsControllerBehavior
   # @param permitted [Hash] - the permitted parameters
   # @param source_file [String]- the location of the csv source file.
   def persist_batch_upload_record(permitted:, source_file:)
-    source_content = source_file ? File.open(source_file).read : ""
+    source_content = source_file ? File.read(source_file) : ""
     files_location = permitted.key?(:files_location) ? permitted[:files_location] : ""
     batch_id = "b#{Time.now.strftime("%Y%m%d%H%M%S%L")}"
     @batch_record = BatchUpload.new(batch_id: batch_id,
       source_file: source_content, files_path: files_location, user_id: current_user.id)
 
     @batch_record.save
+  end
+
+  ##
+  # Create CSV source for files found
+  # @param files_path [String] - the path to the files
+  # @return [TempFile] for the CSV source file created
+  def create_csv_sources_with_files(files_path)
+    headers = ["object unique id", "level", "file name", "title"]
+    csv_file = Tempfile.new("files-only.csv")
+    CSV.open(csv_file, "wb") do |csv|
+      csv << headers
+      list_files(files_path).each do |f|
+        csv << [f, "object", f, f]
+      end
+    end
+
+    csv_file.path
+  end
+
+  ##
+  # List file names under a directory
+  # @files_path [String] - the directory
+  def list_files(files_path)
+    s3_enabled = Rails.application.config.staging_area_s3_enabled
+    return Rails.application.config.staging_area_s3_handler.get_filenames(files_path) if s3_enabled
+
+    [].tap do |pro|
+      Dir.entries(files_path).each do |f|
+        pro << f if File.file?("#{files_path}/#{f}")
+      end
+    end
   end
 end

@@ -4,7 +4,7 @@
 # A S3/Minio staging handler with fog/aws
 # for batch ingest directory lookup and file download
 class StagingAreaS3Handler
-  attr_accessor :connection, :bucket, :prefix
+  attr_accessor :connection, :bucket, :prefix, :bucket_name
 
   ##
   # Constructor
@@ -14,7 +14,17 @@ class StagingAreaS3Handler
   def initialize(connection:, bucket:, prefix:)
     @prefix = prefix
     @connection = connection
+    @bucket_name = bucket
     @bucket = @connection.directories.get(bucket, prefix: prefix)
+  end
+
+  ##
+  # List files name in the bucket with prefix
+  # @param prefix - the prefix of the files
+  # return[[String]] - file names
+  def get_filenames(prefix)
+    @connection.directories.get(@bucket_name, prefix: prefix)
+      .files.map { |mf| mf.key.sub(prefix, "") }
   end
 
   ##

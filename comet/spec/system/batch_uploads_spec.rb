@@ -32,7 +32,6 @@ RSpec.describe "BatchUploads", type: :system, js: true do
       click_button "Submit"
 
       expect(page).to have_content("Successfully ingest objects in batch.")
-      expect(page).to have_content("Batch ingest object")
 
       find("#documents").first(:link, "Batch ingest object").click
       expect(page).to have_link("Review and Approval")
@@ -41,6 +40,34 @@ RSpec.describe "BatchUploads", type: :system, js: true do
       click_on "image.jpg"
 
       expect(page).to have_link("Download the file")
+    end
+
+    context "with ingest option" do
+      let(:files_location) { Rails.root.join("spec", "fixtures", "batch_files") }
+
+      it "loads the files-only ingest form" do
+        visit "/dashboard"
+        click_on "Batch Uploads"
+
+        expect(page).to have_content("Add New Works by Batch")
+
+        select "files-only", from: "batch_upload_option"
+
+        expect(page).to have_select("batch_upload_option", selected: "files-only")
+
+        fill_in("Files Location", with: files_location)
+        click_button "Submit"
+
+        expect(page).to have_content("Successfully ingest objects in batch.")
+
+        find("#documents").first(:link, "image.jpg").click
+        expect(page).to have_link("Review and Approval")
+        expect(page).to have_link("image.jpg")
+
+        click_on "image.jpg"
+
+        expect(page).to have_link("Download the file")
+      end
     end
   end
 
@@ -76,6 +103,33 @@ RSpec.describe "BatchUploads", type: :system, js: true do
       click_on "image.jpg"
 
       expect(page).to have_link("Download the file")
+    end
+
+    context "with ingest option" do
+      it "loads the files-only ingest form" do
+        visit "/dashboard"
+        click_on "Batch Uploads"
+
+        expect(page).to have_content("Add New Works by Batch")
+
+        select "files-only", from: "batch_upload_option"
+
+        expect(page).to have_select("batch_upload_option", selected: "files-only")
+
+        select_s3_path("my-project/")
+
+        click_button "Submit"
+
+        expect(page).to have_content("Successfully ingest objects in batch.")
+
+        find("#documents").first(:link, "image.jpg").click
+        expect(page).to have_link("Review and Approval")
+        expect(page).to have_link("image.jpg")
+
+        click_on "image.jpg"
+
+        expect(page).to have_link("Download the file")
+      end
     end
   end
 
