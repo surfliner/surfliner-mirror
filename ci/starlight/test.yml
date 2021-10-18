@@ -39,11 +39,6 @@
     - create-solr-collection.sh
   tags:
     - kubernetes
-  only:
-    changes:
-      - .gitlab-ci.yml
-      - ci/starlight/**/*
-      - starlight/**/*
 
 starlight:test:system:
   extends: .starlight:test
