@@ -6,14 +6,6 @@ lark:ruby-build:
   script:
     - build_image_for "lark" "lark_web"
 
-lark:frontend:node-build:
-  extends:
-    - .kaniko-build
-    - .only-refs-default
-    - .only-lark-changes
-  script:
-    - build_image_for "lark-frontend" "lark_frontend_web"
-
 lark:ui:ruby-build:
   extends:
     - .kaniko-build

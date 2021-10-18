@@ -10,7 +10,7 @@ include:
   extends:
     - .helm3-deploy
     - .only-lark-changes
-  needs: ["lark:ruby-build", "lark:frontend:node-build"]
+  needs: ["lark:ruby-build"]
   artifacts:
     paths: [environment_url.txt]
 
@@ -25,7 +25,6 @@ include:
       - gems/**/*
       - lark/**/*
       - lark-client/**/*
-      - lark-frontend/**/*
       - lark-ui/**/*
 
 .only-lark-api-changes:
@@ -45,12 +44,3 @@ include:
       - ci/lark/**/*
       - charts/lark/**/*
       - lark-client/**/*
-
-.only-lark-frontend-changes:
-  only:
-    changes:
-      - .gitlab-ci.yml
-      - ci/lark.yml
-      - ci/lark/**/*
-      - charts/lark/**/*
-      - lark-frontend/**/*
