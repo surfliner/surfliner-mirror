@@ -986,6 +986,7 @@ DEPENDENCIES
   declarative-option (= 0.1.0)
   devise (= 4.8.0)
   devise-guests (= 0.7.0)
+  down (~> 5.0)
   ezid-client (= 1.9.1)
   fog-aws (= 3.12.0)
   hyrax!

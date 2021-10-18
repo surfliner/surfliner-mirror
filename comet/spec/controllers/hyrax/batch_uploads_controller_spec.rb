@@ -5,7 +5,6 @@ RSpec.describe Hyrax::BatchUploadsController, storage_adapter: :memory, metadata
   routes { Hyrax::Engine.routes }
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
   let(:source_file) { fixture_file_upload("batch.csv", "text/csv") }
-  let(:files_location) { Rails.root.join("spec", "fixtures") }
 
   before do
     setup_workflow_for(user)
@@ -29,12 +28,40 @@ RSpec.describe Hyrax::BatchUploadsController, storage_adapter: :memory, metadata
   end
 
   describe "#create" do
-    context "create objects in batch" do
-      before { sign_in(user) }
+    context "create objects in batch with local mounted staging area" do
+      let(:files_location) { Rails.root.join("spec", "fixtures") }
+
+      before do
+        Rails.application.config.staging_area_s3_enabled = false
+        sign_in(user)
+      end
 
       it "gives a successful response" do
         expect do
           post :create, params: {batch_upload: {source_file: source_file, files_location: files_location}}
+        end
+          .to change { Hyrax.query_service.count_all_of_model(model: ::GenericObject) }
+          .by 1
+      end
+    end
+
+    context "create objects in batch with S3/Minio staging area" do
+      let(:fog_connection) { mock_fog_connection }
+      let(:s3_bucket) { "comet-staging-area-test" }
+      let(:file) { Tempfile.new("image.jpg").tap { |f| f.write("A fade image!") } }
+      let(:s3_key) { "project-files/image.jpg" }
+
+      before do
+        Rails.application.config.staging_area_s3_enabled = true
+        staging_area_upload(fog_connection: fog_connection,
+          bucket: s3_bucket, s3_key: s3_key, source_file: file)
+
+        sign_in(user)
+      end
+
+      it "gives a successful response" do
+        expect do
+          post :create, params: {batch_upload: {source_file: source_file}, files_location: "my-project/"}
         end
           .to change { Hyrax.query_service.count_all_of_model(model: ::GenericObject) }
           .by 1

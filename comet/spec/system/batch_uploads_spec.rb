@@ -6,7 +6,7 @@ RSpec.describe "BatchUploads", storage_adapter: :memory, metadata_adapter: :test
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
   let(:source_file) { Rails.root.join("spec", "fixtures", "batch.csv") }
   let(:s3_enabled_default) { Rails.application.config.staging_area_s3_enabled }
-  let(:files_location) { Rails.root.join("spec", "fixtures") }
+  let(:headers) { "object unique id,level,file name,title" }
 
   let(:approving_user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
 
@@ -18,24 +18,35 @@ RSpec.describe "BatchUploads", storage_adapter: :memory, metadata_adapter: :test
   after { Rails.application.config.staging_area_s3_enabled = s3_enabled_default }
 
   context "with local staging" do
+    let(:files_location) { Rails.root.join("spec", "fixtures") }
+
     before { Rails.application.config.staging_area_s3_enabled = false }
 
-    it "can see the button for batch ingest and load the form" do
+    it "can load the form and ingest the object with file" do
       visit "/dashboard"
       click_on "Batch Uploads"
 
       expect(page).to have_content("Add New Works by Batch")
 
       attach_file "Source File", source_file
-      fill_in("Files Location", with: "/tmp")
+      fill_in("Files Location", with: files_location)
       click_button "Submit"
 
-      expect(page).to have_content("Batch upload submitted successfully.")
+      expect(page).to have_content("Successfully ingest objects in batch.")
+      expect(page).to have_content("Batch ingest object")
+      expect(page).to have_content("In review")
+
+      find("#documents").first(:link, "Batch ingest object").click
+      expect(page).to have_link("image.jpg")
+
+      click_on "image.jpg"
+
+      expect(page).to have_link("Download the file")
     end
   end
 
   context "with S3/Minio staging enabled" do
-    let(:file) { Tempfile.new("image.jpg").tap { |f| f.write("A fade image!") } }
+    let(:file) { Rails.root.join("spec", "fixtures", "image.jpg") }
     let(:s3_key) { "my-project/image.jpg" }
     let(:s3_bucket) { ENV.fetch("STAGING_AREA_S3_BUCKET", "comet-staging-area-#{Rails.env}") }
 
@@ -56,7 +67,16 @@ RSpec.describe "BatchUploads", storage_adapter: :memory, metadata_adapter: :test
 
       click_button "Submit"
 
-      expect(page).to have_content("Batch upload submitted successfully.")
+      expect(page).to have_content("Successfully ingest objects in batch.")
+      expect(page).to have_content("Batch ingest object")
+      expect(page).to have_content("In review")
+
+      find("#documents").first(:link, "Batch ingest object").click
+      expect(page).to have_link("image.jpg")
+
+      click_on "image.jpg"
+
+      expect(page).to have_link("Download the file")
     end
   end
 end
