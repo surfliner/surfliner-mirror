@@ -45,7 +45,7 @@ RSpec.describe Hyrax::BatchUploadsController, storage_adapter: :memory, metadata
       end
     end
 
-    context "create objects in batch with S3/Minio staging area" do
+    skip "create objects in batch with S3/Minio staging area" do
       let(:fog_connection) { mock_fog_connection }
       let(:s3_bucket) { "comet-staging-area-test" }
       let(:file) { Tempfile.new("image.jpg").tap { |f| f.write("A fade image!") } }
