@@ -3,6 +3,8 @@ extraEnvVars:
     value: "google"
   - name: "METADATA_DATABASE_NAME"
     value: "comet_metadata"
+  - name: "MINIO_PROTOCOL"
+    value: "https"
   - name: "RAILS_LOG_TO_STDOUT"
     value: "true"
 extraEnvFrom:
@@ -20,6 +22,8 @@ worker:
       value: "google"
     - name: "METADATA_DATABASE_NAME"
       value: "comet_metadata"
+    - name: "MINIO_PROTOCOL"
+      value: "https"
     - name: "RAILS_LOG_TO_STDOUT"
       value: "true"
   extraEnvFrom:
