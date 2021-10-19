@@ -1,3 +1,14 @@
+ingress:
+  enabled: true
+  hosts:
+    - host: lib-comet-staging.ucsd.edu
+      paths:
+        - path: '/'
+  tls:
+    - hosts:
+        - lib-comet-staging.ucsd.edu
+      secretName: tls-secret
+
 extraEnvVars:
   - name: "AUTH_METHOD"
     value: "google"
