@@ -14,7 +14,7 @@ unless ENV["DB_ADAPTER"] == "nulldb" || aws_access_key_id.nil? || aws_secret_acc
   }
 
   if ENV["MINIO_ENDPOINT"].present?
-    fog_connection_options[:endpoint] = "http://#{ENV["MINIO_ENDPOINT"]}:#{ENV.fetch("MINIO_PORT", 9000)}"
+    fog_connection_options[:endpoint] = "#{ENV.fetch("MINIO_PROTOCOL", "http")}://#{ENV["MINIO_ENDPOINT"]}:#{ENV.fetch("MINIO_PORT", 9000)}"
     fog_connection_options[:path_style] = true
   end
 
