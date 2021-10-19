@@ -44,6 +44,8 @@ extraEnvVars:
     value: "ucsb_model"
   - name: "RAILS_LOG_TO_STDOUT"
     value: "true"
+  - name: "STAGING_AREA_S3_BUCKET"
+    value: "comet-production-batch-source"
 extraEnvFrom:
   - configMapRef:
       name: comet-production-s3-bucket
@@ -65,6 +67,8 @@ worker:
       value: "ucsb_model"
     - name: "RAILS_LOG_TO_STDOUT"
       value: "true"
+    - name: "STAGING_AREA_S3_BUCKET"
+      value: "comet-production-batch-source"
   extraEnvFrom:
     - configMapRef:
         name: comet-production-s3-bucket
