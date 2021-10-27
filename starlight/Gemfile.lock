@@ -255,7 +255,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    devise-guests (0.7.0)
+    devise-guests (0.8.1)
       devise
     devise_invitable (2.0.5)
       actionmailer (>= 5.0)
@@ -622,7 +622,7 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     yard (0.9.26)
-    zeitwerk (2.4.2)
+    zeitwerk (2.5.1)
     zk (1.9.6)
       zookeeper (~> 1.4.0)
     zookeeper (1.4.11)
@@ -651,7 +651,7 @@ DEPENDENCIES
   dalli (= 2.7.11)
   database_cleaner-active_record (= 2.0.1)
   devise (= 4.8.0)
-  devise-guests (= 0.7.0)
+  devise-guests (= 0.8.1)
   dotenv-rails (= 2.7.6)
   factory_bot_rails (= 6.2.0)
   friendly_id (= 5.4.2)
