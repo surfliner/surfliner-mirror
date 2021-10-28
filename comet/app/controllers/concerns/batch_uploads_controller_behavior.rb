@@ -79,6 +79,11 @@ module BatchUploadsControllerBehavior
   # @param model[String] - the model name of the object to create
   # @param file_path[String] - the base path to files
   def perform_ingest(attrs, user, model, file_path)
+    # create batch upload entry
+    batch_upload_entry = BatchUploadEntry.new(batch_upload_id: @batch_record.id,
+      raw_metadata: attrs.to_json)
+    batch_upload_entry.save
+
     file_names = attrs.delete("file name")
 
     # Create object
@@ -96,7 +101,12 @@ module BatchUploadsControllerBehavior
     end
 
     # Add to workflow
-    Hyrax::Workflow::WorkflowFactory.create(work, {}, user)
+    workflow_created = Hyrax::Workflow::WorkflowFactory.create(work, {}, user)
+    if workflow_created
+      # Link batch_upload_entry with Sipity::Entity
+      batch_upload_entry.entity_id = Sipity::Entity(work).id
+      batch_upload_entry.save
+    end
 
     # Index the object
     Hyrax.index_adapter.save(resource: work)
@@ -130,5 +140,18 @@ module BatchUploadsControllerBehavior
 
     s3_handler = Rails.application.config.staging_area_s3_handler
     S3StagingAreaFile.new(path: path, filename: filename, s3_handler: s3_handler)
+  end
+
+  ##
+  # Persist the batch upload record
+  # @param permitted [Hash] - the permitted parameters
+  def persist_batch_upload_record(permitted:)
+    source_content = permitted.key?(:source_file) ? File.open(permitted[:source_file].path).read : ""
+    files_location = permitted.key?(:files_location) ? permitted[:files_location] : ""
+    batch_id = "b#{Time.now.strftime("%Y%m%d%H%M%S%L")}"
+    @batch_record = BatchUpload.new(batch_id: batch_id,
+      source_file: source_content, files_path: files_location, user_id: current_user.id)
+
+    @batch_record.save
   end
 end

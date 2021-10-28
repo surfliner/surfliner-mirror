@@ -1,0 +1,10 @@
+<div id="workflow-actions-under-review" class="batch-workflow-overlay">
+  <% if !@workflow.nil? && @workflow.actions.present? %>
+    <%= render "workflow_actions", workflow: @workflow, objects: @status_list %>
+  <% end %>
+</div>
+<div id="workflow-actions-published" class="batch-workflow-overlay">
+  <% if !@workflow_published.nil? && @workflow_published.actions.present? %>
+    <%= render "workflow_actions", workflow: @workflow_published, objects: @published_list %>
+  <% end %>
+</div>

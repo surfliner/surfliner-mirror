@@ -44,3 +44,12 @@ en:
           files_location: Select files location from staging
       sidebar:
         batch_uploads: "Batch Uploads"
+    workflows:
+      batch_review:
+        button_label: "Batch Review"
+        workflow_actions: "Batch Workflow Actions"
+        successful: "Batch workflow updated successfully."
+        records_updated: "Total records updated:"
+      search_label: "Search:"
+      tab:
+        refined_by_batch: "Refined by Batch"

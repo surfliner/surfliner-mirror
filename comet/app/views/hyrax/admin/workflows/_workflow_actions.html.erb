@@ -1,0 +1,33 @@
+<div id="workflow_controls" class="panel panel-workflow batch-workflow-controls" style="width:50%">
+  <div class="panel-heading">
+    <h2 class="panel-title">
+      <%= t('hyrax.workflows.batch_review.workflow_actions') %>
+    </h2>
+  </div>
+  <%= form_tag "/admin/workflows/batch_actions", method: :put do %>
+    <div id="workflow_controls_collapse" class="panel-body">
+      <div class="col-sm-3 workflow-actions">
+        <h3><%= t('.actions') %></h3>
+
+        <% workflow.actions.each do |key, label| %>
+          <div class="radio">
+            <label>
+              <%= radio_button_tag 'workflow_action[name]', key, key == 'comment_only' %>
+              <%= label %>
+            </label>
+          </div>
+        <% end %>
+      </div>
+      <div class="col-sm-9 workflow-comments">
+        <div class="form-group">
+          <label for="workflow_action_comment"><%= t('.review_comment') %>:</label>
+          <textarea class="form-control" name="workflow_action[comment]" id="workflow_action_comment"></textarea>
+        </div>
+
+        <%= hidden_field_tag "object_ids", objects.map { |r| r.id }.to_json %>
+        <input class="btn btn-primary" type="submit" value="Submit" />
+        <input class="btn btn-primary" type="button" value="Cancel" onclick="cancel_workflow_action();" />
+      </div>
+    </div>
+  <% end %>
+</div>

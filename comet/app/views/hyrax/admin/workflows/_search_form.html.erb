@@ -1,0 +1,18 @@
+<%= form_tag admin_workflows_path, method: :get, class: "search-query-form form-horizontal search-form" do %>
+  <div class="form-group">
+    <label class="control-label col-sm-3" for="batch_workflows_search" style="font-weight:normal;">
+      <%= t("hyrax.workflows.search_label") %>
+    </label>
+    <div class="input-group">
+      <%= text_field_tag :q, params[:q], class: "q form-control batch_workflows_search", placeholder: t("hyrax.search.form.q.placeholder") %>
+
+      <%= hidden_field_tag "batch", @batch_id %>
+
+      <div class="input-group-btn">
+        <button type="submit" class="btn btn-primary search-submit-header">
+          <%= t('hyrax.search.button.html') %>
+        </button>
+      </div>
+    </div><!-- /.input-group -->
+  </div><!-- /.form-group -->
+<% end %>

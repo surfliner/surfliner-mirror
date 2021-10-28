@@ -20,6 +20,8 @@ module Hyrax
 
       Hyrax.logger.debug(permitted)
 
+      persist_batch_upload_record(permitted: permitted)
+
       source_path = permitted[:source_file].path
 
       ::TabularParser
