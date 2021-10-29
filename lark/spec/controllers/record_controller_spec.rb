@@ -69,7 +69,6 @@ RSpec.describe RecordController do
     let(:body) { StringIO.new(serializer.serialize(record: authority)) }
     let(:serializer) { Lark::RecordSerializer.for(content_type: "application/json") }
 
-    # rubocop:disable RSpec/MultipleMemoizedHelpers
     context "with a listener" do
       let(:listener) { FakeListener.new }
 

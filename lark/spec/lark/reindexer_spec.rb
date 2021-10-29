@@ -4,7 +4,6 @@ require "spec_helper"
 require_relative "../../config/environment"
 require_relative "../../lib/lark/reindexer"
 
-# rubocop:disable RSpec/MultipleMemoizedHelpers
 RSpec.describe Lark::Reindexer do
   subject(:reindexer) { described_class.new }
 

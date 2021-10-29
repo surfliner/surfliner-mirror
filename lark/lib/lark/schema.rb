@@ -71,7 +71,7 @@ module Lark
       # @param config [Hash] a flat-style Lark configuration entry
       #
       # @return [Property] a property derived from the given configuration
-      def self.from_config(config) # rubocop:disable Metrics/AbcSize
+      def self.from_config(config)
         key = config.keys.first
 
         new(name: key.underscore.to_sym).tap do |property|

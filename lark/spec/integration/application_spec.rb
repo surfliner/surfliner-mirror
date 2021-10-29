@@ -9,7 +9,6 @@ RSpec.describe Lark::Application do
   # We really want to start this server only once for the whole suite, so we use
   # an instance variable, against RuboCop's advisement.
   #
-  # rubocop:disable RSpec/InstanceVariable
   let(:app_uri) { @app_uri }
 
   before(:context) do
