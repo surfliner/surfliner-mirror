@@ -30,7 +30,7 @@ module Hyrax
         end
       end
 
-      def update_members # rubocop:disable Metrics/MethodLength
+      def update_members
         err_msg = validate
         after_update_error(err_msg) if err_msg.present?
         return if err_msg.present?

@@ -2,6 +2,6 @@
 
 # Generated via
 #  `rails generate hyrax:work_resource GenericObject`
-RSpec.describe "generic_objects/generic_object.html.erb", type: :view do # rubocop:disable  RSpec/EmptyExampleGroup
+RSpec.describe "generic_objects/generic_object.html.erb", type: :view do
   # add generic_object view specs
 end

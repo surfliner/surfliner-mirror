@@ -1,7 +1,7 @@
 # For use with javascript collection selector that allows for searching for an existing collection from add to collection modal.
 # Does not save the selection.  The calling test is expected to click Save and validate the collection membership was added to the work.
 # @param [Collection] collection to select
-def select_member_of_collection(collection) # rubocop:disable Metrics/MethodLength
+def select_member_of_collection(collection)
   find("#s2id_member_of_collection_ids").click
   find(".select2-input").set(collection.title.first)
 
@@ -18,7 +18,7 @@ end
 
 # For use with javascript path selector that allows for searching for directories on S3/Minio.
 # @param [path] the path to select
-def select_s3_path(s3_path) # rubocop:disable Metrics/MethodLength
+def select_s3_path(s3_path)
   find("#s2id_files_location").click
   find(".select2-input").set(s3_path)
 
