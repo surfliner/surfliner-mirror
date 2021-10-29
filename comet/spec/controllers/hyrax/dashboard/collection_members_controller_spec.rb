@@ -5,32 +5,29 @@ RSpec.describe Hyrax::Dashboard::CollectionMembersController, storage_adapter: :
   routes { Hyrax::Engine.routes }
 
   let(:collection) do
-    Hyrax.persister.save(resource: Hyrax::PcdmCollection.new(title: ['Test Collection'],
-                                                             collection_type_gid: collection_type_gid))
+    Hyrax.persister.save(resource: Hyrax::PcdmCollection.new(title: ["Test Collection"], collection_type_gid: collection_type_gid))
   end
 
   let(:collection_type) { Hyrax::CollectionType.create(title: "Spec Type") }
   let(:collection_type_gid) { collection_type.to_global_id.to_s }
   let(:user) { User.create(email: "comet-admin@library.ucsd.edu") }
 
-  before { sign_in(user)}
+  before { sign_in(user) }
 
-  describe '#update_members' do
+  describe "#update_members" do
     let(:members_to_add) { [collection_member] }
 
     let(:parameters) do
-      { id: collection,
-        collection: { members: 'add' },
-        batch_document_ids: members_to_add.map(&:id) }
+      {id: collection,
+       collection: {members: "add"},
+       batch_document_ids: members_to_add.map(&:id)}
     end
 
     let(:collection_member) do
-      Hyrax.persister.save(resource: Hyrax::PcdmCollection.new(title: ['Test Sub Collection'],
-                                                             collection_type_gid: collection_type_gid))
-                                
+      Hyrax.persister.save(resource: Hyrax::PcdmCollection.new(title: ["Test Sub Collection"], collection_type_gid: collection_type_gid))
     end
 
-    it 'can add a collection member to the collection' do
+    it "can add a collection member to the collection" do
       Hyrax::Collections::PermissionsCreateService.create_default(collection: collection, creating_user: user)
       collection.permission_manager.read_users += [user.user_key]
       collection.permission_manager.edit_users += [user.user_key]
