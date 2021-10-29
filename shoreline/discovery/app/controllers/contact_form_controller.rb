@@ -1,5 +1,3 @@
-# rubocop:disable Style/FrozenStringLiteralComment
-
 # contact form controller
 class ContactFormController < ApplicationController
   before_action :build_contact_form

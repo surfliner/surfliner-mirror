@@ -3,7 +3,6 @@
 ##
 # @see bin/ingest and doc/deploy.md
 module Importer
-  # rubocop:disable Layout/LineLength
   XPATHS = {
     dc_description_s: "//xmlns:identificationInfo//xmlns:abstract/gco:CharacterString",
     dc_format_s: "//xmlns:MD_Format/xmlns:name/gco:CharacterString",
