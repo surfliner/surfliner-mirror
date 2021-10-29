@@ -37,16 +37,23 @@ module Hyrax
       Hyrax.logger.debug(permitted)
 
       object_ids = JSON.parse(params[:object_ids])
+
+      results = []
       object_ids.each do |id|
         work = Hyrax.query_service.find_by(id: id)
 
         workflow_action = Hyrax::Forms::WorkflowActionForm.new(current_ability: current_ability,
           work: work, attributes: permitted)
-        workflow_action.save
+        results << workflow_action.save
       end
 
-      redirect_to(admin_workflows_path,
-        notice: "#{t("hyrax.workflows.batch_review.successful")} #{t("hyrax.workflows.batch_review.records_updated")} #{object_ids.length}.")
+      if results.include? false
+        redirect_to(admin_workflows_path,
+          alert: t("hyrax.workflows.batch_review.failed"))
+      else
+        redirect_to(admin_workflows_path,
+          notice: "#{t("hyrax.workflows.batch_review.successful")} #{t("hyrax.workflows.batch_review.records_updated")} #{object_ids.length}.")
+      end
     end
 
     private

@@ -48,6 +48,7 @@ en:
       batch_review:
         button_label: "Batch Review"
         workflow_actions: "Batch Workflow Actions"
+        failed: "Batch workflow update failed: unauthorized."
         successful: "Batch workflow updated successfully."
         records_updated: "Total records updated:"
       search_label: "Search:"
