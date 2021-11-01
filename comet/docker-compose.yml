@@ -114,7 +114,7 @@ services:
       - comet
 
   minio:
-    image: bitnami/minio:2021
+    image: bitnami/minio:2021.6.17
     ports:
       - '9001:9001'
       - '9000:9000'
