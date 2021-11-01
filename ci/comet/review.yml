@@ -79,6 +79,7 @@ comet:deploy:ucsb-review:
       --values charts/snippets/comet/init-containers.yaml
       --values charts/snippets/comet/review-limit-defaults.yaml
       --values charts/snippets/comet/review-deploy.yaml
+      --values charts/snippets/comet/ucsb-review-deploy.yaml
 
 comet:cleanup:ucsb-review:
   extends:

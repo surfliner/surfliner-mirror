@@ -1,7 +1,5 @@
 ingress:
   enabled: true
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-staging
 livenessProbe:
   enabled: true
   path: "/healthz"
