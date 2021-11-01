@@ -77,6 +77,7 @@ comet:deploy:ucsb-review:
       --set dbPreSetupInitContainer[0].envFrom[1].secretRef.name=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax
       --values charts/snippets/surfliner/solr-review.yaml
       --values charts/snippets/comet/init-containers.yaml
+      --values charts/snippets/comet/review-limit-defaults.yaml
       --values charts/snippets/comet/review-deploy.yaml
 
 comet:cleanup:ucsb-review:

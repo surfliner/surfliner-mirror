@@ -61,14 +61,6 @@ postgresql:
   persistence:
     enabled: false
 
-resources:
-  limits:
-    memory: 512Mi
-    cpu: 500m
-  requests:
-    memory: 128Mi
-    cpu: 50m
-
 worker:
   extraEnvVars:
     - name: "AUTH_METHOD"
@@ -81,10 +73,3 @@ worker:
       value: "comet-review"
     - name: "STAGING_AREA_S3_BUCKET"
       value: "comet-staging-area-review"
-  resources:
-    limits:
-      memory: 512Mi
-      cpu: 500m
-    requests:
-      memory: 128Mi
-      cpu: 50m
