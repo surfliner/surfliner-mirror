@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe Hyrax::Workflow::BatchActionableObjects do
-  subject(:service) { described_class.new(user: user) }
+  subject(:service) { described_class.new(user: user, q: q, batch_id: batch_id) }
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
 
   describe "#each" do
