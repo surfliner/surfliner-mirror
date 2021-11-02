@@ -13,7 +13,7 @@ RSpec.describe "Base Workflow", type: :system, js: true do
 
   it "deposits items into workflow" do
     visit "/dashboard"
-    click_on "Works"
+    click_on "Objects"
     click_on "Add new work"
 
     fill_in("Title", with: "Object in Workflow")

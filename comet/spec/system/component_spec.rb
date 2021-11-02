@@ -9,7 +9,7 @@ RSpec.describe "Components", type: :system, js: true do
 
   xit "can attach new objects as components" do
     visit "/dashboard"
-    click_on "Works"
+    click_on "Objects"
     click_on "Add new work"
 
     fill_in("Title", with: "Parent Object")

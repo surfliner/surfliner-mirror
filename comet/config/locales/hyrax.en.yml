@@ -65,7 +65,7 @@ en:
           notification: Project deleted.
         document_list:
           edit: Edit
-          no_works:  The Project does not contain any works.
+          no_works:  The Project does not contain any objects.
           title: List of items managed by this Project
         edit:
           header: 'Edit Project: %{title}'
@@ -84,12 +84,12 @@ en:
             action: Action
             agent_name: Depositors of this Project
             empty: No depositors have been added to this Project.
-            help: Depositors can add new works to the Project
+            help: Depositors can add new objects to the Project
           managers:
             action: Action
             agent_name: Managers of the Project
             empty: No managers have been added.
-            help: Managers of the Project can edit the set metadata, participants, and release and visibility settings. Managers can also edit work metadata, add to or remove files from a work, and add new works to the Project.
+            help: Managers of the Project can edit the set metadata, participants, and release and visibility settings. Managers can also edit object metadata, add to or remove files from an object, and add new objects to the Project.
             remove: Remove
             title: Managers
             type: Type
@@ -98,16 +98,16 @@ en:
             action: Action
             agent_name: Viewers of This Set
             empty: No viewers have been added to the Project.
-            help: Viewers can view works in the set regardless of the visibility settings applied to the work. For example, viewers can view works in this set even if the works are currently embargoed or restricted.
+            help: Viewers can view objects in the set regardless of the visibility settings applied to the object. For example, viewers can view objects in this set even if the objects are currently embargoed or restricted.
             remove: Remove
             title: Viewers
             type: Type
         form_visibility:
           cancel: Cancel
-          page_description: Release and visibility settings determine the options available to depositors when submitting a work. Changes to these settings do not affect previously deposited works.
+          page_description: Release and visibility settings determine the options available to depositors when submitting an object. Changes to these settings do not affect previously deposited objects.
           release:
             description: Set embargoes and lease polices for the Project.
-            fixed: Depositor must choose embargo -- delay release of all works for the duration of the embargo period.
+            fixed: Depositor must choose embargo -- delay release of all objects for the duration of the embargo period.
             no_delay: Do not allow embargoes or leases
             title: Release
             varies:
@@ -131,21 +131,36 @@ en:
         form_workflow:
           cancel: Cancel
           no_workflows: There are no workflows to select.
-          page_description: Each Project has a workflow associated with it. This workflow is applied to all works added to the Project. Select the workflow below.
+          page_description: Each Project has a workflow associated with it. This workflow is applied to all objects added to the Project. Select the workflow below.
         new:
           header: Create New Project
         show:
           breadcrumb: View Set
           header: Project
-          item_list_header: Works in this Project
+          item_list_header: Objects in this Project
         show_actions:
           confirm_delete: Are you sure you wish to delete the Project? This action cannot be undone.
+      sidebar:
+        works: Objects
+        works_listing: Objects listing
+      stats:
+        headers:
+          main: Object Statistics
+          total: 'Total Objects:'
+          visibility: Totals by Visibility
     base:
+      form:
+        batch_upload_hint: To create a separate object for each of the files, go to
       form_child_work_relationships:
-        attach_new_work: Deposit new work as component of this object
-        caption: This work currently has these components
+        actions:
+          remove: Remove from this object
+        attach_new_work: Deposit a new object as component of this object
+        caption: This object currently has these components
         confirm:
           text: Removing this component will not remove it from the repository, only from the parent object. Are you sure you want to remove this component?
+        header:
+          actions: Action
+          title: Title
       show_actions:
         attach_child: Add Component
       work_button_row:
@@ -158,7 +173,7 @@ en:
         files: Files
         subtitle: Recent activity
         title: Projects
-        works: Works
+        works: Objects
     directory:
       suffix: "@example.org"
     footer:

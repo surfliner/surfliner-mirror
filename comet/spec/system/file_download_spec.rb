@@ -15,7 +15,7 @@ RSpec.describe "FileDownload", type: :system, storage_adapter: :memory, metadata
 
   it "can attach and download a file" do
     visit "/dashboard"
-    click_on "Works"
+    click_on "Objects"
     click_on "Add new work"
 
     click_link "Files"
