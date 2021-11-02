@@ -2,8 +2,13 @@
 
 require "fog/aws"
 
-aws_access_key_id = ENV["REPOSITORY_S3_ACCESS_KEY"] || ENV["MINIO_ACCESS_KEY"]
-aws_secret_access_key = ENV["REPOSITORY_S3_SECRET_KEY"] || ENV["MINIO_SECRET_KEY"]
+# These values can come from a variety of ENV vars
+aws_access_key_id = ENV.slice("REPOSITORY_S3_ACCESS_KEY",
+  "MINIO_ACCESS_KEY",
+  "MINIO_ROOT_USER").values.first
+aws_secret_access_key = ENV.slice("REPOSITORY_S3_SECRET_KEY",
+  "MINIO_SECRET_KEY",
+  "MINIO_ROOT_PASSWORD").values.first
 
 # skip this setup if just building the app image or no aws configuration
 unless ENV["DB_ADAPTER"] == "nulldb" || aws_access_key_id.nil? || aws_secret_access_key.nil?
