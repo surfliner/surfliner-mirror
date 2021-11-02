@@ -192,15 +192,14 @@ memcached:
 minio:
   enabled: false
   defaultBuckets: starlight:download
-  accessKey:
-    password: starlight-access-key
-  secretKey:
-    password: starlight-secret-key
+  auth:
+    rootUser: starlight-access-key
+    rootPassword: starlight-secret-key
   persistence:
     enabled: false
   image:
     repository: bitnami/minio
-    tag: 2021-debian-10
+    tag: 2021.10.27
 
 # Configuration for postgresql chart
 # see: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md
