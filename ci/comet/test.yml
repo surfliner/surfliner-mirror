@@ -51,7 +51,7 @@ comet:test:system:
     AUTH_METHOD: "developer"
     HUB_URL: "http://localhost:4444/wd/hub/"
     MINIO_ACCESS_KEY: "minio-access-key"
-    MINIO_DEFAULT_BUCKETS: "comet-test-bucket"
+    MINIO_DEFAULT_BUCKETS: "comet-test-bucket,comet-staging-area-test"
     MINIO_ENDPOINT: "minio"
     MINIO_SECRET_KEY: "minio-secret-key"
     REPOSITORY_S3_BUCKET: "comet-test-bucket"
