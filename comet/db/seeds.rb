@@ -58,3 +58,6 @@ end
 # Create default user collection type to enable the New Collection button
 puts "\n== Creating default user collection type"
 Rake::Task["hyrax:default_collection_types:create"].execute
+
+# Upload examples files to S3/Minio
+Rake::Task["comet:staging_area:upload_files"].execute if Rails.application.config.staging_area_s3_enabled
