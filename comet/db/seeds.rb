@@ -59,5 +59,7 @@ end
 puts "\n== Creating default user collection type"
 Rake::Task["hyrax:default_collection_types:create"].execute
 
-# Upload examples files to S3/Minio
-Rake::Task["comet:staging_area:upload_files"].execute if Rails.application.config.staging_area_s3_enabled
+# Upload examples files to S3/Minio on non-production environments
+unless Rails.env.production? || !Rails.application.config.staging_area_s3_enabled
+  Rake::Task["comet:staging_area:upload_files"].execute
+end
