@@ -30,7 +30,7 @@ minio:
   enabled: true
   persistence:
     enabled: false
-  defaultBuckets: comet-review
+  defaultBuckets: comet-review,comet-staging-area-review
   accessKey:
     password: comet-access-key
   secretKey:
