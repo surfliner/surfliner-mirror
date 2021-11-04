@@ -23,9 +23,9 @@ shoreline:
       authentication: login
   loadSolrConfigSet: false
 
+solrRunMode: standalone
 solr:
   enabled: false
-  runMode: standalone
   solrHostname: lib-solr-stage.ucsd.edu
   solrPort: "9010"
   coreName: geodata
