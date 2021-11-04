@@ -60,6 +60,12 @@ puts "\n== Creating default user collection type"
 Rake::Task["hyrax:default_collection_types:create"].execute
 
 # Upload examples files to S3/Minio on non-production environments
-unless Rails.env.production? || !Rails.application.config.staging_area_s3_enabled
+aws_access_key_id = ENV.slice("REPOSITORY_S3_ACCESS_KEY", "MINIO_ACCESS_KEY", "MINIO_ROOT_USER").values.first
+aws_secret_access_key = ENV.slice("REPOSITORY_S3_SECRET_KEY", "MINIO_SECRET_KEY", "MINIO_ROOT_PASSWORD").values.first
+
+unless aws_access_key_id.nil? || aws_secret_access_key.nil? || !Rails.application.config.staging_area_s3_enabled || ENV.fetch("STAGING_AREA_S3_EXAMPLE_FILES", "").blank?
+  begin_time = Time.now
+  sleep 2.seconds and puts "Waiting on S3/Minio connection ..." until Time.now > (begin_time + 5 * 60) || Rails.application.config.staging_area_s3_connection
+
   Rake::Task["comet:staging_area:upload_files"].execute
 end

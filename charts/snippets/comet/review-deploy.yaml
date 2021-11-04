@@ -44,6 +44,8 @@ extraEnvVars:
     value: "comet-review"
   - name: "STAGING_AREA_S3_BUCKET"
     value: "comet-staging-area-review"
+  - name: "STAGING_AREA_S3_EXAMPLE_FILES"
+    value: "1"
 minio:
   enabled: true
   persistence:
