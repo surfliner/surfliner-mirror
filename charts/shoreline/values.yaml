@@ -52,7 +52,6 @@ shoreline:
 # Configuration for solr chart
 # see: https://github.com/helm/charts/blob/master/incubator/solr/values.yaml
 solr:
-  runMode: cloud # Solr server mode - can be either cloud or standalone
   enabled: true
   image:
     repository: bitnami/solr
