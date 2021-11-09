@@ -13,6 +13,8 @@ image:
 nameOverride: ""
 fullnameOverride: ""
 
+solrRunMode: cloud
+
 service:
   type: ClusterIP
   port: 80
