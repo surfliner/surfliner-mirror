@@ -102,7 +102,7 @@ postgresql:
   nameOverride: database
   image:
     repository: bitnami/postgresql
-    tag: 12.8.0
+    tag: 12.9.0
   enabled: true
   cpu: 1000m
   memory: 1Gi
