@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   concern :exportable, Blacklight::Routes::Exportable.new
   #
   # https://github.com/mperham/sidekiq/wiki/Monitoring#devise
-  authenticate :user, lambda { |u| u.superadmin? } do
+  authenticate :user, lambda { |u| u.groups.include? "admin" } do
     mount Sidekiq::Web => "/sidekiq"
   end
 
