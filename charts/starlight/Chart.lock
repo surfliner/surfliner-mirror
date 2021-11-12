@@ -10,9 +10,9 @@ dependencies:
   version: 9.8.12
 - name: redis
   repository: https://charts.bitnami.com/bitnami
-  version: 15.5.4
+  version: 15.5.5
 - name: solr
   repository: https://charts.bitnami.com/bitnami
   version: 2.1.2
-digest: sha256:4566fd7e58aee38a724ec1c400d9f7c5ec0a8c3990d5ed59eb2ce610120a815c
-generated: "2021-11-02T13:49:58.70247682-07:00"
+digest: sha256:5f2cd573f2f4947432515b7a081eb4cddff8944bea761a583d238718767b048c
+generated: "2021-11-12T10:11:38.761698094Z"
