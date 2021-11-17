@@ -55,6 +55,8 @@ en:
       admin_set:
         create: Create Project
         update: Save Project
+    work:
+      new: Create Object
   hyrax:
     account_name: My Institution Account Id
     admin:
@@ -174,6 +176,35 @@ en:
         subtitle: Recent activity
         title: Projects
         works: Objects
+      all:
+        works: All Objects
+      collections:
+        show:
+          item_count: Objects
+        work_action_menu:
+          delete_work: Delete Object
+          deleting_from_work: Deleting an Object is permanent.
+          edit_work: Edit Object
+          transfer_ownership_of_work: Transfer ownership
+      create_work: Create Object
+      heading_actions:
+        create_work: Create Object
+        select_type_of_work: Select type of Object
+      managed:
+        works: Managed Objects
+      my:
+        action:
+          delete_works: Delete Objects
+          edit_works: Edit Objects
+          work_confirmation: Deleting an Object is permanent.
+        facet_label:
+          works: "Filter Objects:"
+      heading:
+        work:
+          visibility: Visibility
+      shared: Shared with Me
+      works: Objects
+      your_works: Your Objects
     directory:
       suffix: "@example.org"
     footer:
@@ -189,7 +220,21 @@ en:
     institution_name_full: Project Surfliner, University of California
     product_name: Comet
     product_twitter_handle: "@SamveraRepo"
+    works:
+      create:
+        breadcrumb: New
+        header: Add Object
+      form:
+        in_other_works: This Object as a Component
+        in_this_work: Components of this Object
+      progress:
+        header: Save
+      update:
+        header: Edit
   simple_form:
     labels:
       defaults:
         admin_set_id: Project
+    placeholders:
+      defaults:
+        find_child_work: Search for an Object...
