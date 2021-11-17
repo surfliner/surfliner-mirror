@@ -918,7 +918,7 @@ GEM
     thor (1.1.0)
     thread_safe (0.3.6)
     tilt (2.0.10)
-    tinymce-rails (5.10.1)
+    tinymce-rails (5.10.2)
       railties (>= 3.1.1)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
@@ -1014,7 +1014,7 @@ DEPENDENCIES
   sidekiq (= 6.2.1)
   solr_utils!
   standard (= 1.4.0)
-  tinymce-rails (= 5.10.1)
+  tinymce-rails (= 5.10.2)
   turbolinks (= 5.2.1)
   uglifier (= 4.2.0)
   valkyrie-sequel (~> 2.2.0)
