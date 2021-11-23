@@ -57,7 +57,7 @@ services:
       - .env
 
   solr:
-    image: solr:8.10.1
+    image: bitnami/solr:8.11.0
     env_file:
       - .env
 
