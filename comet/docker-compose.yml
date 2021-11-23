@@ -60,7 +60,7 @@ services:
       - comet
 
   chrome:
-    image: selenium/standalone-chrome:95.0
+    image: selenium/standalone-chrome:96.0
     logging:
       driver: none
     volumes:
