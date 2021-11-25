@@ -1,5 +1,5 @@
 # renovate: datasource=docker depName=ruby versioning=ruby
-ARG RUBY_VERSION=2.7.4
+ARG RUBY_VERSION=2.7.5
 FROM ruby:$RUBY_VERSION-alpine as base
 
 ARG PROJECTPATH=shoreline
