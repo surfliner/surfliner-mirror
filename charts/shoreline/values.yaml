@@ -65,6 +65,9 @@ solr:
   collection: collection1 # use if solr.runMode is cloud
   cloudBoostrap: true
   cloudEnabled: true
+  extraEnvVars:
+    - name: SOLR_OPTS
+      value: "-Dlog4j2.formatMsgNoLookups=true"
   # replicas: 3 # scale the stateful set up/down
   # persistence:
   #   enabled: false # uncomment to disable PVCs for disposable solr
