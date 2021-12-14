@@ -63,8 +63,8 @@ solr:
     adminUsername: admin
     adminPassword: admin
   configName: shorelineconf
-  coreName: shoreline # use if solr.runMode is standalone
-  collection: collection1 # use if solr.runMode is cloud
+  coreName: shoreline # use if solrRunMode is standalone
+  collection: collection1 # use if solrRunMode is cloud
   cloudBoostrap: true
   cloudEnabled: true
   extraEnvVars:
