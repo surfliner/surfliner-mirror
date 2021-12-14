@@ -68,7 +68,11 @@ ingress:
   hosts: ['starlight.local']
   tls: []
 
+
+
 starlight:
+  solrRunMode: cloud
+  disableSolrConfigInit: false
   allow_robots: false # allow crawling via robots.txt
   loadSolrConfigSet: true # use false to skip solr configset maintenance init container
   application:
@@ -143,8 +147,8 @@ solr:
     enabled: true
     adminUsername: admin
     adminPassword: admin
-  coreName: starlight
-  collection: collection1
+  coreName: starlight # used if starlight.solrRunMode is 'standalone'
+  collection: starlight # used if starlight.solrRunMode is 'cloud'
   cloudBoostrap: true
   cloudEnabled: true
   persistence:

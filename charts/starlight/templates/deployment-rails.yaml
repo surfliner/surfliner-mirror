@@ -25,7 +25,7 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       initContainers:
-        {{- if .Values.starlight.loadSolrConfigSet }}
+        {{- if and (eq (include "starlight.solr.cloudEnabled" .) "true") (not .Values.starlight.disableSolrConfigInit) }}
         - name: load-solr-config
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: Always

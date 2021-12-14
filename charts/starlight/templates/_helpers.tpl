@@ -101,6 +101,22 @@ Supports using an existing secret instead of one built using the Chart
 {{- end -}}
 {{- end -}}
 
+{{- define "starlight.solr.cloudEnabled" -}}
+{{- if .Values.solr.enabled -}}
+{{- .Values.solr.cloudEnabled }}
+{{- else -}}
+{{- (eq "cloud" (lower .Values.starlight.solrRunMode)) }}
+{{- end -}}
+{{- end -}}
+
+{{- define "starlight.solr.collection_core_name" -}}
+{{- if eq (include "starlight.solr.cloudEnabled" .) "true" -}}
+{{- .Values.solr.collection -}}
+{{- else -}}
+{{- .Values.solr.coreName -}}
+{{- end -}}
+{{- end -}}
+
 {{/*
 Solr hostname, supporting external hostname as well
 */}}
@@ -112,16 +128,17 @@ Solr hostname, supporting external hostname as well
 {{- end -}}
 {{- end -}}
 
-{{/*
-Solr URL, which requires authentication is enabled
-*/}}
 {{- define "starlight.solr.url" -}}
+{{- $collection_core := (include "starlight.solr.collection_core_name" .) -}}
+{{- $host := (include "starlight.solr.fullname" .) -}}
+{{- $port := .Values.solr.solrPort | default "8983" -}}
+{{- if .Values.solr.authentication.enabled -}}
 {{- $user := .Values.solr.authentication.adminUsername -}}
 {{- $pass := .Values.solr.authentication.adminPassword -}}
-{{- $collection := .Values.solr.collection -}}
-{{- $host := (include "starlight.solr.fullname" .) -}}
-{{- $port := "8983" -}}
-{{- printf "http://%s:%s@%s:%s/solr/%s" $user $pass $host $port $collection  -}}
+{{- printf "http://%s:%s@%s:%s/solr/%s" $user $pass $host $port $collection_core -}}
+{{- else -}}
+{{- printf "http://%s:%s/solr/%s" $host $port $collection_core -}}
+{{- end -}}
 {{- end -}}
 
 {{/*
