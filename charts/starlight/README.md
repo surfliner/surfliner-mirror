@@ -120,7 +120,39 @@ See: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.m
 
 #### Solr
 
-See: https://github.com/helm/charts/blob/master/incubator/solr/values.yaml
+See: https://github.com/bitnami/charts/blob/master/bitnami/solr/values.yaml
+
+| Parameter | Description | Default | Environment Variable |
+| --------- | ----------- | ------- | -------------------- |
+| `starlight.solrRunMode` | Defines if the instance of Solr is running in `cloud` or `standalone` mode; only used when `solr.enabled` is `false` | `cloud` | N/A |
+| `solr.enabled` | Defines if this chart should provision/configure Solr using the dependency chart | `true` | N/A |
+| `solr.solrHostname` | Defines the hostname of the server running Solr (only set if `solr.enabled` is `false`) | `nil` | `SOLR_HOST` |
+| `solr.solrPort` | Defines the network port Solr can be accessed (only set if `solr.enabled` is `false`) | `8983` | `SOLR_PORT` |
+| `solr.zookeeperHostname` | Defines the hostname of the server running Zookeeper (only set if `solr.enabled` is `false` and `starlight.solrRunMode` is `cloud`) | `nil` | `ZK_HOST` |
+| `solr.zookeeperPort` | Defines the network port Zookeeper can be accessed (only set if `solr.enabled` is `false` and `starlight.solrRunMode` is `cloud`) | `2181` | `ZK_PORT` |
+| `solr.collection` | Solr collection name to use for application (used only if `starlight.solrRunMode` is `cloud`) | `collection1` | `SOLR_CORE_NAME` |
+| `solr.coreName` | Solr core name to use for application (used only if `starlight.solrRunMode` is `standalone`) | `shoreline` | `SOLR_CORE_NAME` |
+| `solr.authentication.enabled` | Defines if the instance of Solr has Basic Authentication enabled | `true` | N/A |
+| `solr.authentication.adminUsername` | Defines the admin username for Solr Basic Authentication (only set if `solr.authentication.enabled` is `true`) | `admin` | `SOLR_ADMIN_USER` |
+| `solr.authentication.adminPassword` | Defines the admin password for Solr Basic Authenticaiton (only set if `solr.authentication.enabled` is `true`) | `admin` | `SOLR_ADMIN_PASSWORD` |
+
+**SolrCloud vs. Standalone Solr**
+
+You have the option to run an instance of Solr either as a part of the helm install or not managed by the chart (external). This is configured using the `solr.enabled` value.
+
+When set to `true`, the Solr environment that comes with the chart is SolrCloud, and the chart will automatically set-up and configure the application to integrate with this instance.
+
+When set to `false`, you have the option to run an instance of Solr using either SolrCloud or standalone. This is configured using the `starlight.solrRunMode` value. You also need to set additional values to configure the application to integrate with the external Solr instance (reference the solr parameters chart above).
+
+Differences to note about SolrCloud and Standalone:
+- Collections versus Cores
+  - SolrCloud uses the concept of _collections_ whereas Standalone uses _cores_. This is why we have the two values `solr.collectionName` and `solr.coreName` - be sure to se these accordingly.
+- Zookeeper
+  - SolrCloud comprises a set of Solr nodes and Zookeeper nodes. If you are running Standalone Solr, zookeeper nodes are not present and those values are not needed.
+
+**Solr Authentication**
+
+If you are using an external Solr environment, you have the option to use or disable Basic Authentication for the appliation to access Solr. Be sure to set the `solr.authentication` appropriately.
 
 #### Redis
 
