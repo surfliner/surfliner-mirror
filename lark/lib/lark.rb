@@ -24,10 +24,10 @@ module Lark
   extend Dry::Configurable
 
   setting :database
-  setting :event_adapter, :sql
-  setting :index_adapter, :solr
-  setting :minter, Lark::Minter
-  setting :event_stream, EventStream.instance
+  setting :event_adapter, default: :sql
+  setting :index_adapter, default: :solr
+  setting :minter, default: Lark::Minter
+  setting :event_stream, default: EventStream.instance
 
   ##
   # The core container for the application.
