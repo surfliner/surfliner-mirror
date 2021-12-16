@@ -313,11 +313,11 @@ PLATFORMS
 DEPENDENCIES
   capybara_discoball (~> 0.1.0)
   dotenv
-  dry-configurable (~> 0.13)
-  dry-events (~> 0.3)
-  dry-system (~> 0.18)
-  dry-transaction (~> 0.13)
-  dry-validation (~> 1.5)
+  dry-configurable (= 0.13.0)
+  dry-events (= 0.3.0)
+  dry-system (= 0.21.0)
+  dry-transaction (= 0.13.3)
+  dry-validation (= 1.7.0)
   ezid-client (= 1.9.1)
   factory_bot
   pry
