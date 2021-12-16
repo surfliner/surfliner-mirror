@@ -3,7 +3,6 @@
 require "dotenv/tasks" unless ENV["RACK_ENV"] == "production"
 
 require "valkyrie"
-require_relative "../../config/environment"
 require "bundler"
 
 Bundler.require

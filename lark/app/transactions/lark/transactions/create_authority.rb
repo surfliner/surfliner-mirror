@@ -33,7 +33,7 @@ module Lark
       private
 
       def validate_change_properties(attributes:)
-        result = AuthorityContract[:concept].new.call(attributes)
+        result = Contracts::AuthorityContract[:concept].new.call(attributes)
 
         return Success(attributes: attributes) if result.success?
 

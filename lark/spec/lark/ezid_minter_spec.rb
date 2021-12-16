@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require_relative "../../lib/lark/ezid_minter"
 
 RSpec.describe Lark::EzidMinter do
   context "with ezid minting enabled" do

@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe FindByEventProperty do
+RSpec.describe Queries::FindByEventProperty do
   subject(:query) { described_class.new(query_service: query_service) }
 
   let(:adapter) { Valkyrie::MetadataAdapter.find(Lark.config.index_adapter) }

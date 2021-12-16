@@ -6,10 +6,10 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem "capybara_discoball", "~> 0.1.0", group: "test"
 gem "dotenv", group: %w[development test]
-gem "dry-configurable", "~> 0.13.0"
-gem "dry-events", "~> 0.3.0"
-gem "dry-system", "~> 0.18.0"
-gem "dry-transaction", "~> 0.13.0"
+gem "dry-configurable", "~> 0.13"
+gem "dry-events", "~> 0.3"
+gem "dry-system", "~> 0.18"
+gem "dry-transaction", "~> 0.13"
 gem "dry-validation", "~> 1.5"
 gem "ezid-client", "1.9.1"
 gem "factory_bot", group: "test"

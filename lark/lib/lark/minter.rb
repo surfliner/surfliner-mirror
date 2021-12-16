@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative "ezid_minter"
-
 module Lark
   ##
   # This service is responsible for creating unique identifier for an Authority record

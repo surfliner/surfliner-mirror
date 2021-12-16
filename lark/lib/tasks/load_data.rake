@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require_relative "../../config/environment"
-require_relative "../../app/transactions/lark/transactions/create_authority"
-require_relative "../lark/record_parsers/json_parser"
 
 namespace :lark do
   desc "load dummy records"
@@ -24,6 +22,6 @@ def import_data(records)
 end
 
 def parser(record)
-  parser = Lark::RecordParsers::JSONParser.new
+  parser = Lark::RecordParsers::JsonParser.new
   parser.parse(record)
 end

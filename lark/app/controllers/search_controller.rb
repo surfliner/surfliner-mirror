@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative "concerns/record_controller_behavior"
-
 ##
 # A controller that resolves searching of authority records.
 class SearchController < ApplicationController
@@ -59,8 +57,9 @@ class SearchController < ApplicationController
   # perform basic term search
   # @params [Hash] the request parameters map
   def search(params)
-    label = search_term params
-    FindByStringProperty.new(query_service: query_service)
+    label = search_term(params)
+
+    query_service.custom_queries
       .find_by_string_property(property: label,
         value: params[label])
   end

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require_relative "../../lib/lark/indexer"
-require_relative "../../config/environment"
 
 RSpec.describe Lark::Indexer do
   subject(:indexer) { described_class.new }

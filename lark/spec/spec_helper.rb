@@ -6,6 +6,8 @@ require "fakes/fake_resource"
 require "fakes/failure_minter"
 require "support/build_strategies/valkyrie_create"
 
+require_relative "../config/environment"
+
 FactoryBot.register_strategy(:create, ValkyrieCreate)
 
 RSpec.configure do |config|

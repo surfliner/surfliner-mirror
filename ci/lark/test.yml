@@ -29,7 +29,7 @@ lark:api:test:unit:
     - upload-solr-configs.sh /home/lark/app/solr/config
     - create-solr-collection.sh
     - bundle check || bundle
-    - rake db:create db:migrate
+    - bundle exec rake db:create db:migrate
     - bundle exec rspec
   extends:
     - .only-refs-default

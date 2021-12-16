@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative "authority"
-
 ##
 # A full Agent record built from/saved to the index.
 #

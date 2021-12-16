@@ -1,15 +1,24 @@
 # frozen_string_literal: true
 
-require "dry/transaction"
 require "rack/healthcheck"
 require "sinatra"
 require "valkyrie"
+require "zeitwerk"
 require_relative "../lib/lark"
 
 ##
 # Lark is an authority control platform.
 module Lark
-  Core.finalize! # load the application dependencies
+  Zeitwerk::Loader.new.tap do |loader|
+    root = Lark::Core.config.root
+    loader.inflector.inflect "version" => "VERSION"
+    loader.push_dir root.join("lib").realpath
+    loader.push_dir root.join("app").realpath
+    loader.push_dir root.join("app/controllers").realpath
+    loader.push_dir root.join("app/controllers/concerns").realpath
+    loader.push_dir root.join("app/models").realpath
+    loader.push_dir root.join("app/transactions").realpath
+  end.setup
 
   ##
   # The Lark application is a basic Rack application implementing the Lark API.

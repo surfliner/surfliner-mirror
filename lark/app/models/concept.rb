@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative "authority"
-
 ##
 # A full Concept record built from/saved to the index.
 #

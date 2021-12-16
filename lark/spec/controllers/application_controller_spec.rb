@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require_relative "../../config/environment"
 
 RSpec.describe ApplicationController do
   subject(:controller) { Class.new(described_class).new(request: request) }

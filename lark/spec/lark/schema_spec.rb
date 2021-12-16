@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require_relative "../../config/environment"
 
 RSpec.describe Lark::Schema do
   it "is inspectable" do

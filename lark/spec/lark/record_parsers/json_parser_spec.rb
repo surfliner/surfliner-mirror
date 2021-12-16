@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require_relative "../../../lib/lark/record_parsers/json_parser"
 
-RSpec.describe Lark::RecordParsers::JSONParser do
+RSpec.describe Lark::RecordParsers::JsonParser do
   subject(:parser) { described_class.new }
 
   describe "#parse" do

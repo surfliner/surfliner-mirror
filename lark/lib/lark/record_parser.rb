@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative "record_parsers/json_parser"
-
 module Lark
   ##
   # @abstract A parser for input authority records. Implementing classes should
@@ -17,7 +15,7 @@ module Lark
     def self.for(content_type:)
       case content_type
       when "application/json", "text/csv"
-        RecordParsers::JSONParser.new
+        RecordParsers::JsonParser.new
       else
         raise UnsupportedMediaType, content_type
       end

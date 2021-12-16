@@ -4,7 +4,7 @@ module Lark
   module RecordParsers
     ##
     # A paser for JSON content input through the API.
-    class JSONParser
+    class JsonParser
       ##
       # @see Lark::RecordParser#parse
       def parse(input)

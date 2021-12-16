@@ -3,8 +3,6 @@
 require "spec_helper"
 require "valkyrie/specs/shared_specs"
 
-require_relative "../../config/environment"
-
 RSpec.describe Agent do
   subject(:agent) { described_class.new }
 

@@ -2,17 +2,14 @@
 
 require "dry/configurable"
 require "dry/system/container"
+require "dry/system/loader/autoloading"
+require "dry/transaction"
 require "dry/validation"
 require "yaml"
 
-require_relative "lark/version"
 require_relative "lark/event_stream"
-require_relative "lark/indexer"
 require_relative "lark/minter"
-require_relative "lark/record_parser"
-require_relative "lark/record_serializer"
 require_relative "lark/schema"
-require_relative "lark/reindexer"
 
 ##
 # The top-level module for the Lark project.
@@ -38,10 +35,13 @@ module Lark
   class Core < Dry::System::Container
     configure do |config|
       config.name = :lark
-      config.auto_register = %w[app]
-    end
 
-    load_paths!("lib", "app")
+      config.component_dirs.loader = Dry::System::Loader::Autoloading
+      config.component_dirs.add_to_load_path = false
+
+      config.component_dirs.add("app")
+      config.component_dirs.add("lib")
+    end
   end
 
   ##

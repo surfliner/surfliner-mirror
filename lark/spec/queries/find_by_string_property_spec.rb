@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe FindByStringProperty do
+RSpec.describe Queries::FindByStringProperty do
   subject(:query) { described_class.new(query_service: query_service) }
 
   let(:adapter) { Valkyrie::MetadataAdapter.find(Lark.config.index_adapter) }

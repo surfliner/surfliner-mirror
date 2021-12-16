@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require_relative "../../lib/lark/minter"
 
 RSpec.describe Lark::Minter do
   describe ".for" do

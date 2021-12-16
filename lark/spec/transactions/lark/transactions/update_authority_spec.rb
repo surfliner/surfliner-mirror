@@ -2,7 +2,6 @@
 
 require "spec_helper"
 require "support/matchers/result"
-require_relative "../../../../config/environment"
 
 RSpec.describe Lark::Transactions::UpdateAuthority do
   subject(:transaction) do

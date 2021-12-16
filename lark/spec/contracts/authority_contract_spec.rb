@@ -2,10 +2,8 @@
 
 require "spec_helper"
 require "support/matchers/validations"
-require "yaml"
-require_relative "../../config/environment"
 
-RSpec.describe AuthorityContract do
+RSpec.describe Contracts::AuthorityContract do
   subject(:contract) { described_class.new }
 
   it "rejects unexpected attribute keys" do

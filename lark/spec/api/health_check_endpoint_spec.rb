@@ -3,7 +3,6 @@
 require "spec_helper"
 require "rack/test"
 require "timecop"
-require_relative "../../config/environment"
 
 RSpec.describe "GET /healthz" do
   include ::Rack::Test::Methods

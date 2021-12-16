@@ -2,7 +2,6 @@
 
 require "spec_helper"
 require "support/matchers/result"
-require_relative "../../../../config/environment"
 
 RSpec.describe Lark::Transactions::CreateAuthority do
   subject(:transaction) { described_class.new(event_stream: event_stream) }

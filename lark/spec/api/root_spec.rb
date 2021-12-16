@@ -3,8 +3,6 @@
 require "spec_helper"
 require "rack/test"
 
-require_relative "../../config/environment"
-
 RSpec.describe "GET /" do
   include ::Rack::Test::Methods
 

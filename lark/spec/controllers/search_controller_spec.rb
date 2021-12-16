@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require_relative "../../config/environment"
 
 RSpec.describe SearchController do
   let(:adapter) do

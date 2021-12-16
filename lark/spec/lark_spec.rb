@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require_relative "../lib/lark"
 
 RSpec.describe Lark do
   describe "configuration" do

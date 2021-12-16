@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require_relative "../../config/environment"
 
 RSpec.describe ServiceDescription do
   subject(:service_description) { described_class.new }

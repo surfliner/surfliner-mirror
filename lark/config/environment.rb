@@ -2,8 +2,8 @@
 
 require "dotenv/load" unless ENV["RACK_ENV"] == "production"
 
-require_relative "application"
 require "bundler"
+require_relative "application"
 
 Bundler.require
 
@@ -31,7 +31,7 @@ if Lark.config.event_adapter == :sql
 
   # Register custom queries for event adapter
   # (see Valkyrie::Persistence::CustomQueryContainer)
-  [FindByEventDataProperty, FindByEventProperty].each do |q|
+  [Queries::FindByEventDataProperty, Queries::FindByEventProperty].each do |q|
     Valkyrie::MetadataAdapter
       .find(Lark.config.event_adapter)
       .query_service
@@ -55,10 +55,10 @@ if Lark.config.index_adapter == :solr
     .find(Lark.config.index_adapter)
     .query_service
     .custom_queries
-    .register_query_handler(FindByStringProperty)
+    .register_query_handler(Queries::FindByStringProperty)
 end
 
 require_relative "initializers/healthchecks"
 require_relative "initializers/healthchecks_complete"
 
-Lark.config.event_stream.subscribe(IndexListener.new)
+Lark.config.event_stream.subscribe(Listeners::IndexListener.new)
