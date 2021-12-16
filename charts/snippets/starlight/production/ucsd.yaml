@@ -15,10 +15,10 @@ postgresql:
 solr:
   enabled: false
   solrHostname: lib-solr-prod.ucsd.edu
-  solrPort: "9000"
-  zookeeperHostname: lib-solr-prod.ucsd.edu
-  zookeeperPort: "9003"
+  solrPort: "9020"
+  coreName: starlight
 starlight:
+  solrRunMode: standalone
   allow_robots: true
   application:
     name: "Digital Exhibits"
