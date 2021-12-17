@@ -57,7 +57,7 @@ solr:
   enabled: true
   image:
     repository: bitnami/solr
-    tag: 8.9.0-debian-10-r38
+    tag: 8.11.1-debian-10-r1
   authentication:
     enabled: true
     adminUsername: admin
@@ -67,9 +67,6 @@ solr:
   collection: collection1 # use if solrRunMode is cloud
   cloudBoostrap: true
   cloudEnabled: true
-  extraEnvVars:
-    - name: SOLR_OPTS
-      value: "-Dlog4j2.formatMsgNoLookups=true"
   # replicas: 3 # scale the stateful set up/down
   # persistence:
   #   enabled: false # uncomment to disable PVCs for disposable solr
