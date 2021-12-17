@@ -1,4 +1,10 @@
 ingress:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  tls:
+    secretName: tls-secret
+    hosts:
+      - starlight.eks.dld.library.ucsb.edu
   hosts:
     - starlight.eks.dld.library.ucsb.edu
 existingSecret:
