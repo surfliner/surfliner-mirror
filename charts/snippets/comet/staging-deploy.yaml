@@ -41,3 +41,8 @@ resources:
   requests:
     memory: 350Mi
     cpu: 100m
+
+solr:
+  image:
+    repository: bitnami/solr
+    tag: 8.11.1
