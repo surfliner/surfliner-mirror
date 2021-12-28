@@ -12,8 +12,6 @@ services:
       - sh
       - -c
       - >
-        upload-solr-configs.sh /home/lark/app/solr/config &&
-        create-solr-collection.sh &&
         bundle exec puma --debug -b tcp://0.0.0.0:5000
     volumes:
       - .:/home/lark/app
@@ -25,6 +23,8 @@ services:
     tty: true
     ports:
      - '5000:5000'
+    networks:
+      - lark
 
   db_migrate:
     image: lark
@@ -36,19 +36,34 @@ services:
       - postgres
     volumes:
       - .:/home/lark/app
+    networks:
+      - lark
 
   postgres:
     image: bitnami/postgresql:12.9.0
     restart: always
     env_file:
       - .env
+    networks:
+      - lark
 
   solr:
-    image: bitnami/solr:8.11.0
+    image: bitnami/solr:8.11.1
     env_file:
       - .env
+    ports:
+      - 8983:8983
+    volumes:
+      - ./solr/config:/opt/lark
+      - solr_data:/var/solr/data:cached
+    networks:
+      - lark
 
-  zk:
-    image: zookeeper:3.7
-    env_file:
-      - .env
+networks:
+  lark:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: br-lark
+
+volumes:
+  solr_data:

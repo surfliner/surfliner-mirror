@@ -162,7 +162,7 @@ Body:
 
 ##### With non-existing authority record
 ```sh
-$ curl -i -XPUT --data '{"pref_label":"moomin updated"}' -H "Content-Type: application/json" http://localhost:9292/a_fade_id
+$ curl -i -XPUT --data '{"pref_label":"moomin updated"}' -H "Content-Type: application/json" http://localhost:9292/a_fake_id
 ```
 
 Response
@@ -231,7 +231,7 @@ HTTP/1.1 204 No Content
 
 ##### With non-existing authority record
 ```sh
-$ curl -i -XPOST --data '[{"pref_label":"moomin updated", "id":"a_fade_id"}]' -H "Content-Type: application/json" http://localhost:9292/batch_edit
+$ curl -i -XPOST --data '[{"pref_label":"moomin updated", "id":"a_fake_id"}]' -H "Content-Type: application/json" http://localhost:9292/batch_edit
 ```
 
 Response
