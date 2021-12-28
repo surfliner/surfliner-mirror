@@ -60,7 +60,7 @@ RSpec.describe BatchController do
 
     context "with non-existing authority record" do
       let(:data) do
-        [{id: "a_fade_id", pref_label: "new_label_1"}].to_json
+        [{id: "a_fake_id", pref_label: "new_label_1"}].to_json
       end
       let(:body) { StringIO.new(data) }
 

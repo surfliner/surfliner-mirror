@@ -4,15 +4,11 @@ require "spec_helper"
 require "capybara_discoball"
 
 RSpec.describe Lark::Application do
-  # We really want to start this server only once for the whole suite, so we use
-  # an instance variable, against RuboCop's advisement.
-  #
   let(:app_uri) { @app_uri }
 
   before(:context) do
     @app_uri = URI(Capybara::Discoball.spin(described_class))
   end
-  # rubocop:enable RSpec/InstanceVariable
 
   RSpec::Matchers.define :be_json_for do |data_hash|
     match do |http_body|
@@ -31,5 +27,14 @@ RSpec.describe Lark::Application do
 
     expect(Net::HTTP.get(app_uri + new_record_id))
       .to be_json_for(id: new_record_id, pref_label: ["Moomin"])
+  end
+
+  it "mints ids for new authorities" do
+    data = {pref_label: "Moomin"}.to_json
+    headers = {"Content-Type" => "application/json"}
+
+    body = Net::HTTP.post(app_uri, data, headers).body
+
+    expect(JSON.parse(body)["id"]).not_to be_empty
   end
 end

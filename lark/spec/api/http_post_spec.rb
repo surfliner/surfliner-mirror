@@ -130,7 +130,7 @@ RSpec.describe "POST /" do
     end
 
     context "with POSTing to update a non existing concepts" do
-      let(:data) { [{id: "a_fade_id", pref_label: "new_label_1"}].to_json }
+      let(:data) { [{id: "a_fake_id", pref_label: "new_label_1"}].to_json }
 
       before { post "/batch_edit", data, "CONTENT_TYPE" => ctype }
 

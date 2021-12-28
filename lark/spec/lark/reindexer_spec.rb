@@ -24,7 +24,7 @@ RSpec.describe Lark::Reindexer do
       query_service.find_by(id: id).attributes
     end
 
-    let(:id) { "a_fade_id" }
+    let(:id) { "a_fake_id" }
     let(:authority) { Concept.new(id: id, pref_label: "moomin") }
     let(:data) { {authority_id: id, changes: {pref_label: "moomin"}} }
     let(:event_create) { Event.new type: :create, data: {authority_id: id, changes: {}} }
@@ -61,7 +61,7 @@ RSpec.describe Lark::Reindexer do
   end
 
   describe "#reindex_all" do
-    let(:id1) { "a_fade_id_1" }
+    let(:id1) { "a_fake_id_1" }
     let(:authority1) { Concept.new(id: id1, pref_label: "moomin") }
     let(:data1) { {authority_id: id1, changes: {pref_label: "moomin"}} }
     let(:event_create1) { Event.new type: :create, data: {authority_id: id1, changes: {}} }
@@ -74,7 +74,7 @@ RSpec.describe Lark::Reindexer do
       Event.new type: :change_properties, data: data_change1
     end
 
-    let(:id2) { "a_fade_id_2" }
+    let(:id2) { "a_fake_id_2" }
     let(:authority2) { Concept.new(id: id2, pref_label: "moomin") }
     let(:data2) { {authority_id: id2, changes: {pref_label: "moomin"}} }
     let(:event_create2) { Event.new type: :create, data: {authority_id: id2, changes: {}} }
