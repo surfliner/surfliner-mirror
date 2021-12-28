@@ -321,7 +321,7 @@ DEPENDENCIES
   ezid-client (= 1.9.1)
   factory_bot
   pry
-  puma
+  puma (= 5.5.2)
   rack-healthcheck (~> 0.2.0)
   rack-test
   racksh
@@ -337,4 +337,4 @@ DEPENDENCIES
   valkyrie-sequel (= 2.2.1)
 
 BUNDLED WITH
-   2.2.33
+   2.3.4
