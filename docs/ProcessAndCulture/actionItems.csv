@@ -1,0 +1,156 @@
+Action Item,Date Created,Completed
+Friday Architecture White Paper Meeting restart.,2021-12-01T20:50:44.072Z,
+"Technical focus - architecture discussions - more frequent meetings. ",2021-12-01T20:48:22.048Z,
+"Conference talks reading/watching group. ",2021-12-01T20:47:48.881Z,
+"Finding more ways to have developer open-ended discussion. ",2021-12-01T20:42:03.314Z,
+"Revist the agenda for next time: @Chrissy and @Jessica - Break out sessions for both days? A little more time in breaks? Maybe day 2 quarterly. ",2021-12-01T20:37:19.716Z,
+"Two days half day while virtual. ",2021-12-01T20:35:01.640Z,
+"Create a shared doc for conferences and where people are going, attending, speaking, etc.",2021-11-15T18:55:12.159Z,
+Schedule a meeting on professional development,2021-11-15T18:50:27.930Z,
+"Ask UCLA for documentation feedback. ",2021-11-15T18:49:39.368Z,
+"Keep prodding each other about documentation when lacking. ",2021-11-15T18:46:59.139Z,
+"Future sprints should include a documentation ticket to help improve the integrity of our documentation. ",2021-11-15T18:44:45.568Z,
+"Jessica to schedule a meeting about onboarding processes. How do we get our technical contributors productive and successful at the start. ",2021-11-15T18:43:19.388Z,
+"Talk about products in production in the break-out sessions on Wednesday's All Hands. ",2021-11-15T18:32:20.901Z,
+Jessica to schedule new staff onboarding conversation,2021-11-02T21:47:08.185Z,
+Join Samvera Documentation IG/WG,2021-11-02T21:46:50.781Z,
+Make Hyrax image ad chart publishing a dev congress topic.,2021-11-02T21:39:14.324Z,
+Start talking about common off-cycle work before each workcycle ends.,2021-11-02T21:37:09.839Z,
+tom will plan to present to the Surfliner team about ingest. Surfliner Brown Bags?,2021-11-02T21:36:02.207Z,
+schedule a meeting including Gabriella to plan UCSD's move to Comet production. What is MVP? What are the features that we should focus on to make Comet exciting to UCSD stakeholders.,2021-11-02T21:26:12.731Z,
+"start holding MRs with user facing changes for PO acceptance ",2021-10-12T21:41:33.490Z,
+spend some time in the last sprint optimizing comet CI,2021-10-12T21:27:55.129Z,
+keep on pairin',2021-09-28T21:45:34.754Z,
+make sure every dev has a working dev environment,2021-09-28T21:39:24.489Z,
+fix up dev env docs now that we're on Compose,2021-09-28T21:37:56.244Z,
+what doesn't kill you makes your dev env stronger?,2021-09-28T21:37:28.255Z,
+stack full glasses,2021-09-28T21:36:39.136Z,
+keep talking about deploy status in response to slack notifications,2021-09-28T21:34:00.895Z,
+swarm quickly when finding hyrax dev challenging. goal of swarms should be to fix the sign posts,2021-09-28T21:30:58.750Z,
+"More pairing, less struggling...",2021-09-15T21:49:16.407Z,2021-09-28T21:35:46.699Z
+CLose k3d related tickets; declare k3d env unmaintained.,2021-09-15T21:23:42.408Z,2021-09-28T21:35:43.070Z
+Reinstate docker-compose,2021-09-15T21:19:19.426Z,2021-09-28T21:35:36.229Z
+Surfliner beach party.,2021-07-27T21:33:15.013Z,
+Feel out admin interest in some kind of agile training.,2021-07-27T21:27:26.760Z,
+Don't be afraid to communicate the same thing repeatedly across channels,2021-07-27T21:22:42.085Z,
+"In prep for August meeting, do some strategic communications brainstorming. Jessica to setup a meeting to do this.",2021-07-27T21:19:05.123Z,
+Look into pipeline optimizations. Builds are starting to look slower than we're accustomed to.,2021-07-13T21:49:31.767Z,
+keep naming sprint goals. continue to frame sprint reviews around them.,2021-07-13T21:47:16.714Z,2021-07-27T21:43:24.285Z
+"Make tickets for: test DB, test Bucket, test Solr collection",2021-07-13T21:41:50.880Z,
+consider doing documentation as part of swarm efforts,2021-07-13T21:36:35.521Z,
+Get chart and image publishing into Hyrax's CI pipeline,2021-07-13T21:34:25.199Z,
+Work on Hyrax Yard Docs,2021-07-13T21:31:17.376Z,
+Help build a single on-ramp to Samvera devs. How do we want to do this?,2021-07-13T21:28:40.503Z,
+Start a k8s lessons learned document in the Surfliner repository,2021-07-13T21:21:23.345Z,
+Capture the need for k8s capacity reservations in a ticket.,2021-07-13T21:20:13.471Z,
+Schedule Quarterly/Workcycle Demo,2021-04-27T21:50:46.509Z,2021-07-27T21:43:30.459Z
+Have a Surfliner Party?,2021-04-27T21:45:17.106Z,
+Make a ticket to refine k3d dev environment (tom),2021-04-27T21:36:53.333Z,
+Set sprint goal to help everyone close a ticket in sprint 2,2021-04-13T21:57:22.815Z,2021-04-27T21:22:45.985Z
+"Check-in about external commitments/burdens during standup ",2021-04-13T21:49:04.312Z,
+Plan code tours for Hyrax.,2021-04-13T21:43:19.295Z,
+Keep doing clear sprint goals. Talk together about the path to achieve them.,2021-04-13T21:40:18.496Z,2021-07-27T21:50:22.502Z
+Seek each others' help when stuck.,2021-04-13T21:37:05.521Z,
+"ONBOARDING. What are we doing? For the love. ",2021-02-09T21:44:32.717Z,
+"We include the devops tickets in regular sprints. But alllllllso do a tech debt type sprints. ",2021-02-09T21:39:11.778Z,
+"Onboarding documents for general dev, devops, etc. ",2021-02-09T21:25:34.689Z,
+"Document the existence of the sec channel. ",2021-02-09T21:25:05.295Z,
+be kind to ourselves; be kind to each other,2020-12-15T22:29:52.674Z,
+"Tom B to set up a drawing of the Shoreline architecture meeting at the end of the sprint (meeting). ",2020-11-10T23:00:58.222Z,2020-12-15T22:02:01.420Z
+"Local devops work (UCSB). Meeting with Chrissy on cluster work and monitoring, etc. ",2020-11-10T22:58:01.926Z,
+"Tom and Tom to get together to talk about the Comet presentation and shift of perspective. ",2020-11-10T22:52:10.064Z,
+"Blog post on why we ask for user stories if we're not going to incorporate them? Why do we invite people to kickoff if they're not going to be on the sprint team? ",2020-11-10T22:50:14.328Z,
+"Verify. Sprint 1 for Comet - Calendar - dates of sprints, spring break, and curtailment. ",2020-11-10T22:43:24.804Z,
+"Lark Sprint Planning - Jessica to check calendar to make sure everything is lined up. 
+",2020-11-10T22:39:37.854Z,
+"Swarming when necessary, bringing issues up in Slack and calling attention to that. And then brining up it up in the next standup to see if priorities have adjusted. ",2020-11-10T22:27:21.587Z,
+"Jessica to make a meeting to discussed deployment of Lark/EZID and Starlight issues. ",2020-11-10T22:17:28.264Z,
+"Documentation for helm geoserver (solr and zookeeper deploys). Samvera dev congress - a ticket for the community. Big conversations on who owns that - How do we make that chart something to be deployed and not eat up all your memory? ",2020-10-20T21:41:13.101Z,
+"Establish service-level objectives for Shoreline. I think this is probably true for both campuses. ",2020-10-20T21:38:12.947Z,
+"Do MRs continue to be blocked? Do we need to do more knowledge transfer? Does this continue to be a problem after next sprint review? (lark)  ",2020-10-20T21:26:52.286Z,
+"Having an architecture and code review at the beginning of a sprint if we haven't touched the product in a while has a big pay-off. 
+",2020-10-20T21:24:55.035Z,
+"Matt will propose a meeting around helm chart upgrades requiring manual intervention (Tom, Alex, Josh, Ron/Thor)",2020-08-11T21:41:37.835Z,
+Matt will add a cross-institution email discussion topic to our gitlab issue for the next Surfliner Project meeting. Ensure UCLA (and others as needed) are invited,2020-08-11T21:33:10.044Z,
+Tom will work on deploying a production Starlight documentation instance in k8s,2020-08-11T21:25:40.065Z,
+licensing pair programming tools,2020-02-18T19:08:27.292Z,
+Matt will create a surfliner board ticket for PM related-roles that are currently un-assigned or under-assigned. How can we make this work visible?,2019-08-22T20:27:33.963Z,
+"Tom B to draft stakeholder communication timeline for the post-requirements gathering phase. Aim to create opportunities for people on the periphery to become involved, offer feedback, and incorporate our plans into theirs",2019-11-08T23:15:43.396Z,2020-01-22T17:17:01.459Z
+Tom B. to summarize implementation variance; plan surfliner presentation for before initial development.,2019-11-19T22:20:31.750Z,2020-01-22T17:14:10.289Z
+Sit down and talk about what it takes to become involved in Surfliner (internal sense of model and how we can accept contributions),2019-03-21T18:35:21.134Z,2019-05-16T18:09:31.921Z
+Push longer blocker discussions into other channels (other than stand-up).,2019-04-04T18:44:42.122Z,2019-05-16T18:04:05.755Z
+Invite Scott Smith to appropriate standing meetings,2019-03-21T18:26:35.010Z,2019-04-04T18:59:47.777Z
+"Chrissy to write a ticket to document what we would like to see in terms of starlight sample items ",2019-08-02T20:48:26.544Z,
+"Chrissy or Jess to work on blog post about turning sprint planning document into a ""How we work together"" blog post",2019-03-21T18:54:38.460Z,
+Tom J to start a Slack discussion communication and documentation issues; newly onboarded POs might not have a good sense of how to approach Surfliner transparency practice,2019-11-08T22:49:21.635Z,
+All: keep an eye on ticket size. Break down tickets more readily.,2019-11-19T22:23:44.179Z,
+Tom J. to deliver staging!,2019-11-08T23:05:28.423Z,2019-11-19T22:25:23.649Z
+Chrissy will propose a PO & Tech Lead virtual coffee hour?,2019-08-22T20:32:02.881Z,2020-06-30T21:00:21.947Z
+"tech leads, POs discuss possibility of sprint extension",2020-03-17T17:51:59.301Z,
+Tom J.: Put deployed environments in a clear place. Is this README?,2019-12-04T00:16:15.545Z,2019-12-04T18:09:09.068Z
+"Vivian will explore atom, zoom for driving pair programming. ",2019-03-07T19:37:39.758Z,2019-03-21T19:03:03.935Z
+"Make sure dependencies are known for librarians so that things can be juggled. ",2019-02-27T00:10:12.295Z,2019-05-16T18:18:59.781Z
+Let's make sure the surfliner instance of starlight has all campus themes for testing purposes,2019-08-02T20:44:57.542Z,
+Let's plan to do sprint planning and demos at time slot where DSU is on those days,2019-08-02T20:38:02.475Z,
+"Tom & Jessica sprint grooming and sprint planning, more transparency with the user stories. ",2019-02-27T00:01:53.708Z,2019-03-21T19:01:50.089Z
+Tom has put time on his calendar and made it public for pair programming!,2019-02-27T00:04:22.131Z,2019-02-28T18:55:31.538Z
+schedule retros after demos,2020-04-14T17:54:13.718Z,2020-06-30T21:00:01.277Z
+Create a ticket for a metadata documentation site for Lark. Tom/Jessica/Chrissy,2019-03-07T19:47:44.904Z,2019-03-21T19:03:24.395Z
+Chrissy to update readme with purpose of each meeting and required/optional attendees,2019-03-21T18:54:00.474Z,2019-03-22T13:07:02.785Z
+Shoreline: assert resourcing needs for Feb Cycle,2019-12-04T00:27:48.109Z,2019-12-04T17:37:35.985Z
+"Is there a way to consolidate so that they don't need to be on every sprint. ",2019-02-27T00:08:26.624Z,2019-03-07T19:58:32.747Z
+"End standup with action items for each person. ",2019-02-26T23:41:43.473Z,2019-03-07T19:55:31.971Z
+"Tom will follow up with Jessica on #270, to schedule regular sprint meetings as standing.",2019-08-22T20:36:41.410Z,
+"Explictly assign high-level/champion-level blockers to people at stand-up. ",2019-04-04T18:50:36.916Z,
+"Unpack the CI/CD infrastructure in person and dependancies on norm and conventions (see runner issues) and see if we can prevent this in the future. ",2019-05-16T18:40:40.894Z,
+"We created a board for surfliner wide issues, but no one owns that board.",2019-04-04T18:45:56.161Z,2019-05-16T18:03:24.848Z
+"Tom will update so tickets automatically go to deploy. ",2019-03-07T19:19:30.233Z,2019-05-16T18:11:54.467Z
+Chrissy will add future sprints to GitLab milestones using this pattern,2019-08-02T20:20:13.336Z,2019-08-02T22:05:16.475Z
+"Make tickets external to UCSB/UCSD library as a priority so we can resolve earlier. ",2019-03-07T19:52:25.665Z,2019-05-16T18:10:42.604Z
+"Chrissy will talk with John about putting pressure on Matt Hall regarding Shibboleth. Campus security policy vs storing user credentials in a DB. LDAP doesn't even work. ",2019-03-07T19:25:44.842Z,2019-03-21T19:02:49.280Z
+Reduce single-person bottlenecks; do more knowedge sharing.,2019-04-04T18:37:41.564Z,2019-05-16T18:06:06.862Z
+clean up old action items,2020-02-18T19:10:36.525Z,
+"Getting a yes for gatekeepers for community development before investing development. ",2019-05-16T18:52:54.742Z,
+"Explore an alternative to Shib (perhaps Google). ",2019-05-16T18:55:05.274Z,2019-08-02T20:36:15.219Z
+Ensure blockers are clearly understood and marked at planning.,2019-04-04T18:36:02.341Z,2019-05-16T18:06:14.253Z
+Tom will work with Jessica on documenting how we get standing sprint meetings on the calendars of relevant parties. Consider linking calendar invite files from top-level README.md,2019-08-22T20:37:12.764Z,2020-02-18T18:27:28.102Z
+Reach out to UC DLFx planners to see if we can add a Surfliner lunch to the calendar on Wednesday,2019-03-21T18:35:52.947Z,2019-04-04T19:00:05.900Z
+Matt: Create a ticket in backlog about Runner maintenance and how we can do better,2020-06-30T21:37:49.062Z,2020-06-30T22:03:42.926Z
+More planning/articulation of tickets on Lark,2019-04-04T18:35:00.442Z,2019-05-16T18:08:00.827Z
+Let's not schedule sprints the week before they are to begin in the future,2019-08-02T20:28:38.393Z,
+Follow up about PO Guidelines,2019-12-04T00:27:26.946Z,2019-12-04T17:46:48.092Z
+"Alex: Explore alternative to self-calendaring (3rd-party calendar, Slack bot/plugin, ?)",2020-06-30T21:31:55.620Z,2020-06-30T22:03:48.027Z
+Michael to open a discussion a more robust PO onboarding process (and for everybody).,2019-08-22T20:59:22.171Z,
+"Matt to write ticket about need to have a discussion about ongoing maintenance needs when team is off ",2019-08-02T20:23:39.989Z,2019-08-02T22:37:34.239Z
+"More transparency on preparing the tickets in preparation for Sprint planning. ",2019-02-26T23:55:30.290Z,2019-03-21T19:01:20.622Z
+"Keep report-outs focused in stand-up, feel free to pass.",2019-04-04T18:43:10.864Z,2019-05-16T18:04:11.783Z
+Chrissy to share handouts from this week's PO training.,2019-08-22T20:33:07.335Z,2020-06-30T21:00:19.417Z
+"Which parts of the CI/CD stack do want to own locally (or outsource)? ",2019-05-16T18:44:40.915Z,2019-12-04T00:33:15.912Z
+Backlog grooming with the whole development team.,2019-04-04T18:39:05.003Z,2019-05-16T18:04:56.109Z
+"Bringing community (Spotlight, Samvera, etc) in earlier with projects that might need MR into the base code. Discuss how to communicate with community in future work cycles. ",2019-05-16T18:48:28.495Z,
+We need to improve UCSD feedback loop for starlight,2019-08-02T20:44:25.593Z,
+Tom to loop Jessica and Michael in on UCSB's gantt chart discussions.,2019-08-22T20:49:26.194Z,
+Use the blocked tag.,2019-04-04T18:36:53.332Z,2019-05-16T18:06:09.663Z
+"Clarify public stand-up and meetings for the sprint team. ",2019-05-16T18:35:04.503Z,
+Next two weeks - Establish developer cadence and expectations - Matt & Tom,2019-02-26T23:36:37.716Z,
+Chrissy to talk to John A. about travel funding for Tom to UC DLFx,2019-03-21T18:34:32.482Z,2019-04-04T18:59:23.367Z
+Chrissy and Jessica to work on a central place for info,2019-02-27T00:03:18.291Z,2019-03-05T21:58:42.883Z
+Matt to write ticket about nightly builds,2019-08-02T20:24:05.399Z,2019-08-02T22:31:58.985Z
+Chrissy will draft an email discussing the need to revisit the existing Surfliner timeline in light of individual commitments.,2019-08-22T20:43:11.597Z,
+Force discussion on meta-Work Cycle planning issues,2019-12-04T00:28:54.842Z,2019-12-04T17:20:41.703Z
+"Assignees and status of tickets and talking about what tickets we're working on DURING stand-up. ",2019-03-07T19:20:06.272Z,2019-03-21T19:02:41.615Z
+knowledge transfer in case of PO/tech lead illness,2020-03-17T17:52:25.076Z,
+"Evaluate whether a public standup is necessary for next products and sprints? ",2019-05-16T18:33:29.821Z,
+"Tom, Matt and Alex to discuss the spotlight fork. #277",2019-08-22T20:56:22.278Z,2019-12-04T00:33:06.872Z
+"Everyone on the team has a task that they can accomplish during the sprint. ",2019-02-26T23:57:11.708Z,2019-03-07T19:56:46.740Z
+"Explicit on which tasks we're on in the board. ""I am working on #X."" ",2019-02-26T23:42:25.483Z,2019-03-21T19:01:06.621Z
+Work on scheduling a team meeting at UC DLFx,2019-03-21T18:36:42.237Z,2019-04-04T19:00:15.173Z
+"Screen share the board on standup. ",2019-02-26T23:42:02.227Z,2019-02-28T18:54:31.173Z
+"Give a couple weeks notice for SME's and librarians who need to work on something in a sprint and give them an idea of what to expect. ",2019-02-27T00:06:13.233Z,2019-05-16T18:19:01.063Z
+Next 2 weeks - Forum for discussion on how we all work together - Chrissy & Jessica,2019-02-26T23:38:56.741Z,
+Assign a short process reading; get this in project documentation.,2019-04-04T18:42:54.541Z,
+"Matt to check with surfliner channel about changing sprint cycles to Wed-Tues ",2019-08-02T20:19:31.658Z,2019-08-02T20:58:46.133Z
+"Tom will schedule a conversation about Aha! What is it being used for, who should be aware of what is in it?",2019-08-22T20:25:17.938Z,
+"Jessica needs to set up standing meetings within an appropriate amount of time. ",2019-03-07T19:49:35.713Z,2019-03-12T20:57:54.779Z
+"Adjust Gitlab notifications for things that don't affect me. ",2019-02-27T00:12:33.996Z,2019-02-27T17:33:13.403Z
+"Let's try doing sprint planning on the first day of the sprint, rather than the week before and revisit",2019-08-02T20:35:53.851Z,
