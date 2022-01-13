@@ -60,10 +60,11 @@ services:
     tty: true
 
   memcached:
-    image: bitnami/memcached:1.6.12
+    image: bitnami/memcached:1.6.13-debian-10-r0
+
 
   minio:
-    image: bitnami/minio:2021-debian-10
+    image: bitnami/minio:2021.12.29-debian-10-r13
     ports:
       - "9000:9000"
     volumes:
@@ -72,13 +73,13 @@ services:
       - .env
 
   redis:
-    image: bitnami/redis:6.2
+    image: bitnami/redis:6.2.6-debian-10-r97
     command: redis-server --protected-mode no --stop-writes-on-bgsave-error no
     volumes:
       - starlight_redis:/data
 
   database:
-    image: bitnami/postgresql:12.9.0
+    image: bitnami/postgresql:12.9.0-debian-10-r59
     volumes:
       - starlight_database:/var/lib/postgresql/data
     environment:
@@ -91,7 +92,7 @@ services:
       - .env
 
   zk:
-    image: zookeeper:3.7
+    image: zookeeper:3.7-debian-10-r259
     env_file:
       - .env
 

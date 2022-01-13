@@ -188,7 +188,7 @@ memcached:
     size: 8Gi
   image:
     repository: bitnami/memcached
-    tag: 1.6.12
+    tag: 1.6.13-debian-10-r0
 
 # Configuration for minio chart
 # This is currently only used for Review applications in CI/CD pipelines
@@ -203,14 +203,14 @@ minio:
     enabled: false
   image:
     repository: bitnami/minio
-    tag: 2021.11.9
+    tag: 2021.12.29-debian-10-r13
 
 # Configuration for postgresql chart
 # see: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md
 postgresql:
   image:
     repository: bitnami/postgresql
-    tag: 12.9.0
+    tag: 12.9.0-debian-10-r59
   enabled: true
   cpu: 1000m
   memory: 1Gi
@@ -227,7 +227,7 @@ postgresql:
 redis:
   image:
     repository: bitnami/redis
-    tag: 6.2.6
+    tag: 6.2.6-debian-10-r97
   auth:
     enabled: false
 

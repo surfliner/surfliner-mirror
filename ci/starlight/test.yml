@@ -25,13 +25,13 @@
     ZK_HOST: zk
     ZK_PORT: 2181
   services:
-    - name: bitnami/postgresql:12.9.0
+    - name: bitnami/postgresql:12.9.0-debian-10-r59
       alias: postgres
-    - name: selenium/standalone-chrome:3.141
+    - name: selenium/standalone-chrome:96.0
       alias: chrome
-    - name: solr:8.4.0
+    - name: solr:8.11.1
       alias: solr
-    - name: zookeeper:3.6
+    - name: zookeeper:3.7
       alias: zk
   before_script:
     - cd /home/starlight/app
