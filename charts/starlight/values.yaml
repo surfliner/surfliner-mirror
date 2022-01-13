@@ -104,6 +104,7 @@ starlight:
   backups:
     import:
       enabled: false
+      force: false
       # asset_host: new host for CMS assets. e.g.: https://starlight-uploads-prod.s3.us-west-2.amazonaws.com
       solrReindex: false # flag to run a full solr reindex on import/initial deploy
       # dbBackupSource: s3:// URL or local file path for importing psql database backup source. e.g: s3://ucsd/starlight.dmp or /tmp/starlight-backup.dmp
