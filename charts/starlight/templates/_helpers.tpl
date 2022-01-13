@@ -60,6 +60,13 @@ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
 
+{{- define "starlight.backups.hook" -}}
+{{- if .Values.starlight.backups.force -}}
+post-upgrade
+{{- else -}}
+post-install
+{{- end -}}
+{{- end -}}
 
 {{/*
 Services
