@@ -38,7 +38,7 @@ namespace :starlight do
       abort "\nYou must supply ASSET_HOST environment variables for this task.\n\n"
     end
 
-    TrevorURL.all(/^\/uploads/, "#{ENV["ASSET_HOST"]}/uploads")
+    TrevorURL.rewrite_all(/^\/uploads/, "#{ENV["ASSET_HOST"]}/uploads")
   end
 
   namespace :sample do
