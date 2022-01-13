@@ -8,7 +8,7 @@ gem "capybara_discoball", "~> 0.1.0", group: "test"
 gem "dotenv", group: %w[development test]
 gem "dry-configurable", "0.13.0"
 gem "dry-events", "0.3.0"
-gem "dry-system", "0.21.0"
+gem "dry-system", "0.22.0"
 gem "dry-transaction", "0.13.3"
 gem "dry-validation", "1.7.0"
 gem "ezid-client", "1.9.1"
