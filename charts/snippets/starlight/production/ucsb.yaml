@@ -4,9 +4,11 @@ ingress:
   tls:
     - hosts:
         - starlight.eks.dld.library.ucsb.edu
+        - spotlight.library.ucsb.edu
       secretName: tls-secret
   hosts:
     - starlight.eks.dld.library.ucsb.edu
+    - spotlight.library.ucsb.edu
 existingSecret:
   enabled: true
 postgresql:

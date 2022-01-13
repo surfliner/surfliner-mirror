@@ -4,9 +4,11 @@ ingress:
   tls:
     - hosts:
         - starlight-staging.eks.dld.library.ucsb.edu
+        - spotlight-stage.library.ucsb.edu
       secretName: tls-secret
   hosts:
     - starlight-staging.eks.dld.library.ucsb.edu
+    - spotlight-stage.library.ucsb.edu
 existingSecret:
   enabled: true
 persistence:
