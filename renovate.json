@@ -1,7 +1,8 @@
 {
   "extends": [
     "config:base",
-    ":preserveSemverRanges"
+    ":preserveSemverRanges",
+    "regexManagers:dockerfileVersions"
   ],
   "gitlabci": {
     "fileMatch": ["^ci/.*\\.ya?ml$"]
@@ -10,15 +11,6 @@
   "prHourlyLimit": 5,
   "rebaseWhen": "never",
   "labels": [ "dependencies" ],
-  "regexManagers": [
-    {
-      "fileMatch": ["(^|/|\\.)Dockerfile$", "(^|/)Dockerfile\\.[^/]*$"],
-      "matchStrings": [
-        "# renovate: datasource=(?<datasource>[a-z-]+?) depName=(?<depName>.+?)(?: versioning=(?<versioning>[a-z-]+?))?\\s(?:ENV|ARG) .+?_VERSION=(?<currentValue>.+?)\\s"
-      ],
-      "versioningTemplate": "{{#if versioning}}{{versioning}}{{else}}semver{{/if}}"
-    }
-  ],
   "packageRules":[
     {
       "description": "Use custom regex versioning for bitnami images",
