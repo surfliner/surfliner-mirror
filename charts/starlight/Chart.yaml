@@ -21,6 +21,6 @@ dependencies:
     repository: https://charts.bitnami.com/bitnami
     condition: redis.enabled
   - name: solr
-    version: 2.1.4
+    version: 2.4.2
     repository: https://charts.bitnami.com/bitnami
     condition: solr.enabled
