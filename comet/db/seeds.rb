@@ -24,6 +24,12 @@ Sipity::Workflow
   .activate!(permission_template: permission_template, workflow_name: "surfliner_default")
 
 provider = Devise.omniauth_providers.first
+puts "\n== Creating system user"
+User.find_or_create_by!(
+  Hydra.config.user_key_field => Hyrax.config.system_user_key,
+  :provider => provider
+)
+
 puts "\n== Creating #{provider} admin users"
 
 roles = YAML.safe_load(IO.read(Rails.root.join("config", "role_map.yml")))[Rails.env]["admin"]
