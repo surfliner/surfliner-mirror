@@ -50,7 +50,7 @@ services:
       - '8080:8080'
 
   postgres:
-    image: bitnami/postgresql:12.9.0
+    image: bitnami/postgresql:12.9.0-debian-10-r59
     volumes:
       - shoreline_discovery_db:/var/lib/postgresql/data
     env_file:
@@ -62,7 +62,7 @@ services:
       - .env
 
   zk:
-    image: zookeeper:3.7
+    image: zookeeper:3.7-debian-10-r259
     env_file:
       - .env
 
