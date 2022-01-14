@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_19_180538) do
+ActiveRecord::Schema.define(version: 2021_10_21_143002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "batch_upload_entries", force: :cascade do |t|
+    t.bigint "batch_upload_id", null: false
+    t.bigint "entity_id"
+    t.jsonb "raw_metadata"
+    t.datetime "created_at", null: false
+    t.index ["batch_upload_id"], name: "index_batch_upload_entries_on_batch_upload_id"
+    t.index ["created_at"], name: "index_batch_upload_entries_created_at"
+    t.index ["entity_id"], name: "index_batch_upload_entries_on_entity_id"
+    t.index ["raw_metadata"], name: "index_batch_upload_entries_raw_metadata", using: :gin
+  end
+
+  create_table "batch_uploads", force: :cascade do |t|
+    t.string "batch_id", null: false
+    t.string "source_file"
+    t.string "files_path"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.index ["created_at"], name: "index_batch_uploads_created_at"
+    t.index ["user_id"], name: "index_batch_uploads_on_user_id"
+  end
 
   create_table "bookmarks", id: :serial, force: :cascade do |t|
     t.integer "user_id", null: false
@@ -554,6 +575,8 @@ ActiveRecord::Schema.define(version: 2021_04_19_180538) do
     t.index ["work_id"], name: "index_work_view_stats_on_work_id"
   end
 
+  add_foreign_key "batch_upload_entries", "batch_uploads"
+  add_foreign_key "batch_upload_entries", "sipity_entities", column: "entity_id"
   add_foreign_key "collection_type_participants", "hyrax_collection_types"
   add_foreign_key "curation_concerns_operations", "users"
   add_foreign_key "mailboxer_conversation_opt_outs", "mailboxer_conversations", column: "conversation_id", name: "mb_opt_outs_on_conversations_id"

@@ -52,6 +52,7 @@ class InlineUploadHandler < Hyrax::WorkUploadsHandler
       file_metadata.file_identifier = uploaded.id
       file_metadata.size = uploaded.size
       Hyrax.persister.save(resource: file_metadata)
+      ::CometCharacterizeJob.perform_later(file_metadata)
     end
   end
 
