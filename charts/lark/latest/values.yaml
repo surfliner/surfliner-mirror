@@ -41,7 +41,7 @@ persistence_adapters:
 postgresql:
   image:
     repository: bitnami/postgresql
-    tag: 12.9.0
+    tag: 12.9.0-debian-10-r59
   enabled: true
   cpu: 1000m
   memory: 1Gi
@@ -57,7 +57,7 @@ solr:
   enabled: true
   image:
     repository: bitnami/solr
-    tag: 8.9.0-debian-10-r38
+    tag: 8.11.1-debian-10-r26
   authentication:
     enabled: true
     adminUsername: admin

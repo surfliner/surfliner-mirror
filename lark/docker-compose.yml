@@ -40,7 +40,7 @@ services:
       - lark
 
   postgres:
-    image: bitnami/postgresql:12.9.0
+    image: bitnami/postgresql:12.9.0-debian-10-r59
     restart: always
     env_file:
       - .env
@@ -48,7 +48,7 @@ services:
       - lark
 
   solr:
-    image: bitnami/solr:8.11.1
+    image: bitnami/solr:8.11.1-debian-10-r26
     env_file:
       - .env
     ports:
