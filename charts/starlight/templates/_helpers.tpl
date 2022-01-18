@@ -61,7 +61,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
 
 {{- define "starlight.backups.hook" -}}
-{{- if .Values.starlight.backups.force -}}
+{{- if .Values.starlight.backups.import.force -}}
 post-upgrade
 {{- else -}}
 post-install
