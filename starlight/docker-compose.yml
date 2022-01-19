@@ -73,7 +73,7 @@ services:
       - .env
 
   redis:
-    image: bitnami/redis:6.2.6-debian-10-r98
+    image: bitnami/redis:6.2.6-debian-10-r104
     command: redis-server --protected-mode no --stop-writes-on-bgsave-error no
     volumes:
       - starlight_redis:/data
