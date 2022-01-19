@@ -76,6 +76,31 @@ GEM
       reline (>= 0.2.7)
     digest (3.1.0)
     erubi (1.10.0)
+    faraday (1.9.3)
+      faraday-em_http (~> 1.0)
+      faraday-em_synchrony (~> 1.0)
+      faraday-excon (~> 1.1)
+      faraday-httpclient (~> 1.0)
+      faraday-multipart (~> 1.0)
+      faraday-net_http (~> 1.0)
+      faraday-net_http_persistent (~> 1.0)
+      faraday-patron (~> 1.0)
+      faraday-rack (~> 1.0)
+      faraday-retry (~> 1.0)
+      ruby2_keywords (>= 0.0.4)
+    faraday-em_http (1.0.0)
+    faraday-em_synchrony (1.0.0)
+    faraday-excon (1.1.0)
+    faraday-httpclient (1.0.1)
+    faraday-multipart (1.0.3)
+      multipart-post (>= 1.2, < 3)
+    faraday-net_http (1.0.1)
+    faraday-net_http_persistent (1.2.0)
+    faraday-patron (1.0.0)
+    faraday-rack (1.0.0)
+    faraday-retry (1.0.3)
+    faraday_middleware (1.2.0)
+      faraday (~> 1.0)
     globalid (1.0.0)
       activesupport (>= 5.0)
     i18n (1.8.11)
@@ -95,6 +120,7 @@ GEM
     mini_portile2 (2.7.1)
     minitest (5.15.0)
     msgpack (1.4.2)
+    multipart-post (2.1.1)
     net-imap (0.2.3)
       digest
       net-protocol
@@ -114,6 +140,10 @@ GEM
     nokogiri (1.13.1)
       mini_portile2 (~> 2.7.0)
       racc (~> 1.4)
+    oai (1.1.0)
+      builder (>= 3.1.0)
+      faraday
+      faraday_middleware
     pg (1.2.3)
     puma (5.5.2)
       nio4r (~> 2.0)
@@ -150,6 +180,7 @@ GEM
     rake (13.0.6)
     reline (0.3.1)
       io-console (~> 0.5)
+    ruby2_keywords (0.0.5)
     strscan (3.0.1)
     thor (1.2.1)
     timeout (0.2.0)
@@ -166,13 +197,11 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   debug
+  oai (= 1.1.0)
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.1)
   tzinfo-data
-
-RUBY VERSION
-   ruby 2.7.4p191
 
 BUNDLED WITH
    2.1.4
