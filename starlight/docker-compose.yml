@@ -60,7 +60,7 @@ services:
     tty: true
 
   memcached:
-    image: bitnami/memcached:1.6.13-debian-10-r1
+    image: bitnami/memcached:1.6.13-debian-10-r7
 
 
   minio:
