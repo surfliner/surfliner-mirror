@@ -148,12 +148,12 @@ Every other Monday, 2:00-3:00pm<br/>
 
 #### Shoreline Sprint Team
 **Backlog Refinement**<br/>
-Tuesday, August 31, 1:00-2:30pm (*backlog refinement during the workcycle will be done during sprint planning meeting*)<br/>
-[https://ucsb.zoom.us/j/87872262924?pwd=ZE10N29uZkVuYkVSUHcvTmZUN3NRdz09](https://ucsb.zoom.us/j/87872262924?pwd=ZE10N29uZkVuYkVSUHcvTmZUN3NRdz09)<br/>
+Every other Friday, 11:00am-12:00pm<br/>
+[https://ucsb.zoom.us/j/87872262924](https://ucsb.zoom.us/j/87872262924)<br/>
 
 **Sprint Planning**<br/>
-Every other Tuesday, 3:00-4:00pm (*starting August 31*)<br/>
-[https://ucsb.zoom.us/j/87872262924?pwd=ZE10N29uZkVuYkVSUHcvTmZUN3NRdz09](https://ucsb.zoom.us/j/87872262924?pwd=ZE10N29uZkVuYkVSUHcvTmZUN3NRdz09)<br/>
+Every other Monday, 1:00-2:00pm<br/>
+[https://ucsb.zoom.us/j/87872262924](https://ucsb.zoom.us/j/87872262924)<br/>
 
 # Communication Channels
 - **Blog**: [https://surfliner.ucsd.edu](https://surfliner.ucsd.edu)
