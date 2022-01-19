@@ -50,7 +50,7 @@ services:
       - '8080:8080'
 
   postgres:
-    image: bitnami/postgresql:12.9.0-debian-10-r59
+    image: bitnami/postgresql:12.9.0-debian-10-r65
     volumes:
       - "shoreline_discovery_db:/bitnami/postgresql"
     env_file:
