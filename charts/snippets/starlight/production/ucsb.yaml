@@ -1,3 +1,5 @@
+replicaCount: 5
+workerReplicaCount: 3
 ingress:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -11,6 +13,20 @@ ingress:
     - spotlight.library.ucsb.edu
 existingSecret:
   enabled: true
+memcached:
+  enabled: true
+  priorityClassName: high-no-preempt
+  nodeAffinityPreset:
+    key: dld.library.ucsb.edu/availability
+    value: stable
+    type: soft
+  resources:
+    limits:
+      cpu: 2
+      memory: 6Gi
+    requests:
+      cpu: 200m
+      memory: 500Mi
 postgresql:
   enabled: false
   postgresqlDatabase: starlight-prod
@@ -21,18 +37,19 @@ solr:
   authentication:
     enabled: true
   existingSecret: starlight-solr-prod
+  resources:
+    limits:
+      cpu: 2
+      memory: 4Gi
+    requests:
+      cpu: 500m
+      memory: 1Gi
 starlight:
   application:
     name: "Starlight"
   backups:
     import:
       enabled: false
-      asset_host: https://starlight-uploads-prod.s3.us-west-2.amazonaws.com
-      dbBackupSource: s3://starlight-migrate-prod/starlight-prod.2021.07.29.sql
-      dbBackupDestination: /tmp/starlight-backup.dmp
-      oldAppUrl: http://starlight.library.ucsb.edu
-      sourcePath: s3://starlight-migrate-prod/uploads
-      solrReindex: true
   rails:
     max_threads: 10
   storage:

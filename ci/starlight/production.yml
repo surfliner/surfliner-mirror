@@ -23,7 +23,7 @@ starlight:deploy:ucsb-production:
     name: ucsb.production.starlight
     url: http://starlight.$KUBE_INGRESS_BASE_DOMAIN
   variables:
-    DEPLOY_TAG: 17c670abeb78a7d156ad115abbce27999e2c1300
+    DEPLOY_TAG: starlight-v0.2.2
     HELM_UPGRADE_EXTRA_ARGS: >
       --values charts/snippets/starlight/production/ucsb.yaml
 
