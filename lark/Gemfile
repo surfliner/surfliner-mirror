@@ -18,7 +18,7 @@ gem "puma", "5.5.2"
 gem "rack-healthcheck", "~> 0.2.0"
 gem "racksh"
 gem "rack-test", group: "test"
-gem "rsolr", "~> 2.3.0"
+gem "rsolr", "~> 2.4.0"
 gem "rspec", group: "test"
 gem "rubocop-rspec", group: %w[development test]
 gem "shotgun", group: "development"
