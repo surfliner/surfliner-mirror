@@ -1,24 +1,14 @@
-# README
+# Tidewater
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Development Environment
 
-Things you may want to cover:
+You will need Docker and Docker Compose installed on your host/local system.
 
-* Ruby version
+To setup a development environment:
+1. `docker-compose build` to build images (`docker-compose up --build` does not work)
+1. `docker-compose up`  to run dev environment
+1. Access the application on http://localhost:3000
 
-* System dependencies
+See the `docker-compose` [CLI reference][cli-reference][ for more on commands.
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+[cli-reference]: https://docs.docker.com/compose/reference/overview/

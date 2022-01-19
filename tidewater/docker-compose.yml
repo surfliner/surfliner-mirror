@@ -1,0 +1,50 @@
+version: '3.7'
+
+services:
+  web:
+    build:
+      context: ..
+      dockerfile: tidewater/Dockerfile
+      target: tidewater
+    image: tidewater
+    env_file:
+      - .env
+    command:
+      - sh
+      - -c
+      - >
+        bin/docker-entrypoint.sh &&
+        bundle exec puma -v --debug -b tcp://0.0.0.0:3000
+    volumes:
+      - .:/home/tidewater/app
+      - tidewater_tmp:/home/tidewater/app/tmp
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db_migrate
+      - database
+    stdin_open: true
+    tty: true
+
+  db_migrate:
+    image: tidewater
+    env_file:
+      - .env
+    entrypoint: ["sh", "-c"]
+    command: db-setup.sh
+    depends_on:
+      - database
+    volumes:
+      - .:/home/tidewater/app
+
+  database:
+    image: bitnami/postgresql:12.9.0-debian-10-r60
+    volumes:
+      - tidewater_database:/var/lib/postgresql/data
+    environment:
+      POSTGRESQL_DATABASE: tidewater-dev
+      POSTGRESQL_PASSWORD: postgres_pass
+
+volumes:
+  tidewater_database:
+  tidewater_tmp:
