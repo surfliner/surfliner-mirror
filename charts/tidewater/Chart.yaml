@@ -1,26 +1,10 @@
 apiVersion: v2
 appVersion: "1.0"
-description: Starlight is based on Spotlight, a framework for the creation and presentation of exhibits.
-name: starlight
+description: Tidewater is an OAH-PMH endpoint for comet.
+name: tidewater
 version: 0.7.0
 dependencies:
-  - name: memcached
-    version: 5.15.9
-    repository: https://charts.bitnami.com/bitnami
-    condition: memcached.enabled
-  - name: minio
-    version: 9.2.4
-    repository: https://charts.bitnami.com/bitnami
-    condition: minio.enabled
   - name: postgresql
     version: 9.8.12
     repository: https://charts.bitnami.com/bitnami
     condition: postgresql.enabled
-  - name: redis
-    version: 15.6.3
-    repository: https://charts.bitnami.com/bitnami
-    condition: redis.enabled
-  - name: solr
-    version: 2.4.2
-    repository: https://charts.bitnami.com/bitnami
-    condition: solr.enabled
