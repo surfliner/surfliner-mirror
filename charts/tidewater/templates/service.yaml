@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "starlight.fullname" . }}
+  name: {{ include "tidewater.fullname" . }}
   labels:
-{{ include "starlight.labels" . | indent 4 }}
+{{ include "tidewater.labels" . | indent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,5 +12,5 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app.kubernetes.io/name: {{ include "starlight.name" . }}
+    app.kubernetes.io/name: {{ include "tidewater.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}

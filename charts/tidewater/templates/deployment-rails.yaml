@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "starlight.fullname" . }}
+  name: {{ include "tidewater.fullname" . }}
   labels:
-{{ include "starlight.labels" . | indent 4 }}
+{{ include "tidewater.labels" . | indent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
     type: Recreate
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "starlight.name" . }}
+      app.kubernetes.io/name: {{ include "tidewater.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
       component: rails
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "starlight.name" . }}
+        app.kubernetes.io/name: {{ include "tidewater.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
         component: rails
     spec:
@@ -25,20 +25,20 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       initContainers:
-        {{- if and (eq (include "starlight.solr.cloudEnabled" .) "true") (not .Values.starlight.disableSolrConfigInit) }}
+        {{- if and (eq (include "tidewater.solr.cloudEnabled" .) "true") (not .Values.tidewater.disableSolrConfigInit) }}
         - name: load-solr-config
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: Always
           envFrom:
             - configMapRef:
-                name: {{ include "starlight.fullname" . }}-env
+                name: {{ include "tidewater.fullname" . }}-env
             - secretRef:
-                name: {{ template "starlight.secretName" . }}
+                name: {{ template "tidewater.secretName" . }}
           command:
             - sh
             - -c
             - >
-              solrcloud-upload-configset.sh /home/starlight/app/solr/config &&
+              solrcloud-upload-configset.sh /home/tidewater/app/solr/config &&
               solrcloud-assign-configset.sh
         {{- end }}
         - name: setup-db
@@ -46,9 +46,9 @@ spec:
           imagePullPolicy: "{{ .Values.image.pullPolicy }}"
           envFrom:
             - configMapRef:
-                name: {{ include "starlight.fullname" . }}-env
+                name: {{ include "tidewater.fullname" . }}-env
             - secretRef:
-                name: {{ template "starlight.secretName" . }}
+                name: {{ template "tidewater.secretName" . }}
           command:
             - sh
             - -c
@@ -59,7 +59,7 @@ spec:
       volumes:
         - name: blacklight-locale
           configMap:
-            name: {{ include "starlight.fullname" . }}-locales
+            name: {{ include "tidewater.fullname" . }}-locales
             items:
               - key: "blacklight.en.yml"
                 path: "blacklight.en.yml"
@@ -72,16 +72,16 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
             - name: blacklight-locale
-              mountPath: /home/starlight/app/config/locales/blacklight.en.yml
+              mountPath: /home/tidewater/app/config/locales/blacklight.en.yml
               subPath: blacklight.en.yml
             {{- with .Values.extraVolumeMounts }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
           envFrom:
             - configMapRef:
-                name: {{ include "starlight.fullname" . }}-env
+                name: {{ include "tidewater.fullname" . }}-env
             - secretRef:
-                name: {{ template "starlight.secretName" . }}
+                name: {{ template "tidewater.secretName" . }}
           env:
             {{- toYaml .Values.extraEnvVars | nindent 12 }}
           ports:
