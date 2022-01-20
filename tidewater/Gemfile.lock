@@ -196,14 +196,14 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bootsnap
-  debug
+  bootsnap (= 1.10.1)
+  debug (= 1.4.0)
   oai (= 1.1.0)
   okcomputer (= 1.18.4)
-  pg (~> 1.1)
-  puma (~> 5.0)
-  rails (~> 7.0.1)
-  tzinfo-data
+  pg (= 1.2.3)
+  puma (= 5.5.2)
+  rails (= 7.0.1)
+  tzinfo-data (= 2.0.4)
 
 BUNDLED WITH
    2.1.4
