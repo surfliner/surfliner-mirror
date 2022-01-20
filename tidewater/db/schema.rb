@@ -10,9 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2022_01_20_214851) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "oai_items", force: :cascade do |t|
+    t.text "title"
+    t.text "creator"
+    t.text "description"
+    t.text "publisher"
+    t.text "contributor"
+    t.text "date"
+    t.text "type"
+    t.text "format"
+    t.text "identifier"
+    t.text "source"
+    t.text "subject"
+    t.text "language"
+    t.text "relation"
+    t.text "coverage"
+    t.text "rights"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
 end

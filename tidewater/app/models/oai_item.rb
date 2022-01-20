@@ -1,0 +1,2 @@
+class OaiItem < ApplicationRecord
+end
