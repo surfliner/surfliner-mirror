@@ -1,28 +1,28 @@
 # Starlight
 
-Starlight is a Helm chart that leverages the [starlight][starlight] container
+Tidewater is a Helm chart that leverages the [something][something] container
 image to support easy deployment via Helm and Kubernetes.
 
 ## TL;DR;
 
 ```console
 $ git clone https://gitlab.com/surfliner/surfliner.git
-$ helm dep update charts/starlight
-$ helm install my-release charts/starlight
+$ helm dep update charts/tidewater
+$ helm install my-release charts/tidewater
 ```
 
 ## Introduction
 
-This chart bootstraps a [starlight][starlight] deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [tidewater][tidewater] deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 ## Installing the Chart
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install my-release charts/starlight
+$ helm install my-release charts/tidewater
 ```
 
-The command deploys Starlight on the Kubernetes cluster in the default configuration. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
+The command deploys Tidewater on the Kubernetes cluster in the default configuration. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
 
 > **Tip**: List all releases using `helm list`
 
@@ -42,53 +42,53 @@ The following tables lists the configurable parameters of the Starlight chart an
 
 | Parameter | Description | Default | Environment Variable |
 | --------- | ----------- | ------- | -------------------- |
-| `image.repository` | starlight image repository | `registry.gitlab.com/surfliner/surfliner/starlight_web` | N/A |
-| `image.tag` | starlight image tag to use | `stable` | N/A |
-| `image.pullPolicy` | starlight image pullPolicy | `Always` | N/A |
+| `image.repository` | tidewater image repository | `registry.gitlab.com/surfliner/surfliner/tidewater_web` | N/A |
+| `image.tag` |  tidewater image tag to use | `stable` | N/A |
+| `image.pullPolicy` | tidewater image pullPolicy | `Always` | N/A |
 | `imagePullSecrets` | Array of pull secrets for the image | `[]` | N/A |
-| `nameOverride` | String to partially override starlight.fullname template with a string (will prepend the release name) | `""` | N/A |
+| `nameOverride` | String to partially override tidewater.fullname template with a string (will prepend the release name) | `""` | N/A |
 | `fullnameOverride` | String to fully override email.fullname template | `""` | N/A |
-| `existingSecret.name` | External Secret name in Deployment namespace | `starlight` | N/A |
+| `existingSecret.name` | External Secret name in Deployment namespace | `tidewater` | N/A |
 | `existingSecret.enabled` | Whether to use an external Secret for a Deployment | `false` | N/A |
-| `starlight.allow_robots` | Whether to allow robots to crawl the application via `robots.txt` | `false` | `ALLOW_ROBOTS` |
-| `starlight.application.name` | Name used in some default Blacklight templates | `Starlight` | N/A |
-| `starlight.application.themes` | Themes made available to the application.  | `ucsb,surfliner,ucsd` | `SPOTLIGHT_THEMES` |
-| `starlight.analytics.webPropertyId` | Your GA Property ID. Example: `UA-1234568-1`.  | `nil` | `GA_WEB_PROPERTY_ID` |
-| `starlight.rails.db_adapter` | Which Rails database adapter to use | `postgresql` | `DB_ADAPTER` |
-| `starlight.rails.db_setup_command` | Database rake task(s) to run when deployment starts | `db:migrate` | `DATABASE_COMMAND` |
-| `starlight.rails.environment` | Rails environment for application.  | `production` | `RAILS_ENV` |
-| `starlight.rails.log_to_stdout` | Should Rails log to standard output.  | `true` | `RAILS_LOG_TO_STDOUT` |
-| `starlight.rails.max_threads` | Size of DB connection pool (used by Sidekiq also).  | `5` | `RAILS_MAX_THREADS ` |
-| `starlight.rails.queue` | Which queue adapter for ActiveJob.  | `sidekiq` | `RAILS_QUEUE` |
-| `starlight.rails.serve_static_files` | Whether Rails should not serve files in `public/`.  | `true` | `RAILS_SERVE_STATIC_FILES` |
-| `starlight.sitemaps.enabled` | Whether to enable k8s sitemap cron job to ping search engines. Note that the sitemaps will upload to the same S3/Minio bucket specified by `starlight.storage.bucket` | `true` | N/A |
-| `starlight.solr.collectionName` | Name of Solr collection.  | `collection1` | `SOLR_CORE_NAME` |
-| `starlight.solr.port` | Solr port to use.  | `8983` | `SOLR_PORT` |
-| `starlight.zookeeper.port` | Zookeeper port to use.  | `2181` | `ZK_PORT` |
-| `starlight.backups.import.enabled` | Whether to run the backup import migration jobs (when migrating data from another environment).  | `false` | N/A |
-| `starlight.backups.import.asset_host` | The new host from where images uploaded through the CMS will be served; used for rewriting URLs  | `nil` | `ASSET_HOST` |
-| `starlight.backups.import.oldAppUrl` | URL for previous environment.  | `nil` | `OLD_APP_URL` |
-| `starlight.backups.export.enabled` | Whether to run the backup export migration jobs.  | `false` | N/A |
-| `starlight.backups.directoryImportPath` | Path to mount public/uploads backup directory into.  | `nil` | `DIRECTORY_IMPORT_PATH` |
-| `starlight.backups.bucket` | S3/Minio bucket name.  | `nil` | `BUCKET` |
-| `starlight.backups.dbBucketKey` | S3/Minio database bump key/file.  | `nil` | `DB_BUCKET_KEY` |
-| `starlight.backups.directoryBucketPath` | S3/Minio path to images backup in bucket.  | `nil` | `DIRECTORY_BUCKET_PATH` |
-| `starlight.email.from_address` | Email address to use for Starlight email contact.  | `Starlight@example.edu` | `FROM_EMAIL` |
-| `starlight.email.delivery_method` | ActiveMailer email submission method. Use `smtp` for production. | `letter_opener_web` | `DELIVERY_METHOD` |
-| `starlight.email.smtp_settings.address` | SMTP server address.  | `nil` | `SMTP_HOST` |
-| `starlight.email.smtp_settings.port` | SMTP server port.  | `nil` | `SMTP_PORT` |
-| `starlight.email.smtp_settings.user_name` | SMTP account username.  | `nil` | `SMTP_USERNAME` |
-| `starlight.email.smtp_settings.password` | SMTP account password.  | `nil` | `SMTP_PASSWORD` |
-| `starlight.email.smtp_settings.authentication` | ActiveMailer SMTP auth method.  | `nil` | `SMTP_AUTHENTICATION` |
-| `starlight.auth.method` | Application authentication method (`google` or `developer`).  | `developer` | `AUTH_METHOD` |
-| `starlight.auth.google.api_id` | Google authentication API identifier.  | `nil` | `GOOGLE_AUTH_ID` |
-| `starlight.auth.google.secret` | Google authentication API secret.  | `nil` | `GOOGLE_AUTH_SECRET` |
-| `starlight.storage.accessKey` | S3/Minio access key.  | `nil` | `AWS_ACCESS_KEY_ID` |
-| `starlight.storage.acl` | S3/Minio ACL. e.g: 'bucket-owner-full-control'. | `nil` | `S3_ACL` |
-| `starlight.storage.bucket` | S3/Minio bucket name. This bucket will need to allow write/put for the access keypair used, and public `read` access to allow for IIIF viewing. | `nil` | `S3_BUCKET_NAME` |
-| `starlight.storage.endpointUrl` | S3/Minio endpoint URL (required for Minio).  | `nil` | `S3_ENDPOINT` |
-| `starlight.storage.region` | AWS region. e.g: 'us-west-2'.  | `nil` | `AWS_REGION` |
-| `starlight.storage.secretKey` | S3/Minio secret key. | `nil` | `AWS_SECRET_ACCESS_KEY` |
+| `tidewater.allow_robots` | Whether to allow robots to crawl the application via `robots.txt` | `false` | `ALLOW_ROBOTS` |
+| `tidewater.application.name` | Name used in some default Blacklight templates | `Tidewater` | N/A |
+| `tidewater.application.themes` | Themes made available to the application.  | `ucsb,surfliner,ucsd` | `SPOTLIGHT_THEMES` |
+| `tidewater.analytics.webPropertyId` | Your GA Property ID. Example: `UA-1234568-1`.  | `nil` | `GA_WEB_PROPERTY_ID` |
+| `tidewater.rails.db_adapter` | Which Rails database adapter to use | `postgresql` | `DB_ADAPTER` |
+| `tidewater.rails.db_setup_command` | Database rake task(s) to run when deployment starts | `db:migrate` | `DATABASE_COMMAND` |
+| `tidewater.rails.environment` | Rails environment for application.  | `production` | `RAILS_ENV` |
+| `tidewater.rails.log_to_stdout` | Should Rails log to standard output.  | `true` | `RAILS_LOG_TO_STDOUT` |
+| `tidewater.rails.max_threads` | Size of DB connection pool (used by Sidekiq also).  | `5` | `RAILS_MAX_THREADS ` |
+| `tidewater.rails.queue` | Which queue adapter for ActiveJob.  | `sidekiq` | `RAILS_QUEUE` |
+| `tidewater.rails.serve_static_files` | Whether Rails should not serve files in `public/`.  | `true` | `RAILS_SERVE_STATIC_FILES` |
+| `tidewater.sitemaps.enabled` | Whether to enable k8s sitemap cron job to ping search engines. Note that the sitemaps will upload to the same S3/Minio bucket specified by `starlight.storage.bucket` | `true` | N/A |
+| `tidewater.solr.collectionName` | Name of Solr collection.  | `collection1` | `SOLR_CORE_NAME` |
+| `tidewater.solr.port` | Solr port to use.  | `8983` | `SOLR_PORT` |
+| `tidewater.zookeeper.port` | Zookeeper port to use.  | `2181` | `ZK_PORT` |
+| `tidewater.backups.import.enabled` | Whether to run the backup import migration jobs (when migrating data from another environment).  | `false` | N/A |
+| `tidewater.backups.import.asset_host` | The new host from where images uploaded through the CMS will be served; used for rewriting URLs  | `nil` | `ASSET_HOST` |
+| `tidewater.backups.import.oldAppUrl` | URL for previous environment.  | `nil` | `OLD_APP_URL` |
+| `tidewater.backups.export.enabled` | Whether to run the backup export migration jobs.  | `false` | N/A |
+| `tidewater.backups.directoryImportPath` | Path to mount public/uploads backup directory into.  | `nil` | `DIRECTORY_IMPORT_PATH` |
+| `tidewater.backups.bucket` | S3/Minio bucket name.  | `nil` | `BUCKET` |
+| `tidewater.backups.dbBucketKey` | S3/Minio database bump key/file.  | `nil` | `DB_BUCKET_KEY` |
+| `tidewater.backups.directoryBucketPath` | S3/Minio path to images backup in bucket.  | `nil` | `DIRECTORY_BUCKET_PATH` |
+| `tidewater.email.from_address` | Email address to use for Starlight email contact.  | `Tidewater@example.edu` | `FROM_EMAIL` |
+| `tidewater.email.delivery_method` | ActiveMailer email submission method. Use `smtp` for production. | `letter_opener_web` | `DELIVERY_METHOD` |
+| `tidewater.email.smtp_settings.address` | SMTP server address.  | `nil` | `SMTP_HOST` |
+| `tidewater.email.smtp_settings.port` | SMTP server port.  | `nil` | `SMTP_PORT` |
+| `tidewater.email.smtp_settings.user_name` | SMTP account username.  | `nil` | `SMTP_USERNAME` |
+| `tidewater.email.smtp_settings.password` | SMTP account password.  | `nil` | `SMTP_PASSWORD` |
+| `tidewater.email.smtp_settings.authentication` | ActiveMailer SMTP auth method.  | `nil` | `SMTP_AUTHENTICATION` |
+| `tidewater.auth.method` | Application authentication method (`google` or `developer`).  | `developer` | `AUTH_METHOD` |
+| `tidewater.auth.google.api_id` | Google authentication API identifier.  | `nil` | `GOOGLE_AUTH_ID` |
+| `tidewater.auth.google.secret` | Google authentication API secret.  | `nil` | `GOOGLE_AUTH_SECRET` |
+| `tidewater.storage.accessKey` | S3/Minio access key.  | `nil` | `AWS_ACCESS_KEY_ID` |
+| `tidewater.storage.acl` | S3/Minio ACL. e.g: 'bucket-owner-full-control'. | `nil` | `S3_ACL` |
+| `tidewater.storage.bucket` | S3/Minio bucket name. This bucket will need to allow write/put for the access keypair used, and public `read` access to allow for IIIF viewing. | `nil` | `S3_BUCKET_NAME` |
+| `tidewater.storage.endpointUrl` | S3/Minio endpoint URL (required for Minio).  | `nil` | `S3_ENDPOINT` |
+| `tidewater.storage.region` | AWS region. e.g: 'us-west-2'.  | `nil` | `AWS_REGION` |
+| `tidewater.storage.secretKey` | S3/Minio secret key. | `nil` | `AWS_SECRET_ACCESS_KEY` |
 
 ### Chart Dependency Parameters
 
@@ -111,11 +111,11 @@ See: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.m
 
 | Parameter | Description | Default | Environment Variable |
 | --------- | ----------- | ------- | -------------------- |
-| `postgresql.postgresqlUsername` | Database user for application | `starlight` | `POSTGRES_USER` |
-| `postgresql.postgresqlPassword` | Database user password for application | `starlight_pass` | `POSTGRES_PASSWORD` |
+| `postgresql.postgresqlUsername` | Database user for application | `tidewater` | `POSTGRES_USER` |
+| `postgresql.postgresqlPassword` | Database user password for application | `tidewater_pass` | `POSTGRES_PASSWORD` |
 | `postgresql.postgresqlHostname` | External database hostname, when `postgresql.enabled` is `false` | `nil` | `POSTGRES_HOST` |
-| `postgresql.postgresqlDatabase` | Database name for application | `starlight_db` | `POSTGRES_DB` |
-| `postgresql.postgresqlPostgresPassword` | Admin `postgres` user's password | `starlight_admin` | `POSTGRES_ADMIN_PASSWORD` |
+| `postgresql.postgresqlDatabase` | Database name for application | `tidewater_db` | `POSTGRES_DB` |
+| `postgresql.postgresqlPostgresPassword` | Admin `postgres` user's password | `tidewater_admin` | `POSTGRES_ADMIN_PASSWORD` |
 | `postgresql.persistence.size` | Database PVC size | `10Gi` | N/A |
 
 #### Solr
@@ -238,4 +238,4 @@ statement as shown below:
 }
 ```
 
-[starlight]:https://gitlab.com/surfliner/surfliner/-/tree/trunk/starlight
+[tidewater]:https://gitlab.com/surfliner/surfliner/-/tree/trunk/tidewater
