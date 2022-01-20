@@ -37,6 +37,7 @@ solr:
   authentication:
     enabled: true
   existingSecret: starlight-solr-prod
+  collection: collection1
   resources:
     limits:
       cpu: 2
