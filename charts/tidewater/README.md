@@ -1,8 +1,9 @@
+![](3stooges.jpg)
+
 # Tidewater
 
 Tidewater is a Helm chart that leverages the [something][something] container
 image to support easy deployment via Helm and Kubernetes.
-
 
 
 ## TL;DR;
