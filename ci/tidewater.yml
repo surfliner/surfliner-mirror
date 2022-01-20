@@ -1,0 +1,15 @@
+include:
+  - local: ci/tidewater/build.yml
+
+.only-tidewater-changes:
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - charts/snippets/surfliner/**/*
+      - charts/snippets/tidewater/**/*
+      - charts/tidewater/**/*
+      - ci/tidewater/**/*
+      - ci/tidewater.yml
+      - gems/**/*
+      - tidewater/**/*
+      - tidewater/Dockerfile

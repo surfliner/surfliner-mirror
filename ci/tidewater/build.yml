@@ -1,0 +1,7 @@
+tidewater-build:
+  extends:
+    - .kaniko-build
+    - .only-refs-default
+    - .only-tidewater-changes
+  script:
+    - build_image_for "tidewater" "tidewater_web"

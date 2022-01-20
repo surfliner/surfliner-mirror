@@ -15,6 +15,7 @@ include:
   - local: ci/lark.yml
   - local: ci/shoreline.yml
   - local: ci/starlight.yml
+  - local: ci/tidewater.yml
 
 # Build with Kaniko. When building on `trunk`, tag a new stable image.
 .build_helpers: &build_helpers |
