@@ -158,12 +158,29 @@ solr:
     enabled: true
     persistence:
       enabled: true
-# Settings for solr java memory
-  # javaMem: "-Xms2g -Xmx3g"
-  # Settings for zk java memory
-  # zookeeper:
-  #   env:
-  #     JVMFLAGS: "-Xms512m -Xmx1g"
+  javaMem: "-Xms512m -Xmx1g"
+  resources:
+   limits:
+      memory: 1Gi
+      cpu: 1
+   requests:
+      memory: 512Mi
+      cpu: 250m
+  zookeeper:
+    replicaCount: 2
+    persistence:
+      enabled: false
+    env:
+      JVMFLAGS: "-Xms256m -Xmx512m"
+    resources:
+      limits:
+        memory: 512Mi
+        cpu: 350m
+      requests:
+        memory: 128Mi
+        cpu: 100m
+    persistence:
+      enabled: false
   # Set if using external zookeeper
   # externalZookeeper:
   #   servers:
