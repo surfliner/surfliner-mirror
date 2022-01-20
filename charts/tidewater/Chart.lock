@@ -1,0 +1,18 @@
+dependencies:
+- name: memcached
+  repository: https://charts.bitnami.com/bitnami
+  version: 5.15.9
+- name: minio
+  repository: https://charts.bitnami.com/bitnami
+  version: 9.2.4
+- name: postgresql
+  repository: https://charts.bitnami.com/bitnami
+  version: 9.8.12
+- name: redis
+  repository: https://charts.bitnami.com/bitnami
+  version: 15.6.3
+- name: solr
+  repository: https://charts.bitnami.com/bitnami
+  version: 2.4.2
+digest: sha256:e03e7951e24748c9a0a3d58af7c2a043580a2a18d1c6db67c4815c38e819b209
+generated: "2022-01-14T19:12:55.625009613Z"

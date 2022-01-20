@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "starlight.fullname" . }}-env
+  labels:
+    app.kubernetes.io/name: {{ include "starlight.name" . }}
+    helm.sh/chart: {{ include "starlight.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+data:
+  {{- if .Values.starlight.allow_robots }}
+  ALLOW_ROBOTS: "true"
+  {{- end }}
+  APP_URL: http{{ if .Values.ingress.tls }}s{{ end }}://{{ index .Values.ingress.hosts 0 }}
+  {{- if .Values.starlight.backups.import.asset_host }}
+  ASSET_HOST: {{.Values.starlight.backups.import.asset_host }}
+  {{- end }}
+  AUTH_METHOD: {{ .Values.starlight.auth.method }}
+  DATABASE_COMMAND: {{ .Values.starlight.rails.db_setup_command }}
+  DELIVERY_METHOD: {{ .Values.starlight.email.delivery_method }}
+  DB_ADAPTER: {{ .Values.starlight.rails.db_adapter }}
+  FROM_EMAIL: {{ .Values.starlight.email.from_address }}
+  {{- if .Values.starlight.analytics.webPropertyId }}
+  GA_WEB_PROPERTY_ID: {{ .Values.starlight.analytics.webPropertyId }}
+  {{- end }}
+  MEMCACHED_HOST: {{ template "starlight.memcached.fullname" . }}
+  {{- if .Values.starlight.backups.import.oldAppUrl }}
+  OLD_APP_URL: {{ .Values.starlight.backups.import.oldAppUrl }}
+  {{- end }}
+  PORT: {{ .Values.starlight.port | quote }}
+  POSTGRES_DB: {{ .Values.postgresql.postgresqlDatabase }}
+  POSTGRES_HOST: {{ template "starlight.postgresql.fullname" . }}
+  POSTGRES_PORT: {{ .Values.postgresql.servicePort | quote }}
+  RAILS_ENV: {{ .Values.starlight.rails.environment }}
+  RAILS_LOG_TO_STDOUT: {{ .Values.starlight.rails.log_to_stdout | quote }}
+  RAILS_MAX_THREADS: {{ .Values.starlight.rails.max_threads | quote }}
+  RAILS_QUEUE: {{ .Values.starlight.rails.queue }}
+  RAILS_SERVE_STATIC_FILES: {{ .Values.starlight.rails.serve_static_files | quote }}
+  REDIS_URL: redis://{{ template "starlight.redis.fullname" . }}-master:6379
+  AWS_ACCESS_KEY_ID: {{ .Values.starlight.storage.accessKey }}
+  AWS_REGION: {{ .Values.starlight.storage.region }}
+  S3_ACL: {{ .Values.starlight.storage.acl }}
+  S3_BUCKET_NAME: {{ .Values.starlight.storage.bucket }}
+  {{- if .Values.starlight.storage.endpointUrl }}
+  S3_ENDPOINT: {{ .Values.starlight.storage.endpointUrl }}
+  {{- else if .Values.minio.enabled }}
+  S3_ENDPOINT: http://{{ template "starlight.minio.fullname" . }}:9000
+  {{- end }}
+  {{- if .Values.starlight.sitemaps.enabled }}
+  SITEMAPS_ENABLED: "true"
+  SITEMAPS_HOST: {{ template "starlight.sitemaps.host" . }}
+  {{- end }}
+  {{- if eq "smtp" .Values.starlight.email.delivery_method }}
+  SMTP_AUTHENTICATION: {{ .Values.starlight.email.smtp_settings.authentication }}
+  SMTP_HOST: {{ .Values.starlight.email.smtp_settings.address }}
+  SMTP_PORT: {{ .Values.starlight.email.smtp_settings.port | quote }}
+  SMTP_USERNAME: {{ .Values.starlight.email.smtp_settings.user_name }}
+  {{- end }}
+  SOLR_CORE_NAME: {{ template "starlight.solr.collection_core_name" . }}
+  SOLR_CONFIG_NAME: {{ .Values.solr.configName | default "starlightconf" | quote }}
+  SOLR_HOST: {{ template "starlight.solr.fullname" . }}
+  SOLR_PORT: {{ .Values.solr.solrPort | default "8983" | quote }}
+  SPOTLIGHT_THEMES: {{ .Values.starlight.application.themes }}
+  {{- if eq (include "starlight.solr.cloudEnabled" .) "true" }}
+  ZK_HOST: {{ template "starlight.zk.fullname" . }}
+  ZK_PORT: {{ .Values.solr.zookeeperPort | default "2181" | quote }}
+  {{- end }}

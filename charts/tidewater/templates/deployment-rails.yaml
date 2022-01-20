@@ -1,0 +1,111 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "starlight.fullname" . }}
+  labels:
+{{ include "starlight.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "starlight.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      component: rails
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "starlight.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        component: rails
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      initContainers:
+        {{- if and (eq (include "starlight.solr.cloudEnabled" .) "true") (not .Values.starlight.disableSolrConfigInit) }}
+        - name: load-solr-config
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: {{ include "starlight.fullname" . }}-env
+            - secretRef:
+                name: {{ template "starlight.secretName" . }}
+          command:
+            - sh
+            - -c
+            - >
+              solrcloud-upload-configset.sh /home/starlight/app/solr/config &&
+              solrcloud-assign-configset.sh
+        {{- end }}
+        - name: setup-db
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+          envFrom:
+            - configMapRef:
+                name: {{ include "starlight.fullname" . }}-env
+            - secretRef:
+                name: {{ template "starlight.secretName" . }}
+          command:
+            - sh
+            - -c
+            - db-setup.sh
+        {{- with .Values.extraInitContainers }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      volumes:
+        - name: blacklight-locale
+          configMap:
+            name: {{ include "starlight.fullname" . }}-locales
+            items:
+              - key: "blacklight.en.yml"
+                path: "blacklight.en.yml"
+        {{- with .Values.extraVolumes }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: blacklight-locale
+              mountPath: /home/starlight/app/config/locales/blacklight.en.yml
+              subPath: blacklight.en.yml
+            {{- with .Values.extraVolumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "starlight.fullname" . }}-env
+            - secretRef:
+                name: {{ template "starlight.secretName" . }}
+          env:
+            {{- toYaml .Values.extraEnvVars | nindent 12 }}
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /healthz/all
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- with .Values.extraContainerConfiguration }}
+          {{- toYaml . | nindent 10 }}
+          {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}

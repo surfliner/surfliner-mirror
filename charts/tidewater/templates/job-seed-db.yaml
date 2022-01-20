@@ -1,0 +1,33 @@
+{{- if .Values.starlight.sample_data }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+metadata:
+  name: {{ include "starlight.fullname" . }}-seed-db
+  labels:
+    {{- include "starlight.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": post-install
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  template:
+    metadata:
+      name: {{ include "starlight.fullname" . }}-seed-db
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: seed-db
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+          command:
+            - sh
+            - -c
+            - >
+              bundle exec rake starlight:seed_admin_user &&
+              bundle exec rake starlight:sample:seed_exhibit
+          envFrom:
+            - configMapRef:
+                name: {{ include "starlight.fullname" . }}-env
+            - secretRef:
+                name: {{ template "starlight.secretName" . }}
+{{- end }}
