@@ -5,17 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: registry.gitlab.com/surfliner/surfliner/starlight_web
+  repository: registry.gitlab.com/surfliner/surfliner/tidewater_web
   name: starlight_web
   tag: stable
   pullPolicy: Always
-
-util:
-  image:
-    repository: registry.gitlab.com/surfliner/surfliner/surfliner-util
-    name: surfliner-util
-    tag: stable
-    pullPolicy: Always
 
 imagePullSecrets: []
 nameOverride: ""
@@ -23,7 +16,7 @@ fullnameOverride: ""
 
 # Set to true if a Secret already exists in the namespace for the Deployment
 existingSecret:
-  name: starlight
+  name: tidewater
   enabled: false
 
 # additional volumes and volume mounts, evaluated as a template, e.g.
@@ -65,18 +58,18 @@ ingress:
     nginx.ingress.kubernetes.io/proxy-body-size: 20m
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
-  hosts: ['starlight.local']
+  hosts: ['tidewater.local']
   tls: []
 
 
 
-starlight:
-  solrRunMode: cloud
-  disableSolrConfigInit: false
+tidewater:
+  # solrRunMode: cloud
+  # disableSolrConfigInit: false
   allow_robots: false # allow crawling via robots.txt
-  loadSolrConfigSet: true # use false to skip solr configset maintenance init container
+  # loadSolrConfigSet: true # use false to skip solr configset maintenance init container
   application:
-    name: "Starlight"
+    name: "Tidewater"
     themes: "ucsb,surfliner,ucsd"
   analytics: {}
     # webPropertyId: # e.g UA-12345555-11
@@ -94,25 +87,25 @@ starlight:
     enabled: true
   # s3-compatible storage via Amazon or Minio
   storage:
-    enabled: true
-    accessKey: starlight-access-key
-    acl: 'bucket-owner-full-control' #aws/minio ACL
-    bucket: starlight
-    # endpointUrl: aws/minio (optional for aws, reguired for minio)
-    region: us-west-2
-    secretKey: starlight-secret-key
+    # enabled: true
+    # accessKey: starlight-access-key
+    # acl: 'bucket-owner-full-control' #aws/minio ACL
+    # bucket: starlight
+    # # endpointUrl: aws/minio (optional for aws, reguired for minio)
+    # region: us-west-2
+    # secretKey: starlight-secret-key
   backups:
     import:
-      enabled: false
-      force: false
+      # enabled: false
+      # force: false
       # asset_host: new host for CMS assets. e.g.: https://starlight-uploads-prod.s3.us-west-2.amazonaws.com
-      solrReindex: false # flag to run a full solr reindex on import/initial deploy
+      # solrReindex: false # flag to run a full solr reindex on import/initial deploy
       # dbBackupSource: s3:// URL or local file path for importing psql database backup source. e.g: s3://ucsd/starlight.dmp or /tmp/starlight-backup.dmp
       # dbBackupDestination: s3:// URL or local file path for psql database backup destination file. e.g: s3://ucsd/starlight.dmp or /tmp/starlight-backup.dmp
       # oldAppUrl: url for previous system, used for iiif url migration. i.e. https://exhibits.ucsd.edu
       # sourcePath: s3:// URL or local directory path for importing image upload backup source. e.g. s3://my-bucket/uploads or /uploads
     export:
-      enabled: false
+      # enabled: false
       # dbBackupSource: s3:// URL or local file path for psql database backup source file. e.g: s3://ucsd/starlight.dmp or /tmp/starlight-backup.dmp
       # dbBackupDestination: s3:// URL or local file path for psql database backup destination file. e.g: s3://ucsd/starlight.dmp or /tmp/starlight-backup.dmp
       # destinationPath: s3:// URL for image backups. e.g: s3://my-bucket/starlight-image-backups
@@ -120,8 +113,8 @@ starlight:
       # sourcePath: s3:// URL or local directory path to source path. e.g. s3://my-bucket/uploads or /uploads
   email:
     # these needs to be set to something, even if it doesn't work, or else rails errors out on startup
-    from_address: starlight@example.edu
-    delivery_method: letter_opener_web # or: smtp
+    # from_address: tidewater@example.edu
+    # delivery_method: letter_opener_web # or: smtp
     # see: https://guides.rubyonrails.org/action_mailer_basics.html#action-mailer-configuration
     # smtp_settings:
     #   address: smtp.example.edu
@@ -139,25 +132,25 @@ starlight:
 
 # Configuration for solr chart
 # see: https://github.com/bitnami/charts/blob/master/bitnami/solr/values.yaml
-solr:
-  enabled: true
-  image:
-    repository: bitnami/solr
-    tag: 8.11.1-debian-10-r26
-  authentication:
-    enabled: true
-    adminUsername: admin
-    adminPassword: admin
-  coreName: starlight # used if starlight.solrRunMode is 'standalone'
-  collection: starlight # used if starlight.solrRunMode is 'cloud'
-  cloudBoostrap: true
-  cloudEnabled: true
-  persistence:
-    enabled: true
-  zookeeper:
-    enabled: true
-    persistence:
-      enabled: true
+# solr:
+#   enabled: true
+#   image:
+#     repository: bitnami/solr
+#     tag: 8.11.1-debian-10-r26
+#   authentication:
+#     enabled: true
+#     adminUsername: admin
+#     adminPassword: admin
+#   coreName: starlight # used if starlight.solrRunMode is 'standalone'
+#   collection: starlight # used if starlight.solrRunMode is 'cloud'
+#   cloudBoostrap: true
+#   cloudEnabled: true
+#   persistence:
+#     enabled: true
+#   zookeeper:
+#     enabled: true
+#     persistence:
+#       enabled: true
 # Settings for solr java memory
   # javaMem: "-Xms2g -Xmx3g"
   # Settings for zk java memory
@@ -180,31 +173,31 @@ solr:
 
 # Configuration for memcached chart
 # see: https://github.com/bitnami/charts/blob/master/bitnami/memcached/README.md
-memcached:
-  enabled: true
-  architecture: high-availability
-  # requires architecture: high-availability
-  persistence:
-    enabled: true
-    size: 8Gi
-  image:
-    repository: bitnami/memcached
-    tag: 1.6.13-debian-10-r1
+# memcached:
+#   enabled: true
+#   architecture: high-availability
+#   # requires architecture: high-availability
+#   persistence:
+#     enabled: true
+#     size: 8Gi
+#   image:
+#     repository: bitnami/memcached
+#     tag: 1.6.13-debian-10-r1
 
 # Configuration for minio chart
 # This is currently only used for Review applications in CI/CD pipelines
 # see: https://github.com/bitnami/charts/blob/master/bitnami/minio/README.md
-minio:
-  enabled: false
-  defaultBuckets: starlight:download
-  auth:
-    rootUser: starlight-access-key
-    rootPassword: starlight-secret-key
-  persistence:
-    enabled: false
-  image:
-    repository: bitnami/minio
-    tag: 2021.12.29-debian-10-r13
+# minio:
+#   enabled: false
+#   defaultBuckets: starlight:download
+#   auth:
+#     rootUser: starlight-access-key
+#     rootPassword: starlight-secret-key
+#   persistence:
+#     enabled: false
+#   image:
+#     repository: bitnami/minio
+#     tag: 2021.12.29-debian-10-r13
 
 # Configuration for postgresql chart
 # see: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md
@@ -215,22 +208,22 @@ postgresql:
   enabled: true
   cpu: 1000m
   memory: 1Gi
-  postgresqlUsername: starlight
-  postgresqlPassword: starlight_pass
-  postgresqlDatabase: starlight_db
-  postgresqlPostgresPassword: starlight_admin
+  postgresqlUsername: tidewater
+  postgresqlPassword: tidewater_pass
+  postgresqlDatabase: tidewater_db
+  postgresqlPostgresPassword: tidewater_admin
   servicePort: 5432
   persistence:
     size: 10Gi
 
 # Configuration for redis chart
 # see: https://github.com/helm/charts/blob/master/stable/redis/README.md
-redis:
-  image:
-    repository: bitnami/redis
-    tag: 6.2.6-debian-10-r98
-  auth:
-    enabled: false
+# redis:
+#   image:
+#     repository: bitnami/redis
+#     tag: 6.2.6-debian-10-r98
+#   auth:
+#     enabled: false
 
 # set in the individual deployment configurations;
 # see e.g. ../snippets/starlight/production/ucsb.yaml
