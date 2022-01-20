@@ -41,7 +41,7 @@ namespace :starlight do
     TrevorURL.rewrite_all(/^\/uploads/, "#{ENV["ASSET_HOST"]}/uploads")
   end
 
-  task reindex_now, [:exhibit_slug] => :environment do |_, args|
+  task :reindex_now, [:exhibit_slug] => :environment do |_, args|
     exhibits = if args[:exhibit_slug]
                  Spotlight::Exhibit.where(slug: args[:exhibit_slug])
                else
