@@ -232,10 +232,22 @@ redis:
   auth:
     enabled: false
 
-# set in the individual deployment configurations;
+# overridden in the individual deployment configurations;
 # see e.g. ../snippets/starlight/production/ucsb.yaml
-#
-resources: {}
+resources:
+  limits:
+    cpu: 1000m
+    memory: 1000Mi
+  requests:
+    cpu: 500m
+    memory: 500Mi
+workerResources:
+  limits:
+    cpu: 500m
+    memory: 500Mi
+  requests:
+    cpu: 200m
+    memory: 200Mi
 
 nodeSelector: {}
 
