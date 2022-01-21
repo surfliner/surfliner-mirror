@@ -52,7 +52,7 @@ services:
   postgres:
     image: bitnami/postgresql:12.9.0-debian-10-r59
     volumes:
-      - shoreline_discovery_db:/var/lib/postgresql/data
+      - "shoreline_discovery_db:/bitnami/postgresql"
     env_file:
       - .env
 
