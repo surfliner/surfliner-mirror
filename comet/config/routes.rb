@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   resources :staging_area, only: "index"
 
   put "/admin/workflows/batch_actions" => "hyrax/admin/workflows#batch_actions"
+  post "/dashboard/collections/:id/publish" => "hyrax/dashboard/collections#publish"
 
   resources :bookmarks do
     concerns :exportable

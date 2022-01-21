@@ -4,6 +4,7 @@ source "https://rubygems.org"
 
 gem "bootsnap", "1.9.3", require: false
 gem "bootstrap-sass", "3.4.1"
+gem "bunny", "2.19.0"
 gem "coffee-rails", "5.0.0"
 gem "declarative-option", "0.1.0"
 gem "devise", "4.8.0"

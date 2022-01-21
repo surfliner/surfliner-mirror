@@ -32,6 +32,14 @@
 en:
   hello: "Hello world"
   hyrax:
+    collection:
+      actions:
+        publish:
+          confirmation: "Are you sure you want to publish the collection?"
+          desc: "Publish the collection to client application like Tidewater, Shoreline etc."
+          failed: "Publish collection failed"
+          label: "Publish collection"
+          success: "Publish collection successfully."
     dashboard:
       batch_uploads:
         button_label: "Submit"
