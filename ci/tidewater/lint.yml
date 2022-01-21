@@ -1,0 +1,28 @@
+tidewater:shellcheck:
+  stage: lint
+  image: koalaman/shellcheck-alpine:v0.8.0
+  needs: []
+  script:
+    - cd tidewater
+    - find . -name tmp -prune -o -type f -exec awk 'FNR == 1 && /^#!.*sh/{print FILENAME}' {} + | xargs shellcheck
+  extends: .only-refs-default
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - .styles/**/*
+      - tidewater/**/*
+
+tidewater:lint:
+  stage: lint
+  image: $CI_REGISTRY_IMAGE/tidewater_web:$CI_COMMIT_SHA
+  script:
+    - cd tidewater
+    - bundle exec standardrb
+  extends: .only-refs-default
+  needs: ["tidewater:build"]
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - .styles/**/*
+      - tidewater/**/*
+      - ci/tidewater/**/*

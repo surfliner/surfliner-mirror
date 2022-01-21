@@ -1,4 +1,4 @@
-tidewater-build:
+tidewater:build:
   extends:
     - .kaniko-build
     - .only-refs-default

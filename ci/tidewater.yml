@@ -1,5 +1,6 @@
 include:
   - local: ci/tidewater/build.yml
+  - local: ci/tidewater/lint.yml
 
 .only-tidewater-changes:
   only:
