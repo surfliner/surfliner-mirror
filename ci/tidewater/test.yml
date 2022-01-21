@@ -1,0 +1,24 @@
+tidewater:test:
+  stage: test
+  image: $CI_REGISTRY_IMAGE/tidewater_web:$CI_COMMIT_SHA
+  needs: ["tidewater:build"]
+  variables:
+    POSTGRES_DB_TEST: tidewater-test
+    POSTGRES_ADMIN_PASSWORD: password
+    POSTGRES_HOST: localhost
+    POSTGRES_PASSWORD: password
+    POSTGRES_PORT: 5432
+    POSTGRES_USER: postgres
+    RAILS_ENV: test
+  services:
+    - name: bitnami/postgresql:12.9.0-debian-10-r59
+      alias: postgres
+  script:
+    - cd tidewater
+    - bundle exec rake db:create db:migrate
+    - bundle exec rspec
+  extends:
+    - .only-refs-default
+    - .only-tidewater-changes
+  tags:
+    - kubernetes
