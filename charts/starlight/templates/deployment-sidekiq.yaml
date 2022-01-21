@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{ include "starlight.fullname" . }}-sidekiq
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ default .Values.workerReplicaCount .Values.replicaCount }}
   strategy:
     type: RollingUpdate
   selector:
