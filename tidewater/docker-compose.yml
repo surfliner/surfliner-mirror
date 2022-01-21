@@ -40,7 +40,7 @@ services:
   database:
     image: bitnami/postgresql:12.9.0-debian-10-r60
     volumes:
-      - tidewater_database:/var/lib/postgresql/data
+      - "tidewater_database:/bitnami/postgresql"
     environment:
       POSTGRESQL_DATABASE: tidewater-dev
       POSTGRESQL_PASSWORD: postgres_pass
