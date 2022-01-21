@@ -2,12 +2,13 @@ source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem "bootsnap", "1.10.1", require: false
-gem "debug", "1.4.0", platforms: %i[ mri mingw x64_mingw ], group: %[development test]
+gem "debug", "1.4.0", platforms: %i[mri mingw x64_mingw], group: %(development test)
 gem "oai", "1.1.0"
 gem "okcomputer", "1.18.4"
 gem "pg", "1.2.3"
 gem "puma", "5.5.2"
 gem "rails", "7.0.1"
-gem "rspec_junit_formatter", "0.4.1", group: "test"
 gem "rspec-rails", "5.0.2", group: "test"
-gem "tzinfo-data", "2.0.4", platforms: %i[ mingw mswin x64_mingw jruby ]
+gem "rspec_junit_formatter", "0.4.1", group: "test"
+gem "standard", "1.7.0", group: %(development test)
+gem "tzinfo-data", "2.0.4", platforms: %i[mingw mswin x64_mingw jruby]
