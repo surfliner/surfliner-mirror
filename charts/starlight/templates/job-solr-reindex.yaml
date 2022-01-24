@@ -27,5 +27,5 @@ spec:
             - secretRef:
                 name: {{ template "starlight.secretName" . }}
           command: ["/bin/sh"]
-          args: ["-c", "bundle exec rake starlight:reindex_now"]
+          args: ["-c", "bundle exec rake spotlight:reindex"]
 {{- end }}
