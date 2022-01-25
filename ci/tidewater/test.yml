@@ -3,8 +3,14 @@ tidewater:test:
   image: $CI_REGISTRY_IMAGE/tidewater_web:$CI_COMMIT_SHA
   needs: ["tidewater:build"]
   variables:
-    POSTGRES_DB_TEST: tidewater-test
+    OAI_ADMIN_EMAIL: tidewater@example.com
+    OAI_NAMESPACE_IDENTIFIER: test
+    OAI_NAMESPACE_SCHEME: oai
+    OAI_REPOSITORY_NAME: tidewater
+    OAI_REPOSITORY_URL: http://localhost:3000/provider
+    OAI_SAMPLE_ID: 13900
     POSTGRES_ADMIN_PASSWORD: password
+    POSTGRES_DB_TEST: tidewater-test
     POSTGRES_HOST: localhost
     POSTGRES_PASSWORD: password
     POSTGRES_PORT: 5432
