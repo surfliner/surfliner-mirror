@@ -1,6 +1,7 @@
 ingress:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/proxy-body-size: 1G
   tls:
     - hosts:
         - starlight-staging.eks.dld.library.ucsb.edu

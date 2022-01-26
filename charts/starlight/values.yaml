@@ -62,14 +62,12 @@ service:
 
 ingress:
   enabled: true
-  annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: 20m
+  annotations: {}
+    # nginx.ingress.kubernetes.io/proxy-body-size: 500m
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts: ['starlight.local']
   tls: []
-
-
 
 starlight:
   solrRunMode: cloud

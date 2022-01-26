@@ -3,6 +3,7 @@ workerReplicaCount: 3
 ingress:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/proxy-body-size: 2G
   tls:
     - hosts:
         - starlight.eks.dld.library.ucsb.edu
