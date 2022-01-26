@@ -34,6 +34,28 @@ class OaiItem < ApplicationRecord
     end
   end
 
+  # Returns a <oai_dc:dc> element containing the Dublin Core metadata for this item.
+  def to_oai_dc
+    result = Nokogiri::XML::Builder.new do |xml|
+      xml["oai_dc"].dc(
+        "xmlns:oai_dc" => "http://www.openarchives.org/OAI/2.0/oai_dc/",
+        "xmlns:dc" => "http://purl.org/dc/elements/1.1/",
+        "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
+        "xsi:schemaLocation" =>
+          "http://www.openarchives.org/OAI/2.0/oai_dc/ "\
+          "http://www.openarchives.org/OAI/2.0/oai_dc.xsd"
+      ) do
+        self.class.dc_elements.each do |field|
+          values = metadata_for("http://purl.org/dc/elements/1.1/#{field}")
+          values.each do |value|
+            xml["dc"].send(field, value)
+          end
+        end
+      end
+    end
+    result.doc.to_xml
+  end
+
   private
 
   # Splits the provided text on U+FFFF and replaces any characters not allowed in XML documents with U+FFFD.
