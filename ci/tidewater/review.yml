@@ -1,0 +1,81 @@
+.tidewater:deploy:review:
+  stage: review
+  extends:
+    - .only-tidewater-changes
+    - .helm3-deploy
+  variables:
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/tidewater_web
+    DEPLOY_TAG: $CI_COMMIT_SHA
+    HELM_RELEASE_NAME: surfliner-tidewater-$CI_MERGE_REQUEST_ID
+    KUBE_NAMESPACE: tidewater-review
+  needs: ["tidewater:build"]
+  only:
+    refs:
+      - merge_requests
+
+tidewater:deploy:ucsd-review:
+  extends:
+    - .tidewater:deploy:review
+  environment:
+    name: ucsd.tidewater.review/$CI_MERGE_REQUEST_ID
+    url: http://tidewater-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
+    on_stop: tidewater:cleanup:ucsd-review
+    auto_stop_in: 1 week
+  tags:
+    - ucsd
+  variables:
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --set ingress.hosts={tidewater-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN}
+      --values charts/snippets/tidewater/review.yaml
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
+  script:
+    - deploy ./charts/tidewater
+
+tidewater:cleanup:ucsd-review:
+  extends:
+    - .tidewater:deploy:review
+  environment:
+    name: ucsd.tidewater.review/$CI_MERGE_REQUEST_ID
+    url: http://tidewater-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
+    action: stop
+  tags:
+    - ucsd
+  when: manual
+  allow_failure: true
+  variables:
+    GIT_STRATEGY: none
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
+  script:
+    - delete
+    - delete_stateful_set_pvcs
+
+tidewater:deploy:ucsb-review:
+  extends:
+    - .helm3-deploy
+    - .tidewater:deploy:review
+  script:
+    - deploy ./charts/tidewater
+  environment:
+    name: ucsb.review.tidewater
+    url: http://tidewater-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
+    on_stop: tidewater:cleanup:ucsb-review
+    auto_stop_in: 4 days
+  variables:
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --set ingress.hosts={tidewater-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN}
+      --values charts/snippets/tidewater/review.yaml
+
+tidewater:cleanup:ucsb-review:
+  extends:
+    - .helm3-deploy
+    - .tidewater:deploy:review
+  environment:
+    name: ucsb.review.tidewater
+    action: stop
+  when: manual
+  allow_failure: true
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - delete
+    - delete_stateful_set_pvcs
