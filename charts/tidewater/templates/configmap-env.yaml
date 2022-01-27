@@ -14,7 +14,6 @@ data:
   APP_URL: http{{ if .Values.ingress.tls }}s{{ end }}://{{ index .Values.ingress.hosts 0 }}
   AUTH_METHOD: {{ .Values.tidewater.auth.method }}
   DATABASE_COMMAND: {{ .Values.tidewater.rails.db_setup_command }}
-  DELIVERY_METHOD: {{ .Values.tidewater.email.delivery_method }}
   DB_ADAPTER: {{ .Values.tidewater.rails.db_adapter }}
   {{- if .Values.tidewater.backups.import.oldAppUrl }}
   OLD_APP_URL: {{ .Values.tidewater.backups.import.oldAppUrl }}
