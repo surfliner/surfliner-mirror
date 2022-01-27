@@ -5,7 +5,6 @@ tidewater:test:
   variables:
     OAI_ADMIN_EMAIL: tidewater@example.com
     OAI_NAMESPACE_IDENTIFIER: test
-    OAI_NAMESPACE_SCHEME: oai
     OAI_REPOSITORY_NAME: tidewater
     OAI_REPOSITORY_URL: http://localhost:3000/provider
     OAI_SAMPLE_ID: 13900
