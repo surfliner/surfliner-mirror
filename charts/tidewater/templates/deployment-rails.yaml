@@ -25,22 +25,6 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       initContainers:
-        {{- if and (eq (include "tidewater.solr.cloudEnabled" .) "true") (not .Values.tidewater.disableSolrConfigInit) }}
-        - name: load-solr-config
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: Always
-          envFrom:
-            - configMapRef:
-                name: {{ include "tidewater.fullname" . }}-env
-            - secretRef:
-                name: {{ template "tidewater.secretName" . }}
-          command:
-            - sh
-            - -c
-            - >
-              solrcloud-upload-configset.sh /home/tidewater/app/solr/config &&
-              solrcloud-assign-configset.sh
-        {{- end }}
         - name: setup-db
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: "{{ .Values.image.pullPolicy }}"
