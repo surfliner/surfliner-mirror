@@ -2,6 +2,7 @@ include:
   - local: ci/tidewater/build.yml
   - local: ci/tidewater/lint.yml
   - local: ci/tidewater/test.yml
+  - local: ci/tidewater/review.yml
 
 .only-tidewater-changes:
   only:
