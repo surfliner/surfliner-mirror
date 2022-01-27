@@ -2,7 +2,7 @@ apiVersion: v2
 appVersion: "1.0"
 description: Tidewater is an OAH-PMH endpoint for comet.
 name: tidewater
-version: 0.7.0
+version: 0.8.0
 dependencies:
   - name: postgresql
     version: 9.8.12
