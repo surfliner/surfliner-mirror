@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: registry.gitlab.com/surfliner/surfliner/tidewater_web
-  name: starlight_web
+  name: tidewater_web
   tag: stable
   pullPolicy: Always
 
