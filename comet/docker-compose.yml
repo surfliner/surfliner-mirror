@@ -63,7 +63,7 @@ services:
     image: bitnami/rabbitmq:3.9.13-debian-10-r6
     networks:
       - comet
-      
+
   chrome:
     image: selenium/standalone-chrome:97.0
     logging:

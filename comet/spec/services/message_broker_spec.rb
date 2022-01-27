@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe MessageBroker do
+RSpec.describe MessageBroker, :rabbitmq do
   let(:broker) { described_class.new(connection: connection, topic: topic) }
   let(:tidewater) { described_class.new(connection: connection, topic: topic) }
   let(:shoreline) { described_class.new(connection: connection, topic: topic) }

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require "rails_helper"
+require "hyrax/specs/spy_listener"
+
 RSpec.describe Hyrax::Dashboard::CollectionsController, storage_adapter: :memory, metadata_adapter: :test_adapter, type: :controller do
   let(:user) { User.create(email: "moomin@example.com") }
 
@@ -75,10 +77,6 @@ RSpec.describe Hyrax::Dashboard::CollectionsController, storage_adapter: :memory
   end
 
   describe "#publish" do
-    let(:connection) { Rails.application.config.rabbitmq_connection }
-    let(:topic) { ENV.fetch("RABBITMQ_TOPIC", "comet.publish") }
-    let(:tidewater_routing_key) { ENV.fetch("RABBITMQ_TIDEWATER_ROUTING_KEY", "comet.publish.tidewater") }
-
     let(:collection_type) { Hyrax::CollectionType.create(title: "Test Type") }
     let(:collection_type_gid) { collection_type.to_global_id.to_s }
     let(:collection) do
@@ -90,6 +88,7 @@ RSpec.describe Hyrax::Dashboard::CollectionsController, storage_adapter: :memory
       obj_a = ::GenericObject.new(title: ["Test Object A"], member_of_collection_ids: [collection.id])
       Hyrax.persister.save(resource: obj_a)
     end
+
     let(:object_b) do
       obj_b = ::GenericObject.new(title: ["Test Object B"], member_of_collection_ids: [collection.id])
       Hyrax.persister.save(resource: obj_b)
@@ -106,32 +105,34 @@ RSpec.describe Hyrax::Dashboard::CollectionsController, storage_adapter: :memory
       Hyrax.index_adapter.save(resource: collection)
       Hyrax.index_adapter.save(resource: object_a)
       Hyrax.index_adapter.save(resource: object_b)
+      Hyrax.publisher.subscribe(listener)
     }
 
-    context "Publish collection" do
-      let(:tidewater_queue_message) { [] }
-      let(:broker) { MessageBroker.new(connection: connection, topic: topic) }
+    after { Hyrax.publisher.unsubscribe(listener) }
 
-      before {
-        broker.channel.queue("tidewater_queue").bind(broker.exchange, routing_key: tidewater_routing_key).subscribe do |delivery_info, metadata, payload|
-          tidewater_queue_message << payload
+    let(:listener) do
+      klass = Class.new do
+        def initialize
+          @event = nil
         end
-      }
 
-      after { broker.close }
+        def on_collection_publish(event)
+          @event = event
+        end
 
-      it "get a successful response" do
-        post :publish, params: {id: collection.id}
-        expect(response).to redirect_to "/dashboard/collections/#{collection.id}?locale=en"
-        expect(flash[:notice]).to match(/Publish collection successfully./)
+        def collection_publish
+          @event
+        end
+      end
 
-        expect(tidewater_queue_message.length).to eq 2
+      klass.new
+    end
 
-        expect(JSON.parse(tidewater_queue_message.first).to_h).to include("status" => "published")
-        expect(JSON.parse(tidewater_queue_message.first).to_h["resourceUrl"]).to include "/#{object_a.id}?locale=en"
-
-        expect(JSON.parse(tidewater_queue_message[1]).to_h).to include("status" => "published")
-        expect(JSON.parse(tidewater_queue_message[1]).to_h["resourceUrl"]).to include "/#{object_b.id}?locale=en"
+    context "Publish collection" do
+      it "publishes an event" do
+        expect { post :publish, params: {id: collection.id} }
+          .to change { listener.collection_publish&.payload }
+          .to include(collection: collection)
       end
     end
   end

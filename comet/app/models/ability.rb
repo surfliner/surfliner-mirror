@@ -2,7 +2,8 @@ class Ability
   include Hydra::Ability
   include Hyrax::Ability
 
-  self.ability_logic += [:everyone_can_create_curation_concerns]
+  self.ability_logic += [:everyone_can_create_curation_concerns,
+    :object_publication]
 
   ##
   # @note just assume everyone can deposit works; what are they here for
@@ -12,5 +13,11 @@ class Ability
   # @return [Boolean]
   def can_create_any_work?
     true
+  end
+
+  def object_publication
+    can :publish, Hyrax::PcdmCollection do |collection|
+      true
+    end
   end
 end

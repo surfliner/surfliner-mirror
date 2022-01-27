@@ -6,7 +6,7 @@ module Hyrax
       with_themed_layout "dashboard"
       before_action :authenticate_user!
 
-      load_and_authorize_resource(only: :show,
+      load_and_authorize_resource(only: [:show, :publish],
         class: Hyrax::PcdmCollection,
         instance_name: :collection)
 
@@ -56,42 +56,15 @@ module Hyrax
       end
 
       ##
-      # Publish the collection through message broker
+      # Publish the collection to a discovery system.
       def publish
-        rabbitmq_conn = Rails.application.config.rabbitmq_connection
-        publish_topic = ENV.fetch("RABBITMQ_TOPIC", "comet.publish")
-        tidewater_routing_key = ENV.fetch("RABBITMQ_TIDEWATER_ROUTING_KEY", "comet.publish.tidewater")
-
-        result_message = t("hyrax.collection.actions.publish.success")
-
-        begin
-          @message_broker = MessageBroker.new(connection: rabbitmq_conn, topic: publish_topic)
-
-          query_member_objects.each do |obj|
-            payload = payloads obj
-            @message_broker.publish(payload: payload.to_json, routing_key: tidewater_routing_key)
-
-            Hyrax.logger.debug("Published object with id #{params[:id]}: payload => #{payload.to_json}")
-          end
-        rescue => e
-          result_message = "#{t("hyrax.collection.actions.publish.failed")}: #{e.message}"
-          Hyrax.logger.error e
-        ensure
-          @message_broker.close
-        end
-
-        redirect_to(hyrax.dashboard_collection_path(curation_concern), notice: result_message)
+        Hyrax.publisher.publish("collection.publish",
+          collection: @collection,
+          user: current_user)
+        redirect_to(hyrax.dashboard_collection_path(curation_concern))
       end
 
       private
-
-      ##
-      # Find objects in the collection
-      def query_member_objects
-        Hyrax.query_service.find_inverse_references_by(resource: curation_concern,
-          property: "member_of_collection_ids",
-          model: ::GenericObject)
-      end
 
       def query_collection_members
         member_works
@@ -158,16 +131,6 @@ module Hyrax
 
       def default_collection_type
         Hyrax::CollectionType.find_or_create_default_collection_type
-      end
-
-      def payloads(resource)
-        work_presenter = Hyrax::WorkShowPresenter.new(resource, current_ability)
-
-        {}.tap do |pro|
-          pro[:resourceUrl] = polymorphic_url([main_app, work_presenter])
-          pro[:status] = "published"
-          pro[:timestamp] = resource.date_modified.nil? ? resource.updated_at : resource.date_modified
-        end
       end
     end
   end

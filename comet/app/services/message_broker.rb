@@ -9,7 +9,7 @@ class MessageBroker
   # Constructor
   # @param connection[Bunny::Session]
   # @param topic[String] - the topic
-  def initialize(connection:, topic:)
+  def initialize(topic:, connection: Rails.application.config.rabbitmq_connection)
     @connection = connection
 
     @connection.start
