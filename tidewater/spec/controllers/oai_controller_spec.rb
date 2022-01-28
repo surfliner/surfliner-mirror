@@ -10,5 +10,9 @@ RSpec.describe OaiController do
       expect(response).to have_http_status(200)
       expect(response.body).to include("surfliner")
     end
+
+    it "routes to /oai" do
+      expect(get: "/oai").to be_routable
+    end
   end
 end

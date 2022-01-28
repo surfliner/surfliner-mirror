@@ -29,10 +29,10 @@ A human‐readible name for the OAI repository, as it should appear in an
   OAI‐PMH `Identify` response.
 
   </dd>
-  <dt><code>OAI_REPOSITORY_URL</code></dt>
+  <dt><code>OAI_REPOSITORY_ORIGIN</code></dt>
   <dd>
 
-The URL for the OAI‐PMH endpoint, as it should appear in an OAI‐PMH
+The origin for the OAI‐PMH endpoint, as it should appear in an OAI‐PMH
   `Identify` response.
 
   </dd>
