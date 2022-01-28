@@ -9,4 +9,12 @@ RSpec.describe "GET /object/{id}" do
   it "finds an object" do
     expect { get "/objects/abc" }.not_to raise_error
   end
+
+  it "gives some json" do
+    get "/objects/abc"
+
+    data = { "title" => "abc" }
+
+    expect(JSON.parse(last_response.body)).to include(**data)
+  end
 end
