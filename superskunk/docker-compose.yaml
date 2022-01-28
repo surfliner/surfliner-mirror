@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  web:
+    build:
+      context: ..
+      dockerfile: superskunk/Dockerfile
+      target: superskunk
+    image: superskunk
+    volumes:
+      - .:/home/superskunk/app
+      - superskunk_tmp:/home/superskunk/app/tmp
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
+
+volumes:
+  superskunk_tmp:
