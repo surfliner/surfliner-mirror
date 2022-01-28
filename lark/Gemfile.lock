@@ -72,7 +72,7 @@ GEM
       ruby2_keywords
     dry-auto_inject (0.8.0)
       dry-container (>= 0.3.4)
-    dry-configurable (0.13.0)
+    dry-configurable (0.14.0)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.6)
     dry-container (0.9.0)
@@ -313,7 +313,7 @@ PLATFORMS
 DEPENDENCIES
   capybara_discoball (~> 0.1.0)
   dotenv
-  dry-configurable (= 0.13.0)
+  dry-configurable (= 0.14.0)
   dry-events (= 0.3.0)
   dry-system (= 0.22.0)
   dry-transaction (= 0.13.3)
