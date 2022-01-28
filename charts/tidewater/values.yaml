@@ -14,8 +14,8 @@ oai:
   adminEmail: tidewater@example.com
   namespaceIdentifier: item
   repositoryName: tidewater
-  repositoryOrigin=http://localhost:3000
-  sampleId=13900
+  repositoryOrigin: http://localhost:3000
+  sampleId: 13900
 
 imagePullSecrets: []
 nameOverride: ""
