@@ -64,7 +64,7 @@ services:
 
 
   minio:
-    image: bitnami/minio:2021.12.29-debian-10-r25
+    image: bitnami/minio:2021.12.29-debian-10-r26
     ports:
       - "9000:9000"
     volumes:
