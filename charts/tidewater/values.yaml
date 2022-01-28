@@ -15,7 +15,7 @@ oai:
   namespaceIdentifier: item
   repositoryName: tidewater
   repositoryOrigin: http://localhost:3000
-  sampleId: 13900
+  sampleId: "13900"
 
 imagePullSecrets: []
 nameOverride: ""
