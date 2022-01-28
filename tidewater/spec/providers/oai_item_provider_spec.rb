@@ -3,6 +3,11 @@ require "rails_helper"
 RSpec.describe OaiItemProvider do
   let(:provider) { described_class.new }
 
+  it "has a repository_url that matches the application OAI route" do
+    provider_repository_url_route = provider.url.split("/").last
+    expect(Rails.application.routes.routes.any? { |r| r.name.eql? provider_repository_url_route }).to be true
+  end
+
   context "with OaiItem records" do
     describe "#get_record" do
       let(:oai_dc_metadata_xpath) { "OAI-PMH/GetRecord/record/metadata/oai_dc:dc".freeze }
