@@ -3,6 +3,7 @@ source "https://rubygems.org"
 gem "bootsnap", "1.10.2", require: false
 gem "debug", "1.4.0", platforms: %i[mri mingw x64_mingw], group: %(development test)
 gem "puma", "5.6.1"
+gem "rack-test", group: "test"
 gem "rails", "7.0.1"
 gem "rspec-rails", "5.0.2", group: "test"
 gem "rspec_junit_formatter", "0.4.1", group: "test"
