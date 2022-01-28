@@ -20,7 +20,7 @@ data:
   OAI_NAMESPACE_IDENTIFIER: {{ .Values.oai.namespaceIdentifier }}
   OAI_REPOSITORY_NAME: {{ .Values.oai.repositoryName }}
   OAI_REPOSITORY_ORIGIN: http{{ if .Values.ingress.tls }}s{{ end }}://{{ index .Values.ingress.hosts 0 }}
-  OAI_SAMPLE_ID: {{ .Values.oai.sampleId }}
+  OAI_SAMPLE_ID: {{ .Values.oai.sampleId | quote }}
   POSTGRES_DB: {{ .Values.postgresql.postgresqlDatabase }}
   POSTGRES_HOST: {{ template "tidewater.postgresql.fullname" . }}
   POSTGRES_PORT: {{ .Values.postgresql.servicePort | quote }}
