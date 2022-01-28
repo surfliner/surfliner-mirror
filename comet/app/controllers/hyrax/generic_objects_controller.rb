@@ -9,7 +9,6 @@ module Hyrax
     include Hyrax::WorksControllerBehavior
     include Hyrax::BreadcrumbsForWorks
     self.curation_concern_type = ::GenericObject
-    self.show_presenter = CometObjectShowPresenter
 
     # Use a Valkyrie aware form service to generate Valkyrie::ChangeSet style
     # forms.
