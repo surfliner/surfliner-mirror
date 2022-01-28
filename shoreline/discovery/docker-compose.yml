@@ -57,7 +57,7 @@ services:
       - .env
 
   solr:
-    image: bitnami/solr:8.11.1-debian-10-r32
+    image: bitnami/solr:8.11.1-debian-10-r41
     env_file:
       - .env
 
