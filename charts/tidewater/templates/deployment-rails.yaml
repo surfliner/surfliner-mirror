@@ -54,13 +54,6 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          volumeMounts:
-            - name: blacklight-locale
-              mountPath: /home/tidewater/app/config/locales/blacklight.en.yml
-              subPath: blacklight.en.yml
-            {{- with .Values.extraVolumeMounts }}
-            {{- toYaml . | nindent 12 }}
-            {{- end }}
           envFrom:
             - configMapRef:
                 name: {{ include "tidewater.fullname" . }}-env
