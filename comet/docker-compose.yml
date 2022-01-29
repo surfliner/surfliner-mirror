@@ -51,7 +51,7 @@ services:
       - redis
       - solr
     volumes:
-      - .:/app/samvera/hyrax-engine:cached
+      - .:/app/samvera/hyrax-webapp:cached
       - hyrax-derivatives:/app/samvera/hyrax-webapp/derivatives
       - hyrax-uploads:/app/samvera/hyrax-webapp/uploads
       - sidekiq-public:/app/samvera/hyrax-webapp/public
@@ -88,7 +88,7 @@ services:
     depends_on:
       - postgres
     volumes:
-      - .:/app/samvera/hyrax-engine:cached
+      - .:/app/samvera/hyrax-webapp:cached
       - rails-public:/app/samvera/hyrax-webapp/public
       - rails-tmp:/app/samvera/hyrax-webapp/tmp
     networks:
