@@ -8,6 +8,9 @@ class OaiItem < ApplicationRecord
     OAI::Provider::Metadata::DublinCore.instance.fields
   end
 
+  # `type` is a DC term, so the inheritance column needs to be something different.
+  self.inheritance_column = :subclass_type
+
   # The fields in our database which contain XML (potentially delimited with U+FFFF).
   def self.xml_fields
     dc_elements

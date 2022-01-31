@@ -7,7 +7,7 @@ RSpec.describe "Generic Objects", type: :system, js: true, storage_adapter: :mem
   before { sign_in user }
 
   context "during object creation" do
-    xit "can create a new object and assign a Collection to it" do
+    it "can create a new object and assign a Collection to it" do
       visit "/dashboard/my/works"
       click_on "Add new work"
       fill_in("Title", with: "My Title")

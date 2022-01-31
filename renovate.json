@@ -11,6 +11,13 @@
   "prHourlyLimit": 5,
   "rebaseWhen": "never",
   "labels": [ "dependencies" ],
+  "regexManagers": [
+    {
+      "fileMatch": ["^ci/comet.yml$"],
+      "matchStrings": ["^.+?helm\\spull\\s(?<depName>.+?)\\s--version\\s(?<currentValue>.+?)\\s.*$"],
+      "datasourceTemplate": "docker"
+    }
+  ],
   "packageRules":[
     {
       "description": "Use custom regex versioning for bitnami images",

@@ -23,7 +23,7 @@ starlight:deploy:ucsb-stage:
     url: http://starlight-staging.$KUBE_INGRESS_BASE_DOMAIN
     on_stop: starlight:cleanup:ucsb-stage
   variables:
-    DEPLOY_TAG: 17c670abeb78a7d156ad115abbce27999e2c1300
+    DEPLOY_TAG: starlight-v0.2.2
     HELM_UPGRADE_EXTRA_ARGS: >
       --values charts/snippets/starlight/staging/ucsb.yaml
 

@@ -60,7 +60,7 @@ services:
     tty: true
 
   memcached:
-    image: bitnami/memcached:1.6.13-debian-10-r7
+    image: bitnami/memcached:1.6.13-debian-10-r17
 
 
   minio:
@@ -97,7 +97,7 @@ services:
       - .env
 
   chrome:
-    image: selenium/standalone-chrome:96.0
+    image: selenium/standalone-chrome:97.0
 
 volumes:
   starlight_assets:
