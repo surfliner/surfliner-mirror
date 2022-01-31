@@ -73,8 +73,8 @@ class CatalogController < ApplicationController
     fields = Settings.FIELDS
 
     config.add_facet_field fields.PROVENANCE, label: "Institution",
-                                              limit: 8,
-                                              partial: "icon_facet"
+      limit: 8,
+      partial: "icon_facet"
 
     config.add_facet_field fields.CREATOR, label: "Author", limit: 8
     config.add_facet_field fields.PUBLISHER, label: "Publisher", limit: 8
@@ -85,13 +85,13 @@ class CatalogController < ApplicationController
     config.add_facet_field fields.YEAR, label: "Year", limit: 10
 
     config.add_facet_field fields.RIGHTS, label: "Access",
-                                          limit: 8,
-                                          partial: "icon_facet"
+      limit: 8,
+      partial: "icon_facet"
     config.add_facet_field fields.GEOM_TYPE, label: "Data type",
-                                             limit: 8,
-                                             partial: "icon_facet"
+      limit: 8,
+      partial: "icon_facet"
     config.add_facet_field fields.FILE_FORMAT, label: "Format",
-                                               limit: 8
+      limit: 8
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -241,10 +241,10 @@ class CatalogController < ApplicationController
       partial: "bookmark_control",
       if: :render_bookmarks_control?)
     config.add_show_tools_partial(:email, callback: :email_action,
-                                          validator: :validate_email_params)
+      validator: :validate_email_params)
     config.add_show_tools_partial(:sms, if: :render_sms_action?,
-                                        callback: :sms_action,
-                                        validator: :validate_sms_params)
+      callback: :sms_action,
+      validator: :validate_sms_params)
 
     document_has_references = proc do |_context, _config, options|
       options[:document] &&
