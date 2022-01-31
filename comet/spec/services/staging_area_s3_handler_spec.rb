@@ -37,7 +37,7 @@ RSpec.describe StagingAreaS3Handler do
     before { subject.copy_file(s3_key, dest_file) }
 
     it "contains the same content" do
-      expect(File.open(dest_file).read).to eq file.read
+      expect(File.read(dest_file)).to eq file.read
     end
   end
 end

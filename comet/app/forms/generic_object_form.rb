@@ -18,7 +18,7 @@ class GenericObjectForm < Hyrax::Forms::ResourceForm(GenericObject)
   # Particularly important, is that in the cases we've identified thusfar, the member_of_collections_ids params is
   # empty, so we rely on this param to populate the former
   property :member_of_collections_attributes, virtual: true,
-           populator: :interpret_collections_attributes
+    populator: :interpret_collections_attributes
 
   def interpret_collections_attributes(opts)
     member_attributes = input_params.permit(member_of_collections_attributes: {}).to_h
