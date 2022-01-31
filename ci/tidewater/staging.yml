@@ -1,0 +1,79 @@
+.tidewater:deploy:stage:
+  stage: staging
+  extends:
+    - .only-tidewater-changes
+    - .helm3-deploy
+  variables:
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/tidewater_web
+    # TODO: revert when UCSB theme is updated for Spotlight 3
+    DEPLOY_TAG: $CI_COMMIT_SHA
+    HELM_RELEASE_NAME: surfliner-tidewater-stage
+    KUBE_NAMESPACE: tidewater-staging
+  only:
+    refs:
+      - trunk
+
+tidewater:deploy:ucsb-stage:
+  extends:
+    - .tidewater:deploy:stage
+  script:
+    - deploy ./charts/tidewater
+  environment:
+    name: ucsb.staging.tidewater
+    url: http://tidewater-staging.$KUBE_INGRESS_BASE_DOMAIN
+    on_stop: tidewater:cleanup:ucsb-stage
+  variables:
+    DEPLOY_TAG: tidewater-v0.2.2
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --values charts/snippets/tidewater/staging/ucsb.yaml
+
+tidewater:cleanup:ucsb-stage:
+  extends:
+    - .tidewater:deploy:stage
+  environment:
+    name: ucsb.staging.tidewater
+    action: stop
+  when: manual
+  allow_failure: true
+  variables:
+    GIT_STRATEGY: none
+    HELM_RELEASE_NAME: surfliner-tidewater-stage
+  script:
+    - delete
+    - delete_stateful_set_pvcs
+
+tidewater:deploy:ucsd-stage:
+  extends:
+    - .tidewater:deploy:stage
+  script:
+    - deploy ./charts/tidewater
+  environment:
+    name: ucsd.staging.tidewater
+    url: http://lib-tidewater-staging.ucsd.edu/
+    on_stop: tidewater:cleanup:ucsd-stage
+  tags:
+    - ucsd
+  variables:
+    DEPLOY_TAG: $CI_COMMIT_SHA
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --values charts/snippets/tidewater/staging/ucsd.yaml
+
+tidewater:cleanup:ucsd-stage:
+  extends:
+    - .tidewater:deploy:stage
+  environment:
+    name: ucsd.staging.tidewater
+    action: stop
+  tags:
+    - ucsd
+  when: manual
+  allow_failure: true
+  variables:
+    GIT_STRATEGY: none
+    HELM_RELEASE_NAME: surfliner-tidewater-stage
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+  script:
+    - delete
+    - delete_stateful_set_pvcs
+

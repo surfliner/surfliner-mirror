@@ -1,0 +1,24 @@
+ingress:
+  enabled: true
+  hosts:
+    - host: lib-tidewater-staging.ucsd.edu
+      paths:
+        - path: '/'
+  tls:
+    - hosts:
+        - lib-tidewater-staging.ucsd.edu
+      secretName: tls-secret
+
+extraEnvVars:
+  - name: "RAILS_LOG_TO_STDOUT"
+    value: "true"
+extraEnvFrom:
+
+brandingVolume:
+  storageClass: nfs-client
+
+derivativesVolume:
+  storageClass: nfs-client
+
+uploadsVolume:
+  storageClass: nfs-client
