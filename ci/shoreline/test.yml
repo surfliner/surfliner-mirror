@@ -18,7 +18,7 @@
   services:
     - name: bitnami/postgresql:12.9.0-debian-10-r73
       alias: postgres
-    - name: solr:8.4.0
+    - name: solr:8.11.1
       alias: solr
     - name: zookeeper:3.6
       alias: zk

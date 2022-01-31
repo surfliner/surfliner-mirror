@@ -47,7 +47,7 @@ comet:test:unit:
       alias: postgres
     - name: bitnami/redis:6.2
       alias: redis
-    - name: solr:8.8.0
+    - name: solr:8.11.1
       alias: solr
     - name: zookeeper:3.6
       alias: zk
@@ -80,7 +80,7 @@ comet:test:system:
       alias: redis
     - name: bitnami/minio:2021-debian-10
       alias: minio
-    - name: solr:8.8.0
+    - name: solr:8.11.1
       alias: solr
     - name: bitnami/rabbitmq:3.9.13-debian-10-r6
       alias: rabbitmq
