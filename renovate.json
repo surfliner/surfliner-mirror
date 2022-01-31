@@ -14,7 +14,7 @@
   "regexManagers": [
     {
       "fileMatch": ["^ci/comet.yml$"],
-      "matchStrings": ["^.+?helm\\spull\\s(?<depName>.+?)\\s--version\\s(?<currentValue>.+?)\\s.*$"],
+      "matchStrings": [".+?helm\\spull\\s(?<depName>.+?)\\s--version\\s(?<currentValue>.+?)\\s.*"],
       "datasourceTemplate": "docker"
     }
   ],
