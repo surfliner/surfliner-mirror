@@ -32,5 +32,5 @@ COPY .styles $DOCKERROOT/.styles/
 ENV PATH="$DOCKERROOT/scripts:$PATH"
 
 CMD ["bundle", "exec", "puma", "-b", "tcp://0.0.0.0:3000"]
-ENTRYPOINT ["/bin/sh", "bin/docker-entrypoint.sh"]
+ENTRYPOINT ["rails-entrypoint.sh"]
 
