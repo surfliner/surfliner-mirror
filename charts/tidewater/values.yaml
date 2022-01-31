@@ -216,6 +216,13 @@ postgresql:
   persistence:
     size: 10Gi
 
+# OAI stuff...per Matt...though we aren't sure we need it?
+oai:
+  adminEmail: tidewater@example.com
+  namespaceIdentifier: item
+  repositoryName: tidewater
+  repositoryOrigin: http://localhost:3000
+
 # Configuration for redis chart
 # see: https://github.com/helm/charts/blob/master/stable/redis/README.md
 # redis:

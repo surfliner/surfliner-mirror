@@ -11,8 +11,6 @@ data:
   {{- if .Values.tidewater.allow_robots }}
   ALLOW_ROBOTS: "true"
   {{- end }}
-  APP_URL: http{{ if .Values.ingress.tls }}s{{ end }}://{{ index .Values.ingress.hosts 0 }}
-  AUTH_METHOD: {{ .Values.tidewater.auth.method }}
   DATABASE_COMMAND: {{ .Values.tidewater.rails.db_setup_command }}
   DB_ADAPTER: {{ .Values.tidewater.rails.db_adapter }}
   PORT: {{ .Values.tidewater.port | quote }}
@@ -33,4 +31,3 @@ data:
   SITEMAPS_ENABLED: "true"
   SITEMAPS_HOST: {{ template "tidewater.sitemaps.host" . }}
   {{- end }}
-  SPOTLIGHT_THEMES: {{ .Values.tidewater.application.themes }}

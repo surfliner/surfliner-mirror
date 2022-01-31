@@ -1,0 +1,29 @@
+ingress:
+  hosts:
+    - host: tidewater-staging.eks.dld.library.ucsb.edu
+      paths:
+        - path: '/'
+
+postgresql:
+  enabled: false
+
+externalPostgresql:
+  database: tidewater-staging
+  host: tidewater-staging-postgresql.postgresql-staging
+  username: tidewater
+
+brandingVolume:
+  storageClass: efs-sc
+
+derivativesVolume:
+  storageClass: efs-sc
+
+uploadsVolume:
+  storageClass: efs-sc
+
+extraEnvVars:
+  - name: "RAILS_LOG_TO_STDOUT"
+    value: "true"
+extraEnvFrom:
+  - secretRef:
+      name: tidewater-postgres
