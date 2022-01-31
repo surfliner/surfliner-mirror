@@ -221,7 +221,6 @@ oai:
   adminEmail: tidewater@example.com
   namespaceIdentifier: item
   repositoryName: tidewater
-  repositoryOrigin: http://localhost:3000
   sampleId: 13900
 
 # Configuration for redis chart
