@@ -222,6 +222,7 @@ oai:
   namespaceIdentifier: item
   repositoryName: tidewater
   repositoryOrigin: http://localhost:3000
+  sampleId: 13900
 
 # Configuration for redis chart
 # see: https://github.com/helm/charts/blob/master/stable/redis/README.md
