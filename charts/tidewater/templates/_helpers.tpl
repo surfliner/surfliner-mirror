@@ -83,3 +83,11 @@ Supports using an existing secret instead of one built using the Chart
 {{ include "tidewater.fullname" . }}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Should include a unique item namespace, which can be provided directly via
+Values or derived from the ingress hosts (default)
+*/}}
+{{- define "tidewater.oai.namespaceIdentifier" -}}
+{{- default (index .Values.ingress.hosts 0) .Values.oai.namespaceIdentifier -}}
+{{- end -}}

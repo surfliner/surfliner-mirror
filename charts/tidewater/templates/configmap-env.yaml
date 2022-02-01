@@ -15,7 +15,7 @@ data:
   DB_ADAPTER: {{ .Values.tidewater.rails.db_adapter }}
   PORT: {{ .Values.tidewater.port | quote }}
   OAI_ADMIN_EMAIL: {{ .Values.oai.adminEmail }}
-  OAI_NAMESPACE_IDENTIFIER: {{ .Values.oai.namespaceIdentifier }}
+  OAI_NAMESPACE_IDENTIFIER: {{ include "tidewater.oai.namespaceIdentifier" . }}
   OAI_REPOSITORY_NAME: {{ .Values.oai.repositoryName }}
   OAI_REPOSITORY_ORIGIN: http{{ if .Values.ingress.tls }}s{{ end }}://{{ index .Values.ingress.hosts 0 }}
   OAI_SAMPLE_ID: {{ .Values.oai.sampleId | quote }}
