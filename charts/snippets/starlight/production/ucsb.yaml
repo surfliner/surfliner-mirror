@@ -1,5 +1,6 @@
 replicaCount: 5
 workerReplicaCount: 3
+priorityClassName: high
 ingress:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -16,14 +17,18 @@ existingSecret:
   enabled: true
 memcached:
   enabled: true
-  priorityClassName: high-no-preempt
+  priorityClassName: high
+  nodeAffinityPreset:
+    key: dld.library.ucsb.edu/availability
+    value: stable
+    type: soft
   resources:
     limits:
       cpu: 2
-      memory: 6Gi
+      memory: 2Gi
     requests:
       cpu: 200m
-      memory: 500Mi
+      memory: 50Mi
 postgresql:
   enabled: false
   postgresqlDatabase: starlight-prod
@@ -71,11 +76,11 @@ starlight:
 
 resources:
   limits:
-    cpu: 5000m
+    cpu: 2
     memory: 3000Mi
   requests:
-    cpu: 2000m
-    memory: 1500Mi
+    cpu: 100m
+    memory: 500Mi
 
 workerResources:
   limits:
