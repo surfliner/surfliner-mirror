@@ -8,6 +8,7 @@
     DEPLOY_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-tidewater-stage
     KUBE_NAMESPACE: tidewater-staging
+  allow_failure: true
   only:
     refs:
       - trunk
