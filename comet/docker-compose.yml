@@ -81,6 +81,7 @@ services:
 
   db_migrate:
     image: comet
+    user: root
     env_file:
       - .env
     environment:
