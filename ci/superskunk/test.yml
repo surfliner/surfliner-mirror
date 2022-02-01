@@ -1,0 +1,14 @@
+superskunk:test:
+  stage: test
+  image: $CI_REGISTRY_IMAGE/superskunk:$CI_COMMIT_SHA
+  needs: ["superskunk:build"]
+  variables:
+    RAILS_ENV: test
+  script:
+    - cd superskunk
+    - bundle exec rspec
+  extends:
+    - .only-refs-default
+    - .only-superskunk-changes
+  tags:
+    - kubernetes

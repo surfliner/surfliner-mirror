@@ -1,0 +1,7 @@
+superskunk:build:
+  extends:
+    - .kaniko-build
+    - .only-refs-default
+    - .only-superskunk-changes
+  script:
+    - build_image_for "superskunk" "superskunk"

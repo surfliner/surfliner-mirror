@@ -1,0 +1,14 @@
+superskunk:lint:
+  stage: lint
+  image: $CI_REGISTRY_IMAGE/superskunk:$CI_COMMIT_SHA
+  script:
+    - cd superskunk
+    - bundle exec standardrb
+  extends: .only-refs-default
+  needs: ["superskunk:build"]
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - .styles/**/*
+      - superskunk/**/*
+      - ci/superskunk/**/*
