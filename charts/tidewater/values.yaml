@@ -75,8 +75,6 @@ ingress:
   hosts: ['tidewater.local']
   tls: []
 
-
-
 tidewater:
   # solrRunMode: cloud
   # disableSolrConfigInit: false
@@ -97,95 +95,7 @@ tidewater:
     queue: sidekiq
     serve_static_files: true
   sample_data: false
-  sitemaps:
-    enabled: true
-  # s3-compatible storage via Amazon or Minio
-  storage:
-    # enabled: true
-    # accessKey: starlight-access-key
-    # acl: 'bucket-owner-full-control' #aws/minio ACL
-    # bucket: starlight
-    # # endpointUrl: aws/minio (optional for aws, reguired for minio)
-    # region: us-west-2
-    # secretKey: starlight-secret-key
-  backups:
-    import:
-      # enabled: false
-      # force: false
-      # asset_host: new host for CMS assets. e.g.: https://starlight-uploads-prod.s3.us-west-2.amazonaws.com
-      # solrReindex: false # flag to run a full solr reindex on import/initial deploy
-      # dbBackupSource: s3:// URL or local file path for importing psql database backup source. e.g: s3://ucsd/starlight.dmp or /tmp/starlight-backup.dmp
-      # dbBackupDestination: s3:// URL or local file path for psql database backup destination file. e.g: s3://ucsd/starlight.dmp or /tmp/starlight-backup.dmp
-      # oldAppUrl: url for previous system, used for iiif url migration. i.e. https://exhibits.ucsd.edu
-      # sourcePath: s3:// URL or local directory path for importing image upload backup source. e.g. s3://my-bucket/uploads or /uploads
-    export:
-      # enabled: false
-      # dbBackupSource: s3:// URL or local file path for psql database backup source file. e.g: s3://ucsd/starlight.dmp or /tmp/starlight-backup.dmp
-      # dbBackupDestination: s3:// URL or local file path for psql database backup destination file. e.g: s3://ucsd/starlight.dmp or /tmp/starlight-backup.dmp
-      # destinationPath: s3:// URL for image backups. e.g: s3://my-bucket/starlight-image-backups
-      # schedule: k8s cron schedule for exports. e.g. "30 8 * * *"
-      # sourcePath: s3:// URL or local directory path to source path. e.g. s3://my-bucket/uploads or /uploads
-  email:
-    # these needs to be set to something, even if it doesn't work, or else rails errors out on startup
-    # from_address: tidewater@example.edu
-    # delivery_method: letter_opener_web # or: smtp
-    # see: https://guides.rubyonrails.org/action_mailer_basics.html#action-mailer-configuration
-    # smtp_settings:
-    #   address: smtp.example.edu
-    #   port: 587
-    #   user_name: username
-    #   password: password
-    #   authentication: plain
 
-  auth:
-    method: developer
-    # only required if method is "google"
-    google:
-      api_id:
-      api_secret:
-
-# Configuration for solr chart
-# see: https://github.com/bitnami/charts/blob/master/bitnami/solr/values.yaml
-# solr:
-#   enabled: true
-#   image:
-#     repository: bitnami/solr
-#     tag: 8.11.1-debian-10-r26
-#   authentication:
-#     enabled: true
-#     adminUsername: admin
-#     adminPassword: admin
-#   coreName: starlight # used if starlight.solrRunMode is 'standalone'
-#   collection: starlight # used if starlight.solrRunMode is 'cloud'
-#   cloudBoostrap: true
-#   cloudEnabled: true
-#   persistence:
-#     enabled: true
-#   zookeeper:
-#     enabled: true
-#     persistence:
-#       enabled: true
-# Settings for solr java memory
-  # javaMem: "-Xms2g -Xmx3g"
-  # Settings for zk java memory
-  # zookeeper:
-  #   env:
-  #     JVMFLAGS: "-Xms512m -Xmx1g"
-  # Set if using external zookeeper
-  # externalZookeeper:
-  #   servers:
-
-  # To use an external/preexisting solr/zk, set solr.enabled to false, then
-  #   * set solrHostname to external solr FQDN
-  #   * set solrPort to external solr port
-  #   * set zookeeperHostname to external zookeeper FQDN
-  #   * set zookeeperPort to external zookeeper port
-  # solrHostname: external-starlight-solr-fqdn
-  # solrPort: "8983"
-  # zookeeperHostname: external-starlight-zookeeper-fqdn
-  # zookeeperPort: "2181"
-
-# Configuration for memcached chart
 # see: https://github.com/bitnami/charts/blob/master/bitnami/memcached/README.md
 # memcached:
 #   enabled: true
@@ -198,22 +108,6 @@ tidewater:
 #     repository: bitnami/memcached
 #     tag: 1.6.13-debian-10-r1
 
-# Configuration for minio chart
-# This is currently only used for Review applications in CI/CD pipelines
-# see: https://github.com/bitnami/charts/blob/master/bitnami/minio/README.md
-# minio:
-#   enabled: false
-#   defaultBuckets: starlight:download
-#   auth:
-#     rootUser: starlight-access-key
-#     rootPassword: starlight-secret-key
-#   persistence:
-#     enabled: false
-#   image:
-#     repository: bitnami/minio
-#     tag: 2021.12.29-debian-10-r13
-
-# Configuration for postgresql chart
 # see: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md
 postgresql:
   image:
@@ -237,18 +131,6 @@ oai:
   repositoryName: tidewater
   sampleId: 13900
 
-# Configuration for redis chart
-# see: https://github.com/helm/charts/blob/master/stable/redis/README.md
-# redis:
-#   image:
-#     repository: bitnami/redis
-#     tag: 6.2.6-debian-10-r98
-#   auth:
-#     enabled: false
-
-# set in the individual deployment configurations;
-# see e.g. ../snippets/starlight/production/ucsb.yaml
-#
 resources: {}
 
 nodeSelector: {}

@@ -64,34 +64,6 @@ The following tables lists the configurable parameters of the Starlight chart an
 | `tidewater.rails.max_threads` | Size of DB connection pool (used by Sidekiq also).  | `5` | `RAILS_MAX_THREADS ` |
 | `tidewater.rails.queue` | Which queue adapter for ActiveJob.  | `sidekiq` | `RAILS_QUEUE` |
 | `tidewater.rails.serve_static_files` | Whether Rails should not serve files in `public/`.  | `true` | `RAILS_SERVE_STATIC_FILES` |
-| `tidewater.sitemaps.enabled` | Whether to enable k8s sitemap cron job to ping search engines. Note that the sitemaps will upload to the same S3/Minio bucket specified by `starlight.storage.bucket` | `true` | N/A |
-| `tidewater.solr.collectionName` | Name of Solr collection.  | `collection1` | `SOLR_CORE_NAME` |
-| `tidewater.solr.port` | Solr port to use.  | `8983` | `SOLR_PORT` |
-| `tidewater.zookeeper.port` | Zookeeper port to use.  | `2181` | `ZK_PORT` |
-| `tidewater.backups.import.enabled` | Whether to run the backup import migration jobs (when migrating data from another environment).  | `false` | N/A |
-| `tidewater.backups.import.asset_host` | The new host from where images uploaded through the CMS will be served; used for rewriting URLs  | `nil` | `ASSET_HOST` |
-| `tidewater.backups.import.oldAppUrl` | URL for previous environment.  | `nil` | `OLD_APP_URL` |
-| `tidewater.backups.export.enabled` | Whether to run the backup export migration jobs.  | `false` | N/A |
-| `tidewater.backups.directoryImportPath` | Path to mount public/uploads backup directory into.  | `nil` | `DIRECTORY_IMPORT_PATH` |
-| `tidewater.backups.bucket` | S3/Minio bucket name.  | `nil` | `BUCKET` |
-| `tidewater.backups.dbBucketKey` | S3/Minio database bump key/file.  | `nil` | `DB_BUCKET_KEY` |
-| `tidewater.backups.directoryBucketPath` | S3/Minio path to images backup in bucket.  | `nil` | `DIRECTORY_BUCKET_PATH` |
-| `tidewater.email.from_address` | Email address to use for Starlight email contact.  | `Tidewater@example.edu` | `FROM_EMAIL` |
-| `tidewater.email.delivery_method` | ActiveMailer email submission method. Use `smtp` for production. | `letter_opener_web` | `DELIVERY_METHOD` |
-| `tidewater.email.smtp_settings.address` | SMTP server address.  | `nil` | `SMTP_HOST` |
-| `tidewater.email.smtp_settings.port` | SMTP server port.  | `nil` | `SMTP_PORT` |
-| `tidewater.email.smtp_settings.user_name` | SMTP account username.  | `nil` | `SMTP_USERNAME` |
-| `tidewater.email.smtp_settings.password` | SMTP account password.  | `nil` | `SMTP_PASSWORD` |
-| `tidewater.email.smtp_settings.authentication` | ActiveMailer SMTP auth method.  | `nil` | `SMTP_AUTHENTICATION` |
-| `tidewater.auth.method` | Application authentication method (`google` or `developer`).  | `developer` | `AUTH_METHOD` |
-| `tidewater.auth.google.api_id` | Google authentication API identifier.  | `nil` | `GOOGLE_AUTH_ID` |
-| `tidewater.auth.google.secret` | Google authentication API secret.  | `nil` | `GOOGLE_AUTH_SECRET` |
-| `tidewater.storage.accessKey` | S3/Minio access key.  | `nil` | `AWS_ACCESS_KEY_ID` |
-| `tidewater.storage.acl` | S3/Minio ACL. e.g: 'bucket-owner-full-control'. | `nil` | `S3_ACL` |
-| `tidewater.storage.bucket` | S3/Minio bucket name. This bucket will need to allow write/put for the access keypair used, and public `read` access to allow for IIIF viewing. | `nil` | `S3_BUCKET_NAME` |
-| `tidewater.storage.endpointUrl` | S3/Minio endpoint URL (required for Minio).  | `nil` | `S3_ENDPOINT` |
-| `tidewater.storage.region` | AWS region. e.g: 'us-west-2'.  | `nil` | `AWS_REGION` |
-| `tidewater.storage.secretKey` | S3/Minio secret key. | `nil` | `AWS_SECRET_ACCESS_KEY` |
 
 ### Chart Dependency Parameters
 

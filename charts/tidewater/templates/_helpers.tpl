@@ -32,22 +32,6 @@ Create chart name and version as used by the chart label.
 {{- end -}}
 
 {{/*
-Create the Sitemap Host URL, as Minio and other s3-compatible providers use endpoint urls.
-*/}}
-{{- define "tidewater.sitemaps.host" -}}
-{{- $endpoint := .Values.tidewater.storage.endpointUrl -}}
-{{- $bucket := .Values.tidewater.storage.bucket -}}
-{{- $region := .Values.tidewater.storage.region -}}
-
-{{- if $endpoint }}
-{{- printf "%s/%s/" $endpoint $bucket -}}
-{{- else }}
-{{- printf "https://s3-%s.amazonaws.com/%s/" $region $bucket -}}
-{{- end }}
-
-{{- end -}}
-
-{{/*
 Common labels
 */}}
 {{- define "tidewater.labels" -}}
@@ -58,14 +42,6 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
-{{- end -}}
-
-{{- define "tidewater.backups.hook" -}}
-{{- if .Values.tidewater.backups.import.force -}}
-post-upgrade
-{{- else -}}
-post-install
-{{- end -}}
 {{- end -}}
 
 {{/*
@@ -105,56 +81,5 @@ Supports using an existing secret instead of one built using the Chart
 {{- .Values.existingSecret.name -}}
 {{- else -}}
 {{ include "tidewater.fullname" . }}
-{{- end -}}
-{{- end -}}
-
-{{- define "tidewater.solr.cloudEnabled" -}}
-{{- if .Values.solr.enabled -}}
-{{- .Values.solr.cloudEnabled }}
-{{- else -}}
-{{- (eq "cloud" (lower .Values.tidewater.solrRunMode)) }}
-{{- end -}}
-{{- end -}}
-
-{{- define "tidewater.solr.collection_core_name" -}}
-{{- if eq (include "tidewater.solr.cloudEnabled" .) "true" -}}
-{{- .Values.solr.collection -}}
-{{- else -}}
-{{- .Values.solr.coreName -}}
-{{- end -}}
-{{- end -}}
-
-{{/*
-Solr hostname, supporting external hostname as well
-*/}}
-{{- define "tidewater.solr.fullname" -}}
-{{- if .Values.solr.enabled -}}
-{{- printf "%s-%s" .Release.Name "solr" | trunc 63 | trimSuffix "-" -}}
-{{- else -}}
-{{- .Values.solr.solrHostname -}}
-{{- end -}}
-{{- end -}}
-
-{{- define "tidewater.solr.url" -}}
-{{- $collection_core := (include "tidewater.solr.collection_core_name" .) -}}
-{{- $host := (include "tidewater.solr.fullname" .) -}}
-{{- $port := .Values.solr.solrPort | default "8983" -}}
-{{- if .Values.solr.authentication.enabled -}}
-{{- $user := .Values.solr.authentication.adminUsername -}}
-{{- $pass := .Values.solr.authentication.adminPassword -}}
-{{- printf "http://%s:%s@%s:%s/solr/%s" $user $pass $host $port $collection_core -}}
-{{- else -}}
-{{- printf "http://%s:%s/solr/%s" $host $port $collection_core -}}
-{{- end -}}
-{{- end -}}
-
-{{/*
-Zookeeper hostname, supporting external hostname as well
-*/}}
-{{- define "tidewater.zk.fullname" -}}
-{{- if .Values.solr.enabled -}}
-{{- printf "%s-%s" .Release.Name "zookeeper" | trunc 63 | trimSuffix "-" -}}
-{{- else -}}
-{{- .Values.solr.zookeeperHostname -}}
 {{- end -}}
 {{- end -}}
