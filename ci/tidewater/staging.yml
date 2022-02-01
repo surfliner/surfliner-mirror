@@ -5,7 +5,6 @@
     - .helm3-deploy
   variables:
     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/tidewater_web
-    # TODO: revert when UCSB theme is updated for Spotlight 3
     DEPLOY_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-tidewater-stage
     KUBE_NAMESPACE: tidewater-staging
