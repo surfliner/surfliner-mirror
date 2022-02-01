@@ -10,6 +10,20 @@ image:
   tag: stable
   pullPolicy: Always
 
+consumer:
+  replicaCount: 1
+  enabled: true
+  existingSecret:
+    name: tidewater-consumer
+    enabled: false
+  rabbitmq:
+    topic: comet.publish
+    host: rabbitmq
+    routing_key: comet.publish.tidewater
+    username: user
+    password: bitnami
+    port: 5672
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""

@@ -1,5 +1,7 @@
 persistence:
   enabled: false
+consumer:
+  enabled: false
 postgresql:
   persistence:
     enabled: false
