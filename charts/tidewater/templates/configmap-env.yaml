@@ -27,7 +27,3 @@ data:
   RAILS_MAX_THREADS: {{ .Values.tidewater.rails.max_threads | quote }}
   RAILS_QUEUE: {{ .Values.tidewater.rails.queue }}
   RAILS_SERVE_STATIC_FILES: {{ .Values.tidewater.rails.serve_static_files | quote }}
-  {{- if .Values.tidewater.sitemaps.enabled }}
-  SITEMAPS_ENABLED: "true"
-  SITEMAPS_HOST: {{ template "tidewater.sitemaps.host" . }}
-  {{- end }}
