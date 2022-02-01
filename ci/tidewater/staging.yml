@@ -23,7 +23,6 @@ tidewater:deploy:ucsb-stage:
     url: http://tidewater-staging.$KUBE_INGRESS_BASE_DOMAIN
     on_stop: tidewater:cleanup:ucsb-stage
   variables:
-    DEPLOY_TAG: tidewater-v0.1
     HELM_UPGRADE_EXTRA_ARGS: >
       --values charts/snippets/tidewater/staging/ucsb.yaml
 
@@ -54,7 +53,6 @@ tidewater:deploy:ucsd-stage:
   tags:
     - ucsd
   variables:
-    DEPLOY_TAG: $CI_COMMIT_SHA
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
     HELM_UPGRADE_EXTRA_ARGS: >
       --values charts/snippets/tidewater/staging/ucsd.yaml
@@ -76,4 +74,3 @@ tidewater:cleanup:ucsd-stage:
   script:
     - delete
     - delete_stateful_set_pvcs
-
