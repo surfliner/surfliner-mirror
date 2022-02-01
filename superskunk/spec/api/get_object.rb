@@ -13,7 +13,7 @@ RSpec.describe "GET /object/{id}" do
   it "gives some json" do
     get "/objects/abc"
 
-    data = { "title" => "abc" }
+    data = {"title" => "abc"}
 
     expect(JSON.parse(last_response.body)).to include(**data)
   end

@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe GenericObject do
   subject(:object) { described_class.new }
