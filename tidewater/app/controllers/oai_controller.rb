@@ -8,6 +8,6 @@ class OaiController < ApplicationController
   private
 
   def oai_params
-    params.permit(:verb, :identifier, :metadata_prefix, :set, :from, :until, :resumptionToken)
+    params.permit(:verb, :identifier, :metadataPrefix, :set, :from, :until, :resumptionToken)
   end
 end
