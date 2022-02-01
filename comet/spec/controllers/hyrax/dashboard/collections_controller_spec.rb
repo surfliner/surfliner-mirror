@@ -128,11 +128,21 @@ RSpec.describe Hyrax::Dashboard::CollectionsController, storage_adapter: :memory
       klass.new
     end
 
-    context "Publish collection" do
-      it "publishes an event" do
-        expect { post :publish, params: {id: collection.id} }
-          .to change { listener.collection_publish&.payload }
-          .to include(collection: collection)
+    it "publishes an event" do
+      expect { post :publish, params: {id: collection.id} }
+        .to change { listener.collection_publish&.payload }
+        .to include(collection: collection)
+    end
+
+    context "with an unauthorized user" do
+      let(:unauthorized) { User.create(email: "@example.com") }
+
+      before { sign_in(unauthorized) }
+
+      it "is unauthorized" do
+        post :publish, params: {id: collection.id}
+
+        expect(response).to be_unauthorized
       end
     end
   end

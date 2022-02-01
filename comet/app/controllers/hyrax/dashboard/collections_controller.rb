@@ -10,6 +10,8 @@ module Hyrax
         class: Hyrax::PcdmCollection,
         instance_name: :collection)
 
+      rescue_from Hydra::AccessDenied, CanCan::AccessDenied, with: :deny_collection_access
+
       def new
         @collection = Hyrax::PcdmCollection
           .new(collection_type_gid: collection_type.to_global_id)
@@ -58,6 +60,9 @@ module Hyrax
       ##
       # Publish the collection to a discovery system.
       def publish
+        raise(NotImplementedError) unless
+          Rails.application.config.feature_collection_publish
+
         Hyrax.publisher.publish("collection.publish",
           collection: @collection,
           user: current_user)
@@ -65,6 +70,11 @@ module Hyrax
       end
 
       private
+
+      def deny_collection_access(exception)
+        Hyrax.logger.info(exception)
+        head :unauthorized
+      end
 
       def query_collection_members
         member_works

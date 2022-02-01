@@ -17,7 +17,8 @@ class Ability
 
   def object_publication
     can :publish, [Hyrax::PcdmCollection, SolrDocument] do |collection|
-      Rails.application.config.feature_collection_publish
+      Rails.application.config.feature_collection_publish &&
+        can?(:edit, collection)
     end
   end
 end
