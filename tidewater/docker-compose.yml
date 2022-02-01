@@ -13,7 +13,7 @@ services:
       - sh
       - -c
       - >
-        bin/docker-entrypoint.sh &&
+        rails-entrypoint.sh &&
         bundle exec puma -v --debug -b tcp://0.0.0.0:3000
     volumes:
       - .:/home/tidewater/app
