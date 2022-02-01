@@ -1,10 +1,7 @@
 ingress:
   enabled: true
   hosts:
-    - host: tidewater-staging.eks.dld.library.ucsb.edu
-      paths:
-        - path: '/'
-
+    - tidewater-staging.eks.dld.library.ucsb.edu
 postgresql:
   enabled: true
 

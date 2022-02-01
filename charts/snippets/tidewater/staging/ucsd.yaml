@@ -1,9 +1,7 @@
 ingress:
   enabled: true
   hosts:
-    - host: lib-tidewater-staging.ucsd.edu
-      paths:
-        - path: '/'
+    - lib-tidewater-staging.ucsd.edu
 
 postgresql:
   enabled: true
