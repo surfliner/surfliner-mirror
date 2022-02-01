@@ -9,12 +9,13 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 data:
+  LOG_LEVEL: {{ .Values.consumer.logLevel }}
   POSTGRES_DB: {{ .Values.postgresql.postgresqlDatabase }}
   POSTGRES_HOST: {{ template "tidewater.postgresql.fullname" . }}
   POSTGRES_PORT: {{ .Values.postgresql.servicePort | quote }}
-  RABBITMQ_TOPIC: {{ .Values.consumer.rabbitmq.topic }}
-  RABBITMQ_TIDEWATER_ROUTING_KEY: {{ .Values.consumer.rabbitmq.routing_key }}
   RABBITMQ_HOST: {{ .Values.consumer.rabbitmq.host }}
-  RABBITMQ_USERNAME: {{ .Values.consumer.rabbitmq.username }}
   RABBITMQ_NODE_PORT_NUMBER: {{ .Values.consumer.rabbitmq.port | quote }}
+  RABBITMQ_TIDEWATER_ROUTING_KEY: {{ .Values.consumer.rabbitmq.routing_key }}
+  RABBITMQ_TOPIC: {{ .Values.consumer.rabbitmq.topic }}
+  RABBITMQ_USERNAME: {{ .Values.consumer.rabbitmq.username }}
 {{- end }}

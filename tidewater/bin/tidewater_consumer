@@ -1,5 +1,10 @@
 #!/usr/bin/env ruby
 require "bundler/inline"
+require "date"
+require "logger"
+
+logger = Logger.new($stdout)
+logger.level = ENV.fetch("LOG_LEVEL") { Logger::INFO }
 
 gemfile do
   source "https://rubygems.org"
@@ -11,31 +16,93 @@ rabbitmq_host = ENV.fetch("RABBITMQ_HOST")
 rabbitmq_user = ENV.fetch("RABBITMQ_USERNAME")
 rabbitmq_password = ENV.fetch("RABBITMQ_PASSWORD")
 rabbitmq_port = ENV.fetch("RABBITMQ_NODE_PORT_NUMBER")
+rabbitmq_topic = ENV.fetch("RABBITMQ_TOPIC")
+rabbitmq_routing_key = ENV.fetch("RABBITMQ_TIDEWATER_ROUTING_KEY")
+
+# Responsible for writing changes from superskunk to the tidewater database
+class Persister
+  OAI_ITEMS_COLUMNS = %w[title creator description publisher contributor date type format identifier source subject language relation coverage rights created_at updated_at].sort
+  OAI_ITEMS_PLACEHOLDERS = "$1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17".freeze
+  def self.create(record:)
+    timestamp = DateTime.now.to_s
+    record["created_at"] = timestamp
+    record["updated_at"] = timestamp
+
+    connection.exec_params(
+      "INSERT INTO oai_items (#{OAI_ITEMS_COLUMNS.join(", ")}) VALUES (#{OAI_ITEMS_PLACEHOLDERS})",
+      record.sort.map { |_k, v| v }
+    )
+    connection.close
+  end
+
+  def self.update(record:)
+    timestamp = DateTime.now.to_s
+    record["updated_at"] = timestamp
+    update_set = record.map do |k, v|
+      "#{k} = {v}"
+    end.join(", ")
+
+    connection.exec(
+      "UPDATE oai_items SET #{update_set} WHERE identifier = #{record["identifier"]}"
+    )
+    connection.close
+  end
+
+  def self.delete(record:)
+    connection.exec(
+      "DELETE FROM oai_items WHERE identifier = #{record["identifier"]}"
+    )
+    connection.close
+  end
+
+  def self.connection
+    @connection ||= PG.connect(host: ENV["POSTGRES_HOST"],
+      port: ENV["POSTGRES_PORT"],
+      dbname: ENV["POSTGRES_DB"],
+      user: ENV["POSTGRES_USER"],
+      password: ENV["POSTGRES_PASSWORD"])
+  end
+end
 
 connection_url = "amqp://#{rabbitmq_user}:#{rabbitmq_password}@#{rabbitmq_host}:#{rabbitmq_port}".freeze
-puts "Rabbitmq message broker connection url: #{connection_url}"
+logger.info("Rabbitmq message broker connection url: #{connection_url.sub(rabbitmq_password, "REDACTED")}")
 
 begin
   connection = Bunny.new(connection_url)
   connection.start
-rescue Bunny::TCPConnectionFailed => e
-  puts "Connection to #{rabbitmq_host} failed with: #{connection_url}"
-rescue Bunny::PossibleAuthenticationFailureError => e
-  puts "Failed to authenticate to #{rabbitmq_host} with: #{connection_url}"
+rescue Bunny::TCPConnectionFailed
+  logger.error("Connection to #{rabbitmq_host} failed")
+rescue Bunny::PossibleAuthenticationFailureError
+  logger.error("Failed to authenticate to #{rabbitmq_host}")
 end
 
 channel = connection.create_channel
-exchange = channel.topic(ENV["RABBITMQ_TOPIC"])
+exchange = channel.topic(rabbitmq_topic)
 # TODO: where is queue declared?
-queue = channel.queue('tidewater_queue')
+queue = channel.queue("tidewater_queue")
+queue.bind(exchange, routing_key: rabbitmq_routing_key)
 
-queue.bind(exchange, routing_key: ENV["RABBITMQ_TIDEWATER_ROUTING_KEY"])
-
-puts ' [*] Waiting for updates. To exit press CTRL+C'
+logger.info(" [*] Waiting for updates. To exit press CTRL+C")
 
 begin
-  queue.subscribe(block: true) do |delivery_info, properties, body|
-    puts " [x] #{body}"
+  queue.subscribe(block: true) do |delivery_info, properties, payload|
+    logger.info(" [x] message received with payload: #{payload}")
+    payload_data = JSON.parse(payload)
+    payload_status = payload_data["status"]
+    payload_resource_url = payload_data["resourceUrl"]
+    raise "Payload status is not defined" unless payload_status
+    raise "Payload resourceUrl is not defined" unless payload_resource_url
+
+    # TODO: use the payload_resource_url to get the data
+    # payload_record = GET request to superskunk
+    payload_record = {}
+    case payload_status
+    when "published" then Persister.create(record: payload_record)
+    when "modified" then Persister.update(record: payload_record)
+    when "deleted" then Persister.delete(record: payload_record)
+    else
+      raise "Invalid payload status: #{payload_status}"
+    end
   end
 rescue Interrupt => _
   channel.close

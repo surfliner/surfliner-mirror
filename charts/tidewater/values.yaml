@@ -12,6 +12,7 @@ image:
 
 consumer:
   replicaCount: 1
+  logLevel: info
   enabled: true
   existingSecret:
     name: tidewater-consumer
