@@ -23,6 +23,7 @@ services:
       - postgres
       - redis
       - solr
+      - rabbitmq
     ports:
       - 3000:3000
     volumes:
@@ -50,6 +51,7 @@ services:
       - postgres
       - redis
       - solr
+      - rabbitmq
     volumes:
       - .:/app/samvera/hyrax-webapp:cached
       - hyrax-derivatives:/app/samvera/hyrax-webapp/derivatives
@@ -81,6 +83,8 @@ services:
     image: comet
     env_file:
       - .env
+    environment:
+      - RABBITMQ_ENABLED=false
     command:
       - sh
       - -c
