@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-if ActiveModel::Type::Boolean.new.cast(ENV.fetch("RABBITMQ_ENABLED", false))
+if Rails.application.config.use_rabbitmq
   require "bunny"
 
   rabbitmq_host = ENV.fetch("RABBITMQ_HOST", "rabbitmq")
@@ -14,5 +14,6 @@ if ActiveModel::Type::Boolean.new.cast(ENV.fetch("RABBITMQ_ENABLED", false))
   conn = Bunny.new(conn_url)
   Rails.application.config.rabbitmq_connection = conn
 
-  Hyrax.publisher.subscribe(TidewaterRabbitmqListener.new)
+  Hyrax.publisher.subscribe(TidewaterRabbitmqListener.new) if
+    Rails.application.config.feature_collection_publish
 end

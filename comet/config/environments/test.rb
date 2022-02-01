@@ -40,4 +40,7 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  ## Comet Feature Flags should be ON for the test environment
+  config.feature_collection_publish = true
 end

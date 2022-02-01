@@ -40,5 +40,10 @@ module Comet
     configure do
       config.middleware.delete ActiveFedora::LdpCache
     end
+
+    config.feature_collection_publish =
+      ActiveModel::Type::Boolean.new.cast(ENV.fetch("COMET_COLLECTION_PUBLISH", false))
+    config.use_rabbitmq =
+      ActiveModel::Type::Boolean.new.cast(ENV.fetch("RABBITMQ_ENABLED", false))
   end
 end
