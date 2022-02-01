@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "FileDownload", type: :system, storage_adapter: :memory, metadata_adapter: :test_adapter, js: true do
+RSpec.describe "FileDownload", type: :system, storage_adapter: :memory, js: true do
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsd.edu") }
   let(:workflow_name) { "surfliner_default" }
 

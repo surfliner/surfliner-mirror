@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Collections", storage_adapter: :memory, metadata_adapter: :test_adapter, type: :system, js: true do
+RSpec.describe "Collections", type: :system, js: true do
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
 
   before { sign_in user }

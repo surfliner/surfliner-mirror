@@ -103,6 +103,8 @@ RSpec.configure do |config|
     else
       driven_by(:selenium_standalone_chrome_headless_sandboxless)
     end
+
+    Hyrax.persister.wipe!
   end
 
   # arbitrary gems may also be filtered via:
@@ -110,6 +112,7 @@ RSpec.configure do |config|
   config.after(:each, type: :system) do
     Capybara.reset_sessions!
     page.driver.reset!
+    Hyrax.persister.wipe!
   end
 
   config.after do
