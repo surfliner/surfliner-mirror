@@ -64,6 +64,7 @@ starlight:deploy:ucsb-review:
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
       --set ingress.hosts={starlight-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN}
+      --set priorityClassName=review-apps
       --values charts/snippets/starlight/review.yaml
       --values charts/snippets/surfliner/solr-review.yaml
 
