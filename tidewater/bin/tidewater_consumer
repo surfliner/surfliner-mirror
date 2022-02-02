@@ -78,8 +78,7 @@ end
 
 channel = connection.create_channel
 exchange = channel.topic(rabbitmq_topic)
-# TODO: where is queue declared?
-queue = channel.queue("tidewater_queue")
+queue = channel.queue("", exclusive: true)
 queue.bind(exchange, routing_key: rabbitmq_routing_key)
 
 logger.info(" [*] Waiting for updates. To exit press CTRL+C")
