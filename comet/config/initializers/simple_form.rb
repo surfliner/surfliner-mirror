@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Rails.logger.debug { "Configuring SimpleForm"}
+Rails.logger.debug { "Configuring SimpleForm" }
 # NOTE: This is a modified version of simple_form's default config file.
 #       The only changes were to move the input to after the hint and error.
 
