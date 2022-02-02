@@ -69,5 +69,12 @@ RSpec.describe OaiItem do
       expect(dc_metadata.elements["oai_dc:dc/dc:contributor[1]"].text).to eq "Etaoin Shrdlu"
       expect(dc_metadata.elements["oai_dc:dc/dc:contributor[2]"].text).to eq "Cmfwyp Vbgkqj"
     end
+
+    it "does not add source_iri" do
+      subject.source_iri = "http://superskunk.example.com/1234"
+      subject.identifier = "ark://1234"
+      expect(dc_metadata.root.find_first_recursive { |e| e.text == subject.source_iri }).to be nil
+      expect(dc_metadata.elements["oai_dc:dc/dc:identifier"].text).to eq subject.identifier
+    end
   end
 end

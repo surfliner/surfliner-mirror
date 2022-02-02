@@ -12,7 +12,7 @@ RSpec.describe OaiItemProvider do
     describe "#get_record" do
       let(:oai_dc_metadata_xpath) { "OAI-PMH/GetRecord/record/metadata/oai_dc:dc".freeze }
       let(:oai_header_xpath) { "OAI-PMH/GetRecord/record/header".freeze }
-      let!(:item) { OaiItem.create(title: "title", identifier: "ark://1234", creator: "surfliner") }
+      let!(:item) { OaiItem.create(title: "title", identifier: "ark://1234", creator: "surfliner", source_iri: "http://superskunk.example.com/1234") }
       let(:record) do
         REXML::Document.new(
           provider.get_record(

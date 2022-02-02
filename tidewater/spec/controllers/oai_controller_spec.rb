@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe OaiController do
   describe "#index" do
-    let!(:item) { OaiItem.create(title: "title", identifier: "ark://1234", creator: "surfliner") }
+    let!(:item) { OaiItem.create(title: "title", identifier: "ark://1234", creator: "surfliner", source_iri: "http://superskunk.example.com/1234") }
     it "returns individual metadata record for GetRecord verb" do
       get :index, params: {verb: "GetRecord", identifier: "oai:test:#{item.id}", metadataPrefix: "oai_dc"}
       expect(response).to have_http_status(200)

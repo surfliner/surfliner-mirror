@@ -34,11 +34,12 @@ example_item = OaiItem.create(
   ].join("\uFFFF"),
   date: "2001-12-14",
   type: "e-print",
-  identifier: "http://arXiv.org/abs/cs/0112017"
+  identifier: "http://arXiv.org/abs/cs/0112017",
+  source_iri: "http://superskunk.example.com/0112017"
 )
 puts "\n== loaded OAI-PMH sample item as ID - #{example_item.id}"
 
 5.times do |i|
-  item = OaiItem.create(title: "title 1#{i}", identifier: "ark://1234#{i}", creator: "surfliner #{i}")
+  item = OaiItem.create(title: "title 1#{i}", identifier: "ark://1234#{i}", creator: "surfliner #{i}", source_iri: "http://superskunk.example.com/1234#{i}")
   puts "\n== loaded item ID - #{item.id}"
 end
