@@ -1,5 +1,3 @@
-![](3stooges.jpg)
-
 # Tidewater
 
 Tidewater is a Helm chart that leverages the [something][something] container
@@ -69,17 +67,6 @@ The following tables lists the configurable parameters of the Starlight chart an
 
 The following tables list a few key configurable parameters for Starlight chart dependencies and their default values. If you want to further customize the dependent chart, please consult the links below for the documentation of those charts.
 
-#### Memcached
-
-See: https://github.com/kubernetes/charts/blob/master/stable/memcached/README.md
-
-| Parameter | Description | Default | Environment Variable |
-| --------- | ----------- | ------- | -------------------- |
-| `memcached.enabled` | Whether to use memcached for Rails cache_store | `true` | N/A |
-| `memcached.architecture` | Which memcached architecture to deploy | `high-availability` | N/A |
-| `memcached.persistence.enabled` | Whether to use a PVC (requires `high-availability` architecture) | `true` | N/A |
-| `memcached.persistence.size` | Memcached PVC size| `8Gi` | N/A |
-
 #### PostgreSQL
 
 See: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md
@@ -92,125 +79,6 @@ See: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.m
 | `postgresql.postgresqlDatabase` | Database name for application | `tidewater_db` | `POSTGRES_DB` |
 | `postgresql.postgresqlPostgresPassword` | Admin `postgres` user's password | `tidewater_admin` | `POSTGRES_ADMIN_PASSWORD` |
 | `postgresql.persistence.size` | Database PVC size | `10Gi` | N/A |
-
-#### Solr
-
-See: https://github.com/bitnami/charts/blob/master/bitnami/solr/values.yaml
-
-| Parameter | Description | Default | Environment Variable |
-| --------- | ----------- | ------- | -------------------- |
-| `starlight.solrRunMode` | Defines if the instance of Solr is running in `cloud` or `standalone` mode; only used when `solr.enabled` is `false` | `cloud` | N/A |
-| `solr.enabled` | Defines if this chart should provision/configure Solr using the dependency chart | `true` | N/A |
-| `solr.solrHostname` | Defines the hostname of the server running Solr (only set if `solr.enabled` is `false`) | `nil` | `SOLR_HOST` |
-| `solr.solrPort` | Defines the network port Solr can be accessed (only set if `solr.enabled` is `false`) | `8983` | `SOLR_PORT` |
-| `solr.zookeeperHostname` | Defines the hostname of the server running Zookeeper (only set if `solr.enabled` is `false` and `starlight.solrRunMode` is `cloud`) | `nil` | `ZK_HOST` |
-| `solr.zookeeperPort` | Defines the network port Zookeeper can be accessed (only set if `solr.enabled` is `false` and `starlight.solrRunMode` is `cloud`) | `2181` | `ZK_PORT` |
-| `solr.collection` | Solr collection name to use for application (used only if `starlight.solrRunMode` is `cloud`) | `collection1` | `SOLR_CORE_NAME` |
-| `solr.coreName` | Solr core name to use for application (used only if `starlight.solrRunMode` is `standalone`) | `shoreline` | `SOLR_CORE_NAME` |
-| `solr.authentication.enabled` | Defines if the instance of Solr has Basic Authentication enabled | `true` | N/A |
-| `solr.authentication.adminUsername` | Defines the admin username for Solr Basic Authentication (only set if `solr.authentication.enabled` is `true`) | `admin` | `SOLR_ADMIN_USER` |
-| `solr.authentication.adminPassword` | Defines the admin password for Solr Basic Authenticaiton (only set if `solr.authentication.enabled` is `true`) | `admin` | `SOLR_ADMIN_PASSWORD` |
-
-**SolrCloud vs. Standalone Solr**
-
-You have the option to run an instance of Solr either as a part of the helm install or not managed by the chart (external). This is configured using the `solr.enabled` value.
-
-When set to `true`, the Solr environment that comes with the chart is SolrCloud, and the chart will automatically set-up and configure the application to integrate with this instance.
-
-When set to `false`, you have the option to run an instance of Solr using either SolrCloud or standalone. This is configured using the `starlight.solrRunMode` value. You also need to set additional values to configure the application to integrate with the external Solr instance (reference the solr parameters chart above).
-
-Differences to note about SolrCloud and Standalone:
-- Collections versus Cores
-  - SolrCloud uses the concept of _collections_ whereas Standalone uses _cores_. This is why we have the two values `solr.collectionName` and `solr.coreName` - be sure to se these accordingly.
-- Zookeeper
-  - SolrCloud comprises a set of Solr nodes and Zookeeper nodes. If you are running Standalone Solr, zookeeper nodes are not present and those values are not needed.
-
-**Solr Authentication**
-
-If you are using an external Solr environment, you have the option to use or disable Basic Authentication for the appliation to access Solr. Be sure to set the `solr.authentication` appropriately.
-
-#### Redis
-
-See: https://github.com/helm/charts/blob/master/stable/redis/README.md
-
-### Data Import and Export
-
-The Starlight Helm chart contains optional configuration to enable the import
-and/or export of data for a Helm chart deployment. Some use cases for this
-functionality are:
-
-Import:
-* Migrating an existing non-k8s Starlight environment to a new Starlight
-    environment managed by the Helm chart in k8s.
-* Populating a local deployment with an export of an existing Starlight
-    environment to explore the range of features. An example of this might be
-    the Starlight documentation instance.
-* Populating CI/CD Review applications with real data from an existing Starlight
-    environment for review by Subject Matter Experts and other stakeholders.
-
-Export:
-* Nightly exports of the images and database for recovery. Note, this should not
-    necessarily replace any backup strategy you would normally use for your
-    applications.
-* Export of a Starlight instance, such as the documentation site, for use in
-    import use cases elsewhere, as noted above.
-
-#### Import Configuration
-
-| Parameter | Description | Default | Environment Variable |
-| --------- | ----------- | ------- | -------------------- |
-| `backups.import.enabled` | Enable the import Jobs during installation | `false` | N/A |
-| `backups.import.accessKey` | S3/Minio access key | `nil` | `AWS_ACCESS_KEY_ID` |
-| `backups.import.dbBackupSource` | s3:// URL or local file path for psql backup source file | `nil` | `DB_BACKUP_SOURCE` |
-| `backups.import.dbBackupDestination` | s3:// URL or local file path for psql backup destination file | `nil` | `DB_BACKUP_DESTINATION` |
-| `backups.import.endpointUrl` | S3/Minio endpoint URL | `nil` | `ENDPOINT_URL` |
-| `backups.import.oldAppUrl` | URL for previous system, used for iiif url migration. e.g. `https://exhibits.ucsd.edu` | `nil` | `ENDPOINT_URL` |
-| `backups.import.secretKey` | S3/Minio secret key | `nil` | `AWS_SECRET_ACCESS_KEY` |
-| `backups.import.sourcePath` | s3:// URL or local directory path to images directory backup. Will be copied to `storage.bucket` | `nil` | `SOURCE_PATH` |
-
-#### Export Configuration
-
-| Parameter | Description | Default | Environment Variable |
-| --------- | ----------- | ------- | -------------------- |
-| `backups.export.enabled` | Enable the export Jobs during installation | `false` | N/A |
-| `backups.export.accessKey` | S3/Minio access key | `nil` | `AWS_ACCESS_KEY_ID` |
-| `backups.export.dbBackupSource` | s3:// URL or local file path for psql backup source file | `nil` | `DB_BACKUP_SOURCE` |
-| `backups.export.dbBackupDestination` | s3:// URL or local file path for psql backup destination file | `nil` | `DB_BACKUP_DESTINATION` |
-| `backups.export.destinationPath` | s3:// URL for images directory backups | `nil` | `DESTINATION_PATH` |
-| `backups.export.endpointUrl` | S3/Minio endpoint URL | `nil` | `ENDPOINT_URL` |
-| `backups.export.schedule` | k8s cron schedule for export. e.g: `30 8 * * *` | `nil` | N/A |
-| `backups.export.secretKey` | S3/Minio secret key | `nil` | `AWS_SECRET_ACCESS_KEY` |
-| `backups.export.sourcePath` | s3:// URL or local directory path to images directory in the currently deployed environment. Will be copied to `storage.bucket` | `nil` | `SOURCE_PATH` |
-
-Note: If setting up an S3 bucket for import or export, which relies on the `sync` option
-in the `aws-cli` tool, you will need to ensure that you set a `ListBucket`
-statement as shown below:
-
-```json
-{
-    "Version": "2012-10-17",
-    "Id": "Policy1600725558503",
-    "Statement": [
-        {
-            "Sid": "Stmt000001",
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn:aws:iam::111111111111:user/StarlightProdData"
-            },
-            "Action": "s3:*",
-            "Resource": "arn:aws:s3:::starlight-backup-test/*"
-        },
-        {
-            "Sid": "Stmt000002",
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn:aws:iam::111111111111:user/StarlightProdData"
-            },
-            "Action": "s3:ListBucket",
-            "Resource": "arn:aws:s3:::starlight-backup-test"
-        }
-    ]
-}
 ```
 
 [tidewater]:https://gitlab.com/surfliner/surfliner/-/tree/trunk/tidewater
