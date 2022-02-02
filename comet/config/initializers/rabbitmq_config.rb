@@ -9,10 +9,11 @@ if Rails.application.config.use_rabbitmq
   rabbitmq_port = ENV.fetch("RABBITMQ_NODE_PORT_NUMBER", 5672)
 
   conn_url = "amqp://#{rabbitmq_user}:#{rabbitmq_password}@#{rabbitmq_host}:#{rabbitmq_port}"
-  puts "Rabbitmq message broker connection url: #{conn_url}"
+  Rails.logger.info { "Rabbitmq message broker connection url: #{conn_url.sub(rabbitmq_password, "REDACTED")}" }
 
   conn = Bunny.new(conn_url)
   Rails.application.config.rabbitmq_connection = conn
+  Rails.logger.debug "Rabbitmq connection established #{conn}"
 
   Hyrax.publisher.subscribe(TidewaterRabbitmqListener.new) if
     Rails.application.config.feature_collection_publish
