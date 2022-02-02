@@ -54,7 +54,7 @@ group :development, :test do
   gem "pry-doc", "1.3.0"
   gem "pry-rails", "0.3.9"
   gem "pry-rescue", "1.5.2"
-  gem "rspec_junit_formatter", "0.4.1"
+  gem "rspec_junit_formatter", "0.5.1"
   gem "rspec-rails", "5.0.2"
   gem "scss_lint", "0.59.0", require: false
   gem "scss_lint_reporter_checkstyle", "0.2.0", require: false
