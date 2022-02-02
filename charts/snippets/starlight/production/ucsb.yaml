@@ -18,10 +18,6 @@ existingSecret:
 memcached:
   enabled: true
   priorityClassName: high
-  nodeAffinityPreset:
-    key: dld.library.ucsb.edu/availability
-    value: stable
-    type: soft
   resources:
     limits:
       cpu: 2
