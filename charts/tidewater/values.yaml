@@ -18,9 +18,9 @@ consumer:
     name: tidewater-consumer
     enabled: false
   rabbitmq:
-    topic: comet.publish
+    topic: surfliner.metadata
     host: rabbitmq
-    routing_key: comet.publish.tidewater
+    routing_key: surfliner.metadata.tidewater
     username: user
     password: bitnami
     port: 5672
