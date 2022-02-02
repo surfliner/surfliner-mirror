@@ -5,6 +5,9 @@ ingress:
 postgresql:
   enabled: true
 
+consumer:
+  enabled: false
+
 extraEnvVars:
   - name: "RAILS_LOG_TO_STDOUT"
     value: "true"

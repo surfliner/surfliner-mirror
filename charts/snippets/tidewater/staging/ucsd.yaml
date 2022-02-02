@@ -3,6 +3,9 @@ ingress:
   hosts:
     - lib-tidewater-staging.ucsd.edu
 
+consumer:
+  enabled: false
+
 postgresql:
   enabled: true
 
