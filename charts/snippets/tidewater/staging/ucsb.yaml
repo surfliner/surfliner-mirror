@@ -7,10 +7,3 @@ postgresql:
 
 consumer:
   enabled: false
-
-extraEnvVars:
-  - name: "RAILS_LOG_TO_STDOUT"
-    value: "true"
-extraEnvFrom:
-  - secretRef:
-      name: tidewater-postgres
