@@ -11,7 +11,12 @@ aws_secret_access_key = ENV.slice("REPOSITORY_S3_SECRET_KEY",
   "MINIO_ROOT_PASSWORD").values.first
 
 # skip this setup if just building the app image or no aws configuration
-unless ENV["DB_ADAPTER"] == "nulldb" || aws_access_key_id.nil? || aws_secret_access_key.nil?
+unless ENV.fetch("SKIP_FILE_STAGING_BUCKET", false) ||
+    ENV["DB_ADAPTER"] == "nulldb" ||
+    aws_access_key_id.nil? ||
+    aws_secret_access_key.nil?
+  Rails.logger.debug { "Connecting to S3 batch file staging area" }
+
   fog_connection_options = {
     aws_access_key_id: aws_access_key_id,
     aws_secret_access_key: aws_secret_access_key,
@@ -19,7 +24,9 @@ unless ENV["DB_ADAPTER"] == "nulldb" || aws_access_key_id.nil? || aws_secret_acc
   }
 
   if ENV["MINIO_ENDPOINT"].present?
-    fog_connection_options[:endpoint] = "#{ENV.fetch("MINIO_PROTOCOL", "http")}://#{ENV["MINIO_ENDPOINT"]}:#{ENV.fetch("MINIO_PORT", 9000)}"
+    endpoint = "#{ENV.fetch("MINIO_PROTOCOL", "http")}://#{ENV["MINIO_ENDPOINT"]}:#{ENV.fetch("MINIO_PORT", 9000)}"
+    fog_connection_options[:endpoint] = endpoint
+    Rails.logger.debug { "Accessing minio on #{endpoint}" }
     fog_connection_options[:path_style] = true
   end
 
@@ -28,6 +35,7 @@ unless ENV["DB_ADAPTER"] == "nulldb" || aws_access_key_id.nil? || aws_secret_acc
 
   s3_bucket = ENV.fetch("STAGING_AREA_S3_BUCKET", "comet-staging-area-#{Rails.env}")
 
+  Rails.logger.debug { "Using bucket #{s3_bucket} as the file staging area" }
   Rails.application.config.staging_area_s3_handler =
     StagingAreaS3Handler.new(connection: fog_connection,
       bucket: s3_bucket,

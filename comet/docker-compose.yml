@@ -53,7 +53,7 @@ services:
       - solr
       - rabbitmq
     volumes:
-      - .:/app/samvera/hyrax-webapp:cached
+      - .:/app/samvera/hyrax-webapp
       - hyrax-derivatives:/app/samvera/hyrax-webapp/derivatives
       - hyrax-uploads:/app/samvera/hyrax-webapp/uploads
       - sidekiq-public:/app/samvera/hyrax-webapp/public
@@ -86,6 +86,7 @@ services:
       - .env
     environment:
       - RABBITMQ_ENABLED=false
+      - SKIP_FILE_STAGING_BUCKET=true
     command:
       - sh
       - -c
@@ -98,7 +99,7 @@ services:
     depends_on:
       - postgres
     volumes:
-      - .:/app/samvera/hyrax-webapp:cached
+      - .:/app/samvera/hyrax-webapp
       - rails-public:/app/samvera/hyrax-webapp/public
       - rails-tmp:/app/samvera/hyrax-webapp/tmp
     networks:
