@@ -62,7 +62,7 @@ services:
       - .env
 
   zk:
-    image: bitnami/zookeeper:3.7-debian-10-r259
+    image: bitnami/zookeeper:3.7.0-debian-10-r282
     env_file:
       - .env
 
