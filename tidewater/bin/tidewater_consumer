@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 require "bundler/inline"
 require "date"
+require "json"
 require "logger"
 
 logger = Logger.new($stdout)
@@ -8,8 +9,10 @@ logger.level = ENV.fetch("LOG_LEVEL") { Logger::INFO }
 
 gemfile do
   source "https://rubygems.org"
+
   gem "bunny", "2.19.0"
   gem "pg", "1.3.0"
+  gem "sequel", "5.53.0"
 end
 
 rabbitmq_host = ENV.fetch("RABBITMQ_HOST")
@@ -21,46 +24,55 @@ rabbitmq_routing_key = ENV.fetch("RABBITMQ_TIDEWATER_ROUTING_KEY")
 
 # Responsible for writing changes from superskunk to the tidewater database
 class Persister
-  OAI_ITEMS_COLUMNS = %w[title creator description publisher contributor date type format identifier source subject language relation coverage rights created_at updated_at].sort
-  OAI_ITEMS_PLACEHOLDERS = "$1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17".freeze
+  # Entrypoint method to support both creating and updating OaiItems
+  # @param record [Hash] Metadata for a given record from the superskunk api
+  def self.create_or_update(record:)
+    if db.where(source_iri: record["source_iri"]).empty?
+      create(record: record)
+    else
+      update(record: record)
+    end
+  end
+
+  # Creates a new OaiItem
+  # @param record [Hash] Metadata for a given record from the superskunk api
   def self.create(record:)
     timestamp = DateTime.now.to_s
     record["created_at"] = timestamp
     record["updated_at"] = timestamp
 
-    connection.exec_params(
-      "INSERT INTO oai_items (#{OAI_ITEMS_COLUMNS.join(", ")}) VALUES (#{OAI_ITEMS_PLACEHOLDERS})",
-      record.sort.map { |_k, v| v }
-    )
-    connection.close
+    db.insert(record)
   end
 
+  # Updates an existing OaiItem
+  # @param record [Hash] Metadata for a given record from the superskunk api
   def self.update(record:)
     timestamp = DateTime.now.to_s
     record["updated_at"] = timestamp
-    update_set = record.map do |k, v|
-      "#{k} = {v}"
-    end.join(", ")
 
-    connection.exec(
-      "UPDATE oai_items SET #{update_set} WHERE identifier = #{record["identifier"]}"
-    )
-    connection.close
+    # if columns are missing from record, set them to nil as they may have been deleted upstream
+    empty_column_values = db.columns.each_with_object({}) { |e, h| h[e] = nil }
+    empty_column_values.delete(:id) # internal database identifier should never be updated
+    empty_column_values.delete(:created_at) # created timestamp should never be updated
+    record.merge!(empty_column_values) { |_k, record_value, _empty_value| record_value }
+
+    db.where(source_iri: record["source_iri"]).update(record)
   end
 
-  def self.delete(record:)
-    connection.exec(
-      "DELETE FROM oai_items WHERE identifier = #{record["identifier"]}"
-    )
-    connection.close
+  # Deletes an OaiItem
+  # @param source_iri [String] Unique identifier for an OaiItem
+  def self.delete(source_iri:)
+    db.where(source_iri: source_iri).delete
   end
 
-  def self.connection
-    @connection ||= PG.connect(host: ENV["POSTGRES_HOST"],
+  # Construct a Sequel instance targeting the oai_items database
+  # @return [Sequel::Dataset] instance on oai_items table for performing queries
+  def self.db
+    @db ||= Sequel.postgres(host: ENV["POSTGRES_HOST"],
       port: ENV["POSTGRES_PORT"],
-      dbname: ENV["POSTGRES_DB"],
+      database: ENV["POSTGRES_DB"],
       user: ENV["POSTGRES_USER"],
-      password: ENV["POSTGRES_PASSWORD"])
+      password: ENV["POSTGRES_PASSWORD"])[:oai_items]
   end
 end
 
@@ -87,21 +99,13 @@ begin
   queue.subscribe(block: true) do |delivery_info, properties, payload|
     logger.info(" [x] message received with payload: #{payload}")
     payload_data = JSON.parse(payload)
-    payload_status = payload_data["status"]
     payload_resource_url = payload_data["resourceUrl"]
-    raise "Payload status is not defined" unless payload_status
     raise "Payload resourceUrl is not defined" unless payload_resource_url
 
     # TODO: use the payload_resource_url to get the data
     # payload_record = GET request to superskunk
     payload_record = {}
-    case payload_status
-    when "published" then Persister.create(record: payload_record)
-    when "modified" then Persister.update(record: payload_record)
-    when "deleted" then Persister.delete(record: payload_record)
-    else
-      raise "Invalid payload status: #{payload_status}"
-    end
+    Persister.create_or_update(record: payload_record)
   end
 rescue Interrupt => _
   channel.close
