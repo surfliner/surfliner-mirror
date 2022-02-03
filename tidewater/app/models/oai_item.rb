@@ -11,6 +11,34 @@ class OaiItem < ApplicationRecord
   # `type` is a DC term, so the inheritance column needs to be something different.
   self.inheritance_column = :subclass_type
 
+  # Replaces any characters not allowed in XML 1.0 documents with U+FFFD.
+  #
+  # @param text [String] the text to sanitize
+  # @return [String] the sanitized value
+  def self.sanitize_value(text)
+    text.gsub(/[\x00-\x08\x0B\x0C\x0E-\x1F\uFFFE\uFFFF]/, "\uFFFD")
+  end
+
+  # Splits the provided text on U+FFFF and replaces any characters not allowed in XML documents with U+FFFD.
+  #
+  # @param text [String] the text value of the field
+  # @return [Array<{:value, :language => String}>] values which can be inserted into an XML document
+  def self.values_from_field(text)
+    text.split("\uFFFF").map do |maybe_tagged|
+      tag_index = maybe_tagged.rindex "\uFFFE"
+      if tag_index
+        {
+          value: sanitize_value(maybe_tagged[0...tag_index]),
+          language: sanitize_value(
+            maybe_tagged[(tag_index + 1)...maybe_tagged.length]
+          )
+        }
+      else
+        {value: sanitize_value(maybe_tagged)}
+      end
+    end
+  end
+
   # The fields in our database which contain XML (potentially delimited with U+FFFF).
   def self.xml_fields
     dc_elements
@@ -21,7 +49,7 @@ class OaiItem < ApplicationRecord
   # Always returns an array of strings. If no term is found, the array will be empty.
   #
   # @param uri [String] the URI for the metadata term
-  # @return [Array<String>] defined values for the metadata term
+  # @return [Array<{:value, :language => String}>] defined values for the metadata term
   def metadata_for(uri)
     if uri.start_with? "http://purl.org/dc/elements/1.1/"
       # This URI is in the Dublin Core elements namespace.
@@ -30,7 +58,7 @@ class OaiItem < ApplicationRecord
 
       # This is a defined Dublin Core element; get it from the model.
       # Dublin Core elements are stored directly in the database as strings, with multiple values delimited by U+FFFF.
-      values_from_field(send(field).to_s)
+      self.class.values_from_field(send(field).to_s)
     else
       # TODO: Other kinds of metadata terms?
       []
@@ -49,25 +77,19 @@ class OaiItem < ApplicationRecord
           "http://www.openarchives.org/OAI/2.0/oai_dc.xsd"
       ) do
         self.class.dc_elements.each do |field|
-          values = metadata_for("http://purl.org/dc/elements/1.1/#{field}")
-          values.each do |value|
-            xml["dc"].send(field, value)
+          tagged_values = metadata_for("http://purl.org/dc/elements/1.1/#{field}")
+          tagged_values.each do |tagged_value|
+            value = tagged_value[:value]
+            language = tagged_value[:language]
+            if language
+              xml["dc"].send(field, value, "xml:lang" => language)
+            else
+              xml["dc"].send(field, value)
+            end
           end
         end
       end
     end
     result.doc.to_xml
-  end
-
-  private
-
-  # Splits the provided text on U+FFFF and replaces any characters not allowed in XML documents with U+FFFD.
-  #
-  # @param text [String] the text value of the field
-  # @return [Array<String>] values which can be inserted into an XML document
-  def values_from_field(text)
-    text.split("\uFFFF", -1).map do |uncool|
-      uncool.gsub(/[\x00-\x08\x0B\x0C\x0E-\x1F\uFFFE\uFFFF]/, "\uFFFD")
-    end
   end
 end
