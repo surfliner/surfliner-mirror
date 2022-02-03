@@ -9,14 +9,6 @@ services:
     image: shoreline:development
     env_file:
       - .env
-    command:
-      - sh
-      - -c
-      - >
-        upload-solr-configs.sh /home/shoreline/discovery/app/solr/conf &&
-        create-solr-collection.sh &&
-        bin/docker-entrypoint.sh &&
-        bundle exec puma -v --debug -b tcp://0.0.0.0:3000
     volumes:
       - .:/home/shoreline/discovery/app
     depends_on:
@@ -28,6 +20,8 @@ services:
     tty: true
     ports:
      - '3000:3000'
+    networks:
+      - shoreline
 
   db_migrate:
     image: shoreline:development
@@ -39,6 +33,8 @@ services:
       - postgres
     volumes:
       - .:/home/shoreline/discovery/app
+    networks:
+      - shoreline
 
   geoserver:
     image: kartoza/geoserver:2.17.2
@@ -48,6 +44,8 @@ services:
       - .env
     ports:
       - '8080:8080'
+    networks:
+      - shoreline
 
   postgres:
     image: bitnami/postgresql:12.9.0-debian-10-r73
@@ -55,17 +53,28 @@ services:
       - "shoreline_discovery_db:/bitnami/postgresql"
     env_file:
       - .env
+    networks:
+      - shoreline
 
   solr:
-    image: bitnami/solr:8.11.1-debian-10-r41
+    image: bitnami/solr:8.11.1
+    # ports:
+    #   - 8983:8983
+    volumes:
+      - ./solr/conf:/opt/shoreline
+      - shoreline_solr_data:/var/solr/data
     env_file:
       - .env
-
-  zk:
-    image: bitnami/zookeeper:3.7.0-debian-10-r282
-    env_file:
-      - .env
+    networks:
+      - shoreline
 
 volumes:
   shoreline_discovery_db:
   shoreline_geoserver_data:
+  shoreline_solr_data:
+
+networks:
+  shoreline:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: br-shoreline
