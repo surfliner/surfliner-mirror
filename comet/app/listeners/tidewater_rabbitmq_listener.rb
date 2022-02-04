@@ -22,6 +22,10 @@ class TidewaterRabbitmqListener
       payload = payloads(obj)
       broker.publish(payload: payload.to_json, routing_key: routing_key)
 
+      acl = Hyrax::AccessControlList(obj)
+      acl.grant(:discover).to(Hyrax::Group.new("tidewater"))
+      acl.save
+
       Hyrax.logger.debug("Published object with id #{obj.id}: payload => #{payload.to_json}")
     end
   rescue => err
