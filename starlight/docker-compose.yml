@@ -79,7 +79,7 @@ services:
       - starlight_redis:/data
 
   database:
-    image: bitnami/postgresql:12.9.0-debian-10-r73
+    image: bitnami/postgresql:12.9.0-debian-10-r80
     volumes:
       - "starlight_database:/bitnami/postgresql"
     environment:

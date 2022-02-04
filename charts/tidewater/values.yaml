@@ -113,7 +113,7 @@ tidewater:
 postgresql:
   image:
     repository: bitnami/postgresql
-    tag: 12.9.0-debian-10-r73
+    tag: 12.9.0-debian-10-r80
   enabled: true
   cpu: 1000m
   memory: 1Gi
