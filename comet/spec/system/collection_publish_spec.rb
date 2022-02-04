@@ -55,7 +55,7 @@ RSpec.describe "Publish Collection", type: :system, js: true do
       expect(alert.text).to have_content("Are you sure you want to publish the collection?")
       alert.dismiss
 
-      publish_wait(queue_message) do
+      publish_wait(queue_message, 0) do
         expect(queue_message.length).to eq 1
         expect(JSON.parse(queue_message.first).to_h).to include("status" => "published")
         expect(JSON.parse(queue_message.first).to_h["resourceUrl"]).to include "/#{object.id}"
