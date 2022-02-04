@@ -7,7 +7,7 @@ You will need Docker and Docker Compose installed on your host/local system.
 To setup a development environment:
 1. `docker-compose build` to build images (`docker-compose up --build` does not work)
 1. `docker-compose up`  to run dev environment
-1. `docker-compose --profile queue` to run dev environment with RabbitMQ service
+1. `docker-compose --profile queue up` to run dev environment with RabbitMQ service
    (this is optional and will not always be desirable or necessary)
 1. Access the application on http://localhost:3000
 
