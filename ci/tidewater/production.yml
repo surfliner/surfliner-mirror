@@ -21,7 +21,11 @@ tidewater:deploy:ucsb-production:
   environment:
     name: ucsb.production.tidewater
     url: http://tidewater-prod.$KUBE_INGRESS_BASE_DOMAIN
+<<<<<<< HEAD
     on_stop: tidewater:cleanup:ucsb-production
+=======
+    on_stop: tidewater:cleanup:ucsb-prod
+>>>>>>> aca668f319dc1580eb87c24daebbd8ebd8a01225
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
       --values charts/snippets/tidewater/production/ucsb.yaml
