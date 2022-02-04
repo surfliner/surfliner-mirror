@@ -1,0 +1,9 @@
+ingress:
+  enabled: true
+  hosts:
+    - tidewater-prod.eks.dld.library.ucsb.edu
+postgresql:
+  enabled: true
+
+consumer:
+  enabled: false

@@ -1,0 +1,10 @@
+ingress:
+  enabled: true
+  hosts:
+    - lib-tidewater-prod.ucsd.edu
+
+consumer:
+  enabled: false
+
+postgresql:
+  enabled: true
