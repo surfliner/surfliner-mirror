@@ -45,6 +45,13 @@ services:
       POSTGRESQL_DATABASE: tidewater-dev
       POSTGRESQL_PASSWORD: postgres_pass
 
+  rabbitmq:
+    profiles:
+      - queue
+    image: bitnami/rabbitmq:3.9.13-debian-10-r6
+    ports:
+      - "15672:15672"
+
 volumes:
   tidewater_database:
   tidewater_tmp:
