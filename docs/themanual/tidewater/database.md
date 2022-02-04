@@ -15,12 +15,20 @@ Databases should be Unicode, and columns should be `text`.
 
 [dc11]: https://www.dublincore.org/specifications/dublin-core/dces/
 
-It is possible that an item might have multiple values for any given
-  metadata term.
-This can be represented in the database by catenating the values with
-  a `U+FFFF` delimiter.
-Note that `U+FFFF` would not otherwise be representable in OAI‐PMH data
-  (it is invalid in XML); any `U+FFFF` which makes up part of a value
-  **must** be replaced with `U+FFFD � REPLACEMENT CHARACTER` prior to
-  its being stored in the database, to avoid its accidental
-  interpretation as a value delimiter.
+The columns for metadata fields have the following format&#x202F;:—
+
+    Value ::= Char*
+    Language ::= Char*
+    TaggedValue ::= Value (#xFFFE Language)?
+    Field ::= TaggedValue (#xFFFF TaggedValue)*
+
+Note that `U+FFFE` and `U+FFFF` would not otherwise be representable in
+  OAI‐PMH data (they are invalid in XML); any `U+FFFE` or `U+FFFF`
+  which makes up part of a value **must** be replaced with
+  `U+FFFD � REPLACEMENT CHARACTER` prior to its being stored in the
+  database, to avoid its accidental interpretation as a delimiter.
+
+The Tidewater consumer script makes use of an additional column,
+  `source_iri`, to identify items according to their identifiers in the
+  API it consumes from.
+The web app does not utilize this column for anything.
