@@ -1,0 +1,76 @@
+.tidewater:deploy:production:
+  stage: production
+  extends:
+    - .only-tidewater-changes
+    - .helm3-deploy
+  variables:
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/tidewater_web
+    DEPLOY_TAG: $CI_COMMIT_SHA
+    HELM_RELEASE_NAME: surfliner-tidewater-prod
+    KUBE_NAMESPACE: tidewater-prod
+  allow_failure: true
+  only:
+    refs:
+      - trunk
+
+tidewater:deploy:ucsb-production:
+  extends:
+    - .tidewater:deploy:production
+  script:
+    - deploy ./charts/tidewater
+  environment:
+    name: ucsb.production.tidewater
+    url: http://tidewater-prod.$KUBE_INGRESS_BASE_DOMAIN
+    on_stop: tidewater:cleanup:ucsb-prod
+  variables:
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --values charts/snippets/tidewater/production/ucsb.yaml
+
+tidewater:cleanup:ucsb-production:
+  extends:
+    - .tidewater:deploy:production
+  environment:
+    name: ucsb.production.tidewater
+    action: stop
+  when: manual
+  allow_failure: true
+  variables:
+    GIT_STRATEGY: none
+    HELM_RELEASE_NAME: surfliner-tidewater-prod
+  script:
+    - delete
+    - delete_stateful_set_pvcs
+
+tidewater:deploy:ucsd-production:
+  extends:
+    - .tidewater:deploy:production
+  script:
+    - deploy ./charts/tidewater
+  environment:
+    name: ucsd.production.tidewater
+    url: http://lib-tidewater-prod.ucsd.edu/
+    on_stop: tidewater:cleanup:ucsd-production
+  tags:
+    - ucsd
+  variables:
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --values charts/snippets/tidewater/production/ucsd.yaml
+
+tidewater:cleanup:ucsd-production:
+  extends:
+    - .tidewater:deploy:production
+  environment:
+    name: ucsd.production.tidewater
+    action: stop
+  tags:
+    - ucsd
+  when: manual
+  allow_failure: true
+  variables:
+    GIT_STRATEGY: none
+    HELM_RELEASE_NAME: surfliner-tidewater-prod
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+  script:
+    - delete
+    - delete_stateful_set_pvcs
