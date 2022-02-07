@@ -19,7 +19,32 @@ include:
       - comet/Dockerfile
       - gems/**/*
 
+.rabbitmq_helpers: &rabbitmq_helpers |
+  exists_rabbitmq_operator() {
+    kubectl --kubeconfig $KUBECONFIG get pods -n rabbitmq-system -o jsonpath="{..image}" | grep $RABBITMQ_OPERATOR_VERSION
+  }
+  create_rabbitmq_operator() {
+    if exists_rabbitmq_operator; then
+      echo "RABBITMQ OPERATOR ALREADY EXISTS"
+      return 0
+    fi
+    echo "CREATING RABBITMQ OPERATOR"
+    kubectl --kubeconfig $KUBECONFIG apply -f $RABBITMQ_OPERATOR_URL
+    kubectl --kubeconfig $KUBECONFIG rollout status deployment/rabbitmq-cluster-operator -n rabbitmq-system
+    if ! exists_rabbitmq_operator; then
+      echo "RABBITMQ OPERATOR FAILED TO CREATE"
+      return 1
+    fi
+    return 0
+  }
+
 .comet-chart-deploy:
+  variables:
+    RABBITMQ_OPERATOR_VERSION: 1.11.1
+    RABBITMQ_OPERATOR_URL: https://github.com/rabbitmq/cluster-operator/releases/download/v$RABBITMQ_OPERATOR_VERSION/cluster-operator.yml
   script:
+    - *rabbitmq_helpers
+    - create_rabbitmq_operator
     - helm pull oci://ghcr.io/samvera/charts/hyrax --version 1.1.0 --untar --untardir charts
     - deploy ./charts/hyrax
+
