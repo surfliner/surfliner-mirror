@@ -2,6 +2,7 @@ include:
   - local: ci/superskunk/build.yml
   - local: ci/superskunk/lint.yml
   - local: ci/superskunk/test.yml
+  - local: ci/superskunk/review.yml
 
 .only-superskunk-changes:
   only:

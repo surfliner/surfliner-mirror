@@ -1,0 +1,87 @@
+.superskunk:deploy:review:
+  stage: review
+  extends:
+    - .only-superskunk-changes
+    - .helm3-deploy
+  variables:
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/superskunk
+    DEPLOY_TAG: $CI_COMMIT_SHA
+    HELM_RELEASE_NAME: surfliner-superskunk-$CI_MERGE_REQUEST_ID
+    KUBE_NAMESPACE: superskunk-review
+  needs: ["superskunk:build"]
+  only:
+    refs:
+      - merge_requests
+
+superskunk:deploy:ucsd-review:
+  extends:
+    - .superskunk:deploy:review
+  environment:
+    name: ucsd.superskunk.review/$CI_MERGE_REQUEST_ID
+    url: http://superskunk-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
+    on_stop: superskunk:cleanup:ucsd-review
+    auto_stop_in: 1 week
+  tags:
+    - ucsd
+  variables:
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --set ingress.hosts[0].host=superskunk-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
+      --set ingress.hosts[0].paths[0].path=/
+      --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
+  script:
+    - deploy ./charts/superskunk
+
+superskunk:cleanup:ucsd-review:
+  extends:
+    - .superskunk:deploy:review
+  environment:
+    name: ucsd.superskunk.review/$CI_MERGE_REQUEST_ID
+    url: http://superskunk-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
+    action: stop
+  tags:
+    - ucsd
+  when: manual
+  allow_failure: true
+  variables:
+    GIT_STRATEGY: none
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
+  script:
+    - delete
+    - delete_stateful_set_pvcs
+
+superskunk:deploy:ucsb-review:
+  extends:
+    - .helm3-deploy
+    - .superskunk:deploy:review
+  script:
+    - deploy ./charts/superskunk
+  environment:
+    name: ucsb.review.superskunk
+    url: http://superskunk-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
+    on_stop: superskunk:cleanup:ucsb-review
+    auto_stop_in: 4 days
+  variables:
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --set ingress.hosts[0].host=superskunk-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
+      --set ingress.hosts[0].paths[0].path=/
+      --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
+      --set ingress.tls[0].hosts[0]=superskunk-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
+      --set ingress.tls[0].secretName=skunk-review-$CI_MERGE_REQUEST_ID
+      --set-string ingress.annotations.cert-manager\.io/cluster-issuer=letsencrypt-prod
+      --set-string ingress.annotations.kubernetes\.io/tls-acme=true
+
+superskunk:cleanup:ucsb-review:
+  extends:
+    - .helm3-deploy
+    - .superskunk:deploy:review
+  environment:
+    name: ucsb.review.superskunk
+    action: stop
+  when: manual
+  allow_failure: true
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - delete
+    - delete_stateful_set_pvcs

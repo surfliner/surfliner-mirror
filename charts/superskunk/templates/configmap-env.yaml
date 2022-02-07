@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "superskunk.fullname" . }}-env
+  labels:
+    app.kubernetes.io/name: {{ include "superskunk.name" . }}
+    helm.sh/chart: {{ include "superskunk.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+data:
+  {{- if .Values.superskunk.allow_robots }}
+  ALLOW_ROBOTS: "true"
+  {{- end }}
+  RAILS_ENV: {{ .Values.superskunk.rails.environment }}
+  RAILS_LOG_TO_STDOUT: {{ .Values.superskunk.rails.log_to_stdout | quote }}
+  RAILS_SERVE_STATIC_FILES: {{ .Values.superskunk.rails.serve_static_files | quote }}
