@@ -30,6 +30,22 @@ RSpec.describe "Publish Collection", type: :system, js: true do
     Hyrax.index_adapter.save(resource: object)
   }
 
+  it "adds an access link to the object show pages" do
+    visit "/dashboard/collections/#{collection.id}?locale=en"
+
+    click_on "Publish collection"
+
+    alert = page.driver.browser.switch_to.alert
+    alert.dismiss
+    page.driver.browser.switch_to.active_element
+
+    click_link "Test Object"
+
+    sleep 1
+
+    expect(page.body).to include "Tidewater"
+  end
+
   context "with RabbitMQ", :rabbitmq do
     let(:queue_message) { [] }
     let(:connection) { Rails.application.config.rabbitmq_connection }
