@@ -472,7 +472,8 @@ GEM
       activesupport (>= 4)
     interception (0.5)
     ipaddress (0.8.3)
-    jbuilder (2.11.3)
+    jbuilder (2.11.5)
+      actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
     jmespath (1.5.0)
     jquery-datatables-rails (3.4.0)
@@ -1002,7 +1003,7 @@ DEPENDENCIES
   ezid-client (= 1.9.1)
   fog-aws (= 3.12.0)
   hyrax!
-  jbuilder (= 2.11.3)
+  jbuilder (= 2.11.5)
   jquery-rails (= 4.4.0)
   listen (>= 3.0.5, < 3.7.1)
   okcomputer (= 1.18.4)
