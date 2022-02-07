@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "bootsnap", "1.10.2", require: false
+gem "bootsnap", "1.10.3", require: false
 gem "debug", "1.4.0", platforms: %i[mri mingw x64_mingw], group: %(development test)
 gem "puma", "5.6.1"
 gem "rack-test", group: "test"
