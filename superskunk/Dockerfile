@@ -9,6 +9,8 @@ RUN apk --no-cache upgrade && \
   apk add --no-cache \
   build-base \
   git \
+  postgresql-client \
+  postgresql-dev \
   tzdata
 
 RUN gem update bundler
@@ -21,6 +23,10 @@ RUN bundle check || bundle install --jobs "$(nproc)"
 
 COPY ${PROJECTPATH} ${DOCKERROOT}/app/
 COPY scripts ${DOCKERROOT}/scripts/
+
+COPY ${PROJECTPATH}/scripts/db-migrate-seed.sh ${DOCKERROOT}/scripts/db-migrate-seed.sh
+COPY comet/db/sequel ${DOCKERROOT}/db/sequel
+
 COPY .styles $DOCKERROOT/.styles/
 ENV PATH="$DOCKERROOT/scripts:$PATH"
 

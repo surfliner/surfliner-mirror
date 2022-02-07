@@ -4,8 +4,29 @@ superskunk:test:
   needs: ["superskunk:build"]
   variables:
     RAILS_ENV: test
+    DB_HOST: postgres
+    DB_NAME: skunk
+    DB_PASSWORD: postgres
+    DB_PORT: 5432
+    DB_USERNAME: postgres
+    POSTGRES_ADMIN_PASSWORD: password
+    POSTGRES_HOST: postgres
+    POSTGRES_DB: "skunk-test"
+    POSTGRES_PASSWORD: "postgres"
+    POSTGRES_USER: "postgres"
+    POSTGRES_PORT: 5432
+    METADATA_DATABASE_NAME: comet_metadata_development
+    DATABASE_URL: "postgres://postgres:postgres@postgres/skunk-test"
+  services:
+    - name: bitnami/postgresql:12.9.0
+      alias: postgres
   script:
     - cd superskunk
+    - PGPASSWORD=$DB_PASSWORD PGHOST=$DB_HOST PGUSER=$DB_USERNAME PGDATABASE=$DB_NAME; export PGPASSWORD PGHOST PGUSER PGDATABASE; createdb -e -w $METADATA_DATABASE_NAME
+    - cp -r /home/superskunk/db db
+    - cd scripts
+    - db-migrate-seed.sh
+    - cd ..
     - bundle exec rspec
   extends:
     - .only-refs-default
