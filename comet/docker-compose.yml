@@ -139,7 +139,7 @@ services:
       - comet
 
   minio:
-    image: bitnami/minio:2021.12.29
+    image: bitnami/minio:2022.2.7
     ports:
       - '9001:9001'
       - '9000:9000'
