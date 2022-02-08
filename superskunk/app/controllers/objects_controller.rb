@@ -8,21 +8,36 @@ class ObjectsController < ApplicationController
   end
 
   def show
-    types = self.class.parseAcceptHeader(request.headers["Accept"].to_s)
-    return render(plain: "Bad Accept Header", status: 400) unless types
-    profile = types
+    accept_types = self.class.parseAcceptHeader(request.headers["Accept"].to_s)
+    return render(plain: "Bad Accept Header", status: 400) unless accept_types
+    @profile = accept_types
       .select { |t| t[:type] == "application/ld+json" && t[:weight] > 0 }
       .map { |t| t[:parameters][:profile] }
       .select { |p| p && self.class.supported_renderers.has_key?(p) }
       .min { |a, b| b[:weight] <=> a[:weight] }
-    return render(plain: "Unknown Accept Type", status: 406) unless profile
-    response.headers["Content-Type"] = "application/ld+json; profile=\"#{profile}\""
-    send(self.class.supported_renderers[profile])
+    send self.class.supported_renderers[@profile] || :default_render
+    response.headers["Content-Type"] = content_type
   end
 
   def render_oai_dc
     render json: GenericObject.new
   end
+
+  def default_render
+    render plain: "Unknown Accept Type", status: 406
+  end
+
+  private
+
+  def content_type
+    if @profile
+      "application/ld+json; profile=\"#{@profile}\""
+    else
+      "application/ld+json"
+    end
+  end
+
+  public
 
   class << self
     TOKEN = "[-!#$%&'*+.^_`|~0-9A-Za-z]+"
