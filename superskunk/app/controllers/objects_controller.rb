@@ -16,7 +16,7 @@ class ObjectsController < ApplicationController
       .select { |p| p && self.class.supported_renderers.has_key?(p) }
       .min { |a, b| b[:weight] <=> a[:weight] }
     @model = GenericObject.new # TODO: Get an actual model
-    send self.class.supported_renderers[@profile] || :default_render
+    public_send self.class.supported_renderers[@profile] || :default_render
     response.headers["Content-Type"] = content_type
   end
 
