@@ -1,36 +1,27 @@
 # frozen_string_literal: true
 
 class TidewaterRabbitmqListener
-  attr_accessor :connection, :topic, :routing_key, :url_base
+  ##
+  # @!attribute [rw] platform_name
+  #   @return [Symbol]
+  attr_accessor :platform_name
 
-  def initialize(connection: Rails.application.config.rabbitmq_connection,
-    platform: DiscoveryPlatform.new(:tidewater),
-    url_base: ENV.fetch("METADATA_API_URL_BASE", "http://localhost:3000/concern/generic_objects"))
-    @connection = connection
-    @topic = platform.topic
-    @routing_key = platform.routing_key
-    @url_base = url_base
+  ##
+  # @param [Symbol] platform_name
+  def initialize(platform_name: :tidewater)
+    self.platform_name = platform_name
   end
 
   def on_collection_publish(event)
     Hyrax.logger.debug("Pushing MQ events for collection publish with id #{event[:collection].id}")
 
-    broker = MessageBroker.new(connection: connection, topic: topic)
-
-    query_member_objects(collection: event[:collection]).each do |obj|
-      payload = payloads(obj)
-      broker.publish(payload: payload.to_json, routing_key: routing_key)
-
-      acl = Hyrax::AccessControlList(obj)
-      acl.grant(:discover).to(Hyrax::Group.new("tidewater"))
-      acl.save
-
-      Hyrax.logger.debug("Published object with id #{obj.id}: payload => #{payload.to_json}")
+    DiscoveryPlatformPublisher.open_on(platform_name) do |publisher|
+      query_member_objects(collection: event[:collection]).each do |obj|
+        publisher.publish(resource: obj)
+      end
     end
   rescue => err
     Hyrax.logger.error(err)
-  ensure
-    broker.close
   end
 
   private
@@ -40,13 +31,5 @@ class TidewaterRabbitmqListener
     Hyrax.query_service.find_inverse_references_by(resource: collection,
       property: "member_of_collection_ids",
       model: ::GenericObject)
-  end
-
-  def payloads(resource)
-    {}.tap do |pro|
-      pro[:resourceUrl] = "#{url_base}/#{resource.id}"
-      pro[:status] = "published"
-      pro[:timestamp] = resource.date_modified.nil? ? resource.updated_at : resource.date_modified
-    end
   end
 end

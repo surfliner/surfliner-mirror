@@ -6,7 +6,6 @@ class MessageBroker
   attr_accessor :connection, :channel, :exchange
 
   ##
-  # Constructor
   # @param connection [Bunny::Session]
   # @param topic [String] - the topic
   def initialize(topic:, connection: Rails.application.config.rabbitmq_connection)
@@ -22,6 +21,7 @@ class MessageBroker
   ##
   # Publish message to exchange for all subscribers
   def publish(payload:, routing_key:)
+    Hyrax.logger.debug { "Publishing to #{routing_key} with payload #{payload}" }
     exchange.publish(payload, routing_key: routing_key)
   end
 
