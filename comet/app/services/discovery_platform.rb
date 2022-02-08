@@ -13,7 +13,18 @@ DISCOVERY_PLATFORM_GROUP_NAME_PREFIX = "surfliner"
 # These options include a unique `#name` for the platform (as a Symbol), the
 # message queue topics and routing keys relevant to the platform, and the
 # agent that identifies the platform in ACLs.
-DiscoveryPlatform = Struct.new(:name) do
+class DiscoveryPlatform
+  ##
+  # @!attribute [rw] name
+  #   @return [Symbol]
+  attr_accessor :name
+
+  ##
+  # @param name [#to_sym]
+  def initialize(name)
+    self.name = name.to_sym
+  end
+
   ##
   # @return [Hyrax::Group]
   def agent
@@ -21,14 +32,22 @@ DiscoveryPlatform = Struct.new(:name) do
   end
 
   ##
-  # @return [String]
-  def routing_key
-    "#{topic}.#{name}"
+  # @return [DiscoveryPlatform::MessageRoute]
+  def message_route
+    @message_route ||= MessageRoute.new(self)
   end
 
-  ##
-  # @return [String]
-  def topic
-    ENV.fetch("RABBITMQ_TOPIC", "surfliner.metadata")
+  MessageRoute = Struct.new(:platform) do
+    ##
+    # @return [String]
+    def metadata_routing_key
+      "#{metadata_topic}.#{platform.name}"
+    end
+
+    ##
+    # @return [String]
+    def metadata_topic
+      ENV.fetch("RABBITMQ_TOPIC", "surfliner.metadata")
+    end
   end
 end

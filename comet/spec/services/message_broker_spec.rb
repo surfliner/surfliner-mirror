@@ -8,9 +8,9 @@ RSpec.describe MessageBroker, :rabbitmq do
   let(:shoreline) { described_class.new(connection: connection, topic: topic) }
 
   let(:connection) { Rails.application.config.rabbitmq_connection }
-  let(:shoreline_routing_key) { DiscoveryPlatform.new(:shoreline).routing_key }
+  let(:shoreline_routing_key) { "#{topic}.shoreline" }
   let(:topic) { ENV.fetch("RABBITMQ_TOPIC", "surfliner.metadata") }
-  let(:tidewater_routing_key) { DiscoveryPlatform.new(:tidewater).routing_key }
+  let(:tidewater_routing_key) { "#{topic}.tidewater" }
 
   let(:tidewater_payload_a) { {resourceUrl: "https://tidewaterurl/to/resource/a", status: "published"} }
   let(:tidewater_payload_b) { {resourceUrl: "https://tidewaterurl/to/resource/b", status: "modified"} }

@@ -30,7 +30,7 @@ class DiscoveryPlatformPublisher
   # opens a broker and yields a block to publish multiple resources
   def self.open_on(name, &block)
     platform = DiscoveryPlatform.new(name)
-    broker = MessageBroker.for(topic: platform.topic)
+    broker = MessageBroker.for(topic: platform.message_route.metadata_topic)
 
     yield new(platform: platform, broker: broker)
 
@@ -42,7 +42,7 @@ class DiscoveryPlatformPublisher
   def publish(resource:)
     Hyrax.logger.debug { "Publishing object with id #{resource.id}" }
     append_access_control_to(resource: resource) &&
-      broker.publish(payload: payload_for(resource), routing_key: platform.routing_key)
+      broker.publish(payload: payload_for(resource), routing_key: platform.message_route.metadata_routing_key)
   end
 
   private
