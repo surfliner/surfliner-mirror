@@ -34,8 +34,9 @@ RSpec.describe "Publish Collection", type: :system, js: true do
     let(:queue_message) { [] }
     let(:connection) { Rails.application.config.rabbitmq_connection }
     let(:broker) { MessageBroker.new(connection: connection, topic: topic) }
-    let(:topic) { ENV.fetch("RABBITMQ_TOPIC", "surfliner.metadata") }
-    let(:tidewater_routing_key) { ENV.fetch("RABBITMQ_TIDEWATER_ROUTING_KEY", "surfliner.metadata.tidewater") }
+    let(:tidewater_conf) { DiscoveryPlatform.new(:tidewater) }
+    let(:topic) { tidewater_conf.topic }
+    let(:tidewater_routing_key) { tidewater_conf.routing_key }
 
     before {
       broker.channel.queue("tidewater_queue").bind(broker.exchange, routing_key: tidewater_routing_key).subscribe do |delivery_info, metadata, payload|

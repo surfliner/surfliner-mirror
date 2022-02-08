@@ -4,12 +4,11 @@ class TidewaterRabbitmqListener
   attr_accessor :connection, :topic, :routing_key, :url_base
 
   def initialize(connection: Rails.application.config.rabbitmq_connection,
-    topic: ENV.fetch("RABBITMQ_TOPIC", "surfliner.metadata"),
-    routing_key: ENV.fetch("RABBITMQ_TIDEWATER_ROUTING_KEY", "surfliner.metadata.tidewater"),
+    platform: DiscoveryPlatform.new(:tidewater),
     url_base: ENV.fetch("METADATA_API_URL_BASE", "http://localhost:3000/concern/generic_objects"))
     @connection = connection
-    @topic = topic
-    @routing_key = routing_key
+    @topic = platform.topic
+    @routing_key = platform.routing_key
     @url_base = url_base
   end
 
