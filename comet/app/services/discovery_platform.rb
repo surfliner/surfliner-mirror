@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+DISCOVERY_PLATFORM_GROUP_NAME_PREFIX = "surfliner"
+
 ##
 # Provides configuration for integration with discovery platforms.
 #
@@ -15,7 +17,7 @@ DiscoveryPlatform = Struct.new(:name) do
   ##
   # @return [Hyrax::Group]
   def agent
-    Hyrax::Group.new(name.to_s)
+    Hyrax::Group.new("#{DISCOVERY_PLATFORM_GROUP_NAME_PREFIX}:#{name}")
   end
 
   ##
@@ -27,6 +29,6 @@ DiscoveryPlatform = Struct.new(:name) do
   ##
   # @return [String]
   def topic
-    ENV.fetch("RABBITMQ_TOPIC") { "surfliner.metadata" }
+    ENV.fetch("RABBITMQ_TOPIC", "surfliner.metadata")
   end
 end

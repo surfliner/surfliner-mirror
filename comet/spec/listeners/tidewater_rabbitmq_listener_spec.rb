@@ -34,9 +34,9 @@ RSpec.describe TidewaterRabbitmqListener, :rabbitmq do
 
         expect { listener.on_collection_publish(event) }
           .to change { objects.map { |o| Hyrax::AccessControlList.new(resource: o).permissions } }
-          .to contain_exactly(include(have_attributes(mode: :discover, agent: "group/tidewater")),
-            include(have_attributes(mode: :discover, agent: "group/tidewater")),
-            include(have_attributes(mode: :discover, agent: "group/tidewater")))
+          .to contain_exactly(include(have_attributes(mode: :discover, agent: "group/surfliner:tidewater")),
+            include(have_attributes(mode: :discover, agent: "group/surfliner:tidewater")),
+            include(have_attributes(mode: :discover, agent: "group/surfliner:tidewater")))
       end
     end
   end
