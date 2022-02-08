@@ -7,12 +7,11 @@ class MessageBroker
 
   ##
   # Constructor
-  # @param connection[Bunny::Session]
-  # @param topic[String] - the topic
+  # @param connection [Bunny::Session]
+  # @param topic [String] - the topic
   def initialize(topic:, connection: Rails.application.config.rabbitmq_connection)
     @connection = connection
 
-    @connection.start
     @channel = @connection.create_channel
     @channel.on_error do |ch, close|
       Hyrax.logger.error "Error on channel creation: #{ch}"
@@ -27,8 +26,8 @@ class MessageBroker
   end
 
   ##
-  # Close the connection
+  # Close the channel
   def close
-    @connection.close
+    @channel.close
   end
 end

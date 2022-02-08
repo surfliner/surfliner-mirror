@@ -13,6 +13,7 @@ if Rails.application.config.use_rabbitmq
 
   conn = Bunny.new(conn_url)
   Rails.application.config.rabbitmq_connection = conn
+  conn.start
   Rails.logger.debug "Rabbitmq connection established #{conn}"
 
   Hyrax.publisher.subscribe(TidewaterRabbitmqListener.new) if
