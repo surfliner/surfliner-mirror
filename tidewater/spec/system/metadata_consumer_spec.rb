@@ -5,12 +5,14 @@ require "rest-client"
 
 RSpec.describe "consume Comet JSON-LD metadata" do
   let(:mocked_json_file) { Rails.root.join("spec", "fixtures", "mocked_metadata_response.json") }
+  let(:headers) { {"Accept" => "application/json", "HTTP_ACCEPT" => "application/ld+json;profile=tag:surfliner.github.io,2022:api/oai_dc"} }
 
   describe "#create" do
-    let(:mocked_response) { RestClient.get("http://superskunk.example.com/1234") }
+    let(:mocked_response) { RestClient.get("http://superskunk.example.com/1234", headers) }
 
     before do
       stub_request(:get, "http://superskunk.example.com:80/1234")
+        .with(headers: headers)
         .to_return(body: File.new(mocked_json_file), status: 200)
     end
 
