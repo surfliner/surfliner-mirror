@@ -6,7 +6,8 @@
 #
 # This is normally a two step process:
 #
-#   - update the object's ACLs to allow discover permissions on the
+#   - update the object's ACLs to allow discover access for the platform
+#   - publish messages on the broker
 #
 # @note we have some semantic overload on "publish".
 class DiscoveryPlatformPublisher
@@ -29,7 +30,7 @@ class DiscoveryPlatformPublisher
   # opens a broker and yields a block to publish multiple resources
   def self.open_on(name, &block)
     platform = DiscoveryPlatform.new(name)
-    broker = MessageBroker.new(topic: platform.topic)
+    broker = MessageBroker.for(topic: platform.topic)
 
     yield new(platform: platform, broker: broker)
 

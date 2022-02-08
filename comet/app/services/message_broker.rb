@@ -18,6 +18,15 @@ class MessageBroker
     @exchange = channel.topic(topic, auto_delete: true)
   end
 
+  def self.for(topic:, connection: nil)
+    if Rails.application.config.use_rabbitmq
+      conn = connection || Rails.application.config.rabbitmq_connection
+      new(topic: topic, connection: conn)
+    else
+      NullBroker.new(topic: topic)
+    end
+  end
+
   ##
   # Publish message to exchange for all subscribers
   def publish(payload:, routing_key:)
@@ -29,5 +38,19 @@ class MessageBroker
   # Close the channel
   def close
     @channel.close
+  end
+
+  class NullBroker
+    def initialize(topic:, connection: nil)
+      @topic = topic
+    end
+
+    def publish(*args)
+      Hyrax.logger.debug("Not publishing #{args} to #{@topic}; using NullBroker.")
+    end
+
+    def close
+      Hyrax.logger.debug("Not closing message broker; using NullBroker.")
+    end
   end
 end
