@@ -25,6 +25,13 @@ RSpec.describe "GET /object/{id}" do
       }
       expect(last_response.ok?).to be true
     end
+
+    it "responds with the correct Content-Type" do
+      get "/objects/#{id}", {}, {
+        "HTTP_ACCEPT" => "application/ld+json;profile=\"#{profile}\""
+      }
+      expect(last_response.headers["Content-Type"]).to match(/;\s*profile="#{Regexp.escape(profile)}"/)
+    end
   end
 
   describe "unknown profile" do

@@ -10,14 +10,14 @@ class ObjectsController < ApplicationController
   def show
     types = self.class.parseAcceptHeader(request.headers["Accept"].to_s)
     return render(plain: "Bad Accept Header", status: 400) unless types
-    renderer = types
+    profile = types
       .select { |t| t[:type] == "application/ld+json" && t[:weight] > 0 }
-      .sort { |a, b| b[:weight] <=> a[:weight] }
-      .map { |t| self.class.supported_renderers[t[:parameters][:profile]] }
-      .compact
-      .first
-    return render(plain: "Unknown Accept Type", status: 406) unless renderer
-    send(renderer)
+      .map { |t| t[:parameters][:profile] }
+      .select { |p| p && self.class.supported_renderers.has_key?(p) }
+      .min { |a, b| b[:weight] <=> a[:weight] }
+    return render(plain: "Unknown Accept Type", status: 406) unless profile
+    response.headers["Content-Type"] = "application/ld+json; profile=\"#{profile}\""
+    send(self.class.supported_renderers[profile])
   end
 
   def render_oai_dc
