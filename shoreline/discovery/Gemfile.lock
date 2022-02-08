@@ -58,7 +58,7 @@ GEM
       execjs (~> 2)
     bcrypt (3.1.16)
     bindex (0.8.1)
-    blacklight (7.19.2)
+    blacklight (7.14.0)
       deprecation
       globalid
       i18n (>= 1.7.0)
@@ -66,7 +66,7 @@ GEM
       kaminari (>= 0.15)
       ostruct (>= 0.3.2)
       rails (>= 5.1, < 7)
-      view_component (>= 2.28.0)
+      view_component (>= 2.23.0)
     bootsnap (1.10.3)
       msgpack (~> 1.2)
     bootstrap (4.6.1)
@@ -412,7 +412,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  blacklight (= 7.19.2)
+  blacklight (= 7.14.0)
   bootsnap (>= 1.1.0)
   bootstrap (~> 4.3)
   byebug
@@ -448,4 +448,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   2.3.4
+   2.2.32
