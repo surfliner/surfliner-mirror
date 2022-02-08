@@ -15,12 +15,13 @@ class ObjectsController < ApplicationController
       .map { |t| t[:parameters][:profile] }
       .select { |p| p && self.class.supported_renderers.has_key?(p) }
       .min { |a, b| b[:weight] <=> a[:weight] }
+    @model = GenericObject.new # TODO: Get an actual model
     send self.class.supported_renderers[@profile] || :default_render
     response.headers["Content-Type"] = content_type
   end
 
   def render_oai_dc
-    render json: GenericObject.new
+    render json: @model
   end
 
   def default_render
