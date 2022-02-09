@@ -19,7 +19,7 @@ RSpec.describe "consume Comet JSON-LD metadata" do
   describe "#create" do
     let(:mocked_response) { RestClient.get(resource_uri, headers) }
     let(:mocked_data) { mocked_response.body }
-    let(:oai_item) { OaiItem.from_json(resource_uri, mocked_data) }
+    let(:oai_item) { Converters::OaiItemConverter.from_json(resource_uri, mocked_data) }
 
     before do
       stub_request(:get, "http://superskunk.example.com:80/1234")
@@ -35,14 +35,14 @@ RSpec.describe "consume Comet JSON-LD metadata" do
     end
 
     it "build OaiItem" do
-      expect(oai_item.source_iri).to eq resource_uri
-      expect(oai_item.title).to eq title
-      expect(oai_item.creator).to eq creator
-      expect(oai_item.subject).to eq subject
-      expect(oai_item.description).to eq description
-      expect(oai_item.date).to eq date
-      expect(oai_item.type).to eq type
-      expect(oai_item.identifier).to eq identifier
+      expect(oai_item["source_iri"]).to eq resource_uri
+      expect(oai_item["title"]).to eq title
+      expect(oai_item["creator"]).to eq creator
+      expect(oai_item["subject"]).to eq subject
+      expect(oai_item["description"]).to eq description
+      expect(oai_item["date"]).to eq date
+      expect(oai_item["type"]).to eq type
+      expect(oai_item["identifier"]).to eq identifier
     end
 
     it "persist OaiItem" do

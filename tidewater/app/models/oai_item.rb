@@ -3,21 +3,10 @@
 # OAI-PMH records can be generated using the `to_{metadata_prefix}` methods.
 # <https://github.com/code4lib/ruby-oai/blob/3cdc12d86c7d1dde00b47105a7dab6def3f6801d/lib/oai/provider.rb#L209-L232>.
 class OaiItem < ApplicationRecord
-  # The fifteen elements defined in the original Dublin Core 1.1 Elements namespace, stored as fields in our database.
-  def self.dc_elements
-    OAI::Provider::Metadata::DublinCore.instance.fields
-  end
+  include Converters::OaiBase
 
   # `type` is a DC term, so the inheritance column needs to be something different.
   self.inheritance_column = :subclass_type
-
-  # Replaces any characters not allowed in XML 1.0 documents with U+FFFD.
-  #
-  # @param text [String] the text to sanitize
-  # @return [String] the sanitized value
-  def self.sanitize_value(text)
-    text.gsub(/[\x00-\x08\x0B\x0C\x0E-\x1F\uFFFE\uFFFF]/, "\uFFFD")
-  end
 
   # Splits the provided text on U+FFFF and replaces any characters not allowed in XML documents with U+FFFD.
   #
@@ -91,30 +80,5 @@ class OaiItem < ApplicationRecord
       end
     end
     result.doc.to_xml
-  end
-
-  # Delimit multiple values field with U+FFFF and tagged value with U+FFFE.
-  #
-  # @param val [JSON] the value(s) of a field
-  # @return [string] delimited field value
-  def self.field_value_from_json(val)
-    if val.is_a?(Array)
-      val.map { |v| field_value_from_json(v) }.join("\uFFFF")
-    elsif val.is_a?(Hash)
-      "#{sanitize_value(val["@value"])}\uFFFE#{val["@language"]}"
-    else
-      sanitize_value(val)
-    end
-  end
-
-  # Convert JSON from Comet metadata API to OaiItem.
-  #
-  # @param json [JSON] the object metadata in JSON format
-  # @return [OaiItem] delimited field value
-  def self.from_json(resoure_uri, json)
-    oai_item = OaiItem.new(source_iri: resoure_uri)
-    JSON.parse(json).each { |k, v| oai_item.public_send("#{k}=", field_value_from_json(v)) if oai_item.respond_to?(k.to_s) }
-
-    oai_item
   end
 end
