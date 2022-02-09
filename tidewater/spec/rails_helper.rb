@@ -6,7 +6,6 @@ require File.expand_path("../config/environment", __dir__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require "rspec/rails"
-require "capybara/rails"
 require "webmock/rspec"
 
 require_relative "../lib/tidewater"
@@ -67,6 +66,4 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
-
-  Capybara.server = :webrick
 end

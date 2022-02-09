@@ -21,7 +21,7 @@ module Persisters
       timestamp = DateTime.now.to_s
       record["created_at"] = timestamp
       record["updated_at"] = timestamp
-      record["id"] = db.max(:id) + 1
+      record["id"] = (db.max(:id) || 0) + 1
 
       db.insert(record)
     end

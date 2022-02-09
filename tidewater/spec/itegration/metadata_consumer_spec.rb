@@ -46,7 +46,7 @@ RSpec.describe "consume Comet JSON-LD metadata" do
     end
 
     it "persist OaiItem" do
-      expect(Persisters::SuperskunkPersister.create_or_update(record: oai_item.as_json.to_h.with_indifferent_access)).to be > 0
+      expect(Persisters::SuperskunkPersister.create_or_update(record: oai_item.with_indifferent_access)).to be > 0
 
       Persisters::SuperskunkPersister.find_by_source_iri(resource_uri) do |oai_item|
         expect(oai_item.source_iri).to eq resource_uri
