@@ -1,0 +1,61 @@
+.rabbitmq_helpers: &rabbitmq_helpers |
+  exists_rabbitmq_operator() {
+    kubectl --kubeconfig $KUBECONFIG get pods -n rabbitmq-system -o jsonpath="{..image}" | grep $RABBITMQ_OPERATOR_VERSION
+  }
+  create_rabbitmq_operator() {
+    if exists_rabbitmq_operator; then
+      echo "RABBITMQ OPERATOR ALREADY EXISTS"
+      return 0
+    fi
+    echo "CREATING RABBITMQ OPERATOR"
+    kubectl --kubeconfig $KUBECONFIG apply -f $RABBITMQ_OPERATOR_URL
+    kubectl --kubeconfig $KUBECONFIG rollout status deployment/rabbitmq-cluster-operator -n rabbitmq-system
+    if ! exists_rabbitmq_operator; then
+      echo "RABBITMQ OPERATOR FAILED TO CREATE"
+      return 1
+    fi
+    return 0
+  }
+
+.rabbitmq-operator:
+  stage: maintanence
+  extends:
+    - .helm3-deploy
+  variables:
+    RABBITMQ_OPERATOR_VERSION: 1.11.1
+    RABBITMQ_OPERATOR_URL: https://github.com/rabbitmq/cluster-operator/releases/download/v$RABBITMQ_OPERATOR_VERSION/cluster-operator.yml
+  script:
+    - *rabbitmq_helpers
+    - create_rabbitmq_operator
+  only:
+    changes:
+      - ci/base/rabbitmq_operator.yml
+
+rabbitmq-operator:ucsd-prod:
+  variables:
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+  extends:
+    - .rabbitmq-operator
+  only:
+    refs:
+      - trunk
+  tags:
+    - ucsd
+
+rabbitmq-operator:ucsb-prod:
+  extends:
+    - .rabbitmq-operator
+  only:
+    refs:
+      - trunk
+
+rabbitmq-operator:ucsd-review:
+  extends:
+    - .rabbitmq-operator
+  variables:
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
+  only:
+    refs:
+      - merge_requests
+  tags:
+    - ucsd
