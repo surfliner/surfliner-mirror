@@ -30,8 +30,6 @@ RSpec.describe TidewaterRabbitmqListener, :rabbitmq do
       end
 
       it "changes the object ACLs to include :discover for tidewater" do
-        Hyrax::AccessControlList # rubocop:disable Lint/Void something weird in rails autoloading here!
-
         expect { listener.on_collection_publish(event) }
           .to change { objects.map { |o| Hyrax::AccessControlList.new(resource: o).permissions } }
           .to contain_exactly(include(have_attributes(mode: :discover, agent: "group/surfliner:tidewater")),
