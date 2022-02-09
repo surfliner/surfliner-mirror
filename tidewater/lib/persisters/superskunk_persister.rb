@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+require "sequel"
+
 module Persisters
   # Responsible for writing changes from superskunk to the tidewater database
-  class Persister
+  class SuperskunkPersister
     # Entrypoint method to support both creating and updating OaiItems
     # @param record [Hash] Metadata for a given record from the superskunk api
     def self.create_or_update(record:)

@@ -26,7 +26,7 @@ RSpec.describe "consume Comet JSON-LD metadata" do
         .with(headers: headers)
         .to_return(body: File.new(mocked_json_file), status: 200)
 
-      Persisters::Persister.delete(source_iri: resource_uri)
+      Persisters::SuperskunkPersister.delete(source_iri: resource_uri)
     end
 
     it "returns 200 response and JSON-LD content" do
@@ -46,9 +46,9 @@ RSpec.describe "consume Comet JSON-LD metadata" do
     end
 
     it "persist OaiItem" do
-      expect(Persisters::Persister.create_or_update(record: oai_item.as_json.to_h.with_indifferent_access)).to be > 0
+      expect(Persisters::SuperskunkPersister.create_or_update(record: oai_item.as_json.to_h.with_indifferent_access)).to be > 0
 
-      Persisters::Persister.find_by_source_iri(resource_uri) do |oai_item|
+      Persisters::SuperskunkPersister.find_by_source_iri(resource_uri) do |oai_item|
         expect(oai_item.source_iri).to eq resource_uri
         expect(oai_item.title).to eq title
         expect(oai_item.creator).to eq creator
