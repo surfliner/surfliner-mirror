@@ -24,6 +24,7 @@
       alias: zk
   before_script:
     - apk add build-base yarn # need to build gem extensions and compile assets
+    - bundle config unset without
     - bundle config set without 'development' # to get test group gems back
     - cd /home/shoreline/discovery/app
     - bundle install
