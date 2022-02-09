@@ -9,6 +9,7 @@ tidewater:test:
     OAI_REPOSITORY_ORIGIN: http://localhost:3000
     OAI_SAMPLE_ID: 13900
     POSTGRES_ADMIN_PASSWORD: password
+    POSTGRES_DB: tidewater-test
     POSTGRES_DB_TEST: tidewater-test
     POSTGRES_HOST: localhost
     POSTGRES_PASSWORD: password
