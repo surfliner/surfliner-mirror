@@ -111,7 +111,7 @@ RSpec.describe OaiItem do
   describe "convert JSON-LD to OaiItem record" do
     let(:resource_uri) { "http://superskunk.example.com/1234" }
     let(:json_file) { Rails.root.join("spec", "fixtures", "mocked_metadata_response.json") }
-    let(:json_data) { File.open(json_file).read }
+    let(:json_data) { File.read(json_file) }
     let(:oai_item) { OaiItem.from_json(resource_uri, json_data) }
 
     let(:resource_uri) { "http://superskunk.example.com/1234" }
