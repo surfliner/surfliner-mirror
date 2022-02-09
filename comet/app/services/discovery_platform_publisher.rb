@@ -40,10 +40,13 @@ class DiscoveryPlatformPublisher
   ##
   # @param [Hyrax::Resource] resource  the resource to publish
   def publish(resource:)
+    raise(UnpublishableObject) unless resource.persisted?
     Hyrax.logger.debug { "Publishing object with id #{resource.id}" }
     append_access_control_to(resource: resource) &&
       broker.publish(payload: payload_for(resource), routing_key: platform.message_route.metadata_routing_key)
   end
+
+  class UnpublishableObject < ArgumentError; end
 
   private
 
@@ -57,7 +60,20 @@ class DiscoveryPlatformPublisher
   # @return [Boolean] true if the ACL was not already present, and has been
   #   added; false otherwise.
   def append_access_control_to(resource:)
-    acl = Hyrax::AccessControlList(resource)
+    acl = Hyrax::AccessControlList.new(resource: resource)
+
+    # two troublesome things here:
+    #   - `Valkyrie::ChangeSet` regards permissions as changed after setting
+    #     them, even if they are set to the original value. i wanted this to
+    #     be `#pending_changes?` on the ACL, but no go.
+    #   - Hyrax::Group doesn't know it's own ACL key. planning to fix that
+    #     upstream so the string construction can be `platform.agent.user_key`
+    #     instead.
+    return if acl.permissions.any? do |permission|
+      permission.mode == :discover &&
+        permission.agent == "#{Hyrax::Group.name_prefix}#{platform.agent.name}"
+    end
+
     acl.grant(:discover).to(platform.agent)
     acl.save
   end
