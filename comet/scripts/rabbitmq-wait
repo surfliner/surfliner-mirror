@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+
+require "bunny"
+
+exit unless ENV.fetch("RABBITMQ_ENABLED", false)
+
+rabbitmq_host = ENV.fetch("RABBITMQ_HOST", "rabbitmq")
+rabbitmq_user = ENV.fetch("RABBITMQ_USERNAME", "user")
+rabbitmq_password = ENV.fetch("RABBITMQ_PASSWORD", "bitnami")
+rabbitmq_port = ENV.fetch("RABBITMQ_NODE_PORT_NUMBER", 5672)
+
+url = "amqp://#{rabbitmq_user}:#{rabbitmq_password}@#{rabbitmq_host}:#{rabbitmq_port}"
+
+connection = Bunny.new(url)
+puts "Trying rabbitmq message broker connection at: #{url.sub(rabbitmq_password, "REDACTED")}"
+
+status = ""
+timer = 90
+
+while timer > 0
+  begin
+    connection.start
+  rescue => err
+    puts err.message
+  end
+
+  status = connection.status
+  puts "Status: #{status}"
+
+  break if status == :open
+  timer -= 1
+end
+
+connection.close
+
+raise("Failed to connect to Rabbitmq after 90 seconds.") unless status == :open

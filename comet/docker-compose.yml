@@ -15,6 +15,13 @@ services:
       - .env
     environment:
       - RAILS_ROOT=/app/samvera/hyrax-webapp
+    command:
+      - sh
+      - -c
+      - >
+        if ./scripts/rabbitmq-wait; then
+          bundle exec puma -v -b tcp://0.0.0.0:3000
+        fi
     depends_on:
       - chrome
       - db_migrate
@@ -44,6 +51,13 @@ services:
     user: root
     env_file:
       - .env
+    command:
+      - sh
+      - -c
+      - >
+        if ./scripts/rabbitmq-wait; then
+          bundle exec sidekiq
+        fi
     depends_on:
       - db_migrate
       - minio

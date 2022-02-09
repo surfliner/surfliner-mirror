@@ -81,4 +81,7 @@ comet:test:system:
     - name: selenium/standalone-chrome:98.0
       alias: chrome
   script:
-    - bundle exec rspec --tag type:system
+    - >
+      if ./scripts/rabbitmq-wait; then
+        bundle exec rspec --tag type:system
+      fi
