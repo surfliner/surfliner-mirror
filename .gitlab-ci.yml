@@ -126,6 +126,11 @@ include:
     kubectl delete pvc -l "app.kubernetes.io/instance=$HELM_RELEASE_NAME" --namespace="$KUBE_NAMESPACE"
   }
 
+  delete_rabbitmq_queue() {
+    echo "Deleting rabbitmq queue: $RABBITMQ_RELEASE_NAME..."
+    kubectl --kubeconfig $KUBECONFIG delete rabbitmqclusters.rabbitmq.com $RABBITMQ_RELEASE_NAME -n $KUBE_NAMESPACE
+  }
+
   function rollback() {
     echo "Rolling back to previous release of: $HELM_RELEASE_NAME..."
     helm rollback --wait --namespace "$KUBE_NAMESPACE" "$HELM_RELEASE_NAME"

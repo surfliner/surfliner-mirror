@@ -37,6 +37,15 @@ include:
     fi
     return 0
   }
+  create_rabbitmq_queue() {
+    if kubectl --kubeconfig $KUBECONFIG get rabbitmqclusters.rabbitmq.com/$RABBITMQ_RELEASE_NAME -n $KUBE_NAMESPACE; then
+      echo "RABBITMQ QUEUE EXISTS $RABBITMQ_RELEASE_NAME"
+      return 0
+    fi
+    echo "CREATING RABBITMQ QUEUE $RABBITMQ_RELEASE_NAME"
+    sed "s/NAME/$RABBITMQ_RELEASE_NAME/" util/rabbitmq-instance.yml |\
+    kubectl --kubeconfig $KUBECONFIG -n $KUBE_NAMESPACE apply -f -
+  }
 
 .comet-chart-deploy:
   variables:
@@ -45,6 +54,7 @@ include:
   script:
     - *rabbitmq_helpers
     - create_rabbitmq_operator
+    - create_rabbitmq_queue
     - helm pull oci://ghcr.io/samvera/charts/hyrax --version 1.1.0 --untar --untardir charts
     - deploy ./charts/hyrax
 
