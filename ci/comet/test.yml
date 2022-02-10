@@ -86,7 +86,7 @@ comet:test:system:
       alias: rabbitmq
     - name: zookeeper:3.6
       alias: zk
-    - name: selenium/standalone-chrome:94.0
+    - name: selenium/standalone-chrome:98.0
       alias: chrome
   script:
     - bundle exec rspec --tag type:system

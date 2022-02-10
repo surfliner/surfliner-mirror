@@ -97,7 +97,7 @@ services:
       - .env
 
   chrome:
-    image: selenium/standalone-chrome:97.0
+    image: selenium/standalone-chrome:98.0
 
 volumes:
   starlight_assets:
