@@ -811,7 +811,7 @@ GEM
     rspec-support (3.10.3)
     rspec_junit_formatter (0.5.1)
       rspec-core (>= 2, < 4, != 2.12.0)
-    rubocop (1.25.0)
+    rubocop (1.25.1)
       parallel (~> 1.10)
       parser (>= 3.1.0.0)
       rainbow (>= 2.2.2, < 4.0)
@@ -918,8 +918,8 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     ssrf_filter (1.0.7)
-    standard (1.7.0)
-      rubocop (= 1.25.0)
+    standard (1.7.1)
+      rubocop (= 1.25.1)
       rubocop-performance (= 1.13.2)
     sxp (1.2.1)
       matrix
@@ -1025,7 +1025,7 @@ DEPENDENCIES
   selenium-webdriver (= 3.142.7)
   sidekiq (= 6.2.1)
   solr_utils!
-  standard (= 1.7.0)
+  standard (= 1.7.1)
   tinymce-rails (= 5.10.2)
   turbolinks (= 5.2.1)
   uglifier (= 4.2.0)

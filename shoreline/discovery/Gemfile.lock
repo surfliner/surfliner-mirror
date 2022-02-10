@@ -327,7 +327,7 @@ GEM
     rspec-support (3.10.2)
     rspec_junit_formatter (0.4.1)
       rspec-core (>= 2, < 4, != 2.12.0)
-    rubocop (1.25.0)
+    rubocop (1.25.1)
       parallel (~> 1.10)
       parser (>= 3.1.0.0)
       rainbow (>= 2.2.2, < 4.0)
@@ -363,8 +363,8 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    standard (1.7.0)
-      rubocop (= 1.25.0)
+    standard (1.7.1)
+      rubocop (= 1.25.1)
       rubocop-performance (= 1.13.2)
     thor (1.2.1)
     thread_safe (0.3.6)
@@ -434,7 +434,7 @@ DEPENDENCIES
   rspec_junit_formatter
   sass-rails (~> 6.0)
   solr_utils!
-  standard (= 1.7.0)
+  standard (= 1.7.1)
   turbolinks (~> 5.2)
   twitter-typeahead-rails (= 0.11.1)
   tzinfo-data (~> 1.2021.0)

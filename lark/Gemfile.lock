@@ -241,7 +241,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-support (3.10.3)
-    rubocop (1.25.0)
+    rubocop (1.25.1)
       parallel (~> 1.10)
       parser (>= 3.1.0.0)
       rainbow (>= 2.2.2, < 4.0)
@@ -270,8 +270,8 @@ GEM
       rack (~> 2.2)
       rack-protection (= 2.1.0)
       tilt (~> 2.0)
-    standard (1.7.0)
-      rubocop (= 1.25.0)
+    standard (1.7.1)
+      rubocop (= 1.25.1)
       rubocop-performance (= 1.13.2)
     thor (1.1.0)
     tilt (2.0.10)
@@ -331,7 +331,7 @@ DEPENDENCIES
   shotgun
   sinatra (~> 2.1.0)
   solr_utils!
-  standard (= 1.7.0)
+  standard (= 1.7.1)
   timecop
   valkyrie (= 2.2.0)
   valkyrie-sequel (= 2.2.1)
