@@ -22,18 +22,18 @@
     RAILS_QUEUE: "inline"
     REDIS_HOST: "redis"
     REDIS_PASSWORD: "redispass"
+    SOLR_ADMIN_PASSWORD: "admin"
+    SOLR_ADMIN_USER: "admin"
     SOLR_COLLECTION_NAME: comet-test
-    SOLR_CORE_NAME: comet-test
+    SOLR_CORES: comet-test
+    SOLR_CORE_CONF_DIR: "/builds/surfliner/surfliner/comet/solr/conf"
+    SOLR_ENABLE_AUTHENTICATION: "yes"
     SOLR_HOST: solr
     SOLR_PORT: 8983
-    ZK_HOST: zk
-    ZK_PORT: 2181
   before_script:
     - cd /app/samvera/hyrax-webapp
-    - /app/samvera/scripts/upload-solr-configs.sh /app/samvera/hyrax-webapp/solr/conf
-    - /app/samvera/scripts/create-solr-collection.sh
     - bundle check || bundle
-    - rake db:create db:migrate
+    - RABBITMQ_ENABLED=0 db-wait.sh "${SOLR_HOST}:${SOLR_PORT}" rake db:create db:migrate
   extends:
     - .only-refs-default
     - .only-comet-changes
@@ -47,10 +47,8 @@ comet:test:unit:
       alias: postgres
     - name: bitnami/redis:6.2
       alias: redis
-    - name: solr:8.11.1
+    - name: bitnami/solr:8.11.1
       alias: solr
-    - name: zookeeper:3.6
-      alias: zk
   script:
     - bundle exec rspec --tag ~type:system --tag ~rabbitmq
 
@@ -76,16 +74,14 @@ comet:test:system:
   services:
     - name: bitnami/postgresql:12.9.0
       alias: postgres
+    - name: bitnami/solr:8.11.1
+      alias: solr
     - name: bitnami/redis:6.2
       alias: redis
     - name: bitnami/minio:2021-debian-10
       alias: minio
-    - name: solr:8.11.1
-      alias: solr
     - name: bitnami/rabbitmq:3.9.13-debian-10-r6
       alias: rabbitmq
-    - name: zookeeper:3.6
-      alias: zk
     - name: selenium/standalone-chrome:98.0
       alias: chrome
   script:
