@@ -24,7 +24,7 @@
     SOLR_ADMIN_USER: "admin"
     SOLR_COLLECTION_NAME: comet-test
     SOLR_CORES: comet-test
-    SOLR_CORE_CONF_DIR: "/builds/surfliner/surfliner/comet/solr/conf"
+    SOLR_CORE_CONF_DIR: "/surfliner-conf/comet/solr"
     SOLR_ENABLE_AUTHENTICATION: "yes"
     SOLR_HOST: solr
     SOLR_PORT: 8983
