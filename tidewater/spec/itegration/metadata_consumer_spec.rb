@@ -7,7 +7,8 @@ RSpec.describe "consume Comet JSON-LD metadata" do
   let(:mocked_json_file) { Rails.root.join("spec", "fixtures", "mocked_metadata_response.json") }
   let(:headers) { {"Accept" => "application/json", "HTTP_ACCEPT" => "application/ld+json;profile=tag:surfliner.github.io,2022:api/oai_dc"} }
 
-  let(:resource_uri) { "http://superskunk.example.com/1234" }
+  let(:source_id) { "example:cs/0112017" }
+  let(:resource_uri) { "http://superskunk.example.com/#{source_id}" }
   let(:title) { "Using Structural Metadata to Localize Experience of Digital Content\uFFFEen" }
   let(:creator) { "Dushay, Naomi" }
   let(:subject) { "Digital Libraries" }
@@ -22,11 +23,11 @@ RSpec.describe "consume Comet JSON-LD metadata" do
     let(:oai_item) { Converters::OaiItemConverter.from_json(resource_uri, mocked_data) }
 
     before do
-      stub_request(:get, "http://superskunk.example.com:80/1234")
+      stub_request(:get, "http://superskunk.example.com:80/#{source_id}")
         .with(headers: headers)
         .to_return(body: File.new(mocked_json_file), status: 200)
 
-      Persisters::SuperskunkPersister.delete(source_iri: resource_uri)
+      Persisters::SuperskunkPersister.delete(source_iri: source_id)
     end
 
     it "returns 200 response and JSON-LD content" do
@@ -35,7 +36,7 @@ RSpec.describe "consume Comet JSON-LD metadata" do
     end
 
     it "build OaiItem" do
-      expect(oai_item["source_iri"]).to eq resource_uri
+      expect(oai_item["source_iri"]).to eq source_id
       expect(oai_item["title"]).to eq title
       expect(oai_item["creator"]).to eq creator
       expect(oai_item["subject"]).to eq subject
@@ -48,8 +49,8 @@ RSpec.describe "consume Comet JSON-LD metadata" do
     it "persist OaiItem" do
       expect(Persisters::SuperskunkPersister.create_or_update(record: oai_item.with_indifferent_access)).to be > 0
 
-      Persisters::SuperskunkPersister.find_by_source_iri(resource_uri) do |oai_item|
-        expect(oai_item.source_iri).to eq resource_uri
+      Persisters::SuperskunkPersister.find_by_source_iri(source_id) do |oai_item|
+        expect(oai_item.source_iri).to eq source_id
         expect(oai_item.title).to eq title
         expect(oai_item.creator).to eq creator
         expect(oai_item.subject).to eq subject

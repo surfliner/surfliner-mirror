@@ -24,12 +24,16 @@ module Converters
 
     # Convert JSON from Comet metadata API to OaiItem.
     #
+    # @param resouce_uri [String] the resource URL from Comet message broker
     # @param json [JSON] the object metadata in JSON format
     # @return [OaiItem] delimited field value
-    def self.from_json(resoure_uri, json)
+    def self.from_json(resource_uri, json)
+      attrs = JSON.parse(json)
+      resource_id = attrs["@id"]
+      raise ArgumentError.new("Inconsistent @id #{resource_id} and resource URL #{resource_uri}!") if resource_uri.nil? || !resource_uri.include?(resource_id)
+
       {}.tap do |pro|
-        pro["source_iri"] = resoure_uri
-        attrs = JSON.parse(json)
+        pro["source_iri"] = resource_id
         attrs.each { |k, v| pro[k] = field_value_from_json(v) if dc_elements.include? k.to_sym }
       end
     end

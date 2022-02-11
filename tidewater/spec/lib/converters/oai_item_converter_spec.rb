@@ -2,12 +2,12 @@ require "rails_helper"
 
 RSpec.describe Converters::OaiItemConverter do
   describe "convert JSON-LD to OaiItem record" do
-    let(:resource_uri) { "http://superskunk.example.com/1234" }
+    let(:source_id) { "example:cs/0112017" }
+    let(:resource_uri) { "http://superskunk.example.com/#{source_id}" }
     let(:json_file) { Rails.root.join("spec", "fixtures", "mocked_metadata_response.json") }
     let(:json_data) { File.read(json_file) }
     let(:oai_item) { Converters::OaiItemConverter.from_json(resource_uri, json_data) }
 
-    let(:resource_uri) { "http://superskunk.example.com/1234" }
     let(:title) { "Using Structural Metadata to Localize Experience of Digital Content\uFFFEen" }
     let(:creator) { "Dushay, Naomi" }
     let(:subject) { "Digital Libraries" }
@@ -17,7 +17,7 @@ RSpec.describe Converters::OaiItemConverter do
     let(:identifier) { "http://arXiv.org/abs/cs/0112017" }
 
     it "builds OaiItem record" do
-      expect(oai_item["source_iri"]).to eq resource_uri
+      expect(oai_item["source_iri"]).to eq source_id
       expect(oai_item["title"]).to eq title
       expect(oai_item["creator"]).to eq creator
       expect(oai_item["subject"]).to eq subject
@@ -25,6 +25,15 @@ RSpec.describe Converters::OaiItemConverter do
       expect(oai_item["date"]).to eq date
       expect(oai_item["type"]).to eq type
       expect(oai_item["identifier"]).to eq identifier
+    end
+
+    context "with inconsistent resourceUrl and @id" do
+      let(:resource_uri) { "http://superskunk.example.com/1234" }
+
+      it "raises ArgumentError" do
+        expect { Converters::OaiItemConverter.from_json(resource_uri, json_data) }
+          .to raise_error(ArgumentError, "Inconsistent @id example:cs/0112017 and resource URL http://superskunk.example.com/1234!")
+      end
     end
   end
 end
