@@ -16,6 +16,6 @@ include:
       - charts/snippets/shoreline/**/*
       - ci/shoreline/**/*
       - ci/shoreline.yml
-      - gems/**/*
+      - gems/solr_utils/**/*
       - shoreline/discovery/**/*
       - shoreline/discovery/Dockerfile

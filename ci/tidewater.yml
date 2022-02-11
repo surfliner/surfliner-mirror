@@ -15,6 +15,5 @@ include:
       - charts/tidewater/**/*
       - ci/tidewater/**/*
       - ci/tidewater.yml
-      - gems/**/*
       - tidewater/**/*
       - tidewater/Dockerfile

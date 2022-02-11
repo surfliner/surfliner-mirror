@@ -13,6 +13,5 @@ include:
       - charts/superskunk/**/*
       - ci/superskunk/**/*
       - ci/superskunk.yml
-      - gems/**/*
       - superskunk/**/*
       - superskunk/Dockerfile

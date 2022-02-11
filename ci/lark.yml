@@ -22,7 +22,6 @@ include:
       - charts/snippets/surfliner/*
       - ci/lark/**/*
       - ci/lark.yml
-      - gems/**/*
       - lark/**/*
       - lark-client/**/*
       - lark-ui/**/*
