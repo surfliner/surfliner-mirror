@@ -1,4 +1,4 @@
-class CreateOaiSetEntries < ActiveRecord::Migration[5.2]
+class CreateOaiSetEntries < ActiveRecord::Migration[7.0]
   def change
     unless table_exists?(:oai_set_entries)
       create_table :oai_set_entries do |t|
