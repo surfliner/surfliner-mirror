@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/samvera/hyrax.git
-  revision: c831ecdc0fe67ecd0cd9cc7e477d20ca06953ec7
+  revision: 08d438b053d27d0d16e4c040ddaa8e61e7bc89ac
   branch: main
   specs:
     hyrax (3.3.0)
@@ -57,14 +57,6 @@ GIT
       signet
       tinymce-rails
       valkyrie (~> 2, >= 2.1.1)
-
-PATH
-  remote: ../gems/solr_utils
-  specs:
-    solr_utils (0.2.0)
-      rake
-      rsolr
-      zk
 
 GEM
   remote: https://rubygems.org/
@@ -144,20 +136,20 @@ GEM
     ast (2.4.2)
     autoprefixer-rails (10.4.2.0)
       execjs (~> 2)
-    awesome_nested_set (3.4.0)
-      activerecord (>= 4.0.0, < 7.0)
+    awesome_nested_set (3.5.0)
+      activerecord (>= 4.0.0, < 7.1)
     aws-eventstream (1.2.0)
-    aws-partitions (1.551.0)
-    aws-sdk-core (3.125.6)
+    aws-partitions (1.554.0)
+    aws-sdk-core (3.126.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.525.0)
       aws-sigv4 (~> 1.1)
       jmespath (~> 1.0)
-    aws-sdk-kms (1.53.0)
-      aws-sdk-core (~> 3, >= 3.125.0)
+    aws-sdk-kms (1.54.0)
+      aws-sdk-core (~> 3, >= 3.126.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.111.3)
-      aws-sdk-core (~> 3, >= 3.125.0)
+    aws-sdk-s3 (1.112.0)
+      aws-sdk-core (~> 3, >= 3.126.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.4)
     aws-sigv4 (1.4.0)
@@ -340,7 +332,7 @@ GEM
     erubi (1.10.0)
     ethon (0.15.0)
       ffi (>= 1.15.0)
-    excon (0.90.0)
+    excon (0.91.0)
     execjs (2.8.1)
     ezid-client (1.9.1)
       hashie (~> 3.4, >= 3.4.3)
@@ -655,10 +647,10 @@ GEM
     public_suffix (4.0.6)
     puma (5.6.1)
       nio4r (~> 2.0)
-    qa (5.7.0)
+    qa (5.8.1)
       activerecord-import
       deprecation
-      faraday
+      faraday (< 2.0)
       geocoder
       ldpath
       nokogiri (~> 1.6)
@@ -696,18 +688,18 @@ GEM
       thor (>= 0.19.0, < 2.0)
     rainbow (3.1.1)
     rake (13.0.6)
-    rb-fsevent (0.11.0)
+    rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    rbtree (0.4.4)
-    rdf (3.2.3)
+    rbtree (0.4.5)
+    rdf (3.2.4)
       link_header (~> 0.0, >= 0.0.8)
     rdf-aggregate-repo (3.2.0)
       rdf (~> 3.2)
     rdf-hamster-repo (3.2.1)
       hamster (~> 3.0)
       rdf (~> 3.2, >= 3.2.1)
-    rdf-isomorphic (3.2.0)
+    rdf-isomorphic (3.2.1)
       rdf (~> 3.2)
     rdf-json (3.2.0)
       rdf (~> 3.2)
@@ -758,8 +750,8 @@ GEM
     rdf-turtle (3.2.0)
       ebnf (~> 2.3)
       rdf (~> 3.2)
-    rdf-vocab (3.2.0)
-      rdf (~> 3.2)
+    rdf-vocab (3.2.1)
+      rdf (~> 3.2, >= 3.2.4)
     rdf-xsd (3.2.0)
       rdf (~> 3.2)
       rexml (~> 3.2)
@@ -792,14 +784,14 @@ GEM
     rsolr (2.4.0)
       builder (>= 2.1.2)
       faraday (>= 0.9.0)
-    rspec-core (3.10.2)
-      rspec-support (~> 3.10.0)
-    rspec-expectations (3.10.2)
+    rspec-core (3.11.0)
+      rspec-support (~> 3.11.0)
+    rspec-expectations (3.11.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.10.0)
-    rspec-mocks (3.10.3)
+      rspec-support (~> 3.11.0)
+    rspec-mocks (3.11.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.10.0)
+      rspec-support (~> 3.11.0)
     rspec-rails (5.1.0)
       actionpack (>= 5.2)
       activesupport (>= 5.2)
@@ -808,7 +800,7 @@ GEM
       rspec-expectations (~> 3.10)
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
-    rspec-support (3.10.3)
+    rspec-support (3.11.0)
     rspec_junit_formatter (0.5.1)
       rspec-core (>= 2, < 4, != 2.12.0)
     rubocop (1.25.1)
@@ -856,7 +848,7 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
-    sequel (5.52.0)
+    sequel (5.53.0)
     sequel_pg (1.14.0)
       pg (>= 0.18.0, != 1.2.0)
       sequel (>= 4.38.0)
@@ -980,9 +972,6 @@ GEM
       nokogiri (~> 1.8)
     yard (0.9.27)
       webrick (~> 1.7.0)
-    zk (1.10.0)
-      zookeeper (~> 1.5.0)
-    zookeeper (1.5.1)
 
 PLATFORMS
   ruby
@@ -1024,7 +1013,6 @@ DEPENDENCIES
   scss_lint_reporter_checkstyle (= 0.2.0)
   selenium-webdriver (= 3.142.7)
   sidekiq (= 6.2.1)
-  solr_utils!
   standard (= 1.7.1)
   tinymce-rails (= 5.10.2)
   turbolinks (= 5.2.1)
