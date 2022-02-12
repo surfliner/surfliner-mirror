@@ -22,7 +22,6 @@ superskunk:test:
       alias: postgres
   script:
     - cd superskunk
-    - PGPASSWORD=$DB_PASSWORD PGHOST=$DB_HOST PGUSER=$DB_USERNAME PGDATABASE=$DB_NAME; export PGPASSWORD PGHOST PGUSER PGDATABASE; createdb -e -w $METADATA_DATABASE_NAME
     - cp -r /home/superskunk/db db
     - cd scripts
     - db-migrate-seed.sh
