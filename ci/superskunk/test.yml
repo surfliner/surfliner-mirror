@@ -16,7 +16,6 @@ superskunk:test:
     POSTGRES_USER: "postgres"
     POSTGRES_PORT: 5432
     METADATA_DATABASE_NAME: comet_metadata_development
-    DATABASE_URL: "postgres://postgres:postgres@postgres/skunk-test"
   services:
     - name: bitnami/postgresql:12.9.0
       alias: postgres
