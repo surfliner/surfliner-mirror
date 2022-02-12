@@ -291,6 +291,13 @@ Hyrax::Resource.class_eval do
   end
 end
 
+Hyrax::Group.class_eval do
+  def ==(other)
+    (other.class == self.class) &&
+      (name == other.name)
+  end
+end
+
 class CometTransactionContainer
   extend Dry::Container::Mixin
 
