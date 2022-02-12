@@ -17,6 +17,9 @@ fullnameOverride: ""
 superskunk:
   allow_robots: false # allow crawling via robots.txt
   port: 3000
+  db:
+    standalone: false # whether to deploy with its own DB instead of connecting to Comet
+    metadata_database_name: comet_metadata_development
   rails:
     environment: production
     log_to_stdout: true
@@ -26,6 +29,22 @@ superskunk:
 existingSecret:
   name: superskunk
   enabled: false
+
+# see: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md
+postgresql:
+  image:
+    repository: bitnami/postgresql
+    tag: 12.9.0-debian-10-r80
+  enabled: true
+  cpu: 1000m
+  memory: 1Gi
+  postgresqlUsername: superskunk
+  postgresqlPassword: superskunk_pass
+  postgresqlDatabase: superskunk_db
+  postgresqlPostgresPassword: superskunk_admin
+  servicePort: 5432
+  persistence:
+    size: 10Gi
 
 serviceAccount:
   # Specifies whether a service account should be created

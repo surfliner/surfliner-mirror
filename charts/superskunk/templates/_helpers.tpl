@@ -71,3 +71,19 @@ Supports using an existing secret instead of one built using the Chart
 {{ include "superskunk.fullname" . }}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Services
+*/}}
+{{/*
+Create a default fully qualified postgresql name.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+Alternatively, if postgresqlHostname is set, we use that which allows for an external database
+*/}}
+{{- define "superskunk.postgresql.fullname" -}}
+{{- if .Values.postgresql.enabled -}}
+{{- printf "%s-%s" .Release.Name "postgresql" | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
+{{- .Values.postgresql.postgresqlHostname -}}
+{{- end -}}
+{{- end -}}

@@ -28,6 +28,7 @@ superskunk:deploy:ucsd-review:
       --set ingress.hosts[0].host=superskunk-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
       --set ingress.hosts[0].paths[0].path=/
       --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
+      --set superskunk.db.standalone=true
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
   script:
     - deploy ./charts/superskunk
@@ -68,6 +69,7 @@ superskunk:deploy:ucsb-review:
       --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
       --set ingress.tls[0].hosts[0]=superskunk-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
       --set ingress.tls[0].secretName=skunk-review-$CI_MERGE_REQUEST_ID
+      --set superskunk.db.standalone=true
       --set-string ingress.annotations.cert-manager\.io/cluster-issuer=letsencrypt-prod
       --set-string ingress.annotations.kubernetes\.io/tls-acme=true
 

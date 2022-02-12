@@ -11,6 +11,13 @@ data:
   {{- if .Values.superskunk.allow_robots }}
   ALLOW_ROBOTS: "true"
   {{- end }}
+  DB_HOST: {{ template "superskunk.postgresql.fullname" . }}
+  DB_NAME: {{ .Values.postgresql.postgresqlDatabase }}
+  DB_PORT: {{ .Values.postgresql.servicePort | quote }}
+  METADATA_DATABASE_NAME: {{ .Values.superskunk.db.metadata_database_name }}
+  POSTGRES_DB: {{ .Values.postgresql.postgresqlDatabase }}
+  POSTGRES_HOST: {{ template "superskunk.postgresql.fullname" . }}
+  POSTGRES_PORT: {{ .Values.postgresql.servicePort | quote }}
   RAILS_ENV: {{ .Values.superskunk.rails.environment }}
   RAILS_LOG_TO_STDOUT: {{ .Values.superskunk.rails.log_to_stdout | quote }}
   RAILS_SERVE_STATIC_FILES: {{ .Values.superskunk.rails.serve_static_files | quote }}
