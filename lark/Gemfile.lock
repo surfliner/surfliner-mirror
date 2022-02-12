@@ -225,9 +225,9 @@ GEM
     request_store (1.5.0)
       rack (>= 1.4)
     rexml (3.2.5)
-    rsolr (2.4.0)
+    rsolr (2.5.0)
       builder (>= 2.1.2)
-      faraday (>= 0.9.0)
+      faraday (>= 0.9, < 3, != 2.0.0)
     rspec (3.10.0)
       rspec-core (~> 3.10.0)
       rspec-expectations (~> 3.10.0)
@@ -325,7 +325,7 @@ DEPENDENCIES
   rack-healthcheck (~> 0.2.0)
   rack-test
   racksh
-  rsolr (~> 2.4.0)
+  rsolr (~> 2.5.0)
   rspec
   rubocop-rspec
   shotgun
