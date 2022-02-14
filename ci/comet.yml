@@ -17,6 +17,7 @@ include:
       - ci/comet.yml
       - comet/**/*
       - comet/Dockerfile
+      - gems/surfliner_schema/**/*
 
 .rabbitmq_helpers: &rabbitmq_helpers |
   exists_rabbitmq_operator() {

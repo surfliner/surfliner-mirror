@@ -58,6 +58,12 @@ GIT
       tinymce-rails
       valkyrie (~> 2, >= 2.1.1)
 
+PATH
+  remote: ../gems/surfliner_schema
+  specs:
+    surfliner_schema (0.1.0.pre)
+      valkyrie (~> 2.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -1014,6 +1020,7 @@ DEPENDENCIES
   selenium-webdriver (= 3.142.7)
   sidekiq (= 6.2.1)
   standard (= 1.7.1)
+  surfliner_schema!
   tinymce-rails (= 5.10.2)
   turbolinks (= 5.2.1)
   uglifier (= 4.2.0)
