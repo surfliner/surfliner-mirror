@@ -19,7 +19,7 @@ module SurflinerSchema
     # @param [Array<Symbol>] *schemas
     def initialize(*schemas)
       @schemas = schemas
-      @attributes_config = schema_config["attributes"].transform_keys(&:to_sym)
+      @attributes_config = schema_config.fetch("attributes", {}).transform_keys(&:to_sym)
     end
 
     ##
