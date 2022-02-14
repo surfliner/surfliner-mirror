@@ -26,6 +26,7 @@ COPY scripts ${DOCKERROOT}/scripts/
 
 COPY ${PROJECTPATH}/scripts/db-migrate-seed.sh ${DOCKERROOT}/scripts/db-migrate-seed.sh
 COPY comet/db/sequel ${DOCKERROOT}/db/sequel
+COPY comet/config/metadata ${DOCKERROOT}/config/metadata
 
 COPY .styles $DOCKERROOT/.styles/
 ENV PATH="$DOCKERROOT/scripts:$PATH"
