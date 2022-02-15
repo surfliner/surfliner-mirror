@@ -117,7 +117,7 @@ GEM
     dry-logic (1.2.0)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.5, >= 0.5)
-    dry-schema (1.9.0)
+    dry-schema (1.9.1)
       concurrent-ruby (~> 1.0)
       dry-configurable (~> 0.13, >= 0.13.0)
       dry-core (~> 0.5, >= 0.5)
@@ -130,12 +130,12 @@ GEM
       dry-core (~> 0.5, >= 0.5)
       dry-inflector (~> 0.1, >= 0.1.2)
       dry-logic (~> 1.0, >= 1.0.2)
-    dry-validation (1.7.0)
+    dry-validation (1.8.0)
       concurrent-ruby (~> 1.0)
       dry-container (~> 0.7, >= 0.7.1)
       dry-core (~> 0.5, >= 0.5)
       dry-initializer (~> 3.0)
-      dry-schema (~> 1.8, >= 1.8.0)
+      dry-schema (~> 1.9, >= 1.9.1)
     erubi (1.10.0)
     execjs (2.8.1)
     factory_bot (6.2.0)
@@ -143,7 +143,7 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
-    faraday (1.9.3)
+    faraday (1.10.0)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
       faraday-excon (~> 1.1)
@@ -177,8 +177,8 @@ GEM
       rsolr
       sanitize
       thor
-    geoblacklight (3.3.1)
-      blacklight (~> 7.0)
+    geoblacklight (3.6.0)
+      blacklight (~> 7.8)
       coderay
       config
       deprecation
@@ -244,14 +244,12 @@ GEM
       nokogiri (~> 1)
       rake
     mini_mime (1.1.2)
-    mini_portile2 (2.7.1)
     minitest (5.15.0)
     msgpack (1.4.5)
     multipart-post (2.1.1)
     net-http-persistent (2.9.4)
     nio4r (2.5.8)
-    nokogiri (1.13.1)
-      mini_portile2 (~> 2.7.0)
+    nokogiri (1.13.1-x86_64-linux)
       racc (~> 1.4)
     okcomputer (1.18.4)
     optimist (3.0.1)
@@ -408,7 +406,7 @@ GEM
     zookeeper (1.5.1)
 
 PLATFORMS
-  ruby
+  x86_64-linux
 
 DEPENDENCIES
   blacklight (= 7.12.1)
@@ -420,7 +418,7 @@ DEPENDENCIES
   devise-guests (~> 0.6)
   dotenv-rails (~> 2.7)
   factory_bot_rails
-  geoblacklight (~> 3.3.0)
+  geoblacklight (= 3.6.0)
   geoserver-publish (~> 0.3)
   jbuilder (~> 2.5)
   jquery-rails (~> 4.3)

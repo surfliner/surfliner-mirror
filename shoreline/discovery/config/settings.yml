@@ -57,8 +57,12 @@ TIMEOUT_WMS: 4
 
 # Web services shown in tool panel
 WEBSERVICES_SHOWN:
-  - 'wms'
+  - 'tms'
   - 'wfs'
+  - 'xyz'
+  - 'wmts'
+  - 'tilejson'
+  - 'wms'
   - 'iiif'
   - 'feature_layer'
   - 'tiled_map_layer'
