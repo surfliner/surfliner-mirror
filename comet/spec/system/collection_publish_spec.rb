@@ -30,22 +30,6 @@ RSpec.describe "Publish Collection", type: :system, js: true do
     Hyrax.index_adapter.save(resource: object)
   }
 
-  it "adds an access link to the object show pages" do
-    visit "/dashboard/collections/#{collection.id}?locale=en"
-
-    click_on "Publish collection"
-
-    alert = page.driver.browser.switch_to.alert
-    alert.dismiss
-    page.driver.browser.switch_to.active_element
-
-    click_link "Test Object"
-
-    sleep 1
-
-    expect(page.body).to include "Tidewater"
-  end
-
   context "with RabbitMQ", :rabbitmq do
     let(:queue_message) { [] }
     let(:connection) { Rails.application.config.rabbitmq_connection }
@@ -76,6 +60,21 @@ RSpec.describe "Publish Collection", type: :system, js: true do
         expect(queue_message.length).to eq 1
         expect(JSON.parse(queue_message.first).to_h).to include("status" => "published")
         expect(JSON.parse(queue_message.first).to_h["resourceUrl"]).to include "/#{object.id}"
+      end
+    end
+
+    it "adds an access link to the object show pages" do
+      visit "/dashboard/collections/#{collection.id}?locale=en"
+
+      click_on "Publish collection"
+
+      alert = page.driver.browser.switch_to.alert
+      alert.dismiss
+
+      publish_wait(queue_message, 0) do
+        visit "/concern/generic_objects/#{object.id}?locale=en"
+
+        expect(page).to have_link("Tidewater", href: "#{Rails.application.config.tidewater_uri_base}/#{object}")
       end
     end
   end

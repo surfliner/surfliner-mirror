@@ -31,6 +31,9 @@
 
 en:
   hello: "Hello world"
+  discovery_platform:
+    tidewater:
+      label: "Tidewater"
   hyrax:
     collection:
       actions:

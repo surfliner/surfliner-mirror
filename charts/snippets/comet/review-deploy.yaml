@@ -18,6 +18,8 @@ uploadsVolume:
 extraEnvVars:
   - name: "AUTH_METHOD"
     value: "developer"
+  - name: "DISCOVER_PLATFORM_TIDEWATER_URL_BASE"
+    value: "http://localhost:3000/tidewater"
   - name: "METADATA_DATABASE_NAME"
     value: "comet_metadata"
   - name: "METADATA_API_URL_BASE"
@@ -77,6 +79,8 @@ worker:
   extraEnvVars:
     - name: "AUTH_METHOD"
       value: "developer"
+    - name: "DISCOVER_PLATFORM_TIDEWATER_URL_BASE"
+      value: "http://localhost:3000/tidewater"
     - name: "METADATA_DATABASE_NAME"
       value: "comet_metadata"
     - name: "METADATA_API_URL_BASE"

@@ -8,8 +8,8 @@ class CometObjectPresenter < Hyrax::WorkShowPresenter
   # display that in a way that makes it possible for users to review the status
   # of those links.
   #
-  # @return []
+  # @return [[]]
   def discovery_links
-    ["Tidewater", "http://example.com/tidewater/#{solr_document[:id]}"]
+    DiscoveryPlatformService.call(solr_document[:id])
   end
 end
