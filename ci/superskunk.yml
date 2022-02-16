@@ -13,5 +13,6 @@ include:
       - charts/superskunk/**/*
       - ci/superskunk/**/*
       - ci/superskunk.yml
+      - gems/surfliner_schema/**/*
       - superskunk/**/*
       - superskunk/Dockerfile

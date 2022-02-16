@@ -1,3 +1,9 @@
+PATH
+  remote: ../gems/surfliner_schema
+  specs:
+    surfliner_schema (0.1.0.pre)
+      valkyrie (~> 2.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -327,9 +333,10 @@ DEPENDENCIES
   rspec-rails (= 5.1.0)
   rspec_junit_formatter (= 0.5.1)
   standard (= 1.7.1)
+  surfliner_schema!
   tzinfo-data (= 2.0.4)
   valkyrie (= 2.2.0)
   valkyrie-sequel (~> 2.2.0)
 
 BUNDLED WITH
-   2.3.4
+   2.3.7
