@@ -15,10 +15,12 @@ module Discovery
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
-    # Settings in config/environments/* take precedence over those specified
-    # here. Application configuration can go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded after loading
-    # the framework and any gems in your application.
+    if ENV["RAILS_LOG_TO_STDOUT"].present?
+      logger = ActiveSupport::Logger.new($stdout)
+      logger.formatter = config.log_formatter
+      config.logger = ActiveSupport::TaggedLogging.new(logger)
+    end
+
     config.action_mailer.delivery_method = ENV.fetch("DELIVERY_METHOD", "letter_opener_web").to_sym
     config.action_mailer.default_url_options = {host: URI.parse(ENV.fetch("APP_URL", "")).hostname,
                                                  protocol: URI.parse(ENV.fetch("APP_URL", "")).scheme}
