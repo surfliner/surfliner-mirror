@@ -2,6 +2,8 @@
 require_relative "../config/application"
 Rails.application.load_tasks
 
+require "equivalent-xml"
+require "equivalent-xml/rspec_matchers"
 require "spec_helper"
 
 ENV["RAILS_ENV"] ||= "test"

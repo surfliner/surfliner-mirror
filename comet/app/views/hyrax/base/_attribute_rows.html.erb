@@ -17,6 +17,4 @@
 <%= presenter.attribute_to_html(:access_right, html_dl: true) %>
 <%= presenter.attribute_to_html(:license, render_as: :license, html_dl: true) %>
 
-<% presenter.discovery_links.each do |link_label, href| %>
-  <%= link_to(link_label, href) %>
-<% end %>
+<%= presenter.attribute_to_html(:discovery_links, render_as: :discovery_links, html_dl: true) %>
