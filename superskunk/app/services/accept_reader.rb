@@ -1,44 +1,43 @@
 ##
-# Support API actions for PCDM Objects
-class ObjectsController < ApplicationController
-  def self.supported_renderers
-    {
-      "tag:surfliner.github.io,2022:api/oai_dc" => :render_oai_dc
-    }
+# Provides parsing and methods for dealing with HTTP Accept headers.
+class AcceptReader
+  ##
+  # Creates a new reader for the provided Accept header.
+  #
+  # @param [String] accept_header
+  def initialize(accept_header)
+    @types = self.class.parse_accept_header accept_header.to_s
   end
 
-  def show
-    accept_types = self.class.parseAcceptHeader(request.headers["Accept"].to_s)
-    return render(plain: "Bad Accept Header", status: 400) unless accept_types
-    @profile = accept_types
-      .select { |t| t[:type] == "application/ld+json" && t[:weight] > 0 }
-      .map { |t| t[:parameters][:profile] }
-      .select { |p| p && self.class.supported_renderers.has_key?(p) }
-      .min { |a, b| b[:weight] <=> a[:weight] }
-    @model = GenericObject.new # TODO: Get an actual model
-    public_send self.class.supported_renderers[@profile] || :default_render
-    response.headers["Content-Type"] = content_type
+  ##
+  # Returns the most preferred JSON‐LD profile of those provided.
+  #
+  # @param [Array<String>] allowed_profiles
+  # @return [String, nil]
+  def best_jsonld_profile(allowed_profiles)
+    @types.filter_map { |t|
+      next unless t[:type] == "application/ld+json" && t[:weight] > 0
+      profile = t[:parameters][:profile]
+      next unless profile && allowed_profiles.include?(profile)
+      profile
+    }.min { |a, b| b[:weight] <=> a[:weight] }
   end
 
-  def render_oai_dc
-    render json: @model
+  ##
+  # Returns the most preferred type of those provided, ignoring JSON‐LD types with profiles.
+  #
+  # Parameters are ignored.
+  # This isn’t really suitable for full and proper content negotiation which takes into account all of a consumer’s preferences.
+  #
+  # @param [Array<String>] allowed_types
+  # @return [String, nil]
+  def best_type(allowed_types)
+    @types.select { |t|
+      next unless allowed_types.include?(t[:type]) && t[:weight] > 0
+      next if t[:type] == "application/ld+json" && t[:parameters][:profile]
+      true
+    }.min { |a, b| b[:weight] <=> a[:weight] }
   end
-
-  def default_render
-    render plain: "Unknown Accept Type", status: 406
-  end
-
-  private
-
-  def content_type
-    if @profile
-      "application/ld+json; profile=\"#{@profile}\""
-    else
-      "application/ld+json"
-    end
-  end
-
-  public
 
   class << self
     TOKEN = "[-!#$%&'*+.^_`|~0-9A-Za-z]+"
@@ -90,21 +89,25 @@ class ObjectsController < ApplicationController
       )?
     /x
 
+    ##
     # Parses the value of an Accept header and returns a list of type
     # hashes with `type`, `parameters`, `weight`, and `extensions`
-    # properties, or `nil` if the header is invalid.
-    def parseAcceptHeader(header_value)
+    # properties.
+    #
+    # @param [String] header_value
+    # @return [Array<Hash>]
+    def parse_accept_header(header_value)
       index = 0
       types = []
       loop do
         # parse out types while possible
         match = MEDIA_RANGE_RE.match header_value, index
-        return nil unless match
+        raise BadAcceptError, "Invalid Accept header: #{accept_header}" unless match
         types << {
           type: match[:media_type_or_wildcard],
-          parameters: parseParameters(match[:parameters]),
+          parameters: parse_parameters(match[:parameters]),
           weight: (match[:qvalue] || 1.0).to_f,
-          extensions: parseParameters(match[:accept_ext])
+          extensions: parse_parameters(match[:accept_ext])
         }
         index = match.offset(0).last
         if index >= header_value.length
@@ -113,15 +116,19 @@ class ObjectsController < ApplicationController
         else
           # there is more to process; ensure a proper separator and continue
           sep = MEDIA_SEPARATOR_RE.match header_value, index
-          return nil unless sep
+          raise BadAcceptError, "Invalid Accept header: #{accept_header}" unless sep
           index = sep.offset(0).last
         end
       end
     end
 
+    ##
     # Parses a list of media type parameters and returns a hash of
     # parameter names and values.
-    def parseParameters(parameter_value)
+    #
+    # @param [String] parameter_value
+    # @return [Hash]
+    def parse_parameters(parameter_value)
       return {} unless !parameter_value.to_s.empty?
       index = 0
       parameters = {}
@@ -139,5 +146,10 @@ class ObjectsController < ApplicationController
         return parameters if index >= parameter_value.length
       end
     end
+  end
+
+  ##
+  # An error indicating an invalid Accept header.
+  class BadAcceptError < StandardError
   end
 end
