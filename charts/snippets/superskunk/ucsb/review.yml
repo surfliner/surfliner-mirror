@@ -1,0 +1,12 @@
+ingress:
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    kubernetes.io/tls-acme: "true"
+
+superskunk:
+  db:
+    standalone: true
+
+extraEnvVars:
+  - name: "METADATA_MODELS"
+    value: "ucsb_model"

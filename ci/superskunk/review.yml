@@ -69,9 +69,7 @@ superskunk:deploy:ucsb-review:
       --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
       --set ingress.tls[0].hosts[0]=superskunk-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
       --set ingress.tls[0].secretName=skunk-review-$CI_MERGE_REQUEST_ID
-      --set superskunk.db.standalone=true
-      --set-string ingress.annotations.cert-manager\.io/cluster-issuer=letsencrypt-prod
-      --set-string ingress.annotations.kubernetes\.io/tls-acme=true
+      --values charts/snippets/superskunk/ucsb/review.yml
 
 superskunk:cleanup:ucsb-review:
   extends:
