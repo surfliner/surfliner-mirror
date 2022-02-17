@@ -21,3 +21,4 @@ data:
   RAILS_ENV: {{ .Values.superskunk.rails.environment }}
   RAILS_LOG_TO_STDOUT: {{ .Values.superskunk.rails.log_to_stdout | quote }}
   RAILS_SERVE_STATIC_FILES: {{ .Values.superskunk.rails.serve_static_files | quote }}
+  SUPERSKUNK_API_BASE: http{{ if .Values.ingress.tls }}s{{ end }}://{{ index .Values.ingress.hosts 0 }}
