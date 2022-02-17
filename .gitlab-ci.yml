@@ -5,6 +5,7 @@ stages:
   - test
   - integration
   - review
+  - curl
   - staging
   - production
   - result_notification
