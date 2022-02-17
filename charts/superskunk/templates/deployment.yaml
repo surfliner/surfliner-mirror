@@ -37,6 +37,8 @@ spec:
                 name: {{ include "superskunk.fullname" . }}-env
             - secretRef:
                 name: {{ template "superskunk.secretName" . }}
+          env:
+            {{- toYaml .Values.extraEnvVars | nindent 12 }}
           command:
             - db-migrate-seed.sh
         {{- with .Values.extraInitContainers }}
@@ -54,6 +56,8 @@ spec:
                 name: {{ include "superskunk.fullname" . }}-env
             - secretRef:
                 name: {{ template "superskunk.secretName" . }}
+          env:
+            {{- toYaml .Values.extraEnvVars | nindent 12 }}
           ports:
             - name: http
               containerPort: {{ .Values.superskunk.port }}

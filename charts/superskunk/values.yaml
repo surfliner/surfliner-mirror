@@ -30,6 +30,15 @@ existingSecret:
   name: superskunk
   enabled: false
 
+# additional environment variables, evaluated as a template. e.g.
+#
+#  extraEnvVars:
+#    - name: RAILS_SERVE_STATIC_FILES
+#      value: "1"
+#    - name: METADATA_MODELS
+#      value: "my_model"
+extraEnvVars: []
+
 # see: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md
 postgresql:
   image:
