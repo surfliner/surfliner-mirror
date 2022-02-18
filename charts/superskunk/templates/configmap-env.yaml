@@ -15,6 +15,7 @@ data:
   DB_NAME: {{ .Values.postgresql.postgresqlDatabase }}
   DB_PORT: {{ .Values.postgresql.servicePort | quote }}
   METADATA_DATABASE_NAME: {{ .Values.superskunk.db.metadata_database_name }}
+  METADATA_MODELS: {{ join "," .Values.superskunk.metadata_models }}
   POSTGRES_DB: {{ .Values.postgresql.postgresqlDatabase }}
   POSTGRES_HOST: {{ template "superskunk.postgresql.fullname" . }}
   POSTGRES_PORT: {{ .Values.postgresql.servicePort | quote }}

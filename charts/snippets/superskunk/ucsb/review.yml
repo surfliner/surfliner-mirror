@@ -6,7 +6,3 @@ ingress:
 superskunk:
   db:
     standalone: true
-
-extraEnvVars:
-  - name: "METADATA_MODELS"
-    value: "ucsb_model"
