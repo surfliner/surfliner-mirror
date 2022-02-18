@@ -13,7 +13,7 @@ gemfile do
   source "https://rubygems.org"
 
   gem "bunny", "2.19.0"
-  gem "pg", "1.3.0"
+  gem "pg", "1.3.2"
   gem "sequel", "5.53.0"
 end
 
