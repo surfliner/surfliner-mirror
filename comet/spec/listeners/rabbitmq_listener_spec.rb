@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-=begin
+
 RSpec.describe RabbitmqListener, :rabbitmq do
-  subject(:listener) { described_class.new }
+  subject(:listener) { described_class.new(platform_name: :tidewater) }
 
   describe "#on_collection_publish" do
     let(:event) { Dry::Events::Event.new("collection.publish", {collection: collection}) }
@@ -39,4 +39,3 @@ RSpec.describe RabbitmqListener, :rabbitmq do
     end
   end
 end
-=end

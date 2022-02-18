@@ -16,6 +16,6 @@ if Rails.application.config.use_rabbitmq
   conn.start
   Rails.logger.debug "Rabbitmq connection established #{conn}"
 
-  Hyrax.publisher.subscribe(TidewaterRabbitmqListener.new) if
+  Hyrax.publisher.subscribe(RabbitmqListener.new(platform_name: :tidewater)) if
     Rails.application.config.feature_collection_publish
 end
