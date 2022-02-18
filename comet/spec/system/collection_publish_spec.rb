@@ -37,6 +37,7 @@ RSpec.describe "Publish Collection", type: :system, js: true do
     let(:tidewater_conf) { DiscoveryPlatform.new(:tidewater).message_route }
     let(:topic) { tidewater_conf.metadata_topic }
     let(:tidewater_routing_key) { tidewater_conf.metadata_routing_key }
+    let(:url_base) { ENV.fetch("DISCOVER_PLATFORM_TIDEWATER_URL_BASE") { Rails.application.config.metadata_api_uri_base } }
 
     before {
       broker.channel.queue("tidewater_queue").bind(broker.exchange, routing_key: tidewater_routing_key).subscribe do |delivery_info, metadata, payload|
@@ -74,7 +75,7 @@ RSpec.describe "Publish Collection", type: :system, js: true do
       publish_wait(queue_message, 0) do
         visit "/concern/generic_objects/#{object.id}?locale=en"
 
-        expect(page).to have_link("Tidewater", href: "#{Rails.application.config.tidewater_uri_base}/#{object}")
+        expect(page).to have_link("Tidewater", href: "#{url_base}/#{object}")
       end
     end
   end

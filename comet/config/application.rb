@@ -44,9 +44,6 @@ module Comet
     config.metadata_api_uri_base =
       ENV.fetch("METADATA_API_URL_BASE") { "http://localhost:3000/concern/generic_objects" }
 
-    config.tidewater_uri_base =
-      ENV.fetch("DISCOVER_PLATFORM_TIDEWATER_URL_BASE") { "http://localhost:3000/tidewater" }
-
     config.feature_collection_publish =
       ActiveModel::Type::Boolean.new.cast(ENV.fetch("COMET_COLLECTION_PUBLISH", false))
     config.use_rabbitmq =
