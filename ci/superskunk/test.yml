@@ -23,6 +23,7 @@ superskunk:test:
   script:
     - cd superskunk
     - cp -r /home/superskunk/db db
+    - cp -r /home/superskunk/config/metadata config/metadata
     - cd scripts
     - db-migrate-seed.sh
     - cd ..
