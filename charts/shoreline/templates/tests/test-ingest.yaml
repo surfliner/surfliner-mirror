@@ -1,0 +1,22 @@
+{{- if .Values.shoreline.sample_data }}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ include "shoreline.fullname" . }}-test-ingest
+  labels:
+    app.kubernetes.io/name: {{ include "shoreline.name" . }}
+    helm.sh/chart: {{ include "shoreline.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args:
+        - -S
+        - "http{{ if .Values.ingress.tls }}s{{ end }}://{{ index .Values.ingress.hosts 0 }}/catalog/gford-20140000-010007_archr"
+  restartPolicy: Never
+{{- end }}
