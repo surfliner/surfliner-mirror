@@ -22,7 +22,7 @@ lark:api:test:unit:
       alias: postgres
     - name: solr:8.11.1
       alias: solr
-    - name: zookeeper:3.6
+    - name: zookeeper:3.7
       alias: zk
   script:
     - cd lark
