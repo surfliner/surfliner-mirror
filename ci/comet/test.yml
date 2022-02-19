@@ -42,7 +42,7 @@
 comet:test:unit:
   extends: .comet:test
   services:
-    - name: bitnami/postgresql:12.9.0
+    - name: bitnami/postgresql:12.10.0
       alias: postgres
     - name: bitnami/redis:6.2
       alias: redis
@@ -69,7 +69,7 @@ comet:test:system:
     REPOSITORY_S3_BUCKET: "comet-test-bucket"
     STAGING_AREA_S3_BUCKET: "comet-staging-area-test"
   services:
-    - name: bitnami/postgresql:12.9.0
+    - name: bitnami/postgresql:12.10.0
       alias: postgres
     - name: bitnami/solr:8.11.1
       alias: solr

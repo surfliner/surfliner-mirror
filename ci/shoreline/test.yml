@@ -16,7 +16,7 @@
     ZK_HOST: zk
     ZK_PORT: 2181
   services:
-    - name: bitnami/postgresql:12.9.0-debian-10-r80
+    - name: bitnami/postgresql:12.10.0-debian-10-r5
       alias: postgres
     - name: solr:8.11.1
       alias: solr
