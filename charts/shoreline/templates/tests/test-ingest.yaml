@@ -14,9 +14,15 @@ spec:
   containers:
     - name: wget
       image: busybox
-      command: ['wget']
-      args:
-        - -S
-        - "http{{ if .Values.ingress.tls }}s{{ end }}://{{ index .Values.ingress.hosts 0 }}/catalog/gford-20140000-010007_archr"
+      command:
+        - sh
+        - -c
+        - >
+          IFS=' ';
+          IDS='gford-20140000-010007_archr gford-20140000-010013_belfor3r gford-20140000-010011_belfor1r gford-20140000-010012_belfor2r gford-20140000-010014_belfor4r gford-20140000-010002_lakes gford-20140000-010004_rivers gford-20140000-010006_gps_roadsutm gford-20140000-010005_ssimm_16';
+          for id in ${IDS}; do
+            echo "--- Checking presence of ${id}...";
+            wget -S "http{{ if .Values.ingress.tls }}s{{ end }}://{{ index .Values.ingress.hosts 0 }}/catalog/$id";
+          done
   restartPolicy: Never
 {{- end }}
