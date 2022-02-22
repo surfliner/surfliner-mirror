@@ -17,7 +17,7 @@ RSpec.describe "consume Comet JSON-LD metadata" do
   let(:type) { "e-print" }
   let(:identifier) { "http://arXiv.org/abs/cs/0112017" }
 
-  describe "#create" do
+  describe "OaiItem#create" do
     let(:mocked_response) { RestClient.get(resource_uri, headers) }
     let(:mocked_data) { mocked_response.body }
     let(:oai_item) { Converters::OaiItemConverter.from_json(resource_uri, mocked_data) }
@@ -58,6 +58,36 @@ RSpec.describe "consume Comet JSON-LD metadata" do
         expect(oai_item.date).to eq date
         expect(oai_item.type).to eq type
         expect(oai_item.identifier).to eq identifier
+      end
+    end
+  end
+
+  describe "OaiSet#create" do
+    let(:mocked_response) { RestClient.get(resource_uri, headers) }
+    let(:mocked_data) { mocked_response.body }
+    let(:oai_sets) { Converters::OaiSetConverter.from_json(mocked_data) }
+
+    before do
+      stub_request(:get, "http://superskunk.example.com:80/#{source_id}")
+        .with(headers: headers)
+        .to_return(body: File.new(mocked_json_file), status: 200)
+
+      oai_sets.each do |attr|
+        Persisters::SuperskunkSetPersister.delete(source_iri: attr["source_iri"])
+      end
+    end
+
+    it "persist OaiSet example:cs" do
+      expect(Persisters::SuperskunkSetPersister.create_or_update(record: oai_sets[0].with_indifferent_access)).to be > 0
+      Persisters::SuperskunkSetPersister.find_by_source_iri(oai_sets[0]["source_iri"]) do |oai_set|
+        expect(oai_set.source_iri).to eq "example:cs"
+        expect(oai_set.name).to eq "Computer Science"
+      end
+
+      expect(Persisters::SuperskunkSetPersister.create_or_update(record: oai_sets[1].with_indifferent_access)).to be > 0
+      Persisters::SuperskunkSetPersister.find_by_source_iri(oai_sets[1]["source_iri"]) do |oai_set|
+        expect(oai_set.source_iri).to eq "example:math"
+        expect(oai_set.name).to eq "Mathematics"
       end
     end
   end
