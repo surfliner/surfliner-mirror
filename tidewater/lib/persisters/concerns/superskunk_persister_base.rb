@@ -2,7 +2,7 @@
 
 module Persisters
   ##
-  # Base class for superskunk persisters, which will persist OAI records like OaiItem and OaiSet.
+  # Base class for superskunk persisters, which will persist OAI records for OaiItem and OaiSet.
   module SuperskunkPersisterBase
     def self.included(klass)
       klass.extend(ClassMethods)
@@ -17,17 +17,6 @@ module Persisters
         else
           update(record: record)
         end
-      end
-
-      # Creates new OAI record
-      # @param record [Hash] Metadata for a given record from the superskunk api
-      def create(record:)
-        timestamp = DateTime.now.to_s
-        record["created_at"] = timestamp
-        record["updated_at"] = timestamp
-        record["id"] = (db.max(:id) || 0) + 1
-
-        db.insert(record)
       end
 
       # Updates an existing OAI record
