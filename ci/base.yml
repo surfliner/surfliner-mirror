@@ -1,5 +1,6 @@
 include:
   - local: ci/base/maintanence.yml
+  - local: ci/base/rabbitmq_cluster.yml
   - local: ci/base/rabbitmq_operator.yml
   - local: ci/base/renovate.yml
   - local: ci/base/result_notification.yml

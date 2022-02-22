@@ -1,0 +1,102 @@
+.rabbitmq_helpers: &rabbitmq_helpers |
+  create_rabbitmq_namespace() {
+    if ! kubectl --kubeconfig $KUBECONFIG get ns $KUBE_NAMESPACE --no-headers >/dev/null 2>&1; then
+      echo "Creating $KUBE_NAMESPACE..."
+      kubectl --kubeconfig $KUBECONFIG create namespace $KUBE_NAMESPACE
+    fi
+  }
+
+  create_rabbitmq_cluster() {
+    if kubectl --kubeconfig $KUBECONFIG get rabbitmqclusters.rabbitmq.com/$RABBITMQ_RELEASE_NAME -n $KUBE_NAMESPACE; then
+      echo "RABBITMQ CLUSTER EXISTS $RABBITMQ_RELEASE_NAME"
+      return 0
+    fi
+    echo "CREATING RABBITMQ CLUSTER $RABBITMQ_RELEASE_NAME"
+    sed "s/NAME/$RABBITMQ_RELEASE_NAME/" util/rabbitmq-instance.yml |\
+    kubectl --kubeconfig $KUBECONFIG -n $KUBE_NAMESPACE apply -f -
+  }
+
+.rabbitmq-cluster:
+  stage: maintanence
+  extends:
+    - .helm3-deploy
+  script:
+    - *rabbitmq_helpers
+    - create_rabbitmq_namespace
+    - create_rabbitmq_cluster
+  only:
+    changes:
+      - ci/base/rabbitmq_cluster.yml
+      - util/rabbitmq-instance.yml
+
+.rabbitmq-review:
+  variables:
+    KUBE_NAMESPACE: rabbitmq-review
+    RABBITMQ_RELEASE_NAME: surfliner-rabbitmq-review
+  only:
+    refs:
+      - merge_requests
+
+.rabbitmq-staging:
+  variables:
+    KUBE_NAMESPACE: rabbitmq-staging
+    RABBITMQ_RELEASE_NAME: surfliner-rabbitmq-stage
+  only:
+    refs:
+      - trunk
+
+.rabbitmq-prod:
+  variables:
+    KUBE_NAMESPACE: rabbitmq-prod
+    RABBITMQ_RELEASE_NAME: surfliner-rabbitmq-prod
+  only:
+    refs:
+      - trunk
+
+rabbitmq-cluster:ucsd-prod:
+  variables:
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+  extends:
+    - .rabbitmq-cluster
+    - .rabbitmq-prod
+  tags:
+    - ucsd
+
+rabbitmq-cluster:ucsb-prod:
+  environment:
+    name: ucsb.production.rabbitmq
+  extends:
+    - .rabbitmq-cluster
+    - .rabbitmq-prod
+
+rabbitmq-cluster:ucsd-staging:
+  variables:
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+  extends:
+    - .rabbitmq-cluster
+    - .rabbitmq-staging
+  tags:
+    - ucsd
+
+rabbitmq-cluster:ucsb-staging:
+  environment:
+    name: ucsb.staging.rabbit
+  extends:
+    - .rabbitmq-cluster
+    - .rabbitmq-staging
+
+rabbitmq-cluster:ucsd-review:
+  extends:
+    - .rabbitmq-cluster
+    - .rabbitmq-review
+  variables:
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
+  tags:
+    - ucsd
+
+rabbitmq-cluster:ucsb-review:
+  environment:
+    name: ucsb.review.rabbitmq
+  extends:
+    - .rabbitmq-cluster
+    - .rabbitmq-review

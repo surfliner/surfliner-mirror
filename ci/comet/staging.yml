@@ -7,7 +7,6 @@
     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/comet_web
     DEPLOY_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-comet-stage
-    RABBITMQ_RELEASE_NAME: surfliner-rabbitmq-stage
     KUBE_NAMESPACE: comet-staging
   only:
     refs:
