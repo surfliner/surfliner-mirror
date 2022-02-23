@@ -12,5 +12,6 @@ namespace :shoreline do
     Importer.ingest_csv(csv: args[:csv_path], file_root: file_root)
   rescue => e
     warn "--- ERROR: #{e.message}"
+    exit 1
   end
 end
