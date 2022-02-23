@@ -124,4 +124,40 @@ RSpec.describe "consume Comet JSON-LD metadata" do
         .to eq 1
     end
   end
+
+  describe "OaiSetEntry#delete" do
+    let(:mocked_response) { RestClient.get(resource_uri, headers) }
+    let(:mocked_data) { mocked_response.body }
+    let(:oai_item) { Converters::OaiItemConverter.from_json(resource_uri, mocked_data) }
+    let(:oai_set) { Converters::OaiSetConverter.from_json(mocked_data).first }
+    let(:set_source_iri) { oai_set["source_iri"] }
+
+    before do
+      stub_request(:get, "http://superskunk.example.com:80/#{source_id}")
+        .with(headers: headers)
+        .to_return(body: File.new(mocked_json_file), status: 200)
+
+      Persisters::SuperskunkSetEntryPersister.delete_entries(set_source_iri: set_source_iri)
+
+      Persisters::SuperskunkPersister.create_or_update(record: oai_item.with_indifferent_access)
+      Persisters::SuperskunkSetPersister.create_or_update(record: oai_set.with_indifferent_access)
+      Persisters::SuperskunkSetEntryPersister.create(set_source_iri: set_source_iri, item_source_iri: source_id)
+    end
+
+    after do
+      Persisters::SuperskunkSetEntryPersister.delete_entries(set_source_iri: set_source_iri)
+      Persisters::SuperskunkSetPersister.delete(source_iri: set_source_iri)
+      Persisters::SuperskunkPersister.delete(source_iri: source_id)
+    end
+
+    it "persist OaiSet example:cs" do
+      expect(Persisters::SuperskunkSetEntryPersister.entry_exists?(set_source_iri: set_source_iri, item_source_iri: source_id))
+        .to be true
+
+      Persisters::SuperskunkSetEntryPersister.delete_entry(set_source_iri: set_source_iri, item_source_iri: source_id)
+
+      expect(Persisters::SuperskunkSetEntryPersister.entry_exists?(set_source_iri: set_source_iri, item_source_iri: source_id))
+        .to be false
+    end
+  end
 end
