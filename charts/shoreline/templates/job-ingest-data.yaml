@@ -14,7 +14,7 @@ spec:
     metadata:
       name: {{ include "shoreline.fullname" . }}-ingest-data
     spec:
-      restartPolicy: Never
+      restartPolicy: OnFailure
       containers:
         - name: ingest-sample-data
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
