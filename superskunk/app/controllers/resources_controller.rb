@@ -6,7 +6,9 @@ class ResourcesController < ApplicationController
   def show
     begin
       @model = GenericObject.new
-      # @model = Superskunk.pg_query_service.find_by(id: params.id)
+      # Waiting for Access Controls before we allow this…
+      #
+      # @model = Superskunk.comet_query_service.find_by(id: params.id)
     rescue Valkyrie::Persistence::ObjectNotFoundError
       return render_error text: "Not Found", status: 404
     end
