@@ -26,6 +26,7 @@ tidewater:deploy:ucsd-review:
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
       --set ingress.hosts={tidewater-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN}
+      --set consumer.rabbitmq.topic=surfliner.metadata.publish.$CI_MERGE_REQUEST_ID
       --values charts/snippets/tidewater/review.yaml
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
   script:
@@ -63,6 +64,7 @@ tidewater:deploy:ucsb-review:
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
       --set ingress.hosts={tidewater-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN}
+      --set consumer.rabbitmq.topic=surfliner.metadata.publish.$CI_MERGE_REQUEST_ID
       --values charts/snippets/tidewater/review.yaml
 
 tidewater:cleanup:ucsb-review:

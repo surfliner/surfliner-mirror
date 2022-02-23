@@ -27,8 +27,8 @@ spec:
         - name: {{ .Chart.Name }}-consumer
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command:
-            - /home/tidewater/app/bin/tidewater_consumer
+          command: ["/bin/sh"]
+          args: ["-c", "bin/tidewater_consumer"]
           envFrom:
             - configMapRef:
                 name: {{ include "tidewater.fullname" . }}-consumer

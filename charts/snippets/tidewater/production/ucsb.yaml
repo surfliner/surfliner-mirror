@@ -6,4 +6,5 @@ postgresql:
   enabled: true
 
 consumer:
-  enabled: false
+  rabbitmq:
+    host: surfliner-rabbitmq-prod.rabbitmq-prod.svc

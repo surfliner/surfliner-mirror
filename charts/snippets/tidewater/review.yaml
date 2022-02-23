@@ -1,7 +1,8 @@
 persistence:
   enabled: false
 consumer:
-  enabled: false
+  rabbitmq:
+    host: surfliner-rabbitmq-review.rabbitmq-review.svc
 postgresql:
   persistence:
     enabled: false

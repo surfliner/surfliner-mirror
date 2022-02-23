@@ -4,7 +4,8 @@ ingress:
     - lib-tidewater-staging.ucsd.edu
 
 consumer:
-  enabled: false
+  rabbitmq:
+    host: surfliner-rabbitmq-stage.rabbitmq-staging.svc
 
 postgresql:
   enabled: true
