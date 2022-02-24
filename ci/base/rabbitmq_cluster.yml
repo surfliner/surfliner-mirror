@@ -34,7 +34,7 @@
       changes:
         - ci/base/rabbitmq_cluster.yml
         - util/rabbitmq-instance.yml
-    - if: $DEPLOY_RABBITMQ_CLUSTER && '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: $DEPLOY_RABBITMQ_CLUSTER && '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
 
 .rabbitmq-rules-default-branch:
   rules:
