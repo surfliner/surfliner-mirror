@@ -3,6 +3,7 @@ require "bundler/inline"
 require "date"
 require "json"
 require "logger"
+require "net/http"
 require "active_support/core_ext/hash/indifferent_access"
 
 # don't buffer log output
@@ -55,22 +56,38 @@ begin
     raise "Payload resourceUrl is not defined" unless payload_resource_url
 
     # use the payload_resource_url to get the data
-    headers = {"Accept" => "application/json", "HTTP_ACCEPT" => "application/ld+json;profile=tag:surfliner.github.io,2022:api/oai_dc"}
-    record_data = RestClient.get(payload_resource_url, headers)
+    uri = URI(payload_resource_url)
+    req = Net::HTTP::Get.new(uri)
+    req["Accept"] = "application/json"
+    req["HTTP_ACCEPT"] = "application/ld+json;profile=tag:surfliner.github.io,2022:api/oai_dc"
 
-    # Persist OaiItem
-    oai_item = Converters::OaiItemConverter.from_json(payload_resource_url, record_data)
-    Persisters::SuperskunkPersister.create_or_update(record: oai_item.with_indifferent_access)
+    begin
+      res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") { |http|
+        http.request(req)
+      }
 
-    # Persist OaiSet and SetEntry
-    item_source_iri = oai_item["source_iri"]
-    oai_sets = Converters::OaiSetConverter.from_json(record_data)
-    oai_sets.each do |oai_set|
-      set_source_iri = oai_set["source_iri"]
-      Persisters::SuperskunkSetPersister.create_or_update(record: oai_set.with_indifferent_access)
-      unless Persisters::SuperskunkSetEntryPersister.entry_exists?(set_source_iri: set_source_iri, item_source_iri: item_source_iri)
-        Persisters::SuperskunkSetEntryPersister.create(set_source_iri: set_source_iri, item_source_iri: item_source_iri)
+      if res.is_a?(Net::HTTPSuccess)
+        record_data = res.body
+
+        # Persist OaiItem
+        oai_item = Converters::OaiItemConverter.from_json(payload_resource_url, record_data)
+        Persisters::SuperskunkPersister.create_or_update(record: oai_item.with_indifferent_access)
+
+        # Persist OaiSet and SetEntry
+        item_source_iri = oai_item["source_iri"]
+        oai_sets = Converters::OaiSetConverter.from_json(record_data)
+        oai_sets.each do |oai_set|
+          set_source_iri = oai_set["source_iri"]
+          Persisters::SuperskunkSetPersister.create_or_update(record: oai_set.with_indifferent_access)
+          unless Persisters::SuperskunkSetEntryPersister.entry_exists?(set_source_iri: set_source_iri, item_source_iri: item_source_iri)
+            Persisters::SuperskunkSetEntryPersister.create(set_source_iri: set_source_iri, item_source_iri: item_source_iri)
+          end
+        end
+      else
+        logger.error("Error response #{res.code}: #{res}")
       end
+    rescue => err
+      logger.error("Error: #{err}")
     end
   end
 rescue Interrupt => _

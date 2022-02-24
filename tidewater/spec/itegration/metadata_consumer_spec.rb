@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require "rest-client"
+require "net/http"
 
 RSpec.describe "consume Comet JSON-LD metadata" do
   let(:mocked_json_file) { Rails.root.join("spec", "fixtures", "mocked_metadata_response.json") }
@@ -18,7 +18,15 @@ RSpec.describe "consume Comet JSON-LD metadata" do
   let(:identifier) { "http://arXiv.org/abs/cs/0112017" }
 
   describe "OaiItem#create" do
-    let(:mocked_response) { RestClient.get(resource_uri, headers) }
+    let(:mocked_response) do
+      uri = URI(resource_uri)
+      req = Net::HTTP::Get.new(uri)
+      req["Accept"] = "application/json"
+      req["HTTP_ACCEPT"] = "application/ld+json;profile=tag:surfliner.github.io,2022:api/oai_dc"
+
+      Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") { |http| http.request(req) }
+    end
+
     let(:mocked_data) { mocked_response.body }
     let(:oai_item) { Converters::OaiItemConverter.from_json(resource_uri, mocked_data) }
 
@@ -31,7 +39,7 @@ RSpec.describe "consume Comet JSON-LD metadata" do
     end
 
     it "returns 200 response and JSON-LD content" do
-      expect(mocked_response.code).to eq 200
+      expect(mocked_response.code).to eq "200"
       expect(JSON.parse(mocked_data).to_h).to include("identifier" => "http://arXiv.org/abs/cs/0112017")
     end
 
@@ -63,7 +71,14 @@ RSpec.describe "consume Comet JSON-LD metadata" do
   end
 
   describe "OaiSet#create" do
-    let(:mocked_response) { RestClient.get(resource_uri, headers) }
+    let(:mocked_response) do
+      uri = URI(resource_uri)
+      req = Net::HTTP::Get.new(uri)
+      req["Accept"] = "application/json"
+      req["HTTP_ACCEPT"] = "application/ld+json;profile=tag:surfliner.github.io,2022:api/oai_dc"
+
+      Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") { |http| http.request(req) }
+    end
     let(:mocked_data) { mocked_response.body }
     let(:oai_sets) { Converters::OaiSetConverter.from_json(mocked_data) }
 
@@ -93,7 +108,14 @@ RSpec.describe "consume Comet JSON-LD metadata" do
   end
 
   describe "OaiSetEntry#create" do
-    let(:mocked_response) { RestClient.get(resource_uri, headers) }
+    let(:mocked_response) do
+      uri = URI(resource_uri)
+      req = Net::HTTP::Get.new(uri)
+      req["Accept"] = "application/json"
+      req["HTTP_ACCEPT"] = "application/ld+json;profile=tag:surfliner.github.io,2022:api/oai_dc"
+
+      Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") { |http| http.request(req) }
+    end
     let(:mocked_data) { mocked_response.body }
     let(:oai_item) { Converters::OaiItemConverter.from_json(resource_uri, mocked_data) }
     let(:oai_set) { Converters::OaiSetConverter.from_json(mocked_data).first }
@@ -126,7 +148,14 @@ RSpec.describe "consume Comet JSON-LD metadata" do
   end
 
   describe "OaiSetEntry#delete" do
-    let(:mocked_response) { RestClient.get(resource_uri, headers) }
+    let(:mocked_response) do
+      uri = URI(resource_uri)
+      req = Net::HTTP::Get.new(uri)
+      req["Accept"] = "application/json"
+      req["HTTP_ACCEPT"] = "application/ld+json;profile=tag:surfliner.github.io,2022:api/oai_dc"
+
+      Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") { |http| http.request(req) }
+    end
     let(:mocked_data) { mocked_response.body }
     let(:oai_item) { Converters::OaiItemConverter.from_json(resource_uri, mocked_data) }
     let(:oai_set) { Converters::OaiSetConverter.from_json(mocked_data).first }
