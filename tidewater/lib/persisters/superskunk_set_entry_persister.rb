@@ -64,7 +64,7 @@ module Persisters
       oai_item = SuperskunkPersister.find_by_source_iri(item_source_iri)
 
       return false if oai_set.nil? || oai_item.nil?
-      !db.where(oai_set_id: oai_set[:id], oai_item_id: oai_item[:id]).blank?
+      !db.where(oai_set_id: oai_set[:id], oai_item_id: oai_item[:id]).empty?
     end
 
     class << self
