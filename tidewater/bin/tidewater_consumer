@@ -59,7 +59,7 @@ begin
     uri = URI(payload_resource_url)
     req = Net::HTTP::Get.new(uri)
     req["Accept"] = "application/json"
-    req["HTTP_ACCEPT"] = "application/ld+json;profile=tag:surfliner.github.io,2022:api/oai_dc"
+    req["HTTP_ACCEPT"] = "application/ld+json;profile=#{ENV.fetch("OAI_PROFILE", "tag:surfliner.github.io,2022:api/oai_dc")}"
 
     begin
       res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") { |http|

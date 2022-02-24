@@ -4,6 +4,7 @@ tidewater:test:
   needs: ["tidewater:build"]
   variables:
     OAI_ADMIN_EMAIL: tidewater@example.com
+    OAI_METADATA_PROFILE: tag:surfliner.github.io,2022:api/oai_dc
     OAI_NAMESPACE_IDENTIFIER: test
     OAI_REPOSITORY_NAME: tidewater
     OAI_REPOSITORY_ORIGIN: http://localhost:3000
