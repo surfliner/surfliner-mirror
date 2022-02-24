@@ -52,7 +52,19 @@ module Persisters
     def self.find_by_set_source_iri(set_source_iri:)
       oai_set = SuperskunkSetPersister.find_by_source_iri(set_source_iri)
 
+      return [] if oai_set.nil?
       db.where(oai_set_id: oai_set[:id]).to_a
+    end
+
+    # Find SetEntry records by OaiItem source_iri
+    # @param item_source_iri [String] source iri of the OaiItem
+    # @return [Array] the source_iri of sets
+    def self.find_sets_source_iri_by_item(item_source_iri:)
+      oai_item = SuperskunkPersister.find_by_source_iri(item_source_iri)
+
+      return [] if oai_item.nil?
+      db.select(:source_iri).where(oai_item_id: oai_item[:id]).join_table(:inner, db_connection[:oai_sets], id: :oai_set_id)
+        .map { |r| r[:source_iri] }
     end
 
     # Determine whether a SetEntry exists or not

@@ -76,13 +76,21 @@ begin
         # Persist OaiSet and SetEntry
         item_source_iri = oai_item["source_iri"]
         oai_sets = Converters::OaiSetConverter.from_json(record_data)
+        item_sets = Persisters::SuperskunkSetEntryPersister.find_sets_source_iri_by_item(item_source_iri: item_source_iri)
+
         oai_sets.each do |oai_set|
           set_source_iri = oai_set["source_iri"]
+          item_sets.delete(set_source_iri) if item_sets.include?(set_source_iri)
+
           Persisters::SuperskunkSetPersister.create_or_update(record: oai_set.with_indifferent_access)
           unless Persisters::SuperskunkSetEntryPersister.entry_exists?(set_source_iri: set_source_iri, item_source_iri: item_source_iri)
             Persisters::SuperskunkSetEntryPersister.create(set_source_iri: set_source_iri, item_source_iri: item_source_iri)
           end
         end
+
+        # Remove sets/collections that are no longer present
+        item_sets.each { |set| Persisters::SuperskunkSetEntryPersister.delete_entry(set_source_iri: set, item_source_iri: item_source_iri) }
+        
       else
         logger.error("Error response #{res.code}: #{res}")
       end
