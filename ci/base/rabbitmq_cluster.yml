@@ -24,34 +24,39 @@
     - *rabbitmq_helpers
     - create_rabbitmq_namespace
     - create_rabbitmq_cluster
-  only:
-    changes:
-      - ci/base/rabbitmq_cluster.yml
-      - util/rabbitmq-instance.yml
 
 .rabbitmq-review:
   variables:
     KUBE_NAMESPACE: rabbitmq-review
     RABBITMQ_RELEASE_NAME: surfliner-rabbitmq-review
-  only:
-    refs:
-      - merge_requests
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        - ci/base/rabbitmq_cluster.yml
+        - util/rabbitmq-instance.yml
+    - if: $DEPLOY_RABBITMQ_CLUSTER && '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+.rabbitmq-rules-default-branch:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      changes:
+        - ci/base/rabbitmq_cluster.yml
+        - util/rabbitmq-instance.yml
+    - if: $DEPLOY_RABBITMQ_CLUSTER && '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
 
 .rabbitmq-staging:
   variables:
     KUBE_NAMESPACE: rabbitmq-staging
     RABBITMQ_RELEASE_NAME: surfliner-rabbitmq-stage
-  only:
-    refs:
-      - trunk
+  extends:
+    - .rabbitmq-rules-default-branch
 
 .rabbitmq-prod:
   variables:
     KUBE_NAMESPACE: rabbitmq-prod
     RABBITMQ_RELEASE_NAME: surfliner-rabbitmq-prod
-  only:
-    refs:
-      - trunk
+  extends:
+    - .rabbitmq-rules-default-branch
 
 rabbitmq-cluster:ucsd-prod:
   variables:
