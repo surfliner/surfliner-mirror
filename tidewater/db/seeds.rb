@@ -1,10 +1,4 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+require_relative "../lib/tidewater"
 
 # The following is the example record provided here:
 # <http://www.openarchives.org/OAI/openarchivesprotocol.html#Record>
@@ -42,4 +36,24 @@ puts "\n== loaded OAI-PMH sample item as ID - #{example_item.id}"
 5.times do |i|
   item = OaiItem.create(title: "title 1#{i}", identifier: "ark://1234#{i}", creator: "surfliner #{i}", source_iri: "http://superskunk.example.com/1234#{i}")
   puts "\n== loaded item ID - #{item.id}"
+end
+
+source_id = "example:cs/0112017"
+resource_uri = "http://superskunk.example.com/#{source_id}"
+json_file = Rails.root.join("spec", "fixtures", "mocked_metadata_response.json")
+json_data = File.read(json_file)
+
+oai_item = Converters::OaiItemConverter.from_json(resource_uri, json_data)
+Persisters::SuperskunkPersister.create_or_update(record: oai_item.with_indifferent_access)
+
+item_source_iri = oai_item["source_iri"]
+oai_sets = Converters::OaiSetConverter.from_json(json_data)
+
+oai_sets.each do |oai_set|
+  set_source_iri = oai_set["source_iri"]
+
+  Persisters::SuperskunkSetPersister.create_or_update(record: oai_set.with_indifferent_access)
+  unless Persisters::SuperskunkSetEntryPersister.entry_exists?(set_source_iri: set_source_iri, item_source_iri: item_source_iri)
+    Persisters::SuperskunkSetEntryPersister.create(set_source_iri: set_source_iri, item_source_iri: item_source_iri)
+  end
 end

@@ -81,4 +81,8 @@ class OaiItem < ApplicationRecord
     end
     result.to_xml(save_with: Nokogiri::XML::Node::SaveOptions::NO_DECLARATION)
   end
+
+  def self.sets
+    OaiSet.all
+  end
 end

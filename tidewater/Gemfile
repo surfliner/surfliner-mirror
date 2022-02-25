@@ -14,3 +14,7 @@ gem "standard", "1.7.2", group: %(development test)
 gem "sequel", "5.54.0", group: %(development test)
 gem "tzinfo-data", "2.0.4", platforms: %i[mingw mswin x64_mingw jruby]
 gem "webmock", "3.14.0", group: "test"
+
+group :development, :test do
+  gem "database_cleaner-active_record", "2.0.1"
+end
