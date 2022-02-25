@@ -19,3 +19,6 @@ include:
       - gems/solr_utils/**/*
       - shoreline/discovery/**/*
       - shoreline/discovery/Dockerfile
+  except:
+    changes:
+      - shoreline/discovery/contrib/**/*
