@@ -22,7 +22,7 @@
   extends:
     - .helm3-deploy
   variables:
-    RABBITMQ_OPERATOR_VERSION: 1.11.1
+    RABBITMQ_OPERATOR_VERSION: v1.12.0
     RABBITMQ_OPERATOR_URL: https://github.com/rabbitmq/cluster-operator/releases/download/v$RABBITMQ_OPERATOR_VERSION/cluster-operator.yml
   script:
     - *rabbitmq_helpers
