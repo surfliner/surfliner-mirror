@@ -25,6 +25,13 @@
     return 0
   }
 
+.rabbitmq-rules-default-branch:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      changes:
+        - ci/base/rabbitmq_operator.yml
+    - if: $DEPLOY_RABBITMQ_OPERATOR && '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+
 .rabbitmq-operator:
   stage: maintanence
   extends:
@@ -35,35 +42,32 @@
   script:
     - *rabbitmq_helpers
     - create_rabbitmq_operator
-  only:
-    changes:
-      - ci/base/rabbitmq_operator.yml
 
 rabbitmq-operator:ucsd-prod:
   variables:
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
   extends:
     - .rabbitmq-operator
-  only:
-    refs:
-      - trunk
+    - .rabbitmq-rules-default-branch
   tags:
     - ucsd
 
 rabbitmq-operator:ucsb-prod:
+  environment:
+    name: ucsb.production.rabbitmq
   extends:
     - .rabbitmq-operator
-  only:
-    refs:
-      - trunk
+    - .rabbitmq-rules-default-branch
 
 rabbitmq-operator:ucsd-review:
   extends:
     - .rabbitmq-operator
   variables:
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
-  only:
-    refs:
-      - merge_requests
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        - ci/base/rabbitmq_operator.yml
+    - if: $DEPLOY_RABBITMQ_OPERATOR && '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   tags:
     - ucsd
