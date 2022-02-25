@@ -19,6 +19,12 @@
       "fileMatch": ["^ci/comet.yml$"],
       "matchStrings": [".+?helm\\spull\\soci:\/\/(?<depName>.+?)\\s--version\\s(?<currentValue>.+?)\\s.*"],
       "datasourceTemplate": "docker"
+    },
+    {
+      "fileMatch": ["^ci/base/rabbitmq_operator.yml$"],
+      "matchStrings": ["RABBITMQ_OPERATOR_VERSION:\\s(?<currentValue>.+)"],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "rabbitmq/cluster-operator"
     }
   ],
   "packageRules":[
