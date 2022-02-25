@@ -1,8 +1,8 @@
 .rabbitmq_helpers: &rabbitmq_helpers |
   exists_rabbitmq_operator() {
     rabbitmq_image_version=$(echo $RABBITMQ_OPERATOR_VERSION | tr -d "v")
-    new_operator_image=$(kubectl --kubeconfig $KUBECONFIG get pods -n rabbitmq-system -o jsonpath="{..image}" | grep "$rabbitmq_image_version")
-    if [ "$new_operator_image" ]; then
+    operator_already_installed=$(kubectl --kubeconfig $KUBECONFIG get pods -n rabbitmq-system -o jsonpath="{..image}" | grep "$rabbitmq_image_version")
+    if [ "$operator_already_installed" ]; then
       echo "RabbitMQ Operator $rabbitmq_image_version is already installed"
       return 0
     else
