@@ -13,8 +13,6 @@ services:
       - sh
       - -c
       - >
-        upload-solr-configs.sh /home/starlight/app/solr/config &&
-        create-solr-collection.sh &&
         bin/docker-entrypoint.sh &&
         bundle exec puma -v --debug -b tcp://0.0.0.0:3000
     volumes:
@@ -31,6 +29,8 @@ services:
       - solr
     stdin_open: true
     tty: true
+    networks:
+      - starlight
 
   db_migrate:
     image: starlight
@@ -42,6 +42,8 @@ services:
       - database
     volumes:
       - .:/home/starlight/app
+    networks:
+      - starlight
 
   sidekiq:
     image: starlight
@@ -58,10 +60,13 @@ services:
       - solr
     stdin_open: true
     tty: true
+    networks:
+      - starlight
 
   memcached:
     image: bitnami/memcached:1.6.13-debian-10-r17
-
+    networks:
+      - starlight
 
   minio:
     image: bitnami/minio:2021.12.29-debian-10-r33
@@ -71,12 +76,16 @@ services:
       - starlight_minio:/data
     env_file:
       - .env
+    networks:
+      - starlight
 
   redis:
     image: bitnami/redis:6.2.6-debian-10-r114
     command: redis-server --protected-mode no --stop-writes-on-bgsave-error no
     volumes:
       - starlight_redis:/data
+    networks:
+      - starlight
 
   database:
     image: bitnami/postgresql:12.9.0-debian-10-r80
@@ -85,23 +94,36 @@ services:
     environment:
       POSTGRESQL_DATABASE: starlight-dev
       POSTGRESQL_PASSWORD: postgres_pass
+    networks:
+      - starlight
 
   solr:
     image: bitnami/solr:8.11.1-debian-10-r51
+    ports:
+      - 8983:8983
     env_file:
       - .env
-
-  zk:
-    image: bitnami/zookeeper:3.7-debian-10-r259
-    env_file:
-      - .env
+    volumes:
+      - ./solr/config:/opt/starlight
+      - starlight_solr:/var/solr/data
+    networks:
+      - starlight
 
   chrome:
     image: selenium/standalone-chrome:98.0
+    networks:
+      - starlight
 
 volumes:
   starlight_assets:
   starlight_database:
   starlight_minio:
   starlight_redis:
+  starlight_solr:
   starlight_tmp:
+
+networks:
+  starlight:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: br-starlight
