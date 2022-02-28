@@ -9,15 +9,15 @@
     refs:
       - trunk
 
-shoreline:discovery:deploy:prod:ucsb:
-  needs: ["shoreline:discovery:deploy:ucsb-stage"]
+shoreline:deploy:prod:ucsb:
+  needs: ["shoreline:deploy:ucsb-stage"]
   extends:
     - .shoreline:deploy:production
   environment:
     name: ucsb.production.shoreline
     url: http://shoreline.$KUBE_INGRESS_BASE_DOMAIN
   variables:
-    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/shoreline_discovery_app
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/shoreline
     DEPLOY_TAG: $CI_COMMIT_SHA
     INGRESS_URL: shoreline.$KUBE_INGRESS_BASE_DOMAIN
     KUBE_NAMESPACE: shoreline-prod
@@ -40,8 +40,8 @@ shoreline:discovery:deploy:prod:ucsb:
       --set shoreline.email.smtp_settings.port=587
       --set shoreline.email.smtp_settings.user_name=$UCSB_SHORELINE_EMAIL_ADDRESS
 
-shoreline:discovery:deploy:prod:ucsd:
-  needs: ["shoreline:discovery:deploy:ucsd-stage"]
+shoreline:deploy:prod:ucsd:
+  needs: ["shoreline:deploy:ucsd-stage"]
   extends:
     - .shoreline:deploy:production
   environment:
@@ -50,7 +50,7 @@ shoreline:discovery:deploy:prod:ucsd:
   tags:
     - ucsd
   variables:
-    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/shoreline_discovery_app
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/shoreline
     DEPLOY_TAG: $CI_COMMIT_SHA
     KUBE_NAMESPACE: shoreline-prod
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD

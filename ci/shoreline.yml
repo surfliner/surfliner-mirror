@@ -17,8 +17,8 @@ include:
       - ci/shoreline/**/*
       - ci/shoreline.yml
       - gems/solr_utils/**/*
-      - shoreline/discovery/**/*
-      - shoreline/discovery/Dockerfile
+      - shoreline/**/*
+      - shoreline/Dockerfile
   except:
     changes:
-      - shoreline/discovery/contrib/**/*
+      - shoreline/contrib/**/*

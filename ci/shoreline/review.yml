@@ -4,22 +4,22 @@
     - .only-shoreline-changes
     - .helm3-deploy
   variables:
-    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/shoreline_discovery_app
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/shoreline
     DEPLOY_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-shoreline-$CI_MERGE_REQUEST_ID
     KUBE_NAMESPACE: shoreline-review
-  needs: ["shoreline:discovery:ruby-build"]
+  needs: ["shoreline:ruby-build"]
   only:
     refs:
       - merge_requests
 
-shoreline:discovery:deploy:ucsd-review:
+shoreline:deploy:ucsd-review:
   extends:
     - .shoreline:deploy:review
   environment:
     name: ucsd.shoreline.review/$CI_MERGE_REQUEST_ID
     url: http://shoreline-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
-    on_stop: shoreline:discovery:cleanup:ucsd-review
+    on_stop: shoreline:cleanup:ucsd-review
     auto_stop_in: 1 week
   tags:
     - ucsd
@@ -36,7 +36,7 @@ shoreline:discovery:deploy:ucsd-review:
     - deploy ./charts/shoreline
     - run_chart_tests
 
-shoreline:discovery:cleanup:ucsd-review:
+shoreline:cleanup:ucsd-review:
   extends:
     - .shoreline:deploy:review
   environment:
@@ -54,7 +54,7 @@ shoreline:discovery:cleanup:ucsd-review:
     - delete
     - delete_stateful_set_pvcs
 
-shoreline:discovery:deploy:ucsb-review:
+shoreline:deploy:ucsb-review:
   extends:
     - .helm3-deploy
     - .shoreline:deploy:review
@@ -64,7 +64,7 @@ shoreline:discovery:deploy:ucsb-review:
   environment:
     name: ucsb.review.shoreline
     url: http://shoreline-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
-    on_stop: shoreline:discovery:cleanup:ucsb-review
+    on_stop: shoreline:cleanup:ucsb-review
     auto_stop_in: 4 days
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
@@ -75,7 +75,7 @@ shoreline:discovery:deploy:ucsb-review:
       --values charts/snippets/shoreline/review.yaml
       --values charts/snippets/surfliner/solr-review.yaml
 
-shoreline:discovery:cleanup:ucsb-review:
+shoreline:cleanup:ucsb-review:
   extends:
     - .helm3-deploy
     - .shoreline:deploy:review

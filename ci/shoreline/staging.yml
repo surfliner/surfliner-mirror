@@ -4,7 +4,7 @@
     - .helm3-deploy
     - .only-shoreline-changes
   variables:
-    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/shoreline_discovery_app
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/shoreline
     DEPLOY_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-shoreline-stage
     KUBE_NAMESPACE: shoreline-staging
@@ -12,7 +12,7 @@
     refs:
       - trunk
 
-shoreline:discovery:deploy:ucsd-stage:
+shoreline:deploy:ucsd-stage:
   extends:
     - .shoreline:deploy:stage
   environment:
@@ -27,7 +27,7 @@ shoreline:discovery:deploy:ucsd-stage:
   script:
     - deploy ./charts/shoreline
 
-shoreline:discovery:cleanup:ucsd-stage:
+shoreline:cleanup:ucsd-stage:
   extends:
     - .shoreline:deploy:stage
   environment:
@@ -45,7 +45,7 @@ shoreline:discovery:cleanup:ucsd-stage:
     - delete
     - delete_stateful_set_pvcs
 
-shoreline:discovery:deploy:ucsb-stage:
+shoreline:deploy:ucsb-stage:
   extends:
     - .shoreline:deploy:stage
   script:
@@ -79,7 +79,7 @@ shoreline:discovery:deploy:ucsb-stage:
       --set solr.solrHostname=dld-search-staging-solr.solr-staging.svc.cluster.local
       --set solr.zookeeperHostname=dld-search-staging-zookeeper.solr-staging.svc.cluster.local
 
-shoreline:discovery:cleanup:ucsb-stage:
+shoreline:cleanup:ucsb-stage:
   extends:
     - .shoreline:deploy:stage
   environment:

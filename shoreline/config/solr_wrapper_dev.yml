@@ -1,5 +1,5 @@
 port: 8983
 collection:
   dir: solr/conf
-  name: shoreline-discovery
+  name: shoreline
 instance_dir: tmp/solr-dev

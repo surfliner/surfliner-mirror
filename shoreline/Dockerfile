@@ -15,8 +15,8 @@ RUN apk --no-cache upgrade && apk --no-cache add \
       shared-mime-info \
       zip
 
-WORKDIR ${DOCKERROOT}/discovery/app
-COPY ${PROJECTPATH}/discovery/Gemfile* ${DOCKERROOT}/discovery/app/
+WORKDIR ${DOCKERROOT}/app
+COPY ${PROJECTPATH}/Gemfile* ${DOCKERROOT}/app/
 COPY gems ${DOCKERROOT}/gems/
 
 CMD ["bundle", "exec", "puma", "-v", "--debug", "-b", "tcp://0.0.0.0:3000"]
@@ -35,7 +35,7 @@ RUN gem update bundler && \
       bundle config build.nokogiri --use-system-libraries && \
       bundle install --jobs "$(nproc)" --retry 2
 
-COPY ${PROJECTPATH}/discovery ${DOCKERROOT}/discovery/app/
+COPY ${PROJECTPATH} ${DOCKERROOT}/app/
 COPY scripts ${DOCKERROOT}/scripts/
 
 RUN bundle exec rake assets:precompile
@@ -44,7 +44,7 @@ FROM base as production
 ARG PROJECTPATH=shoreline
 ARG DOCKERROOT=/home/${PROJECTPATH}
 
-COPY ${PROJECTPATH}/discovery ${DOCKERROOT}/discovery/app/
+COPY ${PROJECTPATH} ${DOCKERROOT}/app/
 COPY scripts ${DOCKERROOT}/scripts/
 COPY --from=development /usr/local/bundle /usr/local/bundle
 

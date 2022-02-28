@@ -1,15 +1,15 @@
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
-- [Shoreline Discovery](#shoreline-discovery)
+- [Shoreline](#shoreline)
     - [Local Development](#local-development)
     - [Deployment](doc/deploy.md)
     - [Ingesting objects](doc/ingest.md)
 
 <!-- markdown-toc end -->
-# Shoreline Discovery
+# Shoreline
 
-Shorline Discovery is a [GeoBlacklight][geoblacklight] frontend for the Shoreline
+Shorline is a [GeoBlacklight][geoblacklight] frontend for the Shoreline
 geospatial system.
 
 Please see [CONTRIBUTING.md][contributing] for information about contributing to
@@ -18,12 +18,12 @@ this project. By participating, you agree to abide by the
 
 ## Local Development
 
-Checkout the `surfliner` repository with and `cd` into the `shoreline/discovery`
+Checkout the `surfliner` repository with and `cd` into the `shoreline`
 directory.
 
 ```sh
 git clone git@gitlab.com:surfliner/surfliner.git
-cd surfliner/shoreline/discovery
+cd surfliner/shoreline
 ```
 
 The development environment is supported with Docker Compose. To run the
@@ -33,7 +33,7 @@ your local system.
 To setup a development environment:
 1. `docker-compose up --build` to build images (if necessary)
 1. `docker-compose up`  to run dev environment
-1. Access the `discovery` application on [`http://localhost:3000`][localhost].
+1. Access the application on [`http://localhost:3000`][localhost].
 
 For running tests:
 ```
@@ -47,7 +47,7 @@ reference](https://docs.docker.com/compose/reference/overview/) for more on comm
 
 ## [Ingesting objects](doc/ingest.md)
 
-[contributing]: ../../CONTRIBUTING.md
+[contributing]: ../CONTRIBUTING.md
 [geoblacklight]: https://github.com/geoblacklight/geoblacklight
 [localhost]: http://localhost:3000
 [principles]: https://ucnet.universityofcalifornia.edu/working-at-uc/our-values/principles-of-community.html

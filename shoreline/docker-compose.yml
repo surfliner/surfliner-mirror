@@ -3,14 +3,14 @@ version: '3.7'
 services:
   web:
     build:
-      context: ../../
-      dockerfile: shoreline/discovery/Dockerfile
+      context: ..
+      dockerfile: shoreline/Dockerfile
       target: development
     image: shoreline:development
     env_file:
       - .env
     volumes:
-      - .:/home/shoreline/discovery/app
+      - .:/home/shoreline/app
     depends_on:
       - db_migrate
       - postgres
@@ -32,7 +32,7 @@ services:
     depends_on:
       - postgres
     volumes:
-      - .:/home/shoreline/discovery/app
+      - .:/home/shoreline/app
     networks:
       - shoreline
 
@@ -50,7 +50,7 @@ services:
   postgres:
     image: bitnami/postgresql:12.10.0-debian-10-r5
     volumes:
-      - "shoreline_discovery_db:/bitnami/postgresql"
+      - "shoreline_db:/bitnami/postgresql"
     env_file:
       - .env
     networks:
@@ -69,7 +69,7 @@ services:
       - shoreline
 
 volumes:
-  shoreline_discovery_db:
+  shoreline_db:
   shoreline_geoserver_data:
   shoreline_solr_data:
 

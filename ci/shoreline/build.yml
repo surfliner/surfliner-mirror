@@ -1,7 +1,7 @@
-shoreline:discovery:ruby-build:
+shoreline:ruby-build:
   extends:
     - .kaniko-build
     - .only-refs-default
     - .only-shoreline-changes
   script:
-    - build_image_for "shoreline/discovery" "shoreline_discovery_app" "production"
+    - build_image_for "shoreline" "shoreline" "production"
