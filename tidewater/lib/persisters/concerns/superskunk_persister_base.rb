@@ -26,11 +26,11 @@ module Persisters
         record["updated_at"] = timestamp
 
         # if columns are missing from record, set them to nil as they may have been deleted upstream
-        empty_column_values = db.columns.each_with_object({}) { |e, h| h[e] = nil }
-        empty_column_values.delete(:id) # internal database identifier should never be updated
-        empty_column_values.delete(:created_at) # created timestamp should never be updated
-        record.delete(:id) # internal database identifier should never be updated
-        record.delete(:created_at) # created timestamp should never be updated
+        empty_column_values = db.columns.each_with_object({}) { |e, h| h[e.to_s] = nil }
+        empty_column_values.delete("id") # internal database identifier should never be updated
+        empty_column_values.delete("created_at") # created timestamp should never be updated
+        record.delete("id") # internal database identifier should never be updated
+        record.delete("created_at") # created timestamp should never be updated
         record.merge!(empty_column_values) { |_k, record_value, _empty_value| record_value }
 
         db.where(source_iri: record["source_iri"]).update(record)

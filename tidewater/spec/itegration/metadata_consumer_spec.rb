@@ -48,7 +48,7 @@ RSpec.describe "consume Comet JSON-LD metadata" do
     end
 
     it "persist OaiItem" do
-      expect(Persisters::SuperskunkPersister.create_or_update(record: oai_item.with_indifferent_access)).to be > 0
+      expect(Persisters::SuperskunkPersister.create_or_update(record: oai_item)).to be > 0
 
       Persisters::SuperskunkPersister.find_by_source_iri(source_id) do |oai_item|
         expect(oai_item.source_iri).to eq source_id
@@ -79,13 +79,13 @@ RSpec.describe "consume Comet JSON-LD metadata" do
     end
 
     it "persist OaiSet example:cs" do
-      expect(Persisters::SuperskunkSetPersister.create_or_update(record: oai_sets[0].with_indifferent_access)).to be > 0
+      expect(Persisters::SuperskunkSetPersister.create_or_update(record: oai_sets[0])).to be > 0
       Persisters::SuperskunkSetPersister.find_by_source_iri(oai_sets[0]["source_iri"]) do |oai_set|
         expect(oai_set.source_iri).to eq "example:cs"
         expect(oai_set.name).to eq "Computer Science"
       end
 
-      expect(Persisters::SuperskunkSetPersister.create_or_update(record: oai_sets[1].with_indifferent_access)).to be > 0
+      expect(Persisters::SuperskunkSetPersister.create_or_update(record: oai_sets[1])).to be > 0
       Persisters::SuperskunkSetPersister.find_by_source_iri(oai_sets[1]["source_iri"]) do |oai_set|
         expect(oai_set.source_iri).to eq "example:math"
         expect(oai_set.name).to eq "Mathematics"
@@ -107,8 +107,8 @@ RSpec.describe "consume Comet JSON-LD metadata" do
 
       Persisters::SuperskunkSetEntryPersister.delete_entries(set_source_iri: set_source_iri)
 
-      Persisters::SuperskunkPersister.create_or_update(record: oai_item.with_indifferent_access)
-      Persisters::SuperskunkSetPersister.create_or_update(record: oai_set.with_indifferent_access)
+      Persisters::SuperskunkPersister.create_or_update(record: oai_item)
+      Persisters::SuperskunkSetPersister.create_or_update(record: oai_set)
     end
 
     after do
@@ -140,8 +140,8 @@ RSpec.describe "consume Comet JSON-LD metadata" do
 
       Persisters::SuperskunkSetEntryPersister.delete_entries(set_source_iri: set_source_iri)
 
-      Persisters::SuperskunkPersister.create_or_update(record: oai_item.with_indifferent_access)
-      Persisters::SuperskunkSetPersister.create_or_update(record: oai_set.with_indifferent_access)
+      Persisters::SuperskunkPersister.create_or_update(record: oai_item)
+      Persisters::SuperskunkSetPersister.create_or_update(record: oai_set)
       Persisters::SuperskunkSetEntryPersister.create(set_source_iri: set_source_iri, item_source_iri: source_id)
     end
 
@@ -176,8 +176,8 @@ RSpec.describe "consume Comet JSON-LD metadata" do
 
       Persisters::SuperskunkSetEntryPersister.delete_entries(set_source_iri: set_source_iri)
 
-      Persisters::SuperskunkPersister.create_or_update(record: oai_item.with_indifferent_access)
-      Persisters::SuperskunkSetPersister.create_or_update(record: oai_set.with_indifferent_access)
+      Persisters::SuperskunkPersister.create_or_update(record: oai_item)
+      Persisters::SuperskunkSetPersister.create_or_update(record: oai_set)
       Persisters::SuperskunkSetEntryPersister.create(set_source_iri: set_source_iri, item_source_iri: source_id)
     end
 

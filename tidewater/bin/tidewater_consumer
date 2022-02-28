@@ -4,7 +4,6 @@ require "date"
 require "json"
 require "logger"
 require "net/http"
-require "active_support/core_ext/hash/indifferent_access"
 
 # don't buffer log output
 $stdout.sync = true
@@ -71,7 +70,7 @@ begin
 
         # Persist OaiItem
         oai_item = Converters::OaiItemConverter.from_json(payload_resource_url, record_data)
-        Persisters::SuperskunkPersister.create_or_update(record: oai_item.with_indifferent_access)
+        Persisters::SuperskunkPersister.create_or_update(record: oai_item)
 
         # Persist OaiSet and SetEntry
         item_source_iri = oai_item["source_iri"]
@@ -88,7 +87,7 @@ begin
         oai_sets.each do |oai_set|
           set_source_iri = oai_set["source_iri"]
 
-          Persisters::SuperskunkSetPersister.create_or_update(record: oai_set.with_indifferent_access)
+          Persisters::SuperskunkSetPersister.create_or_update(record: oai_set)
           unless Persisters::SuperskunkSetEntryPersister.entry_exists?(set_source_iri: set_source_iri, item_source_iri: item_source_iri)
             Persisters::SuperskunkSetEntryPersister.create(set_source_iri: set_source_iri, item_source_iri: item_source_iri)
           end
