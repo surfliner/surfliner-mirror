@@ -31,4 +31,5 @@ Note that `U+FFFE` and `U+FFFF` would not otherwise be representable in
 The Tidewater consumer script makes use of an additional column,
   `source_iri`, to identify items according to their identifiers in the
   API it consumes from.
-The web app does not utilize this column for anything.
+The `/item` endpoint can be requested with a `source_iri` parameter to
+  get the record associated a given value of `source_iri`.
