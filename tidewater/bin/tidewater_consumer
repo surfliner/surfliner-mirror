@@ -6,6 +6,8 @@ require "logger"
 
 require_relative "../lib/tidewater"
 
+# don't buffer log output
+$stdout.sync = true
 logger = Logger.new($stdout)
 logger.level = ENV.fetch("LOG_LEVEL") { Logger::INFO }
 
