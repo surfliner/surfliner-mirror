@@ -38,6 +38,12 @@ class DiscoveryPlatformPublisher
   end
 
   ##
+  # @return [String]
+  def self.api_uri_for(resource, base_uri: Rails.application.config.metadata_api_uri_base)
+    "#{base_uri}/#{resource.id}"
+  end
+
+  ##
   # @param [Hyrax::Resource] resource  the resource to publish
   def publish(resource:)
     raise(UnpublishableObject) unless resource.persisted?
@@ -49,12 +55,6 @@ class DiscoveryPlatformPublisher
   class UnpublishableObject < ArgumentError; end
 
   private
-
-  ##
-  # @return [String]
-  def api_uri_for(resource, base_uri: Rails.application.config.metadata_api_uri_base)
-    "#{base_uri}/#{resource.id}"
-  end
 
   ##
   # @return [Boolean] true if the ACL was not already present, and has been
@@ -81,7 +81,7 @@ class DiscoveryPlatformPublisher
   ##
   # @return [String] a JSON payload
   def payload_for(resource)
-    {resourceUrl: api_uri_for(resource),
+    {resourceUrl: self.class.api_uri_for(resource),
      status: "published",
      time_stamp: resource.date_modified || resource.updated_at}.to_json
   end

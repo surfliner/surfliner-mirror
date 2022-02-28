@@ -11,11 +11,12 @@ RSpec.describe DiscoveryPlatformService, :rabbitmq do
     Hyrax.persister.save(resource: obj)
   end
   let(:url_base) { ENV.fetch("DISCOVER_PLATFORM_TIDEWATER_URL_BASE") { Rails.application.config.metadata_api_uri_base } }
+  let(:object_url) { DiscoveryPlatformPublisher.api_uri_for(object) }
 
   before { publisher.publish(resource: object) }
 
   it "gives the label and url for a link" do
     expect(described_class.call(object.id))
-      .to include(["Tidewater", "#{url_base}/#{object.id}"])
+      .to include(["Tidewater", "#{url_base}#{ERB::Util.url_encode(object_url)}"])
   end
 end
