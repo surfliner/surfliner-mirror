@@ -19,6 +19,6 @@ include:
       - gems/solr_utils/**/*
       - shoreline/**/*
       - shoreline/Dockerfile
-  except:
-    changes:
-      - shoreline/contrib/**/*
+  # except:
+  #   changes:
+  #     - shoreline/contrib/**/*
