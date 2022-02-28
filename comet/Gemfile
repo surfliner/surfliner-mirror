@@ -34,7 +34,7 @@ gem "valkyrie-sequel", "~> 2.2.0"
 gem "valkyrie-shrine", "~> 0.5"
 
 group :development do
-  gem "listen", ">= 3.0.5", "< 3.7.1"
+  gem "listen", ">= 3.0.5", "< 3.7.2"
 end
 
 group :development, :test do
