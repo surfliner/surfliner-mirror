@@ -42,7 +42,7 @@ The following tables lists the configurable parameters of the Shoreline chart an
 
 | Parameter | Description | Default | Environment Variable |
 | --------- | ----------- | ------- | -------------------- |
-| `image.repository` | shoreline image repository | `registry.gitlab.com/surfliner/surfliner/shoreline_discovery_app` | N/A |
+| `image.repository` | shoreline image repository | `registry.gitlab.com/surfliner/surfliner/shoreline` | N/A |
 | `image.tag` | shoreline image tag to use | `stable` | N/A |
 | `image.pullPolicy` | shoreline image pullPolicy | `Always` | N/A |
 | `imagePullSecrets` | Array of pull secrets for the image | `[]` | N/A |
@@ -82,16 +82,16 @@ See: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.m
 
 | Parameter | Description | Default | Environment Variable |
 | --------- | ----------- | ------- | -------------------- |
-| `postgresql.postgresqlUsername` | Database user for application | `shoreline-discovery` | `POSTGRES_USER` |
+| `postgresql.postgresqlUsername` | Database user for application | `shoreline` | `POSTGRES_USER` |
 | `postgresql.postgresqlPassword` | Database user password for application | `shorelinepass` | `POSTGRES_PASSWORD` |
-| `postgresql.postgresqlDatabase` | Database name for application | `shoreline-discovery` | `POSTGRES_DB` |
+| `postgresql.postgresqlDatabase` | Database name for application | `shoreline` | `POSTGRES_DB` |
 | `postgresql.persistence.size` | Database PVC size | `10Gi` | N/A |
 
 #### Solr
 
 See: https://github.com/helm/charts/blob/master/incubator/solr/values.yaml
 
-[shoreline]:https://gitlab.com/surfliner/surfliner/-/tree/trunk/shoreline/discovery
+[shoreline]:https://gitlab.com/surfliner/surfliner/-/tree/trunk/shoreline
 
 | Parameter | Description | Default | Environment Variable |
 | --------- | ----------- | ------- | -------------------- |

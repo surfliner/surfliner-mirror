@@ -5,8 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: registry.gitlab.com/surfliner/surfliner/shoreline_discovery_app
-  name: shoreline_discovery_app
+  repository: registry.gitlab.com/surfliner/surfliner/shoreline
+  name: shoreline
   tag: stable
   pullPolicy: Always
 
@@ -111,9 +111,9 @@ postgresql:
   # If postgresql.enabled is false, then
   #   * set postgresqlHostname to external postgresql FQDN
   # postgresqlHostname: external-shoreline-postgresql-fqdn
-  postgresqlUsername: shoreline-discovery
+  postgresqlUsername: shoreline
   postgresqlPassword: shorelinepass
-  postgresqlDatabase: shoreline-discovery
+  postgresqlDatabase: shoreline
   servicePort: 5432
   persistence:
     size: 10Gi

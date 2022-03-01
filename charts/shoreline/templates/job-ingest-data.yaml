@@ -20,8 +20,8 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: "{{ .Values.image.pullPolicy }}"
           command:
-            - /home/shoreline/discovery/app/bin/ingest.sh
-            - /home/shoreline/discovery/app/spec/fixtures/shapefiles
+            - /home/shoreline/app/bin/ingest.sh
+            - /home/shoreline/app/spec/fixtures/shapefiles
           envFrom:
             - configMapRef:
                 name: {{ include "shoreline.fullname" . }}-env

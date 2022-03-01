@@ -30,7 +30,7 @@ spec:
             - sh
             - -c
             - >
-              solrcloud-upload-configset.sh /home/shoreline/discovery/app/solr/conf &&
+              solrcloud-upload-configset.sh /home/shoreline/app/solr/conf &&
               solrcloud-assign-configset.sh
         {{- end }}
         - name: setup-db
