@@ -42,7 +42,6 @@ tidewater:cleanup:ucsd-review:
   tags:
     - ucsd
   when: manual
-  allow_failure: true
   variables:
     GIT_STRATEGY: none
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW

@@ -8,7 +8,6 @@
     DEPLOY_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-tidewater-prod
     KUBE_NAMESPACE: tidewater-prod
-  allow_failure: true
   only:
     refs:
       - trunk
@@ -33,7 +32,6 @@ tidewater:cleanup:ucsb-production:
     name: ucsb.production.tidewater
     action: stop
   when: manual
-  allow_failure: true
   variables:
     GIT_STRATEGY: none
     HELM_RELEASE_NAME: surfliner-tidewater-prod
@@ -66,7 +64,6 @@ tidewater:cleanup:ucsd-production:
   tags:
     - ucsd
   when: manual
-  allow_failure: true
   variables:
     GIT_STRATEGY: none
     HELM_RELEASE_NAME: surfliner-tidewater-prod
