@@ -6,10 +6,10 @@ class DiscoveryPlatformService
     # The label for a platform  can be retrieve by I18n localization with key in pattern `discovery_platform.#{platform_name)}.label`
     # The URL base is configured with an environment key in pattern `DISCOVER_PLATFORM_#{platform_name.upcase}_URL_BASE`.
     #
-    # @example By default, the syntax of the link url for a discovery platform will be
-    #   `ENV['DISCOVER_PLATFORM_#{platform_name.upcase}_URL_BASE']/#{object_id}`,
-    #   If a platform have a base url `http://localhost:3000/myplatform`, the url will looks like the following:
-    #   http://localhost:3000/myplatform/my_id
+    # By default, the syntax of the URL for a discovery platform will be formed by the base url and the resource URL sent to RabbitMQ as source_iri:
+    #   `ENV['DISCOVER_PLATFORM_#{platform_name.upcase}_URL_BASE']#{source_iri}`,
+    # A tipical link path will be something like:
+    #   `/platform_name/item?source_iri=https://the.url/sent/to/rabbitmq`
     #
     # @example tidewater platform tracks records by source_iri with a path like
     #   `http://localhost:3000/tidewater/item?source_iri=https://the.url/sent/to/rabbitmq`,
@@ -27,13 +27,8 @@ class DiscoveryPlatformService
           label_i18n_key = "discovery_platform.#{platform_name}.label"
           url_base = ENV.fetch("DISCOVER_PLATFORM_#{platform_name.upcase}_URL_BASE") { Rails.application.config.metadata_api_uri_base }
 
-          case platform_name.to_sym
-          when :tidewater
-            resource_url = DiscoveryPlatformPublisher.api_uri_for(resource)
-            pro << [I18n.t(label_i18n_key), "#{url_base}#{ERB::Util.url_encode(resource_url)}"]
-          else
-            pro << [I18n.t(label_i18n_key), "#{url_base}/#{object}"]
-          end
+          resource_url = DiscoveryPlatformPublisher.api_uri_for(resource)
+          pro << [I18n.t(label_i18n_key), "#{url_base}#{ERB::Util.url_encode(resource_url)}"]
         end
       end
     end
