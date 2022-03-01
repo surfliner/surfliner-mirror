@@ -111,9 +111,9 @@ postgresql:
   # If postgresql.enabled is false, then
   #   * set postgresqlHostname to external postgresql FQDN
   # postgresqlHostname: external-shoreline-postgresql-fqdn
-  postgresqlUsername: shoreline
+  postgresqlUsername: shoreline-discovery
   postgresqlPassword: shorelinepass
-  postgresqlDatabase: shoreline
+  postgresqlDatabase: shoreline-discovery
   servicePort: 5432
   persistence:
     size: 10Gi

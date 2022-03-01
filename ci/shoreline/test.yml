@@ -4,13 +4,13 @@
   variables:
     DATABASE_COMMAND: "db:schema:load"
     DELIVERY_METHOD: "test"
-    POSTGRES_DB: "shoreline"
+    POSTGRES_DB: "shoreline-discovery"
     POSTGRES_HOST: "localhost"
     POSTGRES_PASSWORD: "postgres"
     POSTGRES_USER: "postgres"
     RAILS_ENV: "test"
     SOLR_CONFIG_COMMIT_SHA: $CI_COMMIT_SHA
-    SOLR_CORE_NAME: "shoreline"
+    SOLR_CORE_NAME: "shoreline-discovery"
     SOLR_HOST: solr
     SOLR_PORT: 8983
     ZK_HOST: zk

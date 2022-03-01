@@ -45,5 +45,5 @@ geoserver:
 postgresql:
   enabled: false
   postgresqlHostname: lib-psql-prod.ucsd.edu
-  postgresqlUsername: shoreline
-  postgresqlDatabase: shoreline
+  postgresqlUsername: shoreline_discovery
+  postgresqlDatabase: shoreline_discovery
