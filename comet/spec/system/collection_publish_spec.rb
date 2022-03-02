@@ -78,5 +78,29 @@ RSpec.describe "Publish Collection", type: :system, js: true do
         expect(page).to have_link("Tidewater", href: "#{url_base}/#{object}")
       end
     end
+
+    context "with feature collection publish enabled" do
+      let(:feature_enabled) { Rails.application.config.feature_collection_publish }
+
+      before { Rails.application.config.feature_collection_publish = true }
+      after { Rails.application.config.feature_collection_publish = feature_enabled }
+
+      it "shows the publish collection button" do
+        visit "/dashboard/collections/#{collection.id}?locale=en"
+        expect(page).to have_link("Publish collection")
+      end
+    end
+
+    context "with feature collection publish disabled" do
+      let(:feature_enabled) { Rails.application.config.feature_collection_publish }
+
+      before { Rails.application.config.feature_collection_publish = false }
+      after { Rails.application.config.feature_collection_publish = feature_enabled }
+
+      it "hides the publish collection button" do
+        visit "/dashboard/collections/#{collection.id}?locale=en"
+        expect(page).not_to have_link("Publish collection")
+      end
+    end
   end
 end

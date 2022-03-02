@@ -1,5 +1,5 @@
 <h2 class="sr-only"><%= t('hyrax.collection.actions.header') %></h2>
-<% if can? :publish, presenter.solr_document %>
+<% if Rails.application.config.feature_collection_publish && can?(:publish, presenter.solr_document) %>
     <%= link_to t('hyrax.collection.actions.publish.label'),
                 "/dashboard/collections/#{presenter.id}/publish",
                 title: t('hyrax.collection.actions.publish.desc'),
