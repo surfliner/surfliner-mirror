@@ -2,7 +2,7 @@ solr:
   replicaCount: 2
   persistence:
     enabled: false
-  authentication:
+  auth:
     enabled: true
     adminUsername: admin
     adminPassword: admin

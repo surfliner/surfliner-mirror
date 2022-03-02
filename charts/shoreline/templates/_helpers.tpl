@@ -103,9 +103,9 @@ Supports using an existing secret instead of one built using the Chart
 {{- $collection_core := (include "shoreline.solr.collection_core_name" .) -}}
 {{- $host := (include "shoreline.solr.fullname" .) -}}
 {{- $port := .Values.solr.solrPort | default "8983" -}}
-{{- if .Values.solr.authentication.enabled -}}
-{{- $user := .Values.solr.authentication.adminUsername -}}
-{{- $pass := .Values.solr.authentication.adminPassword -}}
+{{- if .Values.solr.auth.enabled -}}
+{{- $user := .Values.solr.auth.adminUsername -}}
+{{- $pass := .Values.solr.auth.adminPassword -}}
 {{- printf "http://%s:%s@%s:%s/solr/%s" $user $pass $host $port $collection_core -}}
 {{- else -}}
 {{- printf "http://%s:%s/solr/%s" $host $port $collection_core -}}

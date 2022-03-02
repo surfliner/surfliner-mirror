@@ -26,10 +26,10 @@ data:
   SOLR_CORE_NAME: {{ .Values.lark.solr.collectionName }}
   SOLR_HOST: {{ template "lark.solr.fullname" . }}
   SOLR_PORT: {{ .Values.lark.solr.port | quote }}
-  {{- if .Values.solr.authentication.enabled }}
-  SOLR_ADMIN_PASSWORD: {{ .Values.solr.authentication.adminPassword }}
-  SOLR_ADMIN_USER: {{ .Values.solr.authentication.adminUsername }}
-  SOLR_URL: http://{{ .Values.solr.authentication.adminUsername}}:{{ .Values.solr.authentication.adminPassword }}@{{ template "lark.solr.fullname" . }}:8983/solr/{{ .Values.lark.solr.collectionName }}
+  {{- if .Values.solr.auth.enabled }}
+  SOLR_ADMIN_PASSWORD: {{ .Values.solr.auth.adminPassword }}
+  SOLR_ADMIN_USER: {{ .Values.solr.auth.adminUsername }}
+  SOLR_URL: http://{{ .Values.solr.auth.adminUsername}}:{{ .Values.solr.auth.adminPassword }}@{{ template "lark.solr.fullname" . }}:8983/solr/{{ .Values.lark.solr.collectionName }}
   {{- else }}
   SOLR_URL: http://{{ template "lark.solr.fullname" . }}:8983/solr/{{ .Values.lark.solr.collectionName }}
   {{- end }}

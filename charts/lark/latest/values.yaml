@@ -58,7 +58,7 @@ solr:
   image:
     repository: bitnami/solr
     tag: 8.11.1-debian-10-r69
-  authentication:
+  auth:
     enabled: true
     adminUsername: admin
     adminPassword: admin
@@ -81,7 +81,7 @@ lark:
   solr:
     collectionName: collection1
     port: 8983
-    authentication:
+    auth:
       enabled: true
       adminUsername: admin
       adminPassword: admin

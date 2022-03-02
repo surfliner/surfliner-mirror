@@ -29,7 +29,7 @@ solr:
   solrHostname: lib-solr-prod.ucsd.edu
   solrPort: "9010"
   coreName: geodata
-  authentication:
+  auth:
     enabled: true
     adminUsername: sadmin
 

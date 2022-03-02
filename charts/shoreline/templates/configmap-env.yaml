@@ -32,8 +32,8 @@ data:
   SOLR_CONFIG_NAME: {{ .Values.solr.configName | default "shorelineconf" | quote }}
   SOLR_HOST: {{ template "shoreline.solr.fullname" . }}
   SOLR_PORT: {{ .Values.solr.solrPort | default "8983" | quote }}
-  {{- if .Values.solr.authentication.enabled }}
-  SOLR_ADMIN_USER: {{ .Values.solr.authentication.adminUsername }}
+  {{- if .Values.solr.auth.enabled }}
+  SOLR_ADMIN_USER: {{ .Values.solr.auth.adminUsername }}
   {{- end }}
   {{- if eq (include "shoreline.solr.cloudEnabled" .) "true" }}
   ZK_HOST: {{ template "shoreline.zk.fullname" . }}

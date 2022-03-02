@@ -33,7 +33,7 @@ postgresql:
   postgresqlUsername: starlight
 solr:
   enabled: true
-  authentication:
+  auth:
     enabled: true
   existingSecret: starlight-solr-prod
   collection: collection1
