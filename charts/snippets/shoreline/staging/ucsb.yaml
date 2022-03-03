@@ -1,0 +1,41 @@
+existingSecret:
+  enabled: true
+  name: shoreline-stage-external
+
+shoreline:
+  theme: ucsb
+  provenance: UC Santa Barbara
+  email:
+    delivery_method: smtp
+    smtp_settings:
+      address: smtp.gmail.com
+      port: 587
+      authentication: plain
+  sample_data: true
+
+solr:
+  enabled: false
+  solrHostname: dld-search-staging-solr.solr-staging.svc.cluster.local
+  auth:
+    enabled: true
+    adminUsername: admin
+  zookeeperHostname: dld-search-staging-zookeeper.solr-staging.svc.cluster.local
+
+geoserver:
+  existingData: true
+  gid: 0
+  uid: 0
+  jvm:
+    initialMemory: 1G
+    maximumMemory: 2G
+  resources:
+    limits:
+      memory: 2Gi
+    requests:
+      memory: 1Gi
+  persistence:
+    existingClaim: surfliner-shoreline-stage-geoserver-data-1
+
+persistence:
+  downloads:
+    class: gp2

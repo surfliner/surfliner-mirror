@@ -56,28 +56,11 @@ shoreline:deploy:ucsb-stage:
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
       --set geoserver.ingress.hosts={shoreline-geoserver-staging.$KUBE_INGRESS_BASE_DOMAIN}
-      --set geoserver.persistence.existingClaim=surfliner-shoreline-stage-geoserver-data-1
-      --set geoserver.jvm.initialMemory=1G
-      --set geoserver.jvm.maximumMemory=2G
-      --set geoserver.resources.requests.memory=1Gi
-      --set geoserver.resources.limits.memory=2Gi
       --set ingress.hosts={shoreline-staging.$KUBE_INGRESS_BASE_DOMAIN}
-      --set persistence.downloads.class=gp2
-      --set shoreline.sample_data=true
-      --set shoreline.theme=ucsb
-      --set shoreline.email.delivery_method=smtp
       --set shoreline.email.contact_email=$UCSB_SHORELINE_STAGING_EMAIL_ADDRESS
-      --set shoreline.email.smtp_settings.address=smtp.gmail.com
-      --set shoreline.email.smtp_settings.authentication=plain
       --set shoreline.email.smtp_settings.password=$UCSB_SHORELINE_STAGING_EMAIL_PASSWORD
-      --set shoreline.email.smtp_settings.port=587
       --set shoreline.email.smtp_settings.user_name=$UCSB_SHORELINE_STAGING_EMAIL_ADDRESS
-      --set solr.enabled=false
-      --set solr.auth.enabled=true
-      --set solr.auth.adminUsername=admin
-      --set solr.auth.adminPassword=tOR1f6b0O6
-      --set solr.solrHostname=dld-search-staging-solr.solr-staging.svc.cluster.local
-      --set solr.zookeeperHostname=dld-search-staging-zookeeper.solr-staging.svc.cluster.local
+      --values charts/snippets/shoreline/staging/ucsb.yaml
 
 shoreline:cleanup:ucsb-stage:
   extends:
