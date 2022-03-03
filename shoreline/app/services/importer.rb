@@ -52,8 +52,8 @@ module Importer
   def self.publish_to_geoserver(file_path:)
     conn = Geoserver::Publish::Connection.new(
       "url" => "http://#{ENV["GEOSERVER_HOST"]}:#{ENV["GEOSERVER_PORT"]}/geoserver/rest",
-      "user" => ENV["GEOSERVER_USER"],
-      "password" => ENV["GEOSERVER_PASSWORD"]
+      "user" => ENV["GEOSERVER_ADMIN_USER"],
+      "password" => ENV["GEOSERVER_ADMIN_PASSWORD"]
     )
 
     file = File.read(file_path)
@@ -146,8 +146,8 @@ module Importer
   def self.get_layer_type(name)
     connection = Faraday.new(headers: {"Content-Type" => "application/json"})
     connection.basic_auth(
-      ENV["GEOSERVER_USER"],
-      ENV["GEOSERVER_PASSWORD"]
+      ENV["GEOSERVER_ADMIN_USER"],
+      ENV["GEOSERVER_ADMIN_PASSWORD"]
     )
 
     url = "http://#{ENV["GEOSERVER_HOST"]}:#{ENV["GEOSERVER_PORT"]}/geoserver/rest/layers/#{name}.json"

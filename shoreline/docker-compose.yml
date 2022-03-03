@@ -37,7 +37,7 @@ services:
       - shoreline
 
   geoserver:
-    image: kartoza/geoserver:2.17.2
+    image: kartoza/geoserver:2.20.2
     volumes:
       - shoreline_geoserver_data:/data
     env_file:
@@ -58,8 +58,8 @@ services:
 
   solr:
     image: bitnami/solr:8.11.1
-    # ports:
-    #   - 8983:8983
+    ports:
+      - 8983:8983
     volumes:
       - ./solr/conf:/opt/shoreline
       - shoreline_solr_data:/var/solr/data

@@ -13,8 +13,8 @@ class GeoServerCheck < OkComputer::Check
   def check
     conn = Geoserver::Publish::Connection.new(
       "url" => "http://#{ENV.fetch("GEOSERVER_HOST", "")}:#{ENV.fetch("GEOSERVER_PORT", "")}/geoserver/rest",
-      "user" => ENV["GEOSERVER_USER"],
-      "password" => ENV["GEOSERVER_PASSWORD"]
+      "user" => ENV["GEOSERVER_ADMIN_USER"],
+      "password" => ENV["GEOSERVER_ADMIN_PASSWORD"]
     )
 
     if conn.get(path: "/")
