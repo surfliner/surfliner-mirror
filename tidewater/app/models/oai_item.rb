@@ -79,6 +79,6 @@ class OaiItem < ApplicationRecord
         end
       end
     end
-    result.doc.to_xml
+    result.to_xml(save_with: Nokogiri::XML::Node::SaveOptions::NO_DECLARATION)
   end
 end
