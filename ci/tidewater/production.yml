@@ -13,6 +13,7 @@
       - trunk
 
 tidewater:deploy:ucsb-production:
+  needs: ["tidewater:deploy:ucsb-stage"]
   extends:
     - .tidewater:deploy:production
   script:
@@ -40,6 +41,7 @@ tidewater:cleanup:ucsb-production:
     - delete_stateful_set_pvcs
 
 tidewater:deploy:ucsd-production:
+  needs: ["tidewater:deploy:ucsd-stage"]
   extends:
     - .tidewater:deploy:production
   script:
