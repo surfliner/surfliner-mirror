@@ -28,7 +28,7 @@ gem "rails", "6.1.4.6"
 gem "riiif", git: "https://github.com/curationexperts/riiif.git"
 gem "rsolr", "2.5.0"
 gem "sass-rails", "~> 6.0"
-gem "sidekiq", "< 6"
+gem "sidekiq", "< 7"
 gem "sitemap_generator", "6.2.1"
 gem "solr_utils", path: "../gems/solr_utils" unless ENV["CAP_SERVER"]
 gem "sprockets", "< 4"
