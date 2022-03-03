@@ -1,5 +1,24 @@
 # frozen_string_literal: true
 
+##
+# An event listener for publishing to RabbitMQ.
+#
+# Listeners have a `platform_name` which is used to generate the routing key for
+# the RabbitMQ message, in conjunction with the `RABBITMQ_TOPIC` environment
+# variable.
+#
+# Listeners should be subscribed to `Hyrax.publisher` in an initializer;
+# to add a new platform, simply subscribe a new listener with an appropriate
+# product name.
+#
+# @example subscribe a new listener
+#    Hyrax.publisher.subscribe(RabbitmqListener.new(platform_name: :my_platform))
+#
+# @note This is not actually Rabbitmq‐specific; it could conceivably be used
+#   with any discovery platform publisher regardless of what its message broker
+#   is. It probably needs a rename.
+#
+# @see https://dry-rb.org/gems/dry-events/
 class RabbitmqListener
   ##
   # @!attribute [rw] platform_name
@@ -7,11 +26,21 @@ class RabbitmqListener
   attr_accessor :platform_name
 
   ##
-  # @param [Symbol] platform_name
+  # @param platform_name [Symbol]
   def initialize(platform_name:)
     self.platform_name = platform_name
   end
 
+  ##
+  # Opens a platform publisher for this platform and publishes each member of
+  # the collection specified in the event.
+  #
+  # This is a Dry Events event listener. The provided event should have a
+  # :collection key which points to a Hyrax::PcdmCollection.
+  #
+  # @see https://dry-rb.org/gems/dry-events/
+  #
+  # @param event [{:collection => Hyrax::PcdmCollection}]
   def on_collection_publish(event)
     Hyrax.logger.debug("Pushing MQ events for collection publish with id #{event[:collection].id}")
 
@@ -26,7 +55,11 @@ class RabbitmqListener
 
   private
 
-  # Find objects in the collection
+  ##
+  # Finds the objects in the collection.
+  #
+  # @param collection [Hyrax::PcdmCollection]
+  # @return [Array<GenericObject>]
   def query_member_objects(collection:)
     Hyrax.query_service.find_inverse_references_by(resource: collection,
       property: "member_of_collection_ids",

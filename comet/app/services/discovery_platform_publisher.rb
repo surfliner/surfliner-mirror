@@ -27,7 +27,9 @@ class DiscoveryPlatformPublisher
   end
 
   ##
-  # opens a broker and yields a block to publish multiple resources
+  # Opens a broker and yields a block to publish multiple resources.
+  #
+  # The broker is closed following the execution of the block.
   def self.open_on(name, &block)
     platform = DiscoveryPlatform.new(name)
     broker = MessageBroker.for(topic: platform.message_route.metadata_topic)
@@ -38,12 +40,23 @@ class DiscoveryPlatformPublisher
   end
 
   ##
+  # The URL for the API endpoint corresponding to the given resource.
+  #
   # @return [String]
   def self.api_uri_for(resource, base_uri: Rails.application.config.metadata_api_uri_base)
     "#{base_uri}/#{resource.id}"
   end
 
   ##
+  # Publishes the resource if it has not already been published before.
+  #
+  # Determining whether a resource has been published is done by checking its
+  # ACLs. At present there is no way to republish a resource (resend a message
+  # via the message broker) which has already been published (already has the
+  # appropriate ACL). There is also not a means of unpublishing (unsetting the
+  # access controls or signalling an unpublish event on the message broker).
+  # Hopefully this functionality will be implemented in the future.
+  #
   # @param [Hyrax::Resource] resource  the resource to publish
   def publish(resource:)
     raise(UnpublishableObject) unless resource.persisted?

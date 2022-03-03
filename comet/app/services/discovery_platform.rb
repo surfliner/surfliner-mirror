@@ -52,6 +52,8 @@ class DiscoveryPlatform
   end
 
   ##
+  # The Hyrax ACL group associated with this discovery platform.
+  #
   # @return [Hyrax::Group]
   def agent
     Hyrax::Group.new("#{DISCOVERY_PLATFORM_GROUP_NAME_PREFIX}:#{name}")

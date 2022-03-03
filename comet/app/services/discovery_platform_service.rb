@@ -2,19 +2,18 @@
 
 class DiscoveryPlatformService
   class << self
-    # Build the label and URL for the discovery links from discover_groups. Assuring that:
-    # The label for a platform  can be retrieve by I18n localization with key in pattern `discovery_platform.#{platform_name)}.label`
-    # The URL base is configured with an environment key in pattern `DISCOVER_PLATFORM_#{platform_name.upcase}_URL_BASE`.
+    # Build the label and URL for the discovery links from discover_groups.
     #
-    # By default, the syntax of the URL for a discovery platform will be formed by the base url and the resource URL sent to RabbitMQ as source_iri:
-    #   `ENV['DISCOVER_PLATFORM_#{platform_name.upcase}_URL_BASE']#{source_iri}`,
-    # A tipical link path will be something like:
-    #   `/platform_name/item?source_iri=https://the.url/sent/to/rabbitmq`
+    # The label for a platform can be retrieved via I18n localization using the
+    # key `"discovery_platform.#{platform_name)}.label"`.
     #
-    # @example tidewater platform tracks records by source_iri with a path like
-    #   `http://localhost:3000/tidewater/item?source_iri=https://the.url/sent/to/rabbitmq`,
-    #   and the following environment variable need to setup for the base url:
-    #    `DISCOVER_PLATFORM_TIDEWATER_URL_BASE=http://localhost:3000/tidewater/item?source_iri=`
+    # The URL base is configured with an environment variable of the form
+    # `"DISCOVER_PLATFORM_#{platform_name.upcase}_URL_BASE"`.
+    #
+    # By default, the syntax of the URL for a discovery platform passes through
+    # the resource URL sent to RabbitMQ as a `source_iri` query parameter. A
+    # typical link will look something like
+    # `http://example.com/item?source_iri=https://the.url/sent/to/rabbitmq`.
     #
     # @param [#id] object - the object id to get the discovery platforms for
     # @return [Array<String, String>] - list of label and URL of the discovery platforms
