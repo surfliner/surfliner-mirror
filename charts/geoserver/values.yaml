@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: kartoza/geoserver
-  tag: 2.17.2
+  tag: 2.20.2
   pullPolicy: IfNotPresent
 
 nameOverride: ""
@@ -16,6 +16,22 @@ healthz: /geoserver
 # Data directory for Geoserver
 dataDirectory: /data
 
+# if true, don't rewrite passwords https://github.com/kartoza/docker-geoserver#upgrading-image-to-use-a-specific-version
+existingData: false
+
+port: 8080
+
+admin:
+  password: geoserver
+  username: admin
+
+# https://github.com/kartoza/docker-geoserver/blob/master/.env#L12
+# uid: 1000
+# gid: 10001
+
+persistence:
+  enabled: true
+
 # Override JVM values
 # see: https://github.com/kartoza/docker-geoserver/blob/master/.env#L16-L19
 # see: https://docs.geoserver.org/stable/en/user/production/container.html#optimize-your-jvm
@@ -23,10 +39,6 @@ dataDirectory: /data
 jvm:
   initialMemory: 2G
   maximumMemory: 4G
-
-service:
-  type: ClusterIP
-  port: 80
 
 ingress:
   enabled: true
@@ -39,12 +51,9 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-admin:
-  password: geoserver
-  username: admin
-
-persistence:
-  enabled: true
+service:
+  type: ClusterIP
+  port: 80
 
 priorityClassName: ''
 
