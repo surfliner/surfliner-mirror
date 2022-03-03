@@ -123,6 +123,43 @@ Checklist:
   of those commits together would improve their logical grouping. See [Squashing
 commits with rebase][rebase] for more information.
 
+### Deploying Multiple Applications in Merge Request
+
+When you make changes to a particular Surfliner product, such as `tidewater`, a
+review deployment will be created for `tidewater` when you create a [Merge
+Request][merge]. There may be times, however, when despite only making changes
+to a particular application such as `tidewater` you might also want other
+Surfliner products to be deployed so you can demo a new feature that implicates
+multiple products.
+
+In this example, let's say we also wanted a deployment of `comet` and
+`superskunk` so that we could demonstrate some new functionality that pulls
+metadata from `comet` using `superskunk`.
+
+To trigger deploying these additional products, you need to set
+[Lables][gitlab-labels] using the names of each product.
+
+This can be done in a couple different ways
+
+#### Using Gitlab UI
+
+The easiest for most will be using the Gitlab user interface for adding the
+labels to the [Merge Request][merge] when you are creating it.
+
+![Merge Request with Labels](./docs/images/create-mr-with-labels.png "Create Merge Request with
+Labels")
+
+#### Using Gitlab Push Options
+
+You can also create the merge request using Gitlab's git [push
+options][gitlab-push]. In our example we want to additionally deploy
+`superskunk` and `comet`, we can do the following to create a [Merge
+Request][merge] directly from the command link:
+
+```sh
+git push -o merge_request.create -o merge_request.label="comet" -o merge_request.label="superskunk" -o merge_request.label="tidewater"
+```
+
 ### Reviewing and Merging Changes
 
 We are using GitLab's [AutoDevOps CI/CD platform][devops] for running a variety
@@ -198,6 +235,8 @@ Shellcheck can be integrated into your editor, or ran directly on the command li
 [commit]: https://chris.beams.io/posts/git-commit/
 [devops]: https://docs.gitlab.com/ee/topics/autodevops/
 [gitflow]: https://nvie.com/posts/a-successful-git-branching-model/
+[gitlab-labels]: https://docs.gitlab.com/ee/user/project/labels.html
+[gitlab-push]: https://docs.gitlab.com/ee/user/project/push_options.html
 [issue-closing]: https://docs.gitlab.com/ee/user/project/issues/automatic_issue_closing.html
 [labels]: https://docs.gitlab.com/ee/user/project/labels.html#creating-labels
 [merge-overview]: https://docs.gitlab.com/ee/user/project/merge_requests/index.html

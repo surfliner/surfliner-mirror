@@ -1,16 +1,14 @@
 .tidewater:deploy:production:
   stage: production
   extends:
-    - .only-tidewater-changes
     - .helm3-deploy
   variables:
     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/tidewater_web
     DEPLOY_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-tidewater-prod
     KUBE_NAMESPACE: tidewater-prod
-  only:
-    refs:
-      - trunk
+  rules:
+    - !reference [.tidewater-default-branch-rules, rules]
 
 tidewater:deploy:ucsb-production:
   needs: ["tidewater:deploy:ucsb-stage"]

@@ -1,7 +1,8 @@
 tidewater:build:
   extends:
     - .kaniko-build
-    - .only-refs-default
-    - .only-tidewater-changes
+  rules:
+    - !reference [.tidewater-mr-rules, rules]
+    - !reference [.tidewater-default-branch-rules, rules]
   script:
     - build_image_for "tidewater" "tidewater_web"

@@ -1,7 +1,6 @@
 .comet:deploy:review:
   stage: review
   extends:
-    - .only-comet-changes
     - .helm3-deploy
   variables:
     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/comet_web
@@ -9,9 +8,8 @@
     HELM_RELEASE_NAME: surfliner-comet-$CI_MERGE_REQUEST_ID
     KUBE_NAMESPACE: comet-review
   needs: ["comet:build:app", "comet:build:worker"]
-  only:
-    refs:
-      - merge_requests
+  rules:
+    - !reference [.comet-mr-rules, rules]
 
 comet:deploy:ucsd-review:
   extends:

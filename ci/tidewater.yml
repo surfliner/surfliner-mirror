@@ -6,14 +6,24 @@ include:
   - local: ci/tidewater/staging.yml
   - local: ci/tidewater/production.yml
 
-.only-tidewater-changes:
-  only:
-    changes:
-      - .gitlab-ci.yml
-      - charts/snippets/surfliner/**/*
-      - charts/snippets/tidewater/**/*
-      - charts/tidewater/**/*
-      - ci/tidewater/**/*
-      - ci/tidewater.yml
-      - tidewater/**/*
-      - tidewater/Dockerfile
+.only-tidewater-changes: &only-tidewater-changes
+  changes:
+    - .gitlab-ci.yml
+    - charts/snippets/surfliner/**/*
+    - charts/snippets/tidewater/**/*
+    - charts/tidewater/**/*
+    - ci/tidewater/**/*
+    - ci/tidewater.yml
+    - tidewater/**/*
+    - tidewater/Dockerfile
+
+.tidewater-mr-rules:
+  rules:
+    - if: '$CI_MERGE_REQUEST_LABELS =~ /tidewater/'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      << : *only-tidewater-changes
+
+.tidewater-default-branch-rules:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      << : *only-tidewater-changes

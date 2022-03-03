@@ -33,9 +33,9 @@
     - cd /app/samvera/hyrax-webapp
     - bundle check || bundle
     - RABBITMQ_ENABLED=0 db-wait.sh "${SOLR_HOST}:${SOLR_PORT}" rake db:create db:migrate
-  extends:
-    - .only-refs-default
-    - .only-comet-changes
+  rules:
+    - !reference [.comet-mr-rules, rules]
+    - !reference [.comet-default-branch-rules, rules]
   tags:
     - kubernetes
 

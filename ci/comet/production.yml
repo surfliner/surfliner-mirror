@@ -2,15 +2,13 @@
   stage: production
   extends:
     - .helm3-deploy
-    - .only-comet-changes
   variables:
     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/comet_web
     DEPLOY_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-comet-prod
     KUBE_NAMESPACE: comet-prod
-  only:
-    refs:
-      - trunk
+  rules:
+    - !reference [.comet-default-branch-rules, rules]
 
 comet:deploy:production:ucsb:
   needs: ["comet:deploy:staging:ucsb"]

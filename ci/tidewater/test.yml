@@ -24,8 +24,8 @@ tidewater:test:
     - cd tidewater
     - bundle exec rake db:create db:migrate
     - bundle exec rspec
-  extends:
-    - .only-refs-default
-    - .only-tidewater-changes
+  rules:
+    - !reference [.tidewater-mr-rules, rules]
+    - !reference [.tidewater-default-branch-rules, rules]
   tags:
     - kubernetes

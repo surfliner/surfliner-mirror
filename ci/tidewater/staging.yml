@@ -1,16 +1,14 @@
 .tidewater:deploy:stage:
   stage: staging
   extends:
-    - .only-tidewater-changes
     - .helm3-deploy
   variables:
     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/tidewater_web
     DEPLOY_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-tidewater-stage
     KUBE_NAMESPACE: tidewater-staging
-  only:
-    refs:
-      - trunk
+  rules:
+    - !reference [.tidewater-default-branch-rules, rules]
 
 tidewater:deploy:ucsb-stage:
   extends:

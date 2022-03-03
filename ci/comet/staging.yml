@@ -2,15 +2,13 @@
   stage: staging
   extends:
     - .helm3-deploy
-    - .only-comet-changes
   variables:
     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/comet_web
     DEPLOY_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-comet-stage
     KUBE_NAMESPACE: comet-staging
-  only:
-    refs:
-      - trunk
+  rules:
+    - !reference [.comet-default-branch-rules, rules]
 
 comet:deploy:staging:ucsb:
   extends:

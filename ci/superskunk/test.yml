@@ -28,8 +28,8 @@ superskunk:test:
     - db-migrate-seed.sh
     - cd ..
     - bundle exec rspec
-  extends:
-    - .only-refs-default
-    - .only-superskunk-changes
+  rules:
+    - !reference [.superskunk-mr-rules, rules]
+    - !reference [.superskunk-default-branch-rules, rules]
   tags:
     - kubernetes

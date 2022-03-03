@@ -4,15 +4,25 @@ include:
   - local: ci/superskunk/test.yml
   - local: ci/superskunk/review.yml
 
-.only-superskunk-changes:
-  only:
-    changes:
-      - .gitlab-ci.yml
-      - charts/snippets/surfliner/**/*
-      - charts/snippets/superskunk/**/*
-      - charts/superskunk/**/*
-      - ci/superskunk/**/*
-      - ci/superskunk.yml
-      - gems/surfliner_schema/**/*
-      - superskunk/**/*
-      - superskunk/Dockerfile
+.only-superskunk-changes: &only-superskunk-changes
+  changes:
+    - .gitlab-ci.yml
+    - charts/snippets/surfliner/**/*
+    - charts/snippets/superskunk/**/*
+    - charts/superskunk/**/*
+    - ci/superskunk/**/*
+    - ci/superskunk.yml
+    - gems/surfliner_schema/**/*
+    - superskunk/**/*
+    - superskunk/Dockerfile
+
+.superskunk-mr-rules:
+  rules:
+    - if: '$CI_MERGE_REQUEST_LABELS =~ /superskunk/'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      << : *only-superskunk-changes
+
+.superskunk-default-branch-rules:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      << : *only-superskunk-changes

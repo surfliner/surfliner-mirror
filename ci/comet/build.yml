@@ -1,8 +1,9 @@
 .comet:build:
   extends:
     - .kaniko-build
-    - .only-refs-default
-    - .only-comet-changes
+  rules:
+    - !reference [.comet-mr-rules, rules]
+    - !reference [.comet-default-branch-rules, rules]
 
 comet:build:app:
   extends:

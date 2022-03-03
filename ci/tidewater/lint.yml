@@ -4,11 +4,11 @@ tidewater:lint:
   script:
     - cd tidewater
     - bundle exec standardrb
-  extends: .only-refs-default
   needs: ["tidewater:build"]
-  only:
-    changes:
-      - .gitlab-ci.yml
-      - .styles/**/*
-      - tidewater/**/*
-      - ci/tidewater/**/*
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" || $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      changes:
+        - .gitlab-ci.yml
+        - .styles/**/*
+        - tidewater/**/*
+        - ci/tidewater/**/*
