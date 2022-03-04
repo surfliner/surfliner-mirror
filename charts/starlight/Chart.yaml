@@ -9,7 +9,7 @@ dependencies:
     repository: https://charts.bitnami.com/bitnami
     condition: memcached.enabled
   - name: minio
-    version: 10.1.13
+    version: 10.1.15
     repository: https://charts.bitnami.com/bitnami
     condition: minio.enabled
   - name: postgresql
