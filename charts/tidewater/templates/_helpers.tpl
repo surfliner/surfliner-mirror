@@ -60,19 +60,6 @@ Alternatively, if postgresqlHostname is set, we use that which allows for an ext
 {{- end -}}
 {{- end -}}
 
-{{- define "tidewater.memcached.fullname" -}}
-{{- printf "%s-%s" .Release.Name "memcached" | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
-{{- define "tidewater.minio.fullname" -}}
-{{- printf "%s-%s" .Release.Name "minio" | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
-{{- define "tidewater.redis.fullname" -}}
-{{- printf "%s-%s" .Release.Name "redis" | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
-
 {{/*
 Supports using an existing secret instead of one built using the Chart
 */}}
@@ -81,6 +68,17 @@ Supports using an existing secret instead of one built using the Chart
 {{- .Values.existingSecret.name -}}
 {{- else -}}
 {{ include "tidewater.fullname" . }}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Supports using an existing consumer secret instead of one built using the Chart
+*/}}
+{{- define "tidewater.consumer.secretName" -}}
+{{- if .Values.consumer.existingSecret.enabled -}}
+{{- .Values.consumer.existingSecret.name -}}
+{{- else -}}
+{{ include "tidewater.fullname" . }}-consumer
 {{- end -}}
 {{- end -}}
 

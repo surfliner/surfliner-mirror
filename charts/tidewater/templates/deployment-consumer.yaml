@@ -33,7 +33,7 @@ spec:
             - configMapRef:
                 name: {{ include "tidewater.fullname" . }}-consumer
             - secretRef:
-                name: {{ template "tidewater.secretName" . }}-consumer
+                name: {{ template "tidewater.consumer.secretName" . }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.extraContainerConfiguration }}

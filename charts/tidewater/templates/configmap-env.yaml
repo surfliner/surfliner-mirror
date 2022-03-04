@@ -8,12 +8,7 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 data:
-  {{- if .Values.tidewater.allow_robots }}
-  ALLOW_ROBOTS: "true"
-  {{- end }}
-  DATABASE_COMMAND: {{ .Values.tidewater.rails.db_setup_command }}
-  DB_ADAPTER: {{ .Values.tidewater.rails.db_adapter }}
-  PORT: {{ .Values.tidewater.port | quote }}
+  DATABASE_COMMAND: {{ .Values.rails.db_setup_command }}
   OAI_ADMIN_EMAIL: {{ .Values.oai.adminEmail }}
   OAI_METADATA_PROFILE: {{ .Values.oai.metadataProfile }}
   OAI_NAMESPACE_IDENTIFIER: {{ include "tidewater.oai.namespaceIdentifier" . }}
@@ -23,8 +18,7 @@ data:
   POSTGRES_DB: {{ .Values.postgresql.postgresqlDatabase }}
   POSTGRES_HOST: {{ template "tidewater.postgresql.fullname" . }}
   POSTGRES_PORT: {{ .Values.postgresql.servicePort | quote }}
-  RAILS_ENV: {{ .Values.tidewater.rails.environment }}
-  RAILS_LOG_TO_STDOUT: {{ .Values.tidewater.rails.log_to_stdout | quote }}
-  RAILS_MAX_THREADS: {{ .Values.tidewater.rails.max_threads | quote }}
-  RAILS_QUEUE: {{ .Values.tidewater.rails.queue }}
-  RAILS_SERVE_STATIC_FILES: {{ .Values.tidewater.rails.serve_static_files | quote }}
+  RAILS_ENV: {{ .Values.rails.environment }}
+  RAILS_LOG_TO_STDOUT: {{ .Values.rails.log_to_stdout | quote }}
+  RAILS_MAX_THREADS: {{ .Values.rails.max_threads | quote }}
+  RAILS_SERVE_STATIC_FILES: {{ .Values.rails.serve_static_files | quote }}

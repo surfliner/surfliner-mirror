@@ -10,6 +10,23 @@ image:
   tag: stable
   pullPolicy: Always
 
+# Settings specific to running the OAI-PMH endpoint
+oai:
+  adminEmail: tidewater@example.com
+  metadataProfile: tag:surfliner.github.io,2022:api/oai_dc
+  repositoryName: tidewater
+  sampleId: 13900
+# namespaceIdentifier: item
+
+# Settings specific to the tidewater rails application
+rails:
+  db_setup_command: "db:migrate"
+  environment: production
+  log_to_stdout: true
+  max_threads: 5
+  serve_static_files: true
+
+# Settings specific to the optional tidewater consumer script
 consumer:
   replicaCount: 1
   logLevel: info
@@ -76,39 +93,6 @@ ingress:
   hosts: ['tidewater.local']
   tls: []
 
-tidewater:
-  # solrRunMode: cloud
-  # disableSolrConfigInit: false
-  allow_robots: false # allow crawling via robots.txt
-  # loadSolrConfigSet: true # use false to skip solr configset maintenance init container
-  application:
-    name: "Tidewater"
-    themes: "ucsb,surfliner,ucsd"
-  analytics: {}
-    # webPropertyId: # e.g UA-12345555-11
-  port: 3000
-  rails:
-    db_adapter: postgresql
-    db_setup_command: "db:migrate"
-    environment: production
-    log_to_stdout: true
-    max_threads: 5
-    queue: sidekiq
-    serve_static_files: true
-  sample_data: false
-
-# see: https://github.com/bitnami/charts/blob/master/bitnami/memcached/README.md
-# memcached:
-#   enabled: true
-#   architecture: high-availability
-#   # requires architecture: high-availability
-#   persistence:
-#     enabled: true
-#     size: 8Gi
-#   image:
-#     repository: bitnami/memcached
-#     tag: 1.6.13-debian-10-r1
-
 # see: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md
 postgresql:
   image:
@@ -124,14 +108,6 @@ postgresql:
   servicePort: 5432
   persistence:
     size: 10Gi
-
-oai:
-  adminEmail: tidewater@example.com
-  metadataProfile: tag:surfliner.github.io,2022:api/oai_dc
-  repositoryName: tidewater
-  sampleId: 13900
-  # namespaceIdentifier: item
-
 
 resources: {}
 

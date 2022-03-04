@@ -1,6 +1,6 @@
 # Tidewater
 
-Tidewater is a Helm chart that leverages the [something][something] container
+Tidewater is a Helm chart that leverages the [tidewater][tidewater] container
 image to support easy deployment via Helm and Kubernetes.
 
 
@@ -39,7 +39,9 @@ The command removes all the Kubernetes components associated with the chart and 
 
 ## Parameters
 
-The following tables lists the configurable parameters of the Starlight chart and their default values, in addition to chart-specific options.
+The following tables lists the configurable parameters of the Tidewater chart and their default values, in addition to chart-specific options.
+
+### General
 
 | Parameter | Description | Default | Environment Variable |
 | --------- | ----------- | ------- | -------------------- |
@@ -51,21 +53,55 @@ The following tables lists the configurable parameters of the Starlight chart an
 | `fullnameOverride` | String to fully override email.fullname template | `""` | N/A |
 | `existingSecret.name` | External Secret name in Deployment namespace | `tidewater` | N/A |
 | `existingSecret.enabled` | Whether to use an external Secret for a Deployment | `false` | N/A |
-| `tidewater.allow_robots` | Whether to allow robots to crawl the application via `robots.txt` | `false` | `ALLOW_ROBOTS` |
-| `tidewater.application.name` | Name used in some default Blacklight templates | `Tidewater` | N/A |
-| `tidewater.application.themes` | Themes made available to the application.  | `ucsb,surfliner,ucsd` | `SPOTLIGHT_THEMES` |
-| `tidewater.analytics.webPropertyId` | Your GA Property ID. Example: `UA-1234568-1`.  | `nil` | `GA_WEB_PROPERTY_ID` |
-| `tidewater.rails.db_adapter` | Which Rails database adapter to use | `postgresql` | `DB_ADAPTER` |
-| `tidewater.rails.db_setup_command` | Database rake task(s) to run when deployment starts | `db:migrate` | `DATABASE_COMMAND` |
-| `tidewater.rails.environment` | Rails environment for application.  | `production` | `RAILS_ENV` |
-| `tidewater.rails.log_to_stdout` | Should Rails log to standard output.  | `true` | `RAILS_LOG_TO_STDOUT` |
-| `tidewater.rails.max_threads` | Size of DB connection pool (used by Sidekiq also).  | `5` | `RAILS_MAX_THREADS ` |
-| `tidewater.rails.queue` | Which queue adapter for ActiveJob.  | `sidekiq` | `RAILS_QUEUE` |
-| `tidewater.rails.serve_static_files` | Whether Rails should not serve files in `public/`.  | `true` | `RAILS_SERVE_STATIC_FILES` |
+
+### OAI-PMH Configuration
+
+Configures the application to set some required configuration details for the
+[OAI-PMH][oai-spec] [Repository][oai-repository] that the application will serve.
+
+| Parameter | Description | Default | Environment Variable |
+| --------- | ----------- | ------- | -------------------- |
+| `oai.adminEmail` | E-mail address of an administrator of the repository | `tidewater@example.com` | `OAI_ADMIN_EMAIL` |
+| `oai.metadataProfile` | Metadata profile used for requesting data from `superskunk` API | `tag:surfliner.github.io,2022:api/oai_dc` | `OAI_METADATA_PROFILE` |
+| `oai.repositoryName` | A human readable name for the repository | `tidewater` | `OAI_REPOSITORY_NAME` |
+| `oai.sampleId` | `oai.namespaceIdentifier` will be automatically prepended to `oai.sample_id` | `13900` | `OAI_SAMPLE_ID` |
+| `oai.namespaceIdentifier` | Unique namespace for items | `ingress.hosts[0]` | `OAI_NAMESPACE_IDENTIFIER` |
+
+### Tidewater Rails Application
+
+| Parameter | Description | Default | Environment Variable |
+| --------- | ----------- | ------- | -------------------- |
+| `rails.db_setup_command` | Database command to run on startup | `db:migrate` | `DATABASE_COMMAND` |
+| `rails.environment` | Rails environment to use for deployment | `production` | `RAILS_ENV` |
+| `rails.log_to_stdout` | Whether to have application log to `stdout` | `true` | `RAILS_LOG_TO_STDOUT` |
+| `rails.max_threads` | Maximum threads to run for Puma server | `5` | `RAILS_MAX_THREADS` |
+| `rails.serve_static_files` | Should rails serve static files | `true` | `RAILS_SERVE_STATIC_FILES` |
+
+### Tidewater Consumer
+
+The Tidewater chart also contains an optional `Deployment` template for the
+tidewater consumer script. The purpose of this script is to listen and consume events published by Comet to a RabbitMQ cluster.
+
+In order the facilitate enabling and configuring the consumer `Deployment` the
+following parameters are available.
+
+| Parameter | Description | Default | Environment Variable |
+| --------- | ----------- | ------- | -------------------- |
+| `consumer.enabled` | Flag to enable consumer | `true` | N/A |
+| `consumer.replicaCount` | Number of consumer replicas | `1` | N/A |
+| `consumer.logLevel` | [Logging level][logger-severity] to use for script | `info` | `LOG_LEVEL` |
+| `consumer.existingSecret.name` | External Secret name in Deployment namespace for consumer | `tidewater-consumer` | N/A |
+| `consumer.existingSecret.enabled` | Whether to use an external Secret for consumer | `false` | N/A |
+| `consumer.rabbitmq.topic` | RabbitMQ topic to listen on | `surfliner.metadata` | `RABBITMQ_TOPIC` |
+| `consumer.rabbitmq.host` | RabbitMQ host to connect to | `rabbitmq` | `RABBITMQ_HOST` |
+| `consumer.rabbitmq.routing_key` | RabbitMQ routing_key for topic | `surfliner.metadata.tidewater` | `RABBITMQ_TIDEWATER_ROUTING_KEY` |
+| `consumer.rabbitmq.username` | RabbitMQ username for connection | `surfliner` | `RABBITMQ_USERNAME` |
+| `consumer.rabbitmq.password` | RabbitMQ password for connection | `surfliner` | `RABBITMQ_PASSWORD` |
+| `consumer.rabbitmq.port` | RabbitMQ port for connection | `surfliner` | `RABBITMQ_NODE_PORT_NUMBER` |
 
 ### Chart Dependency Parameters
 
-The following tables list a few key configurable parameters for Starlight chart dependencies and their default values. If you want to further customize the dependent chart, please consult the links below for the documentation of those charts.
+The following tables list a few key configurable parameters for Tidewater chart dependencies and their default values. If you want to further customize the dependent chart, please consult the links below for the documentation of those charts.
 
 #### PostgreSQL
 
@@ -81,4 +117,7 @@ See: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.m
 | `postgresql.persistence.size` | Database PVC size | `10Gi` | N/A |
 ```
 
+[logger-severity]:https://ruby-doc.org/stdlib-3.0.0/libdoc/logger/rdoc/Logger/Severity.html
+[oai-spec]:https://www.openarchives.org/OAI/openarchivesprotocol.html
+[oai-repository]:https://www.openarchives.org/OAI/openarchivesprotocol.html#Repository
 [tidewater]:https://gitlab.com/surfliner/surfliner/-/tree/trunk/tidewater
