@@ -1,5 +1,9 @@
 # Starlight
 
+Please see [CONTRIBUTING.md][contributing] for information about contributing to
+this project. By participating, you agree to abide by the
+[UC Principles of Community][principles].
+
 Starlight is based on Spotlight, a framework for the creation and presentation of
 exhibits.
 
@@ -137,3 +141,6 @@ docker-compose exec web bundle exec rake starlight:sample:seed_exhibit
 
 ## Email settings
 1. Set `ENV['FROM_EMAIL']` to whatever email address alert emails should come from.
+
+[contributing]: ../CONTRIBUTING.md
+[principles]: https://ucnet.universityofcalifornia.edu/working-at-uc/our-values/principles-of-community.html

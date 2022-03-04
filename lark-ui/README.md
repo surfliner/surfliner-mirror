@@ -1,5 +1,9 @@
 # Lark UI
 
+Please see [CONTRIBUTING.md][contributing] for information about contributing to
+this project. By participating, you agree to abide by the
+[UC Principles of Community][principles].
+
 Provides a web interface for [Lark][lark] using [Rails][rails].
 
 ## Developing locally
@@ -17,5 +21,7 @@ You can run `RSpec` tests with:
 docker-compose exec web sh -c 'bundle exec rspec'
 ```
 
+[contributing]: ../CONTRIBUTING.md
 [lark]: ../lark/README.md
+[principles]: https://ucnet.universityofcalifornia.edu/working-at-uc/our-values/principles-of-community.html
 [rails]: https://rubyonrails.org/

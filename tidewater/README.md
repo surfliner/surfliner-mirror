@@ -1,5 +1,9 @@
 # Tidewater
 
+Please see [CONTRIBUTING.md][contributing] for information about contributing to
+this project. By participating, you agree to abide by the
+[UC Principles of Community][principles].
+
 ## Development Environment
 
 You will need Docker and Docker Compose installed on your host/local system.
@@ -19,4 +23,6 @@ See the `docker-compose` [CLI reference][cli-reference] for more on commands.
 
 See [the Tidewater chapter of the Surfliner manual][tidewater-manual].
 
+[contributing]: ../CONTRIBUTING.md
+[principles]: https://ucnet.universityofcalifornia.edu/working-at-uc/our-values/principles-of-community.html
 [tidewater-manual]: ../docs/themanual/tidewater/

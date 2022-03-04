@@ -1,5 +1,9 @@
 # superskunk
 
+Please see [CONTRIBUTING.md][contributing] for information about contributing to
+this project. By participating, you agree to abide by the
+[UC Principles of Community][principles].
+
 superskunk is the metadata API for [`comet`](../comet).
 
 ## The API
@@ -24,3 +28,6 @@ Start it up on `localhost:3000` with:
 docker-compose build
 docker-compose up
 ```
+
+[contributing]: ../CONTRIBUTING.md
+[principles]: https://ucnet.universityofcalifornia.edu/working-at-uc/our-values/principles-of-community.html
