@@ -82,6 +82,8 @@ class OaiItem < ApplicationRecord
     result.to_xml(save_with: Nokogiri::XML::Node::SaveOptions::NO_DECLARATION)
   end
 
+  # Returns all the sets the OaiItem supports
+  # For more details, see https://github.com/code4lib/ruby-oai/blob/3cdc12d86c7d1dde00b47105a7dab6def3f6801d/lib/oai/provider/model/activerecord_wrapper.rb#L43-L45
   def self.sets
     OaiSet.all
   end
