@@ -35,6 +35,13 @@ To setup a development environment:
 1. `docker-compose up`  to run dev environment
 1. Access the application on [`http://localhost:3000`][localhost].
 
+Note:
+The first time you setup the development environment you may need to follow the sequence:
+1. `docker-compose up`
+1. `docker-compose build`
+
+The composite command `docker-compose up --build` can result in an error on initial build.
+
 For running tests:
 ```
 docker-compose exec web bundle exec rspec
