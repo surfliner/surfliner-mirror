@@ -31,6 +31,7 @@ tidewater:deploy:ucsd-review:
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
   script:
     - deploy ./charts/tidewater
+    - run_chart_tests
 
 tidewater:cleanup:ucsd-review:
   extends:
@@ -55,6 +56,7 @@ tidewater:deploy:ucsb-review:
     - .tidewater:deploy:review
   script:
     - deploy ./charts/tidewater
+    - run_chart_tests
   environment:
     name: ucsb.review.tidewater
     url: http://tidewater-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN

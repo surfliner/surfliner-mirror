@@ -34,11 +34,20 @@ spec:
                 name: {{ include "tidewater.fullname" . }}-consumer
             - secretRef:
                 name: {{ template "tidewater.consumer.secretName" . }}
+          volumeMounts:
+          - name: signature-key
+            mountPath: {{ .Values.keypair.mountPath }}
+            readOnly: true
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.extraContainerConfiguration }}
           {{- toYaml . | nindent 10 }}
           {{- end }}
+      volumes:
+      - name: signature-key
+        secret:
+          defaultMode: 0400
+          secretName: {{ include "tidewater.fullname" . }}-keypair
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

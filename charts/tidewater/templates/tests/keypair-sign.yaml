@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "tidewater.fullname" . }}-test-keypair-sign"
+  labels:
+{{ include "tidewater.labels" . | indent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  containers:
+    - name: test-keypair-sign
+      image: alpine:latest
+      env:
+      - name: KEY_PATH
+        value: {{ .Values.keypair.mountPath }}
+      command: ['bin/sh', '-c', '--']
+      args:
+        - >
+          apk add openssh-keygen &&
+          echo "a file to sign" > /tmp/file-to-sign &&
+          ssh-keygen -Y sign -f ${KEY_PATH}/ssh-privatekey -n file /tmp/file-to-sign &&
+          cat /tmp/file-to-sign.sig > /dev/null
+      volumeMounts:
+      - name: signature-key
+        mountPath: {{ .Values.keypair.mountPath }}
+        readOnly: true
+  volumes:
+  - name: signature-key
+    secret:
+      defaultMode: 0400
+      secretName: {{ include "tidewater.fullname" . }}-keypair
+  restartPolicy: Never

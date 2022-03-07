@@ -99,6 +99,46 @@ following parameters are available.
 | `consumer.rabbitmq.password` | RabbitMQ password for connection | `surfliner` | `RABBITMQ_PASSWORD` |
 | `consumer.rabbitmq.port` | RabbitMQ port for connection | `surfliner` | `RABBITMQ_NODE_PORT_NUMBER` |
 
+### Tidewater Signing Keypair
+
+In order to be able to successfully authenticate to the [Superskunk][superskunk]
+application, tidewater needs to sign requests using a keypair. There is a
+default keypair in a `Secret` template in the Helm chart, however for production
+purposes it is expected that an external `Secret` will be created and referenced
+by name as shown below.
+
+To create that secret, you might do the following:
+
+Create the key, let's assume we save it to `/tmp/tidwater`
+
+```sh
+$ ssh-keygen -t rsa -b 4096 -C "tidewater@ucsd.edu"
+$ ls /tmp
+tidewater tidewater.pub
+```
+
+Create your secret by coping the template and replacing the `base64` encoded
+values for the `ssh-publickey` and `ssh-privatekey`. Note it's critical that the
+`base64`-encoded value be on a single line (no newlines or carriage returns).
+
+Example:
+
+```sh
+cat /tmp/tidewater.pub | base64 -w0 | xclip
+```
+
+An alternative to hand-creating the `Secret` is to do it directly via the
+command line. You might do something like:
+
+```sh
+kubectl -n tidewater-staging create secret generic surfliner-tidewater-staging-keypair --from-file=ssh-privatekey=/tmp/tidewater --from-file=ssh-publickey=/tmp/tidewater.pub
+```
+| Parameter | Description | Default | Environment Variable |
+| --------- | ----------- | ------- | -------------------- |
+| `keypair.existingSecret.enabled` | Flag to use external Secret for keypair | `false` | N/A |
+| `keypair.existingSecret.name` | Name of external Secret for keypair | `false` | N/A |
+| `keypair.mountPath` | Directory on container to mount keypair | `/keys` | N/A |
+
 ### Chart Dependency Parameters
 
 The following tables list a few key configurable parameters for Tidewater chart dependencies and their default values. If you want to further customize the dependent chart, please consult the links below for the documentation of those charts.

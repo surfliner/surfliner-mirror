@@ -42,6 +42,13 @@ consumer:
     password: surfliner
     port: 5672
 
+# Settings specific to the keypair needed for signing requests
+keypair:
+  mountPath: "/keys"
+  existingSecret:
+    name: tidewater-keypair
+    enabled: false
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
