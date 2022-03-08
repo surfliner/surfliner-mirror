@@ -53,6 +53,22 @@ class RabbitmqListener
     Hyrax.logger.error(err)
   end
 
+  ##
+  # Handles object unpublish event.
+  # This is a Dry Events event listener. The provided event should have a
+  # :object key for the object that need to unpublish.
+  #
+  # @param event [{:object => GenericObject}]
+  def on_object_unpublish(event)
+    Hyrax.logger.debug("Pushing MQ events to unpublish object with id #{event[:object].id}")
+
+    DiscoveryPlatformPublisher.open_on(platform_name) do |publisher|
+      publisher.unpublish(resource: event[:object])
+    end
+  rescue => err
+    Hyrax.logger.error(err)
+  end
+
   private
 
   ##

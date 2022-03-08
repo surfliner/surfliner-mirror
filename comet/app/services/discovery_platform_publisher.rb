@@ -62,7 +62,20 @@ class DiscoveryPlatformPublisher
     raise(UnpublishableObject) unless resource.persisted?
     Hyrax.logger.debug { "Publishing object with id #{resource.id}" }
     append_access_control_to(resource: resource) &&
-      broker.publish(payload: payload_for(resource), routing_key: platform.message_route.metadata_routing_key)
+      broker.publish(payload: payload_for(resource, "published"), routing_key: platform.message_route.metadata_routing_key)
+  end
+
+  ##
+  # Unpublishes the object resource if it has been published, which is determined by
+  # whether a resource has been published by checking its ACLs, and remove it for unpublish.
+  #
+  # @param [Hyrax::Resource] resource  the resource to unpublish
+  def unpublish(resource:)
+    raise(UnpublishableObject) unless resource.persisted?
+
+    Hyrax.logger.debug { "Unpublishing object with id #{resource.id}" }
+    revoke_access_control_for(resource: resource) &&
+      broker.publish(payload: payload_for(resource, "unpublished"), routing_key: platform.message_route.metadata_routing_key)
   end
 
   class UnpublishableObject < ArgumentError; end
@@ -92,10 +105,28 @@ class DiscoveryPlatformPublisher
   end
 
   ##
+  # Remove the discover platform group form ACL
+  #
+  # Troublesome: Hyrax ACL.revoke(:discover).from(:group) does not seem to work as expected.
+  #
+  # @return [Boolean] true if the ACL has been removed and saved successfully; otherwise false.
+  def revoke_access_control_for(resource:)
+    acl = Hyrax::AccessControlList.new(resource: resource)
+
+    new_permissions = acl.permissions.to_a.delete_if { |permission|
+      permission.mode.to_sym == :discover &&
+        permission.agent == "#{Hyrax::Group.name_prefix}#{platform.agent.name}"
+    }
+
+    acl.permissions = new_permissions
+    acl.save
+  end
+
+  ##
   # @return [String] a JSON payload
-  def payload_for(resource)
+  def payload_for(resource, status)
     {resourceUrl: self.class.api_uri_for(resource),
-     status: "published",
+     status: status,
      time_stamp: resource.date_modified || resource.updated_at}.to_json
   end
 end

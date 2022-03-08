@@ -52,6 +52,13 @@ module Hyrax
     end
 
     def unpublish
+      raise(NotImplementedError) unless
+        Rails.application.config.feature_collection_publish
+
+      Hyrax.publisher.publish("object.unpublish",
+        object: @curation_concern,
+        user: current_user)
+
       redirect_to(main_app.hyrax_generic_object_path(id: params[:id]),
         notice: t("hyrax.base.show_actions.unpublish.success"))
     end
