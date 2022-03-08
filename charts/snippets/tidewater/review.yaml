@@ -12,6 +12,9 @@ tidewater:
   sitemaps:
     enabled: false
   sample_data: true
+superskunk:
+  mock_server:
+    url: "http://mmock:8083"
 
 ingress:
   enabled: true

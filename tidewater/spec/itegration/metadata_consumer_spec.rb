@@ -4,11 +4,10 @@ require "rails_helper"
 require "net/http"
 
 RSpec.describe "consume Comet JSON-LD metadata" do
-  let(:mocked_json_file) { Rails.root.join("spec", "fixtures", "mocked_metadata_response.json") }
-  let(:headers) { {"Accept" => "application/json", "HTTP_ACCEPT" => "application/ld+json;profile=tag:surfliner.github.io,2022:api/oai_dc"} }
+  let(:mocked_server) { ENV.fetch("SUPERSKUNK_MOCK_SERVER_URL", "http://mmock:8083") }
 
   let(:source_id) { "example:cs/0112017" }
-  let(:resource_uri) { "http://superskunk.example.com/#{source_id}" }
+  let(:resource_uri) { "#{mocked_server}/#{source_id}" }
   let(:title) { "Using Structural Metadata to Localize Experience of Digital Content\uFFFEen" }
   let(:creator) { "Dushay, Naomi" }
   let(:subject) { "Digital Libraries" }
@@ -24,10 +23,6 @@ RSpec.describe "consume Comet JSON-LD metadata" do
     let(:oai_item) { Converters::OaiItemConverter.from_json(resource_uri, mocked_data) }
 
     before do
-      stub_request(:get, "http://superskunk.example.com:80/#{source_id}")
-        .with(headers: headers)
-        .to_return(body: File.new(mocked_json_file), status: 200)
-
       Persisters::SuperskunkPersister.delete(source_iri: source_id)
     end
 
@@ -69,10 +64,6 @@ RSpec.describe "consume Comet JSON-LD metadata" do
     let(:oai_sets) { Converters::OaiSetConverter.from_json(mocked_data) }
 
     before do
-      stub_request(:get, "http://superskunk.example.com:80/#{source_id}")
-        .with(headers: headers)
-        .to_return(body: File.new(mocked_json_file), status: 200)
-
       oai_sets.each do |attr|
         Persisters::SuperskunkSetPersister.delete(source_iri: attr["source_iri"])
       end
@@ -101,10 +92,6 @@ RSpec.describe "consume Comet JSON-LD metadata" do
     let(:set_source_iri) { oai_set["source_iri"] }
 
     before do
-      stub_request(:get, "http://superskunk.example.com:80/#{source_id}")
-        .with(headers: headers)
-        .to_return(body: File.new(mocked_json_file), status: 200)
-
       Persisters::SuperskunkSetEntryPersister.delete_entries(set_source_iri: set_source_iri)
 
       Persisters::SuperskunkPersister.create_or_update(record: oai_item)
@@ -134,10 +121,6 @@ RSpec.describe "consume Comet JSON-LD metadata" do
     let(:set_source_iri) { oai_set["source_iri"] }
 
     before do
-      stub_request(:get, "http://superskunk.example.com:80/#{source_id}")
-        .with(headers: headers)
-        .to_return(body: File.new(mocked_json_file), status: 200)
-
       Persisters::SuperskunkSetEntryPersister.delete_entries(set_source_iri: set_source_iri)
 
       Persisters::SuperskunkPersister.create_or_update(record: oai_item)
@@ -170,10 +153,6 @@ RSpec.describe "consume Comet JSON-LD metadata" do
     let(:set_source_iri) { oai_set["source_iri"] }
 
     before do
-      stub_request(:get, "http://superskunk.example.com:80/#{source_id}")
-        .with(headers: headers)
-        .to_return(body: File.new(mocked_json_file), status: 200)
-
       Persisters::SuperskunkSetEntryPersister.delete_entries(set_source_iri: set_source_iri)
 
       Persisters::SuperskunkPersister.create_or_update(record: oai_item)

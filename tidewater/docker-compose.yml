@@ -52,6 +52,11 @@ services:
     ports:
       - "15672:15672"
 
+  mmock:
+    image: jordimartin/mmock
+    volumes:
+      - "./mmock/config:/config"
+
 volumes:
   tidewater_database:
   tidewater_tmp:
