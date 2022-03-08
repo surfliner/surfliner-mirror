@@ -1,6 +1,9 @@
 shoreline:
   sample_data: true
 geoserver:
+  admin:
+    username: admin
+    password: shoreline-stage
   jvm:
     initialMemory: 512M
     maximumMemory: 512M
