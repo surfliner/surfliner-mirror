@@ -50,9 +50,9 @@ class ResourcesController < ApplicationController
       "application/*",
       "*/*"
     ]).nil?
-      render_error text: "Unknown Accept Type", status: 406
+      render_error text: "Unknown Accept Type: #{request.headers["Accept"]}", status: 406
     else
-      @profile = "tag:surfliner.github.io,2022:api/oai_dc"
+      @profile = "tag:surfliner.gitlab.io,2022:api/oai_dc"
       render_oai_dc
     end
   end
@@ -64,7 +64,7 @@ class ResourcesController < ApplicationController
   def supported_renderers
     case @model.internal_resource.to_sym
     when :GenericObject
-      {"tag:surfliner.github.io,2022:api/oai_dc" => :render_oai_dc}
+      {"tag:surfliner.gitlab.io,2022:api/oai_dc" => :render_oai_dc}
     else
       {}
     end

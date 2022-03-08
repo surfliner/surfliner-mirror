@@ -8,7 +8,7 @@ RSpec.describe "GET /resources/{id}" do
   let(:id) { "abc" }
 
   describe "OAI/DC" do
-    let(:profile) { "tag:surfliner.github.io,2022:api/oai_dc" }
+    let(:profile) { "tag:surfliner.gitlab.io,2022:api/oai_dc" }
 
     it "gets OAI/DC" do
       get "/resources/#{id}", {}, {
@@ -46,7 +46,7 @@ RSpec.describe "GET /resources/{id}" do
   end
 
   describe "bad profile" do
-    let(:profile) { "tag:surfliner.github.io,2022:api/oai_dc" }
+    let(:profile) { "tag:surfliner.gitlab.io,2022:api/oai_dc" }
 
     it "ignores profiles with q=0" do
       get "/resources/#{id}", {}, {
