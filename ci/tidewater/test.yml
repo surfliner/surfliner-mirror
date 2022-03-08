@@ -21,6 +21,8 @@ tidewater:test:
   services:
     - name: bitnami/postgresql:12.10.0-debian-10-r75
       alias: postgres
+    - name: jordimartin/mmock:v3.0.3
+      alias: mmock
   script:
     - cd tidewater
     - bundle exec rake db:create db:migrate

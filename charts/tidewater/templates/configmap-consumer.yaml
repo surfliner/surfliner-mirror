@@ -18,5 +18,4 @@ data:
   RABBITMQ_TIDEWATER_ROUTING_KEY: {{ .Values.consumer.rabbitmq.routing_key }}
   RABBITMQ_TOPIC: {{ .Values.consumer.rabbitmq.topic }}
   RABBITMQ_USERNAME: {{ .Values.consumer.rabbitmq.username }}
-  SUPERSKUNK_MOCK_SERVER_URL: {{ .Values.superskunk.mock_server.url }}
 {{- end }}
