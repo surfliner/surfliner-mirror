@@ -178,7 +178,7 @@ GEM
       blacklight (~> 7.0)
       rails
       ruby-oembed
-    bootsnap (1.10.3)
+    bootsnap (1.11.1)
       msgpack (~> 1.2)
     bootstrap (4.6.1)
       autoprefixer-rails (>= 9.1.0)
@@ -376,7 +376,7 @@ GEM
     mini_mime (1.1.2)
     mini_portile2 (2.8.0)
     minitest (5.15.0)
-    msgpack (1.4.4)
+    msgpack (1.4.5)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
@@ -646,7 +646,7 @@ DEPENDENCIES
   blacklight-gallery (= 3.3.1)
   blacklight-oembed (= 1.1.0)
   blacklight-spotlight!
-  bootsnap (= 1.10.3)
+  bootsnap (= 1.11.1)
   bootstrap (= 4.6.1)
   byebug (= 11.1.3)
   capistrano (= 3.14.1)
