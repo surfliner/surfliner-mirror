@@ -25,6 +25,14 @@
   </div>
 
   <div class="col-sm-6 text-right">
+    <% if Rails.application.config.feature_collection_publish && can?(:publish, presenter.solr_document) %>
+      <%= link_to t('hyrax.base.show_actions.unpublish.button_label'),
+                  "/concern/generic_objects/#{presenter.id}/unpublish",
+                  title: t('hyrax.base.show_actions.unpublish.desc'),
+                  class: 'btn btn-danger',
+                  data: { confirm: t('hyrax.base.show_actions.unpublish.confirm'),
+                          method: :put } %>
+    <% end %>
     <% if presenter.editor? && !workflow_restriction?(presenter) %>
       <%= link_to t('.edit'), edit_polymorphic_path([main_app, presenter]), class: 'btn btn-default' %>
       <% if presenter.member_count > 1 %>

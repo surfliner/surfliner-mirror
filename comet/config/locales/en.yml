@@ -35,6 +35,14 @@ en:
     tidewater:
       label: "Tidewater"
   hyrax:
+    base:
+      show_actions:
+        unpublish:
+          button_label: "Unpublish"
+          confirm: "Are you sure you want to unpublish the object?"
+          desc: "Unpublish the object from discovery platforms."
+          failed: "Failed to unpublish the object."
+          success: "The unpublish object request is submitted successfully."
     collection:
       actions:
         publish:

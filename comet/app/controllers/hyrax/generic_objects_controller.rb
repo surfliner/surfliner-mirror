@@ -50,5 +50,10 @@ module Hyrax
 
       AdminSetSelectionPresenter.new(admin_sets: admin_sets)
     end
+
+    def unpublish
+      redirect_to(main_app.hyrax_generic_object_path(id: params[:id]),
+        notice: t("hyrax.base.show_actions.unpublish.success"))
+    end
   end
 end

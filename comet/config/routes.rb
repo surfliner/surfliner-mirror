@@ -36,6 +36,7 @@ Rails.application.routes.draw do
 
   put "/admin/workflows/batch_actions" => "hyrax/admin/workflows#batch_actions"
   post "/dashboard/collections/:id/publish" => "hyrax/dashboard/collections#publish"
+  put "/concern/generic_objects/:id/unpublish" => "hyrax/generic_objects#unpublish"
 
   resources :bookmarks do
     concerns :exportable
