@@ -53,7 +53,7 @@ services:
       - "15672:15672"
 
   mmock:
-    image: jordimartin/mmock
+    image: jordimartin/mmock:v3.0.3
     volumes:
       - "./mmock/config:/config"
 
