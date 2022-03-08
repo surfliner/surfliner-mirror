@@ -9,7 +9,7 @@ data:
   GEOSERVER_ADMIN_USER: {{ .Values.admin.username }}
   GEOSERVER_DATA_DIR: {{ .Values.dataDirectory }}
   GEOSERVER_PORT: {{ .Values.port | quote }}
-  GEOSERVERUSERS_GID: {{ default "10001" .Values.gid }}
-  GEOSERVERUSER_UID: {{ default "1000" .Values.uid }}
+  GEOSERVERUSERS_GID: {{ .Values.gid | default 10001 | quote}}
+  GEOSERVERUSER_UID: {{ .Values.uid | default 1000 | quote }}
   INITIAL_MEMORY: {{ .Values.jvm.initialMemory }}
   MAXIMUM_MEMORY: {{ .Values.jvm.maximumMemory }}
