@@ -3,6 +3,6 @@
 # For more details, see http://www.openarchives.org/OAI/openarchivesprotocol.html#Set
 class OaiSet < ApplicationRecord
   def spec
-    id
+    id.to_s
   end
 end

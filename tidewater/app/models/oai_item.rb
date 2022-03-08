@@ -87,4 +87,15 @@ class OaiItem < ApplicationRecord
   def self.sets
     OaiSet.all
   end
+
+  # Returns the sets that the OaiItem belongs
+  def sets
+    set_entry = OaiSetEntry.where(oai_item_id: id)
+    return [] unless set_entry
+    oai_set = []
+    set_entry.each do |entry|
+      oai_set << OaiSet.where(id: entry.oai_set_id).first
+    end
+    oai_set
+  end
 end
