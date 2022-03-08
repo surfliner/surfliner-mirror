@@ -27,6 +27,18 @@ superskunk:
     log_to_stdout: true
     serve_static_files: true
 
+# Details about consumer public keys that are available to superskunk
+# This might include keys from tidewater, shoreline, etc.
+consumers:
+  mountPath: "/keys"
+  publicKey: "ssh-publickey" # name of public key in Secret
+  defaultKeyEnabled: false # whether to use default tidewater chart Secret (for review apps or local testing)
+  # keys:
+  #   - name: tidewater
+  #     secretName: superskunk-default-tidewater-keypair
+  #   - name: shoreline
+  #     secretName: shoreline-keypair
+
 # Set to true if a Secret already exists in the namespace for the Deployment
 existingSecret:
   name: superskunk

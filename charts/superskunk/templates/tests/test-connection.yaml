@@ -10,6 +10,13 @@ spec:
   containers:
     - name: wget
       image: busybox
-      command: ['wget']
-      args: ['{{ include "superskunk.fullname" . }}:{{ .Values.service.port }}']
+      env:
+      - name: SUPERSKUNK_HOST
+        value: {{ include "superskunk.fullname" . }}:{{.Values.service.port}}
+      - name: SUPERSKUNK_ROUTE_TEST
+        value: resources/1
+      command: ['/bin/sh', '-c', '--']
+      args:
+        - >
+          wget --header='Accept: application/json' ${SUPERSKUNK_HOST}/${SUPERSKUNK_ROUTE_TEST}
   restartPolicy: Never

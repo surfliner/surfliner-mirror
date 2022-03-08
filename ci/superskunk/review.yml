@@ -26,10 +26,11 @@ superskunk:deploy:ucsd-review:
       --set ingress.hosts[0].host=superskunk-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
       --set ingress.hosts[0].paths[0].path=/
       --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
-      --set superskunk.db.standalone=true
+      --values charts/snippets/superskunk/review.yaml
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
   script:
     - deploy ./charts/superskunk
+    - run_chart_tests
 
 superskunk:cleanup:ucsd-review:
   extends:
@@ -55,6 +56,7 @@ superskunk:deploy:ucsb-review:
     - .superskunk:deploy:review
   script:
     - deploy ./charts/superskunk
+    - run_chart_tests
   environment:
     name: ucsb.review.superskunk
     url: http://superskunk-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
@@ -67,6 +69,7 @@ superskunk:deploy:ucsb-review:
       --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
       --set ingress.tls[0].hosts[0]=superskunk-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
       --set ingress.tls[0].secretName=skunk-review-$CI_MERGE_REQUEST_ID
+      --values charts/snippets/superskunk/review.yaml
       --values charts/snippets/superskunk/ucsb/review.yml
 
 superskunk:cleanup:ucsb-review:

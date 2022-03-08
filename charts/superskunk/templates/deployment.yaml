@@ -1,3 +1,5 @@
+{{- $mountPath := .Values.consumers.mountPath -}}
+{{- $publicKey := .Values.consumers.publicKey -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -58,6 +60,15 @@ spec:
                 name: {{ template "superskunk.secretName" . }}
           env:
             {{- toYaml .Values.extraEnvVars | nindent 12 }}
+          {{- if .Values.consumers.keys }}
+          volumeMounts:
+          {{- range .Values.consumers.keys }}
+          - name: {{ .name }}
+            mountPath: "{{ $mountPath }}/{{ .name }}/{{ $publicKey }}"
+            subPath: {{ $publicKey }}
+            readOnly: true
+          {{- end }}
+          {{- end }}
           ports:
             - name: http
               containerPort: {{ .Values.superskunk.port }}
@@ -72,6 +83,15 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      {{- if .Values.consumers.keys }}
+      volumes:
+      {{- range .Values.consumers.keys }}
+      - name: {{ .name }}
+        secret:
+          defaultMode: 0400
+          secretName: {{ .secretName }}
+      {{- end }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

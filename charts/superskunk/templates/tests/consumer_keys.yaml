@@ -1,0 +1,38 @@
+{{- $mountPath := .Values.consumers.mountPath -}}
+{{- $publicKey := .Values.consumers.publicKey -}}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "superskunk.fullname" . }}-test-consumer-keys"
+  labels:
+{{ include "superskunk.labels" . | indent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  containers:
+    - name: test-consumer-keys
+      image: alpine:latest
+      env:
+      - name: KEY_PATH
+        value: {{ $mountPath }}
+      command: ['/bin/sh', '-c', '--']
+      args:
+        - >
+          apk add openssh-keygen &&
+          find ${KEY_PATH} -type f -exec ssh-keygen -l -f {} \;
+      volumeMounts:
+      {{- range .Values.consumers.keys }}
+      - name: {{ .name }}
+        mountPath: "{{ $mountPath }}/{{ .name }}/{{ $publicKey }}"
+        subPath: {{ $publicKey }}
+        readOnly: true
+      {{- end }}
+  volumes:
+  {{- range .Values.consumers.keys }}
+  - name: {{ .name }}
+    secret:
+      defaultMode: 0400
+      secretName: {{ .secretName }}
+  {{- end }}
+  restartPolicy: Never

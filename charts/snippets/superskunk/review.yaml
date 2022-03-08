@@ -1,0 +1,9 @@
+superskunk:
+  db:
+    standalone: true
+
+consumers:
+  defaultKeyEnabled: true
+  keys:
+    - name: tidewater
+      secretName: superskunk-default-tidewater-keypair
