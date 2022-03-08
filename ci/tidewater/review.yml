@@ -9,7 +9,7 @@
     KUBE_NAMESPACE: tidewater-review
   needs: ["tidewater:build"]
   rules:
-    - !reference [.superskunk-mr-rules, rules]
+    - !reference [.tidewater-mr-rules, rules]
 
 tidewater:deploy:ucsd-review:
   extends:
