@@ -25,7 +25,7 @@
     ZK_HOST: zk
     ZK_PORT: 2181
   services:
-    - name: bitnami/postgresql:12.10.0-debian-10-r5
+    - name: bitnami/postgresql:12.10.0-debian-10-r26
       alias: postgres
     - name: selenium/standalone-chrome:98.0
       alias: chrome
