@@ -1,0 +1,18 @@
+include:
+  - local: ci/surfliner_schema/lint.yml
+  - local: ci/surfliner_schema/test.yml
+
+.only-surfliner-schema-changes: &only-surfliner-schema-changes
+  changes:
+    - .gitlab-ci.yml
+    - ci/surfliner_schema/**/*
+    - ci/surfliner_schema.yml
+    - gems/surfliner_schema/**/*
+
+.surfliner-schema-templates:
+  before_script:
+    - cd gems/surfliner_schema
+    - bundle install
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" || $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      << : *only-surfliner-schema-changes

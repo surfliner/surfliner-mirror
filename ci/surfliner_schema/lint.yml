@@ -1,0 +1,10 @@
+surfliner_schema:lint:
+  stage: lint
+  needs: []
+  image: ruby:3.1.1-alpine
+  before_script:
+    - !reference [.surfliner-schema-templates, before_script]
+  script:
+    - bundle exec standardrb
+  rules:
+    - !reference [.surfliner-schema-templates, rules]

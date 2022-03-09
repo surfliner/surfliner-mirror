@@ -16,6 +16,7 @@ include:
   - local: ci/shoreline.yml
   - local: ci/starlight.yml
   - local: ci/superskunk.yml
+  - local: ci/surfliner_schema.yml
   - local: ci/tidewater.yml
 
 # Build with Kaniko. When building on `trunk`, tag a new stable image.
