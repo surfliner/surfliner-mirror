@@ -16,12 +16,16 @@ module Importer
     dct_isPartOf_sm: "//xmlns:identificationInfo//xmlns:collectiveTitle/gco:CharacterString",
     dct_spatial_sm: "//xmlns:MD_Keywords[xmlns:type/xmlns:MD_KeywordTypeCode[@codeListValue='place']]/xmlns:keyword/gco:CharacterString"
   }.freeze
+  # rubocop:enable Layout/LineLength
 
   EXTRA_FIELDS = {
-    dct_references_s: "{\"http://www.opengis.net/def/serviceType/ogc/wfs\":\"http://#{ENV["GEOSERVER_HOST"]}:#{ENV["GEOSERVER_PORT"]}/geoserver/wfs\", \"http://www.opengis.net/def/serviceType/ogc/wms\":\"http://#{ENV["GEOSERVER_HOST"]}:#{ENV["GEOSERVER_PORT"]}/geoserver/wms\"}",
     geoblacklight_version: "1.0"
   }.freeze
-  # rubocop:enable Layout/LineLength
+
+  REFERENCES = {
+    wfs: "http://#{ENV["GEOSERVER_HOST"]}:#{ENV["GEOSERVER_PORT"]}/geoserver/wfs",
+    wms: "http://#{ENV["GEOSERVER_HOST"]}:#{ENV["GEOSERVER_PORT"]}/geoserver/wms"
+  }
 
   BOUNDS = {
     east: "//xmlns:eastBoundLongitude/gco:Decimal",
@@ -84,10 +88,20 @@ module Importer
   end
 
   def self.hash_from_csv(row:)
-    {
+    values = {
       dc_rights_s: row[:access] || "Public",
       dct_provenance_s: row[:provenance]
     }
+
+    if row[:references].present?
+      refs = transform_reference_uris(
+        REFERENCES.merge(parse_references(row[:references]))
+      )
+
+      values.merge({dct_references_s: refs.to_json})
+    else
+      values
+    end
   end
 
   def self.hash_from_geoserver(id:)
@@ -180,5 +194,24 @@ module Importer
     end
 
     "ENVELOPE(#{coords.join(",")})"
+  end
+
+  # @param [String] references
+  # @return [Hash]
+  def self.parse_references(references)
+    references.split("|").map do |ref|
+      keyvalue = ref.split("^")
+      {keyvalue[0].to_sym => keyvalue[1]}
+    end.reduce(&:merge)
+  end
+
+  # @param [Hash] references
+  # @return [Hash]
+  def self.transform_reference_uris(references)
+    references.map do |k, v|
+      {Geoblacklight::Constants::URI[k] => v}
+    rescue => e
+      warn "Transforming #{k} to URI failed, skipping: #{e.message}"
+    end.reduce(&:merge)
   end
 end

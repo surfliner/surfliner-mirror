@@ -55,8 +55,9 @@ RSpec.describe Importer do
        "dct_spatial_sm" => ["Petén (Guatemala : Department)",
          "Guatemala",
          "Reserva de la Biosfera Maya (Guatemala)"],
-       "dc_rights_s" => "Restricted",
-       "dct_references_s" => '{"http://www.opengis.net/def/serviceType/ogc/wfs":"http://localhost:8080/geoserver/wfs", "http://www.opengis.net/def/serviceType/ogc/wms":"http://localhost:8080/geoserver/wms"}',
+       "dc_rights_s" => "Public",
+       "dct_provenance_s" => "UC Santa Barbara",
+       "dct_references_s" => '{"http://www.opengis.net/def/serviceType/ogc/wfs":"http://localhost:8080/geoserver/wfs","http://www.opengis.net/def/serviceType/ogc/wms":"http://localhost:8080/geoserver/wms","http://schema.org/downloadUrl":"https://dataverse.ucla.edu/api/v1/access/datafile/:persistentId?persistentId=doi:10.25346/S6/B5LBFD/O7ULJ5"}',
        "geoblacklight_version" => "1.0",
        "solr_bboxtype__minX" => -91.453487,
        "solr_bboxtype__minY" => 16.649914,
@@ -70,7 +71,7 @@ RSpec.describe Importer do
       beep = solr.get "select",
         params: {q: "layer_slug_s:gford-20140000-010004_rivers"}
 
-      expect(beep["response"]["docs"].first).to include expected_blob
+      expect(beep["response"]["docs"].first).to include(expected_blob)
     end
   end
 end
