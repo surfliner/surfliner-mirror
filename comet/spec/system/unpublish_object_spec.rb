@@ -30,8 +30,32 @@ RSpec.describe "Unpublish Object", type: :system, js: true do
     Hyrax.index_adapter.save(resource: object)
   }
 
-  context "unpublish object" do
+  it "has no unpublish button" do
+    visit main_app.hyrax_generic_object_path(id: object.id)
+
+    expect(page).not_to have_link("Unpublish")
+  end
+
+  context "with rabbitmq", :rabbitmq do
     let(:queue_message) { [] }
+    let(:connection) { Rails.application.config.rabbitmq_connection }
+    let(:broker) { MessageBroker.new(connection: connection, topic: topic) }
+    let(:tidewater_conf) { DiscoveryPlatform.new(:tidewater).message_route }
+    let(:topic) { tidewater_conf.metadata_topic }
+    let(:tidewater_routing_key) { tidewater_conf.metadata_routing_key }
+    let(:url_base) { ENV.fetch("DISCOVER_PLATFORM_TIDEWATER_URL_BASE") { Rails.application.config.metadata_api_uri_base } }
+
+    before {
+      broker.channel.queue(topic).bind(broker.exchange, routing_key: tidewater_routing_key).subscribe do |delivery_info, metadata, payload|
+        queue_message << payload
+      end
+
+      Hyrax.publisher.publish("collection.publish",
+        collection: collection,
+        user: user)
+    }
+
+    after { broker.close }
 
     it "has the unpublish button" do
       visit main_app.hyrax_generic_object_path(id: object.id)
@@ -42,16 +66,27 @@ RSpec.describe "Unpublish Object", type: :system, js: true do
     it "can unpublish an object" do
       visit main_app.hyrax_generic_object_path(id: object.id)
 
+      expect(page).to have_link("Tidewater")
+
       click_on "Unpublish"
 
       alert = page.driver.browser.switch_to.alert
 
       expect(alert.text).to have_content("Are you sure you want to unpublish the object?")
-      alert.dismiss
+      alert.accept
 
-      publish_wait(queue_message, 0) do
-        expect(page).to have_content("The unpublish object request is submitted successfully.")
-      end
+      expect(page).to have_content("The unpublish object request is submitted successfully.")
+
+      publish_wait(queue_message, 1) {}
+
+      expect(queue_message.length).to eq 2
+
+      expect(JSON.parse(queue_message.pop).symbolize_keys).to include(status: "unpublished")
+      expect(JSON.parse(queue_message.pop)["resourceUrl"]).to include "/#{object.id}"
+
+      visit main_app.hyrax_generic_object_path(id: object.id)
+      expect(page).not_to have_link("Unpublish")
+      expect(page).not_to have_link("Tidewater")
     end
   end
 end
