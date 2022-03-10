@@ -26,6 +26,7 @@ superskunk:deploy:ucsd-review:
       --set ingress.hosts[0].host=superskunk-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
       --set ingress.hosts[0].paths[0].path=/
       --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
+      --set consumers.keys[0].secretName=$HELM_RELEASE_NAME-tidewater-keypair
       --values charts/snippets/superskunk/review.yaml
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
   script:
@@ -69,6 +70,7 @@ superskunk:deploy:ucsb-review:
       --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
       --set ingress.tls[0].hosts[0]=superskunk-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
       --set ingress.tls[0].secretName=skunk-review-$CI_MERGE_REQUEST_ID
+      --set consumers.keys[0].secretName=$HELM_RELEASE_NAME-tidewater-keypair
       --values charts/snippets/superskunk/review.yaml
       --values charts/snippets/superskunk/ucsb/review.yml
 
