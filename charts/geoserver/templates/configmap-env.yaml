@@ -5,7 +5,9 @@ metadata:
   labels:
 {{ include "geoserver.labels" . | indent 4 }}
 data:
-  EXISTING_DATA_DIR: {{ .Values.existingData | quote }}
+  {{- if .Values.existingData }}
+  EXISTING_DATA_DIR: "true"
+  {{- end }}
   GEOSERVER_ADMIN_USER: {{ .Values.admin.username }}
   GEOSERVER_DATA_DIR: {{ .Values.dataDirectory }}
   GEOSERVER_PORT: {{ .Values.port | quote }}
