@@ -12,6 +12,14 @@ externalPostgresql:
   host: comet-staging-postgresql.postgresql-staging
   username: comet
 
+# temporary fix for https://github.com/bitnami/charts/issues/6685
+redis:
+  master:
+    livenessProbe:
+      initialDelaySeconds: 60
+    readinessProbe:
+      initialDelaySeconds: 60
+
 brandingVolume:
   storageClass: efs-sc
 
