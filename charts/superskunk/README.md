@@ -58,6 +58,7 @@ The following tables lists the configurable parameters of the Superskunk chart a
 
 | Parameter | Description | Default | Environment Variable |
 | --------- | ----------- | ------- | -------------------- |
+| `consumers.keysFileMountPath` | Path to mount file container app/key yaml file for application| `/config` | Used to populate `CONSUMER_KEYS_FILE` |
 | `consumers.mountPath` | Path to mount consumer public keys | `/keys` | N/A |
 | `consumers.publicKey` | Name of publicKey in the provided `Secrets` | `ssh-publickey` | N/A |
 | `consumers.defaultKeyEnabled` | Whether to use the default provided key for `tidewater`. Used for review apps. | `false` | N/A |

@@ -1,0 +1,18 @@
+{{- if .Values.consumers.keys }}
+{{- $mountPath := .Values.consumers.mountPath -}}
+{{- $publicKey := .Values.consumers.publicKey -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "superskunk.fullname" . }}-consumer-keys
+  labels:
+    app.kubernetes.io/name: {{ include "superskunk.name" . }}
+    helm.sh/chart: {{ include "superskunk.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+data:
+  consumer_keys.yaml: |
+    {{- range .Values.consumers.keys }}
+    {{ .name }}: "{{ $mountPath }}/{{ .name }}/{{ $publicKey }}"
+    {{- end }}
+{{- end }}

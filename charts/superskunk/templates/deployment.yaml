@@ -68,6 +68,8 @@ spec:
             subPath: {{ $publicKey }}
             readOnly: true
           {{- end }}
+          - name: consumer-keys
+            mountPath: {{ .Values.consumers.keysFileMountPath }}
           {{- end }}
           ports:
             - name: http
@@ -91,6 +93,9 @@ spec:
           defaultMode: 0400
           secretName: {{ .secretName }}
       {{- end }}
+      - name: consumer-keys
+        configMap:
+          name: {{ include "superskunk.fullname" . }}-consumer-keys
       {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:

@@ -30,6 +30,7 @@ superskunk:
 # Details about consumer public keys that are available to superskunk
 # This might include keys from tidewater, shoreline, etc.
 consumers:
+  keysFileMountPath: "/config"
   mountPath: "/keys"
   publicKey: "ssh-publickey" # name of public key in Secret
   defaultKeyEnabled: false # whether to use default tidewater chart Secret (for review apps or local testing)
