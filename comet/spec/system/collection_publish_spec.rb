@@ -38,9 +38,10 @@ RSpec.describe "Publish Collection", type: :system, js: true do
     let(:topic) { tidewater_conf.metadata_topic }
     let(:tidewater_routing_key) { tidewater_conf.metadata_routing_key }
     let(:url_base) { ENV.fetch("DISCOVER_PLATFORM_TIDEWATER_URL_BASE") { Rails.application.config.metadata_api_uri_base } }
+    let(:object_url) { DiscoveryPlatformPublisher.api_uri_for(object) }
 
     before {
-      broker.channel.queue("tidewater_queue").bind(broker.exchange, routing_key: tidewater_routing_key).subscribe do |delivery_info, metadata, payload|
+      broker.channel.queue(topic).bind(broker.exchange, routing_key: tidewater_routing_key).subscribe do |delivery_info, metadata, payload|
         queue_message << payload
       end
     }
@@ -55,13 +56,13 @@ RSpec.describe "Publish Collection", type: :system, js: true do
       alert = page.driver.browser.switch_to.alert
 
       expect(alert.text).to have_content("Are you sure you want to publish the collection?")
-      alert.dismiss
+      alert.accept
 
-      publish_wait(queue_message, 0) do
-        expect(queue_message.length).to eq 1
-        expect(JSON.parse(queue_message.first).to_h).to include("status" => "published")
-        expect(JSON.parse(queue_message.first).to_h["resourceUrl"]).to include "/#{object.id}"
-      end
+      publish_wait(queue_message, 0) {}
+
+      expect(queue_message.length).to eq 1
+      expect(JSON.parse(queue_message.first).to_h).to include("status" => "published")
+      expect(JSON.parse(queue_message.first).to_h["resourceUrl"]).to include "/#{object.id}"
     end
 
     it "adds an access link to the object show pages" do
@@ -70,13 +71,13 @@ RSpec.describe "Publish Collection", type: :system, js: true do
       click_on "Publish collection"
 
       alert = page.driver.browser.switch_to.alert
-      alert.dismiss
+      alert.accept
 
-      publish_wait(queue_message, 0) do
-        visit "/concern/generic_objects/#{object.id}?locale=en"
+      publish_wait(queue_message, 0) {}
 
-        expect(page).to have_link("Tidewater", href: "#{url_base}/#{object}")
-      end
+      visit "/concern/generic_objects/#{object.id}?locale=en"
+
+      expect(page).to have_link("Tidewater", href: "#{url_base}#{ERB::Util.url_encode(object_url)}")
     end
 
     context "with feature collection publish enabled" do
