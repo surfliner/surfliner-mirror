@@ -155,7 +155,6 @@ See: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.m
 | `postgresql.postgresqlDatabase` | Database name for application | `tidewater_db` | `POSTGRES_DB` |
 | `postgresql.postgresqlPostgresPassword` | Admin `postgres` user's password | `tidewater_admin` | `POSTGRES_ADMIN_PASSWORD` |
 | `postgresql.persistence.size` | Database PVC size | `10Gi` | N/A |
-```
 
 [logger-severity]:https://ruby-doc.org/stdlib-3.0.0/libdoc/logger/rdoc/Logger/Severity.html
 [oai-spec]:https://www.openarchives.org/OAI/openarchivesprotocol.html
