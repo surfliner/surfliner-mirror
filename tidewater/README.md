@@ -23,6 +23,9 @@ See the `docker-compose` [CLI reference][cli-reference] for more on commands.
 
 See [the Tidewater chapter of the Surfliner manual][tidewater-manual].
 
+Tidewater Consumer script consumes Comet data. It is intended to be independent from the Rails application.  It could be extracted into it's own project if needed. See [Tidewater Consumer Script][helm-chart-tidewater] for more information regarding configuration and how it is deployed. 
+
 [contributing]: ../CONTRIBUTING.md
 [principles]: https://ucnet.universityofcalifornia.edu/working-at-uc/our-values/principles-of-community.html
 [tidewater-manual]: ../docs/themanual/tidewater/
+[helm-chart-tidewater]: ../charts/tidewater#tidewater-consumer
