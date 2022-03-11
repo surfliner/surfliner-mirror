@@ -25,20 +25,10 @@ shoreline:deploy:prod:ucsb:
     HELM_RELEASE_NAME: surfliner-shoreline-prod
     HELM_UPGRADE_EXTRA_ARGS: >
       --set ingress.hosts={geodata.library.ucsb.edu}
-      --set persistence.downloads.class=gp2
-      --set solr.enabled=false
-      --set solr.solrHostname=dld-search-solr.solr-prod.svc.cluster.local
-      --set solr.zookeeperHostname=dld-search-zookeeper.solr-prod.svc.cluster.local
-      --set solr.collection=shoreline-geodata
-      --set shoreline.email.contact_email=geospatial@library.ucsb.edu
-      --set shoreline.theme=ucsb
-      --set shoreline.email.delivery_method=smtp
       --set shoreline.email.contact_email=$UCSB_SHORELINE_EMAIL_ADDRESS
-      --set shoreline.email.smtp_settings.address=smtp.gmail.com
-      --set shoreline.email.smtp_settings.authentication=plain
       --set shoreline.email.smtp_settings.password=$UCSB_SHORELINE_EMAIL_PASSWORD
-      --set shoreline.email.smtp_settings.port=587
       --set shoreline.email.smtp_settings.user_name=$UCSB_SHORELINE_EMAIL_ADDRESS
+      --values charts/snippets/shoreline/production/ucsb.yaml
 
 shoreline:deploy:prod:ucsd:
   needs: ["shoreline:deploy:ucsd-stage"]

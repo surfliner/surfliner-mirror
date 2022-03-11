@@ -1,0 +1,31 @@
+existingSecret:
+  enabled: true
+  name: shoreline-stage-external
+
+shoreline:
+  theme: ucsb
+  provenance: UC Santa Barbara
+  email:
+    delivery_method: smtp
+    smtp_settings:
+      address: smtp.gmail.com
+      port: 587
+      authentication: plain
+
+solr:
+  enabled: false
+  collection: shoreline-geodata
+  solrHostname: dld-search-solr.solr-prod.svc.cluster.local
+  auth:
+    enabled: true
+    adminUsername: admin
+  zookeeperHostname: dld-search-zookeeper.solr-prod.svc.cluster.local
+
+geoserver:
+  existingData: true
+  gid: 0
+  uid: 0
+
+persistence:
+  downloads:
+    class: gp2
