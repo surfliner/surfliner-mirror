@@ -112,26 +112,33 @@ To create that secret, you might do the following:
 Create the key, let's assume we save it to `/tmp/tidwater`
 
 ```sh
-$ ssh-keygen -t rsa -b 4096 -C "tidewater@ucsd.edu"
+$ ssh-keygen -t rsa -b 4096 -C "tidewater@ucsd.edu" -f /tmp/tidewater
 $ ls /tmp
 tidewater tidewater.pub
 ```
 
+Create a `pem` (or `PKCS8`) public key:
+
+```sh
+$ ssh-keygen -f /tmp/tidewater -e -m pem > /tmp/tidewater-pem.pub
+```
+
 Create your secret by coping the template and replacing the `base64` encoded
-values for the `ssh-publickey` and `ssh-privatekey`. Note it's critical that the
+values for the `ssh-publickey` and `ssh-privatekey`. For the `ssh-publickey` it
+is important to use the `pem` or `PKCS8` public key. Note it's critical that the
 `base64`-encoded value be on a single line (no newlines or carriage returns).
 
 Example:
 
 ```sh
-cat /tmp/tidewater.pub | base64 -w0 | xclip
+cat /tmp/tidewater-pem.pub | base64 -w0 | xclip
 ```
 
 An alternative to hand-creating the `Secret` is to do it directly via the
 command line. You might do something like:
 
 ```sh
-kubectl -n tidewater-staging create secret generic surfliner-tidewater-staging-keypair --from-file=ssh-privatekey=/tmp/tidewater --from-file=ssh-publickey=/tmp/tidewater.pub
+kubectl -n tidewater-staging create secret generic surfliner-tidewater-staging-keypair --from-file=ssh-privatekey=/tmp/tidewater --from-file=ssh-publickey=/tmp/tidewater-pem.pub
 ```
 | Parameter | Description | Default | Environment Variable |
 | --------- | ----------- | ------- | -------------------- |
