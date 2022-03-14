@@ -1,6 +1,6 @@
-existingSecret:
-  enabled: true
-  name: shoreline-stage-external
+# existingSecret:
+#   enabled: true
+#   name: shoreline-prod-external
 
 shoreline:
   theme: ucsb
