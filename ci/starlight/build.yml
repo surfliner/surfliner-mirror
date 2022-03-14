@@ -1,4 +1,4 @@
-starlight-build:
+starlight:build:
   extends:
     - .kaniko-build
     - .only-refs-default

@@ -1,5 +1,6 @@
 .starlight:test:
   image: $CI_REGISTRY_IMAGE/starlight_web:$CI_COMMIT_SHA
+  needs: ["starlight:build"]
   stage: test
   extends:
     - .only-refs-default
