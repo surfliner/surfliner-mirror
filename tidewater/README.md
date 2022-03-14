@@ -23,7 +23,11 @@ See the `docker-compose` [CLI reference][cli-reference] for more on commands.
 
 See [the Tidewater chapter of the Surfliner manual][tidewater-manual].
 
-Tidewater Consumer script consumes Comet data. It is intended to be independent from the Rails application.  It could be extracted into it's own project if needed. See [Tidewater Consumer Script][helm-chart-tidewater] for more information regarding configuration and how it is deployed. 
+### Tidewater Consumer script
+
+Tidewater Consumer script consumes Comet data like OaiSet, OaiItem, and OaiEntry to the consumer. The script listens on a RabbitmMQ topic and routing key for messages from Comet.  It uses the payload resourceUrl to get the data. ResourceUrl is expected to be a URL to superskunk API for accessing the data itself. It is intended to be independent from the Rails application.  It could be extracted into it's own project if needed.
+
+See [Tidewater Consumer script][helm-chart-tidewater] for more information regarding configuration and how it is deployed. 
 
 [contributing]: ../CONTRIBUTING.md
 [principles]: https://ucnet.universityofcalifornia.edu/working-at-uc/our-values/principles-of-community.html
