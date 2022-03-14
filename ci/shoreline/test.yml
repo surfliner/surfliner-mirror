@@ -1,6 +1,7 @@
 .shoreline:test:
   stage: test
   image: $CI_REGISTRY_IMAGE/shoreline:$CI_COMMIT_SHA
+  needs: ["shoreline:ruby-build"]
   variables:
     DATABASE_COMMAND: "db:schema:load"
     DELIVERY_METHOD: "test"
