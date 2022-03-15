@@ -39,9 +39,9 @@ include:
     fi
 
     if [ "$target" ]; then
-      /kaniko/executor --context "$CI_PROJECT_DIR" --cache=true --target "$target" --dockerfile "$CI_PROJECT_DIR"/"$project"/Dockerfile $destination
+      /kaniko/executor --context "$CI_PROJECT_DIR" --cache=true --push-retry 3 --target "$target" --dockerfile "$CI_PROJECT_DIR"/"$project"/Dockerfile $destination
     else
-      /kaniko/executor --context "$CI_PROJECT_DIR" --cache=true --dockerfile "$CI_PROJECT_DIR"/"$project"/Dockerfile $destination
+      /kaniko/executor --context "$CI_PROJECT_DIR" --cache=true --push-retry 3 --dockerfile "$CI_PROJECT_DIR"/"$project"/Dockerfile $destination
     fi
   }
 
