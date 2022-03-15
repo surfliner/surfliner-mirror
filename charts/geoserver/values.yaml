@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: kartoza/geoserver
-  tag: 2.20.2
+  tag: 2.20.3
   pullPolicy: IfNotPresent
 
 nameOverride: ""
