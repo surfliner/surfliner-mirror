@@ -77,7 +77,7 @@ comet:test:system:
       alias: redis
     - name: bitnami/minio:2021-debian-10
       alias: minio
-    - name: bitnami/rabbitmq:3.9.13-debian-10-r50
+    - name: bitnami/rabbitmq:3.9.13-debian-10-r54
       alias: rabbitmq
     - name: selenium/standalone-chrome:98.0
       alias: chrome
