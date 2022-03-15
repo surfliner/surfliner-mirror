@@ -18,7 +18,7 @@ tidewater:test:
     POSTGRES_USER: postgres
     RAILS_ENV: test
   services:
-    - name: bitnami/postgresql:12.10.0-debian-10-r26
+    - name: bitnami/postgresql:12.10.0-debian-10-r32
       alias: postgres
   script:
     - cd tidewater
