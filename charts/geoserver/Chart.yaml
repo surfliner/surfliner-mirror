@@ -2,4 +2,4 @@ apiVersion: v1
 appVersion: "2.20"
 description: Helm charts for GeoServer. http://geoserver.org/
 name: geoserver
-version: 1.4.0
+version: 1.5.0

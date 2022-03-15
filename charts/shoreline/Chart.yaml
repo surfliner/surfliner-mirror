@@ -9,7 +9,7 @@ dependencies:
     repository: https://charts.bitnami.com/bitnami
     condition: postgresql.enabled
   - name: geoserver
-    version: 1.4.0
+    version: 1.5.0
     repository: file://../geoserver
     condition: geoserver.enabled
   - name: solr
