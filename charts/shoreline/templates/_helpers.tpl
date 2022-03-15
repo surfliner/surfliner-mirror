@@ -59,9 +59,9 @@ Supports using an existing secret instead of one built using the Chart
 {{- printf "%s-%s" .Release.Name "email" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "shoreline.geoserver.fullname" -}}
+{{- define "shoreline.geoserver.hostname" -}}
 {{- if .Values.geoserver.enabled -}}
-{{- printf "%s-%s" .Release.Name "geoserver" | trunc 63 | trimSuffix "-" -}}
+{{- .Values.geoserver.ingress.hosts | first -}}
 {{- else -}}
 {{- .Values.geoserver.geoserverHostname -}}
 {{- end -}}

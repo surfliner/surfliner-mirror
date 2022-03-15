@@ -12,7 +12,7 @@ data:
   DELIVERY_METHOD: {{ .Values.shoreline.email.delivery_method }}
   GEOBLACKLIGHT_DOWNLOAD_PATH: {{ .Values.shoreline.geoblacklightDownloadPath }}
   GEOSERVER_ADMIN_USER: {{ .Values.geoserver.admin.username }}
-  GEOSERVER_HOST: {{ .Values.geoserver.ingress.hosts | first }}
+  GEOSERVER_HOST: {{ template "shoreline.geoserver.hostname" . }}
   GEOSERVER_PORT: {{ .Values.geoserver.service.port | default "80" | quote }}
   POSTGRES_DB: {{ .Values.postgresql.postgresqlDatabase }}
   POSTGRES_HOST: {{ template "shoreline.postgresql.fullname" . }}
