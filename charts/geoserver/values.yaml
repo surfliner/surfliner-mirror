@@ -25,10 +25,6 @@ admin:
   password: geoserver
   username: admin
 
-# https://github.com/kartoza/docker-geoserver/blob/master/.env#L12
-# uid: 1000
-# gid: 10001
-
 persistence:
   enabled: true
 
@@ -54,6 +50,11 @@ ingress:
 service:
   type: ClusterIP
   port: 80
+
+podSecurityContext:
+  fsGroup: 10001
+
+securityContext: {}
 
 priorityClassName: ''
 

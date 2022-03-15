@@ -24,6 +24,8 @@ spec:
         app.kubernetes.io/name: {{ include "geoserver.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       volumes:
         - name: "data"
           {{- if and .Values.persistence.enabled .Values.persistence.existingClaim }}
@@ -39,6 +41,8 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
           envFrom:
             - configMapRef:
                 name: {{ include "geoserver.fullname" . }}-env

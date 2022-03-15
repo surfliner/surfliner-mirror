@@ -23,8 +23,6 @@ solr:
 
 geoserver:
   existingData: true
-  gid: "0"
-  uid: "0"
 
 persistence:
   downloads:
