@@ -33,6 +33,8 @@ geoserver:
       memory: 1Gi
   persistence:
     existingClaim: surfliner-shoreline-stage-geoserver-data-1
+  podSecurityContext:
+    fsGroup: 10001
 
 persistence:
   downloads:

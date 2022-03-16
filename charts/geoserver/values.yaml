@@ -51,8 +51,8 @@ service:
   type: ClusterIP
   port: 80
 
-podSecurityContext:
-  fsGroup: 10001
+# podSecurityContext:
+#   fsGroup: 10001
 
 securityContext: {}
 

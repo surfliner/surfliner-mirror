@@ -23,6 +23,8 @@ solr:
 
 geoserver:
   existingData: true
+  podSecurityContext:
+    fsGroup: 10001
 
 persistence:
   downloads:
