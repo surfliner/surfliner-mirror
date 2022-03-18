@@ -111,7 +111,7 @@ services:
       - starlight
 
   chrome:
-    image: selenium/standalone-chrome:98.0
+    image: selenium/standalone-chrome:99.0
     networks:
       - starlight
 

@@ -28,7 +28,7 @@
   services:
     - name: bitnami/postgresql:12.10.0-debian-10-r32
       alias: postgres
-    - name: selenium/standalone-chrome:98.0
+    - name: selenium/standalone-chrome:99.0
       alias: chrome
     - name: solr:8.11.1
       alias: solr
