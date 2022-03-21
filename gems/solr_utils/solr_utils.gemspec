@@ -25,5 +25,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'rake'
   spec.add_dependency 'rsolr'
-  spec.add_dependency 'zk'
+  spec.add_dependency 'zk', '~> 1.10.0'
+  spec.add_dependency 'zookeeper', '~> 1.5.1'
 end

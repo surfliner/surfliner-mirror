@@ -59,10 +59,11 @@ GIT
 PATH
   remote: ../gems/solr_utils
   specs:
-    solr_utils (0.2.0)
+    solr_utils (0.2.1)
       rake
       rsolr
-      zk
+      zk (~> 1.10.0)
+      zookeeper (~> 1.5.1)
 
 GEM
   remote: https://rubygems.org/
@@ -254,7 +255,7 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
-    faraday (1.9.3)
+    faraday (1.10.0)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
       faraday-excon (~> 1.1)
@@ -608,9 +609,9 @@ GEM
     yard (0.9.27)
       webrick (~> 1.7.0)
     zeitwerk (2.5.4)
-    zk (1.9.6)
-      zookeeper (~> 1.4.0)
-    zookeeper (1.4.11)
+    zk (1.10.0)
+      zookeeper (~> 1.5.0)
+    zookeeper (1.5.1)
 
 PLATFORMS
   ruby
