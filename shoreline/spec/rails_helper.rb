@@ -8,6 +8,7 @@ abort("The Rails env is running in production mode!") if Rails.env.production?
 require "rspec/rails"
 require "rspec/its"
 require "capybara"
+require "factory_bot"
 
 Dir[Rails.root.join("spec", "support", "**", "*.rb")].sort.each do |f|
   require f
