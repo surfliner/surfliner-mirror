@@ -9,6 +9,7 @@ RUN apk --no-cache upgrade && \
   apk add --no-cache \
   build-base \
   curl \
+  gcompat \
   git \
   imagemagick \
   less \
