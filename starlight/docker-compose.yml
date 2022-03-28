@@ -7,6 +7,9 @@ services:
       dockerfile: starlight/Dockerfile
       target: starlight
     image: starlight
+    stdin_open: true
+    tty: true
+    restart: always
     env_file:
       - .env
     command:
@@ -47,6 +50,7 @@ services:
 
   sidekiq:
     image: starlight
+    restart: always
     env_file:
       - .env
     volumes:
