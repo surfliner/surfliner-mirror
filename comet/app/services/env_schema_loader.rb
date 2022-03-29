@@ -6,7 +6,7 @@ class EnvSchemaLoader < SurflinerSchema::HyraxLoader
   def initialize(availability: :generic_object)
     super(
       *ENV["METADATA_MODELS"].to_s.split(",").map { |schema|
-        loader_class.instance.load(schema.to_sym)
+        self.class.loader_class.instance.load(schema.to_sym)
       },
       availability: availability
     )
