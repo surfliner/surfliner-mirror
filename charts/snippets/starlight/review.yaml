@@ -13,6 +13,8 @@ redis:
 memcached:
   architecture: standalone
 starlight:
+  application:
+    themes: "surfliner,ucsb,ucsb2,ucsd"
   auth:
     method: developer
   sitemaps:
