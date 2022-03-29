@@ -1,0 +1,14 @@
+<header id="eyebrow">
+  <nav>
+    <%= link_to "University of California, Santa Barbara", "https://ucsb.edu" %>
+    <div class="navbar navbar-expand-md navbar-dark">
+      <!-- Bootstrappy collapsible navbar… -->
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#user-util-collapse" aria-controls="user-util-collapse" aria-expanded="false" aria-label="<%= t :toggle_nav %>">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-md-end" id="user-util-collapse">
+        <%= render partial: 'shared/user_util_links' %>
+      </div>
+    </div>
+  </nav>
+</header>

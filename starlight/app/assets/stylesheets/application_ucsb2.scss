@@ -1,0 +1,174 @@
+@import 'application';
+@import 'themes/ucsb2/variables';
+
+// https://gitlab.com/surfliner/surfliner/issues/226
+div.st-blocks:last-child {
+  padding-bottom: 200px;
+}
+
+html,
+body {
+  color: $text-on-light;
+  background: $base-white;
+  font-family: Avenir, "Century Gothic", sans-serif;
+  line-height: 1.75;
+}
+body>* {
+  // Each child of body should be in its own stacking context to prevent things
+  // in, say, page content from sitting on top of things in, say, the header.
+  position: relative;
+  z-index: 0;
+}
+
+#eyebrow {
+  // Because this appears first, its dropdowns will get covered up by the body
+  // content if we don’t give it a positive z-index.
+  padding: .5rem 2.5em;
+  color: $text-on-dark;
+  background: $base-navy;
+  font-weight: 100;
+  font-size: .75rem;
+  line-height: calc(1.25rem);
+  letter-spacing: calc(7em / 90);
+  z-index: 1;
+
+  * {
+    // This bit disables some bootstrap styling. It depends on the fact that id
+    // selectors have higher precedence than class selectors, so things will
+    // break if you change the above selector to not match by id.
+    padding: 0;
+  }
+  a[href] {
+    color: inherit;
+  }
+  &>nav {
+    // This uses a bit of a grid hack: The grid is three columns wide and the
+    // collapse menu is two columns, so it will show inline with the title if
+    // the button is hidden and on the next row if the button is visible. The
+    // third column has a width of zero because content shouldn’t ever actually
+    // be slotted in there.
+    display: grid;
+    position: relative;
+    margin: auto 0;
+    max-width: 76.875rem;
+    grid: auto-flow / auto auto 0;
+    gap: 1rem 0;
+    align-items: center;
+
+    &::before,
+    &::after {
+      // This covers up the dividers and such which would otherwise appear in
+      // the collapse menu when it is being shown vertically.
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      margin: 0 1em;
+      width: 2em;
+      background: $base-navy;
+      z-index: 1;
+      content: "";
+    }
+    &::before {
+      right: 100%;
+    }
+    &::after {
+      left: 100%;
+    }
+    .navbar {
+      display: contents; // go away bootstrap
+
+      .navbar-toggler {
+        box-sizing: content-box;
+        margin: -.5em 0 -.5em auto;
+        padding: .25em .75em;
+        width: 1.5em;
+        height: 1.5em;
+        font-size: inherit;
+
+        .navbar-toggler-icon {
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+}
+#user-util-collapse {
+  grid-column-end: span 2;
+  align-self: stretch;
+  letter-spacing: calc(5em / 90);
+  text-transform: uppercase;
+
+  &>ul { // the collapse list
+    height: 100%;
+    gap: 1rem calc(2rem + 1px);
+
+    &>li { // items in the collapse
+      display: block;
+      position: relative;
+      margin: auto 0;
+
+      &.dropdown {
+        a:not(:focus-visible) {
+          outline: none
+        }
+        .dropdown-menu {
+          top: calc(100% + .5rem);
+          left: auto;
+          right: calc(-1rem - 1px);
+          margin: 0;
+          border: none;
+          border-radius: 0;
+          padding: .5rem 0;
+          color: $text-on-dark;
+          background: $unofficial-dark-navy;
+          text-transform: none;
+
+          .dropdown-item {
+            padding: .75rem 1.5rem;
+            font-weight: inherit;
+
+            &:hover {
+              background: $base-navy;
+            }
+          }
+          .dropdown-divider {
+            margin: .5rem .375em;
+            border-color: currentcolor;
+            opacity: .12;
+          }
+        }
+        &.show::after { // background for activated dropdown
+          // This is supposed to cover up the dividers on either side, so it needs
+          // to be implemented as an absolutely-positioned block with higher
+          // z-index.
+          display: block;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: -1px;
+          right: -1px;
+          margin: -.5rem -1rem;
+          background: $unofficial-dark-navy;
+          z-index: -1;
+          content: "";
+        }
+      }
+      &+li::before { // dividers between collapse items
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 100%;
+        margin: auto 1rem;
+        height: 2em;
+        width: 1px;
+        background: currentcolor;
+        opacity: .12;
+        z-index: -2;
+        content: "";
+      }
+    }
+  }
+}
