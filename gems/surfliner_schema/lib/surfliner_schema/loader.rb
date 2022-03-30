@@ -27,6 +27,10 @@ module SurflinerSchema
       SurflinerSchema::Reader.read(config_for(schema), schema_name: schema)
     end
 
+    def attributes_for(schema)
+      load(schema).to_struct_attributes(availability: :generic_object)
+    end
+
     private
 
     ##
