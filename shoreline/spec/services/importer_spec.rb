@@ -24,20 +24,7 @@ RSpec.describe Importer do
       )).to_s
     end
 
-    let(:solr) do
-      RSolr.connect(
-        url: ENV["SOLR_URL"] || "http://#{ENV["SOLR_HOST"]}:#{ENV["SOLR_PORT"]}/solr/#{ENV["SOLR_CORE_NAME"]}"
-      )
-    end
-
-    let(:metadata) do
-      described_class.hash_from_xml(file: zipfile)
-        .merge(described_class.hash_from_csv(row: csv[1]))
-        .merge({layer_geom_type_s: "fake"})
-        .merge(described_class::EXTRA_FIELDS).reject { |_k, v| v.blank? }
-    end
-
-    let(:expected_blob) do
+    let(:base_json) do
       {"dc_identifier_s" => "public:gford-20140000-010004_rivers",
        "layer_slug_s" => "gford-20140000-010004_rivers",
        "layer_id_s" => "public:gford-20140000-010004_rivers",
@@ -57,7 +44,6 @@ RSpec.describe Importer do
          "Reserva de la Biosfera Maya (Guatemala)"],
        "dc_rights_s" => "Public",
        "dct_provenance_s" => "UC Santa Barbara",
-       "dct_references_s" => '{"http://www.opengis.net/def/serviceType/ogc/wfs":"http://localhost:8080/geoserver/wfs","http://www.opengis.net/def/serviceType/ogc/wms":"http://localhost:8080/geoserver/wms","http://schema.org/downloadUrl":"https://dataverse.ucla.edu/api/v1/access/datafile/:persistentId?persistentId=doi:10.25346/S6/B5LBFD/O7ULJ5"}',
        "geoblacklight_version" => "1.0",
        "solr_bboxtype__minX" => -91.453487,
        "solr_bboxtype__minY" => 16.649914,
@@ -65,13 +51,60 @@ RSpec.describe Importer do
        "solr_bboxtype__maxY" => 17.838888}
     end
 
-    it "ingests with the correct attributes" do
-      described_class.publish_to_geoblacklight(metadata: metadata)
+    let(:solr) do
+      RSolr.connect(
+        url: ENV["SOLR_URL"] || "http://#{ENV["SOLR_HOST"]}:#{ENV["SOLR_PORT"]}/solr/#{ENV["SOLR_CORE_NAME"]}"
+      )
+    end
 
-      beep = solr.get "select",
-        params: {q: "layer_slug_s:gford-20140000-010004_rivers"}
+    let(:metadata) do
+      described_class.hash_from_xml(file: zipfile)
+        .merge(described_class.hash_from_csv(row: csv[1]))
+        .merge({layer_geom_type_s: "fake"})
+        .merge(described_class::EXTRA_FIELDS).reject { |_k, v| v.blank? }
+    end
 
-      expect(beep["response"]["docs"].first).to include(expected_blob)
+    context "with a 'references' column" do
+      let(:expected_blob) do
+        base_json.merge(
+          {"dct_references_s" => '{"http://www.opengis.net/def/serviceType/ogc/wfs":"http://localhost:8080/geoserver/wfs","http://www.opengis.net/def/serviceType/ogc/wms":"http://localhost:8080/geoserver/wms","http://schema.org/downloadUrl":"https://dataverse.ucla.edu/api/v1/access/datafile/:persistentId?persistentId=doi:10.25346/S6/B5LBFD/O7ULJ5"}'}
+        )
+      end
+
+      it "ingests with the correct attributes" do
+        described_class.publish_to_geoblacklight(metadata: metadata)
+
+        beep = solr.get "select",
+          params: {q: "layer_slug_s:gford-20140000-010004_rivers"}
+
+        expect(beep["response"]["docs"].first).to include(expected_blob)
+      end
+    end
+
+    context "without references" do
+      let(:csv) do
+        CSV.table(Rails.root.join(
+          "spec",
+          "fixtures",
+          "csv",
+          "minimal_no-references.csv"
+        ), encoding: "UTF-8")
+      end
+
+      let(:expected_blob) do
+        base_json.merge(
+          {"dct_references_s" => '{"http://www.opengis.net/def/serviceType/ogc/wfs":"http://localhost:8080/geoserver/wfs","http://www.opengis.net/def/serviceType/ogc/wms":"http://localhost:8080/geoserver/wms"}'}
+        )
+      end
+
+      it "ingests with the correct attributes" do
+        described_class.publish_to_geoblacklight(metadata: metadata)
+
+        beep = solr.get "select",
+          params: {q: "layer_slug_s:gford-20140000-010004_rivers"}
+
+        expect(beep["response"]["docs"].first).to include(expected_blob)
+      end
     end
   end
 end
