@@ -93,15 +93,14 @@ module Importer
       dct_provenance_s: row[:provenance]
     }
 
-    if row[:references].present?
-      refs = transform_reference_uris(
-        REFERENCES.merge(parse_references(row[:references]))
-      )
-
-      values.merge({dct_references_s: refs.to_json})
+    extra_references = if row[:references].present?
+      parse_references(row[:references])
     else
-      values
+      {}
     end
+    references = transform_reference_uris(REFERENCES.merge(extra_references))
+
+    values.merge({dct_references_s: references.to_json})
   end
 
   def self.hash_from_geoserver(id:)
