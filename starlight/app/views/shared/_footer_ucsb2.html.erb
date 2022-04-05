@@ -1,5 +1,5 @@
 <footer id="footer">
-  <div id="footer-main">
+  <div>
     <div>
       <section>
         <h6>
@@ -52,29 +52,29 @@
       </nav>
     </div>
   </div>
-  <footer id="footer-bottom">
+</footer>
+<footer id="footer-bottom">
+  <div>
     <div>
-      <div>
-        <p>
-          Copyright © <%= Date.today.year %> The Regents of the University of California. All Rights Reserved.
-        </p>
-        <nav>
-          <ul>
-            <li><a href="https://www.library.ucsb.edu/terms-use" class="terms">Terms of Use</a></li>
-            <li><a href="https://www.library.ucsb.edu/terms-use#accessibility" class="terms">Accessibility</a></li>
-          </ul>
-        </nav>
-      </div>
-      <table>
-        <tbody>
-          <tr>
-            <td>GeoBlacklight <%= BRANCH %></td>
-            <td><%= GIT_SHA %></td>
-            <td><%= LAST_DEPLOYED %></td>
-          </tr>
-        </tbody>
-      </table>
+      <p>
+        Copyright © <%= Date.today.year %> The Regents of the University of California. All Rights Reserved.
+      </p>
+      <nav>
+        <ul>
+          <li><a href="https://www.library.ucsb.edu/terms-use" class="terms">Terms of Use</a></li>
+          <li><a href="https://www.library.ucsb.edu/terms-use#accessibility" class="terms">Accessibility</a></li>
+        </ul>
+      </nav>
     </div>
-  </footer>
+    <table>
+      <tbody>
+        <tr>
+          <td>GeoBlacklight <%= BRANCH %></td>
+          <td><%= GIT_SHA %></td>
+          <td><%= LAST_DEPLOYED %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </footer>
 <%= render 'shared/analytics' %>
