@@ -1,5 +1,6 @@
+@import 'themes/ucsb2/variables'; // needs to precede `application`
 @import 'application';
-@import 'themes/ucsb2/variables';
+@import 'https://webfonts.brand.ucsb.edu/webfont.min.css';
 
 // https://gitlab.com/surfliner/surfliner/issues/226
 div.st-blocks:last-child {
@@ -196,8 +197,6 @@ body>* {
   }
 }
 
-
-
 /* Site Header *****/
 
 #site-header {
@@ -221,6 +220,158 @@ body>* {
       stroke: transparent;
       height: auto;
       width: 13rem;
+    }
+  }
+}
+
+/* Masthead *****/
+
+body>.masthead {
+  // We don’t want the image in the masthead to appear behind the navigation,
+  // just the title. We use CSS grid to achieve this, by just slotting them both
+  // into the same cell.
+  //
+  // The first row of this grid is not used; it is just for sizing in the case
+  // of an image masthead.
+  //
+  // There is really no good reason to prevent linebreaks in this title, so I’ve
+  // gone against upstream and allowed them. I don’t see why people on mobile
+  // devices should be restricted to just viewing the first dozen characters of
+  // the name of the exhibit they’re on.
+  display: grid;
+  border: none;
+  grid-template-rows: 0 1fr auto;
+  color: $base-navy;
+  background: $lightgray-lighten-6;
+  white-space: normal;
+
+  &::before {
+    // Fill the first row so nothing gets slotted in there.
+    grid-area: 1 / 1 / span 1 / span 1;
+    content: ""
+  }
+  &.image-masthead {
+    grid-template-rows: 1fr 1fr auto;
+  }
+  &.image-masthead>.background-container,
+  &.image-masthead>.background-container-gradient {
+    position: static;
+    grid-area: 1 / 1 / span 2 / span 1;
+    margin: 0 -.9375rem;
+    border: none;
+    height: 100%;
+
+    @include media-breakpoint-up(lg) {
+      margin: 0 -1.875rem;
+    }
+  }
+  &>.site-title-container {
+    // Extremely annoyingly, the default styles apply !important padding to this
+    // container. This works around it by just adding corresponding negative
+    // margins to the wrapper it contains (why is there both a container and a
+    // wrapper?!).
+    grid-area: 2 / 1 / span 1 / span 1;
+    max-height: none;
+    white-space: normal;
+
+    &>.site-title-wrapper {
+      margin: -.5rem -1.5rem; // see comment above
+      padding: 2.5rem 0 1rem;
+      font-weight: 400;
+      line-height: 1;
+      white-space: normal;
+
+      &>* {
+        display: block;
+        font-weight: inherit;
+        line-height: inherit;
+      }
+    }
+  }
+  &>.exhibit-navbar {
+    position: relative;
+    padding: 0;
+    width: 100%;
+    color: $text-on-light;
+    background: none;
+    z-index: 0;
+
+    &::before {
+      // Because this is being centred with a max-width, but we want its
+      // background to extend to the edges of the screen, we do some magic with
+      // an absolutely‐positioned pseudo·element to make this happen.
+      display: block;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: calc(50% - 50vw);
+      right: calc(50% - 50vw);
+      background: $base-lightgray;
+      z-index: -1;
+      content: "";
+    }
+    &>.container {
+      padding: 0;
+      max-width: none;
+      gap: 0 1.25rem;
+      justify-content: start;
+
+      .navbar-nav {
+        font-weight: 400;
+        text-transform: none;
+
+        .nav-item .nav-link {
+          display: block;
+          padding: .75rem 0;
+          color: inherit;
+
+          &:hover {
+            text-decoration: underline;
+
+            @include media-breakpoint-up(md) {
+              // This really only looks good in the horizontal layout.
+              margin-bottom: -1px;
+              border-bottom: 3px solid;
+              padding-bottom: calc(.75rem - 2px);
+              text-decoration: none;
+            }
+          }
+        }
+        .search-query-form {
+          // Annoyingly, a 1rem top margin is inserted as !important by the base
+          // application stylesheet in the parent <div> at small sizes, so we
+          // need to compensate for that here.
+          margin: -.75rem 0 .25rem;
+
+          @include media-breakpoint-up(md) {
+            margin: .25rem 0;
+          }
+          &>.input-group {
+            margin: -2px 0;
+
+            .search-q {
+              border-color: $unofficial-dark-lightgray;
+              padding: .5rem 1rem;
+              height: auto;
+              line-height: 1.75;
+              white-space: nowrap;
+            }
+            .search-btn {
+              max-height: none;
+
+              .submit-search-text {
+                // This has screenreader-only styling by default.
+                all: unset;
+              }
+              .blacklight-icons svg {
+                width: 1.25em;
+                height: 1.25em;
+                vertical-align: text-top;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
