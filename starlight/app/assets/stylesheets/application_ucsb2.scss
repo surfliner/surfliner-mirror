@@ -2,11 +2,6 @@
 @import 'application';
 @import 'https://webfonts.brand.ucsb.edu/webfont.min.css';
 
-// https://gitlab.com/surfliner/surfliner/issues/226
-div.st-blocks:last-child {
-  padding-bottom: 200px;
-}
-
 /* Base Stylings *****/
 
 html,
@@ -38,6 +33,7 @@ body>* {
     // consequence of it being built on Bootstrap 3.
     margin: 0;
     padding: 0 .9375rem;
+    max-width: none;
 
     @include media-breakpoint-up(lg) {
       // More padding on wider screens. This is the breakpoint the UCSB website
@@ -317,6 +313,7 @@ body>.masthead {
       justify-content: start;
 
       .navbar-nav {
+        gap: 0 1.25rem;
         font-weight: 400;
         text-transform: none;
 
@@ -373,6 +370,65 @@ body>.masthead {
         }
       }
     }
+  }
+}
+
+/* Breadcrumbs *****/
+.breadcrumbs-container {
+  &>.row>div {
+    padding: 0;
+  }
+  ul {
+    margin: 1rem 0;
+    border-bottom: thin $unofficial-border-gray solid;
+    background: none;
+  }
+}
+
+/* Main Container *****/
+#main-container {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+#content {
+  h1,
+  h2,
+  h3 {
+    color: $lightgray-darken-80;
+    font-weight: 600;
+    line-height: 1.6;
+
+    &.card-title {
+      margin: 0 0 .625rem;
+      font-size: 1.3125rem;
+      letter-spacing: inherit;
+    }
+    &>p {
+      // This happens for some reason??????
+      all: unset;
+      display: contents;
+    }
+  }
+  h1 {
+    margin: 0 0 1.5rem;
+    font-size: 2.5rem;
+  }
+  h2 {
+    margin: 1.625rem 0 .625rem;
+    font-size: 1.6875rem;
+    letter-spacing: -.005em;
+  }
+  h3 {
+    margin: 1.25rem 0 .625rem;
+    font-size: 1.3125rem;
+  }
+  iframe {
+    display: block;
+    margin: auto;
+  }
+  b,
+  strong {
+    font-weight: bold;
   }
 }
 
@@ -541,5 +597,27 @@ body>.masthead {
         }
       }
     }
+  }
+}
+
+/* Bits & Pieces *****/
+
+div.st-blocks:last-child {
+  // Pads the bottom of the edit area to ensure there is room for dropdowns,
+  // etc. See <https://gitlab.com/surfliner/surfliner/issues/226>.
+  padding-bottom: 12rem;
+}
+.st-format-bar {
+  border-radius: 0;
+  color: $text-on-dark;
+  background: $lightgray-darken-80;
+
+  .st-format-btn {
+    border-color: currentcolor;
+    color: inherit;
+  }
+  .st-format-btn:hover,
+  .st-format-btn--is-active {
+    background: $unofficial-lightgray-darken-45;
   }
 }
