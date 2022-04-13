@@ -3,17 +3,21 @@
 #
 # see: https://edgeguides.rubyonrails.org/configuring.html#configuring-a-database
 # see: https://gitlab.com/surfliner/surfliner/blob/master/starlight/doc/deploy.md#environment-variables
+default: &default
+  adapter:  <%= ENV.fetch('DB_ADAPTER') { 'postgresql'} %>
+  pool:     <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } %>
+  timeout:  <%= ENV.fetch('DATABASE_TIMEOUT') { 5000 }  %>
+  database: <%= ENV['POSTGRES_DB'] %>
+  host:     <%= ENV['POSTGRES_HOST'] || ENV["DATABASE_HOST"] %>
+  username: <%= ENV["POSTGRES_USER"] %>
+  password: <%= ENV["POSTGRES_PASSWORD"] %>
+
 development:
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") %>
-  timeout: 5000
-  url: <%= DatabaseURL.build(ENV, "development") %>
+  <<: *default
 
 test:
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") %>
-  timeout: 5000
-  url: <%= DatabaseURL.build(ENV, "test") %>
+  <<: *default
+  database: <%= ENV['TEST_POSTGRES_DB'] %>
 
 production:
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") %>
-  timeout: 5000
-  url: <%= DatabaseURL.build(ENV, "production") %>
+  <<: *default

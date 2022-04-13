@@ -96,9 +96,8 @@ services:
     image: bitnami/postgresql:12.10.0-debian-10-r32
     volumes:
       - "starlight_database:/bitnami/postgresql"
-    environment:
-      POSTGRESQL_DATABASE: starlight-dev
-      POSTGRESQL_PASSWORD: postgres_pass
+    env_file:
+      - .env
     networks:
       - starlight
 
