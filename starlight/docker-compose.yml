@@ -39,6 +39,8 @@ services:
     image: starlight
     env_file:
       - .env
+    environment:
+      SKIP_TRANSLATION: "yes"
     entrypoint: ["sh", "-c"]
     command: db-setup.sh
     depends_on:

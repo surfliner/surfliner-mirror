@@ -35,7 +35,7 @@ COPY scripts ${DOCKERROOT}/scripts/
 COPY .styles $DOCKERROOT/.styles/
 ENV PATH="$DOCKERROOT/scripts:$PATH"
 
-RUN DB_ADAPTER=nulldb DATABASE_URL='postgresql://fake' bundle exec rake assets:precompile
+RUN SKIP_TRANSLATION=yes DB_ADAPTER=nulldb DATABASE_URL='postgresql://fake' bundle exec rake assets:precompile
 
 CMD ["bundle", "exec", "puma", "-b", "tcp://0.0.0.0:3000"]
 ENTRYPOINT ["/bin/sh", "bin/docker-entrypoint.sh"]
