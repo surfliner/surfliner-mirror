@@ -38,15 +38,15 @@
       alias: zk
   before_script:
     - cd /home/starlight/app
-    - upload-solr-configs.sh /home/starlight/app/solr/config
-    - create-solr-collection.sh
+    - SKIP_TRANSLATION=yes upload-solr-configs.sh /home/starlight/app/solr/config
+    - SKIP_TRANSLATION=yes create-solr-collection.sh
+    - SKIP_TRANSLATION=yes bundle exec rake db:create db:migrate
   tags:
     - kubernetes
 
 starlight:test:system:
   extends: .starlight:test
   script:
-    - bundle exec rake db:create db:migrate
     - bundle exec rspec --tag type:system --format progress --format RspecJunitFormatter --out rspec.xml
   artifacts:
     name: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
@@ -59,7 +59,6 @@ starlight:test:system:
 starlight:test:unit:
   extends: .starlight:test
   script:
-    - bundle exec rake db:create db:migrate
     - bundle exec rspec --tag ~type:system --format progress --format RspecJunitFormatter --out rspec.xml
   artifacts:
     name: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"

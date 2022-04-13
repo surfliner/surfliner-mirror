@@ -29,6 +29,9 @@ spec:
         - name: load-solr-config
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: Always
+          env:
+          - name: SKIP_TRANSLATION
+            value: "yes"
           envFrom:
             - configMapRef:
                 name: {{ include "starlight.fullname" . }}-env
@@ -49,6 +52,9 @@ spec:
                 name: {{ include "starlight.fullname" . }}-env
             - secretRef:
                 name: {{ template "starlight.secretName" . }}
+          env:
+          - name: SKIP_TRANSLATION
+            value: "yes"
           command:
             - sh
             - -c

@@ -37,6 +37,9 @@ spec:
               name: {{ include "starlight.fullname" . }}-env
           - secretRef:
               name: {{ template "starlight.secretName" . }}
+        env:
+          - name: SKIP_TRANSLATION
+            value: "yes"
         args:
         - /bin/sh
         - -c
