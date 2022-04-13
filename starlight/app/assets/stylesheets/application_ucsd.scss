@@ -380,9 +380,6 @@ body
 
 @media (max-width: 991.98px) {
 	#main-container {
-		div:last-child {
-			flex-direction: column-reverse;
-		}
 		#sidebar {
 			margin-top: 45px;
 		}
@@ -674,3 +671,44 @@ body
     margin: 0 15px;
   }
 }
+
+// Gallery View - Description List Fix (Copied from Stanford)
+.documents-gallery .document-metadata dt, .documents-gallery .document-metadata dd{flex:0 0 100%;max-width:100%;padding-left:0;padding-right:0;float:none;width:auto;clear:none;text-align:left;margin:0}
+
+// Gallery View - Customizations
+.documents-gallery .document-title-heading{font-size: 20px;padding: 0;font-weight: bold;}
+.documents-gallery .document-title-heading a{color: #00629b;}
+.documents-gallery .document-metadata{font-size: 14px;line-height: 1.5;} /* The <dl> */
+.documents-gallery .document-metadata dt{color: #6e963b;}
+.documents-gallery .document-metadata dd{margin-bottom: 5px;}
+.documents-gallery .documentHeader .document-counter{display: none;}
+
+// Gallery View - Bookmark Control Fix
+.documents-gallery .documentHeader {
+  flex-direction: column-reverse;
+  .index-document-functions{
+    padding: 0;
+    max-width: 100%;
+    flex: 0 0 100%;
+    margin-top: 5px;
+    label {
+      display: flex;
+      flex-direction: row-reverse;
+      font-size: 12px;
+      line-height: 1;
+      color: #747678;
+      input[type=checkbox]{
+        width: 12px;
+        height: 12px;
+        margin-left: 5px;
+        color: #747678;
+      }
+    }
+  }
+}
+
+// Masonry View - Description List Fix (Copied from Stanford)
+.documents-masonry .document .document-metadata dt, .documents-masonry .document .document-metadata dd{flex:0 0 100%;max-width:100%;padding-left:0;padding-right:0;float:none;width:auto;clear:none;text-align:left;margin:0}
+
+// Masonry View - Customizations
+.documents-masonry .document .document-metadata dt{color:#6e963b}
