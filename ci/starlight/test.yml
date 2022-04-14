@@ -6,10 +6,9 @@
     - .only-refs-default
     - .only-starlight-changes
   variables:
-    DATABASE_COMMAND: "db:create db:schema:load"
     DB_ADAPTER: "postgresql"
     DELIVERY_METHOD: "test"
-    POSTGRES_DB: "starlight-test"
+    POSTGRESQL_DATABASE: "starlight-test"
     POSTGRES_HOST: "localhost"
     POSTGRES_PASSWORD: "postgres"
     POSTGRES_USER: "postgres"
@@ -40,7 +39,7 @@
     - cd /home/starlight/app
     - SKIP_TRANSLATION=yes upload-solr-configs.sh /home/starlight/app/solr/config
     - SKIP_TRANSLATION=yes create-solr-collection.sh
-    - SKIP_TRANSLATION=yes bundle exec rake db:create db:migrate
+    - SKIP_TRANSLATION=yes bundle exec rake db:migrate
   tags:
     - kubernetes
 
