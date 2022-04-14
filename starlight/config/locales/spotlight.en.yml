@@ -1,6 +1,9 @@
 ---
 en:
   spotlight:
+    header_links:
+      (ucsb2)login: Login
+      (ucsb2)logout: Logout
     search:
       fields:
         spotlight_upload_contributor_tesim: Contributor(s)
