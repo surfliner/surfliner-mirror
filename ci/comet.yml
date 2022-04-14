@@ -31,6 +31,6 @@ include:
 
 .comet-chart-deploy:
   script:
-    - helm pull oci://ghcr.io/samvera/charts/hyrax --version 1.1.0 --untar --untardir charts
+    - helm pull oci://ghcr.io/samvera/charts/hyrax --version 1.3.0 --untar --untardir charts
     - deploy ./charts/hyrax
 
