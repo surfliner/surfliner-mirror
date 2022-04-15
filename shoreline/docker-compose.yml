@@ -62,7 +62,7 @@ services:
       - '8983:8983'
     volumes:
       - ./solr/conf:/opt/shoreline
-      - shoreline_solr_data:/var/solr/data
+      - shoreline_solr_data:/bitnami/solr
     env_file:
       - .env
     networks:
