@@ -55,7 +55,7 @@ services:
       - 8983:8983
     volumes:
       - ./solr/config:/opt/lark
-      - solr_data:/var/solr/data:cached
+      - solr_data:/bitnami/solr
     networks:
       - lark
 
