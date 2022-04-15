@@ -111,7 +111,7 @@ services:
       - .env
     volumes:
       - ./solr/config:/opt/starlight
-      - starlight_solr:/var/solr/data
+      - starlight_solr:/bitnami/solr
     networks:
       - starlight
 
