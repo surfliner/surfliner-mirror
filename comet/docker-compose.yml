@@ -167,7 +167,7 @@ services:
       - .env
     volumes:
       - ./solr/conf:/opt/comet
-      - solr_home:/var/solr/data:cached
+      - solr_home:/bitnami/solr
     networks:
       - comet
 
