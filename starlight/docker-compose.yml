@@ -94,7 +94,7 @@ services:
     image: bitnami/redis:6.2.6-debian-10-r156
     command: redis-server --protected-mode no --stop-writes-on-bgsave-error no
     volumes:
-      - starlight_redis:/data
+      - starlight_redis:/bitnami/redis/data
     networks:
       - starlight
 
