@@ -24,7 +24,7 @@ gem "rubocop-rspec", group: %w[development test]
 gem "shotgun", group: "development"
 gem "sinatra", "~> 2.2.0"
 gem "solr_utils", path: "../gems/solr_utils"
-gem "standard", "1.8.0"
+gem "standard", "1.10.0"
 gem "timecop", group: "test"
 gem "valkyrie", "2.2.0"
 gem "valkyrie-sequel", "2.2.1"
