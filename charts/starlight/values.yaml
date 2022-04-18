@@ -213,7 +213,7 @@ minio:
     enabled: false
   image:
     repository: bitnami/minio
-    tag: 2022.3.8-debian-10-r6
+    tag: 2022.4.16-debian-10-r2
 
 # Configuration for postgresql chart
 # see: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md
