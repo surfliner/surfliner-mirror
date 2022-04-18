@@ -42,7 +42,11 @@ services:
     environment:
       SKIP_TRANSLATION: "yes"
     entrypoint: ["sh", "-c"]
-    command: db-setup.sh
+    command:
+        - >
+          db-setup.sh &&
+          bundle exec rake starlight:seed_admin_user &&
+          bundle exec rake starlight:sample:seed_exhibit
     depends_on:
       - database
     volumes:
