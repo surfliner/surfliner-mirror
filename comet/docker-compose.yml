@@ -155,7 +155,7 @@ services:
     env_file:
       - .env
     volumes:
-      - redis:/data
+      - redis:/bitnami/redis/data
     networks:
       - comet
 
