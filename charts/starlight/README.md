@@ -50,6 +50,11 @@ The following tables lists the configurable parameters of the Starlight chart an
 | `fullnameOverride` | String to fully override email.fullname template | `""` | N/A |
 | `existingSecret.name` | External Secret name in Deployment namespace | `starlight` | N/A |
 | `existingSecret.enabled` | Whether to use an external Secret for a Deployment | `false` | N/A |
+| `deviseGuestsCronJob.enabled` | Whether to run Cron job to delete old devise guest accounts | `true` | N/A |
+| `deviseGuestsCronJob.schedule` | Schedule to run cleanup job on | `0 8 * * *` | N/A |
+| `deviseGuestsCronJob.backoffLimit` | `CronJob` backoffLimit | `3` | N/A |
+| `deviseGuestsCronJob.successfulJobsHistoryLimit` | `CronJob` `successfulJobsHistoryLimit` | `5` | N/A |
+| `deviseGuestsCronJob.failedJobsHistoryLimit` | `CronJob` `failedJobsHistoryLimit` | `10` | N/A |
 | `starlight.allow_robots` | Whether to allow robots to crawl the application via `robots.txt` | `false` | `ALLOW_ROBOTS` |
 | `starlight.application.name` | Name used in some default Blacklight templates | `Starlight` | N/A |
 | `starlight.application.themes` | Themes made available to the application.  | `ucsb,surfliner,ucsd` | `SPOTLIGHT_THEMES` |

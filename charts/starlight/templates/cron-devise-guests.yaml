@@ -1,0 +1,34 @@
+{{- if .Values.deviseGuestsCronJob.enabled -}}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "starlight.fullname" . }}-devise-cron
+  labels:
+{{ include "starlight.labels" . | indent 4 }}
+spec:
+  schedule: {{ .Values.deviseGuestsCronJob.schedule | quote }}
+  successfulJobsHistoryLimit: {{ .Values.deviseGuestsCronJob.successfulJobsHistoryLimit }}
+  failedJobsHistoryLimit: {{ .Values.deviseGuestsCronJob.failedJobsHistoryLimit }}
+  jobTemplate:
+    spec:
+      backoffLimit: {{ .Values.deviseGuestsCronJob.backoffLimit }}
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: {{ include "starlight.name" . }}-devise-cron
+            app.kubernetes.io/instance: {{ .Release.Name }}
+        spec:
+          containers:
+          - name: {{ .Chart.Name }}-devise-cron
+            image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+            imagePullPolicy: {{ .Values.image.pullPolicy }}
+            command: ["sh", "-c", "bundle exec rake devise_guests:delete_old_guest_users"]
+            envFrom:
+              - configMapRef:
+                  name: {{ include "starlight.fullname" . }}-env
+              - secretRef:
+                  name: {{ template "starlight.secretName" . }}
+            env:
+              {{- toYaml .Values.extraEnvVars | nindent 14 }}
+          restartPolicy: Never
+{{- end -}}
