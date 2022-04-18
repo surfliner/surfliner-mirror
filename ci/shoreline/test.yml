@@ -21,7 +21,7 @@
       alias: postgres
     - name: solr:8.11.1
       alias: solr
-    - name: zookeeper:3.7
+    - name: zookeeper:3.8
       alias: zk
   before_script:
     - apk add build-base yarn # need to build gem extensions and compile assets
