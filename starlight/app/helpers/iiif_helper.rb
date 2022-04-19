@@ -10,13 +10,8 @@ module IiifHelper
     "#{request&.base_url}/#{universal_viewer_root}/uv-config.json"
   end
 
-  # Our md-5 hashed install directory for vendored universal viewer in /public
+  # Fixed directory/route for vendored universal viewer in /public
   def universal_viewer_root
-    "/uv-#{asset_thumbprint}"
-  end
-
-  # retrieve the MD5-thumbprinted name for our assets (see the rake uv:update task)
-  def asset_thumbprint
-    ::File.read(Rails.root.join("public", "uv", ".md5")).strip
+    "uv"
   end
 end
