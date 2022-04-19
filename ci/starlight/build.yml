@@ -1,7 +1,8 @@
 starlight:build:
   extends:
     - .kaniko-build
-    - .only-refs-default
-    - .only-starlight-changes
+  rules:
+    - !reference [.starlight-mr-rules, rules]
+    - !reference [.starlight-default-branch-rules, rules]
   script:
     - build_image_for "starlight" "starlight_web"

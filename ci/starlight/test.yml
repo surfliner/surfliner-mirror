@@ -2,9 +2,9 @@
   image: $CI_REGISTRY_IMAGE/starlight_web:$CI_COMMIT_SHA
   needs: ["starlight:build"]
   stage: test
-  extends:
-    - .only-refs-default
-    - .only-starlight-changes
+  rules:
+    - !reference [.starlight-mr-rules, rules]
+    - !reference [.starlight-default-branch-rules, rules]
   variables:
     DB_ADAPTER: "postgresql"
     DELIVERY_METHOD: "test"

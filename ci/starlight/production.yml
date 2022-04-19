@@ -1,17 +1,15 @@
 .starlight:deploy:production:
   stage: production
   extends:
-    - .only-starlight-changes
     - .helm3-deploy
+  rules:
+    - !reference [.starlight-default-branch-rules, rules]
   variables:
     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/starlight_web
     # TODO: revert when UCSB theme is updated for Spotlight 3
     # DEPLOY_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-starlight-prod
     KUBE_NAMESPACE: starlight-prod
-  only:
-    refs:
-      - trunk
 
 starlight:deploy:ucsb-production:
   needs: ["starlight:deploy:ucsb-stage"]

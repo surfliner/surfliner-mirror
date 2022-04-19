@@ -1,7 +1,6 @@
 .starlight:deploy:stage:
   stage: staging
   extends:
-    - .only-starlight-changes
     - .helm3-deploy
   variables:
     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/starlight_web
@@ -9,9 +8,8 @@
     # DEPLOY_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-starlight-stage
     KUBE_NAMESPACE: starlight-staging
-  only:
-    refs:
-      - trunk
+  rules:
+    - !reference [.starlight-default-branch-rules, rules]
 
 starlight:deploy:ucsb-stage:
   extends:

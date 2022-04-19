@@ -6,15 +6,25 @@ include:
   - local: ci/starlight/staging.yml
   - local: ci/starlight/test.yml
 
-.only-starlight-changes:
-  only:
-    changes:
-      - .gitlab-ci.yml
-      - charts/snippets/surfliner/**/*
-      - charts/snippets/starlight/**/*
-      - charts/starlight/**/*
-      - ci/starlight/**/*
-      - ci/starlight.yml
-      - gems/solr_utils/**/*
-      - starlight/**/*
-      - starlight/Dockerfile
+.only-starlight-changes: &only-starlight-changes
+  changes:
+    - .gitlab-ci.yml
+    - charts/snippets/surfliner/**/*
+    - charts/snippets/starlight/**/*
+    - charts/starlight/**/*
+    - ci/starlight/**/*
+    - ci/starlight.yml
+    - gems/solr_utils/**/*
+    - starlight/**/*
+    - starlight/Dockerfile
+
+.starlight-mr-rules:
+  rules:
+    - if: '$CI_MERGE_REQUEST_LABELS =~ /starlight/'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      << : *only-starlight-changes
+
+.starlight-default-branch-rules:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      << : *only-starlight-changes

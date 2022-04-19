@@ -1,17 +1,15 @@
 .starlight:deploy:review:
   stage: review
   extends:
-    - .only-starlight-changes
     - .helm3-deploy
+  rules:
+    - !reference [.starlight-mr-rules, rules]
   variables:
     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/starlight_web
     DEPLOY_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-starlight-$CI_MERGE_REQUEST_ID
     KUBE_NAMESPACE: starlight-review
   needs: ["starlight:build"]
-  only:
-    refs:
-      - merge_requests
 
 starlight:deploy:ucsd-review:
   extends:
