@@ -104,7 +104,7 @@ ingress:
 postgresql:
   image:
     repository: bitnami/postgresql
-    tag: 12.10.0-debian-10-r32
+    tag: 12.10.0-debian-10-r69
   enabled: true
   cpu: 1000m
   memory: 1Gi

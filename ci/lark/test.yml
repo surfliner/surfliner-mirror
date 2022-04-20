@@ -18,7 +18,7 @@ lark:api:test:unit:
     ZK_HOST: zk
     ZK_PORT: 2181
   services:
-    - name: bitnami/postgresql:12.10.0-debian-10-r32
+    - name: bitnami/postgresql:12.10.0-debian-10-r69
       alias: postgres
     - name: solr:8.11.1
       alias: solr
