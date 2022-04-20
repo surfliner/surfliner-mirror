@@ -16,4 +16,25 @@ module ApplicationHelper
 
     (is_pdf ? "catalog/pdf" : "catalog/universal_viewer")
   end
+
+  # Override ActionView::Helpers::TranslationHelper#translate to attempt to use
+  # translation keys defined for the current theme.
+  #
+  # Depends on +scoped_themed_translation_key_by_partial+, defined in
+  # config/initializers/action_view_translate.rb.
+  def translate(key, **options)
+    key = key&.to_s unless key.is_a?(Symbol)
+    begin
+      # Attempt to translate the given key with the current theme. This will
+      # raise an error if no such key exists, which will be rescued by calling
+      # `super`.
+      scoped_key = scoped_themed_translation_key_by_partial(key)
+      scoped_options = options.clone
+      scoped_options[:raise] = true
+      super(scoped_key, **scoped_options)
+    rescue
+      super
+    end
+  end
+  alias_method :t, :translate
 end
