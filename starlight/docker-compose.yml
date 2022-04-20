@@ -108,7 +108,7 @@ services:
       - starlight
 
   solr:
-    image: bitnami/solr:8.11.1-debian-10-r83
+    image: bitnami/solr:8.11.1-debian-10-r119
     ports:
       - 8983:8983
     env_file:
