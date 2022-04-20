@@ -329,6 +329,7 @@ Devise.setup do |config|
   when "developer"
     config.omniauth :developer
   end
+  OmniAuth.config.allowed_request_methods = %i[get]
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
