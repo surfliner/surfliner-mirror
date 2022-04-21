@@ -107,6 +107,12 @@ docker-compose exec web sh -c 'bundle exec rake'
 See the [`docker-compose` CLI
 reference](https://docs.docker.com/compose/reference/overview/) for more on commands.
 
+### Sample data and admin account
+The `docker-compose` enviroment automatically generates an admin user and loads
+a sample exhibit.  The admin user has the email address `admin@localhost` and
+the password `testing` (although you typically won’t be asked for the password).
+This user and exhibit will also exist on the review deployments in GitLab.
+
 #### Persisting Data during Docker development
 The docker entrypoint script will read an environment variable named
 `DATABASE_COMMAND` that allows you to determine what database rake commands are
@@ -122,22 +128,6 @@ wipe any existing data, which may be problematic during development.
 If you wish to persist data across sessions, after the initial creation of the
 containers, you can simply comment out or remove the `DATABASE_COMMAND`, to
 ensure it does not run `db:schema:load` in future runs.
-
-### Load sample data and admin account
-You can use the [sample rake file](./lib/tasks/starlight.rake) to load a sample
-exhibit and generate an administrative user.  The admin user has the email
-address `admin@localhost` and the password `testing`.  This user and exhibit
-will exist on review deployments in GitLab.
-
-```
-docker-compose exec web bundle exec rake starlight:seed_admin_user
-docker-compose exec web bundle exec rake starlight:sample:seed_exhibit
-```
-
-### Set up a local admin account
-1. Self-register in the web ui
-1. Run this rake command: `rake spotlight:admin`
-1. Enter the email address you registered when prompted
 
 ## Email settings
 1. Set `ENV['FROM_EMAIL']` to whatever email address alert emails should come from.
