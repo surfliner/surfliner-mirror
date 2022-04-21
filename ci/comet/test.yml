@@ -1,7 +1,7 @@
 .comet:test:
   stage: test
-  image: $CI_REGISTRY_IMAGE/comet_web:$CI_COMMIT_SHA
-  needs: ["comet:build:app"]
+  image: $CI_REGISTRY_IMAGE/comet_test:$CI_COMMIT_SHA
+  needs: ["comet:build:test"]
   variables:
     AUTH_METHOD: "developer"
     CAPYBARA_PORT: 3010
@@ -12,11 +12,11 @@
     POSTGRES_PASSWORD: "postgres"
     POSTGRES_USER: "postgres"
     RABBITMQ_ENABLED: "false"
-    RABBITMQ_TOPIC: "surfliner.metadata"
     RABBITMQ_HOST: "rabbitmq"
-    RABBITMQ_PASSWORD: "bitnami"
-    RABBITMQ_USERNAME: "user"
     RABBITMQ_NODE_PORT_NUMBER: "5672"
+    RABBITMQ_PASSWORD: "bitnami"
+    RABBITMQ_TOPIC: "surfliner.metadata"
+    RABBITMQ_USERNAME: "user"
     RAILS_ENV: "test"
     RAILS_QUEUE: "inline"
     REDIS_HOST: "redis"
@@ -24,14 +24,13 @@
     SOLR_ADMIN_PASSWORD: "admin"
     SOLR_ADMIN_USER: "admin"
     SOLR_COLLECTION_NAME: comet-test
-    SOLR_CORES: comet-test
     SOLR_CORE_CONF_DIR: "/surfliner-conf/comet/solr"
+    SOLR_CORES: comet-test
     SOLR_ENABLE_AUTHENTICATION: "yes"
     SOLR_HOST: solr
     SOLR_PORT: 8983
   before_script:
     - cd /app/samvera/hyrax-webapp
-    - bundle check || bundle
     - RABBITMQ_ENABLED=0 db-wait.sh "${SOLR_HOST}:${SOLR_PORT}" rake db:create db:migrate
   rules:
     - !reference [.comet-mr-rules, rules]

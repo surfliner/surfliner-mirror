@@ -9,10 +9,16 @@ comet:build:app:
   extends:
     - .comet:build
   script:
-    - build_image_for "comet" "comet_web" "comet"
+    - build_image_for "comet" "comet_web" "comet-web-prod"
 
 comet:build:worker:
   extends:
     - .comet:build
   script:
-    - build_image_for "comet" "comet_worker_web" "comet-worker"
+    - build_image_for "comet" "comet_worker_web" "comet-worker-prod"
+
+comet:build:test:
+  extends:
+    - .comet:build
+  script:
+    - build_image_for "comet" "comet_test" "comet-test"

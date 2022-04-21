@@ -5,16 +5,13 @@ services:
     build:
       context: ..
       dockerfile: comet/Dockerfile
-      target: comet
-    image: comet
+      target: comet-dev
+    image: comet-dev
     stdin_open: true
     tty: true
     restart: always
-    user: root
     env_file:
       - .env
-    environment:
-      - RAILS_ROOT=/app/samvera/hyrax-webapp
     command:
       - sh
       - -c
@@ -45,10 +42,9 @@ services:
     build:
       context: ..
       dockerfile: comet/Dockerfile
-      target: comet-worker
-    image: comet-worker
+      target: comet-dev
+    image: comet-dev
     restart: always
-    user: root
     env_file:
       - .env
     command:
@@ -75,6 +71,31 @@ services:
     networks:
       - comet
 
+  db_migrate:
+    image: comet-dev
+    env_file:
+      - .env
+    environment:
+      - RABBITMQ_ENABLED=false
+      - SKIP_FILE_STAGING_BUCKET=true
+    command:
+      - sh
+      - -c
+      - >
+        echo "Ensuring database: $METADATA_DATABASE_NAME exists" &&
+        PGPASSWORD=$DB_PASSWORD PGHOST=$DB_HOST PGUSER=$DB_USERNAME PGDATABASE=$DB_NAME; export PGPASSWORD PGHOST PGUSER PGDATABASE &&
+        while ! psql -tc "SELECT * FROM pg_database"; do echo "-- Waiting for PGSQL ..."; sleep 5s; done &&
+        psql -tc "SELECT 1 FROM pg_database WHERE datname = '$METADATA_DATABASE_NAME'" | grep -q 1 || createdb -e -w $METADATA_DATABASE_NAME &&
+        /app/samvera/hyrax-webapp/scripts/db-migrate-seed.sh
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app/samvera/hyrax-webapp
+      - rails-public:/app/samvera/hyrax-webapp/public
+      - rails-tmp:/app/samvera/hyrax-webapp/tmp
+    networks:
+      - comet
+
   rabbitmq:
     image: bitnami/rabbitmq:3.9.16-debian-10-r0
     networks:
@@ -93,46 +114,18 @@ services:
     networks:
       - comet
 
-  db_migrate:
-    image: comet
-    user: root
-    env_file:
-      - .env
-    environment:
-      - RABBITMQ_ENABLED=false
-      - SKIP_FILE_STAGING_BUCKET=true
-    command:
-      - sh
-      - -c
-      - >
-        echo "Ensuring database: $METADATA_DATABASE_NAME exists" &&
-        PGPASSWORD=$DB_PASSWORD PGHOST=$DB_HOST PGUSER=$DB_USERNAME PGDATABASE=$DB_NAME; export PGPASSWORD PGHOST PGUSER PGDATABASE &&
-        while ! psql -tc "SELECT * FROM pg_database"; do echo "-- Waiting for PGSQL ..."; sleep 5s; done &&
-        psql -tc "SELECT 1 FROM pg_database WHERE datname = '$METADATA_DATABASE_NAME'" | grep -q 1 || createdb -e -w $METADATA_DATABASE_NAME &&
-        db-wait.sh "${SOLR_HOST}:${SOLR_PORT}" db-migrate-seed.sh
-    depends_on:
-      - postgres
-    volumes:
-      - .:/app/samvera/hyrax-webapp
-      - rails-public:/app/samvera/hyrax-webapp/public
-      - rails-tmp:/app/samvera/hyrax-webapp/tmp
-    networks:
-      - comet
-
   postgres:
-    image: postgres:latest
+    image: bitnami/postgresql:14.2.0
     restart: always
     env_file:
       - .env
-    # ports:
-    #   - "5432:5432"
     volumes:
-      - db:/var/lib/postgresql/data
+      - db:/bitnami/postgresql
     networks:
       - comet
 
   memcached:
-    image: bitnami/memcached
+    image: bitnami/memcached:1.6.15
     ports:
       - '11211:11211'
     networks:
@@ -155,7 +148,7 @@ services:
     env_file:
       - .env
     volumes:
-      - redis:/bitnami/redis/data
+      - redis:/bitnami/redis
     networks:
       - comet
 

@@ -1,10 +1,24 @@
-.gitlab-ci.yml
+# ignore these in the root directory
+*~
+charts/*
+ci/*
 CONTRIBUTING.md
+.dockerignore
+docs/*
+.git*
 LICENSE
 README.md
 renovate.json
-
 .styles/*
-ci/*
-docs/*
-charts/*
+
+# ignore these comet directories
+comet/derivatives/*
+comet/docker-compose.yaml
+comet/Dockerfile
+comet/.env
+comet/fits.log
+comet/.git
+comet/log/*
+comet/public/*
+comet/tmp/*
+comet/vendor/*

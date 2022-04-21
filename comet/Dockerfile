@@ -1,52 +1,92 @@
-ARG HYRAX_IMAGE_VERSION=3.0.2
-FROM ghcr.io/samvera/hyrax/hyrax-base:$HYRAX_IMAGE_VERSION as build-base
+ARG ALPINE_VERSION=3.15
+ARG RUBY_VERSION=2.7.5
+
+FROM ruby:$RUBY_VERSION-alpine$ALPINE_VERSION as base
+ARG LOCAL_PROJECT=comet
+ARG DOCKER_ROOT=/app/samvera
+ARG DOCKER_PROJECT=${DOCKER_ROOT}/hyrax-webapp
+WORKDIR $DOCKER_PROJECT
+
+RUN apk --no-cache upgrade && \
+  apk --no-cache add \
+  build-base \
+  gcompat \
+  git \
+  nodejs \
+  postgresql-dev \
+  tzdata \
+  yarn
+
+COPY $LOCAL_PROJECT/Gemfile* $DOCKER_PROJECT/
+COPY gems ${DOCKER_ROOT}/gems/
+
+FROM base as ruby-build-prod
+ARG RUBY_ABI=2.7.0
+
+ARG LOCAL_PROJECT=comet
+ARG DOCKER_ROOT=/app/samvera
+ARG DOCKER_PROJECT=${DOCKER_ROOT}/hyrax-webapp
+WORKDIR $DOCKER_PROJECT
+
+RUN bundle config set deployment 'true'
+RUN bundle config set without 'test development'
+RUN bundle install --jobs "$(nproc)"
+
+RUN rm -rf $DOCKER_PROJECT/vendor/bundle/ruby/$RUBY_ABI/cache
+RUN sh -c 'find $DOCKER_PROJECT/vendor -name ".git" -type d | xargs -n1 rm -rf'
+
+COPY $LOCAL_PROJECT $DOCKER_PROJECT
+
+RUN RAILS_ENV=production \
+  SECRET_KEY_BASE=`bin/rake secret` \
+  DB_ADAPTER=nulldb \
+  DATABASE_URL='postgresql://fake' \
+  bundle exec rake assets:precompile
+
+FROM ruby:$RUBY_VERSION-alpine$ALPINE_VERSION as comet-web-prod
+ARG GID=10001
+ARG UID=10000
+
+ARG LOCAL_PROJECT=comet
+ARG DOCKER_ROOT=/app/samvera
+ARG DOCKER_PROJECT=${DOCKER_ROOT}/hyrax-webapp
+WORKDIR $DOCKER_PROJECT
+
+RUN apk --no-cache upgrade && \
+  apk --no-cache add \
+  curl \
+  libpq \
+  nodejs \
+  tini \
+  tzdata \
+  zip
+
+RUN addgroup -S --gid $GID app && \
+  adduser -S -G app -u $UID -s /bin/sh -h /app app
+USER app
+
+COPY --chown=$UID:$GID gems ${DOCKER_ROOT}/gems/
+COPY --chown=$UID:$GID $LOCAL_PROJECT $DOCKER_PROJECT
+COPY --chown=$UID:$GID scripts/* $DOCKER_PROJECT/scripts/
+ENV PATH="${DOCKER_PROJECT}/scripts:${PATH}"
+
+COPY --from=ruby-build-prod --chown=$UID:$GID ${DOCKER_PROJECT}/public/assets ${DOCKER_PROJECT}/public/assets
+COPY --from=ruby-build-prod --chown=$UID:$GID ${DOCKER_PROJECT}/vendor ${DOCKER_PROJECT}/vendor
+
+RUN bundle config set deployment 'true'
+RUN bundle config set without 'test development'
+ENV BUNDLE_PATH="${DOCKER_PROJECT}/vendor/bundle"
+
+ENV RAILS_ROOT=${DOCKER_PROJECT}
+ENTRYPOINT ["tini", "--", "/app/samvera/hyrax-webapp/scripts/entrypoint.sh"]
+CMD ["bundle", "exec", "puma", "-v", "-b", "tcp://0.0.0.0:3000"]
+
+FROM comet-web-prod as comet-worker-prod
+WORKDIR $DOCKER_PROJECT
 
 USER root
 RUN apk --no-cache add \
-  git \
-  less \
-  postgresql-client
-USER app
-
-FROM ghcr.io/samvera/hyrax/hyrax-base:$HYRAX_IMAGE_VERSION as ruby-base
-ARG PROJECTPATH=comet
-ARG DOCKERROOT=/app/samvera
-
-USER app
-
-COPY --chown=1001:101 $PROJECTPATH/Gemfile* $DOCKERROOT/hyrax-webapp/
-COPY --chown=1001:101 gems ${DOCKERROOT}/gems/
-
-RUN bundle check || bundle install --jobs "$(nproc)"
-
-COPY --chown=1001:101 $PROJECTPATH/scripts/db-migrate-seed.sh $DOCKERROOT/db-migrate-seed.sh
-COPY --chown=1001:101 $PROJECTPATH $DOCKERROOT/hyrax-webapp
-COPY --chown=1001:101 scripts ${DOCKERROOT}/scripts/
-
-RUN RAILS_ENV=production SECRET_KEY_BASE=`bin/rake secret` DB_ADAPTER=nulldb DATABASE_URL='postgresql://fake' bundle exec rake assets:precompile
-
-#
-# Comet Rails server
-FROM build-base as comet
-ARG PROJECTPATH=comet
-ARG DOCKERROOT=/app/samvera
-
-COPY --from=ruby-base --chown=1001:101 /usr/local/bundle/ /usr/local/bundle/
-COPY --from=ruby-base --chown=1001:101 ${DOCKERROOT} ${DOCKERROOT}
-
-ENTRYPOINT ["/app/samvera/hyrax-webapp/scripts/entrypoint.sh"]
-CMD ["bundle", "exec", "puma"]
-
-#
-# Comet Sidekiq worker
-FROM build-base as comet-worker
-ARG PROJECTPATH=comet
-ARG DOCKERROOT=/app/samvera
-
-ENV MALLOC_ARENA_MAX=2
-
-USER root
-RUN apk --no-cache add bash \
+  bash \
   ffmpeg \
   mediainfo \
   openjdk11-jre \
@@ -60,9 +100,58 @@ RUN mkdir -p /app/fits && \
     rm fits.zip && \
     chmod a+x /app/fits/fits.sh
 ENV PATH="${PATH}:/app/fits"
+ENV MALLOC_ARENA_MAX=2
 
-COPY --from=ruby-base --chown=1001:101 /usr/local/bundle/ /usr/local/bundle/
-COPY --from=ruby-base --chown=1001:101 ${DOCKERROOT} ${DOCKERROOT}
+CMD ["bundle", "exec", "sidekiq"]
 
+FROM base as comet-test
+ARG RUBY_ABI=2.7.0
+ARG LOCAL_PROJECT=comet
+ARG DOCKER_ROOT=/app/samvera
+ARG DOCKER_PROJECT=${DOCKER_ROOT}/hyrax-webapp
+
+RUN gem update bundler && gem cleanup bundler && bundle -v
+RUN bundle install --jobs "$(nproc)"
+
+RUN rm -rf $DOCKER_PROJECT/vendor/bundle/ruby/$RUBY_ABI/cache
+RUN sh -c 'find $DOCKER_PROJECT/vendor -name ".git" -type d | xargs -n1 rm -rf'
+
+COPY gems ${DOCKER_ROOT}/gems/
+COPY $LOCAL_PROJECT $DOCKER_PROJECT
+COPY scripts/* $DOCKER_PROJECT/scripts/
+ENV PATH="${DOCKER_PROJECT}/scripts:${PATH}"
+
+ENV RAILS_ROOT=${DOCKER_PROJECT}
 ENTRYPOINT ["/app/samvera/hyrax-webapp/scripts/entrypoint.sh"]
-CMD bundle exec sidekiq
+
+FROM base as comet-dev
+ARG LOCAL_PROJECT=comet
+ARG DOCKER_ROOT=/app/samvera
+ARG DOCKER_PROJECT=${DOCKER_ROOT}/hyrax-webapp
+
+RUN mkdir -p /app/fits && \
+    cd /app/fits && \
+    wget https://github.com/harvard-lts/fits/releases/download/1.5.0/fits-1.5.0.zip -O fits.zip && \
+    unzip fits.zip && \
+    rm fits.zip && \
+    chmod a+x /app/fits/fits.sh
+ENV PATH="${PATH}:/app/fits"
+
+RUN apk --no-cache upgrade && \
+  apk --no-cache add \
+  bash \
+  ffmpeg \
+  mediainfo \
+  openjdk11-jre \
+  perl \
+  postgresql-client
+
+RUN gem update bundler && gem cleanup bundler && bundle -v
+RUN bundle install --jobs "$(nproc)"
+
+COPY $LOCAL_PROJECT $DOCKER_PROJECT
+
+RUN RAILS_ENV=production SECRET_KEY_BASE=fakedevsecret DB_ADAPTER=nulldb DATABASE_URL='postgresql://fake' bundle exec rake assets:precompile
+
+ENV RAILS_ROOT=${DOCKER_PROJECT}
+ENTRYPOINT ["/app/samvera/hyrax-webapp/scripts/entrypoint.sh"]
