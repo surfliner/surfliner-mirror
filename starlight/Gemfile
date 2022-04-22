@@ -19,7 +19,7 @@ gem "jquery-rails", "4.4.0"
 gem "letter_opener_web", "2.0.0"
 gem "mimemagic", "0.4.3"
 gem "okcomputer", "1.18.4"
-gem "omniauth", "2.0.4"
+gem "omniauth", "2.1.0"
 gem "omniauth-google-oauth2", "1.0.1"
 
 gem "optimist", "3.0.1"
