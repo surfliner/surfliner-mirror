@@ -78,6 +78,7 @@ RUN bundle config set without 'test development'
 ENV BUNDLE_PATH="${DOCKER_PROJECT}/vendor/bundle"
 
 ENV RAILS_ROOT=${DOCKER_PROJECT}
+ENV RAILS_SERVE_STATIC_FILES=1
 ENTRYPOINT ["tini", "--", "/app/samvera/hyrax-webapp/scripts/entrypoint.sh"]
 CMD ["bundle", "exec", "puma", "-v", "-b", "tcp://0.0.0.0:3000"]
 
@@ -122,6 +123,7 @@ COPY scripts/* $DOCKER_PROJECT/scripts/
 ENV PATH="${DOCKER_PROJECT}/scripts:${PATH}"
 
 ENV RAILS_ROOT=${DOCKER_PROJECT}
+ENV RAILS_SERVE_STATIC_FILES=1
 ENTRYPOINT ["/app/samvera/hyrax-webapp/scripts/entrypoint.sh"]
 
 FROM base as comet-dev
