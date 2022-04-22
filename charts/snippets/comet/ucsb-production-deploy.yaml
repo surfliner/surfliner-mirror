@@ -44,6 +44,8 @@ extraEnvVars:
     value: "ucsb_model"
   - name: "RAILS_LOG_TO_STDOUT"
     value: "true"
+  - name: "RAILS_QUEUE"
+    value: "sidekiq"
   - name: "STAGING_AREA_S3_BUCKET"
     value: "comet-production-batch-source"
 extraEnvFrom:
@@ -67,6 +69,8 @@ worker:
       value: "ucsb_model"
     - name: "RAILS_LOG_TO_STDOUT"
       value: "true"
+    - name: "RAILS_QUEUE"
+      value: "sidekiq"
     - name: "STAGING_AREA_S3_BUCKET"
       value: "comet-production-batch-source"
   extraEnvFrom:
