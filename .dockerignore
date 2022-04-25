@@ -1,3 +1,7 @@
+# This is the ignore file for the entire monorepo; Docker does not pay attention
+# to any .dockerignore outside of the context root:
+# https://docs.docker.com/engine/reference/builder/#dockerignore-file
+
 # ignore these in the root directory
 *~
 charts/*
