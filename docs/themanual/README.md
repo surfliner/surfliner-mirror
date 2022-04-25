@@ -3,6 +3,7 @@ The Surliner Manual TOC
 
 * Surfliner
   * [Message Queuing in Surfliner](./message_queue/README.md)
+  * [docker/container guidelines and conventions](./docker/README.md)
 
 * Comet
   * [Setting up a development environment.](./comet/devsetup.md).
