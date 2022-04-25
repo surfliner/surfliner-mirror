@@ -25,6 +25,12 @@
       "matchStrings": ["RABBITMQ_OPERATOR_VERSION:\\s(?<currentValue>.+)"],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "rabbitmq/cluster-operator"
+    },
+    {
+      "fileMatch": ["Dockerfile"],
+      "matchStrings": ["fits-(?<currentValue>.+?)\\.zip"],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "harvard-lts/fits"
     }
   ],
   "packageRules":[
