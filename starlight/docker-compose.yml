@@ -74,7 +74,7 @@ services:
       - starlight
 
   memcached:
-    image: bitnami/memcached:1.6.14-debian-10-r33
+    image: bitnami/memcached:1.6.15-debian-10-r25
     networks:
       - starlight
 
