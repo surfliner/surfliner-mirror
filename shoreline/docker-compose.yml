@@ -48,7 +48,7 @@ services:
       - shoreline
 
   postgres:
-    image: bitnami/postgresql:12.10.0-debian-10-r69
+    image: bitnami/postgresql:12.10.0-debian-10-r75
     volumes:
       - "shoreline_db:/bitnami/postgresql"
     env_file:

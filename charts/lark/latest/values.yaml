@@ -41,7 +41,7 @@ persistence_adapters:
 postgresql:
   image:
     repository: bitnami/postgresql
-    tag: 12.10.0-debian-10-r69
+    tag: 12.10.0-debian-10-r75
   enabled: true
   cpu: 1000m
   memory: 1Gi
