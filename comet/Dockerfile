@@ -77,6 +77,7 @@ COPY --chown=$UID:$GID scripts/* $DOCKER_PROJECT/scripts/
 ENV PATH="${DOCKER_PROJECT}/scripts:${PATH}"
 
 COPY --from=ruby-build-prod --chown=$UID:$GID ${DOCKER_PROJECT}/public/assets ${DOCKER_PROJECT}/public/assets
+COPY --from=ruby-build-prod --chown=$UID:$GID ${DOCKER_PROJECT}/public/uv ${DOCKER_PROJECT}/public/uv
 COPY --from=ruby-build-prod --chown=$UID:$GID ${DOCKER_PROJECT}/vendor ${DOCKER_PROJECT}/vendor
 
 RUN bundle config set deployment 'true'
