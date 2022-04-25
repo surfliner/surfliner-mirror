@@ -2,11 +2,14 @@ ARG ALPINE_VERSION=3.15
 ARG RUBY_VERSION=2.7.5
 
 FROM ruby:$RUBY_VERSION-alpine$ALPINE_VERSION as base
+# the directory of the host system from which application files are copied
 ARG LOCAL_PROJECT=comet
+# the project path on the image
 ARG DOCKER_ROOT=/app/samvera
 ARG DOCKER_PROJECT=${DOCKER_ROOT}/hyrax-webapp
 WORKDIR $DOCKER_PROJECT
 
+# build-time dependencies only
 RUN apk --no-cache upgrade && \
   apk --no-cache add \
   build-base \
@@ -21,6 +24,7 @@ COPY $LOCAL_PROJECT/Gemfile* $DOCKER_PROJECT/
 COPY gems ${DOCKER_ROOT}/gems/
 
 FROM base as ruby-build-prod
+# used below for locating the bundle cache
 ARG RUBY_ABI=2.7.0
 
 ARG LOCAL_PROJECT=comet
@@ -33,6 +37,7 @@ RUN bundle config set without 'test development'
 RUN bundle install --jobs "$(nproc)"
 
 RUN rm -rf $DOCKER_PROJECT/vendor/bundle/ruby/$RUBY_ABI/cache
+# gems installed with git include their entire history, which can be very large
 RUN sh -c 'find $DOCKER_PROJECT/vendor -name ".git" -type d | xargs -n1 rm -rf'
 
 COPY $LOCAL_PROJECT $DOCKER_PROJECT
@@ -52,6 +57,7 @@ ARG DOCKER_ROOT=/app/samvera
 ARG DOCKER_PROJECT=${DOCKER_ROOT}/hyrax-webapp
 WORKDIR $DOCKER_PROJECT
 
+# run-time dependencies only
 RUN apk --no-cache upgrade && \
   apk --no-cache add \
   curl \
@@ -77,6 +83,7 @@ RUN bundle config set deployment 'true'
 RUN bundle config set without 'test development'
 ENV BUNDLE_PATH="${DOCKER_PROJECT}/vendor/bundle"
 
+# TODO: should these be set by helm/docker-compose?
 ENV RAILS_ROOT=${DOCKER_PROJECT}
 ENV RAILS_SERVE_STATIC_FILES=1
 ENTRYPOINT ["tini", "--", "/app/samvera/hyrax-webapp/scripts/entrypoint.sh"]
