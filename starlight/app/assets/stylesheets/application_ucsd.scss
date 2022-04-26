@@ -672,16 +672,25 @@ body
   }
 }
 
-// Gallery View - Description List Fix (Copied from Stanford)
-.documents-gallery .document-metadata dt, .documents-gallery .document-metadata dd{flex:0 0 100%;max-width:100%;padding-left:0;padding-right:0;float:none;width:auto;clear:none;text-align:left;margin:0}
+//------------------------------------------------------------------------------
+// Search Results Tweaks
+//------------------------------------------------------------------------------
 
-// Gallery View - Customizations
-.documents-gallery .document-title-heading{font-size: 20px;padding: 0;font-weight: bold;}
-.documents-gallery .document-title-heading a{color: #00629b;}
-.documents-gallery .document-metadata{font-size: 14px;line-height: 1.5;} /* The <dl> */
-.documents-gallery .document-metadata dt{color: #6e963b;}
-.documents-gallery .document-metadata dd{margin-bottom: 5px;}
-.documents-gallery .documentHeader .document-counter{display: none;}
+// List/Gallery View - Description List Fix (Copied from Stanford)
+.documents-list .document .document-metadata dt,
+.documents-list .document .document-metadata dd,
+.documents-gallery .document .document-metadata dt,
+.documents-gallery .document .document-metadata dd
+{flex:0 0 100%;max-width:100%;padding-left:0;padding-right:0;float:none;width:auto;clear:none;text-align:left;margin:0;}
+
+// List/Gallery View - Customizations
+.documents-list .document-title-heading, .documents-gallery .document-title-heading {font-size: 20px;padding: 0;font-weight: bold;}
+.documents-list .document-title-heading {padding: 0 15px !important;}
+.documents-list .document-title-heading a, .documents-gallery .document-title-heading a {color: #00629b;}
+.documents-list .document-metadata, .documents-gallery .document-metadata {font-size: 14px;line-height: 1.5;} /* The <dl> */
+.documents-list .document-metadata dt, .documents-gallery .document-metadata dt {color: #6e963b;}
+.documents-list .document-metadata dd, .documents-gallery .document-metadata dd {margin-bottom: 5px;}
+.documents-list .documentHeader .document-counter, .documents-gallery .documentHeader .document-counter {display: none;}
 
 // Gallery View - Bookmark Control Fix
 .documents-gallery .documentHeader {
@@ -707,8 +716,128 @@ body
   }
 }
 
-// Masonry View - Description List Fix (Copied from Stanford)
-.documents-masonry .document .document-metadata dt, .documents-masonry .document .document-metadata dd{flex:0 0 100%;max-width:100%;padding-left:0;padding-right:0;float:none;width:auto;clear:none;text-align:left;margin:0}
+// List View - Bookmark Control Fix
+.documents-list .documentHeader {
+  .index-document-functions{
+    margin-bottom: 0 !important;
+    label {
+      display: flex;
+      flex-direction: row-reverse;
+      font-size: 12px;
+      line-height: 1;
+      color: #747678;
+      input[type=checkbox]{
+        width: 12px;
+        height: 12px;
+        margin-left: 5px;
+        color: #747678;
+      }
+    }
+  }
+}
 
-// Masonry View - Customizations
-.documents-masonry .document .document-metadata dt{color:#6e963b}
+// List View - Separator Color Fix (Campus theme)
+.sort-pagination, .pagination-search-widgets{border-bottom: 1px solid #b6b1a9;}
+.documents-list .document{border-bottom: 1px solid #b6b1a966;}
+
+// Masonry View - Apparently this is the missing CSS (Copied from Stanford)
+.documents-masonry .document {
+  max-width:32%;
+  padding:0;
+  margin:0;
+  margin-bottom:0.5rem;
+  position:relative;
+  width:auto;
+ }
+ .documents-masonry .document:hover .caption-area,
+ .documents-masonry .document:focus .caption-area {
+  display:block
+ }
+ .documents-masonry .document .thumbnail-container {
+  position:relative;
+  min-height:100px;
+  background-color:#747678;
+ }
+ .documents-masonry .document .img-thumbnail {
+  padding:0;
+  border-radius:0;
+ }
+ .documents-masonry .document .caption-area {
+  display:none;
+  padding:10px;
+  background-color:rgba(0,0,0,0.666) !important;
+  position:absolute;
+  bottom:0;
+  overflow-x:hidden;
+  overflow-y:scroll;
+  max-height:100%;
+  width:100%;
+ }
+ .documents-masonry .document .caption-area:first-child {
+  display:block;
+  max-height:100%;
+  background-color:rgba(0,0,0,0.666) !important;
+  width:100%;
+ }
+ .documents-masonry .document .document-counter {
+  display:none;
+ }
+ .documents-masonry .document .index_title a,
+ .documents-masonry .document .index_title a:hover,
+ .documents-masonry .document .index_title a:visited,
+ .documents-masonry .document .index_title a:active {
+  color:#fff;
+ }
+ .documents-masonry .document .document-metadata dt {
+  color:#b6b1a9;
+ }
+ .documents-masonry .document .document-metadata dt,
+ .documents-masonry .document .document-metadata dd {
+  flex:0 0 100%;
+  max-width:100%;
+  padding-left:0;
+  padding-right:0;
+  float:none;
+  width:auto;
+  clear:none;
+  text-align:left;
+  margin:0;
+ }
+
+ // Masonry View - Customizations
+.documents-masonry .document-title-heading{padding:0;margin:0;}
+.documents-masonry .document-title-heading a{font-size: 14px;padding: 0;font-weight: bold;color:#fff;line-height: 1.2;display: inline-block;}
+.documents-masonry .document-metadata{line-height: 1.2;color: #fff;margin-bottom:0;} /* The <dl> */
+.documents-masonry .document-metadata dt{font-size: 10px;}
+.documents-masonry .document-metadata dd{font-size: 12px;margin-bottom: 0;}
+.documents-masonry .documentHeader .document-counter{display: none;}
+.documents-masonry .document-thumbnail .img-thumbnail{border:none;}
+@media (max-width: 767.98px) {
+  .documents-masonry .document{max-width:49%;}
+}
+@media (max-width: 575.98px) {
+  .documents-masonry .document{max-width:100%;}  
+}
+
+// Masonry View - Bookmark Control Fix
+.documents-masonry .documentHeader {
+  flex-direction: column-reverse;
+  .index-document-functions{
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding: 0;
+    label {
+      display: flex;
+      flex-direction: row-reverse;
+      font-size: 10px;
+      line-height: 1;
+      color: #fff;
+      input[type=checkbox]{
+        width: 10px;
+        height: 10px;
+        margin-left: 5px;
+        color: #fff;
+      }
+    }
+  }
+}
