@@ -10,7 +10,7 @@ gem "puma", "5.6.4"
 gem "rails", "7.0.2"
 gem "rspec-rails", "5.1.2", group: "test"
 gem "rspec_junit_formatter", "0.5.1", group: "test"
-gem "standard", "1.10.0", group: %(development test)
+gem "standard", "1.11.0", group: %(development test)
 gem "sequel", "5.55.0", group: %(development test)
 gem "tzinfo-data", "2.0.4", platforms: %i[mingw mswin x64_mingw jruby]
 gem "webmock", "3.14.0", group: "test"
