@@ -14,17 +14,17 @@ fcrepo:
   enabled: false
 
 podSecurityContext:
-  runAsUser: 1001
-  runAsGroup: 101
-  fsGroup: 101
+  runAsUser: 10000
+  runAsGroup: 10001
+  fsGroup: 10001
   fsGroupChangePolicy: "OnRootMismatch"
 
 worker:
   replicaCount: 2
   podSecurityContext:
-    runAsUser: 1001
-    runAsGroup: 101
-    fsGroup: 101
+    runAsUser: 10000
+    runAsGroup: 10001
+    fsGroup: 10001
     fsGroupChangePolicy: "OnRootMismatch"
   resources:
     limits:
