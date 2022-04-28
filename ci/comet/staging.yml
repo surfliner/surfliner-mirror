@@ -7,6 +7,7 @@
     DEPLOY_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-comet-stage
     KUBE_NAMESPACE: comet-staging
+  needs: ["comet:build:app", "comet:build:worker"]
   rules:
     - !reference [.comet-default-branch-rules, rules]
 
