@@ -29,28 +29,6 @@ derivativesVolume:
 uploadsVolume:
   storageClass: efs-sc
 
-dbPreSetupInitContainer:
-  - name: ensure-metadata-db-exists
-    image: "bitnami/postgresql:latest"
-    command:
-      - sh
-      - -c
-      - >-
-        echo "Ensuring database: $METADATA_DATABASE_NAME exists";
-        PGPASSWORD=$DB_PASSWORD PGHOST=$DB_HOST PGUSER=$DB_USERNAME; export PGPASSWORD PGHOST PGUSER;
-        psql -tc "SELECT 1 FROM pg_database WHERE datname = '$METADATA_DATABASE_NAME'" | grep -q 1 ||
-        createdb -e -w $METADATA_DATABASE_NAME
-    envFrom:
-      - configMapRef:
-          name: surfliner-comet-stage-hyrax-env
-      - secretRef:
-          name: surfliner-comet-stage-hyrax
-      - secretRef:
-          name: comet-postgres
-    env:
-    - name: "METADATA_DATABASE_NAME"
-      value: "comet_metadata"
-
 extraEnvVars:
   - name: "AUTH_METHOD"
     value: "google"
