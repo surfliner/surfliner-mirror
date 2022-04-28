@@ -38,15 +38,19 @@ $unofficial-border-gray: #DCE1E5;
 $unofficial-dark-lightgray: #A1AFBA;
 $unofficial-lightgray-darken-45: #5E707E;
 
-// Bootstrap overrides
-$body-bg: $base-white;
-$body-color: $text-on-light;
-$primary: $base-navy;
-$success: $unofficial-success-green;
-$info: $unofficial-info-blue;
-$warning: $unofficial-warning-yellow;
-$danger: $unofficial-danger-red;
-$link-color: $unofficial-interactive-blue;
-$link-hover-color: $unofficial-light-interactive-blue;
-$border-color: $unofficial-border-gray;
-$border-radius: 0;
+// Starlight overridable theme colours
+$starlight-primary: $base-navy !default;
+$starlight-dark-primary: $unofficial-dark-navy !default;
+
+// Revised Bootstrap defaults
+$body-bg: $base-white !default;
+$body-color: $text-on-light !default;
+$primary: $starlight-primary !default;
+$success: $unofficial-success-green !default;
+$info: $unofficial-info-blue !default;
+$warning: $unofficial-warning-yellow !default;
+$danger: $unofficial-danger-red !default;
+$link-color: $unofficial-interactive-blue !default;
+$link-hover-color: $unofficial-light-interactive-blue !default;
+$border-color: $unofficial-border-gray !default;
+$border-radius: 0 !default;

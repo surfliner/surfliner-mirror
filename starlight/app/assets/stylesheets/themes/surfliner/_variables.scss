@@ -1,0 +1,7 @@
+// Surfliner colours
+$surf-base-navy: #005581;
+$surf-navy-darken: #004468;
+
+// Starlight overridable theme colours
+$starlight-primary: $surf-base-navy !default;
+$starlight-dark-primary: $surf-navy-darken !default;

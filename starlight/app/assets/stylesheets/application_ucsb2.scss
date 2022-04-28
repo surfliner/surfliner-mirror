@@ -56,12 +56,12 @@ body>* {
   // Because this appears first, its dropdowns will get covered up by the body
   // content if we don’t give it a positive z-index.
   color: $text-on-dark;
-  background: $base-navy;
+  background: $starlight-primary;
   font-weight: 100;
   font-size: .75rem;
   line-height: calc(1.25rem);
   letter-spacing: calc(7em / 90);
-  z-index: 1;
+  z-index: 2;
 
   * {
     // This bit disables some bootstrap styling. It depends on the fact that id
@@ -133,7 +133,7 @@ body>* {
           border-radius: 0;
           padding: .5rem 0;
           color: $text-on-dark;
-          background: $unofficial-dark-navy;
+          background: $starlight-dark-primary;
           text-transform: none;
 
           .dropdown-item {
@@ -141,7 +141,7 @@ body>* {
             font-weight: inherit;
 
             &:hover {
-              background: $base-navy;
+              background: $starlight-primary;
             }
           }
           .dropdown-divider {
@@ -161,7 +161,7 @@ body>* {
           left: 0;
           right: 0;
           margin: -.5rem -.9375rem;
-          background: $unofficial-dark-navy;
+          background: $starlight-dark-primary;
           z-index: -1;
           content: "";
 
@@ -196,7 +196,7 @@ body>* {
 /* Site Header *****/
 
 #site-header {
-  color: $base-navy;
+  color: $starlight-primary;
   background: $lightgray-lighten-6;
 
   a[href] {
@@ -234,12 +234,16 @@ body>.masthead {
   // gone against upstream and allowed them. I don’t see why people on mobile
   // devices should be restricted to just viewing the first dozen characters of
   // the name of the exhibit they’re on.
+  //
+  // The z-index here is to ensure that masthead dropdowns appear on top of
+  // content.
   display: grid;
   border: none;
   grid-template-rows: 0 1fr auto;
-  color: $base-navy;
+  color: $starlight-primary;
   background: $lightgray-lighten-6;
   white-space: normal;
+  z-index: 1;
 
   &::before {
     // Fill the first row so nothing gets slotted in there.
@@ -437,7 +441,7 @@ body>.masthead {
 #footer {
   margin: auto 0 0;
   color: $text-on-dark;
-  background: $base-navy;
+  background: $starlight-primary;
 
   a[href] {
     color: inherit;
@@ -532,7 +536,7 @@ body>.masthead {
   margin: 0;
   padding: 1rem 1.25rem 3rem;
   color: $base-white;
-  background: $unofficial-dark-navy;
+  background: $starlight-dark-primary;
   font-size: .75rem;
 
   a[href] {
