@@ -24,6 +24,7 @@ comet:deploy:staging:ucsb:
       --set worker.image.tag=$CI_COMMIT_SHA
       --set dbPreSetupInitContainer[0].envFrom[0].configMapRef.name=surfliner-comet-stage-hyrax-env
       --set dbPreSetupInitContainer[0].envFrom[1].secretRef.name=surfliner-comet-stage-hyrax
+      --set dbPreSetupInitContainer[0].envFrom[2].secretRef.name=comet-postgres
       --values charts/snippets/comet/init-containers.yaml
       --values charts/snippets/comet/staging-deploy.yaml
       --values charts/snippets/comet/ucsb-solr-staging.yaml
