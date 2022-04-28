@@ -14,6 +14,18 @@ namespace :starlight do
     Spotlight::Role.create(user: u, resource: Spotlight::Site.instance, role: "admin")
   end
 
+  task add_exhibit_admin: [:environment] do
+    print 'Exhibit URL slug: '
+    exhibit_slug = $stdin.gets.chomp
+
+    print 'User email address: '
+    email = $stdin.gets.chomp
+
+    user = User.find_by(email: email)
+    exhibit = Spotlight::Exhibit.find_by(slug: exhibit_slug)
+    Spotlight::Role.create(user: user, resource: exhibit, role: "admin")
+  end
+
   task migrate_iiif_content: [:environment] do
     unless ENV["APP_URL"] && ENV["OLD_APP_URL"]
       abort "\nYou must supply APP_URL and OLD_APP_URL environment variables for this task.\n\n"
