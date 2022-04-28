@@ -76,7 +76,7 @@ services:
       - comet
 
   rabbitmq:
-    image: bitnami/rabbitmq:3.9.13-debian-10-r55
+    image: bitnami/rabbitmq:3.9.16-debian-10-r0
     networks:
       - comet
 
