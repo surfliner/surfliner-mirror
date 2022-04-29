@@ -104,9 +104,11 @@ RUN apk --no-cache add \
   perl
 USER app
 
+# renovate: datasource=github-releases depName=harvard-lts/fits
+ARG FITS_VERSION=1.5.0
 RUN mkdir -p /app/fits && \
     cd /app/fits && \
-    wget https://github.com/harvard-lts/fits/releases/download/1.5.0/fits-1.5.0.zip -O fits.zip && \
+    wget https://github.com/harvard-lts/fits/releases/download/${FITS_VERSION}/fits-${FITS_VERSION}.zip -O fits.zip && \
     unzip fits.zip && \
     rm fits.zip && \
     chmod a+x /app/fits/fits.sh
@@ -141,9 +143,11 @@ ARG LOCAL_PROJECT=comet
 ARG DOCKER_ROOT=/app/samvera
 ARG DOCKER_PROJECT=${DOCKER_ROOT}/hyrax-webapp
 
+# renovate: datasource=github-releases depName=harvard-lts/fits
+ARG FITS_VERSION=1.5.0
 RUN mkdir -p /app/fits && \
     cd /app/fits && \
-    wget https://github.com/harvard-lts/fits/releases/download/1.5.0/fits-1.5.0.zip -O fits.zip && \
+    wget https://github.com/harvard-lts/fits/releases/download/${FITS_VERSION}/fits-${FITS_VERSION}.zip -O fits.zip && \
     unzip fits.zip && \
     rm fits.zip && \
     chmod a+x /app/fits/fits.sh
