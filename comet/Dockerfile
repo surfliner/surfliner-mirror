@@ -26,21 +26,18 @@ COPY $LOCAL_PROJECT/Gemfile* $DOCKER_PROJECT/
 COPY gems ${DOCKER_ROOT}/gems/
 
 FROM base as ruby-build-prod
-# used below for locating the bundle cache
-ARG RUBY_ABI=2.7.0
+# used in ruby-bundle.sh for locating the bundle cache
+ENV RUBY_ABI=2.7.0
 
 ARG LOCAL_PROJECT=comet
 ARG DOCKER_ROOT=/app/samvera
-ARG DOCKER_PROJECT=${DOCKER_ROOT}/hyrax-webapp
+# used in ruby-bundle.sh
+ENV DOCKER_PROJECT=${DOCKER_ROOT}/hyrax-webapp
 WORKDIR $DOCKER_PROJECT
 
-RUN bundle config set deployment 'true'
-RUN bundle config set without 'test development'
-RUN bundle install --jobs "$(nproc)"
-
-RUN rm -rf $DOCKER_PROJECT/vendor/bundle/ruby/$RUBY_ABI/cache
-# gems installed with git include their entire history, which can be very large
-RUN sh -c 'find $DOCKER_PROJECT/vendor -name ".git" -type d | xargs -n1 rm -rf'
+COPY scripts/docker/*.sh ${DOCKER_PROJECT}/
+RUN ${DOCKER_PROJECT}/ruby-bundle-prod.sh
+RUN ${DOCKER_PROJECT}/ruby-bundle-cleanup.sh
 
 COPY $LOCAL_PROJECT $DOCKER_PROJECT
 
@@ -123,11 +120,10 @@ ARG LOCAL_PROJECT=comet
 ARG DOCKER_ROOT=/app/samvera
 ARG DOCKER_PROJECT=${DOCKER_ROOT}/hyrax-webapp
 
-RUN gem update bundler && gem cleanup bundler && bundle -v
 RUN bundle install --jobs "$(nproc)"
 
-RUN rm -rf $DOCKER_PROJECT/vendor/bundle/ruby/$RUBY_ABI/cache
-RUN sh -c 'find $DOCKER_PROJECT/vendor -name ".git" -type d | xargs -n1 rm -rf'
+COPY scripts/docker/*.sh ${DOCKER_PROJECT}/
+RUN ${DOCKER_PROJECT}/ruby-bundle-cleanup.sh
 
 COPY gems ${DOCKER_ROOT}/gems/
 COPY $LOCAL_PROJECT $DOCKER_PROJECT
@@ -162,7 +158,6 @@ RUN apk --no-cache upgrade && \
   perl \
   postgresql-client
 
-RUN gem update bundler && gem cleanup bundler && bundle -v
 RUN bundle install --jobs "$(nproc)"
 
 COPY $LOCAL_PROJECT $DOCKER_PROJECT
