@@ -105,7 +105,7 @@ RUN apk --no-cache add \
 USER app
 
 # renovate: datasource=github-releases depName=harvard-lts/fits
-ARG FITS_VERSION=1.5.0
+ARG FITS_VERSION=1.5.3
 RUN mkdir -p /app/fits && \
     cd /app/fits && \
     wget https://github.com/harvard-lts/fits/releases/download/${FITS_VERSION}/fits-${FITS_VERSION}.zip -O fits.zip && \
@@ -144,7 +144,7 @@ ARG DOCKER_ROOT=/app/samvera
 ARG DOCKER_PROJECT=${DOCKER_ROOT}/hyrax-webapp
 
 # renovate: datasource=github-releases depName=harvard-lts/fits
-ARG FITS_VERSION=1.5.0
+ARG FITS_VERSION=1.5.3
 RUN mkdir -p /app/fits && \
     cd /app/fits && \
     wget https://github.com/harvard-lts/fits/releases/download/${FITS_VERSION}/fits-${FITS_VERSION}.zip -O fits.zip && \
