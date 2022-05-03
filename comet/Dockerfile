@@ -22,18 +22,17 @@ RUN apk --no-cache upgrade && \
   tzdata \
   yarn
 
-COPY $LOCAL_PROJECT/Gemfile* $DOCKER_PROJECT/
+COPY ${LOCAL_PROJECT}/Gemfile* ${DOCKER_PROJECT}/
 COPY gems ${DOCKER_ROOT}/gems/
 
 FROM base as ruby-build-prod
-# used in ruby-bundle.sh for locating the bundle cache
+# used in ruby-bundle-cleanup.sh for locating the bundle cache
 ENV RUBY_ABI=2.7.0
 
 ARG LOCAL_PROJECT=comet
 ARG DOCKER_ROOT=/app/samvera
-# used in ruby-bundle.sh
+# used in ruby-bundle-cleanup.sh
 ENV DOCKER_PROJECT=${DOCKER_ROOT}/hyrax-webapp
-WORKDIR $DOCKER_PROJECT
 
 COPY scripts/docker/*.sh ${DOCKER_PROJECT}/
 RUN ${DOCKER_PROJECT}/ruby-bundle-prod.sh
@@ -41,10 +40,11 @@ RUN ${DOCKER_PROJECT}/ruby-bundle-cleanup.sh
 
 COPY $LOCAL_PROJECT $DOCKER_PROJECT
 
-RUN RAILS_ENV=production \
-  SECRET_KEY_BASE=`bin/rake secret` \
-  DB_ADAPTER=nulldb \
+RUN \
   DATABASE_URL='postgresql://fake' \
+  DB_ADAPTER=nulldb \
+  RAILS_ENV=production \
+  SECRET_KEY_BASE=`bin/rake secret` \
   bundle exec rake assets:precompile
 
 FROM ruby:$RUBY_VERSION-alpine$ALPINE_VERSION as comet-web-prod

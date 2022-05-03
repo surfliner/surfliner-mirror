@@ -15,9 +15,9 @@ module Starlight
 
     config.action_mailer.default_url_options = { host: URI.parse(ENV.fetch("APP_URL")).hostname,
                                                  protocol: URI.parse(ENV.fetch("APP_URL")).scheme, }
-    config.action_mailer.delivery_method = ENV.fetch("DELIVERY_METHOD").to_sym
+    config.action_mailer.delivery_method = ENV.fetch("DELIVERY_METHOD", "").to_sym
 
-    if ENV.fetch("DELIVERY_METHOD", "").eql? "smtp"
+    if config.action_mailer.delivery_method == :smtp
       config.action_mailer.smtp_settings = { address: ENV.fetch("SMTP_HOST"),
                                              port: ENV.fetch("SMTP_PORT"),
                                              user_name: ENV.fetch("SMTP_USERNAME"),

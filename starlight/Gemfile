@@ -2,18 +2,20 @@
 
 source "https://rubygems.org"
 
+gem "activerecord-nulldb-adapter"
 gem "blacklight", "7.18.1"
 gem "blacklight-gallery", "3.3.1"
 gem "blacklight-oembed", "1.1.0"
 gem "blacklight-spotlight",
     git: "https://gitlab.com/surfliner/spotlight.git",
     branch: "trunk"
-gem "bootsnap", "1.11.1"
+gem "bootsnap", "1.11.1", require: false
 gem "bootstrap", "4.6.1"
 gem "carrierwave-aws", "1.5.0"
 gem "dalli", "2.7.11"
 gem "devise", "4.8.1"
 gem "devise-guests", "0.8.1"
+gem "dotenv-rails", "2.7.6"
 gem "friendly_id", "5.4.2"
 gem "jquery-rails", "4.4.0"
 gem "letter_opener_web", "2.0.0"
@@ -21,7 +23,6 @@ gem "mimemagic", "0.4.3"
 gem "okcomputer", "1.18.4"
 gem "omniauth", "2.1.0"
 gem "omniauth-google-oauth2", "1.0.1"
-
 gem "optimist", "3.0.1"
 gem "pg", "1.3.5"
 gem "puma", "5.6.4"
@@ -32,18 +33,14 @@ gem "sass-rails", "~> 6.0"
 gem "sidekiq", "< 7"
 gem "sitemap_generator", "6.2.1"
 gem "solr_utils", path: "../gems/solr_utils"
-gem "sprockets", "< 4"
-gem "uglifier", ">= 1.3.0"
+gem "uglifier", "4.2.0"
 
 group :development, :test do
-  gem "activerecord-nulldb-adapter"
   gem "byebug", "11.1.3"
   gem "capybara", "3.36.0"
   gem "capybara-screenshot", "1.0.26"
   gem "database_cleaner-active_record", "2.0.1"
-  gem "dotenv-rails", "2.7.6"
   gem "factory_bot_rails", "6.2.0"
-  gem "highline", "2.0.3"
   gem "method_source", "1.0.0"
   gem "pry-byebug", "3.9.0"
   gem "pry-doc", "1.3.0"
@@ -53,9 +50,8 @@ group :development, :test do
   gem "rspec-rails", "5.1.2"
   gem "scss_lint", "0.59.0", require: false
   gem "scss_lint_reporter_checkstyle", "0.2.0", require: false
-  gem "standard", "1.11.0"
   gem "selenium-webdriver", "4.1.0"
   gem "shoulda-matchers", "5.1.0"
-  gem "sqlite3", "1.4.2"
+  gem "standard", "1.11.0"
   gem "webmock", "3.14.0"
 end

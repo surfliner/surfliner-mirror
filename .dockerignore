@@ -23,6 +23,19 @@ comet/.env
 comet/fits.log
 comet/.git
 comet/log/*
-comet/public/*
+comet/public/assets
 comet/tmp/*
-comet/vendor/*
+comet/vendor
+
+# ignore these starlight directories
+starlight/derivatives/*
+starlight/docker-compose.yaml
+starlight/Dockerfile
+# TODO: avoid relying on this and dotenv-rails in prod
+# starlight/.env
+starlight/fits.log
+starlight/.git
+starlight/log/*
+starlight/public/assets
+starlight/tmp/*
+starlight/vendor

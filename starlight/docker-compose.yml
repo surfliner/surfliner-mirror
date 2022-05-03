@@ -5,19 +5,13 @@ services:
     build:
       context: ..
       dockerfile: starlight/Dockerfile
-      target: starlight
+      target: starlight-prod
     image: starlight
     stdin_open: true
     tty: true
     restart: always
     env_file:
       - .env
-    command:
-      - sh
-      - -c
-      - >
-        bin/docker-entrypoint.sh &&
-        bundle exec puma -v --debug -b tcp://0.0.0.0:3000
     volumes:
       - .:/home/starlight/app
       - starlight_assets:/home/starlight/app/public/assets
@@ -41,7 +35,7 @@ services:
       - .env
     environment:
       SKIP_TRANSLATION: "yes"
-    entrypoint: ["sh", "-c"]
+    entrypoint: ["tini", "--"]
     command:
         - >
           db-setup.sh &&
@@ -63,7 +57,11 @@ services:
       - .:/home/starlight/app
       - starlight_assets:/home/starlight/app/public/assets
       - starlight_tmp:/home/starlight/app/tmp
-    entrypoint: sh -ic "bundle exec sidekiq"
+    entrypoint: ["tini", "--"]
+    command:
+      - bundle
+      - exec
+      - sidekiq
     depends_on:
       - database
       - redis
