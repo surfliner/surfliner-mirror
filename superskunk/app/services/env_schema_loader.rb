@@ -1,12 +1,6 @@
-require "singleton"
-
 class EnvSchemaLoader < SurflinerSchema::Loader
-  include Singleton
-
-  def load_all
-    ENV["METADATA_MODELS"].to_s.split(",").map do |schema|
-      load(schema.to_sym)
-    end
+  def self.default_schemas
+    ENV["METADATA_MODELS"].to_s.split(",").map(&:to_sym)
   end
 
   def self.search_paths

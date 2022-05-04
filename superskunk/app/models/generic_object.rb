@@ -17,11 +17,5 @@ class GenericObject < Valkyrie::Resource
   #  ________________________
   # | Defined by environment |
   #  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-  attributes(
-    **{}.merge(
-      *EnvSchemaLoader.instance.load_all.map { |reader|
-        reader.to_struct_attributes(availability: :generic_object)
-      }
-    )
-  )
+  include SurflinerSchema::Schema(:generic_object, loader: ::EnvSchemaLoader.new)
 end
