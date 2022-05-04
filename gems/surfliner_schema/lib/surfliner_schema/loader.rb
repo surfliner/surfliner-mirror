@@ -7,7 +7,6 @@ module SurflinerSchema
   ##
   # The schema loader.
   class Loader
-
     ##
     # Initialize a new loader for the provided schema names.
     #

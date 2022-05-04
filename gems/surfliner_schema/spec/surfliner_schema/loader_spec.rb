@@ -38,6 +38,7 @@ describe SurflinerSchema::Loader do
         def self.config_location
           "spec/fixtures"
         end
+
         def self.default_schemas
           [:core_schema]
         end

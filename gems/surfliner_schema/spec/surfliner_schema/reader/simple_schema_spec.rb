@@ -6,9 +6,8 @@ describe SurflinerSchema::Reader::SimpleSchema do
   describe "instance" do
     let(:loader_class) {
       Class.new(SurflinerSchema::Loader) do
-        def readers
-          @readers
-        end
+        attr_reader :readers
+
         def self.config_location
           "spec/fixtures"
         end
