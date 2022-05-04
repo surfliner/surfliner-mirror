@@ -3,5 +3,5 @@
 class GenericObject < Hyrax::Work
   attribute :ark, Valkyrie::Types::ID
 
-  include SurflinerSchema::Schema(:generic_object, loader: ::EnvSchemaLoader.instance)
+  include SurflinerSchema::Schema(:generic_object, loader: ::EnvSchemaLoader.new)
 end
