@@ -10,14 +10,14 @@ RSpec.describe SurflinerSchema do
 
     let(:fake_loader) do
       Class.new do
-        def attributes_for(*)
+        def struct_attributes_for(*)
           { test_field: Valkyrie::Types::String }
         end
       end
     end
 
     it "builds a schema module" do
-      expect(described_class.Schema(:test_schema))
+      expect(described_class.Schema(:test_schema, loader: fake_loader.new))
         .to be_a described_class::Schema
     end
 
@@ -30,7 +30,7 @@ RSpec.describe SurflinerSchema do
 end
 
 RSpec.describe SurflinerSchema::Schema do
-  subject(:schema_module) { SurflinerSchema::Schema.new(:my_schema_name) }
+  subject(:schema_module) { SurflinerSchema::Schema.new(:my_schema_name, loader: double) }
 
   describe "#inspect" do
     it "has a readable value" do

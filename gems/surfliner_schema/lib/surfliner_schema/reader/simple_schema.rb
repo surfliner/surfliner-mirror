@@ -7,8 +7,6 @@ module SurflinerSchema
   module Reader
     ##
     # A reader for a Hyrax “simple” YAML schema.
-    #
-    # Use `SurflinerSchema::HyraxLoader` to wrap schemas for use in Hyrax.
     class SimpleSchema
       ##
       # Creates a new simple schema reader given an attributes configuration

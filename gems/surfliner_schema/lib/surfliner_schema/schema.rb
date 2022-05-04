@@ -36,8 +36,8 @@ module SurflinerSchema
   class Schema < Module
     ##
     # @param name [Symbol]
-    # @param loader [#attributes_for]
-    def initialize(name, loader: SurflinerSchema::Loader.instance)
+    # @param loader [#struct_attributes_for]
+    def initialize(name, loader:)
       @name = name
       @loader = loader
     end
@@ -45,7 +45,7 @@ module SurflinerSchema
     ##
     # @return [Hash{Symbol => Dry::Types::Type}]
     def attributes
-      @loader.attributes_for(name)
+      @loader.struct_attributes_for(name)
     end
 
     ##

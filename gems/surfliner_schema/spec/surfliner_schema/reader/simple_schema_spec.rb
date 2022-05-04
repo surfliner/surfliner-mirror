@@ -6,13 +6,16 @@ describe SurflinerSchema::Reader::SimpleSchema do
   describe "instance" do
     let(:loader_class) {
       Class.new(SurflinerSchema::Loader) do
+        def readers
+          @readers
+        end
         def self.config_location
           "spec/fixtures"
         end
       end
     }
-    let(:schema) { :core_schema }
-    let(:reader) { loader_class.instance.load(:core_schema) }
+    let(:loader) { loader_class.new([:core_schema]) }
+    let(:reader) { loader.readers[0] }
 
     it "#form_options" do
       expect(reader.form_options.keys).to eq [:title]
