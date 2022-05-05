@@ -50,7 +50,7 @@ RSpec.describe InlineUploadHandler, storage_adapter: :memory do
       it "creates persisted filesets" do
         service.attach
 
-        expect(Hyrax.custom_queries.find_child_filesets(resource: object))
+        expect(Hyrax.custom_queries.find_child_file_sets(resource: object))
           .to contain_exactly(be_persisted, be_persisted)
       end
     end

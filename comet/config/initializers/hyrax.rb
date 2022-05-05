@@ -266,7 +266,7 @@ Qa::Authorities::Local.register_subauthority("genres", "Qa::Authorities::Local::
 
 [Hyrax::CustomQueries::Navigators::CollectionMembers,
 
-  Hyrax::CustomQueries::Navigators::ChildFilesetsNavigator,
+  Hyrax::CustomQueries::Navigators::ChildFileSetsNavigator,
   Hyrax::CustomQueries::Navigators::ChildWorksNavigator,
   Hyrax::CustomQueries::FindAccessControl,
   Hyrax::CustomQueries::FindCollectionsByType,

@@ -14,7 +14,7 @@ gem "ezid-client", "1.9.1"
 gem "fog-aws", "3.13.0"
 gem "hyrax",
   git: "https://github.com/samvera/hyrax.git",
-  branch: "main"
+  tag: "v3.4.1"
 gem "jbuilder", "2.11.5"
 gem "jquery-rails", "4.4.0"
 gem "okcomputer", "1.18.4"
