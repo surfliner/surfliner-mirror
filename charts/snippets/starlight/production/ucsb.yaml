@@ -86,3 +86,11 @@ workerResources:
   requests:
     cpu: 500m
     memory: 500Mi
+
+# temporary fix for https://github.com/bitnami/charts/issues/6685
+redis:
+  master:
+    livenessProbe:
+      initialDelaySeconds: 60
+    readinessProbe:
+      initialDelaySeconds: 60
