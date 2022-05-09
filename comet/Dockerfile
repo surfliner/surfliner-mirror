@@ -153,6 +153,7 @@ RUN apk --no-cache upgrade && \
   apk --no-cache add \
   bash \
   ffmpeg \
+  less \
   mediainfo \
   openjdk11-jre \
   perl \
