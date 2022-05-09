@@ -14,7 +14,7 @@ memcached:
   architecture: standalone
 starlight:
   application:
-    themes: "surfliner,ucsb,ucsb2,ucsd"
+    themes: "surfliner,ucsb,ucsd"
   auth:
     method: developer
   sitemaps:
