@@ -1,0 +1,70 @@
+existingSecret:
+  name: starlight
+  enabled: true
+image:
+  repository: registry.gitlab.com/surfliner/surfliner/starlight_web
+  tag: starlight-v0.2.2
+ingress:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/proxy-body-size: 1G
+  hosts:
+  - docs.digital.library.ucsb.edu
+  tls:
+  - hosts:
+    - docs.digital.library.ucsb.edu
+    secretName: tls-secret
+memcached:
+  enabled: true
+  priorityClassName: normal
+  resources:
+    limits:
+      cpu: 500m
+      memory: 500Mi
+    requests:
+      cpu: 25m
+      memory: 50Mi
+postgresql:
+  enabled: true
+replicaCount: 3
+resources:
+  limits:
+    cpu: 1000m
+    memory: 500Mi
+  requests:
+    memory: 100Mi
+starlight:
+  application:
+    name: Starlight
+  auth:
+    method: google
+  backups:
+    import:
+      enabled: false
+  email:
+    delivery_method: smtp
+    from_address: library-spotlight@ucsb.edu
+    smtp_settings:
+      address: smtp.gmail.com
+      authentication: plain
+      port: 587
+      user_name: library-spotlight-surfliner@ucsb.edu
+  rails:
+    max_threads: 5
+  sitemaps:
+    enabled: false
+  storage:
+    accessKey: AKIAV5LYGG4AHGLVFVGK
+    acl: bucket-owner-full-control
+    bucket: starlight-uploads-docs
+    enabled: true
+    region: us-west-2
+workerReplicaCount: 2
+workerResources:
+  limits:
+    cpu: 500m
+    memory: 1000Mi
+  requests:
+    cpu: 10m
+    memory: 100Mi
