@@ -1,6 +1,6 @@
 .starlight:test:
-  image: $CI_REGISTRY_IMAGE/starlight_web:$CI_COMMIT_SHA
-  needs: ["starlight:build"]
+  image: $CI_REGISTRY_IMAGE/starlight_test:$CI_COMMIT_SHA
+  needs: ["starlight:build:test"]
   stage: test
   rules:
     - !reference [.starlight-mr-rules, rules]

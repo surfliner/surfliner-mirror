@@ -11,8 +11,8 @@ starlight:build:prod:
   script:
     - build_image_for "starlight" "starlight_web" "starlight-prod"
 
-# starlight:build:test:
-#   extends:
-#     - .starlight:build
-#   script:
-#     - build_image_for "starlight" "starlight_web" "starlight-test"
+starlight:build:test:
+  extends:
+    - .starlight:build
+  script:
+    - build_image_for "starlight" "starlight_test" "starlight-dev"
