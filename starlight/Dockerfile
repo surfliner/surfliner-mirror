@@ -93,3 +93,34 @@ ENV RAILS_ROOT=${DOCKER_PROJECT}
 ENV RAILS_SERVE_STATIC_FILES=1
 ENTRYPOINT ["tini", "--", "bin/docker-entrypoint.sh"]
 CMD ["bundle", "exec", "puma", "-b", "tcp://0.0.0.0:3000"]
+
+FROM starlight-base as starlight-dev
+ARG LOCAL_PROJECT=starlight
+ARG DOCKER_ROOT=/home/${LOCAL_PROJECT}
+ARG DOCKER_PROJECT=${DOCKER_ROOT}/app
+
+RUN apk --no-cache upgrade && \
+  apk --no-cache add \
+  curl \
+  imagemagick \
+  libpq \
+  nodejs \
+  tzdata \
+  zip
+
+RUN bundle install --jobs "$(nproc)"
+
+COPY $LOCAL_PROJECT $DOCKER_PROJECT
+
+ENV RAILS_ROOT=${DOCKER_PROJECT}
+ENV RAILS_SERVE_STATIC_FILES=1
+ENV PATH="${DOCKER_ROOT}/scripts:${PATH}"
+
+RUN \
+  DATABASE_URL='postgresql://fake' \
+  DB_ADAPTER=nulldb \
+  SKIP_TRANSLATION=yes \
+  bundle exec rake assets:precompile
+
+ENTRYPOINT ["bin/docker-entrypoint.sh"]
+CMD ["bundle", "exec", "puma", "-b", "tcp://0.0.0.0:3000"]

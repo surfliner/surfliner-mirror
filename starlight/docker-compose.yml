@@ -5,7 +5,7 @@ services:
     build:
       context: ..
       dockerfile: starlight/Dockerfile
-      target: starlight-prod
+      target: starlight-dev
     image: starlight
     stdin_open: true
     tty: true
@@ -35,16 +35,18 @@ services:
       - .env
     environment:
       SKIP_TRANSLATION: "yes"
-    entrypoint: ["tini", "--"]
     command:
-        - >
-          db-setup.sh &&
-          bundle exec rake starlight:seed_admin_user &&
-          bundle exec rake starlight:sample:seed_exhibit
+      - sh
+      - -c
+      - >
+        db-setup.sh &&
+        bundle exec rake starlight:seed_admin_user &&
+        bundle exec rake starlight:sample:seed_exhibit
     depends_on:
       - database
     volumes:
       - .:/home/starlight/app
+      - ../scripts:/home/starlight/scripts
     networks:
       - starlight
 
@@ -57,7 +59,6 @@ services:
       - .:/home/starlight/app
       - starlight_assets:/home/starlight/app/public/assets
       - starlight_tmp:/home/starlight/app/tmp
-    entrypoint: ["tini", "--"]
     command:
       - bundle
       - exec
