@@ -10,6 +10,7 @@
     KUBE_NAMESPACE: starlight-staging
   rules:
     - !reference [.starlight-default-branch-rules, rules]
+  needs: ["starlight:build:prod"]
 
 starlight:deploy:ucsb-stage:
   extends:

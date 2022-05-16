@@ -9,7 +9,7 @@
     DEPLOY_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-starlight-$CI_MERGE_REQUEST_ID
     KUBE_NAMESPACE: starlight-review
-  needs: ["starlight:build"]
+  needs: ["starlight:build:prod"]
 
 starlight:deploy:ucsd-review:
   extends:

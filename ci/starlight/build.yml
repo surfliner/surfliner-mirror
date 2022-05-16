@@ -1,8 +1,18 @@
-starlight:build:
+.starlight:build:
   extends:
     - .kaniko-build
   rules:
     - !reference [.starlight-mr-rules, rules]
     - !reference [.starlight-default-branch-rules, rules]
+
+starlight:build:prod:
+  extends:
+    - .starlight:build
   script:
-    - build_image_for "starlight" "starlight_web"
+    - build_image_for "starlight" "starlight_web" "starlight-prod"
+
+# starlight:build:test:
+#   extends:
+#     - .starlight:build
+#   script:
+#     - build_image_for "starlight" "starlight_web" "starlight-test"

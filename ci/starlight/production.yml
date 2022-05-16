@@ -10,6 +10,7 @@
     # DEPLOY_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-starlight-prod
     KUBE_NAMESPACE: starlight-prod
+  needs: ["starlight:build:prod"]
 
 starlight:deploy:ucsb-production:
   needs: ["starlight:deploy:ucsb-stage"]
