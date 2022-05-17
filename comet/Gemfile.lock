@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/samvera/hyrax.git
-  revision: 5f0b990bbef7354bdd269beced325a9a1fd3bfc4
-  tag: v3.4.1
+  revision: 50982154c109869930d8ef7c260af01fdb8c9f63
+  branch: main
   specs:
     hyrax (3.4.1)
       active-fedora (~> 13.1, >= 13.1.2)
@@ -55,7 +55,7 @@ GIT
       sass-rails (~> 5.0)
       select2-rails (~> 3.5)
       signet
-      tinymce-rails
+      tinymce-rails (~> 5.10)
       valkyrie (~> 2, >= 2.1.1)
 
 PATH
@@ -145,8 +145,8 @@ GEM
     awesome_nested_set (3.5.0)
       activerecord (>= 4.0.0, < 7.1)
     aws-eventstream (1.2.0)
-    aws-partitions (1.585.0)
-    aws-sdk-core (3.130.2)
+    aws-partitions (1.587.0)
+    aws-sdk-core (3.131.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.525.0)
       aws-sigv4 (~> 1.1)
@@ -379,7 +379,7 @@ GEM
     google-api-client (0.53.0)
       google-apis-core (~> 0.1)
       google-apis-generator (~> 0.1)
-    google-apis-core (0.4.2)
+    google-apis-core (0.5.0)
       addressable (~> 2.5, >= 2.5.1)
       googleauth (>= 0.16.2, < 2.a)
       httpclient (>= 2.8.1, < 3.a)
@@ -390,7 +390,7 @@ GEM
       webrick
     google-apis-discovery_v1 (0.8.0)
       google-apis-core (>= 0.4, < 2.a)
-    google-apis-drive_v3 (0.21.0)
+    google-apis-drive_v3 (0.22.0)
       google-apis-core (>= 0.4, < 2.a)
     google-apis-generator (0.4.1)
       activesupport (>= 5.0)
@@ -485,9 +485,9 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
-    json (2.6.1)
+    json (2.6.2)
     json-canonicalization (0.3.0)
-    json-ld (3.2.0)
+    json-ld (3.2.1)
       htmlentities (~> 4.3)
       json-canonicalization (~> 0.3)
       link_header (~> 0.0, >= 0.0.8)
@@ -570,7 +570,7 @@ GEM
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     logger (1.5.1)
-    loofah (2.17.0)
+    loofah (2.18.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -602,7 +602,7 @@ GEM
     noid-rails (3.0.3)
       actionpack (>= 5.0.0, < 7)
       noid (~> 0.9)
-    nokogiri (1.13.5)
+    nokogiri (1.13.6)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     oauth (0.5.10)
