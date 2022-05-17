@@ -44,10 +44,10 @@ RUN ${DOCKER_PROJECT}/ruby-bundle-cleanup.sh
 COPY $LOCAL_PROJECT $DOCKER_PROJECT
 
 RUN \
+  APP_URL='http://localhost' \
   DATABASE_URL='postgresql://fake' \
+  REDIS_URL='redis://redis:6379' \
   DB_ADAPTER=nulldb \
-  RAILS_ENV=production \
-  SECRET_KEY_BASE=`bin/rake secret` \
   SKIP_TRANSLATION=yes \
   bundle exec rake assets:precompile
 

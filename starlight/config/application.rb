@@ -26,7 +26,7 @@ module Starlight
                                              enable_starttls_auto: true, }
     end
 
-    config.action_mailer.default_options = { from: ENV.fetch("FROM_EMAIL") }
+    config.action_mailer.default_options = { from: ENV.fetch("FROM_EMAIL", "fake@localhost") }
 
     if ENV["MEMCACHED_HOST"].present?
       config.action_controller.perform_caching = true
