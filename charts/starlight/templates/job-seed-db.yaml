@@ -2,7 +2,6 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-metadata:
   name: {{ include "starlight.fullname" . }}-seed-db
   labels:
     {{- include "starlight.labels" . | nindent 4 }}
@@ -12,6 +11,10 @@ metadata:
 spec:
   template:
     metadata:
+    {{- with .Values.vaultSecret.annotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
       name: {{ include "starlight.fullname" . }}-seed-db
     spec:
       restartPolicy: Never
@@ -20,7 +23,7 @@ spec:
         - name: seed-db
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: "{{ .Values.image.pullPolicy }}"
-          command:
+          args:
             - sh
             - -c
             - >
@@ -29,6 +32,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "starlight.fullname" . }}-env
+          {{- if not .Values.vaultSecret.enabled }}
             - secretRef:
                 name: {{ template "starlight.secretName" . }}
+          {{- end }}
 {{- end }}

@@ -96,6 +96,9 @@ The following tables lists the configurable parameters of the Starlight chart an
 | `starlight.storage.endpointUrl` | S3/Minio endpoint URL (required for Minio).  | `nil` | `S3_ENDPOINT` |
 | `starlight.storage.region` | AWS region. e.g: 'us-west-2'.  | `nil` | `AWS_REGION` |
 | `starlight.storage.secretKey` | S3/Minio secret key. | `nil` | `AWS_SECRET_ACCESS_KEY` |
+| `vaultSecret.enabled` | Whether deployment will use a Hashicorp Vault secret. | `false` | N/A |
+| `vaultSecret.file` | Filename where Hashicorp Vault secret will be written in container. | `/vault/secrets/starlight.env` | `VAULT_FILE` |
+| `vaultSecret.annotations` | Series of [Vault Agent Annotations][vault-annotations] to provide access to the Vault Secret. | `nil` | N/A |
 
 ### Chart Dependency Parameters
 
@@ -246,3 +249,4 @@ statement as shown below:
 ```
 
 [starlight]:https://gitlab.com/surfliner/surfliner/-/tree/trunk/starlight
+[vault-annotations]:https://www.vaultproject.io/docs/platform/k8s/injector/annotation

@@ -15,6 +15,10 @@ spec:
       component: rails
   template:
     metadata:
+    {{- with .Values.vaultSecret.annotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
       labels:
         app.kubernetes.io/name: {{ include "starlight.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
@@ -36,10 +40,12 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "starlight.fullname" . }}-env
+          {{- if not .Values.vaultSecret.enabled }}
             - secretRef:
                 name: {{ template "starlight.secretName" . }}
-          command:
-            - sh
+          {{- end }}
+          args:
+            - /bin/sh
             - -c
             - >
               solrcloud-upload-configset.sh /home/starlight/app/solr/config &&
@@ -51,15 +57,14 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "starlight.fullname" . }}-env
+          {{- if not .Values.vaultSecret.enabled }}
             - secretRef:
                 name: {{ template "starlight.secretName" . }}
+          {{- end }}
           env:
           - name: SKIP_TRANSLATION
             value: "yes"
-          command:
-            - sh
-            - -c
-            - db-setup.sh
+          args: ["/bin/sh", "-c", "db-setup.sh"]
         {{- with .Values.extraInitContainers }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -87,8 +92,10 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "starlight.fullname" . }}-env
+          {{- if not .Values.vaultSecret.enabled }}
             - secretRef:
                 name: {{ template "starlight.secretName" . }}
+          {{- end }}
           env:
             {{- toYaml .Values.extraEnvVars | nindent 12 }}
           ports:

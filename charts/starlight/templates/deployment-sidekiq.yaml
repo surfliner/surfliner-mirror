@@ -13,6 +13,10 @@ spec:
       component: rails
   template:
     metadata:
+    {{- with .Values.vaultSecret.annotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
       labels:
         app.kubernetes.io/name: {{ include "starlight.name" . }}-sidekiq
         app.kubernetes.io/instance: {{ .Release.Name }}-sidekiq
@@ -36,8 +40,10 @@ spec:
         envFrom:
           - configMapRef:
               name: {{ include "starlight.fullname" . }}-env
+          {{- if not .Values.vaultSecret.enabled }}
           - secretRef:
               name: {{ template "starlight.secretName" . }}
+          {{- end }}
         env:
           - name: SKIP_TRANSLATION
             value: "yes"
@@ -59,11 +65,13 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "starlight.fullname" . }}-env
+          {{- if not .Values.vaultSecret.enabled }}
             - secretRef:
                 name: {{ template "starlight.secretName" . }}
+          {{- end }}
           env:
             {{- toYaml .Values.extraEnvVars | nindent 12 }}
-          command: ['sh', '-c', 'bundle exec sidekiq']
+          args: ['/bin/sh', '-c', 'bundle exec sidekiq']
           resources:
             {{- toYaml .Values.workerResources | nindent 12 }}
           {{- with .Values.extraContainerConfiguration }}

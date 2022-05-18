@@ -21,6 +21,9 @@ starlight:
     enabled: false
   sample_data: true
 
+serviceAccount:
+  name: ""
+
 ingress:
   enabled: true
   annotations:

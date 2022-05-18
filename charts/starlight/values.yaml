@@ -27,6 +27,11 @@ existingSecret:
   name: starlight
   enabled: false
 
+# Hashicorp Vault
+vaultSecret:
+  enabled: false
+  file: /vault/secrets/starlight.env
+
 # Cron task for cleaning up devise guests accounts
 # see: https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/
 # see: https://kubernetes.io/docs/concepts/workloads/controllers/job/#job-termination-and-cleanup

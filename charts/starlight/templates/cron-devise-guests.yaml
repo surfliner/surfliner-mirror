@@ -14,6 +14,10 @@ spec:
       backoffLimit: {{ .Values.deviseGuestsCronJob.backoffLimit }}
       template:
         metadata:
+        {{- with .Values.vaultSecret.annotations }}
+          annotations:
+            {{- toYaml . | nindent 12 }}
+        {{- end }}
           labels:
             app.kubernetes.io/name: {{ include "starlight.name" . }}-devise-cron
             app.kubernetes.io/instance: {{ .Release.Name }}
@@ -23,12 +27,14 @@ spec:
           - name: {{ .Chart.Name }}-devise-cron
             image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
             imagePullPolicy: {{ .Values.image.pullPolicy }}
-            command: ["sh", "-c", "bundle exec rake devise_guests:delete_old_guest_users"]
+            args: ["/bin/sh", "-c", "bundle exec rake devise_guests:delete_old_guest_users"]
             envFrom:
               - configMapRef:
                   name: {{ include "starlight.fullname" . }}-env
+            {{- if not .Values.vaultSecret.enabled }}
               - secretRef:
                   name: {{ template "starlight.secretName" . }}
+            {{- end }}
             env:
               {{- toYaml .Values.extraEnvVars | nindent 14 }}
           restartPolicy: Never

@@ -11,6 +11,10 @@ spec:
     spec:
       template:
         metadata:
+        {{- with .Values.vaultSecret.annotations }}
+          annotations:
+            {{- toYaml . | nindent 12 }}
+        {{- end }}
           labels:
             app.kubernetes.io/name: {{ include "starlight.name" . }}-export
             app.kubernetes.io/instance: {{ .Release.Name }}-export

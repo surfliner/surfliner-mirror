@@ -66,3 +66,6 @@ data:
   ZK_HOST: {{ template "starlight.zk.fullname" . }}
   ZK_PORT: {{ .Values.solr.zookeeperPort | default "2181" | quote }}
   {{- end }}
+  {{- with .Values.vaultSecret.file }}
+  VAULT_FILE: {{ . }}
+  {{- end }}

@@ -12,6 +12,10 @@ metadata:
 spec:
   template:
     metadata:
+    {{- with .Values.vaultSecret.annotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
       labels:
         app.kubernetes.io/name: {{ include "starlight.name" . }}-solr-reindex
         app.kubernetes.io/instance: {{ .Release.Name }}
@@ -25,8 +29,9 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "starlight.fullname" . }}-env
+          {{- if not .Values.vaultSecret.enabled }}
             - secretRef:
                 name: {{ template "starlight.secretName" . }}
-          command: ["/bin/sh"]
-          args: ["-c", "bundle exec rake spotlight:reindex"]
+          {{- end }}
+          args: ["/bin/sh", "-c", "bundle exec rake spotlight:reindex"]
 {{- end }}
