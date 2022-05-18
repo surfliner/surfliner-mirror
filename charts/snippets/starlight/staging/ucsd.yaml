@@ -7,8 +7,20 @@ ingress:
     - hosts:
         - exhibits-staging.ucsd.edu
       secretName: tls-secret
-existingSecret:
+vaultSecret:
   enabled: true
+  annotations:
+    vault.hashicorp.com/agent-pre-populate-only: 'true'
+    vault.hashicorp.com/agent-inject: 'true'
+    vault.hashicorp.com/agent-init-first: 'true'
+    vault.hashicorp.com/role: 'starlight-staging'
+    vault.hashicorp.com/agent-inject-secret-starlight.env: 'applications/starlight/staging'
+    vault.hashicorp.com/agent-inject-template-starlight.env: |
+      {{- with secret "applications/starlight/staging" -}}
+      {{- range $k, $v := .Data.data }}
+      export {{ $k | toUpper }}='{{ $v }}'
+      {{- end }}
+      {{- end }}
 postgresql:
   enabled: false
   postgresqlHostname: lib-psql-stage.ucsd.edu
