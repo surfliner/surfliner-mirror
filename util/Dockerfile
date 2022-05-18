@@ -10,3 +10,5 @@ WORKDIR /data
 
 COPY scripts ./bin
 ENV PATH="/data/bin:$PATH"
+
+ENTRYPOINT ["/data/bin/util-entrypoint.sh"]
