@@ -1,6 +1,17 @@
 #!/usr/bin/env sh
 set -e
 
+# Map bitnami PG env var names to postgresql-client env var names
+export PGPASSWORD="${POSTGRES_PASSWORD}"
+export PGHOST="${POSTGRES_HOST}"
+export PGUSER="${POSTGRES_USER}"
+export PGUSER="${POSTGRES_USER:-postgres}"
+export PGDATABASE="${POSTGRES_DB}"
+
+# Map from configmap for Starlight
+export ENDPOINT_URL="${S3_ENDPOINT}"
+export AWS_DEFAULT_REGION="${AWS_REGION}"
+
 # Ensure we can interact with the database
 while ! nc -z "$PGHOST" 5432
 do

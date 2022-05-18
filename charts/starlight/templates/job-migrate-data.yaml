@@ -26,7 +26,14 @@ spec:
       - name: starlight-import
         image: "{{ .Values.util.image.repository }}:{{ .Values.util.image.tag }}"
         imagePullPolicy: "{{ .Values.util.image.pullPolicy }}"
-        command: ["/bin/sh", "-c", "postgresql-import.sh && file-sync.sh"]
+        args: ["/bin/sh", "-c", "postgresql-import.sh && file-sync.sh"]
+        envFrom:
+          - configMapRef:
+              name: {{ include "starlight.fullname" .}}-env
+        {{- if not .Values.vaultSecret.enabled }}
+          - secretRef:
+              name: {{ template "starlight.secretName" . }}
+        {{- end }}
         env:
           - name: "DB_BACKUP_SOURCE"
             value: {{ .Values.starlight.backups.import.dbBackupSource }}
@@ -36,26 +43,4 @@ spec:
             value: s3://{{ .Values.starlight.storage.bucket }}/uploads
           - name: "SOURCE_PATH"
             value: {{ .Values.starlight.backups.import.sourcePath }}
-          - name: "PGHOST"
-            value: {{ template "starlight.postgresql.fullname" . }}
-          - name: "PGPASSWORD"
-            valueFrom:
-              secretKeyRef:
-                name: {{ template "starlight.secretName" . }}
-                key: POSTGRES_PASSWORD
-          - name: "PGUSER"
-            value: {{ .Values.postgresql.postgresqlUsername }}
-          - name: "PGDATABASE"
-            value: {{ .Values.postgresql.postgresqlDatabase }}
-          - name: "AWS_ACCESS_KEY_ID"
-            value: {{ .Values.starlight.storage.accessKey }}
-          - name: "AWS_DEFAULT_REGION"
-            value: {{ .Values.starlight.storage.region }}
-          - name: "AWS_SECRET_ACCESS_KEY"
-            valueFrom:
-              secretKeyRef:
-                name: {{ template "starlight.secretName" . }}
-                key: AWS_SECRET_ACCESS_KEY
-          - name: "ENDPOINT_URL"
-            value: {{ .Values.starlight.storage.endpointUrl }}
 {{- end }}

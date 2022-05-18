@@ -1,6 +1,15 @@
 #!/usr/bin/env sh
 set -e
 
+# Map bitnami PG env var names to postgresql-client env var names
+export PGPASSWORD="${POSTGRES_PASSWORD}"
+export PGHOST="${POSTGRES_HOST}"
+export PGUSER="${POSTGRES_USER}"
+export PGDATABASE="${POSTGRES_DB}"
+
+export ENDPOINT_URL="${S3_ENDPOINT}"
+export AWS_DEFAULT_REGION="${AWS_REGION}"
+
 echo "Downloading $PGDATABASE database backup..."
 if [ -z "$ENDPOINT_URL" ]; then
   aws s3 cp "$DB_BACKUP_SOURCE" "$DB_BACKUP_DESTINATION"
