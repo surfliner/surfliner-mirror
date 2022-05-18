@@ -28,6 +28,7 @@ spec:
         {{- with .Values.extraVolumes }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
+      serviceAccountName: {{ template "starlight.serviceAccountName" . }}
       initContainers:
       - name: wait-for-database
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"

@@ -55,6 +55,8 @@ The following tables lists the configurable parameters of the Starlight chart an
 | `deviseGuestsCronJob.backoffLimit` | `CronJob` backoffLimit | `3` | N/A |
 | `deviseGuestsCronJob.successfulJobsHistoryLimit` | `CronJob` `successfulJobsHistoryLimit` | `5` | N/A |
 | `deviseGuestsCronJob.failedJobsHistoryLimit` | `CronJob` `failedJobsHistoryLimit` | `10` | N/A |
+| `serviceAccount.create` | Whether to create a `ServiceAccount` for the deployment | `true` | N/A |
+| `serviceAccount.name` | Name to assign to `ServiceAccount` for the deployment | `starlight` | N/A |
 | `starlight.allow_robots` | Whether to allow robots to crawl the application via `robots.txt` | `false` | `ALLOW_ROBOTS` |
 | `starlight.application.name` | Name used in some default Blacklight templates | `Starlight` | N/A |
 | `starlight.application.themes` | Themes made available to the application.  | `ucsb,surfliner,ucsd` | `SPOTLIGHT_THEMES` |

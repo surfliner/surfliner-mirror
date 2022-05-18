@@ -32,6 +32,18 @@ Create chart name and version as used by the chart label.
 {{- end -}}
 
 {{/*
+Create the name of the service account to use
+*/}}
+{{- define "starlight.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create -}}
+    {{ default (include "starlight.fullname" .) .Values.serviceAccount.name }}
+{{- else -}}
+    {{ default "default" .Values.serviceAccount.name }}
+{{- end -}}
+{{- end -}}
+
+
+{{/*
 Create the Sitemap Host URL, as Minio and other s3-compatible providers use endpoint urls.
 */}}
 {{- define "starlight.sitemaps.host" -}}

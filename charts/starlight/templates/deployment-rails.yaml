@@ -24,6 +24,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
     {{- end }}
+      serviceAccountName: {{ template "starlight.serviceAccountName" . }}
       initContainers:
         {{- if and (eq (include "starlight.solr.cloudEnabled" .) "true") (not .Values.starlight.disableSolrConfigInit) }}
         - name: load-solr-config

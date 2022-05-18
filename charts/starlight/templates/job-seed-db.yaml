@@ -15,6 +15,7 @@ spec:
       name: {{ include "starlight.fullname" . }}-seed-db
     spec:
       restartPolicy: Never
+      serviceAccountName: {{ template "starlight.serviceAccountName" . }}
       containers:
         - name: seed-db
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"

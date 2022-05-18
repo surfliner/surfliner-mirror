@@ -18,6 +18,7 @@ spec:
             app.kubernetes.io/name: {{ include "starlight.name" . }}-devise-cron
             app.kubernetes.io/instance: {{ .Release.Name }}
         spec:
+          serviceAccountName: {{ template "starlight.serviceAccountName" . }}
           containers:
           - name: {{ .Chart.Name }}-devise-cron
             image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"

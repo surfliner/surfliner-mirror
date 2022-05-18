@@ -15,6 +15,7 @@ spec:
             app.kubernetes.io/name: {{ include "starlight.name" . }}-sitemaps
             app.kubernetes.io/instance: {{ .Release.Name }}-sitemaps
         spec:
+          serviceAccountName: {{ template "starlight.serviceAccountName" . }}
           containers:
           - name: {{ .Chart.Name }}-sitemaps
             image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
