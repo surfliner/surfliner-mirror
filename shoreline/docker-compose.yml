@@ -5,7 +5,7 @@ services:
     build:
       context: ..
       dockerfile: shoreline/Dockerfile
-      target: development
+      target: shoreline-dev
     image: shoreline:development
     env_file:
       - .env

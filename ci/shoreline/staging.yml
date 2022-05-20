@@ -3,6 +3,7 @@
   extends:
     - .helm3-deploy
     - .only-shoreline-changes
+  needs: ["shoreline:build:prod"]
   variables:
     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/shoreline
     DEPLOY_TAG: $CI_COMMIT_SHA

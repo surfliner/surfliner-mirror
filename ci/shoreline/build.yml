@@ -1,7 +1,17 @@
-shoreline:ruby-build:
+.shoreline:build:
   extends:
     - .kaniko-build
     - .only-refs-default
     - .only-shoreline-changes
+
+shoreline:build:prod:
+  extends:
+    - .shoreline:build
   script:
-    - build_image_for "shoreline" "shoreline" "production"
+    - build_image_for "shoreline" "shoreline" "shoreline-prod"
+
+shoreline:build:test:
+  extends:
+    - .shoreline:build
+  script:
+    - build_image_for "shoreline" "shoreline_test" "shoreline-dev"
