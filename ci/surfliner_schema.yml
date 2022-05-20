@@ -11,6 +11,7 @@ include:
 
 .surfliner-schema-templates:
   before_script:
+    - apk add build-base
     - cd gems/surfliner_schema
     - bundle install
   rules:
