@@ -92,6 +92,7 @@ ARG DOCKER_PROJECT=${DOCKER_ROOT}/app
 RUN apk --no-cache upgrade && \
   apk --no-cache add \
   curl \
+  less \
   libpq \
   nodejs \
   shared-mime-info \
