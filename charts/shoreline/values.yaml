@@ -44,6 +44,12 @@ vaultSecret:
   enabled: false
   file: /vault/secrets/shoreline.env
 
+podSecurityContext:
+  runAsUser: 10000
+  runAsGroup: 10001
+  fsGroup: 10001
+  fsGroupChangePolicy: "OnRootMismatch"
+
 shoreline:
   disableSolrConfigInit: false
   db_setup_command: "db:migrate"
