@@ -1,5 +1,7 @@
 shoreline:
   sample_data: true
+serviceAccount:
+  name: ""
 geoserver:
   admin:
     username: admin

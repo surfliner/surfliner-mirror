@@ -2,7 +2,6 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-metadata:
   name: {{ include "shoreline.fullname" . }}-ingest-data
   labels:
     {{- include "shoreline.labels" . | nindent 4 }}
@@ -12,19 +11,26 @@ metadata:
 spec:
   template:
     metadata:
+    {{- with .Values.vaultSecret.annotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
       name: {{ include "shoreline.fullname" . }}-ingest-data
     spec:
       restartPolicy: OnFailure
+      serviceAccountName: {{ template "shoreline.serviceAccountName" . }}
       containers:
         - name: ingest-sample-data
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: "{{ .Values.image.pullPolicy }}"
-          command:
+          args:
             - /home/shoreline/app/bin/ingest.sh
             - /home/shoreline/app/spec/fixtures/shapefiles
           envFrom:
             - configMapRef:
                 name: {{ include "shoreline.fullname" . }}-env
+          {{- if not .Values.vaultSecret.enabled }}
             - secretRef:
                 name: {{ template "shoreline.secretName" . }}
+          {{- end }}
 {{- end }}

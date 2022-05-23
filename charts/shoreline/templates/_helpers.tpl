@@ -55,6 +55,17 @@ Supports using an existing secret instead of one built using the Chart
 {{- end -}}
 {{- end -}}
 
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "shoreline.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create -}}
+    {{ default (include "shoreline.fullname" .) .Values.serviceAccount.name }}
+{{- else -}}
+    {{ default "default" .Values.serviceAccount.name }}
+{{- end -}}
+{{- end -}}
+
 {{- define "shoreline.email.fullname" -}}
 {{- printf "%s-%s" .Release.Name "email" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}

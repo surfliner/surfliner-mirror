@@ -39,3 +39,6 @@ data:
   ZK_HOST: {{ template "shoreline.zk.fullname" . }}
   ZK_PORT: {{ .Values.solr.zookeeperPort | default "2181" | quote }}
   {{- end }}
+  {{- with .Values.vaultSecret.file }}
+  VAULT_FILE: {{ . }}
+  {{- end }}

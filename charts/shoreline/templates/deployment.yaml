@@ -12,10 +12,15 @@ spec:
       app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
+    {{- with .Values.vaultSecret.annotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
       labels:
         app.kubernetes.io/name: {{ include "shoreline.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
+      serviceAccountName: {{ template "shoreline.serviceAccountName" . }}
       initContainers:
         {{- if and (eq (include "shoreline.solr.cloudEnabled" .) "true") (not .Values.shoreline.disableSolrConfigInit) }}
         - name: load-solr-config
@@ -24,10 +29,12 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "shoreline.fullname" . }}-env
+          {{- if not .Values.vaultSecret.enabled }}
             - secretRef:
                 name: {{ template "shoreline.secretName" . }}
-          command:
-            - sh
+          {{- end }}
+          args:
+            - /bin/sh
             - -c
             - >
               solrcloud-upload-configset.sh /home/shoreline/app/solr/conf &&
@@ -39,10 +46,12 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "shoreline.fullname" . }}-env
+          {{- if not .Values.vaultSecret.enabled }}
             - secretRef:
                 name: {{ template "shoreline.secretName" . }}
-          command:
-            - sh
+          {{- end }}
+          args:
+            - /bin/sh
             - -c
             - db-setup.sh
       volumes:
@@ -58,8 +67,10 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "shoreline.fullname" . }}-env
+          {{- if not .Values.vaultSecret.enabled }}
             - secretRef:
                 name: {{ template "shoreline.secretName" . }}
+          {{- end }}
           ports:
             - name: http
               containerPort: 3000
