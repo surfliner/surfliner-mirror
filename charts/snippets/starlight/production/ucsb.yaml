@@ -35,7 +35,7 @@ solr:
   enabled: true
   auth:
     enabled: true
-  existingSecret: starlight-solr-prod
+    existingSecret: starlight-solr-prod
   collection: collection1
   resources:
     limits:
