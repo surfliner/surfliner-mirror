@@ -94,9 +94,3 @@ redis:
       initialDelaySeconds: 60
     readinessProbe:
       initialDelaySeconds: 60
-
-solr:
-  livenessProbe:
-    initialDelaySeconds: 75 # default: 40
-  readinessProbe:
-    initialDelaySeconds: 90 # default: 60
