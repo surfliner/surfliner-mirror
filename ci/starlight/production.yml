@@ -6,8 +6,7 @@
     - !reference [.starlight-default-branch-rules, rules]
   variables:
     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/starlight_web
-    # TODO: revert when UCSB theme is updated for Spotlight 3
-    # DEPLOY_TAG: $CI_COMMIT_SHA
+    DEPLOY_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-starlight-prod
     KUBE_NAMESPACE: starlight-prod
   needs: ["starlight:build:prod"]
@@ -38,7 +37,6 @@ starlight:deploy:ucsb-production:
     name: ucsb.production.starlight
     url: http://starlight.$KUBE_INGRESS_BASE_DOMAIN
   variables:
-    DEPLOY_TAG: starlight-v0.2.2
     HELM_UPGRADE_EXTRA_ARGS: >
       --values charts/snippets/starlight/production/ucsb.yaml
 
@@ -54,7 +52,6 @@ starlight:deploy:ucsd-production:
   script:
     - deploy ./charts/starlight
   variables:
-    DEPLOY_TAG: $CI_COMMIT_SHA
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
     HELM_UPGRADE_EXTRA_ARGS: >
       --values charts/snippets/starlight/production/ucsd.yaml
