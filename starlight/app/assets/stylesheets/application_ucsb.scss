@@ -260,6 +260,7 @@ body>.masthead {
     margin: 0 -.9375rem;
     border: none;
     height: 100%;
+    max-width: none;
 
     @include media-breakpoint-up(lg) {
       margin: 0 -1.875rem;
@@ -289,30 +290,23 @@ body>.masthead {
     }
   }
   &>.exhibit-navbar {
+    box-sizing: content-box; // don’t include padding, which is offset by margin
     position: relative;
-    padding: 0;
-    width: 100%;
+    margin: 0 -.9375rem;
+    padding: 0 .9375rem;
+    min-width: 100%; // override max-width without unsetting
     color: $text-on-light;
-    background: none;
+    background: $base-lightgray;
     z-index: 0;
 
-    &::before {
-      // Because this is being centred with a max-width, but we want its
-      // background to extend to the edges of the screen, we do some magic with
-      // an absolutely‐positioned pseudo·element to make this happen.
-      display: block;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: calc(50% - 50vw);
-      right: calc(50% - 50vw);
-      background: $base-lightgray;
-      z-index: -1;
-      content: "";
+    @include media-breakpoint-up(lg) {
+      margin: 0 -1.875rem;
+      padding: 0 1.875rem;
     }
     &>.container {
+      margin: 0 auto;
       padding: 0;
-      max-width: none;
+      max-width: inherit;
       gap: 0 1.25rem;
       justify-content: start;
 
