@@ -354,7 +354,7 @@ GEM
       activesupport (>= 4.0)
     flot-rails (0.0.7)
       jquery-rails
-    fog-aws (3.13.0)
+    fog-aws (3.14.0)
       fog-core (~> 2.1)
       fog-json (~> 1.1)
       fog-xml (~> 0.1)
@@ -997,7 +997,7 @@ DEPENDENCIES
   down (~> 5.0)
   equivalent-xml (~> 0.6.0)
   ezid-client (= 1.9.1)
-  fog-aws (= 3.13.0)
+  fog-aws (= 3.14.0)
   hyrax!
   jbuilder (= 2.11.5)
   jquery-rails (= 4.4.0)
