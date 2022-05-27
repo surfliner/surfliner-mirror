@@ -1,5 +1,5 @@
 # renovate: datasource=docker depName=alpine
-ARG ALPINE_VERSION=3.15
+ARG ALPINE_VERSION=3.16
 # renovate: datasource=docker depName=ruby versioning=ruby
 ARG RUBY_VERSION=2.7.6
 FROM ruby:$RUBY_VERSION-alpine$ALPINE_VERSION as shoreline-base

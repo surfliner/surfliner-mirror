@@ -1,5 +1,5 @@
 notify-slack-failure:
-  image: alpine:3.15
+  image: alpine:3.16
   stage: result_notification
   before_script:
     - apk add --no-cache curl git
@@ -10,7 +10,7 @@ notify-slack-failure:
     - trunk
 
 notify-slack-success:
-  image: alpine:3.15
+  image: alpine:3.16
   stage: result_notification
   before_script:
     - apk add --no-cache curl git
