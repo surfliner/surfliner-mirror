@@ -37,8 +37,8 @@ To setup a development environment:
 
 Note:
 The first time you setup the development environment you may need to follow the sequence:
-1. `docker-compose up`
 1. `docker-compose build`
+1. `docker-compose up`
 
 The composite command `docker-compose up --build` can result in an error on initial build.
 
