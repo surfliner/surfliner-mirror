@@ -10,5 +10,5 @@ dependencies:
     condition: solr.enabled
   - name: postgresql
     version: 9.8.12
-    repository: https://charts.bitnami.com/bitnami
+    repository: https://raw.githubusercontent.com/bitnami/charts/defb094c658024e4aa8245622dab202874880cbc/bitnami
     condition: postgresql.enabled
