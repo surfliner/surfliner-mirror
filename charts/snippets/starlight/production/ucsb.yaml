@@ -91,6 +91,6 @@ workerResources:
 redis:
   master:
     livenessProbe:
-      initialDelaySeconds: 60
+      initialDelaySeconds: 180
     readinessProbe:
-      initialDelaySeconds: 60
+      initialDelaySeconds: 180
