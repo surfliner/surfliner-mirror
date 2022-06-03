@@ -1,4 +1,4 @@
-@import 'application';
+@import "application";
 @import url("https://fonts.googleapis.com/css?family=Roboto");
 @import url("https://library.ucsd.edu/assets/resources/campus.css");
 
@@ -410,7 +410,7 @@ body
 				color: #fff !important;
 				border: none;
 				text-decoration: none !important;
-			}	
+			}
 			a:hover {
 				background: #0069d9;
 			}
@@ -475,7 +475,7 @@ body
 				}
 				.nav-link:hover {
 					background-color: #014663;
-				}	
+				}
 			}
 		}
 
@@ -816,7 +816,7 @@ body
   .documents-masonry .document{max-width:49%;}
 }
 @media (max-width: 575.98px) {
-  .documents-masonry .document{max-width:100%;}  
+  .documents-masonry .document{max-width:100%;}
 }
 
 // Masonry View - Bookmark Control Fix
