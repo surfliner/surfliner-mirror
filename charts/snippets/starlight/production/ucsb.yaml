@@ -87,10 +87,12 @@ workerResources:
     cpu: 500m
     memory: 500Mi
 
-# temporary fix for https://github.com/bitnami/charts/issues/6685
 redis:
   master:
-    livenessProbe:
-      initialDelaySeconds: 180
-    readinessProbe:
-      initialDelaySeconds: 180
+    extraEnvVars:
+      - name: REDIS_AOF_ENABLED
+        value: "no"
+  replica:
+    extraEnvVars:
+      - name: REDIS_AOF_ENABLED
+        value: "no"
