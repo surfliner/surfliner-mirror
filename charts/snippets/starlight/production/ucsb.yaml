@@ -89,22 +89,10 @@ workerResources:
 
 redis:
   master:
-    livenessProbe:
-      initialDelaySeconds: 180
-    readinessProbe:
-      initialDelaySeconds: 180
-    persistence:
-      size: 15Gi
     extraEnvVars:
       - name: REDIS_AOF_ENABLED
         value: "no"
   replica:
-    livenessProbe:
-      initialDelaySeconds: 180
-    readinessProbe:
-      initialDelaySeconds: 180
-    persistence:
-      size: 15Gi
     extraEnvVars:
       - name: REDIS_AOF_ENABLED
         value: "no"
