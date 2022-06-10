@@ -1,0 +1,40 @@
+.superskunk:deploy:stage:
+  stage: staging
+  extends:
+    - .only-superskunk-changes
+    - .helm3-deploy
+  variables:
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/superskunk
+    DEPLOY_TAG: $CI_COMMIT_SHA
+    HELM_RELEASE_NAME: surfliner-superskunk-stage
+    KUBE_NAMESPACE: superskunk-staging
+  needs: ["superskunk:build"]
+  rules:
+    - !reference [.superskunk-default-branch-rules, rules]
+
+superskunk:deploy:ucsb-stage:
+  extends:
+    - .superskunk:deploy:stage
+  script:
+    - deploy ./charts/superskunk
+  environment:
+    name: ucsb.staging.superskunk
+    url: http://superskunk-staging.$KUBE_INGRESS_BASE_DOMAIN
+    on_stop: superskunk:cleanup:ucsb-stage
+  variables:
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --values charts/snippets/superskunk/ucsb/staging.yml
+
+superskunk:cleanup:ucsb-stage:
+  extends:
+    - .superskunk:deploy:stage
+  environment:
+    name: ucsb.staging.superskunk
+    action: stop
+  when: manual
+  variables:
+    GIT_STRATEGY: none
+    HELM_RELEASE_NAME: surfliner-superskunk-stage
+  script:
+    - delete
+    - delete_stateful_set_pvcs
