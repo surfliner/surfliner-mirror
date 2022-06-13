@@ -1,5 +1,7 @@
 replicaCount: 3
 workerReplicaCount: 2
+workerReadinessProbe:
+  enabled: false
 ingress:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod

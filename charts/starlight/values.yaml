@@ -273,6 +273,7 @@ workerResources:
 # defaults for sidekiq readinessProbe
 # see : https://github.com/mperham/sidekiq/wiki/Kubernetes#health-checks
 workerReadinessProbe:
+  enabled: true
   initialDelaySeconds: 10
   periodSeconds: 2
   timeoutSeconds: 1

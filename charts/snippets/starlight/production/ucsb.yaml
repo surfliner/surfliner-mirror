@@ -1,5 +1,7 @@
 replicaCount: 5
 workerReplicaCount: 3
+workerReadinessProbe:
+  enabled: false
 priorityClassName: high
 ingress:
   annotations:

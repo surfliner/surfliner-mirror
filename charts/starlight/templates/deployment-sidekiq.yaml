@@ -72,6 +72,7 @@ spec:
           env:
             {{- toYaml .Values.extraEnvVars | nindent 12 }}
           args: ['/bin/sh', '-c', 'bundle exec sidekiq']
+          {{- if .Values.workerReadinessProbe.enabled }}
           readinessProbe:
             exec:
               command:
@@ -82,6 +83,7 @@ spec:
             periodSeconds: {{ .Values.workerReadinessProbe.periodSeconds }}
             successThreshold: {{ .Values.workerReadinessProbe.successThreshold }}
             timeoutSeconds: {{ .Values.workerReadinessProbe.timeoutSeconds }}
+          {{- end }}
           resources:
             {{- toYaml .Values.workerResources | nindent 12 }}
           {{- with .Values.extraContainerConfiguration }}
