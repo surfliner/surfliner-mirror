@@ -72,6 +72,16 @@ spec:
           env:
             {{- toYaml .Values.extraEnvVars | nindent 12 }}
           args: ['/bin/sh', '-c', 'bundle exec sidekiq']
+          readinessProbe:
+            exec:
+              command:
+              - cat
+              - /home/starlight/app/tmp/sidekiq_process_has_started_and_will_begin_processing_jobs
+            failureThreshold: {{ .Values.workerReadinessProbe.failureThreshold }}
+            initialDelaySeconds: {{ .Values.workerReadinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.workerReadinessProbe.periodSeconds }}
+            successThreshold: {{ .Values.workerReadinessProbe.successThreshold }}
+            timeoutSeconds: {{ .Values.workerReadinessProbe.timeoutSeconds }}
           resources:
             {{- toYaml .Values.workerResources | nindent 12 }}
           {{- with .Values.extraContainerConfiguration }}

@@ -270,6 +270,15 @@ workerResources:
     cpu: 200m
     memory: 200Mi
 
+# defaults for sidekiq readinessProbe
+# see : https://github.com/mperham/sidekiq/wiki/Kubernetes#health-checks
+workerReadinessProbe:
+  initialDelaySeconds: 10
+  periodSeconds: 2
+  timeoutSeconds: 1
+  failureThreshold: 10
+  successThreshold: 2
+
 nodeSelector: {}
 
 tolerations: []
