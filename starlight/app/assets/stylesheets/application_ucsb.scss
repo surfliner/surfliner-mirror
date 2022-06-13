@@ -315,19 +315,31 @@ body>.masthead {
         font-weight: 400;
         text-transform: none;
 
-        .nav-item .nav-link {
-          display: block;
-          padding: .75rem 0;
-          color: inherit;
+        .nav-item {
+          .nav-link {
+            display: block;
+            padding: .75rem 0;
+            color: inherit;
 
-          &:hover {
-            text-decoration: underline;
+            &:hover {
+              // Overridden in the horizontal (wide) layout.
+              text-decoration: underline;
+            }
+          }
 
-            @include media-breakpoint-up(md) {
+          &.active .nav-link {
+            // Overridden in the horizontal (wide) layout.
+            font-weight: bold;
+          }
+
+          @include media-breakpoint-up(md) {
+            &.active .nav-link,
+            .nav-link:hover {
               // This really only looks good in the horizontal layout.
               margin-bottom: -1px;
               border-bottom: 3px solid;
               padding-bottom: calc(.75rem - 2px);
+              font-weight: inherit;
               text-decoration: none;
             }
           }
@@ -336,7 +348,11 @@ body>.masthead {
           // Annoyingly, a 1rem top margin is inserted as !important by the base
           // application stylesheet in the parent <div> at small sizes, so we
           // need to compensate for that here.
-          margin: -.75rem 0 .25rem;
+          //
+          // It personally offends my sensibilities to have so much horizontal
+          // padding on this element in narrow layouts, so I’ve reduced it to
+          // match the vertical.
+          margin: -.75rem -.75rem .25rem;
 
           @include media-breakpoint-up(md) {
             margin: .25rem 0;
