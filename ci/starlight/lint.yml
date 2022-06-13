@@ -14,14 +14,11 @@ starlight-shellcheck:
 
 starlight-lint:
   stage: lint
-  image: ruby:2.7.6-alpine
+  image: $CI_REGISTRY_IMAGE/starlight_test:$CI_COMMIT_SHA
+  needs: ["starlight:build:test"]
   script:
     - cd starlight
-    - apk add --no-cache build-base git postgresql-dev sqlite-dev shared-mime-info
-    - gem update bundler
-    - bundle check || bundle
     - bundle exec standardrb
-  needs: []
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" || $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
       changes:
