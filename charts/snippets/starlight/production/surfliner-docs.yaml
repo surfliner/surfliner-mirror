@@ -60,6 +60,8 @@ starlight:
     bucket: starlight-uploads-docs
     enabled: true
     region: us-west-2
+workerReadinessProbe:
+  enabled: false
 workerReplicaCount: 2
 workerResources:
   limits:
