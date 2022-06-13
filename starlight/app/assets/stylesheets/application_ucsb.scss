@@ -376,10 +376,23 @@ body>.masthead {
   &>.row>div {
     padding: 0;
   }
-  ul {
-    margin: 1rem 0;
-    border-bottom: thin $unofficial-border-gray solid;
+  ul.breadcrumb {
+    margin: 1rem 0 3.5rem;
+    padding: 0;
     background: none;
+    font-size: .75em;
+
+    .breadcrumb-item {
+      &.active {
+        color: inherit;
+      }
+      &+.breadcrumb-item::before {
+        color: $unofficial-fade-gray;
+      }
+    }
+    a[href] {
+      text-decoration: underline;
+    }
   }
 }
 
@@ -427,6 +440,20 @@ body>.masthead {
   b,
   strong {
     font-weight: bold;
+  }
+}
+#sidebar {
+  // Make the sidebar text line up with the navbar and the breadcrumbs by
+  // removing outer padding in cases where that makes sense.
+  @include media-breakpoint-down(md) {
+    // Below this breakpoint, the sidebar takes up the full horizontal space.
+    padding: 0;
+  }
+  &.order-first {
+    padding-left: 0;
+  }
+  &.order-last {
+    padding-right: 0;
   }
 }
 
