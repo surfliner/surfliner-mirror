@@ -40,7 +40,6 @@ body>* {
       // uses; I’m not questioning it.
       padding: 0 1.875rem;
     }
-
     &>* {
       // Each child of body should consist of one or more further children which
       // are centred with this max-width.
@@ -326,12 +325,10 @@ body>.masthead {
               text-decoration: underline;
             }
           }
-
           &.active .nav-link {
             // Overridden in the horizontal (wide) layout.
             font-weight: bold;
           }
-
           @include media-breakpoint-up(md) {
             &.active .nav-link,
             .nav-link:hover {
@@ -474,7 +471,6 @@ body>.masthead {
 }
 
 /* Footer *****/
-
 #footer {
   margin: auto 0 0;
   color: $text-on-dark;
@@ -642,13 +638,13 @@ body>.masthead {
 }
 
 /* Bits & Pieces *****/
-
 div.st-blocks:last-child {
   // Pads the bottom of the edit area to ensure there is room for dropdowns,
   // etc. See <https://gitlab.com/surfliner/surfliner/issues/226>.
   padding-bottom: 12rem;
 }
 .st-format-bar {
+  // Styling for the popup formatting bar.
   border-radius: 0;
   color: $text-on-dark;
   background: $lightgray-darken-80;
