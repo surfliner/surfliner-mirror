@@ -20,6 +20,16 @@ podSecurityContext:
   fsGroupChangePolicy: "OnRootMismatch"
 
 worker:
+  readinessProbe:
+    enabled: true
+    command:
+      - cat
+      - /app/samvera/hyrax-webapp/tmp/sidekiq_process_has_started_and_will_begin_processing_jobs
+    initialDelaySeconds: 10
+    periodSeconds: 2
+    timeoutSeconds: 1
+    failureThreshold: 10
+    successThreshold: 2
   replicaCount: 2
   podSecurityContext:
     runAsUser: 10000
