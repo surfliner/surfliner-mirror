@@ -73,12 +73,12 @@ services:
       - starlight
 
   memcached:
-    image: bitnami/memcached:1.6.15-debian-10-r25
+    image: bitnami/memcached:1.6.15-debian-11-r4
     networks:
       - starlight
 
   minio:
-    image: bitnami/minio:2022.4.26-debian-10-r2
+    image: bitnami/minio:2022.6.11-debian-11-r1
     ports:
       - "9000:9000"
       - "9001:9001"
@@ -99,7 +99,7 @@ services:
       - starlight
 
   database:
-    image: bitnami/postgresql:12.10.0-debian-10-r75
+    image: bitnami/postgresql:12.11.0-debian-11-r5
     volumes:
       - "starlight_database:/bitnami/postgresql"
     env_file:
@@ -108,7 +108,7 @@ services:
       - starlight
 
   solr:
-    image: bitnami/solr:8.11.1-debian-10-r134
+    image: bitnami/solr:8.11.1-debian-11-r5
     ports:
       - 8983:8983
     env_file:
