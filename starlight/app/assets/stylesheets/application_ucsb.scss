@@ -454,6 +454,114 @@ body>.masthead {
   strong {
     font-weight: bold;
   }
+  .browse-landing,
+  .spotlight-flexbox.browse-categories { // browse boxen
+    display: grid;
+    grid: auto-flow / 1fr;
+    gap: 1rem;
+
+    @include media-breakpoint-up(sm) {
+      // On wider screens, use three columns.
+      grid: auto-flow / repeat(3, 1fr);
+    }
+    :not(a) {
+      // Depending on the situation, there may be a number of nested elements here
+      // with different classnames, etc. Set them all to just display contents and
+      // then undo this for the links and their children as necessary.
+      display: contents;
+    }
+    a {
+      display: block;
+      position: relative;
+      text-decoration: none;
+
+      * {
+        display: block;
+        position: static;
+      }
+      @supports (aspect-ratio: 4 / 3) {
+        // aspect-ratio is new enough that it might not be supported everywhere
+        // (like older phones). Fall back to (unfortunate) default Starlight
+        // sizing in this case.
+        //
+        // This CSS also depends on the grid layout being in effect, but grid
+        // should be supported everywhere which supports aspect-ratio.
+        .image-overlay,
+        .browse-category {
+          // The max-width here ensures that these boxen will never take up more
+          // than 60% of the vertical space on the screen (80vh = 60vh * 4 / 3).
+          margin: auto;
+          width: auto;
+          max-width: 80vh;
+          height: auto;
+          max-height: none;
+          aspect-ratio: 4 / 3;
+        }
+      }
+      .image-overlay,
+      .browse-category {
+        position: relative;
+        border: 2px $lightgray-lighten-6 solid;
+        min-height: 0;
+        max-height: none;
+        overflow: hidden;
+        z-index: 0;
+      }
+      .image-overlay::before {
+        // Not needed for .browse-category at this time.
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5));
+        z-index: 1;
+        content: "";
+      }
+      &:hover .image-overlay::after,
+      &:hover .browse-category::after { // darken on hover
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, calc(5 / 9)), rgba(0, 0, 0, 0.4));
+        z-index: 2;
+        content: "";
+      }
+      .category-caption,
+      .text-overlay {
+        position: absolute;
+        bottom: 1rem;
+        left: 1rem;
+        right: 1rem;
+        width: auto;
+        height: auto;
+        align-content: end;
+        background: none;
+        z-index: 100;
+
+        * {
+          // Because the element and class varies depending on whether this is a
+          // category browse or a landing page, unset everything and then target
+          // :first-child and :not(:first-child) to provide more specific
+          // stylings.
+          all: unset
+        }
+        :first-child { // the title
+          display: block;
+          font-size: 1.25rem;
+          font-weight: 300;
+        }
+        :not(:first-child) { // the caption
+          display: block;
+          font-size: .875rem;
+          font-weight: 200;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
 }
 #sidebar {
   // Make the sidebar text line up with the navbar and the breadcrumbs by
