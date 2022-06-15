@@ -28,10 +28,10 @@ data:
   OLD_APP_URL: {{ .Values.starlight.backups.import.oldAppUrl }}
   {{- end }}
   PORT: {{ .Values.starlight.port | quote }}
-  POSTGRES_DB: {{ .Values.postgresql.postgresqlDatabase }}
+  POSTGRES_DB: {{ .Values.postgresql.auth.database }}
   POSTGRES_HOST: {{ template "starlight.postgresql.fullname" . }}
-  POSTGRES_PORT: {{ .Values.postgresql.servicePort | quote }}
-  POSTGRESQL_DATABASE: {{ .Values.postgresql.postgresqlDatabase }}
+  POSTGRES_PORT: {{ .Values.postgresql.containerPorts.postgresql | quote }}
+  POSTGRESQL_DATABASE: {{ .Values.postgresql.auth.database }}
   RAILS_ENV: {{ .Values.starlight.rails.environment }}
   RAILS_LOG_TO_STDOUT: {{ .Values.starlight.rails.log_to_stdout | quote }}
   RAILS_MAX_THREADS: {{ .Values.starlight.rails.max_threads | quote }}

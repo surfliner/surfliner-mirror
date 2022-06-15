@@ -234,15 +234,18 @@ postgresql:
     repository: bitnami/postgresql
     tag: 12.11.0-debian-11-r5
   enabled: true
-  cpu: 1000m
-  memory: 1Gi
-  postgresqlUsername: starlight
-  postgresqlPassword: starlight_pass
-  postgresqlDatabase: starlight_db
-  postgresqlPostgresPassword: starlight_admin
-  servicePort: 5432
-  persistence:
-    size: 10Gi
+  architecture: standalone
+  auth:
+    username: starlight
+    password: starlight_pass
+    database: starlight_db
+    postgresPassword: starlight_admin
+  containerPorts:
+    postgresql: 5432
+  primary:
+    persistence:
+      enabled: false
+      size: 10Gi
 
 # Configuration for redis chart
 # see: https://github.com/helm/charts/blob/master/stable/redis/README.md
