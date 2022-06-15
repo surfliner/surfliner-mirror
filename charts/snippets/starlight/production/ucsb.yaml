@@ -30,9 +30,10 @@ memcached:
       memory: 50Mi
 postgresql:
   enabled: false
-  postgresqlDatabase: starlight-prod
   postgresqlHostname: starlight-prod-postgresql.postgresql-prod
-  postgresqlUsername: starlight
+  auth:
+    database: starlight-prod
+    username: starlight
 solr:
   enabled: true
   auth:

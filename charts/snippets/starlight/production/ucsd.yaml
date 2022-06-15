@@ -24,7 +24,8 @@ vaultSecret:
 postgresql:
   enabled: false
   postgresqlHostname: lib-psql-prod.ucsd.edu
-  postgresqlDatabase: starlight
+  auth:
+    database: starlight
 solr:
   enabled: false
   solrHostname: lib-solr-prod.ucsd.edu

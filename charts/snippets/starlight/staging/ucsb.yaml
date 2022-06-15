@@ -22,9 +22,10 @@ persistence:
     class: gp2
 postgresql:
   enabled: false
-  postgresqlDatabase: starlight-staging
   postgresqlHostname: starlight-staging-postgresql.postgresql-staging
-  postgresqlUsername: starlight
+  auth:
+    database: starlight-staging
+    username: starlight
 memcached:
   enabled: true
   priorityClassName: normal
