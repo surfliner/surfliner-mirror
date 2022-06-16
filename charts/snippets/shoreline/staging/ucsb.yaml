@@ -36,6 +36,10 @@ geoserver:
   podSecurityContext:
     fsGroup: 10001
 
+postgresql:
+  auth:
+    existingSecret: shoreline-postgres
+
 persistence:
   downloads:
     class: gp2
