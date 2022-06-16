@@ -5,14 +5,14 @@ name: shoreline
 version: 0.5.0
 dependencies:
   - name: postgresql
-    version: 8.10.14
-    repository: https://raw.githubusercontent.com/bitnami/charts/defb094c658024e4aa8245622dab202874880cbc/bitnami
+    version: 11.6.5
+    repository: https://charts.bitnami.com/bitnami
     condition: postgresql.enabled
   - name: geoserver
     version: 1.5.0
     repository: file://../geoserver
     condition: geoserver.enabled
   - name: solr
-    version: 4.0.9
+    version: 5.1.7
     repository: https://charts.bitnami.com/bitnami
     condition: solr.enabled

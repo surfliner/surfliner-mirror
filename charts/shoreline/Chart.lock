@@ -1,12 +1,12 @@
 dependencies:
 - name: postgresql
-  repository: https://raw.githubusercontent.com/bitnami/charts/defb094c658024e4aa8245622dab202874880cbc/bitnami
-  version: 8.10.14
+  repository: https://charts.bitnami.com/bitnami
+  version: 11.6.5
 - name: geoserver
   repository: file://../geoserver
   version: 1.5.0
 - name: solr
   repository: https://charts.bitnami.com/bitnami
-  version: 4.0.9
-digest: sha256:77a0649116e105df875f86a5fece372e05fadd71e025fd7a0a4a014f24894495
-generated: "2022-06-02T10:52:14.335520511-07:00"
+  version: 5.1.7
+digest: sha256:aecc53adbb89469e4a86c7ba86a79a82cac7794333b83ec99e7f93bcf404ede0
+generated: "2022-06-16T06:38:21.507978094-07:00"
