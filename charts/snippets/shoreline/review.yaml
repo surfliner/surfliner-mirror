@@ -17,5 +17,6 @@ geoserver:
   persistence:
     enabled: false
 postgresql:
-  persistence:
-    enabled: false
+  primary:
+    persistence:
+      enabled: false

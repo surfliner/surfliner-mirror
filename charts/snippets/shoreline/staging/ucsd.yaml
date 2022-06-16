@@ -55,5 +55,6 @@ geoserver:
 postgresql:
   enabled: false
   postgresqlHostname: lib-psql-stage.ucsd.edu
-  postgresqlUsername: geodata_stage
-  postgresqlDatabase: geodata_stage
+  auth:
+    username: geodata_stage
+    database: geodata_stage

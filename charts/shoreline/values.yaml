@@ -123,18 +123,21 @@ postgresql:
   image:
     repository: bitnami/postgresql
     tag: 12.11.0-debian-11-r5
+  architecture: standalone
   enabled: true
-  cpu: 1000m
-  memory: 1Gi
   # If postgresql.enabled is false, then
   #   * set postgresqlHostname to external postgresql FQDN
   # postgresqlHostname: external-shoreline-postgresql-fqdn
-  postgresqlUsername: shoreline-discovery
-  postgresqlPassword: shorelinepass
-  postgresqlDatabase: shoreline-discovery
-  servicePort: 5432
-  persistence:
-    size: 10Gi
+  auth:
+    username: shoreline-discovery
+    password: shorelinepass
+    database: shoreline-discovery
+  containerPorts:
+    postgresql: 5432
+  primary:
+    persistence:
+      enabled: true
+      size: 10Gi
 
 geoserver:
   enabled: true
