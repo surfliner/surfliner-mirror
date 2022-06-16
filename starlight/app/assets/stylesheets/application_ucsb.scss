@@ -327,7 +327,7 @@ body>.masthead {
           }
           &.active .nav-link {
             // Overridden in the horizontal (wide) layout.
-            font-weight: bold;
+            font-weight: 500;
           }
           @include media-breakpoint-up(md) {
             &.active .nav-link,
@@ -445,6 +445,23 @@ body>.masthead {
   h3 {
     margin: 1.25rem 0 .625rem;
     font-size: 1.3125rem;
+  }
+  h4,
+  h5,
+  h6 {
+    margin: 1rem 0 .5rem;
+  }
+  h4 {
+    font-size: 1.25rem;
+    line-height: 1.15;
+  }
+  h5 {
+    font-size: calc(17rem / 16);
+    line-height: calc(20 / 17);
+  }
+  h6 {
+    font-size: 1rem;
+    line-height: 1.1875;
   }
   iframe {
     display: block;
@@ -575,6 +592,91 @@ body>.masthead {
   }
   &.order-last {
     padding-right: 0;
+  }
+  .nav-heading {
+    margin: 0 0 1rem;
+    border-bottom: 1px $unofficial-lightgray-darken-45 solid !important;
+    padding: 0 0 .125rem;
+    color: $lightgray-darken-80;
+    font-size: 1.3125rem;
+    font-weight: 600;
+    line-height: 1.6;
+
+    &~.nav-heading {
+      margin-top: 4rem;
+    }
+  }
+  &#sidebar .sidenav {
+    // #sidebar is listed again for heightened specificity; we want these styles
+    // to always override Spotlight ones.
+    li {
+      // In what is probably a bug, Spotlight currently does not attach a class
+      // to list items on feature pages (it should be `.nav-item`). No matter,
+      // we can just match them by element name.
+      display: list-item;
+      list-style: none;
+      margin: .5rem 0;
+      font-size: 1rem;
+      font-weight: 200;
+      line-height: 1.75;
+
+      &:first-child {
+        margin-top: 0;
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
+      &.active {
+        font-weight: 500;
+
+        &>a[href],
+        &>*:first-child a[href] {
+          // Don’t use a simple descendant selector here to avoid also catching
+          // links in subsections.
+          color: inherit;
+        }
+      }
+      &>.h6 {
+        // For some reason, Spotlight sticks top‐level list items in a
+        // <h2 class=h6>… We can do much better than this.
+        all: unset
+      }
+      a[href] {
+        // Again, these prolly *should* all have a `.nav-link` class, but don’t
+        // presently on feature pages.
+        color: $link-color;
+
+        &:hover {
+          color: $link-hover-color;
+          text-decoration: underline;
+        }
+      }
+    }
+    &>li { // top‐level items
+      // The :first-child and :last-child above still have higher specificity
+      // than this.
+      //
+      // ☡ The font styling here *will* inherit into descendants if it isn’t
+      // overridden!
+      margin: .75rem 0;
+      color: $lightgray-darken-80;
+      font-size: 1.3125rem;
+      font-weight: 600;
+      line-height: 1.6;
+
+      &.active {
+        font-weight: 600;
+      }
+      &>:first-child:not(:last-child) { // subsection headers
+        display: block;
+        border-bottom: 1px $unofficial-lightgray-darken-45 solid !important;
+        padding: 0 0 .125rem;
+      }
+    }
+    .subsection {
+      margin: 1rem 0 0;
+      padding: 0;
+    }
   }
 }
 
