@@ -29,3 +29,7 @@ geoserver:
 persistence:
   downloads:
     class: gp2
+
+postgresql:
+  auth:
+    existingSecret: shoreline-postgres
