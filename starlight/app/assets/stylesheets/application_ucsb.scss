@@ -19,8 +19,9 @@ body {
   min-height: 100vh;
 }
 body>* {
-  // Each child of body should be in its own stacking context to prevent things
-  // in, say, page content from sitting on top of things in, say, the header.
+  // By default, each child of body is placed in its own stacking context. This
+  // will be overridden for the main content in order to allow the slideshow
+  // view to sit on top of everything.
   position: relative;
   z-index: 0;
 
@@ -411,8 +412,10 @@ body>.masthead {
 
 /* Main Container *****/
 #main-container {
+  position: static;
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
+  z-index: auto;
 }
 #content {
   h1,
@@ -867,4 +870,13 @@ div.st-blocks:last-child {
   .st-format-btn--is-active {
     background: $unofficial-lightgray-darken-45;
   }
+}
+.slideshow-presenter .carousel-control {
+  // Fixes the height and positioning of the slideshow controls so they don’t
+  // extend off the bottom of the screen.
+  writing-mode: vertical-lr;
+  top: 0;
+  bottom: 0;
+  height: auto;
+  text-align: center;
 }
