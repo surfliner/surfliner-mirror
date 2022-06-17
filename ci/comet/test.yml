@@ -78,7 +78,7 @@ comet:test:system:
       alias: minio
     - name: bitnami/rabbitmq:3.9.16-debian-10-r0
       alias: rabbitmq
-    - name: selenium/standalone-chrome:99.0
+    - name: seleniarm/standalone-chromium:102.0-20220602
       alias: chrome
   script:
     - >

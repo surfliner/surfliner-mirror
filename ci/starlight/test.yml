@@ -29,7 +29,7 @@
   services:
     - name: bitnami/postgresql:12.11.0-debian-11-r5
       alias: postgres
-    - name: seleniarm/standalone-chromium:4.1.3-20220409
+    - name: seleniarm/standalone-chromium:102.0-20220602
       alias: chrome
     - name: solr:8.11.1
       alias: solr
