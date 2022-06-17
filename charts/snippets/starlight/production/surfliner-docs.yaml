@@ -29,7 +29,7 @@ memcached:
 postgresql:
   enabled: true
   auth:
-    existingSecret: shoreline-postgres
+    existingSecret: starlight-postgres
 
 replicaCount: 3
 resources:
