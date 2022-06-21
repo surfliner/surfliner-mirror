@@ -6,21 +6,21 @@ version: 0.7.0
 dependencies:
   - name: memcached
     version: 6.0.17
-    repository: https://charts.bitnami.com/bitnami
+    repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
     condition: memcached.enabled
   - name: minio
     version: 11.2.13
-    repository: https://charts.bitnami.com/bitnami
+    repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
     condition: minio.enabled
   - name: postgresql
     version: 11.6.5
-    repository: https://charts.bitnami.com/bitnami
+    repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
     condition: postgresql.enabled
   - name: redis
     version: 16.9.0
-    repository: https://charts.bitnami.com/bitnami
+    repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
     condition: redis.enabled
   - name: solr
     version: 5.1.7
-    repository: https://charts.bitnami.com/bitnami
+    repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
     condition: solr.enabled

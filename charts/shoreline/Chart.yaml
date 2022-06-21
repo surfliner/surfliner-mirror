@@ -6,7 +6,7 @@ version: 0.5.0
 dependencies:
   - name: postgresql
     version: 11.6.5
-    repository: https://charts.bitnami.com/bitnami
+    repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
     condition: postgresql.enabled
   - name: geoserver
     version: 1.5.0
@@ -14,5 +14,5 @@ dependencies:
     condition: geoserver.enabled
   - name: solr
     version: 5.1.7
-    repository: https://charts.bitnami.com/bitnami
+    repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
     condition: solr.enabled
