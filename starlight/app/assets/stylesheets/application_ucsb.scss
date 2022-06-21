@@ -583,11 +583,12 @@ body>.masthead {
     }
   }
 }
+
+/* Sidebar *****/
 #sidebar {
-  // Make the sidebar text line up with the navbar and the breadcrumbs by
-  // removing outer padding in cases where that makes sense.
   @include media-breakpoint-down(md) {
-    // Below this breakpoint, the sidebar takes up the full horizontal space.
+    // Make the sidebar text line up with the navbar and the breadcrumbs by
+    // removing outer padding in cases where that makes sense.
     padding: 0;
   }
   &.order-first {
@@ -609,10 +610,11 @@ body>.masthead {
       margin-top: 4rem;
     }
   }
-  &#sidebar .sidenav {
+  &#sidebar {
     // #sidebar is listed again for heightened specificity; we want these styles
     // to always override Spotlight ones.
-    li {
+    .sidenav li,
+    .nav-heading~.sidenav li {
       // In what is probably a bug, Spotlight currently does not attach a class
       // to list items on feature pages (it should be `.nav-item`). No matter,
       // we can just match them by element name.
@@ -655,9 +657,10 @@ body>.masthead {
         }
       }
     }
-    &>li { // top‐level items
+    .sidenav>li { // top‐level items
       // The :first-child and :last-child above still have higher specificity
-      // than this.
+      // than this, as do the ordinary li styles when .sidenav is preceded by a
+      // .nav-heading.
       //
       // ☡ The font styling here *will* inherit into descendants if it isn’t
       // overridden!
