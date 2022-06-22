@@ -1,147 +1,78 @@
 ## Setting up a development environment for Comet
 
-The current practice for Comet development is to use a `k3s` tool called `k3d`
-which creates containerized `k3s` clusters.
+Comet's web service is a Rails application written using the [`hyrax`][hyrax]
+engine provided by the [Samvera Community][samvera].
+
+The current practice for Comet development is to use [`docker-compose`][compose]
+which configures multi-container applications in your local development context.
 
 You will need the following tools installed on your local machine:
 
-* [Docker][docker]
-* [kubectl][kubectl]
-* [Helm][helm]
-* [k3d][k3d]
-
-Additionally, you will want some way of monitoring and managing the application
-deployments into the `k3s` cluster. There are a variety of tools for doing this:
-
-* [k9s][k9s] - A terminal-based tool for managing k8s clusters
-* [Rancher][rancher] - Provides a very nice UI, but a heavier weight
-    installation locally.
-* Using `kubectl` and `helm` directly. There are times where this is best, but
-    is likely a last resort for regular monitoring.
-
-There are likely other tools in this space as well. As of this writing our team
-currently has experience with both `k9s` and `Rancher`, so these are currently
-recommended.
-
-In general, it is advisable to keep all of these tools up to date. The
-Kubernetes development space and related tooling moves quickly.
-
-For Mac and Windows specific setup of the tooling above, see the section below.
+* [Docker Engine][docker]
+* [docker-compose][compose-install]
 
 ### Dependency installation for Mac and Windows
-For both environments, you need to install docker.
+
+For both environments, you need to install Docker Desktop.
 
 **Mac** https://docs.docker.com/docker-for-mac/install/
-
 **Windows** https://docs.docker.com/docker-for-windows/install/
 
-The install process is much easier with a package manager.
+In both cases, the Docker Desktop installation includes `docker-compose`.
 
-For Mac, we use brew.  The install instructions are here: https://brew.sh/
+## Running the environment
 
-`/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
-
-On Windows, we care going to use Chocolatey.  The install instructions are here: https://chocolatey.org/install
-
-`Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))`
-
-On a Mac, you will also need to install the Command Line Tools for Xcode to support the 'make' command.
-
-`xcode-select --install`
-
-On windows.
-
-`choco install make`
-
-Now we need to install helm.
-
-**Mac** https://helm.sh/docs/intro/install/
-
-`brew install helm`
-
-**Windows** https://helm.sh/docs/intro/install/
-
-`choco install kubernetes-helm`
-
-Then kubectl.
-
-**Mac** https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/#install-with-homebrew-on-macos
-
-`brew install kubectl`
-
-**Windows** https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/#install-on-windows-using-chocolatey-or-scoop
-
-`choco install kubernetes-cli`
-
-And finally, k3d.
-
-**Mac** https://k3d.io/
-
-`brew install k3d`
-
-**Windows** https://k3d.io/
-
-`choco install k3d`
-
-### Provisioning the development environment
-
-1. `make setperms` (currently we have to modify local file permissions because
-   the Docker containers run as non-root)
-1. `make setup` (create the K8s cluster, namespace, etc. if needed)
-1. `make build` (create the Comet Docker image and push it to the local k3d
-   registry)
-1. `make deploy` (deploy Comet to the local k3d cluster)
-
-The application will be available, by default, at:
+If you don't already have a local development copy of this repository, check it
+out and move to the `comet` project directory:
 
 ```sh
-http://comet.k3d.localhost
+git clone https://gitlab.com/surfliner/surfliner.git
+cd surfliner/comet
 ```
 
-The Minio/S3 UI is available at:
+Build the comet images with `docker-compose build`, and run the environment with
+`docker-compose up`. Either of these steps may take some time the first time
+through as build processes run and images download. You should benefit from
+caching on subsequent runs.
+
+You should now have a running version of the web application at
+https://localhost:3000.
+
+Other applicaiton components are available as services mapped to other localhost
+ports, to see a list do `docker-compose ps`. These services are the components
+necessary to run the application in a production-like environment (databases,
+caches, message queues, etc...), as well as those that are useful for the test
+environment (e.g. a chrome browser engine). All the services are configured by
+[`.env`](../../../comet/.env); if you're looking for access credentials or
+other configuration details, the environment variables there will likely be
+your answer.
+
+The application itself is loaded with seed data from
+[`db/seeds.rb`](../../../comet/db/seeds.rb).
+
+### Running the test suite
+
+The `comet` test suite is written with [`RSpec`][rspec], which provides a
+flexible [command line interface][rspec-cli] for running the parts of a test
+suite you are interested in. You can access this CLI by using
+`docker-compose exec web [command]` to access run the commands in the
+`comet-web` container. In the simplest case, to run the whole test suite:
 
 ```sh
-http://comet-minio.k3d.localhost
+docker-compose exec web bundle exec rspec
 ```
 
-The Solr UI is available at:
-
-```sh
-http://comet-solr.k3d.localhost
-```
-
-#### Customizing Helm Values in Deployment
-It may be the case that one needs to specify difference Helm values than are
-used by the default `k3d.yaml` file. To do this:
-
-- Create an additional `yaml` file with the values you need to update or change
-- Export an environment variable name `LOCAL_VALUES_FILE` and set the value to
-    the path to your `yaml` file
-- Run `make deploy`
-
-Example:
-
-With a `yaml` file stored in `/tmp/local-comet-values.yaml`
-
-```yaml
-ingress:
-  enabled: true
-  hosts:
-    - host: 'comet.k3d.my-server'
-      paths: ['/']
-```
-
-```sh
-export LOCAL_VALUES_FILE="/tmp/local-comet-values.yaml"
-make deploy
-```
-
+> Note: currently some of these tests seem to fail on a local docker
+> environment. Please communicate about failing tests in your environment
+> via Slack. Efforts to fix this are highly valued, but if you need to
+> move forward with your ticket you can consider the CI/CD pipleine the
+> canonical environment for the test suite. If your work passes there,
+> it can be cleared for merge.
 
 [docker]: https://docs.docker.com/engine/install/
-[helm]: https://helm.sh/docs/intro/install/
+[compose]: https://docs.docker.com/compose/
+[compose-install]: https://docs.docker.com/compose/install/
 [hyrax]: https://hyrax.samvera.org/
-[k3d]: https://github.com/rancher/k3d/#get
-[k9s]: https://github.com/derailed/k9s
-[kubectl]: https://kubernetes.io/docs/tasks/tools/
-[rancher]: https://rancher.com/docs/rancher/v2.5/en/installation/install-rancher-on-k8s/
+[rspec]: https://rspec.info/
+[rspec-cli]: https://relishapp.com/rspec/rspec-core/docs/command-line
 [samvera]: https://samvera.org/
