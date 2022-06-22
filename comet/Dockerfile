@@ -90,6 +90,11 @@ ENTRYPOINT ["tini", "--", "/app/samvera/hyrax-webapp/scripts/entrypoint.sh"]
 CMD ["bundle", "exec", "puma", "-v", "-b", "tcp://0.0.0.0:3000"]
 
 FROM comet-web-prod as comet-worker-prod
+# the directory of the host system from which application files are copied
+ARG LOCAL_PROJECT=comet
+# the project path on the image
+ARG DOCKER_ROOT=/app/samvera
+ARG DOCKER_PROJECT=${DOCKER_ROOT}/hyrax-webapp
 WORKDIR $DOCKER_PROJECT
 
 USER root
