@@ -65,7 +65,7 @@ docker-compose exec web bundle exec rspec
 > Note: currently some of these tests seem to fail on a local docker
 > environment. Please communicate about failing tests in your environment
 > via Slack. Efforts to fix this are highly valued, but if you need to
-> move forward with your ticket you can consider the CI/CD pipleine the
+> move forward with your ticket you can consider the CI/CD pipeline the
 > canonical environment for the test suite. If your work passes there,
 > it can be cleared for merge.
 
