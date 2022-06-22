@@ -92,7 +92,7 @@ services:
   redis:
     image: bitnami/redis:6.2.7-debian-11-r5
     environment:
-      ALLOW_EMPTY_PASSWORD: yes
+      ALLOW_EMPTY_PASSWORD: "yes"
     volumes:
       - starlight_redis:/bitnami/redis/data
     networks:
