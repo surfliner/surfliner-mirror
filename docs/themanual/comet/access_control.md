@@ -4,6 +4,39 @@ The Access Control Model in `comet`
 `comet` follows [Hyrax][hyrax]'s model for access controls, which is designed
 to be serializable in the [Web ACL][webacl] model.
 
+## ACL Purpose and Scope
+
+ACLs are administrative metadata with a global scope governing authorization and
+access to repository Resources. The ACL data is intended to be limited in terms
+of what kinds of authorization it governs, but where it applies it is iron clad
+and universal.
+
+This means that if you want to answer questions like "is this **Agent** allowed
+to `:read`/`:edit` this `pcdm:Object`/`pcdm:File`/`pcdm:Collection`" the ACL
+data represents a hard boundary which all Surfliner applications MUST respect;
+if there's not a grant for the relevant access in the ACL data, they CANNOT do
+it, regardless of application context.
+
+Access granted is limited to the **Access Modes** documented here.
+Authorization for specific actions within an application can be defined
+separately for the application context, but applications SHOULD take care to
+respect ACL access when doing so.
+
+For example, a given application might choose to allow or deny download access
+using any business logic it desires, but in doing so it is required to respect
+`:read` access as represented in the ACLs; if the user isn't granted `:read`,
+the application is bound to deny download. By contrast, an application that
+wants to authorize attaching a UI widget to a resource may do so even if the
+user lacks `:read` access, since the action's impact is limited to the
+application.
+
+A complex example of application layer authorization is Comet's role-based
+workflow engine. Since the workflow data is isolated to `Comet`, workflow
+state changes can be authorized without reference to ACLs. However, when a
+state change triggers and action that changes `pcdm:Object` or `pcdm:Collection`
+metadata, that action needs to authorize the user for **:edit** before
+persisting those changes.
+
 ## Data Model
 
 ### `Hyrax::AccessControl`
@@ -77,7 +110,9 @@ associated with that resource. If the resource is a `pcdm:File`, it allows the
 
 ### `:edit`
 
-`:edit` grants access to change all aspects of the resource.
+`:edit` grants access to change all aspects of the resource. For a Collection or
+Object this means altering the metadata, for a File it means editing the bitwise
+content of the file.
 
 ## Storage and Data Layout Considerations
 
@@ -94,7 +129,6 @@ they are a part of the **AccessControl** document.
 Developers should look to [`Hyrax::AccessControlList`][rubydoc-hyrax-acl] for
 a set of tools for managing an **AccessControl** and its associated
 **Permissions** in the context of a resource.
-
 
 [hyrax]: https://github.com/samvera/hyrax "Hyrax on GitHub"
 [rubydoc-hyrax-acl]: https://rubydoc.info/gems/hyrax/Hyrax/AccessControlList "Class: Hyrax::AccessControlList"
