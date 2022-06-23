@@ -47,10 +47,10 @@ worker:
 resources:
   limits:
     memory: 1Gi
-    cpu: 1
+    cpu: 1.5
   requests:
     memory: 350Mi
-    cpu: 100m
+    cpu: 500m
 
 solr:
   image:

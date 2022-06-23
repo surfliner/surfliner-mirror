@@ -77,6 +77,14 @@ postgresql:
   persistence:
     enabled: false
 
+resources:
+  limits:
+    memory: 1Gi
+    cpu: 1.5
+  requests:
+    memory: 350Mi
+    cpu: 500m
+
 worker:
   readinessProbe:
     enabled: true
