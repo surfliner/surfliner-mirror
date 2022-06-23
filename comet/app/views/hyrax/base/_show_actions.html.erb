@@ -25,7 +25,7 @@
   </div>
 
   <div class="col-sm-6 text-right">
-    <% if DiscoveryPlatformService.call(presenter.solr_document[:id]).count > 0 && can?(:publish, presenter.solr_document) %>
+    <% if DiscoveryPlatformService.call(presenter.solr_document[:id]).count > 0 && show_publish_button?(presenter.solr_document) %>
       <%= link_to t('hyrax.base.show_actions.unpublish.button_label'),
                   "/concern/generic_objects/#{presenter.id}/unpublish",
                   title: t('hyrax.base.show_actions.unpublish.desc'),
