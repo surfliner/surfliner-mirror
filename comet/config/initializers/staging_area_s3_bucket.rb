@@ -11,7 +11,7 @@ aws_secret_access_key = ENV.slice("REPOSITORY_S3_SECRET_KEY",
   "MINIO_ROOT_PASSWORD").values.first
 
 # skip this setup if just building the app image or no aws configuration
-unless ENV.fetch("SKIP_FILE_STAGING_BUCKET", false) ||
+unless ActiveModel::Type::Boolean.new.cast(ENV.fetch("SKIP_FILE_STAGING_BUCKET", "false")) ||
     ENV["DB_ADAPTER"] == "nulldb" ||
     aws_access_key_id.nil? ||
     aws_secret_access_key.nil?
@@ -36,8 +36,20 @@ unless ENV.fetch("SKIP_FILE_STAGING_BUCKET", false) ||
   s3_bucket = ENV.fetch("STAGING_AREA_S3_BUCKET", "comet-staging-area-#{Rails.env}")
 
   Rails.logger.debug { "Using bucket #{s3_bucket} as the file staging area" }
-  Rails.application.config.staging_area_s3_handler =
-    StagingAreaS3Handler.new(connection: fog_connection,
-      bucket: s3_bucket,
-      prefix: "")
+
+  retries = 5
+  begin
+    Rails.application.config.staging_area_s3_handler =
+      StagingAreaS3Handler.new(connection: fog_connection,
+        bucket: s3_bucket,
+        prefix: "")
+  rescue => e
+    if (retries -= 1) > 0
+      Rails.logger.debug "Retrying to connect to S3 bucket #{ENV["STAGING_AREA_S3_BUCKET"]}."
+      sleep(2.seconds)
+      retry
+    else
+      Rails.logger.error { "Error connect to S3 bucket #{ENV["STAGING_AREA_S3_BUCKET"]}: #{e}" }
+    end
+  end
 end
