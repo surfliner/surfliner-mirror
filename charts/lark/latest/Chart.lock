@@ -1,9 +1,9 @@
 dependencies:
 - name: solr
   repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
-  version: 4.0.9
+  version: 4.1.2
 - name: postgresql
   repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
   version: 9.8.12
-digest: sha256:43fec224a1a2876c56502c3b78dd555b16139861e98204d15cecb2d5070f2ba5
-generated: "2022-06-21T11:29:19.482206352-07:00"
+digest: sha256:7714d544aecece8310185388255862d717929825634a86ce4670c34223e23350
+generated: "2022-06-24T10:17:56.550437751-07:00"
