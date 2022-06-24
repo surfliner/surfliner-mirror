@@ -11,8 +11,7 @@ aws_secret_access_key = ENV.slice("REPOSITORY_S3_SECRET_KEY",
   "MINIO_ROOT_PASSWORD").values.first
 
 # skip this setup if just building the app image or no aws configuration
-unless ActiveModel::Type::Boolean.new.cast(ENV.fetch("SKIP_FILE_STAGING_BUCKET", "false")) ||
-    ENV["DB_ADAPTER"] == "nulldb" ||
+unless ENV["DB_ADAPTER"] == "nulldb" ||
     aws_access_key_id.nil? ||
     aws_secret_access_key.nil?
   Rails.logger.debug { "Connecting to S3 batch file staging area" }

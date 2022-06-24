@@ -77,7 +77,6 @@ services:
       - .env
     environment:
       - RABBITMQ_ENABLED=false
-      - SKIP_FILE_STAGING_BUCKET=false
     command:
       - sh
       - -c
