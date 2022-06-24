@@ -18,11 +18,18 @@ tidewater:test:
     POSTGRES_USER: postgres
     RAILS_ENV: test
     SUPERSKUNK_MOCK_SERVER_URL: "http://mmock:8083"
+    SUPERSKUNK_CONFIG_FILENAME: "superskunk-metadata.yml"
+    SUPERSKUNK_CONFIG_FILEPATH: "https://gitlab.com/surfliner/surfliner/-/raw/${CI_COMMIT_SHA}/tidewater/mmock/config/superskunk-metadata.yml"
   services:
     - name: bitnami/postgresql:12.10.0-debian-10-r75
       alias: postgres
     - name: jordimartin/mmock:v3.0.3
       alias: mmock
+      entrypoint: [""]
+      command:
+        - /bin/sh
+        - -c
+        - "curl --output /config/${SUPERSKUNK_CONFIG_FILENAME} ${SUPERSKUNK_CONFIG_FILEPATH} && mmock -config-path /config -tls-path /tls -server-ip 0.0.0.0 -console-ip 0.0.0.0"
   script:
     - cd tidewater
     - bundle exec rake db:create db:migrate
