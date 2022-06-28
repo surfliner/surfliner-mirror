@@ -1,17 +1,5 @@
 ingress:
-  enabled: true
-  annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    kubernetes.io/tls-acme: "true"
-  hosts:
-    - host: superskunk-staging.eks.dld.library.ucsb.edu
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  tls:
-   - secretName: superskunk-staging-cert
-     hosts:
-       - superskunk-staging.eks.dld.library.ucsb.edu
+  enabled: false
 
 postgresql:
   enabled: false
