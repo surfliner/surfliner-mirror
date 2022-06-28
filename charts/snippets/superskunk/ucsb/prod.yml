@@ -1,0 +1,16 @@
+superskunk:
+  db:
+    metadata_database_name: comet_metadata
+
+ingress:
+  enabled: false
+
+postgresql:
+  enabled: false
+  postgresqlDatabase: comet-prod
+  postgresqlHostname: comet-prod-postgresql.postgresql-prod
+  postgresqlUsername: comet
+
+existingSecret:
+  enabled: true
+  name: superskunk-postgres

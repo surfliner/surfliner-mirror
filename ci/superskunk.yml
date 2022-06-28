@@ -4,6 +4,7 @@ include:
   - local: ci/superskunk/test.yml
   - local: ci/superskunk/review.yml
   - local: ci/superskunk/staging.yml
+  - local: ci/superskunk/prod.yml
 
 .only-superskunk-changes: &only-superskunk-changes
   changes:

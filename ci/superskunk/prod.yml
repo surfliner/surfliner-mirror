@@ -1,0 +1,24 @@
+.superskunk:deploy:prod:
+  stage: production
+  extends:
+    - .helm3-deploy
+  variables:
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/superskunk
+    DEPLOY_TAG: $CI_COMMIT_SHA
+    HELM_RELEASE_NAME: surfliner-superskunk-prod
+    KUBE_NAMESPACE: superskunk-prod
+  needs: ["superskunk:build"]
+  rules:
+    - !reference [.superskunk-default-branch-rules, rules]
+
+superskunk:deploy:ucsb-prod:
+  extends:
+    - .superskunk:deploy:prod
+  script:
+    - deploy ./charts/superskunk
+  environment:
+    name: ucsb.production.superskunk
+    url: http://superskunk.$KUBE_INGRESS_BASE_DOMAIN
+  variables:
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --values charts/snippets/superskunk/ucsb/prod.yml
