@@ -69,4 +69,52 @@ RSpec.describe DiscoveryPlatformPublisher do
       end
     end
   end
+
+  describe "#unpublish" do
+    let(:resource) do
+      Hyrax.persister.save(resource: GenericObject.new(title: "Comet in Moominland"))
+    end
+
+    context "when the resource has already been published" do
+      before do
+        # Don’t use publisher.publish here to keep from sending extra messages
+        # to the broker.
+        acl = Hyrax::AccessControlList.new(resource: resource)
+        acl.grant(:discover).to(platform.agent)
+        acl.save
+      end
+
+      it "changes the resource ACLs" do
+        expect { publisher.unpublish(resource: resource) }
+          .to change { Hyrax::AccessControlList.new(resource: resource) }
+          .to revoke_access(:discover).on(resource).from(platform.agent)
+      end
+
+      it "publishes to the broker" do
+        publisher.unpublish(resource: resource)
+
+        expect(broker)
+          .to have_received(:publish)
+          .with(payload: an_instance_of(String),
+            routing_key: platform.message_route.metadata_routing_key)
+      end
+
+      it "does not unpublish on successive calls" do
+        publisher.unpublish(resource: resource)
+        publisher.unpublish(resource: resource)
+        publisher.unpublish(resource: resource)
+
+        expect(broker).to have_received(:publish).once
+      end
+    end
+
+    context "when the resource is unsaved" do
+      let(:resource) { GenericObject.new }
+
+      it "raises an error; cannot unpublish an unsaved resource" do
+        expect { publisher.unpublish(resource: resource) }
+          .to raise_error(ArgumentError)
+      end
+    end
+  end
 end
