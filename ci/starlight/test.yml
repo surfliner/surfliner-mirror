@@ -1,6 +1,21 @@
+starlight:test:solrconfig:
+  image: alpine:3.16.0
+  stage: test
+  needs: []
+  rules:
+    - !reference [.starlight-mr-rules, rules]
+    - !reference [.starlight-default-branch-rules, rules]
+  script:
+    - tar -zcf starlight-solr-config.tar.gz starlight/solr
+  artifacts:
+    untracked: false
+    expire_in: 1 day
+    paths:
+      - starlight-solr-config.tar.gz
+
 .starlight:test:
   image: $CI_REGISTRY_IMAGE/starlight_test:$CI_COMMIT_SHA
-  needs: ["starlight:build:test"]
+  needs: ["starlight:test:solrconfig", "starlight:build:test"]
   stage: test
   rules:
     - !reference [.starlight-mr-rules, rules]
@@ -9,37 +24,43 @@
     DB_ADAPTER: "postgresql"
     DELIVERY_METHOD: "test"
     POSTGRESQL_DATABASE: "starlight-test"
-    POSTGRES_HOST: "localhost"
+    POSTGRES_HOST: "postgres"
     POSTGRES_PASSWORD: "postgres"
     POSTGRES_USER: "postgres"
     RAILS_ENV: test
     RAILS_QUEUE: inline
     REPOSITORY_URL: $CI_REPOSITORY_URL
     S3_BUCKET_NAME: ""
-    SELENIUM_URL: "http://localhost:4444/wd/hub/"
+    SELENIUM_URL: "http://chrome:4444/wd/hub/"
     SOLR_CONFIG_COMMIT_SHA: $CI_COMMIT_SHA
-    SOLR_CORE_NAME: "starlight-test"
+    SOLR_CORES: starlight-test
+    SOLR_CORE_CONF_DIR: /tmp/starlight/solr/config
     SOLR_HOST: solr
     SOLR_PORT: 8983
     SOLR_URL: "http://solr:8983/solr/starlight-test"
     START_XVFB: "false"
     TEST_POSTGRES_DB: "starlight-test"
-    ZK_HOST: zk
-    ZK_PORT: 2181
   services:
     - name: bitnami/postgresql:12.11.0-debian-11-r5
       alias: postgres
     - name: seleniarm/standalone-chromium:102.0-20220602
       alias: chrome
-    - name: solr:8.11.1
+    - name: bitnami/solr:8.11.1-debian-11-r5
       alias: solr
-    - name: zookeeper:3.8
-      alias: zk
+      entrypoint: [""]
+      command:
+        - /bin/sh
+        - -c
+        - >-
+          curl -s -L --output /tmp/jq "https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64";
+          chmod +x /tmp/jq;
+          job_id=$(curl -s --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/pipelines/${CI_PIPELINE_ID}/jobs?scope[]=success" | /tmp/jq '.[] | select(.name == "starlight:test:solrconfig").id');
+          curl -s --location --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/jobs/${job_id}/artifacts/starlight-solr-config.tar.gz" | tar -xzv -C /tmp;
+          /opt/bitnami/scripts/solr/entrypoint.sh /opt/bitnami/scripts/solr/run.sh;
+
   before_script:
     - cd /home/starlight/app
-    - SKIP_TRANSLATION=yes upload-solr-configs.sh /home/starlight/app/solr/config
-    - SKIP_TRANSLATION=yes create-solr-collection.sh
-    - SKIP_TRANSLATION=yes bundle exec rake db:migrate
+    - SKIP_TRANSLATION=yes db-wait.sh "${SOLR_HOST}:${SOLR_PORT}" bundle exec rake db:migrate
   tags:
     - kubernetes
 
