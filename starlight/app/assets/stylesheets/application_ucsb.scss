@@ -261,6 +261,7 @@ body>.masthead {
     border: none;
     height: 100%;
     max-width: none;
+    z-index: 0; // disable auto z‐index and use source order
 
     @include media-breakpoint-up(lg) {
       margin: 0 -1.875rem;
