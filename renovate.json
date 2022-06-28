@@ -25,6 +25,12 @@
       "matchStrings": ["RABBITMQ_OPERATOR_VERSION:\\s(?<currentValue>.+)"],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "rabbitmq/cluster-operator"
+    },
+    {
+      "fileMatch": ["^ci/.*/test.yml$"],
+      "matchStrings": ["JQ_VERSION:\\s(?<currentValue>.+)"],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "stedolan/jq"
     }
   ],
   "packageRules":[
