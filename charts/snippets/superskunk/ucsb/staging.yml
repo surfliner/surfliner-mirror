@@ -13,4 +13,4 @@ postgresql:
 
 existingSecret:
   enabled: true
-  name: comet-staging/comet-postgres
+  name: superskunk-postgres
