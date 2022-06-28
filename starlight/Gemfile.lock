@@ -63,15 +63,6 @@ GIT
       tophat
       underscore-rails (~> 1.6)
 
-PATH
-  remote: ../gems/solr_utils
-  specs:
-    solr_utils (0.2.1)
-      rake
-      rsolr
-      zk (~> 1.10.0)
-      zookeeper (~> 1.5.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -614,9 +605,6 @@ GEM
     yard (0.9.28)
       webrick (~> 1.7.0)
     zeitwerk (2.5.4)
-    zk (1.10.0)
-      zookeeper (~> 1.5.0)
-    zookeeper (1.5.1)
 
 PLATFORMS
   ruby
@@ -667,7 +655,6 @@ DEPENDENCIES
   shoulda-matchers (= 5.1.0)
   sidekiq (= 6.5.1)
   sitemap_generator (= 6.2.1)
-  solr_utils!
   standard (= 1.12.1)
   uglifier (= 4.2.0)
   view_component (= 2.35.0)

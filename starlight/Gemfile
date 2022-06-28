@@ -34,7 +34,6 @@ gem "rsolr", "2.5.0"
 gem "sass-rails", "6.0.0"
 gem "sidekiq", "6.5.1"
 gem "sitemap_generator", "6.2.1"
-gem "solr_utils", path: "../gems/solr_utils"
 gem "uglifier", "4.2.0"
 gem "view_component", "2.35.0" # TODO: figure out what's breaking between here and 2.55.0
 
