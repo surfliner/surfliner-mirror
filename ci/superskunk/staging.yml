@@ -1,7 +1,6 @@
 .superskunk:deploy:stage:
   stage: staging
   extends:
-    - .only-superskunk-changes
     - .helm3-deploy
   variables:
     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/superskunk
