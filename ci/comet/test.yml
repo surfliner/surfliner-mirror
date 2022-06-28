@@ -1,7 +1,22 @@
+comet:test:solrconfig:
+  image: alpine:3.16.0
+  stage: test
+  needs: []
+  rules:
+    - !reference [.comet-mr-rules, rules]
+    - !reference [.comet-default-branch-rules, rules]
+  script: 
+    - tar -zcf comet-solr-config.tar.gz comet/solr
+  artifacts:
+    untracked: false
+    expire_in: 1 day
+    paths:
+      - comet-solr-config.tar.gz
+
 .comet:test:
   stage: test
   image: $CI_REGISTRY_IMAGE/comet_test:$CI_COMMIT_SHA
-  needs: ["comet:build:test"]
+  needs: ["comet:test:solrconfig", "comet:build:test"]
   variables:
     AUTH_METHOD: "developer"
     CAPYBARA_PORT: 3010
@@ -21,14 +36,12 @@
     RAILS_QUEUE: "inline"
     REDIS_HOST: "redis"
     REDIS_PASSWORD: "redispass"
-    SOLR_ADMIN_PASSWORD: "admin"
-    SOLR_ADMIN_USER: "admin"
     SOLR_COLLECTION_NAME: comet-test
-    SOLR_CORE_CONF_DIR: "/surfliner-conf/comet/solr"
+    SOLR_CORE_CONF_DIR: "/tmp/comet/solr/conf"
     SOLR_CORES: comet-test
-    SOLR_ENABLE_AUTHENTICATION: "yes"
     SOLR_HOST: solr
     SOLR_PORT: 8983
+
   before_script:
     - cd /app/samvera/hyrax-webapp
     - RABBITMQ_ENABLED=0 db-wait.sh "${SOLR_HOST}:${SOLR_PORT}" rake db:create db:migrate
@@ -47,6 +60,16 @@ comet:test:unit:
       alias: redis
     - name: bitnami/solr:8.11.1
       alias: solr
+      entrypoint: [""]
+      command:
+        - /bin/sh
+        - -c
+        - >-
+          curl -s -L --output /tmp/jq "https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64";
+          chmod +x /tmp/jq;
+          job_id=$(curl -s --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/pipelines/${CI_PIPELINE_ID}/jobs?scope[]=success" | /tmp/jq '.[] | select(.name == "comet:test:solrconfig").id');
+          curl -s --location --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/jobs/${job_id}/artifacts/comet-solr-config.tar.gz" | tar -xzv -C /tmp;
+          /opt/bitnami/scripts/solr/entrypoint.sh /opt/bitnami/scripts/solr/run.sh;
   script:
     - bundle exec rspec --tag ~type:system --tag ~rabbitmq
 
@@ -72,6 +95,16 @@ comet:test:system:
       alias: postgres
     - name: bitnami/solr:8.11.1
       alias: solr
+      entrypoint: [""]
+      command:
+        - /bin/sh
+        - -c
+        - >-
+          curl -s -L --output /tmp/jq "https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64";
+          chmod +x /tmp/jq;
+          job_id=$(curl -s --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/pipelines/${CI_PIPELINE_ID}/jobs?scope[]=success" | /tmp/jq '.[] | select(.name == "comet:test:solrconfig").id');
+          curl -s --location --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/jobs/${job_id}/artifacts/comet-solr-config.tar.gz" | tar -xzv -C /tmp;
+          /opt/bitnami/scripts/solr/entrypoint.sh /opt/bitnami/scripts/solr/run.sh;
     - name: bitnami/redis:6.2
       alias: redis
     - name: bitnami/minio:2021-debian-10
@@ -80,6 +113,8 @@ comet:test:system:
       alias: rabbitmq
     - name: seleniarm/standalone-chromium:102.0-20220602
       alias: chrome
+      variables:
+        SE_START_XVFB: "false"
   script:
     - >
       if ./scripts/rabbitmq-wait; then
