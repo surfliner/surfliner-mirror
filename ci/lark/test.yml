@@ -1,35 +1,56 @@
+lark:test:solrconfig:
+  image: alpine:3.16.0
+  stage: test
+  needs: []
+  extends:
+    - .only-refs-default
+  script:
+    - tar -zcf lark-solr-config.tar.gz lark/solr
+  artifacts:
+    untracked: false
+    expire_in: 1 day
+    paths:
+      - lark-solr-config.tar.gz
+
 lark:api:test:unit:
   stage: test
   image: $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_SHA
-  needs: ["lark:ruby-build"]
+  needs: ["lark:test:solrconfig", "lark:ruby-build"]
   variables:
-    POSTGRES_DB: postgres
     POSTGRES_ADMIN_PASSWORD: password
-    POSTGRES_HOST: localhost
+    POSTGRES_DB: postgres
+    POSTGRES_HOST: postgres
     POSTGRES_PASSWORD: password
     POSTGRES_PORT: 5432
     POSTGRES_USER: postgres
     REPOSITORY_URL: $CI_REPOSITORY_URL
-    SOLR_CONFIG_COMMIT_SHA: $CI_COMMIT_SHA
-    SOLR_CORE_NAME: lark-test
+    SOLR_CORES: lark-test
+    SOLR_CORE_CONF_DIR: "/tmp/lark/solr/config"
     SOLR_HOST: solr
     SOLR_PORT: 8983
-    SOLR_URL: http://solr:8983/solr/lark-test
-    ZK_HOST: zk
-    ZK_PORT: 2181
+    SOLR_URL: "http://solr:8983/solr/lark-test"
   services:
     - name: bitnami/postgresql:12.10.0-debian-10-r75
       alias: postgres
-    - name: solr:8.11.1
+    - name: bitnami/solr:8.11.1-debian-11-r5
       alias: solr
-    - name: zookeeper:3.8
-      alias: zk
+      variables:
+        JQ_VERSION: "jq-1.6"
+      entrypoint: [""]
+      command:
+        - /bin/sh
+        - -c
+        - >-
+          curl -s -L --output /tmp/jq "https://github.com/stedolan/jq/releases/download/$JQ_VERSION/jq-linux64";
+          chmod +x /tmp/jq;
+          job_id=$(curl -s --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/pipelines/${CI_PIPELINE_ID}/jobs?scope[]=success" | /tmp/jq '.[] | select(.name == "lark:test:solrconfig").id');
+          curl -s --location --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/jobs/${job_id}/artifacts/lark-solr-config.tar.gz" | tar -xzv -C /tmp;
+          /opt/bitnami/scripts/solr/entrypoint.sh /opt/bitnami/scripts/solr/run.sh;
   script:
     - cd lark
-    - upload-solr-configs.sh /home/lark/app/solr/config
-    - create-solr-collection.sh
     - bundle check || bundle
-    - bundle exec rake db:create db:migrate
+    - solr-core-wait.sh
+    - db-wait.sh "${POSTGRES_HOST}:${POSTGRES_PORT}" bundle exec rake db:migrate
     - bundle exec rspec
   extends:
     - .only-refs-default
