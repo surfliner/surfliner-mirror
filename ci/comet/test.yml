@@ -5,7 +5,7 @@ comet:test:solrconfig:
   rules:
     - !reference [.comet-mr-rules, rules]
     - !reference [.comet-default-branch-rules, rules]
-  script: 
+  script:
     - tar -zcf comet-solr-config.tar.gz comet/solr
   artifacts:
     untracked: false
@@ -78,6 +78,7 @@ comet:test:system:
   variables:
     AUTH_METHOD: "developer"
     HUB_URL: "http://localhost:4444/wd/hub/"
+    LOG_LEVEL: "ERROR"
     MINIO_ACCESS_KEY: "minio-access-key"
     MINIO_DEFAULT_BUCKETS: "comet-test-bucket,comet-staging-area-test"
     MINIO_ENDPOINT: "minio"
@@ -88,6 +89,7 @@ comet:test:system:
     RABBITMQ_PASSWORD: "bitnami"
     RABBITMQ_USERNAME: "user"
     RABBITMQ_NODE_PORT_NUMBER: "5672"
+    RAILS_LOG_TO_STDOUT: "false"
     REPOSITORY_S3_BUCKET: "comet-test-bucket"
     STAGING_AREA_S3_BUCKET: "comet-staging-area-test"
   services:
