@@ -9,7 +9,7 @@ RSpec.describe "Generic Objects", type: :system, js: true do
   context "during object creation" do
     it "can create a new object and assign a Collection to it" do
       visit "/dashboard/my/works"
-      click_on "Add new work"
+      click_on "add-new-work-button"
       fill_in("Title", with: "My Title")
       click_on "Relationships"
       click_on "Select a collection"
@@ -35,7 +35,7 @@ RSpec.describe "Generic Objects", type: :system, js: true do
         col.title == ["Test Collection 3"]
       end
       visit "/dashboard/my/works"
-      click_on "Add new work"
+      click_on "add-new-work-button"
 
       fill_in("Title", with: "My Title 2")
       choose("generic_object_visibility_open")
@@ -92,7 +92,7 @@ RSpec.describe "Generic Objects", type: :system, js: true do
       end
 
       visit "/dashboard/my/works"
-      click_on "Add new work"
+      click_on "add-new-work-button"
 
       fill_in("Title", with: "My Title")
       choose("generic_object_visibility_open")

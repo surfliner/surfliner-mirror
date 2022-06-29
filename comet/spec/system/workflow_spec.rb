@@ -14,7 +14,7 @@ RSpec.describe "Base Workflow", type: :system, js: true do
   it "deposits items into workflow" do
     visit "/dashboard"
     click_on "Objects"
-    click_on "Add new work"
+    click_on "add-new-work-button"
 
     fill_in("Title", with: "Object in Workflow")
     choose("generic_object_visibility_open")

@@ -16,7 +16,7 @@ RSpec.describe "FileDownload", type: :system, storage_adapter: :memory, js: true
   it "can attach and download and view a file" do
     visit "/dashboard"
     click_on "Objects"
-    click_on "Add new work"
+    click_on "add-new-work-button"
 
     click_link "Files"
     expect(page).to have_content "Add files"

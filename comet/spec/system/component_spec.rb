@@ -10,7 +10,7 @@ RSpec.describe "Components", type: :system, js: true do
   it "can attach new objects as components" do
     visit "/dashboard"
     click_on "Objects"
-    click_on "Add new work"
+    click_on "add-new-work-button"
 
     fill_in("Title", with: "Parent Object")
     choose("generic_object_visibility_open")
