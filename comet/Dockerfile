@@ -12,8 +12,7 @@ ARG DOCKER_PROJECT=${DOCKER_ROOT}/hyrax-webapp
 WORKDIR $DOCKER_PROJECT
 
 # build-time dependencies only
-RUN apk --no-cache upgrade && \
-  apk --no-cache add \
+RUN apk --no-cache add \
   build-base \
   gcompat \
   git \
@@ -57,8 +56,7 @@ ARG DOCKER_PROJECT=${DOCKER_ROOT}/hyrax-webapp
 WORKDIR $DOCKER_PROJECT
 
 # run-time dependencies only
-RUN apk --no-cache upgrade && \
-  apk --no-cache add \
+RUN apk --no-cache add \
   curl \
   libpq \
   nodejs \
@@ -154,8 +152,7 @@ RUN mkdir -p /app/fits && \
     chmod a+x /app/fits/fits.sh
 ENV PATH="${PATH}:/app/fits"
 
-RUN apk --no-cache upgrade && \
-  apk --no-cache add \
+RUN apk --no-cache add \
   bash \
   ffmpeg \
   less \
