@@ -1,6 +1,14 @@
+.lark:deploy:review:
+  extends: .deploy-lark
+  variables:
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE
+    DEPLOY_TAG: $CI_COMMIT_SHA
+    HELM_RELEASE_NAME: surfliner-lark-$CI_MERGE_REQUEST_ID
+    KUBE_NAMESPACE: lark-review
+
 lark:deploy:review:ucsb:
   stage: review
-  extends: .deploy-lark
+  extends: .lark:deploy:review
   script:
     - deploy ./charts/lark/latest
   environment:
@@ -9,10 +17,6 @@ lark:deploy:review:ucsb:
     on_stop: lark:stop:review:ucsb
     auto_stop_in: 4 days
   variables:
-    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE
-    DEPLOY_TAG: $CI_COMMIT_SHA
-    HELM_RELEASE_NAME: surfliner-lark-$CI_MERGE_REQUEST_ID
-    KUBE_NAMESPACE: lark-review
     HELM_UPGRADE_EXTRA_ARGS: >
       --set ezid.password=$EZID_TEST_PASSWORD
       --set ingress.hosts={lark-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN}
@@ -25,7 +29,7 @@ lark:deploy:review:ucsb:
 
 lark:deploy:review:ucsd:
   stage: review
-  extends: .deploy-lark
+  extends: .lark:deploy:review
   script:
     - deploy ./charts/lark/latest
   environment:
@@ -34,10 +38,6 @@ lark:deploy:review:ucsd:
     on_stop: lark:stop:review:ucsd
     auto_stop_in: 4 days
   variables:
-    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE
-    DEPLOY_TAG: $CI_COMMIT_SHA
-    HELM_RELEASE_NAME: surfliner-lark-$CI_MERGE_REQUEST_ID
-    KUBE_NAMESPACE: lark-review
     HELM_UPGRADE_EXTRA_ARGS: >
       --set ezid.password=$EZID_TEST_PASSWORD
       --set ingress.hosts={lark-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN}
@@ -52,8 +52,7 @@ lark:deploy:review:ucsd:
       - tags
 
 lark:stop:review:ucsb:
-  extends:
-    - .deploy-lark
+  extends: .lark:deploy:review
   stage: review
   variables:
     GIT_STRATEGY: none
@@ -71,8 +70,7 @@ lark:stop:review:ucsb:
       - tags
 
 lark:stop:review:ucsd:
-  extends:
-    - .deploy-lark
+  extends: .lark:deploy:review
   stage: review
   variables:
     GIT_STRATEGY: none
