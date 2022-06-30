@@ -29,10 +29,12 @@ module Comet
 
     config.active_job.queue_adapter = ENV["RAILS_QUEUE"]&.to_sym
 
-    # Always log to stdout by default
-    logger = ActiveSupport::Logger.new($stdout)
-    logger.formatter = config.log_formatter
-    config.logger = ActiveSupport::TaggedLogging.new(logger)
+    # log to stdout by default
+    if ActiveModel::Type::Boolean.new.cast(ENV.fetch("RAILS_LOG_TO_STDOUT", true))
+      logger = ActiveSupport::Logger.new($stdout)
+      logger.formatter = config.log_formatter
+      config.logger = ActiveSupport::TaggedLogging.new(logger)
+    end
 
     # default to use S3/Minio staging
     config.staging_area_s3_enabled = true
