@@ -86,43 +86,44 @@ properties:
     mapping:
       dpla: "http://purl.org/dc/terms/language"
 
-
-  title:
-    display_label:
-      default: "Title"
-    definition:
-      default: "Formal or supplied title for the resource."
-      Geospatial: "This field represents the title that will be uploaded to the ISO XML."
-    usage_guidelines:
-      Geospatial: "Follow our local standards to form a title following the convention: Feature Type/Data Theme, Geographic Coverage, Ground Condition Date."
-      Collection: "For archival collections, this represents the formal title for the group of materials. For geospatial collections, this value displays the collection title shown in the original ArcGIS metadata XML."
-    requirement: required
-    sample_value:
-      - "On the road"
-    property_uri: http://purl.org/dc/terms/title
-    available_on:
-      class:
-        - Collection
-        - generic_object
-        - Geospatial
-    range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: http://www.w3.org/2001/XMLSchema#string
-    cardinality:
-      minimum: 1
-      maximum: 1
-    index_documentation: "Title should be indexed as searchable and displayable."
-#     indexing: a list of dynamic field names, taken from a controlled list;
-#       Choose a value from this list.
-#         displayable - store as string, multi-valued
-#         facetable - index as a string, multi-valued
-#         searchable - index the specific data type, multi-valued
-#         sortable - index the specific data type
-#         stored_searchable - index and store the specific data type, multi-valued
-#         stored_sortable - index and store as string
-#         symbol - index and store as string, multi-valued
-#         fulltext_searchable - index as text, multi-valued with termVectors if enabled
-    mapping:
-      dpla: "http://purl.org/dc/terms/title"
+# `title` is defined by Hyrax and can’t be overridden.
+#
+#   title:
+#     display_label:
+#       default: "Title"
+#     definition:
+#       default: "Formal or supplied title for the resource."
+#       Geospatial: "This field represents the title that will be uploaded to the ISO XML."
+#     usage_guidelines:
+#       Geospatial: "Follow our local standards to form a title following the convention: Feature Type/Data Theme, Geographic Coverage, Ground Condition Date."
+#       Collection: "For archival collections, this represents the formal title for the group of materials. For geospatial collections, this value displays the collection title shown in the original ArcGIS metadata XML."
+#     requirement: required
+#     sample_value:
+#       - "On the road"
+#     property_uri: http://purl.org/dc/terms/title
+#     available_on:
+#       class:
+#         - Collection
+#         - generic_object
+#         - Geospatial
+#     range: http://www.w3.org/2000/01/rdf-schema#Literal
+#     data_type: http://www.w3.org/2001/XMLSchema#string
+#     cardinality:
+#       minimum: 1
+#       maximum: 1
+#     index_documentation: "Title should be indexed as searchable and displayable."
+# #     indexing: a list of dynamic field names, taken from a controlled list;
+# #       Choose a value from this list.
+# #         displayable - store as string, multi-valued
+# #         facetable - index as a string, multi-valued
+# #         searchable - index the specific data type, multi-valued
+# #         sortable - index the specific data type
+# #         stored_searchable - index and store the specific data type, multi-valued
+# #         stored_sortable - index and store as string
+# #         symbol - index and store as string, multi-valued
+# #         fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#     mapping:
+#       dpla: "http://purl.org/dc/terms/title"
 
   title_alternative:
     display_label:
