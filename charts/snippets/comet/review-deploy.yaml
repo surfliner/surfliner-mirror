@@ -46,6 +46,8 @@ extraEnvVars:
     value: "comet-staging-area-review"
   - name: "STAGING_AREA_S3_EXAMPLE_FILES"
     value: "1"
+  - name: "METADATA_MODELS"
+    value: "ucsb-metadata"
 minio:
   enabled: true
   persistence:
