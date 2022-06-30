@@ -1,7 +1,6 @@
 FROM alpine:3.16.0 as surfliner-util
 
-RUN apk --no-cache upgrade && \
-    apk add --no-cache \
+RUN apk add --no-cache \
     postgresql-client \
     aws-cli
 
