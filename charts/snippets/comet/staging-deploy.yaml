@@ -13,6 +13,10 @@ minio:
 fcrepo:
   enabled: false
 
+extraEnvVars:
+  - name: "STAGING_AREA_S3_EXAMPLE_FILES"
+    value: "1"
+
 podSecurityContext:
   runAsUser: 10000
   runAsGroup: 10001
