@@ -10,8 +10,8 @@ RSpec.describe SurflinerSchema do
 
     let(:fake_loader) do
       Class.new do
-        def struct_attributes_for(*)
-          {test_field: Valkyrie::Types::String}
+        def struct_attributes_for(schema_name)
+          schema_name == :test_schema ? {test_field: Valkyrie::Types::String} : {}
         end
       end
     end

@@ -45,7 +45,7 @@ module SurflinerSchema
     ##
     # @return [Hash{Symbol => Dry::Types::Type}]
     def attributes
-      @loader.struct_attributes_for(name)
+      @loader.struct_attributes_for(@name)
     end
 
     ##
