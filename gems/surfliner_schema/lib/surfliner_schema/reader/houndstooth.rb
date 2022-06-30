@@ -88,7 +88,8 @@ module SurflinerSchema
       # @param availability [Symbol]
       # @return [{Symbol => {Symbol => Object}}]
       def form_options(availability:)
-        {} # TK: Form options are not currently supported in M3.
+        properties(availability: availability)
+          .transform_values { |prop| {primary: false} }
       end
 
       ##
