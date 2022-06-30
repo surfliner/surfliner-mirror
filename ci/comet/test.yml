@@ -121,4 +121,7 @@ comet:test:system:
     - >
       if ./scripts/rabbitmq-wait; then
         bundle exec rspec --tag type:system
+      else
+        echo "Timed out waiting for rabbitmq connection"
+        exit 1
       fi
