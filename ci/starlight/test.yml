@@ -61,7 +61,8 @@ starlight:test:solrconfig:
 
   before_script:
     - cd /home/starlight/app
-    - SKIP_TRANSLATION=yes db-wait.sh "${SOLR_HOST}:${SOLR_PORT}" bundle exec rake db:migrate
+    - solr-core-wait.sh
+    - SKIP_TRANSLATION=yes db-wait.sh "${POSTGRES_HOST}:5432" bundle exec rake db:migrate
   tags:
     - kubernetes
 
