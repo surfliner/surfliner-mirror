@@ -4,6 +4,7 @@ lark:test:solrconfig:
   needs: []
   extends:
     - .only-refs-default
+    - .only-lark-changes
   script:
     - tar -zcf lark-solr-config.tar.gz lark/solr
   artifacts:
