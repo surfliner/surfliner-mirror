@@ -14,7 +14,6 @@ include:
     - charts/starlight/**/*
     - ci/starlight/**/*
     - ci/starlight.yml
-    - gems/solr_utils/**/*
     - starlight/**/*
     - starlight/Dockerfile
 
