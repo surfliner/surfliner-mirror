@@ -8,11 +8,11 @@ SHORELINE_FILE_ROOT=$(pwd)/spec/fixtures/shapefiles bundle exec rake shoreline:i
 ```
 
 If you need to remove an ingested item, you can delete it from solr with
-`solr_utils:delete_by_ids`:
+`shoreline:delete_by_ids`:
 
 ```sh
 export SOLR_DELETE_IDS=FY2015_ADDRESS_POINT,citiescounty_021616
-bin/rake solr_utils:delete_by_ids
+bin/rake shoreline:delete_by_ids
 ```
 
 The shapefile will remain in GeoServer, however; you can delete it from there
