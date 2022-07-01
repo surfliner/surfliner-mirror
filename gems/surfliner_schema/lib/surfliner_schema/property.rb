@@ -8,16 +8,20 @@ module SurflinerSchema
   class Property < Dry::Struct
     # § PROPERTY NAME ##########################################################
 
+    ##
     # The internal name used for the property.
     attribute :name, Valkyrie::Types::Coercible::Symbol
 
     # § DEFINED BY HOUNDSTOOTH #################################################
 
-    # Resource types the property should be available on.
+    ##
+    # Resource types the property should be available on. These correspond to
+    # conceptual “classes” in M3, but aren’t necessarily actual Ruby classes.
     attribute :available_on, Valkyrie::Types::Set.of(
       Valkyrie::Types::Coercible::Symbol
     )
 
+    ##
     # The RDF datatype of the property.
     #
     # If multiple values are provided, they are treated as a union, not an
@@ -26,6 +30,7 @@ module SurflinerSchema
       Valkyrie::Types.Instance(RDF::Vocabulary::Term)
     )
 
+    ##
     # How to index the property.
     #
     # These correlate with the Hyrda Solr suffixes as follows:
@@ -48,6 +53,7 @@ module SurflinerSchema
       )
     )
 
+    ##
     # Additional validations to run on the property.
     #
     # The following are defined:
@@ -60,6 +66,7 @@ module SurflinerSchema
 
     # § ADDITIONAL ATTRIBUTES ##################################################
 
+    ##
     # The cardinality class of the property.
     #
     # - ?: Zero or one
@@ -69,12 +76,14 @@ module SurflinerSchema
     attribute :cardinality_class,
       Valkyrie::Types::Coercible::Symbol.default(:*).enum(:"?", :!, :+, :*)
 
+    ##
     # A freeform space to store extra property information which isn’t covered
     # by the above.
     attribute :extra_qualities, Valkyrie::Types::Hash.map(
       Valkyrie::Types::Coercible::Symbol, Valkyrie::Types::Any
     ).default { {} }
 
+    ##
     # Whether to run validations on this property.
     attribute :will_validate, Valkyrie::Types::Strict::Bool.default(false)
 
