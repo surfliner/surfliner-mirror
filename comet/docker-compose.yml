@@ -108,6 +108,8 @@ services:
 
   chrome:
     image: seleniarm/standalone-chromium:102.0-20220602
+    environment:
+      -  SE_START_XVFB=false
     logging:
       driver: none
     volumes:
