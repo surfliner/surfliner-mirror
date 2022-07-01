@@ -94,9 +94,9 @@ comet:test:system:
     REPOSITORY_S3_BUCKET: "comet-test-bucket"
     STAGING_AREA_S3_BUCKET: "comet-staging-area-test"
   services:
-    - name: bitnami/postgresql:12.10.0
+    - name: bitnami/postgresql:14.4.0-debian-11-r5
       alias: postgres
-    - name: bitnami/solr:8.11.1
+    - name: bitnami/solr:8.11.2-debian-11-r3
       alias: solr
       entrypoint: [""]
       command:
@@ -108,13 +108,13 @@ comet:test:system:
           job_id=$(curl -s --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/pipelines/${CI_PIPELINE_ID}/jobs?scope[]=success" | /tmp/jq '.[] | select(.name == "comet:test:solrconfig").id');
           curl -s --location --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/jobs/${job_id}/artifacts/comet-solr-config.tar.gz" | tar -xzv -C /tmp;
           /opt/bitnami/scripts/solr/entrypoint.sh /opt/bitnami/scripts/solr/run.sh;
-    - name: bitnami/redis:6.2
+    - name: bitnami/redis:7.0.2-debian-11-r6
       alias: redis
-    - name: bitnami/minio:2021-debian-10
+    - name: bitnami/minio:2022.6.25-debian-11-r0
       alias: minio
-    - name: bitnami/rabbitmq:3.9.16-debian-10-r0
+    - name: bitnami/rabbitmq:3.10.5-debian-11-r12
       alias: rabbitmq
-    - name: seleniarm/standalone-chromium:102.0-20220602
+    - name: seleniarm/standalone-chromium:103.0
       alias: chrome
       variables:
         SE_START_XVFB: "false"

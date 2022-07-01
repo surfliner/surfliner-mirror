@@ -105,12 +105,12 @@ services:
       - comet
 
   rabbitmq:
-    image: bitnami/rabbitmq:3.9.16-debian-10-r0
+    image: bitnami/rabbitmq:3.10.5-debian-11-r12
     networks:
       - comet
 
   chrome:
-    image: seleniarm/standalone-chromium:102.0-20220602
+    image: seleniarm/standalone-chromium:103.0
     environment:
       -  SE_START_XVFB=false
     logging:
@@ -125,7 +125,7 @@ services:
       - comet
 
   postgres:
-    image: bitnami/postgresql:14.2.0
+    image: bitnami/postgresql:14.4.0-debian-11-r5
     restart: always
     env_file:
       - .env
@@ -135,14 +135,14 @@ services:
       - comet
 
   memcached:
-    image: bitnami/memcached:1.6.15
+    image: bitnami/memcached:1.6.15-debian-11-r11
     ports:
       - '11211:11211'
     networks:
       - comet
 
   minio:
-    image: bitnami/minio:2022.4.26
+    image: bitnami/minio:2022.6.25-debian-11-r0
     ports:
       - '9001:9001'
       - '9000:9000'
@@ -154,7 +154,7 @@ services:
       - comet
 
   redis:
-    image: bitnami/redis:6.2
+    image: bitnami/redis:7.0.2-debian-11-r6
     env_file:
       - .env
     volumes:
@@ -163,7 +163,7 @@ services:
       - comet
 
   solr:
-    image: bitnami/solr:8.11.1
+    image: bitnami/solr:8.11.2-debian-11-r3
     ports:
       - 8983:8983
     env_file:
