@@ -14,6 +14,7 @@ WORKDIR $DOCKER_PROJECT
 # build-time dependencies only
 RUN apk --no-cache add \
   build-base \
+  curl \
   gcompat \
   git \
   nodejs \
