@@ -72,6 +72,21 @@ module SurflinerSchema
     end
 
     ##
+    # A hash mapping property names with the provided availability to a set of
+    # mappings for the provided schema.
+    #
+    # @param availability [Symbol]
+    # @param schema_iri [String]
+    # @return [{Symbol => Set<String>}]
+    def property_mappings_for(availability, schema_iri:)
+      {}.merge(*@readers.map { |reader|
+        reader.properties(availability: availability).transform_values { |property|
+          property.mappings_for(schema_iri)
+        }
+      })
+    end
+
+    ##
     # A hash mapping property names with the provided availability to their
     # types.
     #

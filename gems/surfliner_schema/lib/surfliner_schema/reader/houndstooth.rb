@@ -20,6 +20,14 @@ module SurflinerSchema
             available_on: config.dig("available_on", "class").to_a.map(&:to_sym),
             data_type: RDF::Vocabulary.find_term(config.fetch("data_type", "http://www.w3.org/2001/XMLSchema#string")),
             indexing: config.fetch("indexing", []).map(&:to_sym),
+            mapping: config.fetch("mapping", {}).filter_map { |prefix, value|
+              # `iri` is a non‐standard property and may change but let’s go
+              # with it for now.
+              expansion = houndstooth.dig("mappings", prefix, "iri")
+              result = value.respond_to?(:to_a) ? value.to_a : [value]
+              next unless expansion && result.size
+              [expansion, result]
+            }.to_h,
             cardinality_class:
               if config.dig("cardinality", "minimum").to_i > 0
                 # At least one.
@@ -40,7 +48,7 @@ module SurflinerSchema
                   :"?"
                 end
               end,
-            extra_qualities: {} # TK: form stuff, mappings, ⁊c…
+            extra_qualities: {} # TK: form stuff, ⁊c…
           )
         end
       end

@@ -25,6 +25,11 @@ describe SurflinerSchema::Reader::Houndstooth do
     expect(reader.names(availability: :Collection)).not_to include(:date_modified)
   end
 
+  it "establishes correct mappings" do
+    mappings = reader.properties(availability: :GenericWork)[:title].mappings_for("tag:surfliner.gitlab.io,2022:api/oai_dc")
+    expect(mappings).to contain_exactly("http://purl.org/dc/terms/title")
+  end
+
   describe "#form_options" do
     it "includes some fields" do
       expect(reader.form_options(availability: :GenericWork)).not_to be_empty

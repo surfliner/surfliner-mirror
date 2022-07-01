@@ -1,5 +1,10 @@
 m3_version: "1.0.beta1"
 
+mappings:
+  tidewater:
+    name: Tidewater
+    iri: tag:surfliner.gitlab.io,2022:api/oai_dc
+
 properties:
   title:
     display_label:
@@ -23,7 +28,7 @@ properties:
       maximum: 1
     index_documentation: "Title should be indexed as searchable and displayable."
     mapping:
-      dpla: "http://purl.org/dc/terms/title"
+      tidewater: http://purl.org/dc/terms/title
 
   date_uploaded:
     display_label:

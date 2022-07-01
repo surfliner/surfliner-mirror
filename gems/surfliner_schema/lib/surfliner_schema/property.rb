@@ -51,7 +51,24 @@ module SurflinerSchema
         :displayable, :facetable, :searchable, :sortable, :stored_searchable,
         :stored_sortable, :symbol, :fulltext_searchable
       )
-    )
+    ).default { [] }
+
+    ##
+    # A mapping of schema IRI’s to IRI’s for corresponding properties in that
+    # schema.
+    #
+    # Property IRI’s are **not** necessarily namespaced to schema IRI’s; for
+    # example DPLA and OAI‐PMH schemas both use Dublin Core properties.
+    #
+    # The same property may map to multiple IRIs within a given schema.
+    #
+    # Presently, IRI’s aren’t actually a part of the Houndstooth model (it just
+    # uses prefix names), but they’re a little more reliable so we’re using
+    # them!
+    attribute :mapping, Valkyrie::Types::Hash.map(
+      Valkyrie::Types::String,
+      Valkyrie::Types::Set.of(Valkyrie::Types::String)
+    ).default { {} }
 
     ##
     # Additional validations to run on the property.
@@ -118,6 +135,18 @@ module SurflinerSchema
           }.fetch(index_kind, "")
         ).to_sym
       }.filter { |index| index != name }
+    end
+
+    ##
+    # Returns a Set of IRI’s that this property maps to in the provided schema.
+    #
+    # If this property has no mapping in the provided schema, the result will be
+    # the empty set.
+    #
+    # @param schema_iri [String]
+    # @return [Valkyrie::Types::Set]
+    def mappings_for(schema_iri)
+      mapping.fetch(schema_iri, Set.new)
     end
 
     private
