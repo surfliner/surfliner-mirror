@@ -4,19 +4,15 @@ module SurflinerSchema
   ##
   # Builds a schema module for +Valkyrie::Resource+ models.
   #
-  # @param name [Symbol]
+  # @param availability [Symbol]
+  # @param loader [#struct_attributes_for]
   #
-  # @return [Module] a mixin module providing an implementation of a schema
-  #   for +Valkyrie::Resource+.
+  # @return [Module] a mixin module providing attributes for a
+  #   +Valkyrie::Resource+.
   #
   # @example
   #   class Monograph < Valkyrie::Resource
-  #     include Surfliner::Schema(:book)
-  #   end
-  #
-  # @example with a custom schema loader
-  #   class Monograph < Valkyrie::Resource
-  #     include Surfliner::Schema(:book, loader: MySchemaLoader.new)
+  #     include SurflinerSchema::Schema(:book, loader: MySchemaLoader.new)
   #   end
   def self.Schema(name, **options)
     SurflinerSchema::Schema.new(name, **options)
@@ -30,28 +26,28 @@ module SurflinerSchema
   # it will add the given attributes to the model.
   #
   # this class provides the internals for the recommended module builder syntax:
-  # +SurflinerSchema::Schema(:my_schema_name)+
+  # +SurflinerSchema::Schema(:my_availability)+
   #
   # @see .Schema
   class Schema < Module
     ##
-    # @param name [Symbol]
+    # @param availability [Symbol]
     # @param loader [#struct_attributes_for]
-    def initialize(name, loader:)
-      @name = name
+    def initialize(availability, loader:)
+      @availability = availability
       @loader = loader
     end
 
     ##
     # @return [Hash{Symbol => Dry::Types::Type}]
     def attributes
-      @loader.struct_attributes_for(@name)
+      @loader.struct_attributes_for(@availability)
     end
 
     ##
     # @return [String]
     def inspect
-      "#{self.class}(#{@name})"
+      "#{self.class}(#{@availability})"
     end
 
     private

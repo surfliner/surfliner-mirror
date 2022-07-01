@@ -10,19 +10,20 @@ RSpec.describe SurflinerSchema do
 
     let(:fake_loader) do
       Class.new do
-        def struct_attributes_for(schema_name)
-          schema_name == :test_schema ? {test_field: Valkyrie::Types::String} : {}
+        def struct_attributes_for(availability)
+          availability == :my_availability ? {test_field: Valkyrie::Types::String} : {}
         end
       end
     end
+    let(:loader) { fake_loader.new }
 
     it "builds a schema module" do
-      expect(described_class.Schema(:test_schema, loader: fake_loader.new))
+      expect(described_class.Schema(:my_availability, loader: loader))
         .to be_a described_class::Schema
     end
 
     it "adds attributes when included" do
-      expect { model_class.include(described_class.Schema(:test_schema, loader: fake_loader.new)) }
+      expect { model_class.include(described_class.Schema(:my_availability, loader: loader)) }
         .to change { model_class.attribute_names }
         .to include(:test_field)
     end
@@ -30,12 +31,12 @@ RSpec.describe SurflinerSchema do
 end
 
 RSpec.describe SurflinerSchema::Schema do
-  subject(:schema_module) { SurflinerSchema::Schema.new(:my_schema_name, loader: double) }
+  subject(:schema_module) { SurflinerSchema::Schema.new(:my_availability, loader: double) }
 
   describe "#inspect" do
     it "has a readable value" do
       expect(schema_module.inspect)
-        .to eq described_class.name + "(my_schema_name)"
+        .to eq described_class.name + "(my_availability)"
     end
   end
 end
