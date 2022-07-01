@@ -44,7 +44,8 @@ comet:test:solrconfig:
 
   before_script:
     - cd /app/samvera/hyrax-webapp
-    - RABBITMQ_ENABLED=0 db-wait.sh "${SOLR_HOST}:${SOLR_PORT}" rake db:create db:migrate
+    - solr-core-wait.sh
+    - RABBITMQ_ENABLED=0 db-wait.sh "postgres:5432" rake db:create db:migrate
   rules:
     - !reference [.comet-mr-rules, rules]
     - !reference [.comet-default-branch-rules, rules]
