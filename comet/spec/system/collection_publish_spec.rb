@@ -52,7 +52,6 @@ RSpec.describe "Publish Collection", type: :system, js: true do
       visit "/dashboard/collections/#{collection.id}?locale=en"
 
       click_on "Publish collection"
-
       alert = page.driver.browser.switch_to.alert
 
       expect(alert.text).to have_content("Are you sure you want to publish the collection?")
@@ -81,10 +80,11 @@ RSpec.describe "Publish Collection", type: :system, js: true do
     end
 
     context "with feature collection publish enabled" do
-      let(:feature_enabled) { Rails.application.config.feature_collection_publish }
-
-      before { Rails.application.config.feature_collection_publish = true }
-      after { Rails.application.config.feature_collection_publish = feature_enabled }
+      before do
+        allow(Rails.application.config)
+          .to receive(:feature_collection_publish)
+          .and_return(true)
+      end
 
       it "shows the publish collection button" do
         visit "/dashboard/collections/#{collection.id}?locale=en"
@@ -93,10 +93,11 @@ RSpec.describe "Publish Collection", type: :system, js: true do
     end
 
     context "with feature collection publish disabled" do
-      let(:feature_enabled) { Rails.application.config.feature_collection_publish }
-
-      before { Rails.application.config.feature_collection_publish = false }
-      after { Rails.application.config.feature_collection_publish = feature_enabled }
+      before do
+        allow(Rails.application.config)
+          .to receive(:feature_collection_publish)
+          .and_return(false)
+      end
 
       it "hides the publish collection button" do
         visit "/dashboard/collections/#{collection.id}?locale=en"
