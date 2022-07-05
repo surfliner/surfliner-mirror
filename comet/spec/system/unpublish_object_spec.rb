@@ -71,15 +71,13 @@ RSpec.describe "Unpublish Object", type: :system, js: true do
       click_on "Unpublish"
 
       alert = page.driver.browser.switch_to.alert
-
       expect(alert.text).to have_content("Are you sure you want to unpublish the object?")
-      alert.accept
+
+      expect { publish_wait(queue_message, 1) { alert.accept } }
+        .to change { queue_message.length }
+        .by 1
 
       expect(page).to have_content("The unpublish object request is submitted successfully.")
-
-      publish_wait(queue_message, 1) {}
-
-      expect(queue_message.length).to eq 2
 
       expect(JSON.parse(queue_message.pop).symbolize_keys).to include(status: "unpublished")
       expect(JSON.parse(queue_message.pop)["resourceUrl"]).to include "/#{object.id}"
