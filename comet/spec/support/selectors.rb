@@ -4,15 +4,7 @@
 def select_member_of_collection(collection)
   find("#s2id_member_of_collection_ids").click
   find(".select2-input").set(collection.title.first)
-
-  # Crude way of waiting for the AJAX response
-  select2_results = false
-  begin_time = current_time = Time.now.to_f
-  while !select2_results && (current_time - begin_time) < 3
-    select2_results = page.has_css?("li.select2-result")
-    current_time = Time.now.to_f
-  end
-
+  wait_for_select2
   all("li.select2-result span").first.click
 end
 
@@ -22,15 +14,21 @@ def select_s3_path(s3_path)
   find("#s2id_files_location").click
   find(".select2-input").set(s3_path)
 
-  # Crude way of waiting for the AJAX response
-  select2_results = false
-  begin_time = current_time = Time.now.to_f
-  while !select2_results && (current_time - begin_time) < 3
-    select2_results = page.has_css?("li.select2-result")
-    current_time = Time.now.to_f
-  end
+  wait_for_select2
 
   within ".select2-result" do
     find("span", text: s3_path).click
+  end
+end
+
+def wait_for_select2
+  # Crude way of waiting for the AJAX response
+  select2_results = false
+  begin_time = current_time = Time.now.to_f
+  until select2_results
+    raise("Waited 10 seconds for AJAX select2 selector, but never found it.") if
+      (current_time - begin_time) > 10
+    select2_results = page.has_css?("li.select2-result")
+    current_time = Time.now.to_f
   end
 end
