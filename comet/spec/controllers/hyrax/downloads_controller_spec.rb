@@ -11,15 +11,22 @@ RSpec.describe Hyrax::DownloadsController, storage_adapter: :memory, metadata_ad
   let(:upload) { Hyrax.storage_adapter.upload(resource: file_set, file: file, original_filename: "Moomin.jpg") }
 
   describe "#show" do
-    it "returns unauthorized if the object does not exist" do
+    it "returns unauthorized without a logged in user" do
       get :show, params: {id: "fake_id"}
       expect(response).to have_http_status(:unauthorized)
     end
 
-    context "when the file exists" do
-      it "sends the original file" do
+    context "when the user is logged in" do
+      before do
         sign_in user
-        allow(controller).to receive(:authorize!).with(:download, file_set.id).and_return true
+
+        Hyrax::AccessControlList.new(resource: file_set)
+          .grant(:read)
+          .to(user)
+          .save
+      end
+
+      it "sends the original file" do
         allow(file).to receive(:original_filename).and_return("Moomin.jpg")
         allow(file).to receive(:content_type).and_return("image/jpeg")
         file_set.file_ids << upload.id
