@@ -3,33 +3,28 @@
 require "rails_helper"
 
 RSpec.describe "Components", type: :system, js: true do
+  let(:parent_object) { Hyrax.persister.save(resource: GenericObject.new(title: "Parent Object")) }
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
 
-  before { sign_in user }
+  before do
+    sign_in user
+    Hyrax.index_adapter.save(resource: parent_object) # index the resource
+  end
 
   it "can attach new objects as components" do
-    visit "/dashboard"
-    click_on "Objects"
-    click_on "add-new-work-button"
-
-    fill_in("Title", with: "Parent Object")
-    choose("generic_object_visibility_open")
-    click_on("Save")
-
-    expect(page).to have_content("Parent Object")
-
-    parent_id = page.current_path.split("/").last
+    visit "/concern/generic_objects/#{parent_object.id}"
 
     click_button("Add Component")
     click_on("Attach Generic object")
 
-    fill_in("Title", with: "Component Object")
+    fill_in("Title", with: "Component")
     choose("generic_object_visibility_open")
     click_on("Save")
 
-    component_id = page.current_path.split("/").last
-    parent = Hyrax.query_service.find_by(id: parent_id)
+    reloaded = Hyrax.query_service.find_by(id: parent_object.id)
+    expect(reloaded.member_ids).not_to be_empty
 
-    expect(parent.member_ids).to contain_exactly(component_id)
+    component = Hyrax.query_service.find_by(id: reloaded.member_ids.first)
+    expect(component.title).to contain_exactly("Component")
   end
 end
