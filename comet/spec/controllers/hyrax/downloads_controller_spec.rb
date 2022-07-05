@@ -33,13 +33,6 @@ RSpec.describe Hyrax::DownloadsController, storage_adapter: :memory, metadata_ad
         file.rewind
         expect(response.body).to eq file.read
       end
-
-      context "when the user is not authorized" do
-        it "returns an unauthorized HTTP status code" do
-          get :show, params: {id: file_set.id}
-          expect(response).to have_http_status(:unauthorized)
-        end
-      end
     end
   end
 end
