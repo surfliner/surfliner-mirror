@@ -13,6 +13,11 @@ RSpec.describe Hyrax::DownloadsController, metadata_adapter: :test_adapter do
     Hyrax::FileMetadata.new(file_identifier: upload.id, alternate_identifier: upload.id)
   end
 
+  before do
+    file_set.file_ids << upload.id
+    Hyrax.persister.save(resource: file_set)
+  end
+
   describe "#show" do
     it "returns unauthorized without a logged in user" do
       get :show, params: {id: "fake_id"}
@@ -30,11 +35,6 @@ RSpec.describe Hyrax::DownloadsController, metadata_adapter: :test_adapter do
       end
 
       it "sends the original file" do
-        file_set.file_ids << upload.id
-        Hyrax.persister.save(resource: file_set)
-        file_metadata.file_identifier = upload.id
-        file_metadata.file_set_id = file_set.id
-        file_metadata.size = upload.size
         file_metadata.id = upload.id
         Hyrax.persister.save(resource: file_metadata)
         get :show, params: {id: file_set.id}
