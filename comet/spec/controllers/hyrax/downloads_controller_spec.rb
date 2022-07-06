@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Hyrax::DownloadsController, metadata_adapter: :test_adapter do
+RSpec.describe Hyrax::DownloadsController, :integration do
   routes { Hyrax::Engine.routes }
   let(:user) { User.create(email: "moomin@example.com") }
   let(:file_set) { Hyrax.persister.save(resource: Hyrax::FileSet.new) }
@@ -16,6 +16,7 @@ RSpec.describe Hyrax::DownloadsController, metadata_adapter: :test_adapter do
   before do
     file_set.file_ids << upload.id
     Hyrax.persister.save(resource: file_set)
+    Hyrax.persister.save(resource: file_metadata)
   end
 
   describe "#show" do
@@ -35,8 +36,6 @@ RSpec.describe Hyrax::DownloadsController, metadata_adapter: :test_adapter do
       end
 
       it "sends the original file" do
-        file_metadata.id = upload.id
-        Hyrax.persister.save(resource: file_metadata)
         get :show, params: {id: file_set.id}
         file.rewind
         expect(response.body).to eq file.read
