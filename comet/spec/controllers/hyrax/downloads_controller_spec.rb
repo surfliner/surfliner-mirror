@@ -10,7 +10,7 @@ RSpec.describe Hyrax::DownloadsController, metadata_adapter: :test_adapter do
   let(:upload) { Hyrax.storage_adapter.upload(resource: file_set, file: file, original_filename: "Moomin.jpg") }
 
   let(:file_metadata) do
-    Hyrax::FileMetadata.new(file_identifier: upload.id, alternate_identifier: upload.id)
+    Hyrax::FileMetadata.new(file_identifier: upload.id, alternate_ids: upload.id)
   end
 
   before do
