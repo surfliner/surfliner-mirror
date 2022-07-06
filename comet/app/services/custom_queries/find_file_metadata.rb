@@ -74,6 +74,7 @@ module CustomQueries
         refs = query_service.run_query(query_service.send(:find_inverse_references_with_model_query),
           query_json,
           "Hyrax::FileMetadata")
+
         refs.each { |fm| yield fm if fm.type.include?(use) }
       end
     end

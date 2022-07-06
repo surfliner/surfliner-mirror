@@ -24,7 +24,8 @@ module Hyrax
     def send_file_contents(file_set)
       response.headers["Accept-Ranges"] = "bytes"
       self.status = 200
-      file_metadata = find_file_metadata(file_set: file_set)
+      use = params.fetch(:use, :original_file).to_sym
+      file_metadata = find_file_metadata(file_set: file_set, use: use)
       file = Hyrax.storage_adapter.find_by(id: file_metadata.file_identifier)
       prepare_file_headers(metadata: file_metadata, file: file)
       file.rewind
@@ -46,7 +47,10 @@ module Hyrax
 
     def find_file_metadata(file_set:, use: :original_file)
       use = Hyrax::FileMetadata::Use.uri_for(use: use)
-      Hyrax.query_service.find_by_alternate_identifier(alternate_identifier: file_set.file_ids.first)
+
+      results = Hyrax.custom_queries.find_many_file_metadata_by_use(resource: file_set, use: use)
+
+      results.first || raise(Hyrax::ObjectNotFoundError)
     end
   end
 end

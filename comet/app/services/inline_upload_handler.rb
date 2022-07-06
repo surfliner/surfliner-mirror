@@ -37,8 +37,13 @@ class InlineUploadHandler < Hyrax::WorkUploadsHandler
   def ingest(files:)
     files.each do |file|
       uploader = file.uploader
-      file_metadata = Hyrax::FileMetadata.for(file: uploader.file)
-      file_metadata.file_set_id = file.file_set_uri
+
+      file_metadata =
+        Hyrax::FileMetadata.new(label: uploader.file.original_filename,
+                                original_filename: uploader.file.original_filename,
+                                mime_type: uploader.file.content_type,
+                                size: uploader.file.size,
+                                file_set_id: file.file_set_uri)
       file_metadata = Hyrax.persister.save(resource: file_metadata)
 
       file_set = Hyrax.query_service.find_by(id: file.file_set_uri)
@@ -47,8 +52,8 @@ class InlineUploadHandler < Hyrax::WorkUploadsHandler
         .upload(resource: file_metadata,
           file: File.open(uploader.file.file),
           original_filename: file_metadata.original_filename)
+
       file_metadata.file_identifier = uploaded.id
-      file_metadata.size = uploaded.size
       saved_metadata = Hyrax.persister.save(resource: file_metadata)
       Hyrax.publisher.publish("file.metadata.updated", metadata: saved_metadata, user: file.user)
       Hyrax.publisher.publish("object.file.uploaded", metadata: saved_metadata, file: uploaded)
