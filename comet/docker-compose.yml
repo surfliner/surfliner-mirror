@@ -35,6 +35,7 @@ services:
       - 3000:3000
     volumes:
       - .:/app/samvera/hyrax-webapp
+      - ../gems:/app/samvera/gems
       - hyrax-derivatives:/app/samvera/hyrax-webapp/derivatives
       - hyrax-uploads:/app/samvera/hyrax-webapp/uploads
       - rails-public:/app/samvera/hyrax-webapp/public
@@ -70,6 +71,7 @@ services:
       - rabbitmq
     volumes:
       - .:/app/samvera/hyrax-webapp
+      - ../gems:/app/samvera/gems
       - hyrax-derivatives:/app/samvera/hyrax-webapp/derivatives
       - hyrax-uploads:/app/samvera/hyrax-webapp/uploads
       - sidekiq-public:/app/samvera/hyrax-webapp/public
@@ -96,6 +98,7 @@ services:
       - postgres
     volumes:
       - .:/app/samvera/hyrax-webapp
+      - ../gems:/app/samvera/gems
       - rails-public:/app/samvera/hyrax-webapp/public
       - rails-tmp:/app/samvera/hyrax-webapp/tmp
     networks:
