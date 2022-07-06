@@ -168,6 +168,7 @@ include:
       mkdir -p /etc/deploy
       export KUBECONFIG=/etc/deploy/config
       echo ${KUBE_ROLE_CONFIG} | base64 -d > $KUBECONFIG
+      chmod 600 $KUBECONFIG
     fi
   }
 
