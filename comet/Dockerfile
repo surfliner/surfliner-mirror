@@ -129,7 +129,6 @@ RUN bundle install --jobs "$(nproc)"
 COPY scripts/docker/*.sh ${DOCKER_PROJECT}/
 RUN ${DOCKER_PROJECT}/ruby-bundle-cleanup.sh
 
-COPY gems ${DOCKER_ROOT}/gems/
 COPY $LOCAL_PROJECT $DOCKER_PROJECT
 COPY scripts/* $DOCKER_PROJECT/scripts/
 ENV PATH="${DOCKER_PROJECT}/scripts:${PATH}"
