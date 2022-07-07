@@ -38,11 +38,12 @@ include:
       destination="$destination --destination $CI_REGISTRY_IMAGE/$image_name:$CI_COMMIT_TAG"
     fi
 
+    target_param=""
     if [ "$target" ]; then
-      /kaniko/executor --context "$CI_PROJECT_DIR" --cache=true --push-retry 3 --target "$target" --dockerfile "$CI_PROJECT_DIR"/"$project"/Dockerfile $destination
-    else
-      /kaniko/executor --context "$CI_PROJECT_DIR" --cache=true --push-retry 3 --dockerfile "$CI_PROJECT_DIR"/"$project"/Dockerfile $destination
+      target_param="--target $target"
     fi
+
+    /kaniko/executor --context "$CI_PROJECT_DIR" --cache=true --push-retry 3 $target_param --dockerfile "$CI_PROJECT_DIR"/"$project"/Dockerfile $destination
   }
 
 
