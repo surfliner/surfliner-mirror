@@ -7,7 +7,7 @@ Capybara.register_driver :selenium_standalone_chrome_headless_sandboxless do |ap
         args: %w[disable-gpu no-sandbox whitelisted-ips disable-dev-shm-usage headless window-size=1440,1440]
       }
     ),
-    timeout: ENV.fetch("SELENIUM_TIMEOUT", 30),
+    timeout: ENV.fetch("SELENIUM_TIMEOUT", 30).to_i,
     url: ENV["HUB_URL"]
   )
 end
