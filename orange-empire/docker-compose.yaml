@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  cantaloupe:
+    image: uclalibrary/cantaloupe:5.0.5-1
+    ports:
+      - '8182:8182'
+    env_file:
+      - .env
+
+  minio:
+    image: bitnami/minio:2022.4.26
+    ports:
+      - '9001:9001'
+      - '9000:9000'
+    volumes:
+      - minio:/data
+    env_file:
+      - .env
+
+volumes:
+  minio:
