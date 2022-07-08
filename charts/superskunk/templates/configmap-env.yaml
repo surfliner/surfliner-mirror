@@ -30,3 +30,6 @@ data:
   {{- else }}
   SUPERSKUNK_API_BASE: {{ template "superskunk.fullname" . }}
   {{- end }}
+  {{- with .Values.existingSecret.vaultFile }}
+  VAULT_FILE: {{ . }}
+  {{- end }}

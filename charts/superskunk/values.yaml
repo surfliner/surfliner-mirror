@@ -43,6 +43,7 @@ consumers:
 # Set to true if a Secret already exists in the namespace for the Deployment
 existingSecret:
   name: superskunk
+  vaultFileL: /vault/secrets/superskunk.env
   enabled: false
 
 # additional environment variables, evaluated as a template. e.g.
@@ -77,7 +78,7 @@ serviceAccount:
   annotations: {}
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: ""
+  name: superskunk
 
 podAnnotations: {}
 
