@@ -12,8 +12,7 @@ ARG DOCKER_PROJECT=${DOCKER_ROOT}/app
 WORKDIR ${DOCKER_PROJECT}
 
 # build-time dependencies only
-RUN apk --no-cache upgrade && \
-  apk --no-cache add \
+RUN apk --no-cache add \
   build-base \
   gcompat \
   git \
@@ -61,8 +60,7 @@ ARG DOCKER_PROJECT=${DOCKER_ROOT}/app
 WORKDIR ${DOCKER_PROJECT}
 
 # run-time dependencies only
-RUN apk --no-cache upgrade && \
-  apk --no-cache add \
+RUN apk --no-cache add \
   curl \
   imagemagick \
   libpq \
@@ -99,8 +97,7 @@ ARG LOCAL_PROJECT=starlight
 ARG DOCKER_ROOT=/home/${LOCAL_PROJECT}
 ARG DOCKER_PROJECT=${DOCKER_ROOT}/app
 
-RUN apk --no-cache upgrade && \
-  apk --no-cache add \
+RUN apk --no-cache add \
   curl \
   imagemagick \
   libpq \
