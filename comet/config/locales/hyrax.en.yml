@@ -169,6 +169,10 @@ en:
         attach_child: Add Component
     collection_type:
       admin_set_title: Project
+    collection_types:
+      create_service:
+        admin_set_description: A project with shared workflow and object lifecycle policy.
+    collections:
     dashboard:
       admin_sets:
         admin_set: Project
@@ -238,3 +242,7 @@ en:
     placeholders:
       defaults:
         find_child_work: Search for an Object...
+    hints:
+      admin_set:
+        description: A brief description of the Project purpose and scope.
+        title: "A name for the Project. The name should evoke the Project's scope and distinguish it from other Projects in the repository."
