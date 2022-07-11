@@ -17,5 +17,8 @@ class GenericObject < Valkyrie::Resource
   #  ________________________
   # | Defined by environment |
   #  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  # Provides the attribute definitions:
   include SurflinerSchema::Schema(:generic_object, loader: ::EnvSchemaLoader.new)
+  # Provides :mapped_to method:
+  include SurflinerSchema::Mappings(:generic_object, loader: ::EnvSchemaLoader.new)
 end

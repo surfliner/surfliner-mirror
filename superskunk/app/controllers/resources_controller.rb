@@ -18,6 +18,7 @@ class ResourcesController < ApplicationController
     rescue AcceptReader::BadAcceptError
       return render_error text: "Bad Accept Header", status: 400
     end
+    @profile_mappings = mappings_for(@profile)
     public_send supported_renderers[@profile] || :default_render
   end
 
@@ -31,13 +32,35 @@ class ResourcesController < ApplicationController
   ##
   # Render the resource as OAI∕DC.
   def render_oai_dc
+    mapped = [
+      "contributor",
+      "coverage",
+      "creator",
+      "date",
+      "description",
+      "format",
+      "identifier",
+      "language",
+      "publisher",
+      "relation",
+      "rights",
+      "source",
+      "subject",
+      # "title" is skipped as it needs special handling below
+      "type"
+    ].each_with_object({}) do |term, json|
+      # OAI doesn’t support datatyping so everything should be cast to a string.
+      mapping = @profile_mappings["http://purl.org/dc/elements/1.1/#{term}"].to_a.map(&:to_s)
+      json[term] = mapping if mapping.size > 0
+    end
     render json: {
       "@context" => {
         "@vocab" => "http://purl.org/dc/elements/1.1/",
         "ore" => "http://www.openarchives.org/ore/terms/"
       },
       "@id" => "#{ENV["SUPERSKUNK_API_BASE"]}/resources/#{@model.id}",
-      "title" => @model.title
+      "title" => @profile_mappings["http://purl.org/dc/elements/1.1/title"].to_a.map(&:to_s) + @model.title.to_a, # the Hyrax title is not mapped rn
+      **mapped
     }
   end
 
@@ -58,6 +81,12 @@ class ResourcesController < ApplicationController
   end
 
   private
+
+  ##
+  # Provides a hash of strings to sets of mappings for the provided schema IRI.
+  def mappings_for(schema_iri)
+    @model.mapped_to(schema_iri)
+  end
 
   ##
   # Renderers supported for the given model.

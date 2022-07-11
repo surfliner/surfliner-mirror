@@ -10,4 +10,8 @@ RSpec.describe GenericObject do
       title: ["abc"]
     )
   end
+
+  it "has a :mapped_to method" do
+    expect(object.respond_to?(:mapped_to)).to be true
+  end
 end
