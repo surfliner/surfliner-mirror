@@ -31,7 +31,7 @@ gem "tinymce-rails", "5.10.4"
 gem "turbolinks", "5.2.1"
 gem "uglifier", "4.2.0"
 gem "valkyrie-sequel", "~> 2.2.0"
-gem "valkyrie-shrine", "~> 0.5"
+gem "valkyrie-shrine", "~> 1.0"
 
 group :development do
   gem "listen", ">= 3.0.5", "< 3.7.2"
