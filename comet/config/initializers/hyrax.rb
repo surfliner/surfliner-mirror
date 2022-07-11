@@ -273,8 +273,7 @@ Qa::Authorities::Local.register_subauthority("genres", "Qa::Authorities::Local::
   Hyrax::CustomQueries::FindManyByAlternateIds,
   Hyrax::CustomQueries::FindIdsByModel,
   CustomQueries::FindFileMetadata,
-  Hyrax::CustomQueries::FindFileMetadata,
-  Hyrax::CustomQueries::Navigators::FindFiles].each do |handler|
+  Hyrax::CustomQueries::FindFileMetadata].each do |handler|
   Hyrax.query_service.custom_queries.register_query_handler(handler)
 end
 

@@ -1,23 +1,14 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe CustomQueries::FindFileMetadata, metadata_adapter: :comet_metadata_store, storage_adapter: :repository_s3 do
   subject(:query_handler) { described_class.new(query_service: query_service) }
   let(:query_service) { Valkyrie::MetadataAdapter.find(:comet_metadata_store).query_service }
 
-  describe ".queries" do
-    it "lists queries" do
-      expect(described_class.queries).to eq [:find_file_metadata_by,
-                                             :find_file_metadata_by_alternate_identifier,
-                                             :find_many_file_metadata_by_ids,
-                                             :find_many_file_metadata_by_use]
-    end
-  end
-
   describe "#find_many_file_metadata_by_use" do
     let(:file_set) { Hyrax.persister.save(resource: Hyrax::FileSet.new) }
-    let(:upload_id) { Valkyrie::ID.new('fake://1') }
-    let(:text_upload_id) { Valkyrie::ID.new('fake://2') }
-    let(:other_upload_id) { Valkyrie::ID.new('fake://3') }
+    let(:upload_id) { Valkyrie::ID.new("fake://1") }
+    let(:text_upload_id) { Valkyrie::ID.new("fake://2") }
+    let(:other_upload_id) { Valkyrie::ID.new("fake://3") }
 
     let(:file_metadata_original) do
       fm = Hyrax::FileMetadata.new(file_identifier: upload_id)
@@ -26,16 +17,16 @@ RSpec.describe CustomQueries::FindFileMetadata, metadata_adapter: :comet_metadat
 
     let(:file_metadata_derivative) do
       fm = Hyrax::FileMetadata
-             .new(file_identifier: text_upload_id,
-                  type: Hyrax::FileMetadata::Use.uri_for(use: :extracted_file))
+        .new(file_identifier: text_upload_id,
+          type: Hyrax::FileMetadata::Use.uri_for(use: :extracted_file))
 
       Hyrax.persister.save(resource: fm)
     end
 
     let(:file_metadata_other) do
       fm = Hyrax::FileMetadata
-             .new(file_identifier: other_upload_id,
-                  type: Hyrax::FileMetadata::Use.uri_for(use: :extracted_file))
+        .new(file_identifier: other_upload_id,
+          type: Hyrax::FileMetadata::Use.uri_for(use: :extracted_file))
 
       Hyrax.persister.save(resource: fm)
     end
@@ -64,7 +55,7 @@ RSpec.describe CustomQueries::FindFileMetadata, metadata_adapter: :comet_metadat
     end
 
     it "when given a URI not present finds none" do
-      use = ::RDF::URI('http://example.com/nope')
+      use = ::RDF::URI("http://example.com/nope")
       expect(query_handler.find_many_file_metadata_by_use(resource: file_set, use: use))
         .not_to be_any # no #empty? for enums
     end
