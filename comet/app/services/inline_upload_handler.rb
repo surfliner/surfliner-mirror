@@ -40,10 +40,10 @@ class InlineUploadHandler < Hyrax::WorkUploadsHandler
 
       file_metadata =
         Hyrax::FileMetadata.new(label: uploader.file.original_filename,
-                                original_filename: uploader.file.original_filename,
-                                mime_type: uploader.file.content_type,
-                                size: uploader.file.size,
-                                file_set_id: file.file_set_uri)
+          original_filename: uploader.file.original_filename,
+          mime_type: uploader.file.content_type,
+          size: uploader.file.size,
+          file_set_id: file.file_set_uri)
       file_metadata = Hyrax.persister.save(resource: file_metadata)
 
       file_set = Hyrax.query_service.find_by(id: file.file_set_uri)

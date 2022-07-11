@@ -32,6 +32,9 @@ Rails.application.routes.draw do
     concerns :exportable
   end
 
+  # allow derivative download
+  get "downloads/:id/:use", controller: "hyrax/downloads", action: :show
+
   resources :staging_area, only: "index"
 
   put "/admin/workflows/batch_actions" => "hyrax/admin/workflows#batch_actions"

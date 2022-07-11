@@ -48,9 +48,9 @@ RSpec.describe Hyrax::DownloadsController, :integration do
         let(:text_file_metadata) do
           Hyrax::FileMetadata
             .new(file_identifier: text_upload.id,
-                 alternate_ids: text_upload.id,
-                 original_filename: "moomin.txt",
-                 type: Hyrax::FileMetadata::Use.uri_for(use: :extracted_file))
+              alternate_ids: text_upload.id,
+              original_filename: "moomin.txt",
+              type: Hyrax::FileMetadata::Use.uri_for(use: :extracted_file))
         end
 
         before do
