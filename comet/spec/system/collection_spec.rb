@@ -31,4 +31,43 @@ RSpec.describe "Collections", type: :system, js: true do
     click_on("Display all details of System Spec Collection")
     expect(page).to have_content("System Spec Collection")
   end
+
+  context "nested collection" do
+    let(:user) { User.create(email: "comet-admin@library.ucsd.edu") }
+
+    let(:collection_type) { Hyrax::CollectionType.create(title: "Spec Type") }
+    let(:collection_type_gid) { collection_type.to_global_id.to_s }
+    let(:collection) do
+      Hyrax.persister.save(resource: Hyrax::PcdmCollection.new(title: ["Test Collection"], collection_type_gid: collection_type_gid))
+    end
+    let(:nested_collection) do
+      Hyrax.persister.save(resource: Hyrax::PcdmCollection.new(title: ["Nested Collection"], collection_type_gid: collection_type_gid))
+    end
+    let(:another_nested_collection) do
+      Hyrax.persister.save(resource: Hyrax::PcdmCollection.new(title: ["Another Nested Collection"], collection_type_gid: collection_type_gid))
+    end
+
+    before {
+      Hyrax::Collections::PermissionsCreateService.create_default(collection: collection, creating_user: user)
+      collection.permission_manager.read_users += [user.user_key]
+      collection.permission_manager.edit_users += [user.user_key]
+      collection.permission_manager.acl.save
+
+      Hyrax::Collections::CollectionMemberService.add_members_by_ids(collection_id: collection.id,
+        new_member_ids: [nested_collection.id, another_nested_collection.id],
+        user: user)
+
+      Hyrax.index_adapter.save(resource: collection)
+
+      sign_in(user)
+    }
+
+    it "shows the nested collection" do
+      visit visit "/dashboard/collections/#{collection.id}"
+
+      expect(page).to have_content("Test Collection")
+      expect(page).to have_content("Nested Collection")
+      expect(page).to have_content("Another Nested Collection")
+    end
+  end
 end
