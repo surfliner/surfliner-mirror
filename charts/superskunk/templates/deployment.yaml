@@ -17,9 +17,7 @@ spec:
     metadata:
       {{- with .Values.podAnnotations }}
       annotations:
-      {{- with .Values.existingSecret.annotations }}
         {{- toYaml . | nindent 8 }}
-      {{- end }}
       {{- end }}
       labels:
         {{- include "superskunk.selectorLabels" . | nindent 8 }}
@@ -39,8 +37,10 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "superskunk.fullname" . }}-env
+            {{- if not .Values.vaultSecret.enabled }}
             - secretRef:
                 name: {{ template "superskunk.secretName" . }}
+            {{- end }}
           env:
             {{- toYaml .Values.extraEnvVars | nindent 12 }}
           command:
@@ -58,8 +58,10 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "superskunk.fullname" . }}-env
+            {{- if not .Values.vaultSecret.enabled }}
             - secretRef:
                 name: {{ template "superskunk.secretName" . }}
+            {{- end }}
           env:
             {{- toYaml .Values.extraEnvVars | nindent 12 }}
           {{- if .Values.consumers.keys }}

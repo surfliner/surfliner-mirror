@@ -43,8 +43,11 @@ consumers:
 # Set to true if a Secret already exists in the namespace for the Deployment
 existingSecret:
   name: superskunk
-  vaultFileL: /vault/secrets/superskunk.env
   enabled: false
+
+vaultSecret:
+  enabled: false
+  vaultFile: /vault/secrets/superskunk.env
 
 # additional environment variables, evaluated as a template. e.g.
 #
