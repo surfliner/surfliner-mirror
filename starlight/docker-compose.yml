@@ -78,7 +78,7 @@ services:
       - starlight
 
   minio:
-    image: bitnami/minio:2022.6.11-debian-11-r1
+    image: bitnami/minio:2022.7.8-debian-11-r1
     ports:
       - "9000:9000"
       - "9001:9001"

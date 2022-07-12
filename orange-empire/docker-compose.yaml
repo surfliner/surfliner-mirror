@@ -9,7 +9,7 @@ services:
       - .env
 
   minio:
-    image: bitnami/minio:2022.4.26
+    image: bitnami/minio:2022.7.8
     ports:
       - '9001:9001'
       - '9000:9000'
