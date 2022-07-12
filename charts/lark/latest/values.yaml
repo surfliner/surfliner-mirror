@@ -57,7 +57,7 @@ solr:
   enabled: true
   image:
     repository: bitnami/solr
-    tag: 8.11.1-debian-10-r134
+    tag: 8.11.1-debian-10-r163
   auth:
     enabled: true
     adminUsername: admin

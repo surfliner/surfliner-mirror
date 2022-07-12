@@ -57,7 +57,7 @@ services:
       - shoreline
 
   solr:
-    image: bitnami/solr:8.11.1-debian-11-r5
+    image: bitnami/solr:8.11.2-debian-11-r6
     ports:
       - '8983:8983'
     volumes:

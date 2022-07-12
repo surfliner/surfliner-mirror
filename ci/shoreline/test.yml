@@ -34,7 +34,7 @@ shoreline:test:solrconfig:
   services:
     - name: bitnami/postgresql:12.11.0-debian-11-r5
       alias: postgres
-    - name: bitnami/solr:8.11.1-debian-11-r5
+    - name: bitnami/solr:8.11.2-debian-11-r6
       alias: solr
       entrypoint: [""]
       variables:

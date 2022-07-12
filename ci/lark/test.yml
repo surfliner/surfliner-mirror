@@ -33,7 +33,7 @@ lark:api:test:unit:
   services:
     - name: bitnami/postgresql:12.10.0-debian-10-r75
       alias: postgres
-    - name: bitnami/solr:8.11.1-debian-11-r5
+    - name: bitnami/solr:8.11.2-debian-11-r6
       alias: solr
       variables:
         JQ_VERSION: "jq-1.6"

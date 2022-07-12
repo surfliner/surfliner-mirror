@@ -44,7 +44,7 @@ starlight:test:solrconfig:
       alias: postgres
     - name: seleniarm/standalone-chromium:102.0-20220602
       alias: chrome
-    - name: bitnami/solr:8.11.1-debian-11-r5
+    - name: bitnami/solr:8.11.2-debian-11-r6
       alias: solr
       variables:
         JQ_VERSION: "jq-1.6"
