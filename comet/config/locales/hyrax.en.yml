@@ -51,6 +51,8 @@ en:
     action:
       admin_set:
         new: Create a new Project
+      work:
+        new: Add New Object
     submit:
       admin_set:
         create: Create Project
