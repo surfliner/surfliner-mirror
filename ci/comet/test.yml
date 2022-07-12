@@ -61,7 +61,7 @@ comet:test:solrconfig:
 comet:test:unit:
   extends: .comet:test
   services:
-    - name: bitnami/postgresql:12.10.0
+    - name: bitnami/postgresql:12.11.0
       alias: postgres
     - name: bitnami/redis:6.2
       alias: redis

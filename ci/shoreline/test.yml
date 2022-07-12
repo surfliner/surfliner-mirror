@@ -32,7 +32,7 @@ shoreline:test:solrconfig:
     SOLR_PORT: 8983
     SOLR_URL: "http://solr:8983/solr/shoreline-discovery"
   services:
-    - name: bitnami/postgresql:12.11.0-debian-11-r5
+    - name: bitnami/postgresql:12.11.0-debian-11-r15
       alias: postgres
     - name: bitnami/solr:8.11.2-debian-11-r6
       alias: solr

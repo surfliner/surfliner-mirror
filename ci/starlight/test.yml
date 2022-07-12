@@ -40,7 +40,7 @@ starlight:test:solrconfig:
     START_XVFB: "false"
     TEST_POSTGRES_DB: "starlight-test"
   services:
-    - name: bitnami/postgresql:12.11.0-debian-11-r5
+    - name: bitnami/postgresql:12.11.0-debian-11-r15
       alias: postgres
     - name: seleniarm/standalone-chromium:102.0-20220602
       alias: chrome

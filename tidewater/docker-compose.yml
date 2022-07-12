@@ -38,7 +38,7 @@ services:
       - .:/home/tidewater/app
 
   database:
-    image: bitnami/postgresql:12.10.0-debian-10-r75
+    image: bitnami/postgresql:12.11.0-debian-10-r23
     volumes:
       - "tidewater_database:/bitnami/postgresql"
     environment:

@@ -21,7 +21,7 @@ tidewater:test:
     SUPERSKUNK_CONFIG_FILENAME: "superskunk-metadata.yml"
     SUPERSKUNK_CONFIG_FILEPATH: "https://gitlab.com/surfliner/surfliner/-/raw/${CI_COMMIT_SHA}/tidewater/mmock/config/superskunk-metadata.yml"
   services:
-    - name: bitnami/postgresql:12.10.0-debian-10-r75
+    - name: bitnami/postgresql:12.11.0-debian-10-r23
       alias: postgres
     - name: jordimartin/mmock:v3.0.3
       alias: mmock

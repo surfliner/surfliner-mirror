@@ -122,7 +122,7 @@ postgresql:
   nameOverride: database
   image:
     repository: bitnami/postgresql
-    tag: 12.11.0-debian-11-r5
+    tag: 12.11.0-debian-11-r15
   architecture: standalone
   enabled: true
   # If postgresql.enabled is false, then
