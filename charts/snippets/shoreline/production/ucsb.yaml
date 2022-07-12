@@ -33,3 +33,7 @@ persistence:
 postgresql:
   auth:
     existingSecret: shoreline-postgres
+  primary:
+    persistence:
+      enabled: true
+      size: 100Gi
