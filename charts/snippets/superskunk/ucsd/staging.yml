@@ -1,15 +1,15 @@
 superskunk:
   db:
-    metadata_database_name: comet_metadata
+    metadata_database_name: comet
 
 ingress:
   enabled: false
 
 postgresql:
   enabled: false
-  postgresqlDatabase: hyrax
-  postgresqlHostname: surfliner-comet-stage-postgresql.comet-staging
-  postgresqlUsername: hyrax
+  postgresqlDatabase: comet
+  postgresqlHostname: lib-psql-stage.ucsd.edu
+  postgresqlUsername: comet
 
 vaultSecret:
   enabled: true
