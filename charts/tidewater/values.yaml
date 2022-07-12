@@ -13,7 +13,7 @@ image:
 # Settings specific to running the OAI-PMH endpoint
 oai:
   adminEmail: tidewater@example.com
-  metadataProfile: tag:surfliner.github.io,2022:api/oai_dc
+  metadataProfile: tag:surfliner.gitlab.io,2022:api/oai_dc
   repositoryName: tidewater
   sampleId: 13900
 # namespaceIdentifier: item

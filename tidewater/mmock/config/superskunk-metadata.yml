@@ -5,11 +5,11 @@ request:
   method: GET
   headers:
     Accept:
-    - application/ld+json;profile=tag:surfliner.github.io,2022:api/oai_dc
+    - application/ld+json;profile="tag:surfliner.gitlab.io,2022:api/oai_dc"
   path: "/example:cs/0112017"
 response:
   statusCode: 200
   headers:
     Content-Type:
-    - application/ld+json;profile=tag:surfliner.github.io,2022:api/oai_dc
+    - application/ld+json;profile="tag:surfliner.gitlab.io,2022:api/oai_dc"
   body: '{"@context":{"@vocab": "http://purl.org/dc/elements/1.1/",  "ore": "http://www.openarchives.org/ore/terms/"},"@id": "example:cs/0112017","title":{"@value": "Using Structural Metadata to Localize Experience of Digital Content",  "@language": "en"},"creator": "Dushay, Naomi","subject": "Digital Libraries","description":[{"@value": "With the increasing technical sophistication of both information consumers and providers, there is increasing demand for more meaningful experiences of digital information. We present a framework that separates digital object experience, or rendering, from digital object storage and manipulation, so the rendering can be tailored to particular communities of users.", "@language": "en"}, "Comment: 23 pages including 2 appendices, 8 figures"],"date": "2001-12-14","type": "e-print","identifier": "http://arXiv.org/abs/cs/0112017","ore:isAggregatedBy":[{"@id": "example:cs", "title": "Computer Science"}, {"@id": "example:math", "title": "Mathematics"}]}'

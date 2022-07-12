@@ -62,7 +62,7 @@ Configures the application to set some required configuration details for the
 | Parameter | Description | Default | Environment Variable |
 | --------- | ----------- | ------- | -------------------- |
 | `oai.adminEmail` | E-mail address of an administrator of the repository | `tidewater@example.com` | `OAI_ADMIN_EMAIL` |
-| `oai.metadataProfile` | Metadata profile used for requesting data from `superskunk` API | `tag:surfliner.github.io,2022:api/oai_dc` | `OAI_METADATA_PROFILE` |
+| `oai.metadataProfile` | Metadata profile used for requesting data from `superskunk` API | `tag:surfliner.gitlab.io,2022:api/oai_dc` | `OAI_METADATA_PROFILE` |
 | `oai.repositoryName` | A human readable name for the repository | `tidewater` | `OAI_REPOSITORY_NAME` |
 | `oai.sampleId` | `oai.namespaceIdentifier` will be automatically prepended to `oai.sample_id` | `13900` | `OAI_SAMPLE_ID` |
 | `oai.namespaceIdentifier` | Unique namespace for items | `ingress.hosts[0]` | `OAI_NAMESPACE_IDENTIFIER` |
