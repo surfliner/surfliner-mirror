@@ -84,7 +84,7 @@ module Hyrax
 
       # Instantiate the membership query service
       def collection_member_service
-        @collection_member_service ||= Collections::CollectionMemberSearchService.new(scope: self, collection: @presenter, params: params_for_query)
+        @collection_member_service ||= Collections::CollectionMemberSearchService.new(scope: self, collection: @presenter, params: params_for_query, search_builder_class: CometCollectionMemberSearchBuilder)
       end
 
       # You can override this method if you need to provide additional

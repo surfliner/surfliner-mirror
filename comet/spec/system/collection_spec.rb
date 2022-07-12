@@ -70,4 +70,46 @@ RSpec.describe "Collections", type: :system, js: true do
       expect(page).to have_content("Another Nested Collection")
     end
   end
+
+  context "collection object members" do
+    let(:user) { User.create(email: "comet-admin@library.ucsd.edu") }
+
+    let(:collection_type) { Hyrax::CollectionType.create(title: "Test Type") }
+    let(:collection_type_gid) { collection_type.to_global_id.to_s }
+    let(:collection) do
+      col = Hyrax::PcdmCollection.new(title: ["Test Collection"], collection_type_gid: collection_type_gid)
+      Hyrax.persister.save(resource: col)
+    end
+
+    let(:object_a) do
+      obj_a = ::GenericObject.new(title: ["Test Member Object A"], member_of_collection_ids: [collection.id])
+      Hyrax.persister.save(resource: obj_a)
+    end
+
+    let(:object_b) do
+      obj_b = ::GenericObject.new(title: ["Test Member Object B"], member_of_collection_ids: [collection.id])
+      Hyrax.persister.save(resource: obj_b)
+    end
+
+    before {
+      sign_in(user)
+
+      Hyrax::Collections::PermissionsCreateService.create_default(collection: collection, creating_user: user)
+      collection.permission_manager.read_users += [user.user_key]
+      collection.permission_manager.edit_users += [user.user_key]
+      collection.permission_manager.acl.save
+
+      Hyrax.index_adapter.save(resource: collection)
+      Hyrax.index_adapter.save(resource: object_a)
+      Hyrax.index_adapter.save(resource: object_b)
+    }
+
+    it "display object members to authorized user" do
+      visit "/dashboard/collections/#{collection.id}"
+
+      expect(page).to have_content("Test Collection")
+      expect(page).to have_content("Test Member Object A")
+      expect(page).to have_content("Test Member Object B")
+    end
+  end
 end
