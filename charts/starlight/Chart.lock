@@ -10,9 +10,9 @@ dependencies:
   version: 11.6.5
 - name: redis
   repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
-  version: 16.9.0
+  version: 16.13.2
 - name: solr
   repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
   version: 5.1.7
-digest: sha256:3d025ed514ce85bc63eb3f836b40dd668b1e154aa45c9d8cf1c96731c40e7ae3
-generated: "2022-06-27T09:56:10.536772173-07:00"
+digest: sha256:2c56c1957ce8777c486ee24a8c2fffdfbbb48fa3a1436a2189d77bdbd7cf639f
+generated: "2022-07-12T14:23:43.014509587-07:00"
