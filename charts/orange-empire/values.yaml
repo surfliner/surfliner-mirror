@@ -71,13 +71,17 @@ service:
 ingress:
   enabled: false
   annotations: {}
+    # cert-manager.io/cluster-issuer: letsencrypt-prod
     # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  hosts: ['chart-example.local']
+  hosts: ['chart.local']
+    # - host: iiif-test.eks.dld.library.ucsb.edu
+    #   paths:
+    #     - path: /
+    #       pathType: ImplementationSpecific
   tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+    # - hosts:
+    #     - iiif-test.eks.dld.library.ucsb.edu
+    #   secretName: tls-secret
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
