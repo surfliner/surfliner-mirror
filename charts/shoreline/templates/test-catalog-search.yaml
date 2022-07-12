@@ -1,0 +1,27 @@
+{{- if .Values.shoreline.sample_data }}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ include "shoreline.fullname" . }}-test-catalog-search
+  labels:
+    app.kubernetes.io/name: {{ include "shoreline.name" . }}
+    helm.sh/chart: {{ include "shoreline.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command:
+        - sh
+        - -c
+        - >
+          echo "--- Checking a faceted search for UC Santa Barbara works...";
+          wget -S "http{{ if .Values.ingress.tls }}s{{ end }}://{{ index .Values.ingress.hosts 0 }}/catalog?f%5Bdct_provenance_s%5D%5B%5D=UC+Santa+Barbara";
+          echo "--- Checking a regular search for 'maya forest' works...";
+          wget -S "http{{ if .Values.ingress.tls }}s{{ end }}://{{ index .Values.ingress.hosts 0 }}/?utf8=✓&search_field=all_fields&q=maya+forest";
+  restartPolicy: Never
+{{- end }}
