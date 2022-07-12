@@ -73,10 +73,12 @@ RSpec.configure do |config|
     Hyrax.index_adapter.wipe!
   end
 
-  config.around(:example) do |example|
+  config.before(:suite) do
     Valkyrie.config.metadata_adapter = :test_adapter
     Valkyrie.config.storage_adapter = :memory
-    example.run
+  end
+
+  config.after(:suite) do
     Valkyrie.config.metadata_adapter = :comet_metadata_store
     Valkyrie.config.storage_adapter = :repository_s3
   end
@@ -84,13 +86,13 @@ RSpec.configure do |config|
   config.around(:example, :metadata_adapter) do |example|
     Valkyrie.config.metadata_adapter = example.metadata[:metadata_adapter]
     example.run
-    Valkyrie.config.metadata_adapter = :comet_metadata_store
+    Hyrax.persister.wipe! # cleanup after ourselves when using a custom adapter
+    Valkyrie.config.metadata_adapter = :test_adapter
   end
-
   config.around(:example, :storage_adapter) do |example|
     Valkyrie.config.storage_adapter = example.metadata[:storage_adapter]
     example.run
-    Valkyrie.config.storage_adapter = :repository_s3
+    Valkyrie.config.storage_adapter = :memory
   end
 
   config.include Capybara::RSpecMatchers, type: :input
