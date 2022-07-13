@@ -83,6 +83,15 @@ RSpec.configure do |config|
     Valkyrie.config.storage_adapter = :repository_s3
   end
 
+  config.around(:example, :integration) do |example|
+    Valkyrie.config.metadata_adapter = :comet_metadata_store
+    Valkyrie.config.storage_adapter = :repository_s3
+    example.run
+    Hyrax.persister.wipe!
+    Valkyrie.config.metadata_adapter = :test_adapter
+    Valkyrie.config.storage_adapter = :memory
+  end
+
   config.around(:example, :metadata_adapter) do |example|
     Valkyrie.config.metadata_adapter = example.metadata[:metadata_adapter]
     example.run

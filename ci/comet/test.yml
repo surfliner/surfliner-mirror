@@ -72,7 +72,7 @@ comet:test:unit:
           curl -s --location --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/jobs/${job_id}/artifacts/comet-solr-config.tar.gz" | tar -xzv -C /tmp;
           /opt/bitnami/scripts/solr/entrypoint.sh /opt/bitnami/scripts/solr/run.sh;
   script:
-    - bundle exec rspec --tag ~type:system --tag ~rabbitmq
+    - bundle exec rspec --tag ~type:system --tag ~rabbitmq --tag ~integration
 
 comet:test:system:
   extends: .comet:test
@@ -121,7 +121,7 @@ comet:test:system:
   script:
     - >
       if ./scripts/rabbitmq-wait; then
-        bundle exec rspec --tag type:system
+        bundle exec rspec --tag type:system --tag rabbitmq --tag integration
       else
         echo "Timed out waiting for rabbitmq connection"
         exit 1

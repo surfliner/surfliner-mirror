@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe CustomQueries::FindFileMetadata, metadata_adapter: :comet_metadata_store, storage_adapter: :repository_s3 do
+RSpec.describe CustomQueries::FindFileMetadata, :integration do
   subject(:query_handler) { described_class.new(query_service: query_service) }
   let(:query_service) { Valkyrie::MetadataAdapter.find(:comet_metadata_store).query_service }
 
