@@ -6,7 +6,7 @@ ARG PROJECTPATH=lark-ui
 ARG DOCKERROOT=/home/${PROJECTPATH}
 ENV PATH="$DOCKERROOT/scripts:$PATH"
 
-RUN apk --no-cache upgrade && apk --no-cache add \
+RUN apk --no-cache add \
   curl \
   libxml2-dev \
   libxslt-dev \
@@ -25,7 +25,7 @@ FROM base as development
 ARG PROJECTPATH=lark-ui
 ARG DOCKERROOT=/home/${PROJECTPATH}
 
-RUN apk --no-cache upgrade && apk --no-cache add \
+RUN apk --no-cache add \
   build-base
 
 RUN gem update bundler && \
