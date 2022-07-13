@@ -13,6 +13,10 @@ module Starlight
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
+    # Temporarily use_yaml_unsafe_load
+    # see: https://discuss.rubyonrails.org/t/cve-2022-32224-possible-rce-escalation-bug-with-serialized-columns-in-active-record/81017/1
+    config.active_record.use_yaml_unsafe_load = true
+
     config.action_mailer.default_url_options = { host: URI.parse(ENV.fetch("APP_URL")).hostname,
                                                  protocol: URI.parse(ENV.fetch("APP_URL")).scheme, }
     config.action_mailer.delivery_method = ENV.fetch("DELIVERY_METHOD", "").to_sym
