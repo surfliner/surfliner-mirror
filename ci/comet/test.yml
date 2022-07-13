@@ -20,10 +20,15 @@ comet:test:solrconfig:
   variables:
     AUTH_METHOD: "developer"
     CAPYBARA_PORT: 3010
-    DATABASE_URL: "postgres://postgres:postgres@localhost/comet-test"
+    DB_HOST: "postgres"
+    DB_PASSWORD: "postgres"
+    DB_PORT: 5432
+    DB_USERNAME: "postgres"
+    DATABASE_URL: "postgres://postgres:postgres@postgres/comet-test"
     DISCOVER_PLATFORM_TIDEWATER_URL_BASE: "http://localhost:3000/tidewater/item?source_iri="
     METADATA_API_URL_BASE: "http://localhost:3000/concern/generic_objects"
-    POSTGRES_DB: "comet-test"
+    METADATA_DATABASE_NAME: "comet-metadata-test"
+    POSTGRES_DB: "comet-metadata-test"
     POSTGRES_PASSWORD: "postgres"
     POSTGRES_USER: "postgres"
     RABBITMQ_ENABLED: "false"
@@ -45,7 +50,8 @@ comet:test:solrconfig:
   before_script:
     - cd /app/samvera/hyrax-webapp
     - solr-core-wait.sh
-    - RABBITMQ_ENABLED=0 db-wait.sh "postgres:5432" rake db:create db:migrate
+    - RABBITMQ_ENABLED=0 db-migrate-seed.sh
+
   rules:
     - !reference [.comet-mr-rules, rules]
     - !reference [.comet-default-branch-rules, rules]

@@ -7,7 +7,7 @@ require "valkyrie/shrine/checksum/s3"
 # skip much of this setup if we're just building the app image
 building = (ENV["DB_ADAPTER"] == "nulldb")
 
-if building || Rails.env.test?
+if building
   Valkyrie::MetadataAdapter
     .register(Valkyrie::Persistence::Memory::MetadataAdapter.new,
       :comet_metadata_store)
