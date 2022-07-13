@@ -22,3 +22,37 @@ superskunk:deploy:ucsb-prod:
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
       --values charts/snippets/superskunk/ucsb/prod.yml
+
+superskunk:deploy:ucsd-prod:
+  extends:
+    - .superskunk:deploy:prod
+  script:
+    - deploy ./charts/superskunk
+  environment:
+    name: ucsd.staging.superskunk
+    url: http://lib-exhibits-staging.ucsd.edu/
+    on_stop: superskunk:cleanup:ucsd-prod
+  tags:
+    - ucsd
+  variables:
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --values charts/snippets/superskunk/staging/ucsd.yaml
+
+superskunk:cleanup:ucsd-prod:
+  extends:
+    - .superskunk:deploy:prod
+  environment:
+    name: ucsd.staging.superskunk
+    action: stop
+  tags:
+    - ucsd
+  when: manual
+  allow_failure: true
+  variables:
+    GIT_STRATEGY: none
+    HELM_RELEASE_NAME: surfliner-superskunk-prod
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+  script:
+    - delete
+    - delete_stateful_set_pvcs

@@ -37,3 +37,37 @@ superskunk:cleanup:ucsb-stage:
   script:
     - delete
     - delete_stateful_set_pvcs
+
+superskunk:deploy:ucsd-stage:
+  extends:
+    - .superskunk:deploy:stage
+  script:
+    - deploy ./charts/superskunk
+  environment:
+    name: ucsd.staging.superskunk
+    url: http://lib-exhibits-staging.ucsd.edu/
+    on_stop: superskunk:cleanup:ucsd-stage
+  tags:
+    - ucsd
+  variables:
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --values charts/snippets/superskunk/staging/ucsd.yaml
+
+superskunk:cleanup:ucsd-stage:
+  extends:
+    - .superskunk:deploy:stage
+  environment:
+    name: ucsd.staging.superskunk
+    action: stop
+  tags:
+    - ucsd
+  when: manual
+  allow_failure: true
+  variables:
+    GIT_STRATEGY: none
+    HELM_RELEASE_NAME: surfliner-superskunk-stage
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+  script:
+    - delete
+    - delete_stateful_set_pvcs
