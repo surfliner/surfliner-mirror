@@ -205,6 +205,8 @@ en:
           work_confirmation: Deleting an Object is permanent.
         facet_label:
           works: "Filter Objects:"
+        works: Objects
+        your_works: Your Objects
       heading:
         work:
           visibility: Visibility
@@ -224,6 +226,13 @@ en:
         title: Explore Projects
     institution_name: Surfliner
     institution_name_full: Project Surfliner, University of California
+    my:
+      count:
+        works:
+          in_repo: "<strong>%{total_count} Objects</strong> in the repository"
+          works_listing: Objects listing
+          you_manage:  "<strong>%{total_count} Objects</strong> you can manage"
+          you_own: "<strong>%{total_count} Objects</strong> you own"
     product_name: Comet
     product_twitter_handle: "@SamveraRepo"
     works:
