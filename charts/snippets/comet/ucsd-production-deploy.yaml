@@ -8,6 +8,16 @@ ingress:
     - hosts:
         - lib-comet.ucsd.edu
       secretName: tls-secret
+
+postgresql:
+  enabled: false
+
+externalPostgresql:
+  database: comet-staging
+  host: lib-comet-staging.ucsd.edu
+  username: comet
+  password: dDA2emhQRExLNDNsVFZL
+
 extraEnvVars:
   - name: "AUTH_METHOD"
     value: "google"
@@ -26,6 +36,8 @@ extraEnvFrom:
       name: comet-production-oauth
   - secretRef:
       name: comet-production-ezid-credentials
+  - secretRef:
+      name: comet-postgres
 worker:
   extraEnvVars:
     - name: "AUTH_METHOD"
@@ -45,6 +57,8 @@ worker:
         name: comet-production-oauth
     - secretRef:
         name: comet-production-ezid-credentials
+    - secretRef:
+        name: comet-postgres
 
 brandingVolume:
   storageClass: nfs-client
