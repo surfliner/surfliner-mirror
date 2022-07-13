@@ -5,8 +5,7 @@ FROM ruby:$RUBY_VERSION-alpine as tidewater
 ARG PROJECTPATH=tidewater
 ARG DOCKERROOT=/home/${PROJECTPATH}
 
-RUN apk --no-cache upgrade && \
-  apk add --no-cache \
+RUN apk add --no-cache \
   build-base \
   curl \
   gcompat \
