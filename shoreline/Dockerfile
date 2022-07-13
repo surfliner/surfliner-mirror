@@ -13,8 +13,7 @@ WORKDIR ${DOCKER_PROJECT}
 # ENV PATH="$DOCKERROOT/scripts:$PATH"
 
 # build-time dependencies only
-RUN apk --no-cache upgrade && \
-  apk --no-cache add \
+RUN apk --no-cache add \
   build-base \
   libxml2-dev \
   libxslt-dev \
@@ -52,8 +51,7 @@ ARG DOCKER_PROJECT=${DOCKER_ROOT}/app
 WORKDIR ${DOCKER_PROJECT}
 
 # run-time dependencies only
-RUN apk --no-cache upgrade && \
-  apk --no-cache add \
+RUN apk --no-cache add \
   curl \
   libpq \
   nodejs \
@@ -89,8 +87,7 @@ ARG LOCAL_PROJECT=shoreline
 ARG DOCKER_ROOT=/home/${LOCAL_PROJECT}
 ARG DOCKER_PROJECT=${DOCKER_ROOT}/app
 
-RUN apk --no-cache upgrade && \
-  apk --no-cache add \
+RUN apk --no-cache add \
   curl \
   less \
   libpq \
