@@ -12,10 +12,15 @@ data:
   CANTALOUPE_CACHE_SERVER_PURGE_MISSING: {{ .Values.cantaloupe.cacheServer.purgeMissing | quote }}
   CANTALOUPE_PROCESSOR_SELECTION_STRATEGY: {{ .Values.cantaloupe.processorSelectionStrategy }}
   CANTALOUPE_MANUAL_PROCESSOR_JP2: {{ .Values.cantaloupe.manualProcessorJP2 }}
-  CANTALOUPE_S3CACHE_ENDPOINT: {{ .Values.cantaloupe.s3.cache.endpoint }}
   CANTALOUPE_S3CACHE_BUCKET_NAME: {{ .Values.cantaloupe.s3.cache.bucketName }}
   CANTALOUPE_S3SOURCE_BASICLOOKUPSTRATEGY_BUCKET_NAME: {{ .Values.cantaloupe.s3.source.bucketName }}
-  CANTALOUPE_S3SOURCE_ENDPOINT: {{ .Values.cantaloupe.s3.source.endpoint }}
   CANTALOUPE_S3SOURCE_BASICLOOKUPSTRATEGY_PATH_SUFFIX: {{ .Values.cantaloupe.s3.source.basicLookupStrategyPathSuffix | quote }}
   CANTALOUPE_SOURCE_STATIC: {{ .Values.cantaloupe.sourceStatic }}
   JAVA_HEAP_SIZE: {{ .Values.cantaloupe.java.heapSize }}
+  {{- if .Values.minio.enabled }}
+  CANTALOUPE_S3SOURCE_ENDPOINT: http://{{ template "orange-empire.minio.fullname" . }}:9000
+  CANTALOUPE_S3CACHE_ENDPOINT: http://{{ template "orange-empire.minio.fullname" . }}:9000
+  {{- else }}
+  CANTALOUPE_S3SOURCE_ENDPOINT: {{ .Values.cantaloupe.s3.source.endpoint }}
+  CANTALOUPE_S3CACHE_ENDPOINT: {{ .Values.cantaloupe.s3.cache.endpoint }}
+  {{- end }}

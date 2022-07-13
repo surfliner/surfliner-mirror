@@ -31,16 +31,14 @@ cantaloupe:
     heapSize: 1g
   s3:
     cache:
-      accessKeyId: access-key
-      bucketName: yourcachebucket
-      endpoint: s3-bucket-endpoint
-      secretKey: secret-key
+      accessKeyId: cantaloupe-access-key
+      bucketName: cantaloupe-cache
+      secretKey: cantaloupe-secret
     source:
-      accessKeyId: access-key
+      accessKeyId: cantaloupe-access-key
+      bucketName: cantaloupe-source
       basicLookupStrategyPathSuffix: "" #.jpx
-      bucketName: yoursourcebucket
-      endpoint: s3-bucket-endpoint
-      secretKey: secret-key
+      secretKey: cantaloupe-secret
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -107,3 +105,18 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+# Configuration for minio chart
+# This is currently only used for Review applications in CI/CD pipelines
+# see: https://github.com/bitnami/charts/blob/master/bitnami/minio/README.md
+minio:
+  enabled: true
+  defaultBuckets: cantaloupe-source:download,cantaloupe-cache:public
+  auth:
+    rootUser: cantaloupe-access-key
+    rootPassword: cantaloupe-secret
+  persistence:
+    enabled: false
+  image:
+    repository: bitnami/minio
+    tag: 2022.7.8-debian-11-r1
