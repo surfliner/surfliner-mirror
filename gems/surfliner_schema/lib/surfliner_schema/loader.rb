@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "surfliner_schema/reader"
 require "yaml"
 
 module SurflinerSchema

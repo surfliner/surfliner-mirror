@@ -17,8 +17,9 @@ describe SurflinerSchema::Reader::SimpleSchema do
     let(:reader) { loader.readers[0] }
 
     it "#form_options" do
-      expect(reader.form_options.keys).to eq [:title]
-      expect(reader.form_options[:title]).to include(
+      form_options = reader.form_options(availability: :generic_object)
+      expect(form_options.keys).to eq [:title]
+      expect(form_options[:title]).to include(
         required: true,
         primary: true,
         multiple: false
@@ -26,14 +27,15 @@ describe SurflinerSchema::Reader::SimpleSchema do
     end
 
     it "#indices" do
-      expect(reader.indices.keys).to contain_exactly(
+      indices = reader.indices(availability: :generic_object)
+      expect(indices.keys).to contain_exactly(
         :title_sim,
         :title_tsim,
         :title_tesim
       )
-      expect(reader.indices[:title_sim].name).to eq :title
-      expect(reader.indices[:title_tsim].name).to eq :title
-      expect(reader.indices[:title_tesim].name).to eq :title
+      expect(indices[:title_sim].name).to eq :title
+      expect(indices[:title_tsim].name).to eq :title
+      expect(indices[:title_tesim].name).to eq :title
     end
   end
 end

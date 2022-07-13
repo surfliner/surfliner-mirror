@@ -49,7 +49,7 @@ describe SurflinerSchema::Loader do
     it "#attributes_for" do
       # is there a better way of checking this?
       typestr = Valkyrie::Types::Set.of(
-        Valkyrie::Types.Instance(RDF::Literal)
+        Valkyrie::Types.Constructor(RDF::Literal)
       ).to_s
       expect(loader.struct_attributes_for(:generic_object).transform_values(&:to_s)).to include(
         **{
