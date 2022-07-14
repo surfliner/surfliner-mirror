@@ -53,17 +53,18 @@ RSpec.describe "Collections", type: :system, js: true do
       collection.permission_manager.edit_users += [user.user_key]
       collection.permission_manager.acl.save
 
-      Hyrax::Collections::CollectionMemberService.add_members_by_ids(collection_id: collection.id,
-        new_member_ids: [nested_collection.id, another_nested_collection.id],
-        user: user)
+      collection.member_of_collection_ids = [nested_collection.id, another_nested_collection.id]
 
+      Hyrax.persister.save(resource: collection)
       Hyrax.index_adapter.save(resource: collection)
+      Hyrax.index_adapter.save(resource: nested_collection)
+      Hyrax.index_adapter.save(resource: another_nested_collection)
 
       sign_in(user)
     }
 
     it "shows the nested collection" do
-      visit visit "/dashboard/collections/#{collection.id}"
+      visit "/dashboard/collections/#{collection.id}"
 
       expect(page).to have_content("Test Collection")
       expect(page).to have_content("Nested Collection")
