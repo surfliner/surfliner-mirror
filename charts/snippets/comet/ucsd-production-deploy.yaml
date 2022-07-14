@@ -13,8 +13,8 @@ postgresql:
   enabled: false
 
 externalPostgresql:
-  database: comet-staging
-  host: lib-comet-staging.ucsd.edu
+  database: comet
+  host: lib-psql-prod.ucsd.edu
   username: comet
 
 extraEnvVars:

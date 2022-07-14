@@ -29,21 +29,21 @@ superskunk:deploy:ucsd-prod:
   script:
     - deploy ./charts/superskunk
   environment:
-    name: ucsd.staging.superskunk
-    url: http://lib-exhibits-staging.ucsd.edu/
+    name: ucsd.prod.superskunk
+    url: http://lib-superskunk-prod.ucsd.edu/
     on_stop: superskunk:cleanup:ucsd-prod
   tags:
     - ucsd
   variables:
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
     HELM_UPGRADE_EXTRA_ARGS: >
-      --values charts/snippets/superskunk/staging/ucsd.yaml
+      --values charts/snippets/superskunk/prod/ucsd.yaml
 
 superskunk:cleanup:ucsd-prod:
   extends:
     - .superskunk:deploy:prod
   environment:
-    name: ucsd.staging.superskunk
+    name: ucsd.prod.superskunk
     action: stop
   tags:
     - ucsd

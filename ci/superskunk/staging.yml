@@ -45,7 +45,7 @@ superskunk:deploy:ucsd-stage:
     - deploy ./charts/superskunk
   environment:
     name: ucsd.staging.superskunk
-    url: http://lib-exhibits-staging.ucsd.edu/
+    url: http://lib-superskunk-staging.ucsd.edu/
     on_stop: superskunk:cleanup:ucsd-stage
   tags:
     - ucsd
