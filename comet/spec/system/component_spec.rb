@@ -22,6 +22,13 @@ RSpec.describe "Components", type: :system, js: true do
     click_on("Save")
 
     reloaded = Hyrax.query_service.find_by(id: parent_object.id)
+
+    5.times do # if `Save` takes a few seconds, that's okay.
+      break if reloaded.member_ids.any?
+      sleep(1)
+      reloaded = Hyrax.query_service.find_by(id: parent_object.id)
+    end
+    # keep this expectation for a clear error message if the loop fails
     expect(reloaded.member_ids).not_to be_empty
 
     component = Hyrax.query_service.find_by(id: reloaded.member_ids.first)
