@@ -5,6 +5,7 @@
   variables:
     HELM_RELEASE_NAME: surfliner-orange-empire-$CI_MERGE_REQUEST_ID
     KUBE_NAMESPACE: orange-empire-review
+  needs: []
   rules:
     - !reference [.orange-empire-mr-rules, rules]
 
