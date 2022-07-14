@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "rails_helper"
 require "hyrax/specs/spy_listener"
 
 RSpec.describe InlineUploadHandler, storage_adapter: :memory do
@@ -52,6 +53,39 @@ RSpec.describe InlineUploadHandler, storage_adapter: :memory do
 
         expect(Hyrax.custom_queries.find_child_file_sets(resource: object))
           .to contain_exactly(be_persisted, be_persisted)
+      end
+
+      it "publishes an object.file.uploaded event for each file" do
+        expect { service.attach }
+          .to change { listener.object_file_uploaded.map(&:payload) }
+          .from(be_empty)
+          .to contain_exactly(include(metadata: an_instance_of(Hyrax::FileMetadata)),
+            include(metadata: an_instance_of(Hyrax::FileMetadata)))
+      end
+
+      it "publishes an object.metadata.updated event for each file set, plus the parent" do
+        expect { service.attach }
+          .to change { listener.object_metadata_updated.map(&:payload) }
+          .from(be_empty)
+          .to contain_exactly(include(object: object, user: user),
+            include(object: an_instance_of(Hyrax::FileSet), user: user),
+            include(object: an_instance_of(Hyrax::FileSet), user: user))
+      end
+
+      it "publishes file_set.attached events" do
+        expect { service.attach }
+          .to change { listener.file_set_attached.map(&:payload) }
+          .from(be_empty)
+          .to contain_exactly(include(file_set: an_instance_of(Hyrax::FileSet)),
+            include(file_set: an_instance_of(Hyrax::FileSet)))
+      end
+
+      it "publishes file_metadata.updated events" do
+        expect { service.attach }
+          .to change { listener.file_metadata_updated.map(&:payload) }
+          .from(be_empty)
+          .to contain_exactly(include(metadata: an_instance_of(Hyrax::FileMetadata), user: user),
+            include(metadata: an_instance_of(Hyrax::FileMetadata), user: user))
       end
     end
   end
