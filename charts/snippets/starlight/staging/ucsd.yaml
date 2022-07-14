@@ -7,6 +7,10 @@ ingress:
     - hosts:
         - exhibits-staging.ucsd.edu
       secretName: tls-secret
+
+serviceAccount:
+  name: starlight
+
 vaultSecret:
   enabled: true
   annotations:
