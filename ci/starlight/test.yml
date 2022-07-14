@@ -5,6 +5,8 @@ starlight:test:solrconfig:
   rules:
     - !reference [.starlight-mr-rules, rules]
     - !reference [.starlight-default-branch-rules, rules]
+  before_script:
+    - apk add tar
   script:
     - tar -zcf starlight-solr-config.tar.gz starlight/solr
   artifacts:
@@ -53,10 +55,12 @@ starlight:test:solrconfig:
         - /bin/sh
         - -c
         - >-
-          curl -s -L --output /tmp/jq "https://github.com/stedolan/jq/releases/download/$JQ_VERSION/jq-linux64";
+          curl -v -L --output /tmp/jq "https://github.com/stedolan/jq/releases/download/$JQ_VERSION/jq-linux64";
           chmod +x /tmp/jq;
           job_id=$(curl -s --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/pipelines/${CI_PIPELINE_ID}/jobs?scope[]=success" | /tmp/jq '.[] | select(.name == "starlight:test:solrconfig").id');
-          curl -s --location --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/jobs/${job_id}/artifacts/starlight-solr-config.tar.gz" | tar -xzv -C /tmp;
+          echo "JOB ID for solrconfig is $job_id";
+          echo curl --location -v --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/jobs/${job_id}/artifacts/starlight-solr-config.tar.gz";
+          curl -v --location --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/jobs/${job_id}/artifacts/starlight-solr-config.tar.gz" | tar -xzv -C /tmp;
           /opt/bitnami/scripts/solr/entrypoint.sh /opt/bitnami/scripts/solr/run.sh;
 
   before_script:
