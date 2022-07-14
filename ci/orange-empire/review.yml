@@ -1,0 +1,82 @@
+.orange-empire:deploy:review:
+  stage: review
+  extends:
+    - .helm3-deploy
+  variables:
+    HELM_RELEASE_NAME: surfliner-orange-empire-$CI_MERGE_REQUEST_ID
+    KUBE_NAMESPACE: orange-empire-review
+  rules:
+    - !reference [.orange-empire-mr-rules, rules]
+
+orange-empire:deploy:ucsd-review:
+  extends:
+    - .orange-empire:deploy:review
+  environment:
+    name: ucsd.orange-empire.review/$CI_MERGE_REQUEST_ID
+    url: http://orange-empire-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
+    on_stop: orange-empire:cleanup:ucsd-review
+    auto_stop_in: 1 week
+  tags:
+    - ucsd
+  variables:
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --set ingress.hosts[0].host=orange-empire-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
+      --set ingress.hosts[0].paths[0].path=/
+      --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
+  script:
+    - deploy ./charts/orange-empire
+    - run_chart_tests
+
+orange-empire:cleanup:ucsd-review:
+  extends:
+    - .orange-empire:deploy:review
+  environment:
+    name: ucsd.orange-empire.review/$CI_MERGE_REQUEST_ID
+    url: http://orange-empire-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
+    action: stop
+  tags:
+    - ucsd
+  when: manual
+  allow_failure: true
+  variables:
+    GIT_STRATEGY: none
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
+  script:
+    - delete
+    - delete_stateful_set_pvcs
+
+orange-empire:deploy:ucsb-review:
+  extends:
+    - .helm3-deploy
+    - .orange-empire:deploy:review
+  script:
+    - deploy ./charts/orange-empire
+    - run_chart_tests
+  environment:
+    name: ucsb.review.orange-empire
+    url: http://orange-empire-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
+    on_stop: orange-empire:cleanup:ucsb-review
+    auto_stop_in: 4 days
+  variables:
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --set ingress.hosts[0].host=orange-empire-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
+      --set ingress.hosts[0].paths[0].path=/
+      --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
+      --set ingress.tls[0].hosts[0]=orange-empire-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
+      --set ingress.tls[0].secretName=orange-empire-review-$CI_MERGE_REQUEST_ID
+
+orange-empire:cleanup:ucsb-review:
+  extends:
+    - .helm3-deploy
+    - .orange-empire:deploy:review
+  environment:
+    name: ucsb.review.orange-empire
+    action: stop
+  when: manual
+  allow_failure: true
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - delete
+    - delete_stateful_set_pvcs

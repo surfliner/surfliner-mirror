@@ -1,0 +1,23 @@
+include:
+  - local: ci/orange-empire/review.yml
+
+.only-orange-empire-changes: &only-orange-empire-changes
+  changes:
+    - .gitlab-ci.yml
+    - charts/snippets/surfliner/**/*
+    - charts/snippets/orange-empire/**/*
+    - charts/orange-empire/**/*
+    - ci/orange-empire/**/*
+    - ci/orange-empire.yml
+    - orange-empire/**/*
+
+.orange-empire-mr-rules:
+  rules:
+    - if: '$CI_MERGE_REQUEST_LABELS =~ /orange-empire/'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      << : *only-orange-empire-changes
+
+.orange-empire-default-branch-rules:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      << : *only-orange-empire-changes

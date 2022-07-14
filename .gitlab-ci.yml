@@ -85,13 +85,24 @@ include:
       first_release="yes"
       echo "Deploying initial release: $HELM_RELEASE_NAME..."
     fi
+
+    image_param=""
+    if [ "$DEPLOY_IMAGE" ]; then
+      image_param="--set image.repository=$DEPLOY_IMAGE"
+    fi
+
+    tag_param=""
+    if [ "$DEPLOY_TAG" ]; then
+      tag_param="--set image.tag=$DEPLOY_TAG"
+    fi
+
     helm upgrade \
         --install \
         --atomic \
         --timeout 15m0s \
         --debug \
-        --set image.repository="$DEPLOY_IMAGE" \
-        --set image.tag="$DEPLOY_TAG" \
+        $image_param \
+        $tag_param \
         $HELM_UPGRADE_FILE_VALUES_ARGS \
         $HELM_UPGRADE_EXTRA_ARGS \
         --namespace="$KUBE_NAMESPACE" \
