@@ -21,6 +21,10 @@ module Shoreline
       config.logger = ActiveSupport::TaggedLogging.new(logger)
     end
 
+    # Temporarily use_yaml_unsafe_load
+    # see: https://discuss.rubyonrails.org/t/cve-2022-32224-possible-rce-escalation-bug-with-serialized-columns-in-active-record/81017/1
+    config.active_record.use_yaml_unsafe_load = true
+
     config.action_mailer.delivery_method = ENV.fetch("DELIVERY_METHOD", "letter_opener_web").to_sym
     config.action_mailer.default_url_options = {host: URI.parse(ENV.fetch("APP_URL", "")).hostname,
                                                  protocol: URI.parse(ENV.fetch("APP_URL", "")).scheme}
