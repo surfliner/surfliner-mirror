@@ -16,7 +16,6 @@ externalPostgresql:
   database: comet-staging
   host: lib-comet-staging.ucsd.edu
   username: comet
-  password: dDA2emhQRExLNDNsVFZL
 
 extraEnvVars:
   - name: "AUTH_METHOD"
