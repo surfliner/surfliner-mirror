@@ -5,6 +5,8 @@ shoreline:test:solrconfig:
   extends:
     - .only-refs-default
     - .only-shoreline-changes
+  before_script:
+    - apk add tar
   script:
     - tar -zcf shoreline-solr-config.tar.gz shoreline/solr
   artifacts:
