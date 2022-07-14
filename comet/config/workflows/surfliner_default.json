@@ -50,7 +50,8 @@
                     "methods": [
                         "Hyrax::Workflow::GrantReadToDepositor",
                         "Hyrax::Workflow::RevokeEditFromDepositor",
-                        "Hyrax::Workflow::ActivateObject"
+                        "Hyrax::Workflow::ActivateObject",
+                        "Hyrax::Workflow::MintARKForObject"
                     ]
                 }, {
                     "name": "request_review",
