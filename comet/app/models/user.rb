@@ -41,6 +41,6 @@ class User < ApplicationRecord
   # model will have a `password`.
   def self.find_or_create_system_user(user_key)
     User.find_by_user_key(user_key) ||
-      User.find_or_create_by!( Hydra.config.user_key_field => user_key, :provider => Devise.omniauth_providers.first)
+      User.find_or_create_by!(Hydra.config.user_key_field => user_key, :provider => Devise.omniauth_providers.first)
   end
 end
