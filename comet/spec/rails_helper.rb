@@ -6,7 +6,7 @@ require "equivalent-xml"
 require "equivalent-xml/rspec_matchers"
 require "spec_helper"
 
-ENV["RAILS_ENV"] ||= "test"
+ENV["RAILS_ENV"] = "test"
 ENV["DATABASE_URL"] = ENV["DATABASE_TEST_URL"] ||
   ENV["DATABASE_URL"].gsub("hyrax?pool", "hyrax-test?pool")
 
@@ -22,8 +22,7 @@ Dir[Rails.root.join("spec", "support", "**", "*.rb")].sort.each { |f| require f 
 ActiveJob::Base.queue_adapter = :test
 
 begin
-  db_config = ActiveRecord::Base.configurations[ENV["RAILS_ENV"]]
-  ActiveRecord::Tasks::DatabaseTasks.create(db_config)
+  ActiveRecord::Tasks::DatabaseTasks.create_current
   ActiveRecord::Migrator.migrations_paths = [Pathname.new(ENV["RAILS_ROOT"]).join("db", "migrate").to_s]
   ActiveRecord::Tasks::DatabaseTasks.migrate
   ActiveRecord::Base.descendants.each(&:reset_column_information)
