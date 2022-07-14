@@ -14,6 +14,9 @@ postgresql:
 vaultSecret:
   enabled: true
 
+serviceAccount:
+  name: superskunk
+
 podAnnotations:
   vault.hashicorp.com/agent-pre-populate-only: 'true'
   vault.hashicorp.com/agent-inject: 'true'
