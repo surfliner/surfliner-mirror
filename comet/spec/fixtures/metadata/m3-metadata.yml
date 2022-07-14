@@ -1,0 +1,78 @@
+m3_version: "1.0.beta1"
+
+mappings:
+  dpla:
+    name: Digital Public Library of America
+  dc:
+    name: Dublin Core
+
+classes:
+  generic_object:
+    display_label: "Generic Object"
+
+# Property Definitions
+
+properties:
+  language:
+    display_label:
+      default: "Language"
+    definition:
+      default: "Language(s) of described resource."
+    requirement: recommended
+    controlled_values:
+      format:  http://www.w3.org/2001/XMLSchema#anyURI
+      sources:
+        - http://id.loc.gov/vocabulary/iso639-2
+    sample_value:
+      - "French"
+    property_uri: http://purl.org/dc/elements/1.1/language
+    available_on:
+      class:
+        - generic_object
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    cardinality:
+      minimum: 0
+    index_documentation: "Language should be indexed as searchable, displayable, and facetable."
+#     indexing: a list of dynamic field names, taken from a controlled list;
+#       Choose a value from this list.
+#         displayable - store as string, multi-valued
+#         facetable - index as a string, multi-valued
+#         searchable - index the specific data type, multi-valued
+#         sortable - index the specific data type
+#         stored_searchable - index and store the specific data type, multi-valued
+#         stored_sortable - index and store as string
+#         symbol - index and store as string, multi-valued
+#         fulltext_searchable - index as text, multi-valued with termVectors if enabled
+    mapping:
+      dpla: "http://purl.org/dc/terms/language"
+
+  title_alternative:
+    display_label:
+      default: "Alternative title"
+    definition:
+      default: "Alternative or other additional title for the resource."
+    requirement: recommended, if applicable
+    sample_value:
+      - "There and Back Again"
+    property_uri: http://purl.org/dc/terms/alternative
+    available_on:
+      class:
+        - generic_object
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    cardinality:
+      minimum: 0
+    index_documentation: "Alternative title should be indexed as searchable and displayable."
+#     indexing: a list of dynamic field names, taken from a controlled list;
+#       Choose a value from this list.
+#         displayable - store as string, multi-valued
+#         facetable - index as a string, multi-valued
+#         searchable - index the specific data type, multi-valued
+#         sortable - index the specific data type
+#         stored_searchable - index and store the specific data type, multi-valued
+#         stored_sortable - index and store as string
+#         symbol - index and store as string, multi-valued
+#         fulltext_searchable - index as text, multi-valued with termVectors if enabled
+    mapping:
+      dpla: "http://purl.org/dc/terms/alternative"
