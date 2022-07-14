@@ -5,6 +5,8 @@ lark:test:solrconfig:
   extends:
     - .only-refs-default
     - .only-lark-changes
+  before_script:
+    - apk add tar
   script:
     - tar -zcf lark-solr-config.tar.gz lark/solr
   artifacts:
