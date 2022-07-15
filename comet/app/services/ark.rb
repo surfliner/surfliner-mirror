@@ -12,6 +12,7 @@ module ARK
     saved = Hyrax.persister.save(resource: obj)
 
     Hyrax.publisher.publish("object.metadata.updated", object: saved, user: User.system_user)
+    saved
   end
 
   # @param [Hyrax::Work] work
