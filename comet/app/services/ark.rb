@@ -9,7 +9,9 @@ module ARK
 
     # don't rescue, we want errors to halt everything
     obj.ark = Ezid::Identifier.mint
-    Hyrax.persister.save(resource: obj)
+    saved = Hyrax.persister.save(resource: obj)
+
+    Hyrax.publisher.publish('object.metadata.updated', object: saved, user: User.system_user)
   end
 
   # @param [Hyrax::Work] work
