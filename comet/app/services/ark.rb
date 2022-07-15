@@ -11,7 +11,7 @@ module ARK
     obj.ark = Ezid::Identifier.mint
     saved = Hyrax.persister.save(resource: obj)
 
-    Hyrax.publisher.publish('object.metadata.updated', object: saved, user: User.system_user)
+    Hyrax.publisher.publish("object.metadata.updated", object: saved, user: User.system_user)
   end
 
   # @param [Hyrax::Work] work
