@@ -2,8 +2,8 @@ Capybara.register_driver :selenium_standalone_chrome_headless_sandboxless do |ap
   Capybara::Selenium::Driver.new(
     app,
     browser: :remote,
-    desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(
-      chromeOptions: {
+    capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(
+      "goog:chromeOptions" => {
         args: %w[disable-gpu no-sandbox whitelisted-ips disable-dev-shm-usage headless window-size=1440,1440]
       }
     ),
