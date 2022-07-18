@@ -102,6 +102,7 @@ comet:test:system:
     RABBITMQ_USERNAME: "user"
     RAILS_LOG_TO_STDOUT: "false"
     REPOSITORY_S3_BUCKET: "comet-test-bucket"
+    SE_NODE_SESSION_TIMEOUT: 1200
     STAGING_AREA_S3_BUCKET: "comet-staging-area-test"
   services:
     - name: bitnami/postgresql:14.4.0-debian-11-r5
