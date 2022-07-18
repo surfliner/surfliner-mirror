@@ -6,6 +6,8 @@ request:
   headers:
     Accept:
     - application/ld+json;profile="tag:surfliner.gitlab.io,2022:api/oai_dc"
+    User-Agent:
+    - surfliner.tidewater
   path: "/example:cs/0112017"
 response:
   statusCode: 200
