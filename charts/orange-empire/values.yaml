@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: uclalibrary/cantaloupe
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: 5.0.5-1
 
@@ -30,6 +30,7 @@ cantaloupe:
   java:
     heapSize: 1g
   s3:
+    sampleData: true
     cache:
       accessKeyId: cantaloupe-access-key
       bucketName: cantaloupe-cache
