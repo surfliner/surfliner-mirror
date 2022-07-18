@@ -62,6 +62,7 @@ RSpec.describe Hyrax::DownloadsController, :integration do
         it "downloads the original by default" do
           get :show, params: {id: file_set.id}
 
+          file.rewind
           expect(response.body).to eq "moomin picture"
         end
 
@@ -74,8 +75,8 @@ RSpec.describe Hyrax::DownloadsController, :integration do
         it "populates headers from selected file" do
           get :show, params: {id: file_set.id, use: "extracted_file"}
 
-          expect(response.headers)
-            .to include("Content-Disposition": "attachment; filename=moomin.txt")
+          expect(response.headers.values)
+            .to include("attachment; filename=moomin.txt")
         end
       end
     end
