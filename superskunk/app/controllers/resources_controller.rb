@@ -24,14 +24,17 @@ class ResourcesController < ApplicationController
     # Get the profile.
     begin
       @accept_reader = AcceptReader.new(request.headers["Accept"])
-      @profile = @accept_reader.best_jsonld_profile(supported_renderers.keys)
+      @profile = @accept_reader.best_jsonld_profile(ResourceSerializer.supported_profiles.keys)
     rescue AcceptReader::BadAcceptError
       return render_error text: "Bad Accept Header", status: 400
     end
 
     # Render the appropriate mapping.
-    @profile_mappings = mappings_for(@profile)
-    public_send supported_renderers[@profile] || :default_render
+    if @profile
+      profile_render
+    else
+      default_render
+    end
   end
 
   ##
@@ -42,38 +45,9 @@ class ResourcesController < ApplicationController
   end
 
   ##
-  # Render the resource as OAI∕DC.
-  def render_oai_dc
-    mapped = [
-      "contributor",
-      "coverage",
-      "creator",
-      "date",
-      "description",
-      "format",
-      "identifier",
-      "language",
-      "publisher",
-      "relation",
-      "rights",
-      "source",
-      "subject",
-      # "title" is skipped as it needs special handling below
-      "type"
-    ].each_with_object({}) do |term, json|
-      # OAI doesn’t support datatyping so everything should be cast to a string.
-      mapping = @profile_mappings["http://purl.org/dc/elements/1.1/#{term}"].to_a.map(&:to_s)
-      json[term] = mapping if mapping.size > 0
-    end
-    render json: {
-      "@context" => {
-        "@vocab" => "http://purl.org/dc/elements/1.1/",
-        "ore" => "http://www.openarchives.org/ore/terms/"
-      },
-      "@id" => "#{ENV["SUPERSKUNK_API_BASE"]}/resources/#{@model.id}",
-      "title" => @profile_mappings["http://purl.org/dc/elements/1.1/title"].to_a.map(&:to_s) + @model.title.to_a, # the Hyrax title is not mapped rn
-      **mapped
-    }
+  # Render a JSON-LD profile.
+  def profile_render
+    render json: ResourceSerializer.serialize(resource: @model, profile: @profile)
   end
 
   ##
@@ -88,28 +62,11 @@ class ResourcesController < ApplicationController
       render_error text: "Unknown Accept Type: #{request.headers["Accept"]}", status: 406
     else
       @profile = "tag:surfliner.gitlab.io,2022:api/oai_dc"
-      render_oai_dc
+      profile_render
     end
   end
 
   private
-
-  ##
-  # Provides a hash of strings to sets of mappings for the provided schema IRI.
-  def mappings_for(schema_iri)
-    @model.mapped_to(schema_iri)
-  end
-
-  ##
-  # Renderers supported for the given model.
-  def supported_renderers
-    case @model.internal_resource.to_sym
-    when :GenericObject
-      {"tag:surfliner.gitlab.io,2022:api/oai_dc" => :render_oai_dc}
-    else
-      {}
-    end
-  end
 
   ##
   # Set the Content-Type of the response appropriately.
