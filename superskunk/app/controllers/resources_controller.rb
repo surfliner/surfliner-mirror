@@ -4,6 +4,14 @@ class ResourcesController < ApplicationController
   after_action :set_content_type
 
   def show
+    # Get the discovery platform.
+    begin
+      @platform = DiscoveryPlatform.from_request(request)
+    rescue DiscoveryPlatform::AuthError
+      return render_error text: "Forbidden", status: 403
+    end
+
+    # Get the model.
     begin
       @model = GenericObject.new
       # Waiting for Access Controls before we allow this…
@@ -12,12 +20,16 @@ class ResourcesController < ApplicationController
     rescue Valkyrie::Persistence::ObjectNotFoundError
       return render_error text: "Not Found", status: 404
     end
+
+    # Get the profile.
     begin
       @accept_reader = AcceptReader.new(request.headers["Accept"])
       @profile = @accept_reader.best_jsonld_profile(supported_renderers.keys)
     rescue AcceptReader::BadAcceptError
       return render_error text: "Bad Accept Header", status: 400
     end
+
+    # Render the appropriate mapping.
     @profile_mappings = mappings_for(@profile)
     public_send supported_renderers[@profile] || :default_render
   end
