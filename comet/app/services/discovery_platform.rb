@@ -12,7 +12,11 @@
 # message queue topics and routing keys relevant to the platform, and the
 # agent that identifies the platform in ACLs.
 class DiscoveryPlatform
-  DISCOVERY_PLATFORM_GROUP_NAME_PREFIX = "surfliner"
+  DISCOVERY_PLATFORM_GROUP_NAME_PREFIX = "surfliner."
+
+  def self.group_name_prefix
+    DISCOVERY_PLATFORM_GROUP_NAME_PREFIX
+  end
 
   ##
   # @!attribute [rw] name
@@ -36,7 +40,7 @@ class DiscoveryPlatform
     return enum_for(:active_platforms_for, resource: resource) unless block_given?
 
     acl = Hyrax::AccessControlList.new(resource: resource)
-    group_prefix = "#{Hyrax::Group.name_prefix}#{DISCOVERY_PLATFORM_GROUP_NAME_PREFIX}:"
+    group_prefix = "#{Hyrax::Group.name_prefix}#{DISCOVERY_PLATFORM_GROUP_NAME_PREFIX}"
 
     acl.permissions.each do |permission|
       if permission.mode == :discover && permission.agent.starts_with?(group_prefix)
@@ -56,7 +60,7 @@ class DiscoveryPlatform
   #
   # @return [Hyrax::Group]
   def agent
-    Hyrax::Group.new("#{DISCOVERY_PLATFORM_GROUP_NAME_PREFIX}:#{name}")
+    Hyrax::Group.new("#{DISCOVERY_PLATFORM_GROUP_NAME_PREFIX}#{name}")
   end
 
   ##

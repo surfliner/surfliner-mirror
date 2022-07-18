@@ -32,9 +32,9 @@ RSpec.describe RabbitmqListener, :rabbitmq do
       it "changes the object ACLs to include :discover for tidewater" do
         expect { listener.on_collection_publish(event) }
           .to change { objects.map { |o| Hyrax::AccessControlList.new(resource: o).permissions } }
-          .to contain_exactly(include(have_attributes(mode: :discover, agent: "group/surfliner:tidewater")),
-            include(have_attributes(mode: :discover, agent: "group/surfliner:tidewater")),
-            include(have_attributes(mode: :discover, agent: "group/surfliner:tidewater")))
+          .to contain_exactly(include(have_attributes(mode: :discover, agent: "group/surfliner.tidewater")),
+            include(have_attributes(mode: :discover, agent: "group/surfliner.tidewater")),
+            include(have_attributes(mode: :discover, agent: "group/surfliner.tidewater")))
       end
     end
   end

@@ -22,7 +22,8 @@ class DiscoveryPlatformService
 
       [].tap do |pro|
         Hyrax::PermissionManager.new(resource: resource).discover_groups.each do |group|
-          platform_name = group.gsub("surfliner:", "")
+          next unless group.start_with?(DiscoveryPlatform.group_name_prefix)
+          platform_name = group.delete_prefix(DiscoveryPlatform.group_name_prefix)
           label_i18n_key = "discovery_platform.#{platform_name}.label"
           url_base = ENV.fetch("DISCOVER_PLATFORM_#{platform_name.upcase}_URL_BASE") { Rails.application.config.metadata_api_uri_base }
 

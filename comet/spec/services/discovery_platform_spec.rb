@@ -49,7 +49,7 @@ RSpec.describe DiscoveryPlatform do
     end
 
     it "has a group name" do
-      expect(platform.agent).to have_attributes name: "surfliner:tidewater"
+      expect(platform.agent).to have_attributes name: "surfliner.tidewater"
     end
   end
 
