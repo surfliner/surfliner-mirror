@@ -52,7 +52,7 @@ superskunk:deploy:ucsd-stage:
   variables:
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
     HELM_UPGRADE_EXTRA_ARGS: >
-      --values charts/snippets/superskunk/staging/ucsd.yaml
+      --values charts/snippets/superskunk/ucsd/staging.yaml
 
 superskunk:cleanup:ucsd-stage:
   extends:
