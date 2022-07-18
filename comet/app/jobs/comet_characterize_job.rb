@@ -6,6 +6,6 @@ class CometCharacterizeJob < Hyrax::ApplicationJob
   ##
   # @param [Hyrax::FileMetadata] metadata
   def perform(metadata)
-    Hyrax.config.characterization_service.run(metadata: metadata)
+    Hyrax.config.characterization_service.run(metadata: metadata, file: metadata.file)
   end
 end
