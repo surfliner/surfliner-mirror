@@ -37,7 +37,7 @@ superskunk:deploy:ucsd-prod:
   variables:
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
     HELM_UPGRADE_EXTRA_ARGS: >
-      --values charts/snippets/superskunk/prod/ucsd.yaml
+      --values charts/snippets/superskunk/prod/ucsd.yml
 
 superskunk:cleanup:ucsd-prod:
   extends:
