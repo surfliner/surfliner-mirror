@@ -22,6 +22,7 @@ comet:test:solrconfig:
   variables:
     AUTH_METHOD: "developer"
     CAPYBARA_PORT: 3010
+    DATABASE_COMMAND: "db:create db:migrate"
     DB_HOST: "postgres"
     DB_PASSWORD: "postgres"
     DB_PORT: 5432
