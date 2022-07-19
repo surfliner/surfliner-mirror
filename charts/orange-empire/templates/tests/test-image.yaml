@@ -1,0 +1,21 @@
+{{- if .Values.cantaloupe.s3.sampleData }}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "orange-empire.fullname" . }}-test-image"
+  labels:
+    app.kubernetes.io/name: {{ include "orange-empire.name" . }}
+    helm.sh/chart: {{ include "orange-empire.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args:  ['{{ include "orange-empire.fullname" . }}:{{ .Values.service.port }}/iiif/3/puppies.jpg/info.json']
+  restartPolicy: Never
+{{- end }}
