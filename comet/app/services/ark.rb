@@ -6,6 +6,7 @@ module ARK
   # @return [Hyrax::Work]
   def self.mint_for(id)
     obj = Hyrax.query_service.find_by(id: id.to_s)
+    raise ARKExistingError unless obj.ark.nil? || obj.ark.id.blank?
 
     # don't rescue, we want errors to halt everything
     obj.ark = Ezid::Identifier.mint
@@ -34,5 +35,9 @@ module ARK
     id.save
 
     work
+  end
+
+  # Raised when attempting to mint ARK for object with an existing ARK.
+  class ARKExistingError < StandardError
   end
 end

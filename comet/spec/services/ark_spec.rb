@@ -16,6 +16,14 @@ RSpec.describe ARK do
     it "returns an ARK" do
       expect(minter.mint_for(id).ark).to eq ark
     end
+
+    context "minting ARK for object with an existing ARK" do
+      before { work.ark = ark }
+
+      it "raise an exception" do
+        expect { minter.mint_for(id) }.to raise_error(ARK::ARKExistingError)
+      end
+    end
   end
 
   context "updating an existing ARK" do

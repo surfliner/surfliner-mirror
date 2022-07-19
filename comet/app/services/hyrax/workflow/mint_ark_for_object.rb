@@ -7,10 +7,10 @@ module Hyrax
     # Avoid overriding existing ARK
     module MintARKForObject
       def self.call(target:, **)
-        if target.ark.nil? || target.ark.id.blank?
-          saved = ARK.mint_for(target.id)
-          target.ark = saved.ark
-        end
+        saved = ARK.mint_for(target.id)
+        target.ark = saved.ark
+      rescue ARK::ARKExistingError
+        Hyrax.logger.warn("ARK #{target.ark} existing for object #{target.id}.")
       end
     end
   end
