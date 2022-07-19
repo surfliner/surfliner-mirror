@@ -21,6 +21,6 @@ class DerivativesListener
                        "And types: #{metadata.type}.")
 
     ValkyrieCreateDerivativesJob
-      .perform_later(event[:file_set_id].to_s, event[:file_id].to_s)
+      .perform_later(event[:file_set_id].to_s, event[:file_metadata].id.to_s)
   end
 end
