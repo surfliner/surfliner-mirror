@@ -13,10 +13,7 @@ class ResourcesController < ApplicationController
 
     # Get the model.
     begin
-      @model = GenericObject.new
-      # Waiting for Access Controls before we allow this…
-      #
-      # @model = Superskunk.comet_query_service.find_by(id: params.id)
+      @model = Superskunk.comet_query_service.find_by(id: params["id"])
     rescue Valkyrie::Persistence::ObjectNotFoundError
       return render_error text: "Not Found", status: 404
     end
@@ -30,10 +27,12 @@ class ResourcesController < ApplicationController
     end
 
     # Render the appropriate mapping.
-    if @profile
-      profile_render
+    if @platform.has_access?(resource: @model)
+      @profile ? profile_render : default_render
     else
-      default_render
+      # Render a 404 instead of a 403 if no access grant exists, so that the
+      # presence/absense of resources isn’t leaked.
+      render_error text: "Not Found", status: 404
     end
   end
 

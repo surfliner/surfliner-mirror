@@ -16,6 +16,16 @@ class DiscoveryPlatform
   end
 
   ##
+  # Returns whether this discovery platform has been granted access the provided
+  # resource.
+  #
+  # In ACL terms,  this implies a `:discover` grant.
+  def has_access?(resource:)
+    return true if Rails.application.config.always_allow_access_to_platforms.to_a.include?(agent_name)
+    false # to come
+  end
+
+  ##
   # Raised when a discovery platform cannot be identified or authenticated.
   class AuthError < StandardError
   end

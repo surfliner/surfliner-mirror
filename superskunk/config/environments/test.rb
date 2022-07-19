@@ -54,4 +54,7 @@ Rails.application.configure do
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
+
+  # Allow test discovery platform to access resources.
+  config.always_allow_access_to_platforms = ["surfliner.superskunk.test_suite"]
 end

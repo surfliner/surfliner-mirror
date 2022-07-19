@@ -12,7 +12,7 @@ class OaiDcSerializer < ResourceSerializer
     ].each_with_object({}) do |term, json|
       mapping = mappings["http://purl.org/dc/elements/1.1/#{term}"].to_a
       # At present, `:title` is provided by Hyrax, not the schema.
-      mapping << resource.title.to_a if term === :title
+      mapping += resource.title.to_a if term === :title
       # OAI doesn’t support datatyping so everything should be cast to a string.
       json[term] = mapping.map(&:to_s) if mapping.size > 0
     end
