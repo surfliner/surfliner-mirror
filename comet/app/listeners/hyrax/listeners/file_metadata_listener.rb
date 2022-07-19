@@ -4,18 +4,6 @@ module Hyrax
   module Listeners
     class FileMetadataListener
       ##
-      # Run derivatives when the file has been characterized if
-      # appropriate.
-      def on_file_characterized(event)
-        # do nothing unless this is an :original_file
-        metadata = event[:file_metadata]
-        return :noop unless metadata&.original_file?
-
-        Hyrax::ValkyrieCreateDerivativesJob
-          .perform_later(event[:file_set_id], event[:file_id])
-      end
-
-      ##
       # Index the FileSet when the original_file's metadata is changed
       def on_file_metadata_updated(event)
         return unless event[:metadata].original_file?

@@ -6,6 +6,7 @@ class CometCharacterizeJob < Hyrax::ApplicationJob
   ##
   # @param [Hyrax::FileMetadata] metadata
   def perform(metadata)
+    Hyrax.logger.debug "Characterizing file: #{metadata.file_identifier}"
     Hyrax.config.characterization_service.run(metadata: metadata, file: metadata.file)
 
     Hyrax.publisher.publish("file.characterized",

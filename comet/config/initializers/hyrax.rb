@@ -285,8 +285,6 @@ module Wings
   end
 end
 
-Hyrax::Publisher.register_event("file.characterized")
-
 Hyrax::Resource.class_eval do
   def self._hyrax_default_name_class
     Hyrax::Name
