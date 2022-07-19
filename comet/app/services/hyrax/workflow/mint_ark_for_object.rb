@@ -8,7 +8,8 @@ module Hyrax
       def self.call(target:, **)
         return false unless (id = target.try(:id))
 
-        ARK.mint_for(id)
+        saved = ARK.mint_for(id)
+        target.ark = saved.ark
       end
     end
   end
