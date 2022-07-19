@@ -6,9 +6,7 @@ module Hyrax
     # Mints an ARK for the target object
     module MintARKForObject
       def self.call(target:, **)
-        return false unless (id = target.try(:id))
-
-        saved = ARK.mint_for(id)
+        saved = ARK.mint_for(target.id)
         target.ark = saved.ark
       end
     end
