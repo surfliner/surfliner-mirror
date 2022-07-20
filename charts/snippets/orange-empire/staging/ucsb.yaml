@@ -1,4 +1,5 @@
 existingSecret:
+  name: cantaloupe-staging-s3
   enabled: true
 
 cantaloupe:
