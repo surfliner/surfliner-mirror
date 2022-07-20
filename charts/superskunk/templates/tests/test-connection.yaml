@@ -14,9 +14,9 @@ spec:
       - name: SUPERSKUNK_HOST
         value: {{ include "superskunk.fullname" . }}:{{.Values.service.port}}
       - name: SUPERSKUNK_ROUTE_TEST
-        value: resources/1
+        value: healthz/all
       command: ['/bin/sh', '-c', '--']
       args:
         - >
-          wget --header='Accept: application/json' ${SUPERSKUNK_HOST}/${SUPERSKUNK_ROUTE_TEST}
+          wget ${SUPERSKUNK_HOST}/${SUPERSKUNK_ROUTE_TEST}
   restartPolicy: Never
