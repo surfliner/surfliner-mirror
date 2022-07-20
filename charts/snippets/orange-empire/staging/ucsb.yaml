@@ -1,0 +1,11 @@
+existingSecret:
+  enabled: true
+
+cantaloupe:
+  s3:
+    cache:
+      bucketName: cantaloupe-staging-cache
+      endpoint: https://s3.us-west-2.amazonaws.com
+    source:
+      bucketName: cantaloupe-staging-source
+      endpoint: https://s3.us-west-2.amazonaws.com

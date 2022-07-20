@@ -26,8 +26,7 @@ orange-empire:deploy:ucsb-staging:
       --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
       --set ingress.tls[0].hosts[0]=orange-empire-staging.$KUBE_INGRESS_BASE_DOMAIN
       --set ingress.tls[0].secretName=orange-empire-stage-staging
-      --set existingSecret.enabled=true
-      --set existingSecret.name=cantaloupe-staging-s3
+      --values charts/snippets/orange-empire/staging/ucsb.yaml
 
 orange-empire:cleanup:ucsb-staging:
   extends:
