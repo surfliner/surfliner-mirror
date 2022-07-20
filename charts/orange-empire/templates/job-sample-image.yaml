@@ -30,5 +30,5 @@ spec:
             - configMapRef:
                 name: {{ include "orange-empire.fullname" . }}-env
             - secretRef:
-                name: {{ include "orange-empire.fullname" . }}
+                name: {{ template "orange-empire.secretName" . }}
 {{- end }}
