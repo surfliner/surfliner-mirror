@@ -39,6 +39,7 @@ services:
       - hyrax-derivatives:/app/samvera/hyrax-webapp/derivatives
       - hyrax-uploads:/app/samvera/hyrax-webapp/uploads
       - rails-public:/app/samvera/hyrax-webapp/public
+      - hyrax-scripts:/app/samvera/hyrax-webapp/scripts
     networks:
       - comet
 
@@ -101,6 +102,7 @@ services:
       - ../gems:/app/samvera/gems
       - rails-public:/app/samvera/hyrax-webapp/public
       - rails-tmp:/app/samvera/hyrax-webapp/tmp
+      - hyrax-scripts:/app/samvera/hyrax-webapp/scripts
     networks:
       - comet
 
@@ -178,6 +180,7 @@ volumes:
   db:
   hyrax-derivatives:
   hyrax-uploads:
+  hyrax-scripts:
   rails-public:
   rails-tmp:
   redis:

@@ -150,7 +150,8 @@ RUN mkdir -p /app/fits && \
     unzip fits.zip && \
     rm fits.zip && \
     chmod a+x /app/fits/fits.sh
-ENV PATH="${PATH}:/app/fits"
+COPY scripts/* $DOCKER_PROJECT/scripts/
+ENV PATH="${DOCKER_PROJECT}/scripts:${PATH}:/app/fits"
 
 RUN apk --no-cache add \
   bash \
