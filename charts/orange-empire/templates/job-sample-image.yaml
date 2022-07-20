@@ -29,7 +29,7 @@ spec:
                     --access_key $CANTALOUPE_S3SOURCE_ACCESS_KEY_ID \
                     --secret_key $CANTALOUPE_S3SOURCE_SECRET_KEY \
                     --host $CANTALOUPE_S3SOURCE_ENDPOINT \
-                    --host-bucket {{ if .Values.minio.enabled }}$CANTALOUPE_S3SOURCE_ENDPOINT{{ else }}$CANTALOUPE_S3SOURCE_BASICLOOKUPSTRATEGY_BUCKET_NAME{{ end }} \
+                    {{ if .Values.minio.enabled }}--host-bucket $CANTALOUPE_S3SOURCE_ENDPOINT{{ end }} \
                     put puppies.jpg s3://$CANTALOUPE_S3SOURCE_BASICLOOKUPSTRATEGY_BUCKET_NAME/puppies.jpg
           envFrom:
             - configMapRef:
