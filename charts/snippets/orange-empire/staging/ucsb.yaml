@@ -10,3 +10,6 @@ cantaloupe:
     source:
       bucketName: cantaloupe-staging-source
       endpoint: https://s3.us-west-2.amazonaws.com
+
+minio:
+  enabled: false
