@@ -107,7 +107,7 @@ services:
       - comet
 
   rabbitmq:
-    image: bitnami/rabbitmq:3.10.5-debian-11-r12
+    image: bitnami/rabbitmq:3.10.6-debian-11-r2
     networks:
       - comet
 
