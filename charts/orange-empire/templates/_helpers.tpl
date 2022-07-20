@@ -64,3 +64,14 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Supports using an existing secret instead of one built using the Chart
+*/}}
+{{- define "orange-empire.secretName" -}}
+{{- if .Values.existingSecret.enabled -}}
+{{- .Values.existingSecret.name -}}
+{{- else -}}
+{{ include "orange-empire.fullname" . }}
+{{- end -}}
+{{- end -}}

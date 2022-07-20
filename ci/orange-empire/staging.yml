@@ -1,0 +1,45 @@
+.orange-empire:deploy:staging:
+  stage: staging
+  extends:
+    - .helm3-deploy
+  variables:
+    HELM_RELEASE_NAME: surfliner-orange-empire-stage
+    KUBE_NAMESPACE: orange-empire-staging
+  needs: []
+  rules:
+    - !reference [.orange-empire-default-branch-rules, rules]
+
+orange-empire:deploy:ucsb-staging:
+  extends:
+    - .orange-empire:deploy:staging
+  script:
+    - deploy ./charts/orange-empire
+    - run_chart_tests
+  environment:
+    name: ucsb.staging.orange-empire
+    url: http://orange-empire-staging.$KUBE_INGRESS_BASE_DOMAIN
+    on_stop: orange-empire:cleanup:ucsb-staging
+  variables:
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --set ingress.hosts[0].host=orange-empire-staging.$KUBE_INGRESS_BASE_DOMAIN
+      --set ingress.hosts[0].paths[0].path=/
+      --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
+      --set ingress.tls[0].hosts[0]=orange-empire-staging.$KUBE_INGRESS_BASE_DOMAIN
+      --set ingress.tls[0].secretName=orange-empire-stage-staging
+      --set existingSecret.enabled=true
+      --set existingSecret.name=cantaloupe-staging-s3
+
+orange-empire:cleanup:ucsb-staging:
+  extends:
+    - .helm3-deploy
+    - .orange-empire:deploy:staging
+  environment:
+    name: ucsb.staging.orange-empire
+    action: stop
+  when: manual
+  allow_failure: true
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - delete
+    - delete_stateful_set_pvcs

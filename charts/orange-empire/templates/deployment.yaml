@@ -37,7 +37,7 @@ spec:
             - configMapRef:
                 name: {{ include "orange-empire.fullname" . }}-env
             - secretRef:
-                name: {{ template "orange-empire.fullname" . }}
+                name: {{ template "orange-empire.secretName" . }}
           ports:
             - name: http
               containerPort: {{ .Values.cantaloupe.port }}

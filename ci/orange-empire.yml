@@ -1,5 +1,6 @@
 include:
   - local: ci/orange-empire/review.yml
+  - local: ci/orange-empire/staging.yml
 
 .only-orange-empire-changes: &only-orange-empire-changes
   changes:

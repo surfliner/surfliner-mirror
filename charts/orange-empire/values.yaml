@@ -14,6 +14,11 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+# Set to true if a Secret already exists in the namespace for the Deployment
+existingSecret:
+  name: orange-empire
+  enabled: false
+
 cantaloupe:
   port: 8182
   admin:
