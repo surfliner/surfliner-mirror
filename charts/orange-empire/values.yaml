@@ -26,8 +26,8 @@ cantaloupe:
     secret: admin-password
   cacheServer:
     derivative: S3Cache
-    derivativeEnabled: false
-    derivativeTTLSeconds: 3600
+    derivativeEnabled: true
+    derivativeTTLSeconds: "2592000"
     purgeMissing: true
   logLevel: info
   processorSelectionStrategy: ManualSelectionStrategy

@@ -11,8 +11,8 @@ data:
   CANTALOUPE_CACHE_SERVER_DERIVATIVE_TTL_SECONDS: {{ .Values.cantaloupe.cacheServer.derivativeTTLSeconds | quote }}
   CANTALOUPE_LOG_APPLICATION_LEVEL: {{ .Values.cantaloupe.logLevel }}
   CANTALOUPE_CACHE_SERVER_PURGE_MISSING: {{ .Values.cantaloupe.cacheServer.purgeMissing | quote }}
-  CANTALOUPE_PROCESSOR_SELECTION_STRATEGY: {{ .Values.cantaloupe.processorSelectionStrategy }}
   CANTALOUPE_MANUAL_PROCESSOR_JP2: {{ .Values.cantaloupe.manualProcessorJP2 }}
+  CANTALOUPE_PROCESSOR_SELECTION_STRATEGY: {{ .Values.cantaloupe.processorSelectionStrategy }}
   CANTALOUPE_S3CACHE_BUCKET_NAME: {{ .Values.cantaloupe.s3.cache.bucketName }}
   CANTALOUPE_S3SOURCE_BASICLOOKUPSTRATEGY_BUCKET_NAME: {{ .Values.cantaloupe.s3.source.bucketName }}
   CANTALOUPE_S3SOURCE_BASICLOOKUPSTRATEGY_PATH_SUFFIX: {{ .Values.cantaloupe.s3.source.basicLookupStrategyPathSuffix | quote }}
