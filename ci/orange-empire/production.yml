@@ -23,6 +23,6 @@ orange-empire:deploy:ucsb-production:
       --set ingress.hosts[0].host=orange-empire.$KUBE_INGRESS_BASE_DOMAIN
       --set ingress.hosts[0].paths[0].path=/
       --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
-      --set ingress.tls[0].hosts[0]=orange-empire-production.$KUBE_INGRESS_BASE_DOMAIN
+      --set ingress.tls[0].hosts[0]=orange-empire.$KUBE_INGRESS_BASE_DOMAIN
       --set ingress.tls[0].secretName=orange-empire-stage-production
       --values charts/snippets/orange-empire/production/ucsb.yaml
