@@ -10,6 +10,7 @@
     - !reference [.orange-empire-default-branch-rules, rules]
 
 orange-empire:deploy:ucsb-production:
+  needs: ["orange-empire:deploy:ucsb-staging"]
   extends:
     - .orange-empire:deploy:production
   script:
