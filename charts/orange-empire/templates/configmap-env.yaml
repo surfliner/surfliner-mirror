@@ -9,6 +9,7 @@ data:
   CANTALOUPE_CACHE_SERVER_DERIVATIVE_ENABLED: {{ .Values.cantaloupe.cacheServer.derivativeEnabled | quote }}
   CANTALOUPE_CACHE_SERVER_DERIVATIVE: {{ .Values.cantaloupe.cacheServer.derivative }}
   CANTALOUPE_CACHE_SERVER_DERIVATIVE_TTL_SECONDS: {{ .Values.cantaloupe.cacheServer.derivativeTTLSeconds | quote }}
+  CANTALOUPE_LOG_APPLICATION_LEVEL: {{ .Values.cantaloupe.logLevel }}
   CANTALOUPE_CACHE_SERVER_PURGE_MISSING: {{ .Values.cantaloupe.cacheServer.purgeMissing | quote }}
   CANTALOUPE_PROCESSOR_SELECTION_STRATEGY: {{ .Values.cantaloupe.processorSelectionStrategy }}
   CANTALOUPE_MANUAL_PROCESSOR_JP2: {{ .Values.cantaloupe.manualProcessorJP2 }}

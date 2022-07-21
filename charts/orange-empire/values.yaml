@@ -29,6 +29,7 @@ cantaloupe:
     derivativeEnabled: false
     derivativeTTLSeconds: 3600
     purgeMissing: true
+  logLevel: info
   processorSelectionStrategy: ManualSelectionStrategy
   manualProcessorJP2: KakaduNativeProcessor
   sourceStatic: S3Source
