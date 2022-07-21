@@ -113,7 +113,7 @@ RSpec.configure do |config|
     if ENV["SKIP_SELENIUM"].present?
       driven_by(:rack_test)
     else
-      driven_by(:selenium_standalone_chrome_headless_sandboxless)
+      driven_by(:selenium_chrome_comet)
     end
 
     Hyrax.persister.wipe!
