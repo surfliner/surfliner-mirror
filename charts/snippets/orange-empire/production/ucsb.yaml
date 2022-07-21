@@ -1,0 +1,16 @@
+existingSecret:
+  name: cantaloupe-production-s3
+  enabled: true
+
+cantaloupe:
+  s3:
+    sampleData: false
+    cache:
+      bucketName: cantaloupe-production-cache
+      endpoint: https://s3.us-west-2.amazonaws.com
+    source:
+      bucketName: cantaloupe-production-source
+      endpoint: https://s3.us-west-2.amazonaws.com
+
+minio:
+  enabled: false

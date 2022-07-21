@@ -1,0 +1,28 @@
+.orange-empire:deploy:production:
+  stage: production
+  extends:
+    - .helm3-deploy
+  variables:
+    HELM_RELEASE_NAME: surfliner-orange-empire-production
+    KUBE_NAMESPACE: orange-empire-prod
+  needs: []
+  rules:
+    - !reference [.orange-empire-default-branch-rules, rules]
+
+orange-empire:deploy:ucsb-production:
+  extends:
+    - .orange-empire:deploy:production
+  script:
+    - deploy ./charts/orange-empire
+    - run_chart_tests
+  environment:
+    name: ucsb.production.orange-empire
+    url: http://orange-empire.$KUBE_INGRESS_BASE_DOMAIN
+  variables:
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --set ingress.hosts[0].host=orange-empire.$KUBE_INGRESS_BASE_DOMAIN
+      --set ingress.hosts[0].paths[0].path=/
+      --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
+      --set ingress.tls[0].hosts[0]=orange-empire-production.$KUBE_INGRESS_BASE_DOMAIN
+      --set ingress.tls[0].secretName=orange-empire-stage-production
+      --values charts/snippets/orange-empire/production/ucsb.yaml
