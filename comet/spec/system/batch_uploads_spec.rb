@@ -28,6 +28,8 @@ RSpec.describe "BatchUploads", type: :system, js: true do
       expect(page).to have_content("Add New Works by Batch")
 
       attach_file "Source File", source_file
+      # see: https://stackoverflow.com/questions/70441796/selenium-webdriver-for-aws-device-farm-error-when-sending-period-keystroke-t/70443309#70443309
+      Capybara.current_session.driver.browser.file_detector = nil
       fill_in("Files Location", with: files_location)
       click_button "Submit"
 
@@ -55,6 +57,8 @@ RSpec.describe "BatchUploads", type: :system, js: true do
 
         expect(page).to have_select("batch_upload_option", selected: "files-only")
 
+        # see: https://stackoverflow.com/questions/70441796/selenium-webdriver-for-aws-device-farm-error-when-sending-period-keystroke-t/70443309#70443309
+        Capybara.current_session.driver.browser.file_detector = nil
         fill_in("Files Location", with: files_location)
         click_button "Submit"
 
@@ -145,6 +149,8 @@ RSpec.describe "BatchUploads", type: :system, js: true do
       expect(page).to have_content("Add New Works by Batch")
 
       attach_file "Source File", invalid_source_file
+      # see: https://stackoverflow.com/questions/70441796/selenium-webdriver-for-aws-device-farm-error-when-sending-period-keystroke-t/70443309#70443309
+      Capybara.current_session.driver.browser.file_detector = nil
       fill_in("Files Location", with: "/tmp")
       click_button "Submit"
 
