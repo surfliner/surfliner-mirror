@@ -54,7 +54,7 @@ module Comet
       ENV.fetch("METADATA_API_URL_BASE") { "http://localhost:3000/concern/generic_objects" }
 
     config.feature_collection_publish =
-      ActiveModel::Type::Boolean.new.cast(ENV.fetch("COMET_COLLECTION_PUBLISH", false))
+      ActiveModel::Type::Boolean.new.cast(ENV.fetch("COMET_COLLECTION_PUBLISH", true))
     config.use_rabbitmq =
       ActiveModel::Type::Boolean.new.cast(ENV.fetch("RABBITMQ_ENABLED", false))
   end
