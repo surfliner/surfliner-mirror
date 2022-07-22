@@ -50,7 +50,7 @@ RSpec.describe "GET /resources/{id}" do
     it "prioritizes over unknown profiles" do
       get "/resources/#{id}", {}, {
         "HTTP_ACCEPT" =>
-          "application/ld+json;profile=\"example:unknown\";q=1,"\
+          "application/ld+json;profile=\"example:unknown\";q=1," \
           "application/ld+json;profile=\"#{profile}\";q=0.001",
         "HTTP_USER_AGENT" => user_agent
       }
