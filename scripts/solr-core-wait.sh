@@ -14,7 +14,7 @@ while [ $counter -lt 30 ]; do
     fi
   fi
   counter=$(( counter+1 ));
-  sleep 1s
+  sleep 2s
 done
 
 echo "--- ERROR: failed to get successful STATUS check for Solr core: ${SOLR_CORES}";
