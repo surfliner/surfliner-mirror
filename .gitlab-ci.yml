@@ -84,7 +84,13 @@ include:
           echo "Querying for successful jobs in this pipeline...";
           curl -s --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/pipelines/${CI_PIPELINE_ID}/jobs?scope[]=success";
           echo "Querying for successful {$PRODUCT}:test:solrconfig in this pipeline...";
-          job_id=$(curl -s --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/pipelines/${CI_PIPELINE_ID}/jobs?scope[]=success" | /tmp/jq -r --arg product "$PRODUCT" '.[] | select(.name == "\($product):test:solrconfig").id');
+          counter=0;
+          job_id="";
+          while [ $counter -lt 5 ] && [ -z "$job_id" ];
+            do job_id=$(curl -s --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/pipelines/${CI_PIPELINE_ID}/jobs?scope[]=success" | /tmp/jq -r --arg product "$PRODUCT" '.[] | select(.name == "\($product):test:solrconfig").id');
+            counter=$(( counter+1 ));
+            sleep 2s;
+          done;
           echo "JOB ID for solrconfig is $job_id";
           echo curl --location -v --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/jobs/${job_id}/artifacts/${PRODUCT}-solr-config.tar.gz";
           curl --location -v --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/jobs/${job_id}/artifacts/${PRODUCT}-solr-config.tar.gz" | tar -xzv -C /tmp;
