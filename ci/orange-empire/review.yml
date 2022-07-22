@@ -66,6 +66,8 @@ orange-empire:deploy:ucsb-review:
       --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
       --set ingress.tls[0].hosts[0]=orange-empire-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
       --set ingress.tls[0].secretName=orange-empire-review-$CI_MERGE_REQUEST_ID
+      --set-string ingress.annotations.cert-manager\.io/cluster-issuer=letsencrypt-prod
+      --set-string ingress.annotations.kubernetes\.io/ingress\.class=nginx
 
 orange-empire:cleanup:ucsb-review:
   extends:
