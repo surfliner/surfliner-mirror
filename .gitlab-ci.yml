@@ -67,6 +67,29 @@ include:
       - merge_requests
       - tags
 
+# Custom bitnami solr service command to fetch and load configset
+.solr-service:
+  services:
+    - name: bitnami/solr:8.11.2-debian-11-r6
+      alias: solr
+      entrypoint: [""]
+      variables:
+        JQ_VERSION: "jq-1.6"
+      command:
+        - /bin/sh
+        - -c
+        - >-
+          curl -L -v --output /tmp/jq "https://github.com/stedolan/jq/releases/download/$JQ_VERSION/jq-linux64";
+          chmod +x /tmp/jq;
+          echo "Querying for successful jobs in this pipeline...";
+          curl -s --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/pipelines/${CI_PIPELINE_ID}/jobs?scope[]=success";
+          echo "Querying for successful {$PRODUCT}:test:solrconfig in this pipeline...";
+          job_id=$(curl -s --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/pipelines/${CI_PIPELINE_ID}/jobs?scope[]=success" | /tmp/jq -r --arg product "$PRODUCT" '.[] | select(.name == "\($product):test:solrconfig").id');
+          echo "JOB ID for solrconfig is $job_id";
+          echo curl --location -v --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/jobs/${job_id}/artifacts/${PRODUCT}-solr-config.tar.gz";
+          curl --location -v --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/jobs/${job_id}/artifacts/${PRODUCT}-solr-config.tar.gz" | tar -xzv -C /tmp;
+          /opt/bitnami/scripts/solr/entrypoint.sh /opt/bitnami/scripts/solr/run.sh;
+
   # Helm 3 deployment helper functions
 .helm3_deploy_helpers: &helm3_deploy_helpers |
   function deploy() {

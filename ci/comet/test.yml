@@ -23,17 +23,18 @@ comet:test:solrconfig:
     AUTH_METHOD: "developer"
     CAPYBARA_PORT: 3010
     DATABASE_COMMAND: "db:create db:migrate"
+    DATABASE_URL: "postgres://postgres:postgres@postgres/comet-test"
     DB_HOST: "postgres"
     DB_PASSWORD: "postgres"
     DB_PORT: 5432
     DB_USERNAME: "postgres"
-    DATABASE_URL: "postgres://postgres:postgres@postgres/comet-test"
     DISCOVER_PLATFORM_TIDEWATER_URL_BASE: "http://localhost:3000/tidewater/item?source_iri="
     METADATA_API_URL_BASE: "http://localhost:3000/concern/generic_objects"
     METADATA_DATABASE_NAME: "comet-metadata-test"
     POSTGRES_DB: "comet-metadata-test"
     POSTGRES_PASSWORD: "postgres"
     POSTGRES_USER: "postgres"
+    PRODUCT: comet
     RABBITMQ_ENABLED: "false"
     RABBITMQ_HOST: "rabbitmq"
     RABBITMQ_NODE_PORT_NUMBER: "5672"
@@ -45,8 +46,8 @@ comet:test:solrconfig:
     REDIS_HOST: "redis"
     REDIS_PASSWORD: "redispass"
     SOLR_COLLECTION_NAME: comet-test
-    SOLR_CORE_CONF_DIR: "/tmp/comet/solr/conf"
     SOLR_CORES: comet-test
+    SOLR_CORE_CONF_DIR: "/tmp/comet/solr/conf"
     SOLR_HOST: solr
     SOLR_PORT: 8983
 
@@ -64,27 +65,11 @@ comet:test:solrconfig:
 comet:test:unit:
   extends: .comet:test
   services:
+    - !reference [.solr-service, services]
     - name: bitnami/postgresql:12.11.0-debian-11-r5
       alias: postgres
     - name: bitnami/redis:6.2.7-debian-11-r13
       alias: redis
-    - name: bitnami/solr:8.11.2-debian-11-r6
-      alias: solr
-      entrypoint: [""]
-      command:
-        - /bin/sh
-        - -c
-        - >-
-          curl -L -v --output /tmp/jq "https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64";
-          chmod +x /tmp/jq;
-          echo "Querying for successful jobs in this pipeline...";
-          curl -s --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/pipelines/${CI_PIPELINE_ID}/jobs?scope[]=success";
-          echo "Querying for successful comet:test:solrconfig in this pipeline...";
-          job_id=$(curl -s --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/pipelines/${CI_PIPELINE_ID}/jobs?scope[]=success" | /tmp/jq '.[] | select(.name == "comet:test:solrconfig").id');
-          echo "JOB ID for solrconfig is $job_id";
-          echo curl --location -v --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/jobs/${job_id}/artifacts/comet-solr-config.tar.gz";
-          curl --location -v --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/jobs/${job_id}/artifacts/comet-solr-config.tar.gz" | tar -xzv -C /tmp;
-          /opt/bitnami/scripts/solr/entrypoint.sh /opt/bitnami/scripts/solr/run.sh;
   script:
     - bundle exec rspec --tag ~type:system --tag ~rabbitmq --tag ~integration
 
@@ -109,22 +94,9 @@ comet:test:system:
     SE_NODE_SESSION_TIMEOUT: 1200
     STAGING_AREA_S3_BUCKET: "comet-staging-area-test"
   services:
+    - !reference [.solr-service, services]
     - name: bitnami/postgresql:14.4.0-debian-11-r5
       alias: postgres
-    - name: bitnami/solr:8.11.2-debian-11-r6
-      alias: solr
-      entrypoint: [""]
-      command:
-        - /bin/sh
-        - -c
-        - >-
-          curl -L -v --output /tmp/jq "https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64";
-          chmod +x /tmp/jq;
-          job_id=$(curl -s --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/pipelines/${CI_PIPELINE_ID}/jobs?scope[]=success" | /tmp/jq '.[] | select(.name == "comet:test:solrconfig").id');
-          echo "JOB ID for solrconfig is $job_id";
-          echo curl --location -v --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/jobs/${job_id}/artifacts/comet-solr-config.tar.gz";
-          curl --location -v --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/jobs/${job_id}/artifacts/comet-solr-config.tar.gz" | tar -xzv -C /tmp;
-          /opt/bitnami/scripts/solr/entrypoint.sh /opt/bitnami/scripts/solr/run.sh;
     - name: bitnami/redis:7.0.2-debian-11-r6
       alias: redis
     - name: bitnami/minio:2022.7.8-debian-11-r1
