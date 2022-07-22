@@ -1,12 +1,10 @@
 ##
 # A discovery platform, which may or may not have been granted access to a given
 # resource by Comet.
-class DiscoveryPlatform
+class DiscoveryPlatform < Hyrax::Acl::Group
   def initialize(agent_name)
-    @agent = Hyrax::Acl::Group.new(agent_name)
+    super(agent_name)
   end
-
-  attr_reader :agent
 
   ##
   # Returns whether this discovery platform has been granted access the provided
@@ -22,7 +20,7 @@ class DiscoveryPlatform
     end
 
     acl = Hyrax::Acl::AccessControlList.new(access_control: access_control)
-    acl.has_discover?(agent: agent)
+    acl.has_discover?(agent: self)
   end
 
   ##

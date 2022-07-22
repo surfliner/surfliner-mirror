@@ -10,6 +10,19 @@ RSpec.describe "GET /resources/{id}" do
   let(:resource) { persister.save(resource: GenericObject.new(title: [title])) }
   let(:id) { resource.id }
   let(:user_agent) { "surfliner.superskunk.test_suite" }
+  let(:group) { Hyrax::Acl::Group.new(user_agent) }
+
+  let(:acl) do
+    persister.save(
+      resource: Hyrax::Acl::AccessControl.new(access_to: resource.id, permissions: [permission])
+    )
+  end
+
+  let(:permission) do
+    Hyrax::Acl::Permission.new(access_to: resource.id, mode: :discover, agent: group.agent_key)
+  end
+
+  before { acl }
 
   describe "no user agent" do
     it "can’t get anything" do
@@ -39,6 +52,7 @@ RSpec.describe "GET /resources/{id}" do
         "HTTP_USER_AGENT" => user_agent
       }
       result_json = JSON.parse(last_response.body.to_str)
+
       expect(last_response.ok?).to be true
       expect(result_json["@context"]).to include(
         "@vocab" => "http://purl.org/dc/elements/1.1/",

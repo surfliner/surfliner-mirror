@@ -1,8 +1,8 @@
 require "rails_helper"
 
 RSpec.describe DiscoveryPlatform do
-  subject { described_class.new(agent.name) }
-  let(:agent) { Hyrax::Acl::Group.new("tidewater") }
+  subject { described_class.new(agent_name) }
+  let(:agent_name) { "tidewater" }
 
   it "has a :has_access? method" do
     expect(subject.respond_to?(:has_access?)).to be true
@@ -21,7 +21,7 @@ RSpec.describe DiscoveryPlatform do
     end
 
     let(:permission) do
-      Hyrax::Acl::Permission.new(access_to: resource.id, mode: :discover, agent: agent.agent_key)
+      Hyrax::Acl::Permission.new(access_to: resource.id, mode: :discover, agent: subject.agent_key)
     end
 
     before { acl }
