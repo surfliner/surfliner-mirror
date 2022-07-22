@@ -44,3 +44,40 @@ orange-empire:cleanup:ucsb-staging:
   script:
     - delete
     - delete_stateful_set_pvcs
+
+orange-empire:deploy:ucsd-staging:
+  extends:
+    - .orange-empire:deploy:staging
+  script:
+    - deploy ./charts/orange-empire
+  environment:
+    name: ucsd.orange-empire.staging
+    url: http://orange-empire-$UCSD_STAGING_DOMAIN
+    on_stop: orange-empire:cleanup:ucsd-staging
+  tags:
+    - ucsd
+  variables:
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --set ingress.hosts[0].host=orange-empire-$UCSD_STAGING_DOMAIN
+      --set ingress.hosts[0].paths[0].path=/
+      --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
+      --values charts/snippets/orange-empire/staging/ucsd.yaml
+
+orange-empire:cleanup:ucsd-staging:
+  extends:
+    - .orange-empire:deploy:staging
+  environment:
+    name: ucsd.orange-empire.staging
+    action: stop
+  tags:
+    - ucsd
+  when: manual
+  allow_failure: true
+  variables:
+    GIT_STRATEGY: none
+    HELM_RELEASE_NAME: surfliner-orange-empire-stage
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+  script:
+    - delete
+    - delete_stateful_set_pvcs

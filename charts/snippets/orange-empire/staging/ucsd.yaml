@@ -15,6 +15,9 @@ cantaloupe:
 minio:
   enabled: false
 
+serviceAccount:
+  name: orange-empire
+
 podAnnotations:
   vault.hashicorp.com/agent-pre-populate-only: 'true'
   vault.hashicorp.com/agent-inject: 'true'
