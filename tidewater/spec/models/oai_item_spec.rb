@@ -69,7 +69,7 @@ RSpec.describe OaiItem do
       expect(dc_metadata.root.attributes["xmlns:dc"]).to eq "http://purl.org/dc/elements/1.1/"
       expect(dc_metadata.root.attributes["xmlns:xsi"]).to eq "http://www.w3.org/2001/XMLSchema-instance"
       expect(dc_metadata.root.attributes["xsi:schemaLocation"]).to eq(
-        "http://www.openarchives.org/OAI/2.0/oai_dc/ "\
+        "http://www.openarchives.org/OAI/2.0/oai_dc/ " \
         "http://www.openarchives.org/OAI/2.0/oai_dc.xsd"
       )
     end
