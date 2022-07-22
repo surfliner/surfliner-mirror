@@ -26,6 +26,10 @@ existingSecret:
   name: orange-empire
   enabled: false
 
+vaultSecret:
+  enabled: false
+  vaultFile: /vault/secrets/orange-empire.env
+
 cantaloupe:
   port: 8182
   admin:

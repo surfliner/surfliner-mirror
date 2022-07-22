@@ -13,8 +13,8 @@ spec:
       {{- include "orange-empire.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-    {{- with .Values.podAnnotations }}
       annotations:
+    {{- with .Values.existingSecret.annotations }}
         {{- toYaml . | nindent 8 }}
     {{- end }}
       labels:
@@ -38,6 +38,14 @@ spec:
                 name: {{ include "orange-empire.fullname" . }}-env
             - secretRef:
                 name: {{ template "orange-empire.secretName" . }}
+          command:
+            - sh
+            - c
+            - >
+                if [ "$VAULT_FILE" ] && [ -e "$VAULT_FILE" ]; then 
+                . "$VAULT_FILE" 
+                fi &&
+                exec /usr/local/bin/run_cantaloupe.sh
           ports:
             - name: http
               containerPort: {{ .Values.cantaloupe.port }}
