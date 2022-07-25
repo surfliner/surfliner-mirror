@@ -28,7 +28,7 @@ data:
   {{- if .Values.ingress.enabled }}
   SUPERSKUNK_API_BASE: http{{ if .Values.ingress.tls }}s{{ end }}://{{ index .Values.ingress.hosts 0 }}
   {{- else }}
-  SUPERSKUNK_API_BASE: {{ template "superskunk.fullname" . }}
+  SUPERSKUNK_API_BASE: http://{{ template "superskunk.fullname" . }}.{{ .Release.Namespace }}
   {{- end }}
   {{- with .Values.vaultSecret.vaultFile }}
   VAULT_FILE: {{ . }}
