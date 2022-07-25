@@ -36,10 +36,5 @@ module Superskunk
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
     config.action_dispatch.ignore_accept_header = true
-
-    # A list of platforms which should always have access to resources.
-    #
-    # This exists for testing purposes and should be empty in production!!
-    config.always_allow_access_to_platforms = []
   end
 end
