@@ -52,16 +52,13 @@ orange-empire:deploy:ucsd-staging:
     - deploy ./charts/orange-empire
   environment:
     name: ucsd.orange-empire.staging
-    url: http://orange-empire-$UCSD_STAGING_DOMAIN
+    url: https://lib-orange-empire-staging.ucsd.edu
     on_stop: orange-empire:cleanup:ucsd-staging
   tags:
     - ucsd
   variables:
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
     HELM_UPGRADE_EXTRA_ARGS: >
-      --set ingress.hosts[0].host=orange-empire-$UCSD_STAGING_DOMAIN
-      --set ingress.hosts[0].paths[0].path=/
-      --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
       --values charts/snippets/orange-empire/staging/ucsd.yaml
 
 orange-empire:cleanup:ucsd-staging:

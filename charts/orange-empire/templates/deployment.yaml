@@ -40,12 +40,12 @@ spec:
                 name: {{ template "orange-empire.secretName" . }}
           command:
             - sh
-            - c
+            - -c
             - >
-                if [ "$VAULT_FILE" ] && [ -e "$VAULT_FILE" ]; then 
+              if [ "$VAULT_FILE" ] && [ -e "$VAULT_FILE" ]; then 
                 . "$VAULT_FILE" 
-                fi &&
-                exec /usr/local/bin/run_cantaloupe.sh
+              fi;
+              exec /usr/local/bin/run_cantaloupe.sh
           ports:
             - name: http
               containerPort: {{ .Values.cantaloupe.port }}

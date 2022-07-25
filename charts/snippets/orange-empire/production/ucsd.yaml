@@ -1,24 +1,24 @@
 ingress:
   enabled: true
   hosts:
-    - host: lib-orange-empire-staging.ucsd.edu
+    - host: lib-orange-empire.ucsd.edu
       paths:
         - path: '/'
           pathType: ImplementationSpecific
   tls:
     - hosts:
-        - lib-orange-empire-staging.ucsd.edu
+        - lib-orange-empire.ucsd.edu
       secretName: tls-secret
 
 cantaloupe:
   s3:
     sampleData: false
     cache:
-      bucketName: cantaloupe-staging-cache
-      endpoint: https://lib-minio.ucsd.edu:9012
+      bucketName: cantaloupe-prod-cache
+      endpoint: https://lib-minio.ucsd.edu:9013
     source:
-      bucketName: cantaloupe-staging-source
-      endpoint: https://lib-minio.ucsd.edu:9012
+      bucketName: cantaloupe-prod-source
+      endpoint: https://lib-minio.ucsd.edu:9013
 
 minio:
   enabled: false
@@ -32,10 +32,10 @@ vaultSecret:
 podAnnotations:
   vault.hashicorp.com/agent-pre-populate-only: 'true'
   vault.hashicorp.com/agent-inject: 'true'
-  vault.hashicorp.com/role: 'orange-empire-staging'
-  vault.hashicorp.com/agent-inject-secret-orange-empire.env: 'applications/orange-empire/staging'
+  vault.hashicorp.com/role: 'orange-empire-prod'
+  vault.hashicorp.com/agent-inject-secret-orange-empire.env: 'applications/orange-empire/prod'
   vault.hashicorp.com/agent-inject-template-orange-empire.env: |
-    {{- with secret "applications/orange-empire/staging" -}}
+    {{- with secret "applications/orange-empire/prod" -}}
     {{- range $k, $v := .Data.data }}
     export {{ $k | toUpper }}='{{ $v }}'
     {{- end }}

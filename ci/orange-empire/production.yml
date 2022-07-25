@@ -30,21 +30,17 @@ orange-empire:deploy:ucsb-production:
       --set-string ingress.annotations.kubernetes\.io/ingress\.class=nginx
       --values charts/snippets/orange-empire/production/ucsb.yaml
 
-# orange-empire:deploy:ucsd-production:
-#   extends:
-#     - .orange-empire:deploy:production
-#   script:
-#     - deploy ./charts/orange-empire
-#   environment:
-#     name: ucsd.orange-empire.prod
-#     url: http://orange-empire-$UCSD_STAGING_DOMAIN
-#     on_stop: orange-empire:cleanup:ucsd-production
-#   tags:
-#     - ucsd
-#   variables:
-#     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
-#     HELM_UPGRADE_EXTRA_ARGS: >
-#       --set ingress.hosts[0].host=orange-empire-$UCSD_STAGING_DOMAIN
-#       --set ingress.hosts[0].paths[0].path=/
-#       --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
-#       --values charts/snippets/orange-empire/production/ucsd.yaml
+orange-empire:deploy:ucsd-production:
+  extends:
+    - .orange-empire:deploy:production
+  script:
+    - deploy ./charts/orange-empire
+  environment:
+    name: ucsd.orange-empire.prod
+    url: http://lib-orange-empire.ucsd.edu
+  tags:
+    - ucsd
+  variables:
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --values charts/snippets/orange-empire/production/ucsd.yaml
