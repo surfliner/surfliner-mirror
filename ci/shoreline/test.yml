@@ -14,6 +14,8 @@ shoreline:test:solrconfig:
     expire_in: 1 day
     paths:
       - shoreline-solr-config.tar.gz
+  tags:
+    - dld
 
 .shoreline:test:
   stage: test
@@ -51,7 +53,7 @@ shoreline:test:solrconfig:
     - .only-refs-default
     - .only-shoreline-changes
   tags:
-    - kubernetes
+    - dld
 
 shoreline:test:unit:
   extends: .shoreline:test

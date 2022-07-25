@@ -38,4 +38,4 @@ tidewater:test:
     - !reference [.tidewater-mr-rules, rules]
     - !reference [.tidewater-default-branch-rules, rules]
   tags:
-    - kubernetes
+    - dld

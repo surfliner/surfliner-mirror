@@ -32,4 +32,4 @@ superskunk:test:
     - !reference [.superskunk-mr-rules, rules]
     - !reference [.superskunk-default-branch-rules, rules]
   tags:
-    - kubernetes
+    - dld

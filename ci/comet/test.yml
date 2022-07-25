@@ -14,6 +14,8 @@ comet:test:solrconfig:
     expire_in: 1 day
     paths:
       - comet-solr-config.tar.gz
+  tags:
+    - dld
 
 .comet:test:
   stage: test
@@ -60,7 +62,7 @@ comet:test:solrconfig:
     - !reference [.comet-mr-rules, rules]
     - !reference [.comet-default-branch-rules, rules]
   tags:
-    - kubernetes
+    - dld
 
 comet:test:unit:
   extends: .comet:test

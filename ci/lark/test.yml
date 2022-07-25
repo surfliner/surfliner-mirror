@@ -14,6 +14,8 @@ lark:test:solrconfig:
     expire_in: 1 day
     paths:
       - lark-solr-config.tar.gz
+  tags:
+    - dld
 
 lark:api:test:unit:
   stage: test
@@ -47,7 +49,7 @@ lark:api:test:unit:
     - .only-refs-default
     - .only-lark-api-changes
   tags:
-    - kubernetes
+    - dld
 
 lark:client:test:unit:
   stage: test
