@@ -27,7 +27,7 @@
       "depNameTemplate": "rabbitmq/cluster-operator"
     },
     {
-      "fileMatch": ["^ci/.*/test.yml$"],
+      "fileMatch": ["^\\.gitlab-ci\\.yml$"],
       "matchStrings": ["JQ_VERSION:\\s(?<currentValue>.+)"],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "stedolan/jq"
