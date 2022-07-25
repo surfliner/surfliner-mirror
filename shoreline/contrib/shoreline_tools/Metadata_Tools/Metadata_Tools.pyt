@@ -13,7 +13,7 @@ class Toolbox(object):
         self.alias = ""
 
         # List of tool classes associated with this toolbox
-        self.tools = [Extract_Metadata_to_CSV, ISO_Metadata_from_CSV, Reproject_Files, Delete_Old_Files, Upgrade_and_Validate_Files]
+        self.tools = [Extract_Metadata_to_CSV, Create_Derivative_Files, Upgrade_and_Validate_Files]
 
 
 def remove_HTML_Tags(text):
@@ -27,7 +27,7 @@ class Extract_Metadata_to_CSV(object):
         #Define the tool (tool name is the name of the class).
 		
         self.label = "2. Extract Metadata to CSV"
-        self.description = "For each shapefile in a user-selected folder(and subfolders), upgrade metadata (if necessary) and export specific metadata values to a CSV file. View results window for shapefile issues."
+        self.description = "For each shapefile or TIFF in a user-selected folder(and subfolders), upgrade metadata (if necessary) and export specific metadata values to a CSV file. View results window for shapefile issues."
         self.canRunInBackground = False
 
     def getParameterInfo(self):
@@ -69,11 +69,12 @@ class Extract_Metadata_to_CSV(object):
 		csvWriter = csv.writer(open(csvFile, 'wb'))
 		
 		# create header list
-		row = ["isoFile", "zipFilename", "filename", "format1", "format", "callNumber", "access", "provenance", "title1", "title", "alternativeTitle", "date1", "date",
-		"originatorName", "originatorOrg", "originator", "descriptionAppend", "description", "language", "publisherName", "publisherOrg", "publisher", "subject1", "subject", "keyword",
-		"collectionTitle1", "collectionTitle", "spatialSubject1", "spatialSubject", "useLimitation1", "useLimitation2", "accessConst", "useConst", "otherConst", "rights", "license",
-		"rightsHolder", "type", "isPartOf", "source", "replaces", "isReplacedBy", "isVersionOf", "relation", "dateIssued", "temporalCoverage", "schemaVersion", "suppressed"]
-		
+		row = ["xmlFile", "zipFilename", "filename", "format1", "format", "callNumber", "access", "provenance", "title1", "title", "alternativeTitle", "date1", "date",
+		"originatorName", "originatorOrg", "originator", "description", "language", "publisherName", "publisherOrg", "publisher", "subject1", "subject", "keyword",
+		"collectionTitle1", "collectionTitle", "spatialCoverage1", "spatialCoverage", "useLimitation1", "useLimitation2", "accessConst", "useConst", "otherConst", "rights", "license",
+		"rightsHolder", "type", "isPartOf", "source", "replaces", "isReplacedBy", "isVersionOf", "relation", "dateIssued", "temporalCoverage", "schemaVersion", "suppressed",
+		"west", "east", "north", "south", "references"]
+
 		# write header to csv file
 		csvWriter.writerow([v.encode("UTF-8") for v in row])
 
@@ -83,8 +84,9 @@ class Extract_Metadata_to_CSV(object):
 			dirNames.sort()
 			for file in fileNames:
 				if file.lower().endswith(".shp.xml") or file.lower().endswith(".tif.xml"):
-					formatText = titleText = dateText = originatorNameText = originatorOrgText = descriptionText1 = descriptionText2 = languageText = publisherNameText = publisherOrgText = ""
-					subjectText = collectionTitleText = spatialSubjectText = useLimitationText1 = useLimitationText2 = accessConstText = useConstText = otherConstText = ""
+					formatText = titleText = dateText = originatorNameText = originatorOrgText = descriptionText = languageText = publisherNameText = publisherOrgText = ""
+					subjectText = collectionTitleText = spatialCoverageText = useLimitationText1 = useLimitationText2 = accessConstText = useConstText = otherConstText = ""
+					westText = eastText = northText = southText = ""
 					arcpy.AddMessage("******************************************")
 
 					# read in XML
@@ -141,14 +143,16 @@ class Extract_Metadata_to_CSV(object):
 					 
 					idAbsElt = dataIdInfoElt.find('idAbs')
 					if ET.iselement(idAbsElt):
-						descriptionText1 = remove_HTML_Tags(idAbsElt.text)
+						descriptionText = remove_HTML_Tags(idAbsElt.text)
 
+					"""
 						if descriptionText1:
 							descriptionText1 = "The following metadata was provided by the data creators:  " + descriptionText1
 						else: arcpy.AddMessage(file + ": note - no description found")
 
 					descriptionText2 = 'This [geom] shapefile represents [topic] in [place] for [date]. This file was obtained [date] by UCSB Library staff. It was originally available via [source].'
-
+					"""
+					
 					##################################################################################################
 					# Extract language from XML file
 
@@ -175,10 +179,10 @@ class Extract_Metadata_to_CSV(object):
 						if child1.tag == 'placeKeys':
 							for child2 in child1:
 								if child2.tag == 'keyword':
-									spatialSubjectText = spatialSubjectText + "|" + child2.text.rstrip()
+									spatialCoverageText = spatialCoverageText + "|" + child2.text.rstrip()
 
-					spatialSubjectText = spatialSubjectText[1:len(spatialSubjectText)]
-					if not spatialSubjectText: arcpy.AddMessage(file + ": note - no spatial subject keywords found")
+					spatialCoverageText = spatialCoverageText[1:len(spatialCoverageText)]
+					if not spatialCoverageText: arcpy.AddMessage(file + ": note - no spatial coverage keywords found")
 
 					##################################################################################################
 					# Extract general constraints from XML file
@@ -243,6 +247,25 @@ class Extract_Metadata_to_CSV(object):
 
 					if not useConstText: arcpy.AddMessage(file + ": note - no legal use constraints found")
 						
+					##################################################################################################
+					# Extract bounding box extent values from XML file
+
+					for child in dataIdInfoElt:
+						if child.tag == 'dataExt':
+							geoEleElt = child.find('geoEle')
+							if not ET.iselement(geoEleElt): continue
+							GeoBndBoxElt = geoEleElt.find('GeoBndBox')
+							if not ET.iselement(GeoBndBoxElt): continue
+							if GeoBndBoxElt.get('esriExtentType') <> 'search': continue
+							westBLElt = GeoBndBoxElt.find('westBL')
+							if ET.iselement(westBLElt): westText = westBLElt.text
+							eastBLElt = GeoBndBoxElt.find('eastBL')
+							if ET.iselement(eastBLElt): eastText = eastBLElt.text
+							northBLElt = GeoBndBoxElt.find('northBL')
+							if ET.iselement(northBLElt): northText = northBLElt.text
+							southBLElt = GeoBndBoxElt.find('southBL')
+							if ET.iselement(southBLElt): southText = southBLElt.text
+							
 					##################################################################################################
 					# Extract title from XML file
 
@@ -358,16 +381,17 @@ class Extract_Metadata_to_CSV(object):
 						fileExt = ".tif.xml"
 					
 					baseFileName = file.replace(fileExt, "")
-					isoFileText = baseFileName + '-ISO.xml'
+					#isoFileText = baseFileName + '-ISO.xml'
 					zipFilenameText = baseFileName + '.zip'
 					callNumberText = baseFileName.replace("_", " ").replace("-", ".")						
 					filenameText = os.path.join(dirPath, file.replace(".xml", ""))
 
 
 					# Write extracted data to CSV file
-					row = [isoFileText, zipFilenameText, filenameText, formatText, "", callNumberText, 'Public', 'UC Santa Barbara', titleText, "", "", dateText, "",
-					originatorNameText, originatorOrgText, "", descriptionText1, descriptionText2, languageText, publisherNameText, publisherOrgText, "", subjectText, "", "",
-					collectionTitleText, "", spatialSubjectText, "",useLimitationText1, useLimitationText2, accessConstText, useConstText, otherConstText]
+					row = [file, zipFilenameText, filenameText, formatText, "", callNumberText, 'Public', 'UC Santa Barbara', titleText, "", "", dateText, "",
+					originatorNameText, originatorOrgText, "", descriptionText, languageText, publisherNameText, publisherOrgText, "", subjectText, "", "",
+					collectionTitleText, "", spatialCoverageText, "",useLimitationText1, useLimitationText2, accessConstText, useConstText, otherConstText,
+					"", "", "", "", "", "", "", "", "", "", "", "", "", "", westText, eastText, northText, southText]
 
 					csvWriter.writerow([v.encode("UTF-8") for v in row])
 		
@@ -400,13 +424,274 @@ class Extract_Metadata_to_CSV(object):
 ####################################################################################################################################################################################################
 ####################################################################################################################################################################################################
 
+class Create_Derivative_Files(object):
+    def __init__(self):
+        #Define the tool (tool name is the name of the class).
+
+        self.label = "3. Create WGS 1984 Derivatives"
+        self.description = "For each shapefile or GeoTIFF in a user-selected folder (and subfolders), create a copy with spatial reference 'WGS 1984'. \
+							The original file is renamed with suffix '-a', and the derivative is named with suffix '-d'. \
+							Note - if the projection for an original file is undefined, the derivative is not created."
+        self.canRunInBackground = False
+
+    def getParameterInfo(self):
+		#Define parameter definitions	
+
+		# First parameter
+		param0 = arcpy.Parameter(
+			displayName="Input Workspace",
+			name="in_workspace",
+			datatype="Workspace",
+			parameterType="Required",
+			direction="Input")
+								
+		params = [param0]
+		return params
+
+
+    def execute(self, parameters, messages):
+        """The source code of the tool."""
+
+ 	try:
+		# arcpy environments
+		arcpy.env.overwriteOutput = "True"
+
+		# Set the input workspace
+		arcpy.env.workspace = parameters[0].valueAsText
+		arcpy.AddMessage("workspace = " + arcpy.env.workspace)
+
+		arcpy.AddMessage("****************************")
+		arcpy.AddMessage("Checking files for undefined coordinate systems")
+
+		# Step through the user-selected folder, and rename file if coordinate system defined
+		for (dirPath, dirNames, fileNames) in os.walk(arcpy.env.workspace):
+			for file in fileNames:
+				if file.endswith('.shp') or file.endswith('.tif'):
+					dsc = arcpy.Describe(os.path.join(dirPath, file))
+					coordSys = dsc.spatialReference
+					if coordSys.Name <> "Unknown":
+						if file.endswith('.shp'): newFilename = file.replace(".shp", "-a.shp")
+						elif file.endswith('.tif'): newFilename = file.replace(".tif", "-a.tif")
+						arcpy.Rename_management(os.path.join(dirPath, file), os.path.join(dirPath, newFilename))
+					else:
+						arcpy.AddMessage("Coord Sys: " + coordSys.Name)
+						arcpy.AddMessage("*****************************************************************************************************************")
+						arcpy.AddMessage(file + ": COORDINATE SYSTEM UNDEFINED! RUN DEFINE PROJECTION TOOL ON THIS FILE, THEN REPROJECT TO WGS 1984 MANUALLY.")
+						arcpy.AddMessage("*****************************************************************************************************************")
+				
+		# Step through the user-selected folder and reproject shapefiles
+		for (dirPath, dirNames, fileNames) in os.walk(arcpy.env.workspace):
+			for file in fileNames:
+				if file.endswith('-a.shp') or file.endswith('-a.tif'):
+					# set output coordinate system (EPSG 4326)
+					spatialRef = arcpy.SpatialReference("WGS 1984")
+					
+					filePath = os.path.join(dirPath, file)
+					if file.endswith('-a.shp'): newFilename = file.replace("-a.shp", "-d.shp")
+					elif file.endswith('-a.tif'): newFilename = file.replace("-a.tif", "-d.tif")
+					fileProject = os.path.join(dirPath, newFilename)
+					
+					arcpy.AddMessage("**************")
+					arcpy.AddMessage("Reprojecting file: " + newFilename)
+					
+					# run project tool
+					if file.endswith('.shp'): arcpy.Project_management(filePath, fileProject, spatialRef)
+					elif file.endswith('.tif'): arcpy.ProjectRaster_management(filePath, fileProject, spatialRef)
+					
+					# run synchronize metadata tool   C:\_Test_Data\GeoTIFFs_2\AMI-SD-76_East_data.tif
+					arcpy.SynchronizeMetadata_conversion(fileProject, "SELECTIVE")
+				
+		del file
+		del filePath
+		del fileProject
+
+	except Exception as err:
+      		arcpy.AddMessage(arcpy.GetMessages(2))
+      		print (arcpy.GetMessages(2))
+		arcpy.AddMessage(traceback.format_exc())
+  		raise arcpy.ExecuteError
+        return
+		
+    def isLicensed(self):
+        """Set whether tool is licensed to execute."""
+        return True
+    def updateParameters(self, parameters):
+        """Modify the values and properties of parameters before internal
+        validation is performed.  This method is called whenever a parameter
+        has been changed."""
+        return
+    def updateMessages(self, parameters):
+        """Modify the messages created by internal validation for each tool
+        parameter.  This method is called after internal validation."""
+        return
+
+####################################################################################################################################################################################################
+####################################################################################################################################################################################################
+
+class Upgrade_and_Validate_Files(object):
+    def __init__(self):
+        #Define the tool (tool name is the name of the class).
+
+        self.label = "1. Upgrade and Validate Files"
+        self.description = "Upgrades metadata (if necessary) and checks each shapefile and TIFF in a user-selected folder (and subfolders) for undefined projection and missing crucial metadata elements."
+        self.canRunInBackground = False
+
+    def getParameterInfo(self):
+		#Define parameter definitions	
+
+		# First parameter
+		param0 = arcpy.Parameter(
+			displayName="Input Workspace",
+			name="in_workspace",
+			datatype="Workspace",
+			parameterType="Required",
+			direction="Input")
+								
+		# Second parameter
+		param1 = arcpy.Parameter(
+			displayName="Rename each shapefile or TIFF file to match its parent folder name (do not select if more than one file per folder)",
+			name="rename_shapefiles",
+			datatype="boolean",
+			parameterType="Required",
+			direction="Input")
+		param1.value = 0
+
+		params = [param0, param1]
+		return params
+
+
+    def execute(self, parameters, messages):
+        """The source code of the tool."""
+
+ 	try:
+		# arcpy environments
+		arcpy.env.overwriteOutput = "True"
+
+		# Set the input workspace
+		arcpy.env.workspace = parameters[0].valueAsText
+		arcpy.AddMessage("workspace = " + arcpy.env.workspace)
+
+		# Rename each shapefile or TIFF to match its parent folder name
+		if parameters[1].valueAsText == "true":
+			arcpy.AddMessage("****************************")
+			arcpy.AddMessage("Renaming each shapefile/TIFF to match its parent folder name")
+			arcpy.AddMessage("****************************")
+
+			for dirPath, dirNames, fileNames in os.walk(arcpy.env.workspace):
+				for file in fileNames:
+					if file.lower().endswith(".shp"):
+						newFilename = os.path.basename(dirPath) + ".shp"
+						if file <> newFilename:
+							arcpy.Rename_management(os.path.join(dirPath, file), os.path.join(dirPath, newFilename))
+					elif file.lower().endswith(".tif"):
+						newFilename = os.path.basename(dirPath) + ".tif"
+						if file <> newFilename:
+							arcpy.Rename_management(os.path.join(dirPath, file), os.path.join(dirPath, newFilename))
+						
+		arcpy.AddMessage("****************************")
+		arcpy.AddMessage("Checking shapefiles and TIFFs for undefined coordinate systems")
+
+		#for dirPath, dirNames, fileNames in arcpy.da.Walk(arcpy.env.workspace, datatype="FeatureClass"):
+		for dirPath, dirNames, fileNames in os.walk(arcpy.env.workspace):
+			for file in fileNames:
+				if file.lower().endswith(".shp") or file.lower().endswith(".tif"):
+					if arcpy.Exists(os.path.join(dirPath, file) + ".xml") == False:
+						arcpy.AddMessage("*****************************************************************************************************************")
+						arcpy.AddMessage(file + ": METADATA FILE MISSING! OPEN METADATA FOR THIS FILE IN ARCCATALOG TO CREATE FILE, THEN RERUN THIS TOOL.")
+						arcpy.AddMessage("*****************************************************************************************************************")
+
+					dsc = arcpy.Describe(os.path.join(dirPath, file))
+					coordSys = dsc.spatialReference
+					if coordSys.Name == "Unknown":
+						arcpy.AddMessage("Coord Sys: " + coordSys.Name)
+						arcpy.AddMessage("*****************************************************************************************************************")
+						arcpy.AddMessage(file + ": COORDINATE SYSTEM UNDEFINED! RUN DEFINE PROJECTION TOOL ON THIS FILE.")
+						arcpy.AddMessage("*****************************************************************************************************************")
+
+				
+		# Step through the user-selected folder and check for missing metadata values
+		for dirPath, dirNames, fileNames in os.walk(arcpy.env.workspace):
+			dirNames.sort()
+			for file in fileNames:
+				if file.lower().endswith(".shp.xml") or file.lower().endswith(".tif.xml"):
+					# read in XML
+					tree = ET.parse(os.path.join(dirPath, file))
+					root = tree.getroot()
+
+					# upgrade FGDC metadata content to ArcGIS metadata format
+					metadataUpgradeNeeded = True
+					EsriElt = root.find('Esri')
+					if ET.iselement(EsriElt):
+						ArcGISFormatElt = EsriElt.find('ArcGISFormat')
+						if ET.iselement(ArcGISFormatElt):
+							arcpy.AddMessage(file + ": metadata is already in ArcGIS format.")
+							metadataUpgradeNeeded = False
+
+					if metadataUpgradeNeeded:
+						arcpy.AddMessage(file + ": metadata is being upgraded to ArcGIS format...")
+						result = arcpy.UpgradeMetadata_conversion(os.path.join(dirPath, file), "FGDC_TO_ARCGIS")
+						#arcpy.AddMessage(result.getMessages())
+
+						# reload xml tree after upgrade
+						tree = ET.parse(os.path.join(dirPath, file))
+						root = tree.getroot()
+
+					# read in XML
+					tree = ET.parse(os.path.join(dirPath, file))
+					root = tree.getroot()
+
+					crucialEltsFound = True
+					dataIdInfoElt = root.find('dataIdInfo')
+					if ET.iselement(dataIdInfoElt):
+						idCitationElt = dataIdInfoElt.find('idCitation')
+						if not ET.iselement(idCitationElt): crucialEltsFound = False
+					else: crucialEltsFound = False
+					
+					if crucialEltsFound == False:
+						arcpy.AddMessage("*********************************************************************************************************************************")
+						arcpy.AddMessage(file + ": CRUCIAL METADATA ELEMENTS MISSING! OPEN METADATA FOR THIS FILE IN ARCCATALOG TO UPDATE.")
+						arcpy.AddMessage("*********************************************************************************************************************************")
+						#continue
+				
+		del file
+		
+	except Exception as err:
+      		arcpy.AddMessage(arcpy.GetMessages(2))
+      		print (arcpy.GetMessages(2))
+		arcpy.AddMessage(traceback.format_exc())
+  		raise arcpy.ExecuteError
+        return
+		
+    def isLicensed(self):
+        """Set whether tool is licensed to execute."""
+        return True
+    def updateParameters(self, parameters):
+        """Modify the values and properties of parameters before internal
+        validation is performed.  This method is called whenever a parameter
+        has been changed."""
+        return
+    def updateMessages(self, parameters):
+        """Modify the messages created by internal validation for each tool
+        parameter.  This method is called after internal validation."""
+        return
+
+
+
+
+####################################################################################################################################################################################################
+####################################################################################################################################################################################################
+#
+# NOTE: THE FOLLOWING CLASSES ARE NO LONGER REFERENCED IN THE ABOVE CODE
+####################################################################################################################################################################################################
+####################################################################################################################################################################################################
+
 class ISO_Metadata_from_CSV(object):
     def __init__(self):
         #Define the tool (tool name is the name of the class).
 		
         self.label = "3. ISO Metadata from CSV"
-        self.description = "For each shapefile in a user-selected folder(and subfolders), create an ISO 19139 standard metadata file containing metadata values from a user-selected CSV file (generated by the Extract Metadata to CSV tool). \
-							NOTE: each row in the CSV file should map to only one uniquely-named shapefile in the user-selected folder."
+        self.description = "For each shapefile or TIFF in a user-selected folder(and subfolders), create an ISO 19139 standard metadata file containing metadata values from a user-selected CSV file (generated by the Extract Metadata to CSV tool). \
+							NOTE: each row in the CSV file should map to only one uniquely-named shapefile or TIFF in the user-selected folder."
         self.canRunInBackground = False
 
     def getParameterInfo(self):
@@ -766,107 +1051,6 @@ class ISO_Metadata_from_CSV(object):
 ####################################################################################################################################################################################################
 ####################################################################################################################################################################################################
 
-class Reproject_Files(object):
-    def __init__(self):
-        #Define the tool (tool name is the name of the class).
-
-        self.label = "4. Reproject Files to WGS 1984"
-        self.description = "Reprojects each shapefile or TIFF in a user-selected folder (and subfolders) to coordinate system 'WGS 1984', and saves a copy of the original file. Note - if the projection for a file is undefined, the file is not reprojected."
-        self.canRunInBackground = False
-
-    def getParameterInfo(self):
-		#Define parameter definitions	
-
-		# First parameter
-		param0 = arcpy.Parameter(
-			displayName="Input Workspace",
-			name="in_workspace",
-			datatype="Workspace",
-			parameterType="Required",
-			direction="Input")
-								
-		params = [param0]
-		return params
-
-
-    def execute(self, parameters, messages):
-        """The source code of the tool."""
-
- 	try:
-		# arcpy environments
-		arcpy.env.overwriteOutput = "True"
-
-		# Set the input workspace
-		arcpy.env.workspace = parameters[0].valueAsText
-		arcpy.AddMessage("workspace = " + arcpy.env.workspace)
-
-		arcpy.AddMessage("****************************")
-		arcpy.AddMessage("Checking files for undefined coordinate systems")
-
-		#for dirPath, dirNames, fileNames in arcpy.da.Walk(arcpy.env.workspace, datatype="RasterDataset"):
-		for (dirPath, dirNames, fileNames) in os.walk(arcpy.env.workspace):
-			for file in fileNames:
-				if file.endswith('.shp') or file.endswith('.tif'):
-					dsc = arcpy.Describe(os.path.join(dirPath, file))
-					coordSys = dsc.spatialReference
-					if coordSys.Name <> "Unknown":
-						if file.endswith('.shp'): newFilename = file.replace(".shp", "_OLD.shp")
-						elif file.endswith('.tif'): newFilename = file.replace(".tif", "_OLD.tif")
-						arcpy.Rename_management(os.path.join(dirPath, file), os.path.join(dirPath, newFilename))
-					else:
-						arcpy.AddMessage("Coord Sys: " + coordSys.Name)
-						arcpy.AddMessage("*****************************************************************************************************************")
-						arcpy.AddMessage(file + ": COORDINATE SYSTEM UNDEFINED! RUN DEFINE PROJECTION TOOL ON THIS FILE, THEN REPROJECT TO WGS 1984 MANUALLY.")
-						arcpy.AddMessage("*****************************************************************************************************************")
-				
-		# Step through the user-selected folder and reproject shapefiles
-		#for dirPath, dirNames, fileNames in arcpy.da.Walk(arcpy.env.workspace, datatype="RasterDataset"):
-		for (dirPath, dirNames, fileNames) in os.walk(arcpy.env.workspace):
-			for file in fileNames:
-				#if not file.endswith("_OLD.tif"): continue
-				if file.endswith('_OLD.shp') or file.endswith('_OLD.tif'):
-					# set output coordinate system (EPSG 4326)
-					spatialRef = arcpy.SpatialReference("WGS 1984")
-					
-					filePath = os.path.join(dirPath, file)
-					newFilename = file.replace("_OLD", "")
-					fileProject = os.path.join(dirPath, newFilename)
-					
-					arcpy.AddMessage("**************")
-					arcpy.AddMessage("Reprojecting file: " + newFilename)
-					
-					# run project tool
-					if file.endswith('.shp'): arcpy.Project_management(filePath, fileProject, spatialRef)
-					elif file.endswith('.tif'): arcpy.ProjectRaster_management(filePath, fileProject, spatialRef)
-					
-					# run synchronize metadata tool   C:\_Test_Data\GeoTIFFs_2\AMI-SD-76_East_data.tif
-					arcpy.SynchronizeMetadata_conversion(fileProject, "SELECTIVE")
-				
-		del file
-
-	except Exception as err:
-      		arcpy.AddMessage(arcpy.GetMessages(2))
-      		print (arcpy.GetMessages(2))
-		arcpy.AddMessage(traceback.format_exc())
-  		raise arcpy.ExecuteError
-        return
-		
-    def isLicensed(self):
-        """Set whether tool is licensed to execute."""
-        return True
-    def updateParameters(self, parameters):
-        """Modify the values and properties of parameters before internal
-        validation is performed.  This method is called whenever a parameter
-        has been changed."""
-        return
-    def updateMessages(self, parameters):
-        """Modify the messages created by internal validation for each tool
-        parameter.  This method is called after internal validation."""
-        return
-
-####################################################################################################################################################################################################
-####################################################################################################################################################################################################
-
 class Delete_Old_Files(object):
     def __init__(self):
         #Define the tool (tool name is the name of the class).
@@ -937,156 +1121,4 @@ class Delete_Old_Files(object):
 
 ####################################################################################################################################################################################################
 ####################################################################################################################################################################################################
-
-class Upgrade_and_Validate_Files(object):
-    def __init__(self):
-        #Define the tool (tool name is the name of the class).
-
-        self.label = "1. Upgrade and Validate Files"
-        self.description = "Upgrades metadata (if necessary) and checks each shapefile and TIFF in a user-selected folder (and subfolders) for undefined projection and missing crucial metadata elements."
-        self.canRunInBackground = False
-
-    def getParameterInfo(self):
-		#Define parameter definitions	
-
-		# First parameter
-		param0 = arcpy.Parameter(
-			displayName="Input Workspace",
-			name="in_workspace",
-			datatype="Workspace",
-			parameterType="Required",
-			direction="Input")
-								
-		# Second parameter
-		param1 = arcpy.Parameter(
-			displayName="Rename each shapefile or TIFF file to match its parent folder name (do not select if more than one file per folder)",
-			name="rename_shapefiles",
-			datatype="boolean",
-			parameterType="Required",
-			direction="Input")
-		param1.value = 0
-
-		params = [param0, param1]
-		return params
-
-
-    def execute(self, parameters, messages):
-        """The source code of the tool."""
-
- 	try:
-		# arcpy environments
-		arcpy.env.overwriteOutput = "True"
-
-		# Set the input workspace
-		arcpy.env.workspace = parameters[0].valueAsText
-		arcpy.AddMessage("workspace = " + arcpy.env.workspace)
-
-		# Rename each shapefile or TIFF to match its parent folder name
-		if parameters[1].valueAsText == "true":
-			arcpy.AddMessage("****************************")
-			arcpy.AddMessage("Renaming each shapefile/TIFF to match its parent folder name")
-			arcpy.AddMessage("****************************")
-			#for dirPath, dirNames, fileNames in arcpy.da.Walk(arcpy.env.workspace, datatype="FeatureClass"):
-			for dirPath, dirNames, fileNames in os.walk(arcpy.env.workspace):
-				for file in fileNames:
-					if file.lower().endswith(".shp"):
-						newFilename = os.path.basename(dirPath) + ".shp"
-						if file <> newFilename:
-							arcpy.Rename_management(os.path.join(dirPath, file), os.path.join(dirPath, newFilename))
-					elif file.lower().endswith(".tif"):
-						newFilename = os.path.basename(dirPath) + ".tif"
-						if file <> newFilename:
-							arcpy.Rename_management(os.path.join(dirPath, file), os.path.join(dirPath, newFilename))
-						
-		arcpy.AddMessage("****************************")
-		arcpy.AddMessage("Checking shapefiles and TIFFs for undefined coordinate systems")
-
-		#for dirPath, dirNames, fileNames in arcpy.da.Walk(arcpy.env.workspace, datatype="FeatureClass"):
-		for dirPath, dirNames, fileNames in os.walk(arcpy.env.workspace):
-			for file in fileNames:
-				if file.lower().endswith(".shp") or file.lower().endswith(".tif"):
-					if arcpy.Exists(os.path.join(dirPath, file) + ".xml") == False:
-						arcpy.AddMessage("*****************************************************************************************************************")
-						arcpy.AddMessage(file + ": METADATA FILE MISSING! OPEN METADATA FOR THIS FILE IN ARCCATALOG TO CREATE FILE, THEN RERUN THIS TOOL.")
-						arcpy.AddMessage("*****************************************************************************************************************")
-
-					dsc = arcpy.Describe(os.path.join(dirPath, file))
-					coordSys = dsc.spatialReference
-					if coordSys.Name == "Unknown":
-						arcpy.AddMessage("Coord Sys: " + coordSys.Name)
-						arcpy.AddMessage("*****************************************************************************************************************")
-						arcpy.AddMessage(file + ": COORDINATE SYSTEM UNDEFINED! RUN DEFINE PROJECTION TOOL ON THIS FILE.")
-						arcpy.AddMessage("*****************************************************************************************************************")
-
-				
-		# Step through the user-selected folder and check for missing metadata values
-		for dirPath, dirNames, fileNames in os.walk(arcpy.env.workspace):
-			dirNames.sort()
-			for file in fileNames:
-				if file.lower().endswith(".shp.xml") or file.lower().endswith(".tif.xml"):
-					# read in XML
-					tree = ET.parse(os.path.join(dirPath, file))
-					root = tree.getroot()
-
-					# upgrade FGDC metadata content to ArcGIS metadata format
-					metadataUpgradeNeeded = True
-					EsriElt = root.find('Esri')
-					if ET.iselement(EsriElt):
-						ArcGISFormatElt = EsriElt.find('ArcGISFormat')
-						if ET.iselement(ArcGISFormatElt):
-							arcpy.AddMessage(file + ": metadata is already in ArcGIS format.")
-							metadataUpgradeNeeded = False
-
-					if metadataUpgradeNeeded:
-						arcpy.AddMessage(file + ": metadata is being upgraded to ArcGIS format...")
-						result = arcpy.UpgradeMetadata_conversion(os.path.join(dirPath, file), "FGDC_TO_ARCGIS")
-						#arcpy.AddMessage(result.getMessages())
-
-						# reload xml tree after upgrade
-						tree = ET.parse(os.path.join(dirPath, file))
-						root = tree.getroot()
-
-					# read in XML
-					tree = ET.parse(os.path.join(dirPath, file))
-					root = tree.getroot()
-
-					crucialEltsFound = True
-					dataIdInfoElt = root.find('dataIdInfo')
-					if ET.iselement(dataIdInfoElt):
-						idCitationElt = dataIdInfoElt.find('idCitation')
-						if not ET.iselement(idCitationElt): crucialEltsFound = False
-					else: crucialEltsFound = False
-					
-					if crucialEltsFound == False:
-						arcpy.AddMessage("*********************************************************************************************************************************")
-						arcpy.AddMessage(file + ": CRUCIAL METADATA ELEMENTS MISSING! OPEN METADATA FOR THIS FILE IN ARCCATALOG TO UPDATE.")
-						arcpy.AddMessage("*********************************************************************************************************************************")
-						#continue
-				
-		del file
-		
-	except Exception as err:
-      		arcpy.AddMessage(arcpy.GetMessages(2))
-      		print (arcpy.GetMessages(2))
-		arcpy.AddMessage(traceback.format_exc())
-  		raise arcpy.ExecuteError
-        return
-		
-    def isLicensed(self):
-        """Set whether tool is licensed to execute."""
-        return True
-    def updateParameters(self, parameters):
-        """Modify the values and properties of parameters before internal
-        validation is performed.  This method is called whenever a parameter
-        has been changed."""
-        return
-    def updateMessages(self, parameters):
-        """Modify the messages created by internal validation for each tool
-        parameter.  This method is called after internal validation."""
-        return
-
-
-####################################################################################################################################################################################################
-####################################################################################################################################################################################################
-
 
