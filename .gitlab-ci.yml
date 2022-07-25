@@ -82,12 +82,12 @@ include:
           curl -L -v --output /tmp/jq "https://github.com/stedolan/jq/releases/download/$JQ_VERSION/jq-linux64";
           chmod +x /tmp/jq;
           echo "Querying for successful jobs in this pipeline...";
-          curl -s --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/pipelines/${CI_PIPELINE_ID}/jobs?scope[]=success";
+          curl -s --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/pipelines/${CI_PIPELINE_ID}/jobs?scope[]=success&per_page=100";
           echo "Querying for successful {$PRODUCT}:test:solrconfig in this pipeline...";
           counter=0;
           job_id="";
           while [ $counter -lt 5 ] && [ -z "$job_id" ];
-            do job_id=$(curl -s --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/pipelines/${CI_PIPELINE_ID}/jobs?scope[]=success" | /tmp/jq -r --arg product "$PRODUCT" '.[] | select(.name == "\($product):test:solrconfig").id');
+            do job_id=$(curl -s --header "PRIVATE-TOKEN: ${CI_JOB_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/pipelines/${CI_PIPELINE_ID}/jobs?scope[]=success&per_page=100" | /tmp/jq -r --arg product "$PRODUCT" '.[] | select(.name == "\($product):test:solrconfig").id');
             counter=$(( counter+1 ));
             sleep 2s;
           done;
