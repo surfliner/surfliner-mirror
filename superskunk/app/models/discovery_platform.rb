@@ -12,14 +12,7 @@ class DiscoveryPlatform < Hyrax::Acl::Group
   #
   # In ACL terms,  this implies a `:discover` grant.
   def has_access?(resource:)
-    begin
-      access_control = Hyrax::Acl::CustomQueries::FindAccessControl.new(query_service: Superskunk.comet_query_service)
-        .find_access_control_for(resource: resource)
-    rescue Valkyrie::Persistence::ObjectNotFoundError
-      access_control = Hyrax::Acl::AccessControl.new(access_to: resource.id, permissions: [])
-    end
-
-    acl = Hyrax::Acl::AccessControlList.new(access_control: access_control)
+    acl = Hyrax::Acl::AccessControlList.new(resource: resource, persister: nil, query_service: Superskunk.comet_query_service)
     acl.has_discover?(agent: self)
   end
 
