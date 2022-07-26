@@ -1,14 +1,15 @@
 # import csv
 # import shapefile
-# from rich import print
-import pandas as pd
-from pydantic import BaseModel, HttpUrl, ValidationError
-import config
-from pathlib import Path
 import os
 import sys
 import tkinter as tk
+from pathlib import Path
 from tkinter import filedialog
+
+import config
+import pandas as pd
+from pydantic import BaseModel, HttpUrl, ValidationError
+
 
 class MyModel(BaseModel):
     url: HttpUrl
