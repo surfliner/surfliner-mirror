@@ -25,6 +25,6 @@ data:
   CANTALOUPE_S3SOURCE_ENDPOINT: {{ .Values.cantaloupe.s3.source.endpoint }}
   CANTALOUPE_S3CACHE_ENDPOINT: {{ .Values.cantaloupe.s3.cache.endpoint }}
   {{- end }}
-  {{- with .Values.existingSecret.vaultFile }}
+  {{- with .Values.vaultSecret.vaultFile }}
   VAULT_FILE: {{ . }}
   {{- end }}

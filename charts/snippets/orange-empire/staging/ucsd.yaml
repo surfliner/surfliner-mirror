@@ -17,8 +17,8 @@ cantaloupe:
       bucketName: cantaloupe-staging-cache
       endpoint: https://lib-minio.ucsd.edu:9012
     source:
-      bucketName: cantaloupe-staging-source
-      endpoint: https://lib-minio.ucsd.edu:9012
+      bucketName: staging
+      endpoint: https://lib-minio.ucsd.edu:9008
 
 minio:
   enabled: false
