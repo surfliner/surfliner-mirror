@@ -40,6 +40,8 @@ extraEnvVars:
     value: "google"
   - name: "DATABASE_COMMAND"
     value: "db:create db:migrate"
+  - name: "DISCOVER_PLATFORM_TIDEWATER_URL_BASE"
+    value: "http://tidewater-prod.eks.dld.library.ucsb.edu/item?source_iri="
   - name: "METADATA_API_URL_BASE"
     value: "http://surfliner-superskunk-prod.superskunk-prod/resources"
   - name: "METADATA_DATABASE_NAME"

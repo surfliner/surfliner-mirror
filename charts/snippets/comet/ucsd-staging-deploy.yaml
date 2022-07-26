@@ -22,6 +22,8 @@ extraEnvVars:
     value: "google"
   - name: "DATABASE_COMMAND"
     value: "db:migrate"
+  - name: "DISCOVER_PLATFORM_TIDEWATER_URL_BASE"
+    value: "http://lib-tidewater-staging.ucsd.edu/item?source_iri="
   - name: "METADATA_API_URL_BASE"
     value: "http://surfliner-superskunk-stage.superskunk-staging/resources"
   - name: "METADATA_DATABASE_NAME"
