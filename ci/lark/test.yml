@@ -15,7 +15,7 @@ lark:test:solrconfig:
     paths:
       - lark-solr-config.tar.gz
   tags:
-    - dld
+    - kubernetes
 
 lark:api:test:unit:
   stage: test
@@ -49,7 +49,7 @@ lark:api:test:unit:
     - .only-refs-default
     - .only-lark-api-changes
   tags:
-    - dld
+    - kubernetes
 
 lark:client:test:unit:
   stage: test

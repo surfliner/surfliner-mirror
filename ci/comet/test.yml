@@ -15,7 +15,7 @@ comet:test:solrconfig:
     paths:
       - comet-solr-config.tar.gz
   tags:
-    - dld
+    - kubernetes
 
 .comet:test:
   stage: test
@@ -62,7 +62,7 @@ comet:test:solrconfig:
     - !reference [.comet-mr-rules, rules]
     - !reference [.comet-default-branch-rules, rules]
   tags:
-    - dld
+    - kubernetes
 
 comet:test:unit:
   extends: .comet:test
