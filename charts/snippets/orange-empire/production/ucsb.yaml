@@ -9,7 +9,7 @@ cantaloupe:
       bucketName: cantaloupe-production-cache
       endpoint: https://s3.us-west-2.amazonaws.com
     source:
-      bucketName: cantaloupe-production-source
+      bucketName: comet-production-repository-files
       endpoint: https://s3.us-west-2.amazonaws.com
 
 minio:
