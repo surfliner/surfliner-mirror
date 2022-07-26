@@ -153,6 +153,11 @@ old_input_files/
 ruby_bits/
 validate_xml/
 vicinity/
+build/
+dist/
+
+# Settingg
+config.py
 
 # Local test files
 **/*.csv
