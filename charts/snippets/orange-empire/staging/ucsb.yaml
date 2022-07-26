@@ -9,7 +9,7 @@ cantaloupe:
       bucketName: cantaloupe-staging-cache
       endpoint: https://s3.us-west-2.amazonaws.com
     source:
-      bucketName: cantaloupe-staging-source
+      bucketName: comet-staging-repository-files
       endpoint: https://s3.us-west-2.amazonaws.com
 
 minio:
