@@ -16,24 +16,24 @@ spec:
       restartPolicy: Never
       serviceAccountName: {{ template "orange-empire.serviceAccountName" . }}
       containers:
-        - name: sample-image
-          image: d3fk/s3cmd:latest
-          imagePullPolicy: Always
+        - name: surfliner-util-sample-image
+          image: "{{ .Values.util.image.repository }}:{{ .Values.util.image.tag }}"
+          imagePullPolicy: "{{ .Values.util.image.pullPolicy }}"
           command:
             - sh
             - -c
             - >
-              apk add --no-cache curl &&
-              curl -L 'https://gitlab.com/surfliner/surfliner/-/raw/trunk/comet/spec/fixtures/image.jpg' -o puppies.jpg &&
-              s3cmd --no-ssl \
-                    --access_key $CANTALOUPE_S3SOURCE_ACCESS_KEY_ID \
-                    --secret_key $CANTALOUPE_S3SOURCE_SECRET_KEY \
-                    --host $CANTALOUPE_S3SOURCE_ENDPOINT \
-                    {{ if .Values.minio.enabled }}--host-bucket $CANTALOUPE_S3SOURCE_ENDPOINT{{ end }} \
-                    put puppies.jpg s3://$CANTALOUPE_S3SOURCE_BASICLOOKUPSTRATEGY_BUCKET_NAME/puppies.jpg
+              export AWS_ACCESS_KEY_ID="$CANTALOUPE_S3SOURCE_ACCESS_KEY_ID";
+              export AWS_SECRET_ACCESS_KEY="$CANTALOUPE_S3SOURCE_SECRET_KEY";
+              apk add --no-cache curl;
+              curl -L -v "$SAMPLE_IMAGE_URL" -o /tmp/puppies.jpg;
+              aws --endpoint-url "$CANTALOUPE_S3SOURCE_ENDPOINT" s3 cp /tmp/puppies.jpg s3://$CANTALOUPE_S3SOURCE_BASICLOOKUPSTRATEGY_BUCKET_NAME/puppies.jpg
           envFrom:
             - configMapRef:
                 name: {{ include "orange-empire.fullname" . }}-env
             - secretRef:
                 name: {{ template "orange-empire.secretName" . }}
+          env:
+            - name: SAMPLE_IMAGE_URL
+              value: https://gitlab.com/surfliner/surfliner/-/raw/trunk/comet/spec/fixtures/image.jpg
 {{- end }}

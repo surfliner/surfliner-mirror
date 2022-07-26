@@ -10,6 +10,13 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: 5.0.5-1
 
+util:
+  image:
+    repository: registry.gitlab.com/surfliner/surfliner/surfliner-util
+    name: surfliner-util
+    tag: stable
+    pullPolicy: Always
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
