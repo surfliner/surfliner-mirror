@@ -6,6 +6,7 @@ metadata:
     {{- include "orange-empire.labels" . | nindent 4 }}
   annotations:
     "helm.sh/hook": test-success
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
 spec:
   containers:
     - name: wget
