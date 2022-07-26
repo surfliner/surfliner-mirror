@@ -12,11 +12,7 @@ class ResourcesController < ApplicationController
     end
 
     # Get the model.
-    begin
-      @model = Superskunk.comet_query_service.find_by(id: params["id"])
-    rescue Valkyrie::Persistence::ObjectNotFoundError
-      return render_error text: "Not Found", status: 404
-    end
+    @model = Superskunk.comet_query_service.find_by(id: params["id"])
 
     # Get the profile.
     begin
