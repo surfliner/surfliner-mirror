@@ -135,7 +135,34 @@ class CustomDelegate
   # @return [Boolean,Hash<String,Object>] See above.
   #
   def pre_authorize(options = {})
-    return true
+    require "net/http"
+    resource_id = context["identifier"]
+    puts "Authorizing resource: #{resource_id}"
+    superskunk_uri = URI("#{ENV['SUPERSKUNK_API_BASE']}/acls?resource=#{resource_id}&mode=read&group=public")
+    req = Net::HTTP::Get.new(superskunk_uri)
+
+    begin
+      res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") { |http|
+        http.request(req)
+      }
+
+      if res.is_a?(Net::HTTPSuccess)
+        superskunk_response = res.body
+        puts "Response from superskunk for #{resource_id} is #{superskunk_response}"
+        if superskunk_response.eql? "1"
+          return true
+        else
+          return false
+        end
+      else
+        puts "Error response: #{res.code}: #{res}"
+        return false
+      end
+    rescue => err
+      puts "Error: #{err}"
+    end
+
+    return false
   end
 
   ##

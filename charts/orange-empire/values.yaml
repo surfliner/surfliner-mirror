@@ -21,6 +21,9 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+# Superskunk API
+superskunkApiBase: http://superskunk
+
 # Set to true if a Secret already exists in the namespace for the Deployment
 existingSecret:
   name: orange-empire
