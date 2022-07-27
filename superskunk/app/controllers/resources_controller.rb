@@ -1,17 +1,13 @@
 ##
 # Support API actions for Valkyrie resources.
 class ResourcesController < ApplicationController
-  after_action :set_content_type
-
+  ##
+  # Show metadata for the requested resource.
+  #
+  # Many of the errors which may arise in this process are handled in
+  # +ApplicationController+, so this code mostly assumes successful cases.
   def show
-    # Get the discovery platform.
-    begin
-      @platform = DiscoveryPlatform.from_request(request)
-    rescue DiscoveryPlatform::AuthError
-      return render_error text: "Forbidden", status: 403
-    end
-
-    # Get the model.
+    @platform = DiscoveryPlatform.from_request(request)
     @model = Superskunk.comet_query_service.find_by(id: params["id"])
 
     # Get the profile.
@@ -26,17 +22,8 @@ class ResourcesController < ApplicationController
     if @platform.has_access?(resource: @model)
       @profile ? profile_render : default_render
     else
-      # Render a 404 instead of a 403 if no access grant exists, so that the
-      # presence/absense of resources isn’t leaked.
-      render_error text: "Not Found", status: 404
+      not_found
     end
-  end
-
-  ##
-  # Render an error as JSON.
-  def render_error(text: "Server Error", status: 500)
-    @profile = nil
-    render json: {"error" => text, "status" => status}, status: status
   end
 
   ##
@@ -61,14 +48,10 @@ class ResourcesController < ApplicationController
     end
   end
 
-  private
-
   ##
-  # Set the Content-Type of the response appropriately.
-  def set_content_type
-    response.headers["Content-Type"] = if !response.ok?
-      "application/json"
-    elsif @profile
+  # The Content-Type of a successful request.
+  def ok_content_type
+    if @profile
       "application/ld+json; profile=\"#{@profile}\""
     else
       "application/ld+json"
