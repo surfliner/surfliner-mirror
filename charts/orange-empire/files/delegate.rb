@@ -142,9 +142,11 @@ class CustomDelegate
     req = Net::HTTP::Get.new(superskunk_uri)
 
     begin
-      res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") { |http|
-        http.request(req)
-      }
+      res = Net::HTTP.start(
+        superskunk_uri.hostname,
+        superskunk_uri.port,
+        use_ssl: superskunk_uri.scheme == "https"
+      ) { |http| http.request(req) }
 
       if res.is_a?(Net::HTTPSuccess)
         superskunk_response = res.body
