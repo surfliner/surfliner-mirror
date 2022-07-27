@@ -8,6 +8,8 @@ class DerivativesListener
   # appropriate.
   def on_file_characterized(event)
     metadata = event[:file_metadata]
+    raise ArgumentError.new("#{metadata} can't be enqueued because it is not persisted") unless
+      metadata.persisted?
 
     unless metadata&.original_file? # do nothing unless this is an :original_file
       Hyrax.logger.debug("Not generating derivatines for file with ID: " \
