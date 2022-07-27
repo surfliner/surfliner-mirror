@@ -2,6 +2,8 @@ existingSecret:
   name: cantaloupe-production-s3
   enabled: true
 
+superskunkApiBase: http://surfliner-superskunk-prod.superskunk-prod
+
 cantaloupe:
   s3:
     sampleData: false

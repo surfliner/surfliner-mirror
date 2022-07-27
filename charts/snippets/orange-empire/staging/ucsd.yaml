@@ -10,6 +10,8 @@ ingress:
         - lib-orange-empire-staging.ucsd.edu
       secretName: tls-secret
 
+superskunkApiBase: http://surfliner-superskunk-stage.superskunk-staging
+
 cantaloupe:
   s3:
     sampleData: false

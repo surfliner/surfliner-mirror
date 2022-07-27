@@ -2,6 +2,8 @@ existingSecret:
   name: cantaloupe-staging-s3
   enabled: true
 
+superskunkApiBase: http://surfliner-superskunk-stage.superskunk-staging
+
 cantaloupe:
   s3:
     sampleData: false
