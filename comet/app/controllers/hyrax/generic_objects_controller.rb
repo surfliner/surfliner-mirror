@@ -62,5 +62,22 @@ module Hyrax
       redirect_to(main_app.hyrax_generic_object_path(id: params[:id]),
         notice: t("hyrax.base.show_actions.unpublish.success"))
     end
+
+    ##
+    # Delete and unpublish an object
+    def destroy
+      Hyrax.publisher.publish("object.unpublish",
+        object: @curation_concern,
+        user: current_user)
+
+      transactions["work_resource.destroy"]
+        .with_step_args("work_resource.delete" => {user: current_user})
+        .call(curation_concern)
+        .value!
+
+      title = Array(curation_concern.title).first
+
+      after_destroy_response(title)
+    end
   end
 end
