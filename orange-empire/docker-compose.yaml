@@ -5,6 +5,8 @@ services:
     image: uclalibrary/cantaloupe:5.0.5-1
     ports:
       - '8182:8182'
+    volumes:
+      - ../charts/orange-empire/files:/tmp/
     env_file:
       - .env
 

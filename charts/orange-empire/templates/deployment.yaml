@@ -33,6 +33,10 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+          - name: cantaloupe-mnt
+            mountPath: {{ .Values.cantaloupe.delegate.mountPath | quote }}
+            readOnly: true
           envFrom:
             - configMapRef:
                 name: {{ include "orange-empire.fullname" . }}-env
@@ -61,6 +65,10 @@ spec:
               port: {{ .Values.cantaloupe.port }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+      - name: cantaloupe-mnt
+        configMap:
+          name: {{ include "orange-empire.fullname" . }}-delegate
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

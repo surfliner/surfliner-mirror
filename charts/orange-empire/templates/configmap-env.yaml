@@ -5,6 +5,8 @@ metadata:
   labels:
     {{- include "orange-empire.labels" . | nindent 4 }}
 data:
+  CANTALOUPE_DELEGATE_SCRIPT_ENABLED: {{ .Values.cantaloupe.delegate.enabled | quote }}
+  CANTALOUPE_DELEGATE_SCRIPT_PATHNAME: {{ .Values.cantaloupe.delegate.mountPath }}/{{ .Values.cantaloupe.delegate.filename }}
   CANTALOUPE_ENDPOINT_ADMIN_ENABLED: {{ .Values.cantaloupe.admin.endpointEnabled | quote }}
   CANTALOUPE_CACHE_SERVER_DERIVATIVE_ENABLED: {{ .Values.cantaloupe.cacheServer.derivativeEnabled | quote }}
   CANTALOUPE_CACHE_SERVER_DERIVATIVE: {{ .Values.cantaloupe.cacheServer.derivative }}

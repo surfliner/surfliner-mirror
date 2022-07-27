@@ -40,6 +40,10 @@ cantaloupe:
     derivativeEnabled: true
     derivativeTTLSeconds: "2592000"
     purgeMissing: true
+  delegate:
+    enabled: true
+    mountPath: /mnt/cantaloupe
+    filename: delegate.rb
   logLevel: info
   processorSelectionStrategy: ManualSelectionStrategy
   manualProcessorJP2: KakaduNativeProcessor
