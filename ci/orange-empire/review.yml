@@ -24,6 +24,7 @@ orange-empire:deploy:ucsd-review:
       --set ingress.hosts[0].host=orange-empire-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
       --set ingress.hosts[0].paths[0].path=/
       --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
+      --set cantaloupe.delegate.enabled='false'
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
   script:
     - deploy ./charts/orange-empire
@@ -68,6 +69,7 @@ orange-empire:deploy:ucsb-review:
       --set ingress.tls[0].secretName=orange-empire-review-$CI_MERGE_REQUEST_ID
       --set-string ingress.annotations.cert-manager\.io/cluster-issuer=letsencrypt-prod
       --set-string ingress.annotations.kubernetes\.io/ingress\.class=nginx
+      --set cantaloupe.delegate.enabled='false'
 
 orange-empire:cleanup:ucsb-review:
   extends:

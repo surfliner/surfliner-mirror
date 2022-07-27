@@ -33,10 +33,12 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if .Values.cantaloupe.delegate.enabled }}
           volumeMounts:
           - name: cantaloupe-mnt
             mountPath: {{ .Values.cantaloupe.delegate.mountPath | quote }}
             readOnly: true
+          {{- end }}
           envFrom:
             - configMapRef:
                 name: {{ include "orange-empire.fullname" . }}-env
@@ -48,8 +50,8 @@ spec:
             - sh
             - -c
             - >
-              if [ "$VAULT_FILE" ] && [ -e "$VAULT_FILE" ]; then 
-                . "$VAULT_FILE" 
+              if [ "$VAULT_FILE" ] && [ -e "$VAULT_FILE" ]; then
+                . "$VAULT_FILE"
               fi;
               exec /usr/local/bin/run_cantaloupe.sh
           ports:
@@ -65,10 +67,12 @@ spec:
               port: {{ .Values.cantaloupe.port }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      {{- if .Values.cantaloupe.delegate.enabled }}
       volumes:
       - name: cantaloupe-mnt
         configMap:
           name: {{ include "orange-empire.fullname" . }}-delegate
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
