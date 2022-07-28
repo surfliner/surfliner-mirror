@@ -20,5 +20,25 @@ services:
     env_file:
       - .env
 
+  seed:
+    image: registry.gitlab.com/surfliner/surfliner/surfliner-util:stable
+    env_file:
+      - .env
+    command:
+      - sh
+      - -c
+      - >
+        export AWS_ACCESS_KEY_ID="$CANTALOUPE_S3SOURCE_ACCESS_KEY_ID";
+        export AWS_SECRET_ACCESS_KEY="$CANTALOUPE_S3SOURCE_SECRET_KEY";
+        apk add --no-cache curl;
+        curl -L -v "$SAMPLE_IMAGE_URL" -o /tmp/puppies.jpg;
+        echo "Waiting for bucket to be available to upload...";
+        aws --endpoint-url "$CANTALOUPE_S3SOURCE_ENDPOINT" s3api wait bucket-exists --bucket $CANTALOUPE_S3SOURCE_BASICLOOKUPSTRATEGY_BUCKET_NAME;
+        echo "Seeding sample images...";
+        aws --endpoint-url "$CANTALOUPE_S3SOURCE_ENDPOINT" s3 cp /tmp/puppies.jpg s3://$CANTALOUPE_S3SOURCE_BASICLOOKUPSTRATEGY_BUCKET_NAME/puppies.jpg
+    depends_on:
+      - cantaloupe
+      - minio
+
 volumes:
   minio:
