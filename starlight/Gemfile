@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 gem "activerecord-nulldb-adapter"
 gem "blacklight", "7.18.1"
-gem "blacklight-gallery", "3.3.1"
+gem "blacklight-gallery", "3.5.0"
 gem "blacklight-oembed", "1.1.0"
 gem "blacklight-spotlight",
     git: "https://gitlab.com/surfliner/spotlight.git",
