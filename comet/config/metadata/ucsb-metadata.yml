@@ -13,9 +13,9 @@ m3_version: "1.0.beta1"
 profile:
   responsibility: https://library.ucsb.edu/
   responsibility_statement: UC Santa Barbara Library
-  date_modified: "2021-05-04"
+  date_modified: "2022-07-22"
   type: UCSB Comet
-  version: 0.1
+  version: 0.2
 
 #---------------------------------------------------------
 # Mapping Definitions
@@ -29,166 +29,2118 @@ profile:
 mappings:
   dpla:
     name: Digital Public Library of America
-  dc:
-    name: Dublin Core
+  dc-oai:
+    name: Dublin Core OAI
+    iri: tag:surfliner.gitlab.io,2022:api/oai_dc
+  aardvark:
+    name: OGM Aardvark  
 
 # Class Definitions
 
 classes:
-  Collection:
+  collection:
+    name: collection
     display_label: "Collection"
 #   schema_uri:  URI for the class, from a local or shared ontology.
   generic_object:
+    name: generic_object
     display_label: "Generic Object"
 #   schema_uri:  URI for the class, from a local or shared ontology.
-  Geospatial:
+  geospatial_object:
+    name: geospatial_object
     display_label: "Geospatial Object"
 #   schema_uri:  URI for the class, from a local or shared ontology.
 
 # Property Definitions
 
 properties:
+
+# `title` is defined by Hyrax and can’t be overridden.
+#  
+#       title:
+#       name: "title"
+#        display_label: "Title"
+#        definition: "Formal or supplied title for the resource."
+#        usage_guidelines: null
+#        requirement: required
+#        controlled_values:
+#          format: null
+#          sources:
+#            - null
+#        sample_value:
+#          - "Pride and prejudice"
+#        property_uri: http://purl.org/dc/terms/title
+#        available_on:
+#          class:
+#            - null
+#        range: http://www.w3.org/2000/01/rdf-schema#Literal
+#        data_type: null
+#        syntax:  null
+#        cardinality:
+#          minimum: 1
+#          maximum: 1
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+#    mapping:
+#      dc-oai: http://purl.org/dc/elements/1.1/title
+#      dpla: null
+#      aardvark: null
+ 
+  title_alternative:
+    name: "title_alternative"
+    display_label: "Alternative title"
+    definition: "Alternative or other additional title for the resource."
+    usage_guidelines: null
+    requirement: recommended, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - "First impressions"
+    property_uri: http://purl.org/dc/terms/alternative
+    available_on:
+      class:
+        - generic_object
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+    index_documentation: "Alternative title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: null
+      dpla: http://purl.org/dc/terms/alternative
+      aardvark: null
+ 
+  title_filing:
+    name: "title_filing"
+    display_label: "Filing title"
+    definition: "A modified form of the formal collection title which controls the sort order when browsing collection lists."
+    usage_guidelines: "Use to record the filing title (see OAC Best Practices) for the collection."
+    requirement: required
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - "Lehmann (Lotte) collection"
+    property_uri: http://purl.org/dc/terms/alternative
+    available_on:
+      class:
+        - collection
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: null
+      dpla: null
+      aardvark: null
+ 
+  creator:
+    name: "creator"
+    display_label: "Creator"
+    definition: "A person or organization responsible for the intellectual or artistic content of a resource. If a more specific role is available, prefer that."
+    usage_guidelines: "Can be used when lacking specific information on an agent's exact role in creating the resource.\n"
+    requirement: recommended, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/elements/1.1/creator
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: http://www.w3.org/2001/XMLSchema#anyURI
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/creator
+      dpla: null
+      aardvark: null
+ 
+  contributor:
+    name: "contributor"
+    display_label: "Contributor"
+    definition: "A person, family or organization responsible for making contributions to the resource. If a more specific role is available, prefer that."
+    usage_guidelines: "Use as the broadest possible role, i.e. when lacking specific information on an agent's role, or the role is unclear or unknown. If a more specific role is available, prefer that, e.g. editor, compiler, illustrator."
+    requirement: recommended, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/elements/1.1/contributor
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: http://www.w3.org/2001/XMLSchema#anyURI
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/contributor
+      dpla: null
+      aardvark: null
+ 
+  publisher:
+    name: "publisher"
+    display_label: "Publisher name"
+    definition: "A person or organization responsible for publishing the resource."
+    usage_guidelines: "Use to record a publisher as a controlled name."
+    requirement: recommended, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/elements/1.1/publisher
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: http://www.w3.org/2001/XMLSchema#anyURI
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/publisher
+      dpla: null
+      aardvark: null
+ 
+ # placeholder for where to add additional agent roles from the MARC relator list 
+ #
+  # agent-role:
+  #   name: null
+  #   display_label: "[role]"
+  #   definition: "[see MARC relator list for specific role definitions]"
+  #   usage_guidelines: null
+  #   requirement: recommended, if applicable
+  #   controlled_values:
+  #     format: null
+  #     sources:
+  #       - null
+  #   sample_value:
+  #     - null
+  #   property_uri: http://id.loc.gov/vocabulary/relators/[role code]
+  #   available_on:
+  #     class:
+  #       - generic_object
+  #   range: http://www.w3.org/2001/XMLSchema#anyURI
+  #   data_type: null
+  #   syntax:  null
+  #   cardinality:
+  #     minimum: 0
+  #     maximum: null
+  #   index_documentation: "Title should be indexed as searchable and displayable."
+  #   indexing: a list of dynamic field names, taken from a controlled list;
+  #     Choose a value from this list.
+  #       displayable - store as string, multi-valued
+  #       facetable - index as a string, multi-valued
+  #       searchable - index the specific data type, multi-valued
+  #       sortable - index the specific data type
+  #       stored_searchable - index and store the specific data type, multi-valued
+  #       stored_sortable - index and store as string
+  #       symbol - index and store as string, multi-valued
+  #       fulltext_searchable - index as text, multi-valued with termVectors if enabled
+  #   validations:
+  #     match_regex:  Regular Expression pattern each value must match to be valid.
+  #   mapping:
+  #     dpla: null
+  #     aardvark: null
+ 
+  publication_statement:
+    name: "publication_statement"
+    display_label: "Publication statement"
+    definition: "Transcribed information on the location and/or entity responsible for the issuing, publication, release, distribution, manufacture, production, or origin of a resource."
+    usage_guidelines: "This is a place for transcribing an uncontrolled publication statement. To enter a controlled name for a publisher, use the publisher field. "
+    requirement: recommended, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - "Santa Barbara, California : Santa Barbara News Press"
+    property_uri: http://id.loc.gov/ontologies/bibframe/Publication
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/publisher
+      dpla: null
+      aardvark: null
+ 
+  date:
+    name: "date"
+    display_label: "Date"
+    definition: "A point or period of time associated with an event in the lifecycle of the resource.\n"
+    usage_guidelines: "If you have a more specific date, use the more specific types, e.g. date created, date issued.\n"
+    requirement: required, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/elements/1.1/date
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: http://www.europeana.eu/schemas/edm/TimeSpan
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/date
+      dpla: null
+      aardvark: null
+ 
+  date_created:
+    name: "date_created"
+    display_label: "Date created"
+    definition: "The date of creation of the resource."
+    usage_guidelines: null
+    requirement: required, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/terms/created
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: http://www.europeana.eu/schemas/edm/TimeSpan
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/date
+      dpla: null
+      aardvark: null
+ 
+  date_issued:
+    name: "date_issued"
+    display_label: "Date issued"
+    definition: "The date that the resource was published, released, or issued.\n"
+    usage_guidelines: null
+    requirement: required, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/terms/issued
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: http://www.europeana.eu/schemas/edm/TimeSpan
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/date
+      dpla: null
+      aardvark: null
+ 
+  physical_description:
+    name: "physical_description"
+    display_label: "Physical descriptiopn"
+    definition: "Description or statement indicating the extent, size, or duration of the resource."
+    usage_guidelines: null
+    requirement: recommended, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - "1 photograph : print ; sheet 22 x 28 cm"
+    property_uri: http://purl.org/dc/terms/extent
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/format
+      dpla: null
+      aardvark: null
+ 
+  type_of_resource:
+    name: "type_of_resource"
+    display_label: "Type of resource"
+    definition: "General nature of type of the resource."
+    usage_guidelines: null
+    requirement: required
+    controlled_values:
+      format: null
+      sources:
+        - "http://id.loc.gov/vocabulary/resourceTypes"
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/terms/type
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: null
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/type
+      dpla: null
+      aardvark: null
+ 
+  genre_form:
+    name: "genre_form"
+    display_label: "Genre or form"
+    definition: "The genre, form, and/or physical characteristics of the resource being described"
+    usage_guidelines: null
+    requirement: recommended, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - "http://vocab.getty.edu/aat"
+    sample_value:
+      - null
+    property_uri: http://id.loc.gov/ontologies/bibframe/genreForm
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: http://www.w3.org/2001/XMLSchema#anyURI
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/type
+      dpla: null
+      aardvark: null
+ 
+  note_description:
+    name: "note_description"
+    display_label: "Description"
+    definition: "Summary, abstract, or description of the resource."
+    usage_guidelines: null
+    requirement: recommended, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - "Contact sheet with multiple views of State Street."
+    property_uri: http://purl.org/dc/terms/description
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/description
+      dpla: null
+      aardvark: null
+ 
+  note_general:
+    name: "note_general"
+    display_label: "Note"
+    definition: "General textual information relating to a resource"
+    usage_guidelines: null
+    requirement: recommended, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://id.loc.gov/ontologies/bibframe/Note
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/description
+      dpla: null
+      aardvark: null
+ 
   language:
-    display_label:
-      default: "Language"
-    definition:
-      default: "Language(s) of described resource."
-    usage_guidelines:
-      Geospatial: "The value represents the language of the data, not of the metadata."
+    name: "language"
+    display_label: "Language"
+    definition: "Language(s) of described resource."
+    usage_guidelines: null
     requirement: recommended
     controlled_values:
-      format:  http://www.w3.org/2001/XMLSchema#anyURI
+      format: http://www.w3.org/2001/XMLSchema#anyURI
       sources:
         - http://id.loc.gov/vocabulary/iso639-2
     sample_value:
-      - "French"
+      - null
     property_uri: http://purl.org/dc/elements/1.1/language
     available_on:
       class:
-        - Collection
         - generic_object
-        - Geospatial
-    range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: http://www.w3.org/2001/XMLSchema#string
+        - collection
+    range: http://www.w3.org/2001/XMLSchema#anyURI
+    data_type: null
+    syntax:  null
     cardinality:
       minimum: 0
+      maximum: null
     index_documentation: "Language should be indexed as searchable, displayable, and facetable."
-#     indexing: a list of dynamic field names, taken from a controlled list;
-#       Choose a value from this list.
-#         displayable - store as string, multi-valued
-#         facetable - index as a string, multi-valued
-#         searchable - index the specific data type, multi-valued
-#         sortable - index the specific data type
-#         stored_searchable - index and store the specific data type, multi-valued
-#         stored_sortable - index and store as string
-#         symbol - index and store as string, multi-valued
-#         fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
     mapping:
-      dpla: "http://purl.org/dc/terms/language"
-
-# `title` is defined by Hyrax and can’t be overridden.
-#
-#   title:
-#     display_label:
-#       default: "Title"
-#     definition:
-#       default: "Formal or supplied title for the resource."
-#       Geospatial: "This field represents the title that will be uploaded to the ISO XML."
-#     usage_guidelines:
-#       Geospatial: "Follow our local standards to form a title following the convention: Feature Type/Data Theme, Geographic Coverage, Ground Condition Date."
-#       Collection: "For archival collections, this represents the formal title for the group of materials. For geospatial collections, this value displays the collection title shown in the original ArcGIS metadata XML."
-#     requirement: required
-#     sample_value:
-#       - "On the road"
-#     property_uri: http://purl.org/dc/terms/title
-#     available_on:
-#       class:
-#         - Collection
-#         - generic_object
-#         - Geospatial
-#     range: http://www.w3.org/2000/01/rdf-schema#Literal
-#     data_type: http://www.w3.org/2001/XMLSchema#string
-#     cardinality:
-#       minimum: 1
-#       maximum: 1
-#     index_documentation: "Title should be indexed as searchable and displayable."
-# #     indexing: a list of dynamic field names, taken from a controlled list;
-# #       Choose a value from this list.
-# #         displayable - store as string, multi-valued
-# #         facetable - index as a string, multi-valued
-# #         searchable - index the specific data type, multi-valued
-# #         sortable - index the specific data type
-# #         stored_searchable - index and store the specific data type, multi-valued
-# #         stored_sortable - index and store as string
-# #         symbol - index and store as string, multi-valued
-# #         fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#     mapping:
-#       dpla: "http://purl.org/dc/terms/title"
-
-  title_alternative:
-    display_label:
-      default: "Alternative title"
-    definition:
-      default: "Alternative or other additional title for the resource."
+      dc-oai: http://purl.org/dc/elements/1.1/language
+      dpla: http://purl.org/dc/terms/language
+      aardvark: null
+ 
+  subject_topic:
+    name: "subject_topic"
+    display_label: "Subject (topic)"
+    definition: "A topic or subject of the resource."
+    usage_guidelines: null
     requirement: recommended, if applicable
-    usage_guidelines:
-      Geospatial: "Enter an alternative title (i.e. English translation of non-latin character title; map sheet code)."
+    controlled_values:
+      format: null
+      sources:
+        - null
     sample_value:
-      - "There and Back Again"
-    property_uri: http://purl.org/dc/terms/alternative
+      - null
+    property_uri: http://purl.org/dc/terms/subject
     available_on:
       class:
-        - Collection
         - generic_object
-        - Geospatial
-    range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: http://www.w3.org/2001/XMLSchema#string
+        - collection
+    range: null
+    data_type: null
+    syntax:  null
     cardinality:
       minimum: 0
-    index_documentation: "Alternative title should be indexed as searchable and displayable."
-#     indexing: a list of dynamic field names, taken from a controlled list;
-#       Choose a value from this list.
-#         displayable - store as string, multi-valued
-#         facetable - index as a string, multi-valued
-#         searchable - index the specific data type, multi-valued
-#         sortable - index the specific data type
-#         stored_searchable - index and store the specific data type, multi-valued
-#         stored_sortable - index and store as string
-#         symbol - index and store as string, multi-valued
-#         fulltext_searchable - index as text, multi-valued with termVectors if enabled
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
     mapping:
-      dpla: "http://purl.org/dc/terms/alternative"
-
-  title_filing:
-    display_label:
-      default: "Filing title"
-    definition:
-      default: "A modified form of the formal collection title which controls the sort order when browsing collection lists."
-    usage_guidelines:
-      default: Use to record the filing title (see OAC Best Practices) for the collection.
-    requirement: required
+      dc-oai: http://purl.org/dc/elements/1.1/subject
+      dpla: null
+      aardvark: null
+ 
+  subject_name:
+    name: "subject_name"
+    display_label: "Subject (name)"
+    definition: "The name of a person or corporate entity that the resource is about."
+    usage_guidelines: null
+    requirement: recommended, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
     sample_value:
-      - "Abel (Theodore F.) Papers"
-    property_uri: http://purl.org/dc/terms/alternative
+      - null
+    property_uri: http://purl.org/dc/terms/subject
     available_on:
       class:
-        - Collection
-    range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: http://www.w3.org/2001/XMLSchema#string
+        - generic_object
+        - collection
+    range: null
+    data_type: null
+    syntax:  null
     cardinality:
-      minimum: 1
-      maximum: 1
-    index_documentation: "Filing title should be indexed as sortable, searchable, and displayable."
-# The filing title should be used when creating the browseable lists of collections.
-#     indexing: a list of dynamic field names, taken from a controlled list;
-#       Choose a value from this list.
-#         displayable - store as string, multi-valued
-#         facetable - index as a string, multi-valued
-#         searchable - index the specific data type, multi-valued
-#         sortable - index the specific data type
-#         stored_searchable - index and store the specific data type, multi-valued
-#         stored_sortable - index and store as string
-#         symbol - index and store as string, multi-valued
-#         fulltext_searchable - index as text, multi-valued with termVectors if enabled
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
     mapping:
-      dpla: "http://purl.org/dc/terms/alternative"
+      dc-oai: http://purl.org/dc/elements/1.1/subject
+      dpla: null
+      aardvark: null
+ 
+  subject_spatial:
+    name: "subject_spatial"
+    display_label: "Subject (location)"
+    definition: "The name of a geographic location that the resource is about."
+    usage_guidelines: null
+    requirement: recommended, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/terms/spatial
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: null
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/coverage
+      dpla: null
+      aardvark: null
+ 
+  subject_temporal:
+    name: "subject_temporal"
+    display_label: "Subject (time period)"
+    definition: "Temporal characteristics of the described resource. Captures aboutness."
+    usage_guidelines: null
+    requirement: recommended, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/terms/temporal
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: null
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/coverage
+      dpla: null
+      aardvark: null
+ 
+  subject_keywords:
+    name: "subject_keywords"
+    display_label: "Keywords"
+    definition: "Uncontrolled terms supplied by the creator describing the subject of the resource."
+    usage_guidelines: null
+    requirement: recommended, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://schema.org/keywords
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/subject
+      dpla: null
+      aardvark: null
+ 
+  point_coordinate_latitude:
+    name: "point_coordinate_latitude"
+    display_label: "Point coordinate latitude"
+    definition: null
+    usage_guidelines: null
+    requirement: null
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://www.w3.org/2003/12/exif/ns#gpsLatitude
+    available_on:
+      class:
+        - generic_object
+    range: null
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: 1
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: null
+      dpla: null
+      aardvark: null
+ 
+  point_coordinate_longitude:
+    name: "point_coordinate_longitude"
+    display_label: "Point coordinate longitude"
+    definition: null
+    usage_guidelines: null
+    requirement: null
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://www.w3.org/2003/12/exif/ns#gpsLongitude
+    available_on:
+      class:
+        - generic_object
+    range: null
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: 1
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: null
+      dpla: null
+      aardvark: null
+ 
+  bounding_box_east_bound_longitude:
+    name: "bounding_box_east_bound_longitude"
+    display_label: "Bounding box easternmost"
+    definition: null
+    usage_guidelines: null
+    requirement: null
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/terms/Boxeastlimit
+    available_on:
+      class:
+        - generic_object
+    range: null
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: 1
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: null
+      dpla: null
+      aardvark: null
+ 
+  bounding_box_north_bound_latitude:
+    name: "bounding_box_north_bound_latitude"
+    display_label: "Bounding box northernmost"
+    definition: null
+    usage_guidelines: null
+    requirement: null
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/terms/Boxnorthlimit
+    available_on:
+      class:
+        - generic_object
+    range: null
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: 1
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: null
+      dpla: null
+      aardvark: null
+ 
+  bounding_box_south_bound_latitude:
+    name: "bounding_box_south_bound_latitude"
+    display_label: "Bounding box southernmost"
+    definition: null
+    usage_guidelines: null
+    requirement: null
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/terms/Boxsouthlimit
+    available_on:
+      class:
+        - generic_object
+    range: null
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: 1
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: null
+      dpla: null
+      aardvark: null
+ 
+  bounding_box_west_bound_longitude:
+    name: "bounding_box_west_bound_longitude"
+    display_label: "Bounding box westernmost"
+    definition: null
+    usage_guidelines: null
+    requirement: null
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/terms/Boxwestlimit
+    available_on:
+      class:
+        - generic_object
+    range: null
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: 1
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: null
+      dpla: null
+      aardvark: null
+ 
+  scale:
+    name: "scale"
+    display_label: "Scale"
+    definition: null
+    usage_guidelines: null
+    requirement: null
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://id.loc.gov/ontologies/bibframe/Scale
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: null
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: 1
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: null
+      dpla: null
+      aardvark: null
+ 
+  identifier_accession:
+    name: "identifier_accession"
+    display_label: "Accession number"
+    definition: "An archival accession number for the object."
+    usage_guidelines: null
+    requirement: required, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://id.loc.gov/ontologies/bibframe/AccessionNumber
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: null
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/identifier
+      dpla: null
+      aardvark: null
+ 
+  identifier_barcode:
+    name: "identifier_barcode"
+    display_label: "Barcode"
+    definition: "Barcode number assigned to the physical object."
+    usage_guidelines: null
+    requirement: required, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://id.loc.gov/ontologies/bibframe/Barcode
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: null
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/identifier
+      dpla: null
+      aardvark: null
+ 
+  identifier_call_number:
+    name: "identifier_call_number"
+    display_label: "Call number"
+    definition: "The call number assigned to the physical object."
+    usage_guidelines: null
+    requirement: recommended, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://id.loc.gov/ontologies/bibframe/ShelfMark
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: null
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/identifier
+      dpla: null
+      aardvark: null
+ 
+  identifier_DOI:
+    name: "identifier_DOI"
+    display_label: "DOI"
+    definition: "Digital object identifier"
+    usage_guidelines: null
+    requirement: recommended, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://id.loc.gov/vocabulary/identifiers/doi
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: null
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/identifier
+      dpla: null
+      aardvark: null
+ 
+  identifier_ISBN:
+    name: "identifier_ISBN"
+    display_label: "ISBN"
+    definition: "International standard book number"
+    usage_guidelines: null
+    requirement: recommended, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - "9781267294944"
+    property_uri: http://id.loc.gov/vocabulary/identifiers/isbn
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/identifier
+      dpla: null
+      aardvark: null
+ 
+  identifier_ISSN:
+    name: "identifier_ISSN"
+    display_label: "ISSN"
+    definition: "International standard serial number"
+    usage_guidelines: null
+    requirement: recommended, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://id.loc.gov/vocabulary/identifiers/issn
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: null
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/identifier
+      dpla: null
+      aardvark: null
+ 
+  identifier_issue_number:
+    name: "identifier_issue_number"
+    display_label: "Issue number"
+    definition: "Sound recording issue number"
+    usage_guidelines: null
+    requirement: recommended, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - "Vogue: R 736"
+    property_uri: http://id.loc.gov/vocabulary/identifiers/issue-number
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/identifier
+      dpla: null
+      aardvark: null
+ 
+  identifier_local:
+    name: "identifier_local"
+    display_label: "Local identifier"
+    definition: "Unique local identifier assigned to the physical object."
+    usage_guidelines: null
+    requirement: required, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - "uarch112-g00237"
+    property_uri: http://id.loc.gov/vocabulary/identifiers/local
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/identifier
+      dpla: null
+      aardvark: null
+ 
+  identifier_matrix_number:
+    name: "identifier_matrix_number"
+    display_label: "Matrix number"
+    definition: "Sound recording matrix number"
+    usage_guidelines: null
+    requirement: recommended, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - "Vogue: P-48"
+    property_uri: http://id.loc.gov/vocabulary/identifiers/matrix-number
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/identifier
+      dpla: null
+      aardvark: null
+ 
+  series:
+    name: "series"
+    display_label: "Series name"
+    definition: "Name of the series in archival location information."
+    usage_guidelines: null
+    requirement: recommended, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://opaquenamespace.org/ns/seriesName
+    available_on:
+      class:
+        - generic_object
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: null
+      dpla: null
+      aardvark: null
+ 
+  file_unit:
+    name: "file_unit"
+    display_label: "File unit name"
+    definition: "Name of the file unit (intellectual folder) in archival location information. File unit refers to the intellectual grouping of the archival materials and may be comprised of one or more physical folders."
+    usage_guidelines: null
+    requirement: recommended, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://opaquenamespace.org/ns/folderName
+    available_on:
+      class:
+        - generic_object
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: null
+      dpla: null
+      aardvark: null
+ 
+  finding_aid:
+    name: "finding_aid"
+    display_label: "Finding aid "
+    definition: "Link to finding aid for the collection in OAC"
+    usage_guidelines: null
+    requirement: recommended, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - "http://www.oac.cdlib.org/findaid/ark:/13030/kt296nf09q/"
+    property_uri: http://id.loc.gov/ontologies/bibframe/findingAid
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: http://www.w3.org/2001/XMLSchema#anyURI
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/relation
+      dpla: null
+      aardvark: null
+ 
+  preferred_citation:
+    name: "preferred_citation"
+    display_label: "Preferred citation"
+    definition: "Citation to the resource preferred by its custodian of the resource (i.e. UCSB).\n"
+    usage_guidelines: null
+    requirement: recommended, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - "[Item description]. Community Development and Conservation Collection. SBHC Mss 1. Department of Special Research Collections, UC Santa Barbara Library, University of California, Santa Barbara."
+    property_uri: http://id.loc.gov/ontologies/bibframe/preferredCitation
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/description
+      dpla: null
+      aardvark: null
+ 
+  copyright_holder:
+    name: "copyright_holder"
+    display_label: "Copyright holder"
+    definition: "A person or organization owning or managing the copyright of the resource.\n"
+    usage_guidelines: null
+    requirement: recommended, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/terms/rightsHolder
+    available_on:
+      class:
+        - generic_object
+    range: null
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: null
+      dpla: null
+      aardvark: null
+ 
+  copyright_date:
+    name: "copyright_date"
+    display_label: "Copyright date"
+    definition: "The date that the resource was copyrighted."
+    usage_guidelines: null
+    requirement: recommended, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/terms/dateCopyrighted
+    available_on:
+      class:
+        - generic_object
+    range: null
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: null
+      dpla: null
+      aardvark: null
+ 
+  rights_status:
+    name: "rights_status"
+    display_label: "Copyright status"
+    definition: "A coded designation for the copyright status of the resource, at the time the rights statement is recorded."
+    usage_guidelines: null
+    requirement: required
+    controlled_values:
+      format: null
+      sources:
+        - "http://id.loc.gov/vocabulary/preservation/copyrightStatus"
+    sample_value:
+      - null
+    property_uri: http://www.loc.gov/premis/rdf/v1#hasCopyrightStatus
+    available_on:
+      class:
+        - generic_object
+    range: http://www.w3.org/2001/XMLSchema#anyURI
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: 1
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: null
+      dpla: null
+      aardvark: null
+ 
+  rights_statement:
+    name: "rights_statement"
+    display_label: "Rights statement"
+    definition: "The value in this element will indicate the copyright, usage and access rights that apply to this digital representation."
+    usage_guidelines: null
+    requirement: required
+    controlled_values:
+      format: null
+      sources:
+        - "http://rightsstatements.org, http://creativecommons.org"
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/terms/rights
+    available_on:
+      class:
+        - generic_object
+    range: http://www.w3.org/2001/XMLSchema#anyURI
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: 1
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/rights
+      dpla: null
+      aardvark: null
+ 
+  rights_note:
+    name: "rights_note"
+    display_label: "Rights note"
+    definition: "Free text description of rights, such as administrative contact information, a description of the specific license terms, or other rights-related restrictions."
+    usage_guidelines: null
+    requirement: required, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - "Transmission or reproduction of materials protected by copyright beyond that allowed by fair use requires the written permission of the copyright owners. In addition, the reproduction of some materials may be restricted by terms of gift or purchase agreements, donor restrictions, privacy and publicity rights, licensing and trademarks (contact the department of Special Research Collections at the UC Santa Barbara Library for more information). Works not in the public domain cannot be commercially exploited without permission of the copyright owner. Responsibility for any use rests exclusively with the user."
+    property_uri: http://purl.org/dc/elements/1.1/rights
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/rights
+      dpla: null
+      aardvark: null
+ 
+  physical_location:
+    name: "physical_location"
+    display_label: "Physical location"
+    definition: "The institution or repository that holds the resource"
+    usage_guidelines: null
+    requirement: required
+    controlled_values:
+      format: null
+      sources:
+        - "http://id.loc.gov/vocabulary/organizations"
+    sample_value:
+      - "http://id.loc.gov/vocabulary/organizations/cusb"
+    property_uri: http://opaquenamespace.org/ns/contributingInstitution
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: http://www.w3.org/2001/XMLSchema#anyURI
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: 1
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: null
+      dpla: null
+      aardvark: null
+ 
+  sublocation:
+    name: "sublocation"
+    display_label: "Sublocation"
+    definition: "Name of repository, department, or unit responsible for maintaining and curating the original resource."
+    usage_guidelines: null
+    requirement: required, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - Art & Architecture
+        - SRC, American Religions Collection
+        - SRC, Bernath Memorial Collection
+        - SRC, California Ethnic and Multicultural Archives
+        - SRC, Humanistic Psychology Archives
+        - SRC, General Manuscripts Collection
+        - SRC, Oral Histories
+        - SRC, Performing Arts
+        - SRC, Printers Collection
+        - SRC, Santa Barbara History Collection
+        - SRC, University Archives
+        - SRC, William Wyles Collection 
+    sample_value:
+      - "SRC, California Ethnic and Multicultural Archives"
+    property_uri: http://www.loc.gov/mods/rdf/v1#locationCopySublocation
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: 1
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: null
+      dpla: null
+      aardvark: null
+ 
+  description_standard:
+    name: "description_standard"
+    display_label: "Description standard"
+    definition: "Designates the rules used for the content of the description if applicable."
+    usage_guidelines: null
+    requirement: recommended
+    controlled_values:
+      format: null
+      sources:
+        - "http://id.loc.gov/vocabulary/descriptionConventions"
+    sample_value:
+      - null
+    property_uri: http://www.loc.gov/mods/rdf/v1#recordDescriptionStandard
+    available_on:
+      class:
+        - generic_object
+    range: http://www.w3.org/2001/XMLSchema#anyURI
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: 1
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: null
+      dpla: null
+      aardvark: null
+ 
+  digital_origin:
+    name: "digital_origin"
+    display_label: "Digital origin"
+    definition: "A designation of the source of a digital file important to its creation, use, and management."
+    usage_guidelines: null
+    requirement: recommended
+    controlled_values:
+      format: null
+      sources:
+        - born digital
+        - reformatted digital
+        - digitized microfilm
+        - digitized other analog
+    sample_value:
+      - null
+    property_uri: http://www.loc.gov/mods/rdf/v1#digitalOrigin
+    available_on:
+      class:
+        - generic_object
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: null
+      dpla: null
+      aardvark: null
