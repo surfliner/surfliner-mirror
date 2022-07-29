@@ -67,6 +67,11 @@ module Hyrax
 
       redirect_to(my_works_path,
         notice: t("hyrax.dashboard.batch_uploads.submission_success"))
+    rescue => err
+      Hyrax.logger.error(err)
+
+      redirect_to(new_batch_upload_path,
+        alert: "Error: #{err}.")
     end
   end
 end
