@@ -5,6 +5,8 @@ require "csv"
 ##
 # A base module to resolve requests for batch uploads.
 module BatchUploadsControllerBehavior
+  FILE_NAME_KEY = "file name"
+
   private
 
   ##
@@ -86,7 +88,7 @@ module BatchUploadsControllerBehavior
       raw_metadata: attrs.to_json)
     batch_upload_entry.save
 
-    file_names = attrs.delete("file name")
+    file_names = attrs.delete(FILE_NAME_KEY)
 
     # Create object
     work = model.new

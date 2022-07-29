@@ -44,6 +44,15 @@ module Hyrax
         return
       end
 
+      # check for files not presented in the file location
+      files = rows.map { |r| r[FILE_NAME_KEY] }.to_a
+      files_missing = files - list_files(permitted[:files_location])
+      if files_missing.size > 0
+        redirect_to(new_batch_upload_path,
+          alert: "Error missing staging area #{"file".pluralize(files_missing.size)}: #{files_missing.join(", ")}.")
+        return
+      end
+
       rows.each_with_index do |row, i|
         # TODO: override license, visibility, embargo_release_date etc. From form?
 
