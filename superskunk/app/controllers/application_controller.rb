@@ -1,8 +1,22 @@
 class ApplicationController < ActionController::API
   after_action :set_content_type
 
+  rescue_from AcceptReader::BadAcceptError, with: :bad_request
   rescue_from DiscoveryPlatform::AuthError, with: :forbidden
   rescue_from Valkyrie::Persistence::ObjectNotFoundError, with: :not_found
+
+  ##
+  # 400 BAD REQUEST
+  #
+  # Use this for badly‐formed requests (e.g. headers which don’t match the HTTP
+  # syntax).
+  def bad_request(exception: nil)
+    if exception.is_a?(AcceptReader::BadAcceptError)
+      render_error text: "Bad Accept Header", status: 400
+    else
+      render_error text: "Bad Request", status: 400
+    end
+  end
 
   ##
   # 403 FORBIDDEN
@@ -25,8 +39,37 @@ class ApplicationController < ActionController::API
   ##
   # Renders an error in a reasonable format.
   def render_error(_exception = nil, text: "Server Error", status: 500)
-    render plain: text, status: status
-    # render json: {"error" => text, "status" => status}, status: status
+    if preferred_type == :json
+      render json: {"error" => text, "status" => status}, status: status
+    else
+      render plain: text, status: status
+    end
+  end
+
+  ##
+  # Returns an AcceptReader for the current request.
+  def accept_reader
+    @accept_reader ||= AcceptReader.new(request.headers["Accept"])
+  end
+
+  ##
+  # Returns the preferred type for responses.
+  def preferred_type
+    return @preferred_type unless @preferred_type.nil?
+    best_recognized_type = accept_reader.best_type([
+      "application/ld+json",
+      "application/json",
+      "application/*",
+      "text/plain",
+      "text/*"
+    ])
+    @preferred_type = if best_recognized_type.nil?
+      :unknown
+    elsif best_recognized_type.start_with?("text/")
+      :plaintext
+    else
+      :json
+    end
   end
 
   ##
@@ -35,7 +78,7 @@ class ApplicationController < ActionController::API
   # This will match the output of +render_error+, so there’s no reason to
   # override it unless you are using custom error handling.
   def err_content_type
-    "text/plain"
+    preferred_type == :json ? "application/json" : "text/plain"
   end
 
   ##

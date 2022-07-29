@@ -9,16 +9,8 @@ class ResourcesController < ApplicationController
   def show
     @platform = DiscoveryPlatform.from_request(request)
     @model = Superskunk.comet_query_service.find_by(id: params["id"])
+    @profile = accept_reader.best_jsonld_profile(ResourceSerializer.supported_profiles.keys)
 
-    # Get the profile.
-    begin
-      @accept_reader = AcceptReader.new(request.headers["Accept"])
-      @profile = @accept_reader.best_jsonld_profile(ResourceSerializer.supported_profiles.keys)
-    rescue AcceptReader::BadAcceptError
-      return render_error text: "Bad Accept Header", status: 400
-    end
-
-    # Render the appropriate mapping.
     if @platform.has_access?(resource: @model)
       @profile ? profile_render : default_render
     else
@@ -35,7 +27,7 @@ class ResourcesController < ApplicationController
   ##
   # A default render used when no supported profile is requested.
   def default_render
-    if @accept_reader.best_type([
+    if accept_reader.best_type([
       "application/ld+json",
       "application/json",
       "application/*",
