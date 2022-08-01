@@ -13,6 +13,25 @@ classes:
 # Property Definitions
 
 properties:
+  creator:
+    display_label:
+      default: "Creator"
+    definition:
+      default: "An agent or entity involved in the creation of the resource."
+    requirement: recommended
+    sample_value:
+      - "Tove Jansson"
+    available_on:
+      class:
+        - generic_object
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    cardinality:
+      minimum: 0
+    index_documentation: "Creator should be indexed as searchable, displayable, and facetable."
+    mapping:
+      dpla: "http://purl.org/dc/terms/creator"
+
   language:
     display_label:
       default: "Language"
