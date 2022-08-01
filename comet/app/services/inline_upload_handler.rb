@@ -45,6 +45,7 @@ class InlineUploadHandler < Hyrax::WorkUploadsHandler
           size: uploader.file.size,
           file_set_id: file.file_set_uri)
       file_metadata = Hyrax.persister.save(resource: file_metadata)
+      Hyrax::AccessControlList.copy_permissions(source: target_permissions, target: file_metadata)
 
       file_set = Hyrax.query_service.find_by(id: file.file_set_uri)
 

@@ -87,6 +87,32 @@ RSpec.describe InlineUploadHandler, storage_adapter: :memory do
           .to contain_exactly(include(metadata: an_instance_of(Hyrax::FileMetadata), user: user),
             include(metadata: an_instance_of(Hyrax::FileMetadata), user: user))
       end
+
+      context "with object permissions" do
+        before do
+          acl = Hyrax::AccessControlList.new(resource: object)
+          acl.grant(:read).to(Hyrax::Group.new("public"))
+          acl.save
+        end
+
+        it "adds permissions to FileSet" do
+          service.attach
+          file_set = listener.file_set_attached.first.payload[:file_set]
+          acl = Hyrax::AccessControlList(file_set)
+
+          expect(acl.permissions)
+            .to include(have_attributes(mode: :read, agent: "group/public"))
+        end
+
+        it "adds permissions to FileMetadata" do
+          service.attach
+          metadata = listener.file_metadata_updated.first.payload[:metadata]
+          acl = Hyrax::AccessControlList(metadata)
+
+          expect(acl.permissions)
+            .to include(have_attributes(mode: :read, agent: "group/public"))
+        end
+      end
     end
   end
 end
