@@ -1,6 +1,9 @@
 ##
 # This is Comet's preferred presenter for displaying {GenericObject}
 class CometObjectPresenter < Hyrax::WorkShowPresenter
+  # Delegate schema fields to the model.
+  delegate(*EnvSchemaLoader.new.properties_for(:generic_object).keys, to: :model)
+
   ##
   # Provides a data structure representing the discovery links for this object.
   #
