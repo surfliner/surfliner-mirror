@@ -27,7 +27,7 @@ RSpec.describe "Collections", type: :system, js: true, storage_adapter: :memory,
     expect(page).to have_content("Child Collection")
 
     persisted_collections = Hyrax.query_service.find_all_of_model(model: Hyrax::PcdmCollection)
-    _parent_collection = persisted_collections.find do |col|
+    parent_collection = persisted_collections.find do |col|
       col.title == ["Parent Collection"]
     end
 
@@ -48,5 +48,8 @@ RSpec.describe "Collections", type: :system, js: true, storage_adapter: :memory,
 
     visit "/dashboard/collections/#{child_collection.id}?locale=en"
     expect(page).to have_content("Parent Collection")
+
+    visit "/dashboard/collections/#{parent_collection.id}?locale=en"
+    expect(page).to have_content("Child Collection")
   end
 end

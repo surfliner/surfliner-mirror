@@ -14,6 +14,7 @@ module Hyrax
         index_document[:generic_type_sim] = ["Collection"]
         index_document[:thumbnail_path_ss] = Hyrax::CollectionThumbnailPathService.call(resource)
         index_document[:depositor_ssim] = resource.try(:depositor)
+        index_document["member_of_collection_ids_ssim"] = resource.member_of_collection_ids.map(&:to_s)
       end
     end
   end
