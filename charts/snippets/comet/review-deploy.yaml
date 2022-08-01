@@ -50,6 +50,9 @@ extraEnvVars:
     value: "1"
   - name: "METADATA_MODELS"
     value: "ucsb-metadata"
+extraEnvFrom:
+  - secretRef:
+      name: ezid-test
 minio:
   enabled: true
   persistence:
@@ -131,3 +134,6 @@ worker:
       value: "comet-review"
     - name: "STAGING_AREA_S3_BUCKET"
       value: "comet-staging-area-review"
+  extraEnvFrom:
+    - secretRef:
+        name: ezid-test
