@@ -102,7 +102,7 @@ class AcceptReader
       loop do
         # parse out types while possible
         match = MEDIA_RANGE_RE.match header_value, index
-        raise BadAcceptError, "Invalid Accept header: #{accept_header}" unless match
+        raise BadAcceptError, "Invalid Accept header: #{header_value}" unless match
         types << {
           type: match[:media_type_or_wildcard],
           parameters: parse_parameters(match[:parameters]),
