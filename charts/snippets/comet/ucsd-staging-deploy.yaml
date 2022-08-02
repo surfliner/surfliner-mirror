@@ -32,17 +32,6 @@ extraEnvVars:
     value: "https"
   - name: "RAILS_LOG_TO_STDOUT"
     value: "true"
-extraEnvFrom:
-  - configMapRef:
-      name: comet-staging-s3-bucket
-  - secretRef:
-      name: comet-staging-iam-keys
-  - secretRef:
-      name: comet-staging-oauth
-  - secretRef:
-      name: comet-staging-ezid-credentials
-  - secretRef:
-      name: comet-postgres
 worker:
   extraEnvVars:
     - name: "AUTH_METHOD"
@@ -53,17 +42,6 @@ worker:
       value: "https"
     - name: "RAILS_LOG_TO_STDOUT"
       value: "true"
-  extraEnvFrom:
-    - configMapRef:
-        name: comet-staging-s3-bucket
-    - secretRef:
-        name: comet-staging-iam-keys
-    - secretRef:
-        name: comet-staging-oauth
-    - secretRef:
-        name: comet-staging-ezid-credentials
-    - secretRef:
-        name: comet-postgres
 
 brandingVolume:
   storageClass: nfs-client

@@ -17,8 +17,16 @@ extraEnvVars:
   - name: "STAGING_AREA_S3_EXAMPLE_FILES"
     value: "1"
 extraEnvFrom:
+  - configMapRef:
+      name: comet-staging-s3-bucket
+  - secretRef:
+      name: comet-staging-iam-keys
+  - secretRef:
+      name: comet-staging-oauth
   - secretRef:
       name: comet-staging-ezid-credentials
+  - secretRef:
+      name: comet-postgres
 
 podSecurityContext:
   runAsUser: 10000
@@ -51,8 +59,16 @@ worker:
       memory: 350Mi
       cpu: 500m
   extraEnvFrom:
+    - configMapRef:
+        name: comet-staging-s3-bucket
+    - secretRef:
+        name: comet-staging-iam-keys
+    - secretRef:
+        name: comet-staging-oauth
     - secretRef:
         name: comet-staging-ezid-credentials
+    - secretRef:
+        name: comet-postgres
 
 resources:
   limits:

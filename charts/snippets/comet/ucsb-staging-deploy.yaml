@@ -50,15 +50,6 @@ extraEnvVars:
     value: "sidekiq"
   - name: "STAGING_AREA_S3_BUCKET"
     value: "comet-staging-batch-source"
-extraEnvFrom:
-  - configMapRef:
-      name: comet-staging-s3-bucket
-  - secretRef:
-      name: comet-staging-iam-keys
-  - secretRef:
-      name: comet-staging-oauth
-  - secretRef:
-      name: comet-postgres
 worker:
   extraEnvVars:
     - name: "AUTH_METHOD"
@@ -73,12 +64,3 @@ worker:
       value: "sidekiq"
     - name: "STAGING_AREA_S3_BUCKET"
       value: "comet-staging-batch-source"
-  extraEnvFrom:
-    - configMapRef:
-        name: comet-staging-s3-bucket
-    - secretRef:
-        name: comet-staging-iam-keys
-    - secretRef:
-        name: comet-staging-oauth
-    - secretRef:
-        name: comet-postgres
