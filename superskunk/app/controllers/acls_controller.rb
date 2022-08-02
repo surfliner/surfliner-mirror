@@ -1,6 +1,5 @@
 class AclsController < ApplicationController
   def show
-    id = params.require(:resource)
     mode = params.require(:mode)
     group = Hyrax::Acl::Group.new(params.require(:group))
 
@@ -18,9 +17,9 @@ class AclsController < ApplicationController
     end
 
     resource = begin
-      Superskunk.comet_query_service.find_by(id: id)
+      resource_for(params.permit(:file, :resource))
     rescue Valkyrie::Persistence::ObjectNotFoundError => err
-      Rails.logger.info("Fielded access request for unknown resource: #{id}\n\t#{err}")
+      Rails.logger.info("Fielded access request for unknown resource: #{params}\n\t#{err}")
       render(plain: "0") && return
     end
 
@@ -30,6 +29,16 @@ class AclsController < ApplicationController
       render plain: "1"
     else
       render plain: "0"
+    end
+  end
+
+  private
+
+  def resource_for(params)
+    if params.key?(:file)
+      Superskunk.comet_query_service.custom_queries.find_file_metadata(params[:file])
+    else
+      Superskunk.comet_query_service.find_by(id: params[:resource])
     end
   end
 end

@@ -138,7 +138,7 @@ class CustomDelegate
     require "net/http"
     resource_id = context["identifier"]
     puts "Authorizing resource: #{resource_id}"
-    superskunk_uri = URI("#{ENV['SUPERSKUNK_API_BASE']}/acls?resource=#{resource_id}&mode=read&group=public")
+    superskunk_uri = URI("#{ENV['SUPERSKUNK_API_BASE']}/acls?file=#{resource_id}&mode=read&group=public")
     req = Net::HTTP::Get.new(superskunk_uri)
 
     begin
