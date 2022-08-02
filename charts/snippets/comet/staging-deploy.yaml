@@ -16,6 +16,9 @@ fcrepo:
 extraEnvVars:
   - name: "STAGING_AREA_S3_EXAMPLE_FILES"
     value: "1"
+extraEnvFrom:
+  - secretRef:
+      name: comet-staging-ezid-credentials
 
 podSecurityContext:
   runAsUser: 10000
@@ -47,6 +50,9 @@ worker:
     requests:
       memory: 350Mi
       cpu: 500m
+  extraEnvFrom:
+    - secretRef:
+        name: comet-staging-ezid-credentials
 
 resources:
   limits:
