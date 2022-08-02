@@ -1,3 +1,4 @@
+<%= presenter.attribute_to_html(:ark, label: t('hyrax.base.show.permanent_id'), html_dl: true) %>
 <%= presenter.attribute_to_html(:date_modified, label: t('hyrax.base.show.last_modified'), html_dl: true) %>
 
 <% ::EnvSchemaLoader.new.properties_for(:generic_object).values.each do |property| %>

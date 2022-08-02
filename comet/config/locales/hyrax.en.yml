@@ -165,6 +165,9 @@ en:
         header:
           actions: Action
           title: Title
+      show:
+        permanent_id: ARK
+        last_modified: Last Modified
       show_actions:
         attach_child: Add Component
       work_button_row:

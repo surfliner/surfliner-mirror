@@ -5,6 +5,12 @@ class CometObjectPresenter < Hyrax::WorkShowPresenter
   delegate(*EnvSchemaLoader.new.properties_for(:generic_object).keys, to: :model)
 
   ##
+  # @return [String] the ARK for the object, if assigned
+  def ark
+    model.ark
+  end
+
+  ##
   # Provides a data structure representing the discovery links for this object.
   #
   # When the object is published in a given discovery platform, we want to
