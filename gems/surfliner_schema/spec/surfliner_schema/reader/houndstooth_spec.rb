@@ -30,6 +30,18 @@ describe SurflinerSchema::Reader::Houndstooth do
     expect(mappings).to contain_exactly("http://purl.org/dc/terms/title")
   end
 
+  it "allows specializations" do
+    unspecialized_mappings = reader.properties(
+      availability: :GenericWork
+    )[:title].mappings_for("example:my_mapping")
+    expect(unspecialized_mappings).to contain_exactly
+
+    specialized_mappings = reader.properties(
+      availability: :Friend
+    )[:title].mappings_for("example:my_mapping")
+    expect(specialized_mappings).to contain_exactly("http://xmlns.com/foaf/0.1/name")
+  end
+
   describe "#form_options" do
     it "includes some fields" do
       expect(reader.form_options(availability: :GenericWork)).not_to be_empty

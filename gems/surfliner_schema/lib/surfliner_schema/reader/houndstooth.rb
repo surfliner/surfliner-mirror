@@ -11,19 +11,36 @@ module SurflinerSchema
       ##
       # Creates a new simple schema reader given a Houndstooth Hash.
       #
-      # @param attr_config [Hash]
+      # @param houndstooth [Hash]
       def initialize(houndstooth)
-        @properties = houndstooth.fetch("properties", {}).each_with_object({}) do |(name, config), dfns|
-          proprety_name = name.to_sym
-          dfns[proprety_name] = Property.new(
-            name: proprety_name,
+        # If the Houndstooth file specifies the properties as an array, convert
+        # it into a hash.
+        provided_properties = houndstooth.fetch("properties", {})
+        properties_hash = provided_properties.is_a?(Hash) ? provided_properties
+          : provided_properties.each_with_index.each_with_object({}) do |(v, i), o|
+              o["_#{i}"] = v
+            end
+
+        # Likewise for mappings.
+        provided_mappings = houndstooth.fetch("mappings", {})
+        mappings_hash = provided_mappings.is_a?(Hash) ? provided_mappings
+          : provided_mappings.each_with_index.each_with_object({}) do |(v, i), o|
+              o["_#{i}"] = v
+            end
+
+        # Generate the properties.
+        @properties = properties_hash.each_with_object({}) do |(name, config), dfns|
+          property = Property.new(
+            name: config.fetch("name", name).to_sym,
             available_on: config.dig("available_on", "class").to_a.map(&:to_sym),
             data_type: RDF::Vocabulary.find_term(config.fetch("data_type", "http://www.w3.org/2001/XMLSchema#string")),
             indexing: config.fetch("indexing", []).map(&:to_sym),
             mapping: config.fetch("mapping", {}).filter_map { |prefix, value|
               # `iri` is a non‐standard property and may change but let’s go
               # with it for now.
-              expansion = houndstooth.dig("mappings", prefix, "iri")
+              expansion = mappings_hash.find(proc { {} }) { |(name, mapping)|
+                mapping.fetch("name", name) == prefix && mapping.has_key?("iri")
+              }.dig(1, "iri")
               result = value.respond_to?(:to_a) ? value.to_a : [value]
               next unless expansion && result.size
               [expansion, result]
@@ -50,6 +67,16 @@ module SurflinerSchema
               end,
             extra_qualities: {} # TK: form stuff, ⁊c…
           )
+          property.available_on.each do |availability|
+            dfns[availability] ||= {}
+            if dfns[availability].has_key?(property.name)
+              raise(
+                Error::DuplicateProperty,
+                "Duplicate property #{property.name} on #{availability}."
+              )
+            end
+            dfns[availability][property.name] = property
+          end
         end
       end
 
@@ -59,7 +86,7 @@ module SurflinerSchema
       # @param availability [Symbol]
       # @return [{Symbol => SurflinerSchema::Property}]
       def properties(availability:)
-        @properties.filter { |_name, prop| prop.available_on?(availability) }
+        @properties.fetch(availability, {})
       end
     end
   end

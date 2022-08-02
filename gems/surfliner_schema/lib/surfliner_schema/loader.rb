@@ -118,7 +118,7 @@ module SurflinerSchema
           "No configuration file found for schema: #{schema}"
         )
       end
-      YAML.safe_load(File.open(schema_config_path))
+      YAML.safe_load(File.open(schema_config_path), aliases: true)
     end
 
     public
