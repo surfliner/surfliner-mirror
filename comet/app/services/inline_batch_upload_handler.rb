@@ -17,17 +17,19 @@ class InlineBatchUploadHandler < InlineUploadHandler
       file_metadata.file_set_id = file.file_set_uri
       file_metadata = Hyrax.persister.save(resource: file_metadata)
 
-      file_set = Hyrax.query_service.find_by(id: file.file_set_uri)
-      file_set.file_ids << file_metadata.id
-      Hyrax.persister.save(resource: file_set)
-
       uploaded = Hyrax.storage_adapter
         .upload(resource: file_metadata,
           file: file.file.io_file,
           original_filename: file_metadata.original_filename)
       file_metadata.file_identifier = uploaded.id
       file_metadata.size = uploaded.size
-      Hyrax.persister.save(resource: file_metadata)
+      saved_metadata = Hyrax.persister.save(resource: file_metadata)
+      Hyrax.publisher.publish("file.metadata.updated", metadata: saved_metadata, user: file.user)
+      Hyrax.publisher.publish("object.file.uploaded", metadata: saved_metadata, file: uploaded)
+
+      file_set = Hyrax.query_service.find_by(id: file.file_set_uri)
+      file_set.file_ids << uploaded.id
+      Hyrax.persister.save(resource: file_set)
     end
   end
 

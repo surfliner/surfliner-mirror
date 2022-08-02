@@ -134,6 +134,34 @@ RSpec.describe "BatchUploads", type: :system, js: true do
 
         expect(page).to have_link("Download the file")
       end
+
+      context "download file" do
+        before { Dir.mkdir(DOWNLOAD_PATH) unless Dir.exist?(DOWNLOAD_PATH) }
+        after { FileUtils.rm_f Dir.glob("#{DOWNLOAD_PATH}/*") }
+
+        xit "can download file" do
+          visit "/dashboard"
+          click_on "Batch Uploads"
+
+          expect(page).to have_content("Add New Works by Batch")
+
+          attach_file "Source File", source_file
+          select_s3_path("my-project/")
+
+          click_button "Submit"
+
+          find("#documents").first(:link, "Batch ingest object").click
+          click_on "image.jpg"
+
+          expect(page).to have_link("Download the file")
+          click_on "Download the file"
+
+          begin_time = Time.now
+          sleep 0.1 until Time.now > (begin_time + 10) || Dir.entries(DOWNLOAD_PATH).include?("image.jpg")
+
+          expect(Dir.entries(DOWNLOAD_PATH)).to include("image.jpg")
+        end
+      end
     end
 
     context "with ingest option" do
