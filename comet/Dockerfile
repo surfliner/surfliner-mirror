@@ -166,7 +166,6 @@ RUN bundle install --jobs "$(nproc)"
 
 COPY $LOCAL_PROJECT $DOCKER_PROJECT
 
-RUN RAILS_ENV=production SECRET_KEY_BASE=fakedevsecret DB_ADAPTER=nulldb DATABASE_URL='postgresql://fake' bundle exec rake assets:precompile
-
+RUN RAILS_ENV=production SECRET_KEY_BASE=fakedevsecret DB_ADAPTER=nulldb RABBITMQ_ENABLED=false DATABASE_URL='postgresql://fake' bundle exec rake assets:precompile
 ENV RAILS_ROOT=${DOCKER_PROJECT}
 ENTRYPOINT ["/app/samvera/hyrax-webapp/scripts/entrypoint.sh"]

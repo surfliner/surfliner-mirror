@@ -55,7 +55,8 @@ module Comet
 
     config.feature_collection_publish =
       ActiveModel::Type::Boolean.new.cast(ENV.fetch("COMET_COLLECTION_PUBLISH", true))
+    building = (ENV["DB_ADAPTER"] == "nulldb")
     config.use_rabbitmq =
-      ActiveModel::Type::Boolean.new.cast(ENV.fetch("RABBITMQ_ENABLED", false))
+      ActiveModel::Type::Boolean.new.cast(ENV.fetch("RABBITMQ_ENABLED", !building))
   end
 end

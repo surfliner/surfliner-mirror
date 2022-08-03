@@ -2,7 +2,7 @@
 
 require "bunny"
 
-exit unless ENV.fetch("RABBITMQ_ENABLED", false)
+exit unless ENV.fetch("RABBITMQ_ENABLED", true)
 
 rabbitmq_host = ENV.fetch("RABBITMQ_HOST", "rabbitmq")
 rabbitmq_user = ENV.fetch("RABBITMQ_USERNAME", "user")
