@@ -63,6 +63,8 @@ module Hyrax
         raise(NotImplementedError) unless
           Rails.application.config.feature_collection_publish
 
+        Hyrax.logger.debug { "Publishing collection #{@collection} on request of #{current_user}." }
+
         Hyrax.publisher.publish("collection.publish",
           collection: @collection,
           user: current_user)
