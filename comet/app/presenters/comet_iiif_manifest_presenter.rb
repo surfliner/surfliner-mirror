@@ -25,6 +25,12 @@ class CometIiifManifestPresenter < Hyrax::IiifManifestPresenter
     end
   end
 
+  def description
+    Array(super).first || ''
+  rescue NoMethodError
+    ''
+  end
+
   ##
   # IIIF metadata for inclusion in the manifest
   #  Called by the `iiif_manifest` gem to add metadata
