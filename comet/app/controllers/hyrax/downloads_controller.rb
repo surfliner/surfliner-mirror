@@ -32,8 +32,9 @@ module Hyrax
       self.response_body = file.read
     end
 
-    def prepare_file_headers(metadata:, file:)
-      response.headers["Content-Disposition"] = "attachment; filename=#{metadata.original_filename}"
+    def prepare_file_headers(metadata:, file:, inline: false)
+      inline_display = ActiveRecord::Type::Boolean.new.cast(params.fetch(:inline, "false"))
+      response.headers["Content-Disposition"] = "#{inline_display ? "inline" : "attachment"}; filename=#{metadata.original_filename}"
       response.headers["Content-Type"] = metadata.mime_type
       response.headers["Content-Length"] ||= (file.try(:size) || metadata.size.first)
       # Prevent Rack::ETag from calculating a digest over body
