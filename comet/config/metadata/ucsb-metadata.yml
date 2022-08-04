@@ -37,6 +37,9 @@ mappings:
   aardvark:
     name: aardvark
     display_label: OGM Aardvark
+  gbl-1:
+    name: gbl-1
+    display_label: GeoBlacklight metadata schema version 1.0
 
 # Class Definitions
 
@@ -59,7 +62,7 @@ classes:
 properties:
 
 # `title` is defined by Hyrax and can’t be overridden.
-#  
+#
 #       title:
 #       name: "title"
 #        display_label: "Title"
@@ -98,8 +101,8 @@ properties:
 #    mapping:
 #      dc-oai: http://purl.org/dc/elements/1.1/title
 #      dpla: null
-#      aardvark: null
- 
+#
+
   title_alternative:
     name: "title_alternative"
     display_label: "Alternative title"
@@ -138,8 +141,17 @@ properties:
     mapping:
       dc-oai: null
       dpla: http://purl.org/dc/terms/alternative
-      aardvark: null
- 
+
+  title_alternative_geospatial:
+  <<: *title_alternative
+    usage_guidelines: Enter an alternative title (i.e. English translation of non-latin character title; map sheet code).
+    available_on:
+      class:
+        - geospatial_object
+    mapping:
+      gbl-1: null
+      aardvark: dct_alternative_sm
+
   title_filing:
     name: "title_filing"
     display_label: "Filing title"
@@ -178,13 +190,12 @@ properties:
     mapping:
       dc-oai: null
       dpla: null
-      aardvark: null
- 
+
   creator:
     name: "creator"
     display_label: "Creator"
     definition: "A person or organization responsible for the intellectual or artistic content of a resource. If a more specific role is available, prefer that."
-    usage_guidelines: "Can be used when lacking specific information on an agent's exact role in creating the resource.\n"
+    usage_guidelines: "Can be used when lacking specific information on an agent's exact role in creating the resource."
     requirement: recommended, if applicable
     controlled_values:
       format: null
@@ -219,8 +230,21 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/creator
       dpla: null
-      aardvark: null
- 
+
+  creator_geospatial:
+  <<: *creator
+    definition: This field represents the originator that will be uploaded to GeoData.
+    usage_guidelines: The originator should be a Library of Congress Name Authority File (LCNAF) entry. Use the 'originatorName' and 'originatorOrg' fields and any other information available to determine the creator of the resource.  Then use the UCSB/UCSD - Controlled Vocabulary spreadsheet to determine the authorized name and enter that in the 'originator' field. If the originator does not have an LCNAF entry, format the originator name as if it were an LCNAF entry.
+    requirement: recommended
+    sample_value:
+      - Santa Barbara County (Calif.)
+    available_on:
+      class:
+        - geospatial_object
+    mapping:
+      gbl-1: dc_creator_sm
+      aardvark: dct_creator_sm
+
   contributor:
     name: "contributor"
     display_label: "Contributor"
@@ -260,8 +284,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/contributor
       dpla: null
-      aardvark: null
- 
+
   publisher:
     name: "publisher"
     display_label: "Publisher name"
@@ -301,9 +324,22 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/publisher
       dpla: null
-      aardvark: null
- 
- # placeholder for where to add additional agent roles from the MARC relator list 
+
+publisher_geospatial:
+  <<: *publisher
+    definition: "This field represents the publisher that will be uploaded to GeoData."
+    usage_guidelines: "The publisher should be a Library of Congress Name Authority File (LCNAF) entry. Use the 'publisherName' and 'publisherOrg' fields and any other information available to determine the publisher of the resource.  Then use the UCSB/UCSD - Controlled Vocabulary spreadsheet to determine the authorized name and enter that in the 'publisher' field.  If the publisher does not have an LCNAF entry, format the publisher name as if it were an LCNAF entry."
+    requirement: optional
+    sample_value:
+       - Santa Barbara County (Calif.)
+    available_on:
+      class:
+        - geospatial_object
+    mapping:
+      gbl-1: dc_publisher_sm
+      aardvark: dct_publisher_sm
+
+ # placeholder for where to add additional agent roles from the MARC relator list
  #
   # agent-role:
   #   name: null
@@ -343,7 +379,7 @@ properties:
   #   mapping:
   #     dpla: null
   #     aardvark: null
- 
+
   publication_statement:
     name: "publication_statement"
     display_label: "Publication statement"
@@ -383,13 +419,12 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/publisher
       dpla: null
-      aardvark: null
- 
+
   date:
     name: "date"
     display_label: "Date"
-    definition: "A point or period of time associated with an event in the lifecycle of the resource.\n"
-    usage_guidelines: "If you have a more specific date, use the more specific types, e.g. date created, date issued.\n"
+    definition: "A point or period of time associated with an event in the lifecycle of the resource."
+    usage_guidelines: "If you have a more specific date, use the more specific types, e.g. date created, date issued."
     requirement: required, if applicable
     controlled_values:
       format: null
@@ -424,8 +459,22 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/date
       dpla: null
-      aardvark: null
- 
+
+  date_geospatial:
+  <<: *date
+    display_label: "Index Year"
+    definition: "This field represents the publication date that will be uploaded to GeoData."
+    usage_guidelines: "Enter the publication date (or year that the resource was made available) as a four-digit year (YYYY).  This should not be the situational date, as it is being entered into GeoData as the publication date. If the date is unknown, leave it blank.  If it is a date range (i.e. 2006-2007) enter only the first year here, and enter the date range in the subject temporal field below."
+    requirement: recommended
+    sample_value:
+      - 2002
+    available_on:
+      class:
+        - geospatial_object
+    mapping:
+      gbl-1: solr_year_i
+      aardvark: gbl_indexYear_im
+
   date_created:
     name: "date_created"
     display_label: "Date created"
@@ -465,12 +514,11 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/date
       dpla: null
-      aardvark: null
- 
+
   date_issued:
     name: "date_issued"
     display_label: "Date issued"
-    definition: "The date that the resource was published, released, or issued.\n"
+    definition: "The date that the resource was published, released, or issued."
     usage_guidelines: null
     requirement: required, if applicable
     controlled_values:
@@ -506,8 +554,18 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/date
       dpla: null
-      aardvark: null
- 
+
+  date_issued_geospatial:
+  <<: *date_issued
+    usage_guidelines: "Enter the publication date (or date the resource was made available) for the resource.  Use ISO 8601 to enter the date. (YYYY-MM-DD).  Only enter months and days if they are known and relevant.  A typical entry will be YYYY."
+    requirement: optional
+    available_on:
+      class:
+        - geospatial_object
+    mapping:
+      gbl-1: dct_issued_s
+      aardvark: dct_issued_s
+
   physical_description:
     name: "physical_description"
     display_label: "Physical descriptiopn"
@@ -547,8 +605,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/format
       dpla: null
-      aardvark: null
- 
+
   type_of_resource:
     name: "type_of_resource"
     display_label: "Type of resource"
@@ -588,8 +645,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/type
       dpla: null
-      aardvark: null
- 
+
   genre_form:
     name: "genre_form"
     display_label: "Genre or form"
@@ -629,8 +685,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/type
       dpla: null
-      aardvark: null
- 
+
   note_description:
     name: "note_description"
     display_label: "Description"
@@ -670,8 +725,21 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/description
       dpla: null
-      aardvark: null
- 
+
+  note_description_geospatial:
+  <<: *note_description
+    definition: This field represents the originator that will be uploaded to GeoData.
+    usage_guidelines: The originator should be a Library of Congress Name Authority File (LCNAF) entry. Use the 'originatorName' and 'originatorOrg' fields and any other information available to determine the creator of the resource.  Then use the UCSB/UCSD - Controlled Vocabulary spreadsheet to determine the authorized name and enter that in the 'originator' field. If the originator does not have an LCNAF entry, format the originator name as if it were an LCNAF entry.
+    requirement: recommended
+    sample_value:
+      - This polygon shapefile represents 100-year flood hazard data in Santa Barbara County.
+    available_on:
+      class:
+        - geospatial_object
+    mapping:
+      gbl-1: dc_description_s
+      aardvark: dct_description_sm
+
   note_general:
     name: "note_general"
     display_label: "Note"
@@ -711,8 +779,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/description
       dpla: null
-      aardvark: null
- 
+
   language:
     name: "language"
     display_label: "Language"
@@ -752,8 +819,21 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/language
       dpla: http://purl.org/dc/terms/language
-      aardvark: null
- 
+
+  language_geospatial:
+  <<: *language
+    definition: "This field represents the language code that will be uploaded to GeoData."
+    usage_guidelines: "The language code follows ISO 639-2 (used by Library of Congress as well). The value represents the language of the data, not of the metadata. Edit this code as necessary."
+    requirement: optional
+    available_on:
+      class:
+        - geospatial_object
+    mapping:
+      gbl-1: dc_language_sm
+      aardvark: dct_language_sm
+
+#  GeoBlacklight wants the three digit code, not the full uri.
+
   subject_topic:
     name: "subject_topic"
     display_label: "Subject (topic)"
@@ -793,8 +873,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/subject
       dpla: null
-      aardvark: null
- 
+
   subject_name:
     name: "subject_name"
     display_label: "Subject (name)"
@@ -834,8 +913,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/subject
       dpla: null
-      aardvark: null
- 
+
   subject_spatial:
     name: "subject_spatial"
     display_label: "Subject (location)"
@@ -875,8 +953,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/coverage
       dpla: null
-      aardvark: null
- 
+
   subject_temporal:
     name: "subject_temporal"
     display_label: "Subject (time period)"
@@ -916,12 +993,11 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/coverage
       dpla: null
-      aardvark: null
- 
+
   subject_keywords:
     name: "subject_keywords"
     display_label: "Keywords"
-    definition: "Uncontrolled terms supplied by the creator describing the subject of the resource."
+    definition: "Uncontrolled terms, often supplied by the creator, describing the subject of the resource."
     usage_guidelines: null
     requirement: recommended, if applicable
     controlled_values:
@@ -957,8 +1033,18 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/subject
       dpla: null
-      aardvark: null
- 
+
+subject_keywords_geospatial:
+  <<: *subject_keywords
+    usage_guidelines: "Enter any theme keywords that don't conform to a standard such as LCSH. Use this when the authorized term doesn't accurately represent what users would search for."
+    requirement: optional
+    available_on:
+      class:
+        - geospatial_object
+    mapping:
+      gbl-1: null
+      aardvark: dcat_keyword_sm
+
   point_coordinate_latitude:
     name: "point_coordinate_latitude"
     display_label: "Point coordinate latitude"
@@ -997,8 +1083,7 @@ properties:
     mapping:
       dc-oai: null
       dpla: null
-      aardvark: null
- 
+
   point_coordinate_longitude:
     name: "point_coordinate_longitude"
     display_label: "Point coordinate longitude"
@@ -1037,130 +1122,9 @@ properties:
     mapping:
       dc-oai: null
       dpla: null
-      aardvark: null
- 
-  bounding_box_east_bound_longitude:
-    name: "bounding_box_east_bound_longitude"
-    display_label: "Bounding box easternmost"
-    definition: null
-    usage_guidelines: null
-    requirement: null
-    controlled_values:
-      format: null
-      sources:
-        - null
-    sample_value:
-      - null
-    property_uri: http://purl.org/dc/terms/Boxeastlimit
-    available_on:
-      class:
-        - generic_object
-    range: null
-    data_type: null
-    syntax:  null
-    cardinality:
-      minimum: 0
-      maximum: 1
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
-    mapping:
-      dc-oai: null
-      dpla: null
-      aardvark: null
- 
-  bounding_box_north_bound_latitude:
-    name: "bounding_box_north_bound_latitude"
-    display_label: "Bounding box northernmost"
-    definition: null
-    usage_guidelines: null
-    requirement: null
-    controlled_values:
-      format: null
-      sources:
-        - null
-    sample_value:
-      - null
-    property_uri: http://purl.org/dc/terms/Boxnorthlimit
-    available_on:
-      class:
-        - generic_object
-    range: null
-    data_type: null
-    syntax:  null
-    cardinality:
-      minimum: 0
-      maximum: 1
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
-    mapping:
-      dc-oai: null
-      dpla: null
-      aardvark: null
- 
-  bounding_box_south_bound_latitude:
-    name: "bounding_box_south_bound_latitude"
-    display_label: "Bounding box southernmost"
-    definition: null
-    usage_guidelines: null
-    requirement: null
-    controlled_values:
-      format: null
-      sources:
-        - null
-    sample_value:
-      - null
-    property_uri: http://purl.org/dc/terms/Boxsouthlimit
-    available_on:
-      class:
-        - generic_object
-    range: null
-    data_type: null
-    syntax:  null
-    cardinality:
-      minimum: 0
-      maximum: 1
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
-    mapping:
-      dc-oai: null
-      dpla: null
-      aardvark: null
- 
-  bounding_box_west_bound_longitude:
-    name: "bounding_box_west_bound_longitude"
+
+  bounding_box_west_longitude:
+    name: "bounding_box_west_longitude"
     display_label: "Bounding box westernmost"
     definition: null
     usage_guidelines: null
@@ -1197,8 +1161,146 @@ properties:
     mapping:
       dc-oai: null
       dpla: null
-      aardvark: null
- 
+
+  bounding_box_west_longitude_geospatial:
+    <<: *bounding_box_west_longitude
+      usage_guidelines: "This value displays the westernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
+      available_on:
+        class:
+          - geospatial_object
+      mapping:
+        gbl-1: null
+        aardvark: ddcat_bbox
+
+  bounding_box_east_longitude:
+    name: "bounding_box_east_longitude"
+    display_label: "Bounding box easternmost"
+    definition: null
+    usage_guidelines: null
+    requirement: null
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/terms/Boxeastlimit
+    available_on:
+      class:
+        - generic_object
+    range: null
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: 1
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: null
+      dpla: null
+
+  bounding_box_east_longitude_geospatial:
+  <<: *bounding_box_east_longitude
+    usage_guidelines: "This value displays the easternmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
+    available_on:
+      class:
+        - geospatial_object
+    mapping:
+      gbl-1: null
+      aardvark: ddcat_bbox
+
+  bounding_box_north_latitude:
+    name: "bounding_box_north_latitude"
+    display_label: "Bounding box northernmost"
+    definition: null
+    usage_guidelines: null
+    requirement: null
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/terms/Boxnorthlimit
+    available_on:
+      class:
+        - generic_object
+    range: null
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: 1
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: null
+      dpla: null
+
+  bounding_box_south_latitude:
+    name: "bounding_box_south_latitude"
+    display_label: "Bounding box southernmost"
+    definition: null
+    usage_guidelines: null
+    requirement: null
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/terms/Boxsouthlimit
+    available_on:
+      class:
+        - generic_object
+    range: null
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: 1
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: null
+      dpla: null
+
+
+
   scale:
     name: "scale"
     display_label: "Scale"
@@ -1238,8 +1340,7 @@ properties:
     mapping:
       dc-oai: null
       dpla: null
-      aardvark: null
- 
+
   identifier_accession:
     name: "identifier_accession"
     display_label: "Accession number"
@@ -1279,8 +1380,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/identifier
       dpla: null
-      aardvark: null
- 
+
   identifier_barcode:
     name: "identifier_barcode"
     display_label: "Barcode"
@@ -1320,8 +1420,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/identifier
       dpla: null
-      aardvark: null
- 
+
   identifier_call_number:
     name: "identifier_call_number"
     display_label: "Call number"
@@ -1361,8 +1460,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/identifier
       dpla: null
-      aardvark: null
- 
+
   identifier_DOI:
     name: "identifier_DOI"
     display_label: "DOI"
@@ -1402,8 +1500,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/identifier
       dpla: null
-      aardvark: null
- 
+
   identifier_ISBN:
     name: "identifier_ISBN"
     display_label: "ISBN"
@@ -1443,8 +1540,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/identifier
       dpla: null
-      aardvark: null
- 
+
   identifier_ISSN:
     name: "identifier_ISSN"
     display_label: "ISSN"
@@ -1484,8 +1580,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/identifier
       dpla: null
-      aardvark: null
- 
+
   identifier_issue_number:
     name: "identifier_issue_number"
     display_label: "Issue number"
@@ -1525,8 +1620,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/identifier
       dpla: null
-      aardvark: null
- 
+
   identifier_local:
     name: "identifier_local"
     display_label: "Local identifier"
@@ -1566,8 +1660,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/identifier
       dpla: null
-      aardvark: null
- 
+
   identifier_matrix_number:
     name: "identifier_matrix_number"
     display_label: "Matrix number"
@@ -1607,8 +1700,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/identifier
       dpla: null
-      aardvark: null
- 
+
   series:
     name: "series"
     display_label: "Series name"
@@ -1647,8 +1739,7 @@ properties:
     mapping:
       dc-oai: null
       dpla: null
-      aardvark: null
- 
+
   file_unit:
     name: "file_unit"
     display_label: "File unit name"
@@ -1687,8 +1778,7 @@ properties:
     mapping:
       dc-oai: null
       dpla: null
-      aardvark: null
- 
+
   finding_aid:
     name: "finding_aid"
     display_label: "Finding aid "
@@ -1728,12 +1818,11 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/relation
       dpla: null
-      aardvark: null
- 
+
   preferred_citation:
     name: "preferred_citation"
     display_label: "Preferred citation"
-    definition: "Citation to the resource preferred by its custodian of the resource (i.e. UCSB).\n"
+    definition: "Citation to the resource preferred by its custodian of the resource (i.e. UCSB)."
     usage_guidelines: null
     requirement: recommended, if applicable
     controlled_values:
@@ -1769,12 +1858,11 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/description
       dpla: null
-      aardvark: null
- 
+
   copyright_holder:
     name: "copyright_holder"
     display_label: "Copyright holder"
-    definition: "A person or organization owning or managing the copyright of the resource.\n"
+    definition: "A person or organization owning or managing the copyright of the resource."
     usage_guidelines: null
     requirement: recommended, if applicable
     controlled_values:
@@ -1809,8 +1897,7 @@ properties:
     mapping:
       dc-oai: null
       dpla: null
-      aardvark: null
- 
+
   copyright_date:
     name: "copyright_date"
     display_label: "Copyright date"
@@ -1849,8 +1936,7 @@ properties:
     mapping:
       dc-oai: null
       dpla: null
-      aardvark: null
- 
+
   rights_status:
     name: "rights_status"
     display_label: "Copyright status"
@@ -1889,8 +1975,7 @@ properties:
     mapping:
       dc-oai: null
       dpla: null
-      aardvark: null
- 
+
   rights_statement:
     name: "rights_statement"
     display_label: "Rights statement"
@@ -1929,8 +2014,46 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/rights
       dpla: null
-      aardvark: null
- 
+
+    rights_license:
+    name: "rights_license"
+    display_label: "License"
+    definition: "The value in this element will indicate any licenses that apply to this digital representation."
+    usage_guidelines: null
+    requirement: required
+    controlled_values:
+      format: null
+      sources:
+        - "http://creativecommons.org"
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/terms/license
+    available_on:
+      class:
+        - generic_object
+    range: http://www.w3.org/2001/XMLSchema#anyURI
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: 1
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/rights
+      dpla: null
+
   rights_note:
     name: "rights_note"
     display_label: "Rights note"
@@ -1970,8 +2093,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/rights
       dpla: null
-      aardvark: null
- 
+
   physical_location:
     name: "physical_location"
     display_label: "Physical location"
@@ -2011,8 +2133,7 @@ properties:
     mapping:
       dc-oai: null
       dpla: null
-      aardvark: null
- 
+
   sublocation:
     name: "sublocation"
     display_label: "Sublocation"
@@ -2033,7 +2154,7 @@ properties:
         - SRC, Printers Collection
         - SRC, Santa Barbara History Collection
         - SRC, University Archives
-        - SRC, William Wyles Collection 
+        - SRC, William Wyles Collection
     sample_value:
       - "SRC, California Ethnic and Multicultural Archives"
     property_uri: http://www.loc.gov/mods/rdf/v1#locationCopySublocation
@@ -2063,8 +2184,7 @@ properties:
     mapping:
       dc-oai: null
       dpla: null
-      aardvark: null
- 
+
   description_standard:
     name: "description_standard"
     display_label: "Description standard"
@@ -2103,8 +2223,7 @@ properties:
     mapping:
       dc-oai: null
       dpla: null
-      aardvark: null
- 
+
   digital_origin:
     name: "digital_origin"
     display_label: "Digital origin"
@@ -2146,4 +2265,3 @@ properties:
     mapping:
       dc-oai: null
       dpla: null
-      aardvark: null
