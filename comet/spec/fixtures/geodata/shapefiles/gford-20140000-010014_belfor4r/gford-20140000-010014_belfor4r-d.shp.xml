@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata><idinfo><citation><citeinfo><origin>WCMC by the Land Information Centre (LIC) of the Ministry</origin><pubdate>after 1992</pubdate><title Sync="TRUE">Forest Cover, Maya Forest, Belize (South), 1995</title><edition>Version 1</edition><geoform Sync="TRUE">vector digital data</geoform><lworkcit><citeinfo><origin>
+University of Florida; Wildlife Conservation Society;
+Caribbean Conservation Corporation
+</origin><pubdate>19950800</pubdate><title>Digital Geographic Database, Maya Forest Region</title><pubinfo><pubplace>Gainseville, Florida, USA</pubplace><publish>The Paseo Pantera Consortium, University of Florida, USAID</publish></pubinfo></citeinfo></lworkcit><ftname Sync="TRUE">belfor4r</ftname></citeinfo></citation><descript><abstract>This is a digital database of the Maya Forest Region of Mexico, Guatemala, and Belize. Coverages presented here are ArcView Shape files. The projection is UTM Zone 16, using the NAD 1927 datum and the Clarke 1866 spheriod. This is a polygon coverage of forest cover types for the ares of Belize within the study area.</abstract><purpose>To preserve biological diversity in Central America by improving stewardship of the region's protected areas and by expanding them to include unprotected wildlands and by restoring degraded areas that link the fragmented wildlands and isthmus. The data was gathered in a larger context to demonstrate the relationship of the Region and adjacent regions, to facilitate the identification of potential biological connections between the protected areas of the Maya Forest and those in adjacent regions, and to focus on ecological boundaries (not political boundaries).</purpose><supplinf>The following description was provided by the WCMC:
+Forest cover data for Belize was made available to WCMC by
+the Land Information Centre (LIC) of the Ministry of
+Natural Resources, Belmopan. David Gray of LIC, kindly
+provided a digital dataset of forest at a scale of
+1:500,000, harmonized into simplified broad forest
+categories. The distribution of each forest type in the LIC
+dataset was derived from land system maps of the Land
+Resource Assessments compiled by Bruse King et al.. (1986,
+1989 and 1992). of the Natural Resources Institute (NRI),
+UK. It must be noted, however, that because the forest
+cover has been estimated from the NRI Land Systems survey
+(i.e. the extent of each firest type was estimated by
+extracting land known to be under cultivation form 1985 -
+1989), this map should be seen as a first approximation at
+measuring the forest resources of Belize.
+Mangrove cover for the outlying cays has been added from a
+supplementry file provided by the Land Information Center,
+and is based on Zisman, S. (1992) Mangroves in belize:
+their characteristics, use and conservation, an unpublished
+report for the Forest Planning and Management Project.
+the NRI land system units, mapped to show agricultural
+potential of Belize, were assigned to the following forest
+classification: broadleaf cover (&gt;75% tree canopy cover);
+open broadleaf cover (25%-75%); mixed broadleaf and pine
+(&gt;75%); pine woodland (&gt;75%), mangrove (&gt;5%) and non-forest
+cover (&lt;5%). Canopy cover was determined by interpreting a
+sample of 1:40,000 scale aerial photographs, however
+determination was indicative only. It is important to note
+that the broadleaf category is very generalized. This class
+is a mixture of a wide range of forest types randging from
+low scrubby woodlands to tall species-rich forests The
+match between land systems units and forest types varied,
+with good correlations for pine forest, marsh/swamp forest
+and non-forest. However, because the broadleaf
+classification is so general, the only way the extent of
+this class could be derived was by subtracting the area of
+all the other classes from the total area of Belize. This
+inevitably will have introduced inaccuracies.
+The following forest classes have been amalgamated into the
+broad forest types. Lowland rain forest - Broadleaf forest
+and Open broadleaf forest; pine forest - Pine woodland,
+Pine woodland savanna and Mixed broadleaf/pine forest;
+inland swamp forest - Marsh/swamp; mangrove - Mangrove; and
+non-forest - Pine tree savanna and Non-forest.</supplinf><langdata Sync="TRUE">en</langdata></descript><timeperd><timeinfo><rngdates><begdate>1985</begdate><enddate>1992</enddate></rngdates></timeinfo></timeperd><status><progress>Complete</progress><update>Unknown</update></status><spdom><bounding><westbc>-89.2272</westbc><eastbc>-88.0692</eastbc><northbc>16.7508</northbc><southbc>15.8841</southbc></bounding><lboundng><leftbc Sync="TRUE">261535.500000</leftbc><rightbc Sync="TRUE">385861.250000</rightbc><bottombc Sync="TRUE">1756959.375000</bottombc><topbc Sync="TRUE">1853072.500000</topbc></lboundng></spdom><keywords><place><placekt>None</placekt><placekey>Belize</placekey></place><theme><themekey>Maya Forest</themekey><themekey>Forest biodiversity</themekey><themekey>Land cover</themekey></theme></keywords><useconst>
+Please acknowledge the University of Florida, the Paseo
+Pantera Consortium, and the US Agency for International
+Development in any derived data product, reports or publications
+</useconst><ptcontac><cntinfo><cntorgp><cntorg>MesoAmerican Research Center</cntorg><cntper>Dr. Anabel Ford</cntper></cntorgp><cntpos>Director</cntpos><cntaddr><addrtype>mailing and physical address</addrtype><address>
+University of Cailfornia at Santa Barbara, MesoAmerican
+Research Center
+</address><city>Santa Barbara</city><state>CA</state><postal>93106</postal><country>USA</country></cntaddr><cntvoice>(805) 893-8191</cntvoice><cntfax>(805) 893-2790</cntfax><cntemail>ford@marc.ucsb.edu</cntemail><hours>Monday - Friday, 800am - 500pm, Pacific Standard Time</hours></cntinfo></ptcontac><native Sync="TRUE">Microsoft Windows 2000 Version 5.1 (Build 2600) ; ESRI ArcCatalog 8.1.2.671</native><natvform Sync="TRUE">Shapefile</natvform></idinfo><dataqual><attracc><attraccr>Accuracy varies with the source of each coverage. For a
+complete description of the coverages, contact
+J. David Lambert, Project Manager, GEOPLAN Center
+Margaret H. Carr, Principal Investigator, Department of
+Landscape Architecture, 431 ARCH, University of Florida,
+Gainesville, FL 32611, USA.</attraccr></attracc><srcinfo><srccite><citeinfo><origin>University of Florida</origin><origin>The Paseo Pantera Consortium</origin><origin>USAID</origin><pubdate>19950800</pubdate><title>Digital Geographic Database, Maya Forest `					Region</title><edition>Version 1</edition><geoform>map</geoform><pubinfo><pubplace>Gainesville, FL, USA</pubplace><publish>University of Florida</publish></pubinfo></citeinfo></srccite><typesrc>CD-ROM</typesrc><srctime><timeinfo><sngdate><caldate>Unknown</caldate></sngdate></timeinfo><srccurr>Publication Date</srccurr></srctime><srccitea>not applicable</srccitea><srccontr>
+The University of Florida, Gainseville
+The Paseo Pantera Consortium
+US Agency for International Development
+Source_Information Source_Citation
+Source_Information Source_Citation
+Source_Information Source_Citation
+Source_Information Source_Citation
+Process_Step Process_Description
+</srccontr></srcinfo></dataqual><spdoinfo><direct Sync="TRUE">Vector</direct><ptvctinf><esriterm Name="gford-20140000-010014_belfor4r-d"><efeatyp Sync="TRUE">Simple</efeatyp><efeageom code="4" Sync="TRUE"></efeageom><esritopo Sync="TRUE">FALSE</esritopo><efeacnt Sync="TRUE">2583</efeacnt><spindex Sync="TRUE">TRUE</spindex><linrefer Sync="TRUE">FALSE</linrefer></esriterm></ptvctinf></spdoinfo><spref><horizsys><geodetic><horizdn>North American Datum of 1927</horizdn><ellips>Clarke 1866</ellips><semiaxis Sync="TRUE">6378206.400000</semiaxis><denflat Sync="TRUE">294.978698</denflat></geodetic><cordsysn><geogcsn Sync="TRUE">GCS_North_American_1927</geogcsn><projcsn Sync="TRUE">NAD_1927_UTM_Zone_16N</projcsn></cordsysn></horizsys><vertdef><altsys><altdatum>National Geodetic Vertical Datum of 1929</altdatum><altenc>Implicit coordinate</altenc></altsys></vertdef></spref><eainfo><detailed Name="gford-20140000-010014_belfor4r-d" xmlns=""><enttyp><enttypl Sync="TRUE">gford-20140000-010014_belfor4r-d</enttypl><enttypd>This is a polygon coverage of forest cover types for the ares of Belize within the study area.</enttypd><enttypt Sync="TRUE">Feature Class</enttypt><enttypc Sync="TRUE">2583</enttypc></enttyp><attr xmlns=""><attrlabl Sync="TRUE">FID</attrlabl><attrdef Sync="TRUE">Internal feature number.</attrdef><attrdefs Sync="TRUE">ESRI</attrdefs><attrdomv><udom Sync="TRUE">Sequential unique whole numbers that are automatically generated.</udom></attrdomv><attalias Sync="TRUE">FID</attalias><attrtype Sync="TRUE">OID</attrtype><attwidth Sync="TRUE">4</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale></attr><attr xmlns=""><attrlabl Sync="TRUE">Shape</attrlabl><attrdef Sync="TRUE">Feature geometry.</attrdef><attrdefs Sync="TRUE">ESRI</attrdefs><attrdomv><udom Sync="TRUE">Coordinates defining the features.</udom></attrdomv><attalias Sync="TRUE">Shape</attalias><attrtype Sync="TRUE">Geometry</attrtype><attwidth Sync="TRUE">0</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale></attr><attr xmlns=""><attrlabl Sync="TRUE">AREA</attrlabl><attrdomv><udom>Numeric Field</udom></attrdomv><attalias Sync="TRUE">AREA</attalias><attrtype Sync="TRUE">Double</attrtype><attwidth Sync="TRUE">12</attwidth><atprecis Sync="TRUE">11</atprecis><attscale Sync="TRUE">3</attscale></attr><attr xmlns=""><attrlabl Sync="TRUE">PERIMETER</attrlabl><attrdomv><udom>Numeric Field</udom></attrdomv><attalias Sync="TRUE">PERIMETER</attalias><attrtype Sync="TRUE">Double</attrtype><attwidth Sync="TRUE">12</attwidth><atprecis Sync="TRUE">11</atprecis><attscale Sync="TRUE">3</attscale></attr><attr xmlns=""><attrlabl Sync="TRUE">BELFOR4R_</attrlabl><attrdomv><rdom><rdommin>2</rdommin><rdommax>2584</rdommax></rdom></attrdomv><attalias Sync="TRUE">BELFOR4R_</attalias><attrtype Sync="TRUE">Double</attrtype><attwidth Sync="TRUE">11</attwidth><attrdef>unknown</attrdef><attrdefs>none</attrdefs><atprecis Sync="TRUE">11</atprecis><attscale Sync="TRUE">0</attscale></attr><attr xmlns=""><attrlabl Sync="TRUE">BELFOR4R_I</attrlabl><attrdomv><rdom><rdommin>0</rdommin><rdommax>14373</rdommax></rdom></attrdomv><attalias Sync="TRUE">BELFOR4R_I</attalias><attrtype Sync="TRUE">Double</attrtype><attwidth Sync="TRUE">11</attwidth><attrdef>unknown</attrdef><attrdefs>none</attrdefs><atprecis Sync="TRUE">11</atprecis><attscale Sync="TRUE">0</attscale></attr><attr xmlns=""><attrlabl Sync="TRUE">VEGN</attrlabl><attrdomv><edom><edomv>0</edomv><edomvd>water bodies</edomvd><edomvds>Paseo Pantera Consortium</edomvds></edom><edom><edomv>10</edomv><edomvd>unknown</edomvd><edomvds>none</edomvds></edom><edom><edomv>111</edomv><edomvd>mangrove</edomvd><edomvds>Paseo Pantera Consortium</edomvds></edom><edom><edomv>113</edomv><edomvd>inland swamp forest</edomvd><edomvds>Paseo Pantera Consortium</edomvds></edom><edom><edomv>122</edomv><edomvd>lowland rain forest</edomvd><edomvds>Paseo Pantera Consortium</edomvds></edom><edom><edomv>510</edomv><edomvd>pine forest</edomvd><edomvds>Paseo Pantera Consortium</edomvds></edom><edom><edomv>888</edomv><edomvd>cloud cover</edomvd><edomvds>Paseo Pantera Consortium</edomvds></edom><edom><edomv>900</edomv><edomvd>non forest</edomvd><edomvds>Paseo Pantera Consortium</edomvds></edom></attrdomv><attalias Sync="TRUE">VEGN</attalias><attrtype Sync="TRUE">SmallInteger</attrtype><attwidth Sync="TRUE">3</attwidth><attrdef>vegetation type</attrdef><attrdefs>Paseo Pantera Consortium</attrdefs><atprecis Sync="TRUE">3</atprecis><attscale Sync="TRUE">0</attscale></attr><attr><attrlabl Sync="TRUE">DESC_</attrlabl><attalias Sync="TRUE">DESC_</attalias><attrtype Sync="TRUE">String</attrtype><attwidth Sync="TRUE">40</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale></attr><attr xmlns=""><attrlabl Sync="TRUE">HECTARES</attrlabl><attalias Sync="TRUE">HECTARES</attalias><attrtype Sync="TRUE">Double</attrtype><attwidth Sync="TRUE">18</attwidth><attrdef>area units</attrdef><attrdefs>Paseo Pantera Consortium</attrdefs><attrdomv><udom>Numeric Field</udom></attrdomv><atprecis Sync="TRUE">17</atprecis><attscale Sync="TRUE">1</attscale></attr></detailed></eainfo><distinfo><distrib><cntinfo><cntorgp><cntorg>MesoAmerican Research Center</cntorg><cntper>Dr. Anabel Ford</cntper></cntorgp><cntpos>Director</cntpos><cntaddr><addrtype>mailing and physical address</addrtype><address>University of Cailfornia at Santa Barbara, MesoAmerican</address><city>Santa Barbara</city><state>CA</state><postal>93106</postal><country>USA</country></cntaddr><cntvoice>(805) 893-8191</cntvoice><cntfax>(805) 893-2790</cntfax><cntemail>ford@marc.ucsb.edu</cntemail><hours>Monday - Friday, 800am - 500pm, Pacific Standard Time</hours></cntinfo></distrib><distliab>
+Users of this data must credit the University of Florida,
+the Paseo Pantera Consortium, and the US Agency for
+International Development.
+</distliab><stdorder><nondig>
+Version 1 of the Digital Geographic Database for the Maya
+Forest Region of Mexico, Guatemala and Belize, of which you
+are in receipt, has been provided by the Department of
+Lancscape Architecture and the Geoplan Center, Department
+of Urban and Regional Planning at the University of
+Florida, Gainsville, Florida, USA for use in non-commercial
+scientific research and conservation planning. The project
+was sponsered by the Paseo Pantera Consortium formed by the
+Meso-American Program of the Wildlife Conservation Society
+and the Caribbean Conservation Corporation, Gainesville,
+Florida, USA. The project was funded by the U. S. Agency
+for International Development, Mission to Guatemala -
+Central American Programs (USAID/G-CAP). The researcher
+agrees to the following for use of Version 1 of Digital
+Geographic Database for the Maya Forest region
+of Mexico, Guatemala and Belize:
+1) The data will not be sold
+2) The primary and secondary sources of the data (Universty
+of Florida, Paseo Pantera Consortium and USAID/GCAP and
+other entities lised in the Version 1 Documentation) will
+be acknowledged in any derived data product, reports or
+publications. The data will not be dsitributed to third
+parties. who wish to obtain the digital data must
+complete their own request for data and agreement forms.
+</nondig><fees>Copying Fees</fees><digform><digtinfo><transize Sync="TRUE">3.573</transize><dssize Sync="TRUE">3.573</dssize></digtinfo></digform></stdorder></distinfo><metainfo><metd Sync="TRUE">20020722</metd><metrd>19990428</metrd><metc><cntinfo><cntorgp><cntorg>
+National Center for Geographic Information Analysis;
+MesoAmerican Research Center
+</cntorg><cntper>Dr. Keith Clarke; Dr. Anabel Ford</cntper></cntorgp><cntpos>Directors</cntpos><cntaddr><addrtype>Mailing and physical address</addrtype><address>University of California at Santa Barbara</address><city>Santa Barbara</city><state>CA</state><postal>93106</postal><country>USA</country></cntaddr><cntvoice>(805) 893-7961</cntvoice><cntfax>(805) 893-3146</cntfax><cntemail>kclarke@geog.ucsb.edu; ford@marc.ucsb.edu</cntemail><hours>Monday - Friday, 800am - 500pm, Pacific Standard Time</hours></cntinfo></metc><metstdn Sync="TRUE">FGDC Content Standards for Digital Geospatial Metadata</metstdn><metstdv Sync="TRUE">FGDC-STD-001-1998</metstdv><langmeta Sync="TRUE">en</langmeta><mettc Sync="TRUE">local time</mettc></metainfo><Esri><CreaDate>20220722</CreaDate><CreaTime>08164200</CreaTime><SyncOnce>FALSE</SyncOnce><SyncDate>20220722</SyncDate><SyncTime>08164200</SyncTime><ModDate>20220722</ModDate><ModTime>08164200</ModTime><DataProperties><itemProps><itemName Sync="TRUE">gford-20140000-010014_belfor4r-d</itemName><nativeExtBox><westBL Sync="TRUE">-89.227201</westBL><eastBL Sync="TRUE">-88.069197</eastBL><southBL Sync="TRUE">15.885008</southBL><northBL Sync="TRUE">16.751656</northBL><exTypeCode Sync="TRUE">1</exTypeCode></nativeExtBox><itemSize Sync="TRUE">3.236</itemSize><itemLocation><linkage Sync="TRUE">file://\\svmwindows\mil\Projects\Acquisitions\_7 ingestPackaging\Ingest03R\gford-20140000-010014_belfor4r\gford-20140000-010014_belfor4r-d.shp</linkage><protocol Sync="TRUE">Local Area Network</protocol></itemLocation><imsContentType export="False">002</imsContentType></itemProps><coordRef><type Sync="TRUE">Geographic</type><geogcsn Sync="TRUE">GCS_WGS_1984</geogcsn><csUnits Sync="TRUE">Angular Unit: Degree (0.017453)</csUnits><peXml Sync="TRUE">&lt;GeographicCoordinateSystem xsi:type='typens:GeographicCoordinateSystem' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:typens='http://www.esri.com/schemas/ArcGIS/10.8'&gt;&lt;WKT&gt;GEOGCS[&amp;quot;GCS_WGS_1984&amp;quot;,DATUM[&amp;quot;D_WGS_1984&amp;quot;,SPHEROID[&amp;quot;WGS_1984&amp;quot;,6378137.0,298.257223563]],PRIMEM[&amp;quot;Greenwich&amp;quot;,0.0],UNIT[&amp;quot;Degree&amp;quot;,0.0174532925199433],AUTHORITY[&amp;quot;EPSG&amp;quot;,4326]]&lt;/WKT&gt;&lt;XOrigin&gt;-400&lt;/XOrigin&gt;&lt;YOrigin&gt;-400&lt;/YOrigin&gt;&lt;XYScale&gt;11258999068426.238&lt;/XYScale&gt;&lt;ZOrigin&gt;-100000&lt;/ZOrigin&gt;&lt;ZScale&gt;10000&lt;/ZScale&gt;&lt;MOrigin&gt;-100000&lt;/MOrigin&gt;&lt;MScale&gt;10000&lt;/MScale&gt;&lt;XYTolerance&gt;8.983152841195215e-09&lt;/XYTolerance&gt;&lt;ZTolerance&gt;0.001&lt;/ZTolerance&gt;&lt;MTolerance&gt;0.001&lt;/MTolerance&gt;&lt;HighPrecision&gt;true&lt;/HighPrecision&gt;&lt;LeftLongitude&gt;-180&lt;/LeftLongitude&gt;&lt;WKID&gt;4326&lt;/WKID&gt;&lt;LatestWKID&gt;4326&lt;/LatestWKID&gt;&lt;/GeographicCoordinateSystem&gt;</peXml></coordRef><copyHistory><copy source="Z:\Projects\Maya Forest GIS\2 CD-ROMs w_ISOs\DISK_1\Base\PPC-USAID\shapefiles\gford-20140000-010014_belfor4r" dest="\\svmwindows\mil\Projects\Maya Forest GIS\8 Data_Metadata\2 CD-ROMs\DISK-1\Base\PPC-USAID\shapefiles\gford-20140000-010014_belfor4r" date="20150113" time="09213600"/></copyHistory><lineage><Process ToolSource="c:\program files (x86)\arcgis\desktop10.8\ArcToolbox\Toolboxes\Data Management Tools.tbx\Rename" Date="20220722" Time="081610">Rename "S:\Projects\Acquisitions\_7 ingestPackaging\Ingest03R\gford-20140000-010014_belfor4r\gford-20140000-010014_belfor4r.shp" "S:\Projects\Acquisitions\_7 ingestPackaging\Ingest03R\gford-20140000-010014_belfor4r\gford-20140000-010014_belfor4r-a.shp" ShapeFile</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.8\ArcToolbox\Toolboxes\Data Management Tools.tbx\Project" Date="20220722" Time="081642">Project "S:\Projects\Acquisitions\_7 ingestPackaging\Ingest03R\gford-20140000-010014_belfor4r\gford-20140000-010014_belfor4r-a.shp" "S:\Projects\Acquisitions\_7 ingestPackaging\Ingest03R\gford-20140000-010014_belfor4r\gford-20140000-010014_belfor4r-d.shp" GEOGCS['GCS_WGS_1984',DATUM['D_WGS_1984',SPHEROID['WGS_1984',6378137.0,298.257223563]],PRIMEM['Greenwich',0.0],UNIT['Degree',0.0174532925199433]] NAD_1927_To_WGS_1984_2 PROJCS['NAD_1927_UTM_Zone_16N',GEOGCS['GCS_North_American_1927',DATUM['D_North_American_1927',SPHEROID['Clarke_1866',6378206.4,294.9786982]],PRIMEM['Greenwich',0.0],UNIT['Degree',0.0174532925199433]],PROJECTION['Transverse_Mercator'],PARAMETER['False_Easting',500000.0],PARAMETER['False_Northing',0.0],PARAMETER['Central_Meridian',-87.0],PARAMETER['Scale_Factor',0.9996],PARAMETER['Latitude_Of_Origin',0.0],UNIT['Meter',1.0]] NO_PRESERVE_SHAPE # NO_VERTICAL</Process></lineage></DataProperties><ArcGISFormat>1.0</ArcGISFormat><scaleRange><minScale>150000000</minScale><maxScale>5000</maxScale></scaleRange><ArcGISProfile>ISO19139</ArcGISProfile><ArcGISstyle>ISO 19139 Metadata Implementation Specification</ArcGISstyle></Esri><Binary><Thumbnail><Data EsriPropertyType="PictureX">/9j/4AAQSkZJRgABAQEAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0a
+HBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIy
+MjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCACFAMgDASIA
+AhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQA
+AAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3
+ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWm
+p6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEA
+AwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSEx
+BhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElK
+U1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3
+uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iii
+gApruscbSOcKoJJxngU6obr/AI9yOxZQfcFhSk7JsBPtcX/TT/v03+FH2uL/AKaf9+m/wptFeX9f
+qdkaciHfa4v+mn/fpv8ACj7XF/00/wC/Tf4VBcTi3hL7Gc/wogyWPoKWKYShvlZWU4ZWHIp/Xp2v
+ZC5ETfa4v+mn/fpv8KPtcX/TT/v03+FNopfX59kPkH/a4v8App/37b/Cj7VF/wBNP+/bf4VCZAJR
+HhslS2ccDGO/4/oafT+vy7C5B32uHOPnz/1zb/Cl+1Rf9NP+/bf4VTa2ZpmnVhHM21dwGcopzgg+
+uTz2z7VZpvHy7ByD/tcH8UgT/fG3P50fa7b/AJ+Iv++xVO8vorJN0gdjtZgqDJIUZP6Csux8U2l+
+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
+iiigAooooAKKKKACiiigAooooAKKKKAP/9k=</Data></Thumbnail><Enclosure><Descript>original metadata</Descript><Data SourceMetadata="yes" OriginalFileName="source_metadata.xml" SourceMetadataDigest="d725e2f0159b42664c2b8d5c8a6c688d" EsriPropertyType="Base64" SourceMetadataSchema="fgdc">PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjxtZXRhZGF0YT4NCiAgPGlk
+aW5mbz4NCiAgICA8Y2l0YXRpb24+DQogICAgICA8Y2l0ZWluZm8+DQogICAgICAgIDxvcmlnaW4+
+V0NNQyBieSB0aGUgTGFuZCBJbmZvcm1hdGlvbiBDZW50cmUgKExJQykgb2YgdGhlIE1pbmlzdHJ5
+PC9vcmlnaW4+DQogICAgICAgIDxwdWJkYXRlPmFmdGVyIDE5OTI8L3B1YmRhdGU+DQogICAgICAg
+IDxlZGl0aW9uPlZlcnNpb24gMTwvZWRpdGlvbj4NCiAgICAgICAgPGx3b3JrY2l0Pg0KICAgICAg
+ICAgIDxjaXRlaW5mbz4NCiAgICAgICAgICAgIDxvcmlnaW4+DQpVbml2ZXJzaXR5IG9mIEZsb3Jp
+ZGE7IFdpbGRsaWZlIENvbnNlcnZhdGlvbiBTb2NpZXR5Ow0KQ2FyaWJiZWFuIENvbnNlcnZhdGlv
+biBDb3Jwb3JhdGlvbg0KPC9vcmlnaW4+DQogICAgICAgICAgICA8cHViZGF0ZT4xOTk1MDgwMDwv
+cHViZGF0ZT4NCiAgICAgICAgICAgIDx0aXRsZT5EaWdpdGFsIEdlb2dyYXBoaWMgRGF0YWJhc2Us
+IE1heWEgRm9yZXN0IFJlZ2lvbjwvdGl0bGU+DQogICAgICAgICAgICA8cHViaW5mbz4NCiAgICAg
+ICAgICAgICAgPHB1YnBsYWNlPkdhaW5zZXZpbGxlLCBGbG9yaWRhLCBVU0E8L3B1YnBsYWNlPg0K
+ICAgICAgICAgICAgICA8cHVibGlzaD5UaGUgUGFzZW8gUGFudGVyYSBDb25zb3J0aXVtLCBVbml2
+ZXJzaXR5IG9mIEZsb3JpZGEsIFVTQUlEPC9wdWJsaXNoPg0KICAgICAgICAgICAgPC9wdWJpbmZv
+Pg0KICAgICAgICAgIDwvY2l0ZWluZm8+DQogICAgICAgIDwvbHdvcmtjaXQ+DQogICAgICA8L2Np
+dGVpbmZvPg0KICAgIDwvY2l0YXRpb24+DQogICAgPGRlc2NyaXB0Pg0KICAgICAgPGFic3RyYWN0
+PlRoaXMgaXMgYSBkaWdpdGFsIGRhdGFiYXNlIG9mIHRoZSBNYXlhIEZvcmVzdCBSZWdpb24gb2YN
+Ck1leGljbywgR3VhdGVtYWxhLCBhbmQgQmVsaXplLiBDb3ZlcmFnZXMgcHJlc2VudGVkDQpoZXJl
+IGFyZSBBcmNWaWV3IFNoYXBlIGZpbGVzLiBUaGUgcHJvamVjdGlvbiBpcw0KVVRNIFpvbmUgMTYs
+IHVzaW5nIHRoZSBOQUQgMTkyNyBkYXR1bSBhbmQgdGhlIENsYXJrZQ0KMTg2NiBzcGhlcmlvZC4N
+ClRoaXMgaXMgYSBwb2x5Z29uIGNvdmVyYWdlIG9mIGZvcmVzdCBjb3ZlciB0eXBlcyBmb3IgdGhl
+IGFyZXMNCm9mIEJlbGl6ZSB3aXRoaW4gdGhlIHN0dWR5IGFyZWEuPC9hYnN0cmFjdD4NCiAgICAg
+IDxwdXJwb3NlPg0KVG8gcHJlc2VydmUgYmlvbG9naWNhbCBkaXZlcnNpdHkgaW4gQ2VudHJhbCBB
+bWVyaWNhIGJ5DQppbXByb3Zpbmcgc3Rld2FyZHNoaXAgb2YgdGhlIHJlZ2lvbidzIHByb3RlY3Rl
+ZCBhcmVhcyBhbmQNCmJ5IGV4cGFuZGluZyB0aGVtIHRvIGluY2x1ZGUgdW5wcm90ZWN0ZWQgd2ls
+ZGxhbmRzIGFuZCBieQ0KcmVzdG9yaW5nIGRlZ3JhZGVkIGFyZWFzIHRoYXQgbGluayB0aGUgZnJh
+Z21lbnRlZCB3aWxkbGFuZHMNCmFuZCBpc3RobXVzLg0KVGhlIGRhdGEgd2FzIGdhdGhlcmVkIGlu
+IGEgbGFyZ2VyIGNvbnRleHQgdG8gZGVtb25zdHJhdGUNCnRoZSByZWxhdGlvbnNoaXAgb2YgdGhl
+IFJlZ2lvbiBhbmQgYWRqYWNlbnQgcmVnaW9ucywgdG8NCmZhY2lsaXRhdGUgdGhlIGlkZW50aWZp
+Y2F0aW9uIG9mIHBvdGVudGlhbCBiaW9sb2dpY2FsDQpjb25uZWN0aW9ucyBiZXR3ZWVuIHRoZSBw
+cm90ZWN0ZWQgYXJlYXMgb2YgdGhlIE1heWEgRm9yZXN0DQphbmQgdGhvc2UgaW4gYWRqYWNlbnQg
+cmVnaW9ucywgYW5kIHRvIGZvY3VzIG9uIGVjb2xvZ2ljYWwNCmJvdW5kYXJpZXMgKG5vdCBwb2xp
+dGljYWwgYm91bmRhcmllcykuDQo8L3B1cnBvc2U+DQogICAgICA8c3VwcGxpbmY+VGhlIGZvbGxv
+d2luZyBkZXNjcmlwdGlvbiB3YXMgcHJvdmlkZWQgYnkgdGhlIFdDTUM6DQpGb3Jlc3QgY292ZXIg
+ZGF0YSBmb3IgQmVsaXplIHdhcyBtYWRlIGF2YWlsYWJsZSB0byBXQ01DIGJ5DQp0aGUgTGFuZCBJ
+bmZvcm1hdGlvbiBDZW50cmUgKExJQykgb2YgdGhlIE1pbmlzdHJ5IG9mDQpOYXR1cmFsIFJlc291
+cmNlcywgQmVsbW9wYW4uIERhdmlkIEdyYXkgb2YgTElDLCBraW5kbHkNCnByb3ZpZGVkIGEgZGln
+aXRhbCBkYXRhc2V0IG9mIGZvcmVzdCBhdCBhIHNjYWxlIG9mDQoxOjUwMCwwMDAsIGhhcm1vbml6
+ZWQgaW50byBzaW1wbGlmaWVkIGJyb2FkIGZvcmVzdA0KY2F0ZWdvcmllcy4gVGhlIGRpc3RyaWJ1
+dGlvbiBvZiBlYWNoIGZvcmVzdCB0eXBlIGluIHRoZSBMSUMNCmRhdGFzZXQgd2FzIGRlcml2ZWQg
+ZnJvbSBsYW5kIHN5c3RlbSBtYXBzIG9mIHRoZSBMYW5kDQpSZXNvdXJjZSBBc3Nlc3NtZW50cyBj
+b21waWxlZCBieSBCcnVzZSBLaW5nIGV0IGFsLi4gKDE5ODYsDQoxOTg5IGFuZCAxOTkyKS4gb2Yg
+dGhlIE5hdHVyYWwgUmVzb3VyY2VzIEluc3RpdHV0ZSAoTlJJKSwNClVLLiBJdCBtdXN0IGJlIG5v
+dGVkLCBob3dldmVyLCB0aGF0IGJlY2F1c2UgdGhlIGZvcmVzdA0KY292ZXIgaGFzIGJlZW4gZXN0
+aW1hdGVkIGZyb20gdGhlIE5SSSBMYW5kIFN5c3RlbXMgc3VydmV5DQooaS5lLiB0aGUgZXh0ZW50
+IG9mIGVhY2ggZmlyZXN0IHR5cGUgd2FzIGVzdGltYXRlZCBieQ0KZXh0cmFjdGluZyBsYW5kIGtu
+b3duIHRvIGJlIHVuZGVyIGN1bHRpdmF0aW9uIGZvcm0gMTk4NSAtDQoxOTg5KSwgdGhpcyBtYXAg
+c2hvdWxkIGJlIHNlZW4gYXMgYSBmaXJzdCBhcHByb3hpbWF0aW9uIGF0DQptZWFzdXJpbmcgdGhl
+IGZvcmVzdCByZXNvdXJjZXMgb2YgQmVsaXplLg0KTWFuZ3JvdmUgY292ZXIgZm9yIHRoZSBvdXRs
+eWluZyBjYXlzIGhhcyBiZWVuIGFkZGVkIGZyb20gYQ0Kc3VwcGxlbWVudHJ5IGZpbGUgcHJvdmlk
+ZWQgYnkgdGhlIExhbmQgSW5mb3JtYXRpb24gQ2VudGVyLA0KYW5kIGlzIGJhc2VkIG9uIFppc21h
+biwgUy4gKDE5OTIpIE1hbmdyb3ZlcyBpbiBiZWxpemU6DQp0aGVpciBjaGFyYWN0ZXJpc3RpY3Ms
+IHVzZSBhbmQgY29uc2VydmF0aW9uLCBhbiB1bnB1Ymxpc2hlZA0KcmVwb3J0IGZvciB0aGUgRm9y
+ZXN0IFBsYW5uaW5nIGFuZCBNYW5hZ2VtZW50IFByb2plY3QuDQp0aGUgTlJJIGxhbmQgc3lzdGVt
+IHVuaXRzLCBtYXBwZWQgdG8gc2hvdyBhZ3JpY3VsdHVyYWwNCnBvdGVudGlhbCBvZiBCZWxpemUs
+IHdlcmUgYXNzaWduZWQgdG8gdGhlIGZvbGxvd2luZyBmb3Jlc3QNCmNsYXNzaWZpY2F0aW9uOiBi
+cm9hZGxlYWYgY292ZXIgKCZndDs3NSUgdHJlZSBjYW5vcHkgY292ZXIpOw0Kb3BlbiBicm9hZGxl
+YWYgY292ZXIgKDI1JS03NSUpOyBtaXhlZCBicm9hZGxlYWYgYW5kIHBpbmUNCigmZ3Q7NzUlKTsg
+cGluZSB3b29kbGFuZCAoJmd0Ozc1JSksIG1hbmdyb3ZlICgmZ3Q7NSUpIGFuZCBub24tZm9yZXN0
+DQpjb3ZlciAoJmx0OzUlKS4gQ2Fub3B5IGNvdmVyIHdhcyBkZXRlcm1pbmVkIGJ5IGludGVycHJl
+dGluZyBhDQpzYW1wbGUgb2YgMTo0MCwwMDAgc2NhbGUgYWVyaWFsIHBob3RvZ3JhcGhzLCBob3dl
+dmVyDQpkZXRlcm1pbmF0aW9uIHdhcyBpbmRpY2F0aXZlIG9ubHkuIEl0IGlzIGltcG9ydGFudCB0
+byBub3RlDQp0aGF0IHRoZSBicm9hZGxlYWYgY2F0ZWdvcnkgaXMgdmVyeSBnZW5lcmFsaXplZC4g
+VGhpcyBjbGFzcw0KaXMgYSBtaXh0dXJlIG9mIGEgd2lkZSByYW5nZSBvZiBmb3Jlc3QgdHlwZXMg
+cmFuZGdpbmcgZnJvbQ0KbG93IHNjcnViYnkgd29vZGxhbmRzIHRvIHRhbGwgc3BlY2llcy1yaWNo
+IGZvcmVzdHMgVGhlDQptYXRjaCBiZXR3ZWVuIGxhbmQgc3lzdGVtcyB1bml0cyBhbmQgZm9yZXN0
+IHR5cGVzIHZhcmllZCwNCndpdGggZ29vZCBjb3JyZWxhdGlvbnMgZm9yIHBpbmUgZm9yZXN0LCBt
+YXJzaC9zd2FtcCBmb3Jlc3QNCmFuZCBub24tZm9yZXN0LiBIb3dldmVyLCBiZWNhdXNlIHRoZSBi
+cm9hZGxlYWYNCmNsYXNzaWZpY2F0aW9uIGlzIHNvIGdlbmVyYWwsIHRoZSBvbmx5IHdheSB0aGUg
+ZXh0ZW50IG9mDQp0aGlzIGNsYXNzIGNvdWxkIGJlIGRlcml2ZWQgd2FzIGJ5IHN1YnRyYWN0aW5n
+IHRoZSBhcmVhIG9mDQphbGwgdGhlIG90aGVyIGNsYXNzZXMgZnJvbSB0aGUgdG90YWwgYXJlYSBv
+ZiBCZWxpemUuIFRoaXMNCmluZXZpdGFibHkgd2lsbCBoYXZlIGludHJvZHVjZWQgaW5hY2N1cmFj
+aWVzLg0KVGhlIGZvbGxvd2luZyBmb3Jlc3QgY2xhc3NlcyBoYXZlIGJlZW4gYW1hbGdhbWF0ZWQg
+aW50byB0aGUNCmJyb2FkIGZvcmVzdCB0eXBlcy4gTG93bGFuZCByYWluIGZvcmVzdCAtIEJyb2Fk
+bGVhZiBmb3Jlc3QNCmFuZCBPcGVuIGJyb2FkbGVhZiBmb3Jlc3Q7IHBpbmUgZm9yZXN0IC0gUGlu
+ZSB3b29kbGFuZCwNClBpbmUgd29vZGxhbmQgc2F2YW5uYSBhbmQgTWl4ZWQgYnJvYWRsZWFmL3Bp
+bmUgZm9yZXN0Ow0KaW5sYW5kIHN3YW1wIGZvcmVzdCAtIE1hcnNoL3N3YW1wOyBtYW5ncm92ZSAt
+IE1hbmdyb3ZlOyBhbmQNCm5vbi1mb3Jlc3QgLSBQaW5lIHRyZWUgc2F2YW5uYSBhbmQgTm9uLWZv
+cmVzdC48L3N1cHBsaW5mPg0KICAgIDwvZGVzY3JpcHQ+DQogICAgPHRpbWVwZXJkPg0KICAgICAg
+PHRpbWVpbmZvPg0KICAgICAgICA8cm5nZGF0ZXM+DQogICAgICAgICAgPGJlZ2RhdGU+MTk4NTwv
+YmVnZGF0ZT4NCiAgICAgICAgICA8ZW5kZGF0ZT4xOTkyPC9lbmRkYXRlPg0KICAgICAgICA8L3Ju
+Z2RhdGVzPg0KICAgICAgPC90aW1laW5mbz4NCiAgICA8L3RpbWVwZXJkPg0KICAgIDxzdGF0dXM+
+DQogICAgICA8cHJvZ3Jlc3M+Q29tcGxldGU8L3Byb2dyZXNzPg0KICAgICAgPHVwZGF0ZT5Vbmtu
+b3duPC91cGRhdGU+DQogICAgPC9zdGF0dXM+DQogICAgPHNwZG9tPg0KICAgICAgPGJvdW5kaW5n
+Pg0KICAgICAgICA8d2VzdGJjPi04OS4yMjcyPC93ZXN0YmM+DQogICAgICAgIDxlYXN0YmM+LTg4
+LjA2OTI8L2Vhc3RiYz4NCiAgICAgICAgPG5vcnRoYmM+MTYuNzUwODwvbm9ydGhiYz4NCiAgICAg
+ICAgPHNvdXRoYmM+MTUuODg0MTwvc291dGhiYz4NCiAgICAgIDwvYm91bmRpbmc+DQogICAgPC9z
+cGRvbT4NCiAgICA8a2V5d29yZHM+DQogICAgICA8dGhlbWU+DQogICAgICAgIDx0aGVtZWt0Pk1h
+eWEgRm9yZXN0PC90aGVtZWt0Pg0KICAgICAgICA8dGhlbWVrZXk+Zm9yZXN0PC90aGVtZWtleT4N
+CiAgICAgICAgPHRoZW1la2V5PndhdGVyPC90aGVtZWtleT4NCiAgICAgICAgPHRoZW1la2V5PnN3
+YW1wPC90aGVtZWtleT4NCiAgICAgIDwvdGhlbWU+DQogICAgICA8cGxhY2U+DQogICAgICAgIDxw
+bGFjZWt0Pk5vbmU8L3BsYWNla3Q+DQogICAgICAgIDxwbGFjZWtleT5CZWxpemU8L3BsYWNla2V5
+Pg0KICAgICAgPC9wbGFjZT4NCiAgICA8L2tleXdvcmRzPg0KICAgIDx1c2Vjb25zdD4NClBsZWFz
+ZSBhY2tub3dsZWRnZSB0aGUgVW5pdmVyc2l0eSBvZiBGbG9yaWRhLCB0aGUgUGFzZW8NClBhbnRl
+cmEgQ29uc29ydGl1bSwgYW5kIHRoZSBVUyBBZ2VuY3kgZm9yIEludGVybmF0aW9uYWwNCkRldmVs
+b3BtZW50IGluIGFueSBkZXJpdmVkIGRhdGEgcHJvZHVjdCwgcmVwb3J0cyBvciBwdWJsaWNhdGlv
+bnMNCjwvdXNlY29uc3Q+DQogICAgPHB0Y29udGFjPg0KICAgICAgPGNudGluZm8+DQogICAgICAg
+IDxjbnRvcmdwPg0KICAgICAgICAgIDxjbnRvcmc+TWVzb0FtZXJpY2FuIFJlc2VhcmNoIENlbnRl
+cjwvY250b3JnPg0KICAgICAgICAgIDxjbnRwZXI+RHIuIEFuYWJlbCBGb3JkPC9jbnRwZXI+DQog
+ICAgICAgIDwvY250b3JncD4NCiAgICAgICAgPGNudHBvcz5EaXJlY3RvcjwvY250cG9zPg0KICAg
+ICAgICA8Y250YWRkcj4NCiAgICAgICAgICA8YWRkcnR5cGU+bWFpbGluZyBhbmQgcGh5c2ljYWwg
+YWRkcmVzczwvYWRkcnR5cGU+DQogICAgICAgICAgPGFkZHJlc3M+DQpVbml2ZXJzaXR5IG9mIENh
+aWxmb3JuaWEgYXQgU2FudGEgQmFyYmFyYSwgTWVzb0FtZXJpY2FuDQpSZXNlYXJjaCBDZW50ZXIN
+CjwvYWRkcmVzcz4NCiAgICAgICAgICA8Y2l0eT5TYW50YSBCYXJiYXJhPC9jaXR5Pg0KICAgICAg
+ICAgIDxzdGF0ZT5DQTwvc3RhdGU+DQogICAgICAgICAgPHBvc3RhbD45MzEwNjwvcG9zdGFsPg0K
+ICAgICAgICAgIDxjb3VudHJ5PlVTQTwvY291bnRyeT4NCiAgICAgICAgPC9jbnRhZGRyPg0KICAg
+ICAgICA8Y250dm9pY2U+KDgwNSkgODkzLTgxOTE8L2NudHZvaWNlPg0KICAgICAgICA8Y250ZmF4
+Pig4MDUpIDg5My0yNzkwPC9jbnRmYXg+DQogICAgICAgIDxjbnRlbWFpbD5mb3JkQG1hcmMudWNz
+Yi5lZHU8L2NudGVtYWlsPg0KICAgICAgICA8aG91cnM+TW9uZGF5IC0gRnJpZGF5LCA4MDBhbSAt
+IDUwMHBtLCBQYWNpZmljIFN0YW5kYXJkIFRpbWU8L2hvdXJzPg0KICAgICAgPC9jbnRpbmZvPg0K
+ICAgIDwvcHRjb250YWM+DQogIDwvaWRpbmZvPg0KICA8ZGF0YXF1YWw+DQogICAgPGF0dHJhY2M+
+DQogICAgICA8YXR0cmFjY3I+QWNjdXJhY3kgdmFyaWVzIHdpdGggdGhlIHNvdXJjZSBvZiBlYWNo
+IGNvdmVyYWdlLiBGb3IgYQ0KY29tcGxldGUgZGVzY3JpcHRpb24gb2YgdGhlIGNvdmVyYWdlcywg
+Y29udGFjdA0KSi4gRGF2aWQgTGFtYmVydCwgUHJvamVjdCBNYW5hZ2VyLCBHRU9QTEFOIENlbnRl
+cg0KTWFyZ2FyZXQgSC4gQ2FyciwgUHJpbmNpcGFsIEludmVzdGlnYXRvciwgRGVwYXJ0bWVudCBv
+Zg0KTGFuZHNjYXBlIEFyY2hpdGVjdHVyZSwgNDMxIEFSQ0gsIFVuaXZlcnNpdHkgb2YgRmxvcmlk
+YSwNCkdhaW5lc3ZpbGxlLCBGTCAzMjYxMSwgVVNBLjwvYXR0cmFjY3I+DQogICAgPC9hdHRyYWNj
+Pg0KICAgIDxzcmNpbmZvPg0KICAgICAgPHNyY2NpdGU+DQogICAgICAgIDxjaXRlaW5mbz4NCiAg
+ICAgICAgICA8b3JpZ2luPlVuaXZlcnNpdHkgb2YgRmxvcmlkYTwvb3JpZ2luPg0KICAgICAgICAg
+IDxvcmlnaW4+VGhlIFBhc2VvIFBhbnRlcmEgQ29uc29ydGl1bTwvb3JpZ2luPg0KICAgICAgICAg
+IDxvcmlnaW4+VVNBSUQ8L29yaWdpbj4NCiAgICAgICAgICA8cHViZGF0ZT4xOTk1MDgwMDwvcHVi
+ZGF0ZT4NCiAgICAgICAgICA8dGl0bGU+RGlnaXRhbCBHZW9ncmFwaGljIERhdGFiYXNlLCBNYXlh
+IEZvcmVzdCBgCQkJCQlSZWdpb248L3RpdGxlPg0KICAgICAgICAgIDxlZGl0aW9uPlZlcnNpb24g
+MTwvZWRpdGlvbj4NCiAgICAgICAgICA8Z2VvZm9ybT5tYXA8L2dlb2Zvcm0+DQogICAgICAgICAg
+PHB1YmluZm8+DQogICAgICAgICAgICA8cHVicGxhY2U+R2FpbmVzdmlsbGUsIEZMLCBVU0E8L3B1
+YnBsYWNlPg0KICAgICAgICAgICAgPHB1Ymxpc2g+VW5pdmVyc2l0eSBvZiBGbG9yaWRhPC9wdWJs
+aXNoPg0KICAgICAgICAgIDwvcHViaW5mbz4NCiAgICAgICAgPC9jaXRlaW5mbz4NCiAgICAgIDwv
+c3JjY2l0ZT4NCiAgICAgIDx0eXBlc3JjPkNELVJPTTwvdHlwZXNyYz4NCiAgICAgIDxzcmN0aW1l
+Pg0KICAgICAgICA8dGltZWluZm8+DQogICAgICAgICAgPHNuZ2RhdGU+DQogICAgICAgICAgICA8
+Y2FsZGF0ZT5Vbmtub3duPC9jYWxkYXRlPg0KICAgICAgICAgIDwvc25nZGF0ZT4NCiAgICAgICAg
+PC90aW1laW5mbz4NCiAgICAgICAgPHNyY2N1cnI+UHVibGljYXRpb24gRGF0ZTwvc3JjY3Vycj4N
+CiAgICAgIDwvc3JjdGltZT4NCiAgICAgIDxzcmNjaXRlYT5ub3QgYXBwbGljYWJsZTwvc3JjY2l0
+ZWE+DQogICAgICA8c3JjY29udHI+DQpUaGUgVW5pdmVyc2l0eSBvZiBGbG9yaWRhLCBHYWluc2V2
+aWxsZQ0KVGhlIFBhc2VvIFBhbnRlcmEgQ29uc29ydGl1bQ0KVVMgQWdlbmN5IGZvciBJbnRlcm5h
+dGlvbmFsIERldmVsb3BtZW50DQpTb3VyY2VfSW5mb3JtYXRpb24gU291cmNlX0NpdGF0aW9uDQpT
+b3VyY2VfSW5mb3JtYXRpb24gU291cmNlX0NpdGF0aW9uDQpTb3VyY2VfSW5mb3JtYXRpb24gU291
+cmNlX0NpdGF0aW9uDQpTb3VyY2VfSW5mb3JtYXRpb24gU291cmNlX0NpdGF0aW9uDQpQcm9jZXNz
+X1N0ZXAgUHJvY2Vzc19EZXNjcmlwdGlvbg0KPC9zcmNjb250cj4NCiAgICA8L3NyY2luZm8+DQog
+IDwvZGF0YXF1YWw+DQogIDxzcHJlZj4NCiAgICA8aG9yaXpzeXM+DQogICAgICA8Z2VvZGV0aWM+
+DQogICAgICAgIDxob3JpemRuPk5vcnRoIEFtZXJpY2FuIERhdHVtIG9mIDE5Mjc8L2hvcml6ZG4+
+DQogICAgICAgIDxlbGxpcHM+Q2xhcmtlIDE4NjY8L2VsbGlwcz4NCiAgICAgIDwvZ2VvZGV0aWM+
+DQogICAgPC9ob3JpenN5cz4NCiAgICA8dmVydGRlZj4NCiAgICAgIDxhbHRzeXM+DQogICAgICAg
+IDxhbHRkYXR1bT5OYXRpb25hbCBHZW9kZXRpYyBWZXJ0aWNhbCBEYXR1bSBvZiAxOTI5PC9hbHRk
+YXR1bT4NCiAgICAgICAgPGFsdGVuYz5JbXBsaWNpdCBjb29yZGluYXRlPC9hbHRlbmM+DQogICAg
+ICA8L2FsdHN5cz4NCiAgICA8L3ZlcnRkZWY+DQogIDwvc3ByZWY+DQogIDxlYWluZm8+DQogICAg
+PGRldGFpbGVkIE5hbWU9ImJlbGZvcjRyIj4NCiAgICAgIDxlbnR0eXA+DQogICAgICAgIDxlbnR0
+eXBsPkJlbGl6ZSBGb3Jlc3QgNDwvZW50dHlwbD4NCiAgICAgICAgPGVudHR5cGQ+U2hhcGVmaWxl
+IEF0dHJpYnV0ZSBUYWJsZTwvZW50dHlwZD4NCiAgICAgICAgPGVudHR5cGRzPk5vbmU8L2VudHR5
+cGRzPg0KICAgICAgICA8ZW50dHlwdCBTeW5jPSJUUlVFIj5GZWF0dXJlIENsYXNzPC9lbnR0eXB0
+Pg0KICAgICAgICA8ZW50dHlwYyBTeW5jPSJUUlVFIj4yNTgzPC9lbnR0eXBjPg0KICAgICAgPC9l
+bnR0eXA+DQogICAgICA8YXR0cj4NCiAgICAgICAgPGF0dHJsYWJsIFN5bmM9IlRSVUUiPkZJRDwv
+YXR0cmxhYmw+DQogICAgICAgIDxhdHRyZGVmIFN5bmM9IlRSVUUiPkludGVybmFsIGZlYXR1cmUg
+bnVtYmVyLjwvYXR0cmRlZj4NCiAgICAgICAgPGF0dHJkZWZzIFN5bmM9IlRSVUUiPkVTUkk8L2F0
+dHJkZWZzPg0KICAgICAgICA8YXR0cmRvbXY+DQogICAgICAgICAgPHVkb20gU3luYz0iVFJVRSI+
+U2VxdWVudGlhbCB1bmlxdWUgd2hvbGUgbnVtYmVycyB0aGF0IGFyZSBhdXRvbWF0aWNhbGx5IGdl
+bmVyYXRlZC48L3Vkb20+DQogICAgICAgIDwvYXR0cmRvbXY+DQogICAgICAgIDxhdHRhbGlhcyBT
+eW5jPSJUUlVFIj5GSUQ8L2F0dGFsaWFzPg0KICAgICAgICA8YXR0cnR5cGUgU3luYz0iVFJVRSI+
+T0lEPC9hdHRydHlwZT4NCiAgICAgICAgPGF0dHdpZHRoIFN5bmM9IlRSVUUiPjQ8L2F0dHdpZHRo
+Pg0KICAgICAgICA8YXRwcmVjaXMgU3luYz0iVFJVRSI+MDwvYXRwcmVjaXM+DQogICAgICAgIDxh
+dHRzY2FsZSBTeW5jPSJUUlVFIj4wPC9hdHRzY2FsZT4NCiAgICAgIDwvYXR0cj4NCiAgICAgIDxh
+dHRyPg0KICAgICAgICA8YXR0cmxhYmwgU3luYz0iVFJVRSI+U2hhcGU8L2F0dHJsYWJsPg0KICAg
+ICAgICA8YXR0cmRlZiBTeW5jPSJUUlVFIj5GZWF0dXJlIGdlb21ldHJ5LjwvYXR0cmRlZj4NCiAg
+ICAgICAgPGF0dHJkZWZzIFN5bmM9IlRSVUUiPkVTUkk8L2F0dHJkZWZzPg0KICAgICAgICA8YXR0
+cmRvbXY+DQogICAgICAgICAgPHVkb20gU3luYz0iVFJVRSI+Q29vcmRpbmF0ZXMgZGVmaW5pbmcg
+dGhlIGZlYXR1cmVzLjwvdWRvbT4NCiAgICAgICAgPC9hdHRyZG9tdj4NCiAgICAgICAgPGF0dGFs
+aWFzIFN5bmM9IlRSVUUiPlNoYXBlPC9hdHRhbGlhcz4NCiAgICAgICAgPGF0dHJ0eXBlIFN5bmM9
+IlRSVUUiPkdlb21ldHJ5PC9hdHRydHlwZT4NCiAgICAgICAgPGF0dHdpZHRoIFN5bmM9IlRSVUUi
+PjA8L2F0dHdpZHRoPg0KICAgICAgICA8YXRwcmVjaXMgU3luYz0iVFJVRSI+MDwvYXRwcmVjaXM+
+DQogICAgICAgIDxhdHRzY2FsZSBTeW5jPSJUUlVFIj4wPC9hdHRzY2FsZT4NCiAgICAgIDwvYXR0
+cj4NCiAgICAgIDxhdHRyPg0KICAgICAgICA8YXR0cmxhYmwgU3luYz0iVFJVRSI+QVJFQTwvYXR0
+cmxhYmw+DQogICAgICAgIDxhdHRyZG9tdj4NCiAgICAgICAgICA8dWRvbT5OdW1lcmljIEZpZWxk
+PC91ZG9tPg0KICAgICAgICA8L2F0dHJkb212Pg0KICAgICAgICA8YXR0YWxpYXMgU3luYz0iVFJV
+RSI+QVJFQTwvYXR0YWxpYXM+DQogICAgICAgIDxhdHRydHlwZSBTeW5jPSJUUlVFIj5OdW1iZXI8
+L2F0dHJ0eXBlPg0KICAgICAgICA8YXR0d2lkdGggU3luYz0iVFJVRSI+MTI8L2F0dHdpZHRoPg0K
+ICAgICAgPC9hdHRyPg0KICAgICAgPGF0dHI+DQogICAgICAgIDxhdHRybGFibCBTeW5jPSJUUlVF
+Ij5QRVJJTUVURVI8L2F0dHJsYWJsPg0KICAgICAgICA8YXR0cmRvbXY+DQogICAgICAgICAgPHVk
+b20+TnVtZXJpYyBGaWVsZDwvdWRvbT4NCiAgICAgICAgPC9hdHRyZG9tdj4NCiAgICAgICAgPGF0
+dGFsaWFzIFN5bmM9IlRSVUUiPlBFUklNRVRFUjwvYXR0YWxpYXM+DQogICAgICAgIDxhdHRydHlw
+ZSBTeW5jPSJUUlVFIj5OdW1iZXI8L2F0dHJ0eXBlPg0KICAgICAgICA8YXR0d2lkdGggU3luYz0i
+VFJVRSI+MTI8L2F0dHdpZHRoPg0KICAgICAgPC9hdHRyPg0KICAgICAgPGF0dHI+DQogICAgICAg
+IDxhdHRybGFibCBTeW5jPSJUUlVFIj5CRUxGT1I0Ul88L2F0dHJsYWJsPg0KICAgICAgICA8YXR0
+cmRvbXY+DQogICAgICAgICAgPHJkb20+DQogICAgICAgICAgICA8cmRvbW1pbj4yPC9yZG9tbWlu
+Pg0KICAgICAgICAgICAgPHJkb21tYXg+MjU4NDwvcmRvbW1heD4NCiAgICAgICAgICA8L3Jkb20+
+DQogICAgICAgIDwvYXR0cmRvbXY+DQogICAgICAgIDxhdHRhbGlhcyBTeW5jPSJUUlVFIj5CRUxG
+T1I0Ul88L2F0dGFsaWFzPg0KICAgICAgICA8YXR0cnR5cGUgU3luYz0iVFJVRSI+TnVtYmVyPC9h
+dHRydHlwZT4NCiAgICAgICAgPGF0dHdpZHRoIFN5bmM9IlRSVUUiPjExPC9hdHR3aWR0aD4NCiAg
+ICAgICAgPGF0dHJkZWY+dW5rbm93bjwvYXR0cmRlZj4NCiAgICAgICAgPGF0dHJkZWZzPm5vbmU8
+L2F0dHJkZWZzPg0KICAgICAgPC9hdHRyPg0KICAgICAgPGF0dHI+DQogICAgICAgIDxhdHRybGFi
+bCBTeW5jPSJUUlVFIj5CRUxGT1I0Ul9JPC9hdHRybGFibD4NCiAgICAgICAgPGF0dHJkb212Pg0K
+ICAgICAgICAgIDxyZG9tPg0KICAgICAgICAgICAgPHJkb21taW4+MDwvcmRvbW1pbj4NCiAgICAg
+ICAgICAgIDxyZG9tbWF4PjE0MzczPC9yZG9tbWF4Pg0KICAgICAgICAgIDwvcmRvbT4NCiAgICAg
+ICAgPC9hdHRyZG9tdj4NCiAgICAgICAgPGF0dGFsaWFzIFN5bmM9IlRSVUUiPkJFTEZPUjRSX0k8
+L2F0dGFsaWFzPg0KICAgICAgICA8YXR0cnR5cGUgU3luYz0iVFJVRSI+TnVtYmVyPC9hdHRydHlw
+ZT4NCiAgICAgICAgPGF0dHdpZHRoIFN5bmM9IlRSVUUiPjExPC9hdHR3aWR0aD4NCiAgICAgICAg
+PGF0dHJkZWY+dW5rbm93bjwvYXR0cmRlZj4NCiAgICAgICAgPGF0dHJkZWZzPm5vbmU8L2F0dHJk
+ZWZzPg0KICAgICAgPC9hdHRyPg0KICAgICAgPGF0dHI+DQogICAgICAgIDxhdHRybGFibCBTeW5j
+PSJUUlVFIj5WRUdOPC9hdHRybGFibD4NCiAgICAgICAgPGF0dHJkb212Pg0KICAgICAgICAgIDxl
+ZG9tPg0KICAgICAgICAgICAgPGVkb212PjA8L2Vkb212Pg0KICAgICAgICAgICAgPGVkb212ZD53
+YXRlciBib2RpZXM8L2Vkb212ZD4NCiAgICAgICAgICAgIDxlZG9tdmRzPlBhc2VvIFBhbnRlcmEg
+Q29uc29ydGl1bTwvZWRvbXZkcz4NCiAgICAgICAgICA8L2Vkb20+DQogICAgICAgICAgPGVkb20+
+DQogICAgICAgICAgICA8ZWRvbXY+MTA8L2Vkb212Pg0KICAgICAgICAgICAgPGVkb212ZD51bmtu
+b3duPC9lZG9tdmQ+DQogICAgICAgICAgICA8ZWRvbXZkcz5ub25lPC9lZG9tdmRzPg0KICAgICAg
+ICAgIDwvZWRvbT4NCiAgICAgICAgICA8ZWRvbT4NCiAgICAgICAgICAgIDxlZG9tdj4xMTE8L2Vk
+b212Pg0KICAgICAgICAgICAgPGVkb212ZD5tYW5ncm92ZTwvZWRvbXZkPg0KICAgICAgICAgICAg
+PGVkb212ZHM+UGFzZW8gUGFudGVyYSBDb25zb3J0aXVtPC9lZG9tdmRzPg0KICAgICAgICAgIDwv
+ZWRvbT4NCiAgICAgICAgICA8ZWRvbT4NCiAgICAgICAgICAgIDxlZG9tdj4xMTM8L2Vkb212Pg0K
+ICAgICAgICAgICAgPGVkb212ZD5pbmxhbmQgc3dhbXAgZm9yZXN0PC9lZG9tdmQ+DQogICAgICAg
+ICAgICA8ZWRvbXZkcz5QYXNlbyBQYW50ZXJhIENvbnNvcnRpdW08L2Vkb212ZHM+DQogICAgICAg
+ICAgPC9lZG9tPg0KICAgICAgICAgIDxlZG9tPg0KICAgICAgICAgICAgPGVkb212PjEyMjwvZWRv
+bXY+DQogICAgICAgICAgICA8ZWRvbXZkPmxvd2xhbmQgcmFpbiBmb3Jlc3Q8L2Vkb212ZD4NCiAg
+ICAgICAgICAgIDxlZG9tdmRzPlBhc2VvIFBhbnRlcmEgQ29uc29ydGl1bTwvZWRvbXZkcz4NCiAg
+ICAgICAgICA8L2Vkb20+DQogICAgICAgICAgPGVkb20+DQogICAgICAgICAgICA8ZWRvbXY+NTEw
+PC9lZG9tdj4NCiAgICAgICAgICAgIDxlZG9tdmQ+cGluZSBmb3Jlc3Q8L2Vkb212ZD4NCiAgICAg
+ICAgICAgIDxlZG9tdmRzPlBhc2VvIFBhbnRlcmEgQ29uc29ydGl1bTwvZWRvbXZkcz4NCiAgICAg
+ICAgICA8L2Vkb20+DQogICAgICAgICAgPGVkb20+DQogICAgICAgICAgICA8ZWRvbXY+ODg4PC9l
+ZG9tdj4NCiAgICAgICAgICAgIDxlZG9tdmQ+Y2xvdWQgY292ZXI8L2Vkb212ZD4NCiAgICAgICAg
+ICAgIDxlZG9tdmRzPlBhc2VvIFBhbnRlcmEgQ29uc29ydGl1bTwvZWRvbXZkcz4NCiAgICAgICAg
+ICA8L2Vkb20+DQogICAgICAgICAgPGVkb20+DQogICAgICAgICAgICA8ZWRvbXY+OTAwPC9lZG9t
+dj4NCiAgICAgICAgICAgIDxlZG9tdmQ+bm9uIGZvcmVzdDwvZWRvbXZkPg0KICAgICAgICAgICAg
+PGVkb212ZHM+UGFzZW8gUGFudGVyYSBDb25zb3J0aXVtPC9lZG9tdmRzPg0KICAgICAgICAgIDwv
+ZWRvbT4NCiAgICAgICAgPC9hdHRyZG9tdj4NCiAgICAgICAgPGF0dGFsaWFzIFN5bmM9IlRSVUUi
+PlZFR048L2F0dGFsaWFzPg0KICAgICAgICA8YXR0cnR5cGUgU3luYz0iVFJVRSI+TnVtYmVyPC9h
+dHRydHlwZT4NCiAgICAgICAgPGF0dHdpZHRoIFN5bmM9IlRSVUUiPjM8L2F0dHdpZHRoPg0KICAg
+ICAgICA8YXR0cmRlZj52ZWdldGF0aW9uIHR5cGU8L2F0dHJkZWY+DQogICAgICAgIDxhdHRyZGVm
+cz5QYXNlbyBQYW50ZXJhIENvbnNvcnRpdW08L2F0dHJkZWZzPg0KICAgICAgPC9hdHRyPg0KICAg
+ICAgPGF0dHI+DQogICAgICAgIDxhdHRybGFibCBTeW5jPSJUUlVFIj5ERVNDPC9hdHRybGFibD4N
+CiAgICAgICAgPGF0dGFsaWFzIFN5bmM9IlRSVUUiPkRFU0M8L2F0dGFsaWFzPg0KICAgICAgICA8
+YXR0cnR5cGUgU3luYz0iVFJVRSI+U3RyaW5nPC9hdHRydHlwZT4NCiAgICAgICAgPGF0dHdpZHRo
+IFN5bmM9IlRSVUUiPjQwPC9hdHR3aWR0aD4NCiAgICAgICAgPGF0dHJkZWY+ZGVzY3JpcHRpb24g
+b2YgdmVnZXRhdGlvbiB0eXBlczwvYXR0cmRlZj4NCiAgICAgICAgPGF0dHJkZWZzPlBhc2VvIFBh
+bnRlcmEgQ29uc29ydGl1bTwvYXR0cmRlZnM+DQogICAgICAgIDxhdHRyZG9tdj4NCiAgICAgICAg
+ICA8ZWRvbT4NCiAgICAgICAgICAgIDxlZG9tdmQ+dW5rbm93bjwvZWRvbXZkPg0KICAgICAgICAg
+ICAgPGVkb212ZHM+bm9uZTwvZWRvbXZkcz4NCiAgICAgICAgICA8L2Vkb20+DQogICAgICAgICAg
+PGVkb20+DQogICAgICAgICAgICA8ZWRvbXY+Q2xvdWQgY292ZXI8L2Vkb212Pg0KICAgICAgICAg
+ICAgPGVkb212ZD5jbG91ZCBjb3ZlcjwvZWRvbXZkPg0KICAgICAgICAgICAgPGVkb212ZHM+UGFz
+ZW8gUGFudGVyYSBDb25zb3J0aXVtPC9lZG9tdmRzPg0KICAgICAgICAgIDwvZWRvbT4NCiAgICAg
+ICAgICA8ZWRvbT4NCiAgICAgICAgICAgIDxlZG9tdj5JbmxhbmQgc3dhbXAgZm9yZXN0PC9lZG9t
+dj4NCiAgICAgICAgICAgIDxlZG9tdmQ+aW5sYW5kIHN3YW1wIGZvcmVzdDwvZWRvbXZkPg0KICAg
+ICAgICAgICAgPGVkb212ZHM+UGFzZW8gUGFudGVyYSBDb25zb3J0aXVtPC9lZG9tdmRzPg0KICAg
+ICAgICAgIDwvZWRvbT4NCiAgICAgICAgICA8ZWRvbT4NCiAgICAgICAgICAgIDxlZG9tdj5Mb3ds
+YW5kIHJhaW4gZm9yZXN0PC9lZG9tdj4NCiAgICAgICAgICAgIDxlZG9tdmQ+bG93bGFuZCByYWlu
+IGZvcmVzdDwvZWRvbXZkPg0KICAgICAgICAgICAgPGVkb212ZHM+UGFzZW8gUGFudGVyYSBDb25z
+b3J0aXVtPC9lZG9tdmRzPg0KICAgICAgICAgIDwvZWRvbT4NCiAgICAgICAgICA8ZWRvbT4NCiAg
+ICAgICAgICAgIDxlZG9tdj5NYW5ncm92ZTwvZWRvbXY+DQogICAgICAgICAgICA8ZWRvbXZkPm1h
+bmdyb3ZlPC9lZG9tdmQ+DQogICAgICAgICAgICA8ZWRvbXZkcz5QYXNlbyBQYW50ZXJhIENvbnNv
+cnRpdW08L2Vkb212ZHM+DQogICAgICAgICAgPC9lZG9tPg0KICAgICAgICAgIDxlZG9tPg0KICAg
+ICAgICAgICAgPGVkb212Pk5vbiBmb3Jlc3Q8L2Vkb212Pg0KICAgICAgICAgICAgPGVkb212ZD5u
+b24gZm9yZXN0PC9lZG9tdmQ+DQogICAgICAgICAgICA8ZWRvbXZkcz5QYXNlbyBQYW50ZXJhIENv
+bnNvcnRpdW08L2Vkb212ZHM+DQogICAgICAgICAgPC9lZG9tPg0KICAgICAgICAgIDxlZG9tPg0K
+ICAgICAgICAgICAgPGVkb212PlBpbmUgZm9yZXN0PC9lZG9tdj4NCiAgICAgICAgICAgIDxlZG9t
+dmQ+cGluZSBmb3Jlc3Q8L2Vkb212ZD4NCiAgICAgICAgICAgIDxlZG9tdmRzPlBhc2VvIFBhbnRl
+cmEgQ29uc29ydGl1bTwvZWRvbXZkcz4NCiAgICAgICAgICA8L2Vkb20+DQogICAgICAgICAgPGVk
+b20+DQogICAgICAgICAgICA8ZWRvbXY+V2F0ZXIgQm9kaWVzPC9lZG9tdj4NCiAgICAgICAgICAg
+IDxlZG9tdmQ+d2F0ZXIgYm9kaWVzPC9lZG9tdmQ+DQogICAgICAgICAgICA8ZWRvbXZkcz5QYXNl
+byBQYW50ZXJhIENvbnNvcnRpdW08L2Vkb212ZHM+DQogICAgICAgICAgPC9lZG9tPg0KICAgICAg
+ICA8L2F0dHJkb212Pg0KICAgICAgPC9hdHRyPg0KICAgICAgPGF0dHI+DQogICAgICAgIDxhdHRy
+bGFibCBTeW5jPSJUUlVFIj5IRUNUQVJFUzwvYXR0cmxhYmw+DQogICAgICAgIDxhdHRhbGlhcyBT
+eW5jPSJUUlVFIj5IRUNUQVJFUzwvYXR0YWxpYXM+DQogICAgICAgIDxhdHRydHlwZSBTeW5jPSJU
+UlVFIj5OdW1iZXI8L2F0dHJ0eXBlPg0KICAgICAgICA8YXR0d2lkdGggU3luYz0iVFJVRSI+MTg8
+L2F0dHdpZHRoPg0KICAgICAgICA8YXR0cmRlZj5hcmVhIHVuaXRzPC9hdHRyZGVmPg0KICAgICAg
+ICA8YXR0cmRlZnM+UGFzZW8gUGFudGVyYSBDb25zb3J0aXVtPC9hdHRyZGVmcz4NCiAgICAgICAg
+PGF0dHJkb212Pg0KICAgICAgICAgIDx1ZG9tPk51bWVyaWMgRmllbGQ8L3Vkb20+DQogICAgICAg
+IDwvYXR0cmRvbXY+DQogICAgICA8L2F0dHI+DQogICAgPC9kZXRhaWxlZD4NCiAgPC9lYWluZm8+
+DQogIDxkaXN0aW5mbz4NCiAgICA8ZGlzdHJpYj4NCiAgICAgIDxjbnRpbmZvPg0KICAgICAgICA8
+Y250b3JncD4NCiAgICAgICAgICA8Y250b3JnPk1lc29BbWVyaWNhbiBSZXNlYXJjaCBDZW50ZXI8
+L2NudG9yZz4NCiAgICAgICAgICA8Y250cGVyPkRyLiBBbmFiZWwgRm9yZDwvY250cGVyPg0KICAg
+ICAgICA8L2NudG9yZ3A+DQogICAgICAgIDxjbnRwb3M+RGlyZWN0b3I8L2NudHBvcz4NCiAgICAg
+ICAgPGNudGFkZHI+DQogICAgICAgICAgPGFkZHJ0eXBlPm1haWxpbmcgYW5kIHBoeXNpY2FsIGFk
+ZHJlc3M8L2FkZHJ0eXBlPg0KICAgICAgICAgIDxhZGRyZXNzPlVuaXZlcnNpdHkgb2YgQ2FpbGZv
+cm5pYSBhdCBTYW50YSBCYXJiYXJhLCBNZXNvQW1lcmljYW48L2FkZHJlc3M+DQogICAgICAgICAg
+PGNpdHk+U2FudGEgQmFyYmFyYTwvY2l0eT4NCiAgICAgICAgICA8c3RhdGU+Q0E8L3N0YXRlPg0K
+ICAgICAgICAgIDxwb3N0YWw+OTMxMDY8L3Bvc3RhbD4NCiAgICAgICAgICA8Y291bnRyeT5VU0E8
+L2NvdW50cnk+DQogICAgICAgIDwvY250YWRkcj4NCiAgICAgICAgPGNudHZvaWNlPig4MDUpIDg5
+My04MTkxPC9jbnR2b2ljZT4NCiAgICAgICAgPGNudGZheD4oODA1KSA4OTMtMjc5MDwvY250ZmF4
+Pg0KICAgICAgICA8Y250ZW1haWw+Zm9yZEBtYXJjLnVjc2IuZWR1PC9jbnRlbWFpbD4NCiAgICAg
+ICAgPGhvdXJzPk1vbmRheSAtIEZyaWRheSwgODAwYW0gLSA1MDBwbSwgUGFjaWZpYyBTdGFuZGFy
+ZCBUaW1lPC9ob3Vycz4NCiAgICAgIDwvY250aW5mbz4NCiAgICA8L2Rpc3RyaWI+DQogICAgPGRp
+c3RsaWFiPg0KVXNlcnMgb2YgdGhpcyBkYXRhIG11c3QgY3JlZGl0IHRoZSBVbml2ZXJzaXR5IG9m
+IEZsb3JpZGEsDQp0aGUgUGFzZW8gUGFudGVyYSBDb25zb3J0aXVtLCBhbmQgdGhlIFVTIEFnZW5j
+eSBmb3INCkludGVybmF0aW9uYWwgRGV2ZWxvcG1lbnQuDQo8L2Rpc3RsaWFiPg0KICAgIDxzdGRv
+cmRlcj4NCiAgICAgIDxub25kaWc+DQpWZXJzaW9uIDEgb2YgdGhlIERpZ2l0YWwgR2VvZ3JhcGhp
+YyBEYXRhYmFzZSBmb3IgdGhlIE1heWENCkZvcmVzdCBSZWdpb24gb2YgTWV4aWNvLCBHdWF0ZW1h
+bGEgYW5kIEJlbGl6ZSwgb2Ygd2hpY2ggeW91DQphcmUgaW4gcmVjZWlwdCwgaGFzIGJlZW4gcHJv
+dmlkZWQgYnkgdGhlIERlcGFydG1lbnQgb2YNCkxhbmNzY2FwZSBBcmNoaXRlY3R1cmUgYW5kIHRo
+ZSBHZW9wbGFuIENlbnRlciwgRGVwYXJ0bWVudA0Kb2YgVXJiYW4gYW5kIFJlZ2lvbmFsIFBsYW5u
+aW5nIGF0IHRoZSBVbml2ZXJzaXR5IG9mDQpGbG9yaWRhLCBHYWluc3ZpbGxlLCBGbG9yaWRhLCBV
+U0EgZm9yIHVzZSBpbiBub24tY29tbWVyY2lhbA0Kc2NpZW50aWZpYyByZXNlYXJjaCBhbmQgY29u
+c2VydmF0aW9uIHBsYW5uaW5nLiBUaGUgcHJvamVjdA0Kd2FzIHNwb25zZXJlZCBieSB0aGUgUGFz
+ZW8gUGFudGVyYSBDb25zb3J0aXVtIGZvcm1lZCBieSB0aGUNCk1lc28tQW1lcmljYW4gUHJvZ3Jh
+bSBvZiB0aGUgV2lsZGxpZmUgQ29uc2VydmF0aW9uIFNvY2lldHkNCmFuZCB0aGUgQ2FyaWJiZWFu
+IENvbnNlcnZhdGlvbiBDb3Jwb3JhdGlvbiwgR2FpbmVzdmlsbGUsDQpGbG9yaWRhLCBVU0EuIFRo
+ZSBwcm9qZWN0IHdhcyBmdW5kZWQgYnkgdGhlIFUuIFMuIEFnZW5jeQ0KZm9yIEludGVybmF0aW9u
+YWwgRGV2ZWxvcG1lbnQsIE1pc3Npb24gdG8gR3VhdGVtYWxhIC0NCkNlbnRyYWwgQW1lcmljYW4g
+UHJvZ3JhbXMgKFVTQUlEL0ctQ0FQKS4gVGhlIHJlc2VhcmNoZXINCmFncmVlcyB0byB0aGUgZm9s
+bG93aW5nIGZvciB1c2Ugb2YgVmVyc2lvbiAxIG9mIERpZ2l0YWwNCkdlb2dyYXBoaWMgRGF0YWJh
+c2UgZm9yIHRoZSBNYXlhIEZvcmVzdCByZWdpb24NCm9mIE1leGljbywgR3VhdGVtYWxhIGFuZCBC
+ZWxpemU6DQoxKSBUaGUgZGF0YSB3aWxsIG5vdCBiZSBzb2xkDQoyKSBUaGUgcHJpbWFyeSBhbmQg
+c2Vjb25kYXJ5IHNvdXJjZXMgb2YgdGhlIGRhdGEgKFVuaXZlcnN0eQ0Kb2YgRmxvcmlkYSwgUGFz
+ZW8gUGFudGVyYSBDb25zb3J0aXVtIGFuZCBVU0FJRC9HQ0FQIGFuZA0Kb3RoZXIgZW50aXRpZXMg
+bGlzZWQgaW4gdGhlIFZlcnNpb24gMSBEb2N1bWVudGF0aW9uKSB3aWxsDQpiZSBhY2tub3dsZWRn
+ZWQgaW4gYW55IGRlcml2ZWQgZGF0YSBwcm9kdWN0LCByZXBvcnRzIG9yDQpwdWJsaWNhdGlvbnMu
+IFRoZSBkYXRhIHdpbGwgbm90IGJlIGRzaXRyaWJ1dGVkIHRvIHRoaXJkDQpwYXJ0aWVzLiB3aG8g
+d2lzaCB0byBvYnRhaW4gdGhlIGRpZ2l0YWwgZGF0YSBtdXN0DQpjb21wbGV0ZSB0aGVpciBvd24g
+cmVxdWVzdCBmb3IgZGF0YSBhbmQgYWdyZWVtZW50IGZvcm1zLg0KPC9ub25kaWc+DQogICAgICA8
+ZmVlcz5Db3B5aW5nIEZlZXM8L2ZlZXM+DQogICAgPC9zdGRvcmRlcj4NCiAgPC9kaXN0aW5mbz4N
+CiAgPG1ldGFpbmZvPg0KICAgIDxtZXRyZD4xOTk5MDQyODwvbWV0cmQ+DQogICAgPG1ldGM+DQog
+ICAgICA8Y250aW5mbz4NCiAgICAgICAgPGNudG9yZ3A+DQogICAgICAgICAgPGNudG9yZz4NCk5h
+dGlvbmFsIENlbnRlciBmb3IgR2VvZ3JhcGhpYyBJbmZvcm1hdGlvbiBBbmFseXNpczsNCk1lc29B
+bWVyaWNhbiBSZXNlYXJjaCBDZW50ZXINCjwvY250b3JnPg0KICAgICAgICAgIDxjbnRwZXI+RHIu
+IEtlaXRoIENsYXJrZTsgRHIuIEFuYWJlbCBGb3JkPC9jbnRwZXI+DQogICAgICAgIDwvY250b3Jn
+cD4NCiAgICAgICAgPGNudHBvcz5EaXJlY3RvcnM8L2NudHBvcz4NCiAgICAgICAgPGNudGFkZHI+
+DQogICAgICAgICAgPGFkZHJ0eXBlPk1haWxpbmcgYW5kIHBoeXNpY2FsIGFkZHJlc3M8L2FkZHJ0
+eXBlPg0KICAgICAgICAgIDxhZGRyZXNzPlVuaXZlcnNpdHkgb2YgQ2FsaWZvcm5pYSBhdCBTYW50
+YSBCYXJiYXJhPC9hZGRyZXNzPg0KICAgICAgICAgIDxjaXR5PlNhbnRhIEJhcmJhcmE8L2NpdHk+
+DQogICAgICAgICAgPHN0YXRlPkNBPC9zdGF0ZT4NCiAgICAgICAgICA8cG9zdGFsPjkzMTA2PC9w
+b3N0YWw+DQogICAgICAgICAgPGNvdW50cnk+VVNBPC9jb3VudHJ5Pg0KICAgICAgICA8L2NudGFk
+ZHI+DQogICAgICAgIDxjbnR2b2ljZT4oODA1KSA4OTMtNzk2MTwvY250dm9pY2U+DQogICAgICAg
+IDxjbnRmYXg+KDgwNSkgODkzLTMxNDY8L2NudGZheD4NCiAgICAgICAgPGNudGVtYWlsPmtjbGFy
+a2VAZ2VvZy51Y3NiLmVkdTsgZm9yZEBtYXJjLnVjc2IuZWR1PC9jbnRlbWFpbD4NCiAgICAgICAg
+PGhvdXJzPk1vbmRheSAtIEZyaWRheSwgODAwYW0gLSA1MDBwbSwgUGFjaWZpYyBTdGFuZGFyZCBU
+aW1lPC9ob3Vycz4NCiAgICAgIDwvY250aW5mbz4NCiAgICA8L21ldGM+DQogIDwvbWV0YWluZm8+
+DQogIDxFc3JpPg0KICAgIDxNZXRhSUQ+ezk0MDdCMDhGLTdCRjktNEQxRC1CNjMwLUQ0QTA1NUQx
+NUY1Rn08L01ldGFJRD4NCiAgICA8Q3JlYURhdGU+MjAwMjA1MDg8L0NyZWFEYXRlPg0KICAgIDxD
+cmVhVGltZT4xMTM2MzYwMDwvQ3JlYVRpbWU+DQogICAgPFN5bmNPbmNlPkZBTFNFPC9TeW5jT25j
+ZT4NCiAgICA8U3luY0RhdGU+MjAxNDA4MTM8L1N5bmNEYXRlPg0KICAgIDxTeW5jVGltZT4xNDQ1
+MTMwMDwvU3luY1RpbWU+DQogICAgPE1vZERhdGU+MjAxNDA4MTM8L01vZERhdGU+DQogICAgPE1v
+ZFRpbWU+MTQ0NTEzMDA8L01vZFRpbWU+DQogIDwvRXNyaT4NCiAgPEJpbmFyeT4NCiAgICA8VGh1
+bWJuYWlsPg0KICAgICAgPERhdGEgRXNyaVByb3BlcnR5VHlwZT0iUGljdHVyZVgiPi85ai80QUFR
+U2taSlJnQUJBUUVBQVFBQkFBRC8yd0JEQUFnR0JnY0dCUWdIQndjSkNRZ0tEQlFOREFzTERCa1NF
+dzhVSFJvZkhoMGENCkhCd2dKQzRuSUNJc0l4d2NLRGNwTERBeE5EUTBIeWM1UFRneVBDNHpOREwv
+MndCREFRa0pDUXdMREJnTkRSZ3lJUndoTWpJeU1qSXkNCk1qSXlNakl5TWpJeU1qSXlNakl5TWpJ
+eU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpML3dBQVJDQUNGQU1nREFTSUENCkFo
+RUJBeEVCLzhRQUh3QUFBUVVCQVFFQkFRRUFBQUFBQUFBQUFBRUNBd1FGQmdjSUNRb0wvOFFBdFJB
+QUFnRURBd0lFQXdVRkJBUUENCkFBRjlBUUlEQUFRUkJSSWhNVUVHRTFGaEJ5SnhGREtCa2FFSUkw
+S3h3UlZTMGZBa00ySnlnZ2tLRmhjWUdSb2xKaWNvS1NvME5UWTMNCk9EazZRMFJGUmtkSVNVcFRW
+RlZXVjFoWldtTmtaV1puYUdscWMzUjFkbmQ0ZVhxRGhJV0doNGlKaXBLVGxKV1dsNWlabXFLanBL
+V20NCnA2aXBxckt6dExXMnQ3aTV1c0xEeE1YR3g4akp5dExUMU5YVzE5aloydUhpNCtUbDV1Zm82
+ZXJ4OHZQMDlmYjMrUG42LzhRQUh3RUENCkF3RUJBUUVCQVFFQkFRQUFBQUFBQUFFQ0F3UUZCZ2NJ
+Q1FvTC84UUF0UkVBQWdFQ0JBUURCQWNGQkFRQUFRSjNBQUVDQXhFRUJTRXgNCkJoSkJVUWRoY1JN
+aU1vRUlGRUtSb2JIQkNTTXpVdkFWWW5MUkNoWWtOT0VsOFJjWUdSb21KeWdwS2pVMk56ZzVPa05F
+UlVaSFNFbEsNClUxUlZWbGRZV1ZwalpHVm1aMmhwYW5OMGRYWjNlSGw2Z29PRWhZYUhpSW1La3BP
+VWxaYVhtSm1hb3FPa3BhYW5xS21xc3JPMHRiYTMNCnVMbTZ3c1BFeGNiSHlNbkswdFBVMWRiWDJO
+bmE0dVBrNWVibjZPbnE4dlAwOWZiMytQbjYvOW9BREFNQkFBSVJBeEVBUHdEMytpaWkNCmdBcHJ1
+c2NiU09jS29KSnhuZ1U2b2JyL0FJOXlPeFpRZmNGaFNrN0pzQlB0Y1gvVFQvdjAzK0ZIMnVML0FL
+YWY5K20vd3B0RmVYOWYNCnFka2FjaUhmYTR2K21uL2ZwdjhBQ2o3WEYvMDAvd0MvVGY0VkJjVGkz
+aEw3R2Mvd29neVdQb0tXS1lTaHZsWldVNFpXSElwL1hwMnYNClpDNUVUZmE0dittbi9mcHY4S1B0
+Y1gvVFQvdjAzK0ZOb3BmWDU5a1BrSC9hNHY4QXBwLzM3Yi9DajdWRi93Qk5QKy9iZjRWQ1pBSlIN
+Ckhoc2xTMmNjREdPLzQvb2FmVCt2eTdDNUIzMnVIT1Buei8xemIvQ2wrMVJmOU5QKy9iZjRWVGEy
+WnBtblZoSE0yMWR3R2NvcHpnZysNCnVUejJ6N1ZacHZIeTdCeUQvdGNIOFVnVC9mRzNQNTBmYTdi
+L0FKK0l2Kyt4Vk84dm9ySk4wZ2RqdFpncURKSVVaUDZDc3V4OFUybCsNCmt4UkdSMFVOR2pzTXlj
+ZHNmNXhnMVVjWlVhdW9oeW8zemUyZ1lLYnFFTWVnOHdaTk1mVXJDTU1YdmJaUWdCYmRLb3hucG5t
+c0cxaTENCkkzclg1dUNZWmxCS0tCSUZHY2dkamdBOXVldFNYZG9za0R6ck1xeENUekpGajVFckFq
+bGllZ0dBTVo0QTloVmZYTE8xaGNwME1Vc2MNCnlCNHBGa1E5R1U1RlByRjhQUXl4TGZGbFpJbXVX
+S1JzMjRnNTVPY2REeHg3SGs1cmFydGkrYUtaSVVVVVZRQlJSUlFBVVVVVUFGRkYNCkZBQlVGMy9x
+UU81ZGNEL2dRUDhBSUdwNnFYMHFSZlp5NXdHbUNqNmtIRloxdjRjdlJqVzQ2aWlvV1NmN1NyTElQ
+SzdxY2NjSDI1N2UNCmxlQWFqcElSSVZPNWxaZWpLZVJTUXdtSm5Ka1o5NXpsc2YwL3orcE10RkZ3
+Q2lpaWtBVVVVVUFGUlNYRU1UYlhsVld3VGduc0tscWwNCmZ3R2VDYUZaakUwc1pWWk5vWXFUZ2NB
+anA2aXFpazNxQng5M3FWMXExekxMYU1MZFFzalJTWlpCTkg5M2NHUENzQUdIYkdUVU5tczcNCjJr
+SkNOYmJqaG5NdmxxK1NTVkFQeUE5QnRJN2RzWnJYTmpwMnJUaXczU05OYlNHTm5FNTZMeUNBMmM0
+M1l3ZjlyMnpGRFp3YVJldzINCjhGeTBzOHJoSHRycGVaRkhUQlBIdUQwNElIcFhlcHh0eXBFRnF5
+a1NCV3NoY3hHMmtqd2lGdGpLVGdmVVk0NmR5VGtrYzAwdi90eUMNCjBiSkpqQW5ua0pkWTJLa0E3
+Y1lMYmdOdkhPUjBOVGFqOXB0SnJ1OW1YWS9rQ0tHRmRvUXAvRnlSeVFUbkhIMFBRNkhoVzBDeHJL
+NnENCjBpSVEwMk03eVR4ejNBUlV3ZlJ2cm1xRk9NM2RnM1kyOU5zWXROc0k3V0hKUmNrRWpCNU9h
+dDBVVjZKQVVVVVVBRkZGRkFCUlJSUUENClVVVVVBRlViOUpKSnJRUk9GOHVReU5rWkRMdEtrZjhB
+ajJmd3E5VmFmL2o2aS8zSC9tdFlZbDJwU1kxdU5kMWpqYVJ6aFZCSlBvQlUNCkMzaU94MmdrQmM1
+QkJ6eU1EcjN6VSs4YnltR3lBRDA0L1BwMnF2Y1EzRnczbGlSWTRlRHVYNzUvUGdWNGl0MU5Sc1Uw
+ODkxS0VkTmsNCmZ5TU9vRGRmci9McjNxTklQTm1ZSmNURUFBU1NDUTR6am9vemdIdWZ3L0N6OWtn
+K1ViT0FvWEdUZ2dkaU9oL0gxcVpWVkZDcUFxZ1kNCkFBd0FLZk4yQVpERVlZd3BrZVEvM25PU2Fr
+b29xUUk1WVZtQURGd0FjL0t4R2ZyanJXYU5adDF1aEY1OGV6TzNCSnlCeGhpVHh6bjENCjdnOTYw
+THVONXJPYUtNNGQwS2c0N2tWeUVkemVYYlhNVnVrRU51UzI4QmdQbllBQXR3Zmw5TUhQdnhXMUtD
+a25jVFoxVW1wV0ViZ1MNClhNV2NiaHpudG5qM3grbEpIcWR0TGZDMFNRZVlZL01BSUl5TTQ0eU1I
+ODZ4VWt1M1MrbWsydEVxN2hHRUcyUndPV0NzUHVuSU9jOVENCmUxUnVyV1FNaGRwOW93c0NqYklB
+dk81c0hIUVl6anVNQVlwK3lRWEUwNTNOeDlxV0pQSiszU0JwMVZ0L3pjQUVIMXdvOXNqME5iczkN
+Cm5iNmh1WmJpWGtnTjVjdVJ4MndjZ0gzR0RXWlpSUlhrNGEwbEJnbFl0Y3F3eUgya0VaQkhEWUlC
+L3dEMUd0ZWV5c0RHejNGdGJiRUcNClMwa2E0QUhPZWFLajk0RWNkcUtHYS8yWDkyR2k4NHhNcGoz
+dkVEZzhaR1NlZ3lBTWc5VGl1czBSQkhOZVJ3ckdJRllLV2pVcXBsSEQNCllCSnh4dHo3NTYxUjB1
+emd2ZFZrbld4UzNpdEdaRlpXd3p2d0F3STUyN1IwNmZNZUs2VlZWYzdWQXljbkE2MTZ1SFZvSXpl
+NHRGTloNCkVmRzlWYkJCR1JuQkhlbFlFcVFDVkpIVWRxM0VMUlJSUUFVVWdaV3p0SU9EZzRQUTB0
+QUJSUlJRQVVVVVVBRlU1OHZjdWdKVWlJYlcNCkdPTWs5UHlGWEtxdHpkeUVkQXFyK1BKL3FLNWNZ
+N1VXVkhjVWNERkZGRmVLYUJSU0hPMDdjWnh4bW1SUHVqWWh0N0JpRDdIUFNtQkoNClJUSkpvNFZ6
+STZvTUU4bkhTcThlb1J6Mmh1SWdkbTNLRmlBSE9PZ05DVFlCZjN5V05xOG1OOG1QM2NRNnUzWUQ2
+MXp0Nko1TGhmTHQNCm5pU0FBdWJhSTVERWRNZWdHTzNPTTVyU3NIbTFTd2krMXdNeGNEYmNydEh5
+a0U5ZW9QWTRBNVBIclMzVjNQTkZQREhEY0t0c3dXVWwNCmNtVmZZZzU1SHQzSFN0NGU0N2RSTXpO
+TmprUzBBV2E0bkVrVzExS2ZjVEpYMU9PQVcvREhlcDdmVEJjUi9iWTlUdWJsRTRSRXlDQWMNCmJn
+UVNTU1J6ampQSGVxdW4zbDIwalcwQ1RST3lyNW9hTEQ3dG1BQnVJNkFBL2czZXA3SXp3eFFTS3lv
+dDNNMGM0a3lTdlhJM2V2M3MNClp4NmM5dFpjeWJFWGRKK3hRYWxOYlc4VFJNRkpDSEpPTWdaT1Ru
+c01aOVRVWGlXNHkwTnRGSk9zb3cwaGp5RlNNbjc3SGdBQXI2MUwNCmZ1c0V3VzJXUWlQNytTZkxU
+UEgzczhIakdPblBiazFQNFh0Wkk3ZTV1NVFRMXpKa0F5YjhLT0J6Nlp6anJ4M1BXcXc5SlZLbk14
+TjINClJxMkVGdEJaeEMxaktSRkFWM0E3c1k0em5uODZzMFVWNnBBVVVVVUFGRkZGQUJSUlJRQVVV
+VVVBRkZGRkFCVlFmNitmL2ZIL0FLQ3QNClc2eHRTdlpkUDB1NXU0YmMzRHhzNTJCZ3ZBWTgvaFhI
+amJ1bWt1cktqdUpxdXRXZWtRZVpjU0F0a0FScVJ1T2ZiOERXR1BIVnFiemENCkxlVnJjL3hiU0dH
+Qm5wem45SzVYVU5ZdXRYeEpjaUJHVnNxU2dVOU9oejFYMi9sbXNxVnBYWnlDaE54aG5XTkJ4emtB
+QWR2WWVncksNCm5nNDI5L2Nia2V0UWE3WXpXa2x6SS8yWlkyS3NKeUZPZXZIUE9hNHlYeGJxMGw0
+L2xoQkR5MjBjWVFNVDk3UFhHT21ldkFxVzF1cHQNCkcweFZoc3l5SGF6WEYxQTJGa1lES2hjODg4
+WkhmMUF6U1BwTWtLM2Q1cUVVUG01OHNXc0VKQTVYNzRBWWRRTTU5bUhITlJDbkNEZDENCmZzRGJa
+VXQ3cTlXL2t2WmpKNW9aa2hRZ2xYbGJqSGZHQVNjNXp3SzFJOUl2ZFNDL2FaRm1hS1ZaU3NEakVa
+MjhLTjJSamdaQUdQclcNCkJEY3lTM2RsODhnODEwYVNOcGVHSmI3d0E1QndNY0RwNjU1OUJzdEt0
+Uzg4elFaVzRVRmc1NFk1eWZsK29CenpuK2RWcGV6MUJhamINClgvUW9VUVF5TXFJeXgrVUJrL01N
+NFhPTTU1ei9BRDZuUDFHR09UUllybUIvczgwQ013a1J5dS9Da2NNRG5rc1Blcld0YWpCcHNRaXQN
+CkkvOEFTbklqSGtKOHk1UEE0QkF6Z2pIWDA2VlYwN1RyMlcwdGxpajhuQ3FHZGx6dkFPZDJTT001
+eDN6NllGWTA0U2w3eVEyekxodmINCnRibjdUSmNOS3FCVE84QVJtVWdieW94L3ZNTjJjWUpIR2NE
+WnROU2hkWFc2aGoreUpLNER5NFoyd295eFhIdVFUK0I2R3RteTB0YloNCkoxbTJ5UnlBWlhCWTVH
+U2VmeDR3QjA5Nm94K0ZMVkxwNWQ3dkZLUnVERWhnQU9Ca0hzY2RnZXZOZGtzTXBxOXJNbm1IL3dC
+a1d0OWQNCks2dzdZRllHVWtrR1U0QlVmVGtaUHRqNmJxcUZVS29BVURBQTdVeUdCTGVQWkh1eDZz
+eFludHlUejJxU3VpbFRWT0tpSnU0VVVVVm8NCklLS0tLQUNpa1U3aG5CSEpITkxRQVVVVVVBRkZG
+RkFCUlJSUUFWUlJWZU9SV0FLczdnZzl4dU5YcTVIV3Z0TnRGRGV3MlRYd1pBQ3ANCkxFUms0eWRv
+OVFXNTVPY2RxNHNZdVpSaVZFZ2wwSFE5T2VSN3FGWjJ3MkVRaFNxWjZrYmdTZWNaK25Tb3JhNkgy
+eTRpMGl6aFJpUisNCjhLK1d3Qkg5NXQyZXg3ZE8rYTBaTEc0TmhETGIyZHRhREc1NEFnenlPakVq
+dHpuZ24wNTVyQ3ROUmlTOXVwYmlZaHBWQ0NNUkNNM0ENCnljbmhjZ2NlNUk5T2xjMGJ5VHU3bEFp
+WHM1dURMZnhyT0VhR1VYRGtiZ1Z3d0NnOXNFK280UHRWK0dPQzhhSCswNXJjeXBicWczeTgNCk1S
+MzNIblAzajE5UGVwaG90djhBWTF1Qzg4bG1nTHlXOHZMRGc1QVBmbnIySTZkZWFzbzBxMmUxUkxw
+SDJEY1lwbGI1dHh5VHVJeUINCnp4Z2QrZXROeVV0aEdkb1ZuYVgxOVBBc0pra1JpNnlzdVZkQ05v
+M0RJNkhCeU8vMHJxVnViYTN1WU5QdTdsTndYT0ZKVmQrN0tqSjYNCnQzR1RualBjVm42VERhTlBQ
+T3FSd1NRNFZVaWwrVUE3c1p6OHJISTNaR1B6Qnp6Z2F5aTF1Vkx0cHBvUzhubWRkNkhHRElSajd2
+R2UNCnZBelRsSDJrbnZvR3gxK3FlUTExREU5c0dXS1ZDQ0JoVkFLc2M1NE9jbGNjNHlQV3VuNjF4
+L2gvUk5RV1Q3WFBOS2tibFAzTWpaREsNCnZxQ001OU9ucHlLNjhBak9Ubm5qaXUzRDAvWnhzUzNj
+Uml3eHRVSGtaeWNZRkx0WGNHd053R000NXhTZ0FkQmlpdHhCUlJSUUFVVVUNClVBRkZGRkFCUlJS
+UUFVVVVVQUZGRkZBQlJSUlFBeVp6SERJNDVLcVQrbFZsQ3d3Z0ZzS2k0eWZRVk5kLzhlYy8vWE52
+NVZ6bmlLZnoNCkZhelpBU1FHUkdmaVgyQ2dnc2M4QWRLOC9Hcm1sR0pjUmRROFYyVm5keFc2SGVX
+YjUzSStWVjduMTZkRGpIODZ1MnVtV3Rzd2RZUVYNCkxHWldJWDkyMlNlUFFjOUJ4d2ZYbkoxYlVk
+THRyTzFlNGxlL2loWXFJMTJFTzJPQVFBQmxlT01kRDBOV05JMUNmV1BQaTFHM0VTU0sNCkdqaDZm
+TGs5K3BQL0FOYjFya2NMUXVsYnVWMU5OZFIwKzdsVzBXNGltYWFNc0VIekJsNkgyckwxR3drc3JT
+UTZmRWtRWWhVaWlEcXoNCllJN3FTT1FHNUk5QlZLNE11aTN3YXp0cmNuZnRkWW0yZ0lTZ0h5ODhu
+NmVub0s2VzRsanRvemNTYkVrSUNaSjZuc1BmbWxia2FjZG0NCkc1ekZ2WnkyRWtsMWVSbHBZazh4
+dHczS1R0QUFHTWVqY0hHUHhyUXRkSGsxZTloMVM1ZmJDZHJxbmxoZk1BT1Z5Q000d0IxT2V2U24N
+CldHbjZwTGV0UEpLNklYYzczR3dNT1FwRWZYT0QzSUhzZURYU1F4TEJCSENtZGthaFZ6NkFZcjBh
+RkozNXBvaHNmUlJSWFdTRkZGRkENCkJSUlJRQVVVVVVBRkZGRkFCUlJSUUFVVVVVQUZGRkZBQlJS
+UlFCV3YxWnJRcXB3UzZBbjIzRFA0NHJPZlR0TnY0SFZZVUEzN2kwWTINCk1HNFBVYzg4ZlVHcjJw
+ckkxa1JFak9keTVWTWJpTTlzOFZUMC9UNzJ5dFRHQkFxS2NwRXJNUnoxK1k5UFh2MU5jT0twVkp5
+VGgwS2kNCjBqTnMvQzBjVnRjR2FVTmR6N3NTWURDTUg4QmsrcHg5QUtqV3lsbnVJTGR6UEpCYnlO
+bVNOaHRYbmlNZENjRGpkMTQ1clNPbVg4bXENCkpjUE1ua0Q1bFJuWW1Odm9NQWpwMVBjMHlMUmI2
+TzhlYU84OGxHYm1PTWtqMEp3Y2dkTWdlL1hpc2xRclBWanVpaE5aeDNGbE5hd3cNCnhDN2VZYjFL
+azdSa2tOK09NODlNNFBTcjloWjNhUzJyNmhJckNFN1kxRFpISUlCSndNbjdvK3VmV3JWckJkMnFQ
+R2JjUGh5VElHQU0NCm1UMXdTZWZxUjBwTG03eEg1YlFYS1NOOTArVVNGYnNjakk2KzlTbzFZVFh1
+NlhIbzBhMUZOall0R3JNcFVrWktudFRxOVV6Q2lpaWcNCkFvb29vQUtLS0tBQ2lpaWdBb29vb0FL
+S0tLQUNpaWlnQW9vb29BS0tLS0FDaWlpZ0Fvb29vQUtLS0tBQ2lpaWdBb29vb0FLS0tLQUMNCmlp
+aWdBb29vb0FLS0tLQUNpaWlnQW9vb29BS0tLS0FQLzlrPTwvRGF0YT4NCiAgICA8L1RodW1ibmFp
+bD4NCiAgPC9CaW5hcnk+DQo8L21ldGFkYXRhPg==</Data></Enclosure></Binary><mdLang><languageCode value="eng"/><countryCode value="USA" Sync="TRUE"/></mdLang><mdChar><CharSetCd value="004"/></mdChar><mdHrLv><ScopeCd value="005"/></mdHrLv><mdStanName>ArcGIS Metadata</mdStanName><mdStanVer>1.0</mdStanVer><distInfo xmlns=""><distributor xmlns=""><distorCont xmlns=""><rpIndName>Dr. Anabel Ford</rpIndName><rpOrgName>MesoAmerican Research Center</rpOrgName><rpPosName>Director</rpPosName><rpCntInfo xmlns=""><cntPhone><voiceNum tddtty="">(805) 893-8191</voiceNum><faxNum>(805) 893-2790</faxNum></cntPhone><cntAddress addressType="both"><delPoint>University of Cailfornia at Santa Barbara, MesoAmerican</delPoint><city>Santa Barbara</city><adminArea>CA</adminArea><postCode>93106</postCode><country>US</country><eMailAdd>ford@marc.ucsb.edu</eMailAdd></cntAddress><cntHours>Monday - Friday, 800am - 500pm, Pacific Standard Time</cntHours></rpCntInfo><role><RoleCd value="008"/></role></distorCont><distorOrdPrc xmlns=""><resFees units="">Copying Fees</resFees></distorOrdPrc><distorTran xmlns=""><offLineMed xmlns=""><medName><MedNameCd value="018"/></medName><medNote>Version 1 of the Digital Geographic Database for the Maya Forest Region of Mexico, Guatemala and Belize, of which you are in receipt, has been provided by the Department of Lancscape Architecture and the Geoplan Center, Department of Urban and Regional Planning at the University of Florida, Gainsville, Florida, USA for use in non-commercial scientific research and conservation planning. The project was sponsered by the Paseo Pantera Consortium formed by the Meso-American Program of the Wildlife Conservation Society and the Caribbean Conservation Corporation, Gainesville, Florida, USA. The project was funded by the U. S. Agency for International Development, Mission to Guatemala - Central American Programs (USAID/G-CAP). </medNote></offLineMed></distorTran></distributor><distFormat xmlns=""><formatName Sync="TRUE">Shapefile</formatName></distFormat><distTranOps xmlns=""><transSize Sync="TRUE">3.236</transSize></distTranOps></distInfo><dataIdInfo><idCitation xmlns=""><resEd>Version 1</resEd><presForm xmlns=""><PresFormCd value="005" Sync="TRUE"/></presForm><resTitle>Forest Cover, Maya Forest, Belize (South), 1995</resTitle><date><pubDate>1995-08-01T00:00:00</pubDate></date><citRespParty xmlns=""><rpOrgName>University of Florida. GeoPlan Center</rpOrgName><rpCntInfo xmlns=""><cntAddress addressType="postal"><delPoint>PO Box 115706</delPoint><city>Gainesville</city><adminArea>FL</adminArea><postCode>32611-5706</postCode><country>US</country></cntAddress></rpCntInfo><displayName>University of Florida. GeoPlan Center</displayName><role><RoleCd value="006"/></role></citRespParty><citRespParty xmlns=""><rpOrgName>University of Florida. GeoPlan Center</rpOrgName><rpCntInfo xmlns=""><cntAddress addressType="postal"><delPoint>PO Box 115706</delPoint><city>Gainesville</city><adminArea>FL</adminArea><postCode>32611-5706</postCode><country>US</country></cntAddress></rpCntInfo><displayName>University of Florida. GeoPlan Center</displayName><role><RoleCd value="010"/></role></citRespParty><collTitle>Maya Forest GIS</collTitle></idCitation><idAbs>&lt;DIV STYLE="text-align:Left;"&gt;&lt;DIV&gt;&lt;DIV&gt;&lt;P&gt;&lt;SPAN&gt;This is a digital database of the Maya Forest Region of Mexico, Guatemala, and Belize. Coverages presented here are ArcView Shape files. The projection is UTM Zone 16, using the NAD 1927 datum and the Clarke 1866 spheriod. This is a polygon coverage of forest cover types for the ares of Belize within the study area.&lt;/SPAN&gt;&lt;/P&gt;&lt;/DIV&gt;&lt;/DIV&gt;&lt;/DIV&gt;</idAbs><idPurp>To preserve biological diversity in Central America by improving stewardship of the region's protected areas and by expanding them to include unprotected wildlands and by restoring degraded areas that link the fragmented wildlands and isthmus. The data was gathered in a larger context to demonstrate the relationship of the Region and adjacent regions, to facilitate the identification of potential biological connections between the protected areas of the Maya Forest and those in adjacent regions, and to focus on ecological boundaries (not political boundaries).</idPurp><idStatus><ProgCd value="001"/></idStatus><idPoC xmlns=""><rpIndName>Dr. Anabel Ford</rpIndName><rpOrgName>MesoAmerican Research Center</rpOrgName><rpPosName>Director</rpPosName><rpCntInfo xmlns=""><cntPhone><voiceNum tddtty="">(805) 893-8191</voiceNum><faxNum>(805) 893-2790</faxNum></cntPhone><cntAddress addressType="both"><delPoint>University of Cailfornia at Santa Barbara, MesoAmerican Research Center</delPoint><city>Santa Barbara</city><adminArea>CA</adminArea><postCode>93106</postCode><country>US</country><eMailAdd>ford@marc.ucsb.edu</eMailAdd></cntAddress><cntHours>Monday - Friday, 800am - 500pm, Pacific Standard Time</cntHours></rpCntInfo><role><RoleCd value="008"/></role></idPoC><resMaint xmlns=""><maintFreq><MaintFreqCd value="012"/></maintFreq></resMaint><placeKeys xmlns=""><thesaName xmlns=""><resTitle>naf</resTitle></thesaName><keyword>Belize</keyword></placeKeys><themeKeys xmlns=""><thesaName xmlns=""><resTitle>lcsh</resTitle></thesaName><keyword>Maya Forest</keyword><keyword>Forest biodiversity</keyword><keyword>Land cover</keyword></themeKeys><searchKeys><keyword>swamp</keyword><keyword>Belize</keyword><keyword>forest</keyword><keyword>water</keyword></searchKeys><resConst><LegConsts xmlns=""><useLimit>Users of this data must credit the University of Florida, the Paseo Pantera Consortium, and the US Agency for International Development.</useLimit></LegConsts></resConst><resConst><Consts xmlns=""><useLimit>&lt;DIV STYLE="text-align:Left;"&gt;&lt;DIV&gt;&lt;DIV&gt;&lt;P&gt;&lt;SPAN&gt;Please acknowledge the University of Florida, the Paseo Pantera Consortium, and the US Agency for International Development in any derived data product, reports or publications&lt;/SPAN&gt;&lt;/P&gt;&lt;/DIV&gt;&lt;/DIV&gt;&lt;/DIV&gt;</useLimit></Consts></resConst><aggrInfo xmlns=""><aggrDSName xmlns=""><resTitle>Digital Geographic Database, Maya Forest Region</resTitle><date><pubDate>1995-08-00</pubDate></date><citRespParty><rpOrgName>University of Florida; Wildlife Conservation Society; Caribbean Conservation Corporation</rpOrgName><role><RoleCd value="006"/></role></citRespParty><citRespParty><rpOrgName>The Paseo Pantera Consortium, University of Florida, USAID</rpOrgName><rpCntInfo><cntAddress><delPoint>Gainseville, Florida, USA</delPoint></cntAddress></rpCntInfo><role><RoleCd value="010"/></role></citRespParty></aggrDSName><assocType><AscTypeCd value="002"/></assocType></aggrInfo><dataLang><languageCode value="eng"/><countryCode value="USA" Sync="TRUE"/></dataLang><dataExt xmlns=""><tempEle><TempExtent><exTemp><TM_Period xmlns=""><tmBegin>1985-01-01T00:00:00</tmBegin><tmEnd>1992-01-01T00:00:00</tmEnd></TM_Period></exTemp></TempExtent></tempEle></dataExt><suppInfo>The following description was provided by the WCMC: Forest cover data for Belize was made available to WCMC by the Land Information Centre (LIC) of the Ministry of Natural Resources, Belmopan. David Gray of LIC, kindly provided a digital dataset of forest at a scale of 1:500,000, harmonized into simplified broad forest categories. The distribution of each forest type in the LIC dataset was derived from land system maps of the Land Resource Assessments compiled by Bruse King et al.. (1986, 1989 and 1992). of the Natural Resources Institute (NRI), UK. It must be noted, however, that because the forest cover has been estimated from the NRI Land Systems survey (i.e. the extent of each firest type was estimated by extracting land known to be under cultivation form 1985 - 1989), this map should be seen as a first approximation at measuring the forest resources of Belize. Mangrove cover for the outlying cays has been added from a supplementry file provided by the Land Information Center, and is based on Zisman, S. (1992) Mangroves in belize: their characteristics, use and conservation, an unpublished report for the Forest Planning and Management Project. the NRI land system units, mapped to show agricultural potential of Belize, were assigned to the following forest classification: broadleaf cover (&gt;75% tree canopy cover); open broadleaf cover (25%-75%); mixed broadleaf and pine (&gt;75%); pine woodland (&gt;75%), mangrove (&gt;5%) and non-forest cover (&lt;5%). Canopy cover was determined by interpreting a sample of 1:40,000 scale aerial photographs, however determination was indicative only. It is important to note that the broadleaf category is very generalized. This class is a mixture of a wide range of forest types randging from low scrubby woodlands to tall species-rich forests The match between land systems units and forest types varied, with good correlations for pine forest, marsh/swamp forest and non-forest. However, because the broadleaf classification is so general, the only way the extent of this class could be derived was by subtracting the area of all the other classes from the total area of Belize. This inevitably will have introduced inaccuracies. The following forest classes have been amalgamated into the broad forest types. Lowland rain forest - Broadleaf forest and Open broadleaf forest; pine forest - Pine woodland, Pine woodland savanna and Mixed broadleaf/pine forest; inland swamp forest - Marsh/swamp; mangrove - Mangrove; and non-forest - Pine tree savanna and Non-forest.</suppInfo><envirDesc Sync="TRUE"> Version 6.2 (Build 9200) ; Esri ArcGIS 10.8.1.14362</envirDesc><spatRpType><SpatRepTypCd value="001" Sync="TRUE"/></spatRpType><dataExt xmlns=""><geoEle xmlns=""><GeoBndBox esriExtentType="search"><exTypeCode Sync="TRUE">1</exTypeCode><westBL Sync="TRUE">-89.227201</westBL><eastBL Sync="TRUE">-88.069197</eastBL><northBL Sync="TRUE">16.751656</northBL><southBL Sync="TRUE">15.885008</southBL></GeoBndBox></geoEle></dataExt><dataChar><CharSetCd value="004"/></dataChar><idPoC xmlns=""><rpOrgName>University of Florida. GeoPlan Center</rpOrgName><rpCntInfo xmlns=""><cntAddress addressType="postal"><delPoint>PO Box 115706</delPoint><city>Gainesville</city><adminArea>FL</adminArea><postCode>32611-5706</postCode><country>US</country></cntAddress></rpCntInfo><displayName>University of Florida. GeoPlan Center</displayName><role><RoleCd value="006"/></role></idPoC><aggrInfo xmlns=""><assocType><AscTypeCd value="002"/></assocType><aggrDSName xmlns=""><resTitle>Maya Forest GIS</resTitle></aggrDSName></aggrInfo><tpCat><TopicCatCd value="002"/></tpCat></dataIdInfo><mdMaint xmlns=""><maintFreq><MaintFreqCd value="009"/></maintFreq><maintNote>Last metadata review date by Dr. Clarke: 19990428</maintNote></mdMaint><dqInfo><dqScope><scpLvl><ScopeCd value="005"/></scpLvl></dqScope><report type="DQQuanAttAcc"><measDesc>Accuracy varies with the source of each coverage. For a complete description of the coverages, contact J. David Lambert, Project Manager, GEOPLAN Center Margaret H. Carr, Principal Investigator, Department of Landscape Architecture, 431 ARCH, University of Florida, Gainesville, FL 32611, USA.</measDesc></report></dqInfo><mdHrLvName Sync="TRUE">dataset</mdHrLvName><refSysInfo><RefSystem dimension=""><refSysID xmlns=""><identCode code="4326" Sync="TRUE"/><idCodeSpace Sync="TRUE">EPSG</idCodeSpace><idVersion Sync="TRUE">6.14(3.0.1)</idVersion></refSysID></RefSystem></refSysInfo><spatRepInfo><VectSpatRep><geometObjs Name="gford-20140000-010014_belfor4r-d"><geoObjTyp><GeoObjTypCd value="002" Sync="TRUE"></GeoObjTypCd></geoObjTyp><geoObjCnt Sync="TRUE">2583</geoObjCnt></geometObjs><topLvl><TopoLevCd value="001" Sync="TRUE"></TopoLevCd></topLvl></VectSpatRep></spatRepInfo><mdDateSt Sync="TRUE">20220722</mdDateSt><mdFileID>62418DF0-0E4A-4462-A795-B20CE2002FFF</mdFileID><mdContact xmlns=""><rpOrgName>University of Florida. GeoPlan Center</rpOrgName><rpCntInfo xmlns=""><cntAddress addressType="postal"><delPoint>PO Box 115706</delPoint><city>Gainesville</city><adminArea>FL</adminArea><postCode>32611-5706</postCode><country>US</country></cntAddress></rpCntInfo><displayName>University of Florida. GeoPlan Center</displayName><role><RoleCd value="006"/></role></mdContact><mdContact xmlns=""><rpIndName>Dr. Keith Clarke</rpIndName><rpOrgName>National Center for Geographic Information &amp; Analysis</rpOrgName><rpPosName>Director</rpPosName><rpCntInfo xmlns=""><cntPhone><voiceNum tddtty="">(805) 893-7961</voiceNum><faxNum>(805) 893-3146</faxNum></cntPhone><cntAddress addressType="both"><delPoint>Department of Geography University of California, Santa Barbara</delPoint><city>Santa Barbara</city><adminArea>CA</adminArea><postCode>93106</postCode><country>US</country></cntAddress></rpCntInfo><displayName>Dr. Keith Clarke</displayName><role><RoleCd value="007"/></role></mdContact></metadata>
