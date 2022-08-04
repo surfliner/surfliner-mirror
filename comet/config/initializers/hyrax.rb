@@ -137,13 +137,13 @@ Hyrax.config do |config|
 
   # Returns a URL that resolves to an image provided by a IIIF image server
   config.iiif_image_url_builder = lambda do |file_id, base_url, size, format|
-     "#{ENV['ORANGE_EMPIRE_BASE_URL']}/downloads/#{file_id.split('/').first}"
+    "#{ENV["ORANGE_EMPIRE_BASE_URL"]}/downloads/#{file_id.split("/").first}"
   end
 
   # Returns a URL that resolves to an info.json file provided by a IIIF image server
   config.iiif_info_url_builder = lambda do |file_id, base_url|
-    uri = Riiif::Engine.routes.url_helpers.info_url(file_id, host: ENV['ORANGE_EMPIRE_BASE_URL'])
-    uri.sub(%r{/info\.json\Z}, '')
+    uri = Riiif::Engine.routes.url_helpers.info_url(file_id, host: ENV["ORANGE_EMPIRE_BASE_URL"])
+    uri.sub(%r{/info\.json\Z}, "")
   end
   # config.iiif_info_url_builder = lambda do |_, _|
   #   ""
