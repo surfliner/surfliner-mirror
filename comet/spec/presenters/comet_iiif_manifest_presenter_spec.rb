@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-# rubocop:disable BracesAroundHashParameters maybe a rubocop bug re hash params?
+require "rails_helper"
+
 RSpec.describe CometIiifManifestPresenter do
   subject(:presenter) { described_class.new(work) }
   let(:work) { build(:monograph) }
