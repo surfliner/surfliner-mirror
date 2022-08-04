@@ -75,5 +75,12 @@ module Hyrax
 
       after_destroy_response(title)
     end
+    
+    def iiif_manifest_presenter
+      CometIiifManifestPresenter.new(search_result_document(id: params[:id])).tap do |p|
+        p.hostname = request.base_url
+        p.ability = current_ability
+      end
+    end
   end
 end
