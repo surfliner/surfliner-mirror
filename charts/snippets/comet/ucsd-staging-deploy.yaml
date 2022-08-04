@@ -30,6 +30,8 @@ extraEnvVars:
     value: "comet_metadata"
   - name: "MINIO_PROTOCOL"
     value: "https"
+  - name: "RABBITMQ_ENABLED"
+    value: "false"
   - name: "RAILS_LOG_TO_STDOUT"
     value: "true"
 worker:
@@ -40,6 +42,8 @@ worker:
       value: "comet_metadata"
     - name: "MINIO_PROTOCOL"
       value: "https"
+    - name: "RABBITMQ_ENABLED"
+      value: "false"
     - name: "RAILS_LOG_TO_STDOUT"
       value: "true"
 
