@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe CometIiifManifestPresenter do
   subject(:presenter) { described_class.new(work) }
-  let(:work) { build(:monograph) }
+  let(:work) { GenericObject.new }
 
   describe "manifest generation" do
     let(:builder_service) { Hyrax::ManifestBuilderService.new }
@@ -31,11 +31,13 @@ RSpec.describe CometIiifManifestPresenter do
 
     context "with some metadata" do
       let(:work) do
-        build(:monograph,
-          title: ["Comet in Moominland", "Mumintrollet på kometjakt"],
-          creator: "Tove Jansson",
-          rights_statement: "free!",
-          description: "A book about moomins")
+        Hyrax.persister.save(resource:
+          GenericObject.new(
+            title: ["Comet in Moominland", "Mumintrollet på kometjakt"],
+            creator: "Tove Jansson",
+            rights_statement: "free!"
+          )
+        )
       end
 
       it "includes configured metadata" do
@@ -48,19 +50,16 @@ RSpec.describe CometIiifManifestPresenter do
   end
 
   describe "#manifest_url" do
-    let(:work) { build(:monograph) }
-
     it "gives an empty string for an unpersisted object" do
       expect(presenter.manifest_url).to be_empty
     end
 
     context "with a persisted work" do
-      let(:work) { valkyrie_create(:monograph) }
+      let(:work) { Hyrax.persister.save(resource: GenericObject.new) }
 
       it "builds a url from the manifest path and work id " do
-        expect(presenter.manifest_url).to include "concern/monographs/#{work.id}/manifest"
+        expect(presenter.manifest_url).to include "concern/generic_objects/#{work.id}/manifest"
       end
     end
   end
 end
-# rubocop:enable Style/BracesAroundHashParameters
