@@ -27,6 +27,8 @@ extraEnvFrom:
       name: comet-staging-ezid-credentials
   - secretRef:
       name: comet-postgres
+  - secretRef:
+      name: comet-staging-rabbitmq
 
 podSecurityContext:
   runAsUser: 10000
