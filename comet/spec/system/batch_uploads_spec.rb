@@ -7,6 +7,8 @@ RSpec.describe "BatchUploads", type: :system, js: true do
   let(:source_file) { Rails.root.join("spec", "fixtures", "batch.csv") }
   let(:s3_enabled_default) { Rails.application.config.staging_area_s3_enabled }
 
+  let(:source_file_download) { Rails.root.join("spec", "fixtures", "batch_download.csv") }
+
   let(:approving_user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
 
   before do
@@ -43,6 +45,36 @@ RSpec.describe "BatchUploads", type: :system, js: true do
         click_on "image.jpg"
 
         expect(page).to have_link("Download the file")
+      end
+    end
+
+    context "file download with Content-Type inline" do
+      let(:files_location) { Rails.root.join("spec", "fixtures", "staging_area", "demo_files") }
+
+      it "can download file" do
+        visit "/dashboard"
+        click_on "Batch Uploads"
+
+        expect(page).to have_content("Add New Works by Batch")
+
+        attach_file "Source File", source_file_download
+        # see: https://stackoverflow.com/questions/70441796/selenium-webdriver-for-aws-device-farm-error-when-sending-period-keystroke-t/70443309#70443309
+        Capybara.current_session.driver.browser.file_detector = nil
+        fill_in("Files Location", with: files_location)
+        click_button "Submit"
+
+        expect(page).to have_content("Successfully ingest objects in batch.")
+        expect(page).to have_content("Batch ingest - download")
+
+        find("#documents").first(:link, "Batch ingest - download").click
+        click_on "test.txt"
+
+        expect(page).to have_link("Download the file")
+
+        file_set_id = page.current_path.split("/").last
+        visit "/downloads/#{file_set_id}?locale=en&inline=true"
+
+        expect(page).to have_content("A dummy text file!")
       end
     end
 
@@ -161,6 +193,42 @@ RSpec.describe "BatchUploads", type: :system, js: true do
 
           expect(Dir.entries(DOWNLOAD_PATH)).to include("image.jpg")
         end
+      end
+    end
+
+    context "file download with Content-Type inline" do
+      let(:file) { Rails.root.join("spec", "fixtures", "staging_area", "demo_files", "test.txt") }
+      let(:s3_key) { "my-project/test.txt" }
+
+      before do
+        Rails.application.config.staging_area_s3_enabled = true
+        staging_area_upload(fog_connection: Rails.application.config.staging_area_s3_connection,
+          bucket: s3_bucket, s3_key: s3_key, source_file: file)
+      end
+
+      it "can download file" do
+        visit "/dashboard"
+        click_on "Batch Uploads"
+
+        expect(page).to have_content("Add New Works by Batch")
+
+        attach_file "Source File", source_file_download
+        select_s3_path("my-project/")
+
+        click_button "Submit"
+
+        expect(page).to have_content("Successfully ingest objects in batch.")
+        expect(page).to have_content("Batch ingest - download")
+
+        find("#documents").first(:link, "Batch ingest - download").click
+        click_on "test.txt"
+
+        expect(page).to have_link("Download the file")
+
+        file_set_id = page.current_path.split("/").last
+        visit "/downloads/#{file_set_id}?locale=en&inline=true"
+
+        expect(page).to have_content("A dummy text file!")
       end
     end
 

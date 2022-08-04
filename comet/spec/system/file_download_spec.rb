@@ -40,4 +40,40 @@ RSpec.describe "FileDownload", type: :system, storage_adapter: :memory, js: true
     find(".attribute-filename").find("a").click
     expect(page).to have_content("File Details")
   end
+
+  context "download file" do
+    let(:file) { Rails.root.join("spec", "fixtures", "staging_area", "demo_files", "test.txt") }
+
+    it "show the file content" do
+      visit "/dashboard"
+      click_on "Objects"
+      click_on "add-new-work-button"
+
+      click_link "Files"
+      expect(page).to have_content "Add files"
+      expect(page).to have_content "Add folder"
+
+      within("div#add-files") do
+        attach_file("files[]", file, visible: false)
+      end
+
+      click_link "Descriptions"
+      fill_in("Title", with: "Test download file object")
+      choose("generic_object_visibility_open")
+
+      # ensure that the form fields are fully populated
+      sleep(1.seconds)
+      click_on("Save")
+
+      expect(page).to have_content("Test download file object")
+
+      find(".attribute.attribute-filename.ensure-wrapped").find("a").click
+      expect(page).to have_content("File Details")
+
+      file_set_id = page.current_path.split("/").last
+      visit "/downloads/#{file_set_id}?locale=en&inline=true"
+
+      expect(page).to have_content("A dummy text file!")
+    end
+  end
 end
