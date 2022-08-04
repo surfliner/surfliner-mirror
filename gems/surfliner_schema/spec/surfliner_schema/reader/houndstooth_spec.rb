@@ -42,6 +42,12 @@ describe SurflinerSchema::Reader::Houndstooth do
     expect(specialized_mappings).to contain_exactly("http://xmlns.com/foaf/0.1/name")
   end
 
+  it "derives (only) missing display labels" do
+    properties = reader.properties(availability: :GenericWork)
+    expect(properties[:date_uploaded].display_label).to eq "Date Uploaded"
+    expect(properties[:date_modified].display_label).to eq "Last modified"
+  end
+
   describe "#form_options" do
     it "includes some fields" do
       expect(reader.form_options(availability: :GenericWork)).not_to be_empty

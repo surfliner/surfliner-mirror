@@ -20,6 +20,12 @@ module SurflinerSchema
         @properties = attr_config.each_with_object({}) do |(name, config), dfns|
           dfns[name] = Property.new(
             name: name,
+            display_label: name.to_s.gsub(/(\A|_)(.)/) {
+              $1 == "_" ? " #{$2.capitalize}" : $2.capitalize
+            },
+            definition: nil, # not supported in simple schema
+            usage_guidelines: nil, # not supported in simple schema
+            requirement: nil, # not supported in simple schema
             available_on: availability,
             data_type: self.class.rdf_type_for(config["type"]),
             indexing: config.fetch("index_keys", []).map { |index_key|

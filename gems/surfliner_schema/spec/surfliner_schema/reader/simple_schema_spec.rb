@@ -16,6 +16,11 @@ describe SurflinerSchema::Reader::SimpleSchema do
     let(:loader) { loader_class.new([:core_schema]) }
     let(:reader) { loader.readers[0] }
 
+    it "derives display labels" do
+      properties = reader.properties(availability: :generic_object)
+      expect(properties[:date_uploaded].display_label).to eq "Date Uploaded"
+    end
+
     it "#form_options" do
       form_options = reader.form_options(availability: :generic_object)
       expect(form_options.keys).to eq [:title]

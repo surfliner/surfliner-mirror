@@ -15,6 +15,25 @@ module SurflinerSchema
     # § DEFINED BY HOUNDSTOOTH #################################################
 
     ##
+    # The human‐readable display label for the property.
+    attribute :display_label, Valkyrie::Types::Coercible::String
+
+    ##
+    # The human‐readable definition for the property.
+    attribute :definition, Valkyrie::Types::Coercible::String.optional
+
+    ##
+    # The human‐readable usage guidelines for the property.
+    attribute :usage_guidelines, Valkyrie::Types::Coercible::String.optional
+
+    ##
+    # An advisory label as to whether the property is required, optional, etc.
+    #
+    # This describes the property from a best‐practices standpoint; normatively,
+    # its obligation is defined by its cardinality class (below).
+    attribute :requirement, Valkyrie::Types::Coercible::String.optional
+
+    ##
     # Resource types the property should be available on. These correspond to
     # conceptual “classes” in M3, but aren’t necessarily actual Ruby classes.
     attribute :available_on, Valkyrie::Types::Set.of(

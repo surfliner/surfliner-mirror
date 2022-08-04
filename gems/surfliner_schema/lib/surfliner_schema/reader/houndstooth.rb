@@ -30,8 +30,18 @@ module SurflinerSchema
 
         # Generate the properties.
         @properties = properties_hash.each_with_object({}) do |(name, config), dfns|
+          property_name = config.fetch("name", name).to_sym
           property = Property.new(
-            name: config.fetch("name", name).to_sym,
+            name: property_name,
+            display_label: config.fetch(
+              "display_label",
+              property_name.to_s.gsub(/(\A|_)(.)/) {
+                $1 == "_" ? " #{$2.capitalize}" : $2.capitalize
+              }
+            ),
+            definition: config["definition"],
+            usage_guidelines: config["usage_guidelines"],
+            requirement: config["requirement"],
             available_on: config.dig("available_on", "class").to_a.map(&:to_sym),
             data_type: RDF::Vocabulary.find_term(config.fetch("data_type", "http://www.w3.org/2001/XMLSchema#string")),
             indexing: config.fetch("indexing", []).map(&:to_sym),
@@ -69,13 +79,13 @@ module SurflinerSchema
           )
           property.available_on.each do |availability|
             dfns[availability] ||= {}
-            if dfns[availability].has_key?(property.name)
+            if dfns[availability].has_key?(property_name)
               raise(
                 Error::DuplicateProperty,
-                "Duplicate property #{property.name} on #{availability}."
+                "Duplicate property #{property_name} on #{availability}."
               )
             end
-            dfns[availability][property.name] = property
+            dfns[availability][property_name] = property
           end
         end
       end
