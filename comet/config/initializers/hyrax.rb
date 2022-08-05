@@ -308,6 +308,36 @@ class CometTransactionContainer
   end
 end
 
+module PcdmUseExtension
+  GEOSHAPE_FILE = ::Valkyrie::Vocab::PCDMUseExtesion.GeoShapeFile
+
+  ##
+  # @param use [RDF::URI, Symbol]
+  #
+  # @return [RDF::URI]
+  # @raise [ArgumentError] if no use is known for the argument
+  def uri_for(use:)
+    case use
+    when RDF::URI
+      use
+    when :original_file
+      Hyrax::FileMetadata::Use::ORIGINAL_FILE
+    when :extracted_file
+      Hyrax::FileMetadata::Use::EXTRACTED_TEXT
+    when :thumbnail_file
+      Hyrax::FileMetadata::Use::THUMBNAIL
+    when :geoshape_file
+      GEOSHAPE_FILE
+    else
+      raise ArgumentError, "No PCDM use is recognized for #{use}"
+    end
+  end
+end
+
+[Hyrax::FileMetadata::Use, Hyrax::FileMetadata::Use.singleton_class].each do |mod|
+  mod.prepend PcdmUseExtension
+end
+
 Hyrax::Transactions::Container.merge(CometTransactionContainer)
 
 Hyrax::DashboardController.sidebar_partials[:repository_content] << "hyrax/dashboard/sidebar/batch_upload"
