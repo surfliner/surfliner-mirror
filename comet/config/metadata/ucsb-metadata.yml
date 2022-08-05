@@ -13,9 +13,9 @@ m3_version: "1.0.beta1"
 profile:
   responsibility: https://library.ucsb.edu/
   responsibility_statement: UC Santa Barbara Library
-  date_modified: "2022-07-22"
+  date_modified: "2022-08-05"
   type: UCSB Comet
-  version: 0.2
+  version: 0.3
 
 #---------------------------------------------------------
 # Mapping Definitions
@@ -646,6 +646,20 @@ publisher_geospatial:
       dc-oai: http://purl.org/dc/elements/1.1/type
       dpla: null
 
+  type_of_resource_geospatial:
+  <<: *type_of_resource
+    display_label: "Resource class"
+    definition: "This field is intended to help users sort between significantly different types of resources."
+    requirement: optional
+    sample_value:
+       - Dataset
+    available_on:
+      class:
+        - geospatial_object
+    mapping:
+      gbl-1: dc_type_s
+      aardvark: gbl_resourceClass_sm
+
   genre_form:
     name: "genre_form"
     display_label: "Genre or form"
@@ -685,6 +699,57 @@ publisher_geospatial:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/type
       dpla: null
+
+  format:
+    name: "format"
+    display_label: "Format"
+    definition: null
+    usage_guidelines: null
+    requirement: null
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/elements/1.1/format
+    available_on:
+      class:
+        - null
+    range: null
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: null
+      dpla: null
+
+  format_geospatial:
+  <<: *format
+    definition: "This value represents the format of the data."
+    usage_guidelines: "This value is always Shapefile."
+    requirement: recommendeded
+    available_on:
+      class:
+        - geospatial_object
+    mapping:
+      gbl-1: dc_format_s
+      aardvark: dct_format_s
 
   note_description:
     name: "note_description"
@@ -874,6 +939,21 @@ publisher_geospatial:
       dc-oai: http://purl.org/dc/elements/1.1/subject
       dpla: null
 
+  subject_topic_geospatial:
+  <<: *subject_topic
+    display_label: "Subject"
+    definition: "This field represents the theme keywords that will be uploaded to GeoData."
+    usage_guidelines: "The subject terms should be Library of Congress Subject Headings (LCSH). Use the 'subject1' field and any other information available to determine the subject of the resource. Then use the UCSB/UCSD - Controlled Vocabulary spreadsheet to determine the authorized subject term and enter that in the 'subject' field."
+    requirement: recommended
+    sample_value:
+       - Floods--Risk assessment
+    available_on:
+      class:
+        - geospatial_object
+    mapping:
+      gbl-1: dc_subject_sm
+      aardvark: dct_subject_sm
+
   subject_name:
     name: "subject_name"
     display_label: "Subject (name)"
@@ -954,6 +1034,22 @@ publisher_geospatial:
       dc-oai: http://purl.org/dc/elements/1.1/coverage
       dpla: null
 
+  subject_spatial_geospatial:
+  <<: *subject_spatial
+    display_label: "Spatial Coverage"
+    definition: "This field represents the place keywords that will be uploaded to GeoData."
+    usage_guidelines: "Use the 'spatialSubject1' field and any other information available to determine the geographic location of the resource.  Then use the UCSB/UCSD - Controlled Vocabulary spreadsheet to determine the authorized geonames place term and enter that in the 'spatialSubject' field."
+    requirement: recommended
+    sample_value:
+       - Santa Barbara County
+       - California
+    available_on:
+      class:
+        - geospatial_object
+    mapping:
+      gbl-1: dct_spatial_sm
+      aardvark: dct_spatial_sm
+
   subject_temporal:
     name: "subject_temporal"
     display_label: "Subject (time period)"
@@ -993,6 +1089,17 @@ publisher_geospatial:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/coverage
       dpla: null
+
+    <<: *subject_temporal
+    display_label: "Temporal Coverage"
+    usage_guidelines: "Enter a text string that describes the ground condition (situational date) of the resource.  This could be a range of dates or a string (i.e. Paleozoic). For dates, use ISO 8601 (YYYY-MM-DD).  Only enter months and days if they are known and relevant. A typical entry will be YYYY."
+    requirement: optional
+    available_on:
+      class:
+        - geospatial_object
+    mapping:
+      gbl-1: dct_temporal_sm
+      aardvark: dct_temporal_sm
 
   subject_keywords:
     name: "subject_keywords"
@@ -1260,6 +1367,16 @@ subject_keywords_geospatial:
       dc-oai: null
       dpla: null
 
+  bounding_box_north_latitude_geospatial:
+  <<: *bounding_box_north_latitude
+    usage_guidelines: "This value displays the northernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
+    available_on:
+      class:
+        - geospatial_object
+    mapping:
+      gbl-1: null
+      aardvark: ddcat_bbox
+
   bounding_box_south_latitude:
     name: "bounding_box_south_latitude"
     display_label: "Bounding box southernmost"
@@ -1299,7 +1416,15 @@ subject_keywords_geospatial:
       dc-oai: null
       dpla: null
 
-
+  bounding_box_south_latitude_geospatial:
+  <<: *bounding_box_south_latitude
+    usage_guidelines: "This value displays the southernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
+    available_on:
+      class:
+        - geospatial_object
+    mapping:
+      gbl-1: null
+      aardvark: ddcat_bbox
 
   scale:
     name: "scale"
@@ -1859,10 +1984,10 @@ subject_keywords_geospatial:
       dc-oai: http://purl.org/dc/elements/1.1/description
       dpla: null
 
-  copyright_holder:
-    name: "copyright_holder"
-    display_label: "Copyright holder"
-    definition: "A person or organization owning or managing the copyright of the resource."
+  rights_holder:
+    name: "rights_holder"
+    display_label: "Rights holder"
+    definition: "A person or organization owning or managing the rights of the resource."
     usage_guidelines: null
     requirement: recommended, if applicable
     controlled_values:
@@ -1897,6 +2022,17 @@ subject_keywords_geospatial:
     mapping:
       dc-oai: null
       dpla: null
+
+  rights_holder_geospatial:
+  <<: *rights_holder
+    usage_guidelines: "Enter the rights holder for this resource."
+    requirement: optional
+    available_on:
+      class:
+        - geospatial_object
+    mapping:
+      gbl-1: null
+      aardvark: dct_rightsHolder_sm
 
   copyright_date:
     name: "copyright_date"
@@ -1985,7 +2121,7 @@ subject_keywords_geospatial:
     controlled_values:
       format: null
       sources:
-        - "http://rightsstatements.org, http://creativecommons.org"
+        - "http://rightsstatements.org"
     sample_value:
       - null
     property_uri: http://purl.org/dc/terms/rights
@@ -2054,6 +2190,17 @@ subject_keywords_geospatial:
       dc-oai: http://purl.org/dc/elements/1.1/rights
       dpla: null
 
+  rights_license_geospatial:
+  <<: *rights_license
+    usage_guidelines: "Enter a URI for an appropriate license for this resource such as Creative Commons."
+    requirement: optional
+    available_on:
+      class:
+        - geospatial_object
+    mapping:
+      gbl-1: null
+      aardvark: dct_license_sm
+
   rights_note:
     name: "rights_note"
     display_label: "Rights note"
@@ -2093,6 +2240,68 @@ subject_keywords_geospatial:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/rights
       dpla: null
+
+  rights_note_geospatial:
+  <<: *rights_note
+    display_label: "Use Limitation"
+    usage_guidelines: "Using the 'useLimitation1', 'useLimitation2', 'accessConst', 'useConst', and 'otherConst' fields in the original ArcGIS metadata XML, enter a brief use limitation statement that will appear in GeoBlacklight when this feature is enabled."
+    requirement: recommended
+    available_on:
+      class:
+        - geospatial_object
+    mapping:
+      gbl-1: null
+      aardvark: dct_rights_sm
+
+  source:
+    name: "source"
+    display_label: "Source"
+    definition: "A related resource from which the described resource is derived."
+    usage_guidelines: null
+    requirement: optional
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/elements/1.1/source
+    available_on:
+      class:
+        - null
+    range: null
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+#    index_documentation: "Title should be indexed as searchable and displayable."
+#    indexing: a list of dynamic field names, taken from a controlled list;
+#      Choose a value from this list.
+#        displayable - store as string, multi-valued
+#        facetable - index as a string, multi-valued
+#        searchable - index the specific data type, multi-valued
+#        sortable - index the specific data type
+#        stored_searchable - index and store the specific data type, multi-valued
+#        stored_sortable - index and store as string
+#        symbol - index and store as string, multi-valued
+#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
+#    validations:
+#      match_regex:  Regular Expression pattern each value must match to be valid.
+    mapping:
+      dc-oai: null
+      dpla: null
+
+  source_geospatial:
+  <<: *source
+    usage_guidelines: "Enter the slug of the original resource from which this resource is derived.  This is used when the resource stands apart as a new object rather than is a part of the original resource."
+    requirement: optional
+    available_on:
+      class:
+        - geospatial_object
+    mapping:
+      gbl-1: dc_source_sm
+      aardvark: dct_source_sm
 
   physical_location:
     name: "physical_location"
