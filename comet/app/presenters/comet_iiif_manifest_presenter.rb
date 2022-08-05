@@ -20,27 +20,27 @@ class CometIiifManifestPresenter < Hyrax::IiifManifestPresenter
     # @param [Hyrax::Resource, SolrDocument] model
     def for(model)
       klass = if model.file_set?
-                Hyrax::IiifManifestPresenter::DisplayImagePresenter
-              else
-                CometIiifManifestPresenter
-              end
+        Hyrax::IiifManifestPresenter::DisplayImagePresenter
+      else
+        CometIiifManifestPresenter
+      end
 
       klass.new(model)
     end
   end
 
   def description
-    Array(super).first || ''
+    Array(super).first || ""
   rescue NoMethodError
-    ''
+    ""
   end
 
   def member_ids
-    model['member_ids_ssim']
+    model["member_ids_ssim"]
   end
 
   def rendering_ids
-    model['rendering_ids_ssim']
+    model["rendering_ids_ssim"]
   end
 
   ##

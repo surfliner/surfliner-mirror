@@ -36,8 +36,7 @@ RSpec.describe CometIiifManifestPresenter do
             title: ["Comet in Moominland", "Mumintrollet på kometjakt"],
             creator: "Tove Jansson",
             rights_statement: "free!"
-          )
-        )
+          ))
       end
 
       it "includes configured metadata" do
