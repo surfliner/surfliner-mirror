@@ -142,8 +142,7 @@ Hyrax.config do |config|
 
   # Returns a URL that resolves to an info.json file provided by a IIIF image server
   config.iiif_info_url_builder = lambda do |file_id, base_url|
-    uri = Riiif::Engine.routes.url_helpers.info_url(file_id, host: ENV["IIIF_BASE_URL"])
-    uri.sub(%r{/info\.json\Z}, "")
+    "#{ENV["IIIF_BASE_URL"]}/iiif/2/#{file_id.split("/").first}/info.json"
   end
   # config.iiif_info_url_builder = lambda do |_, _|
   #   ""

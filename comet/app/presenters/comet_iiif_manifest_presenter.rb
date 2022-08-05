@@ -19,7 +19,11 @@ class CometIiifManifestPresenter < Hyrax::IiifManifestPresenter
     ##
     # @param [Hyrax::Resource, SolrDocument] model
     def for(model)
-      klass = model.file_set? ? DisplayImagePresenter : CometIiifManifestPresenter
+      klass = if model.file_set?
+                Hyrax::IiifManifestPresenter::DisplayImagePresenter
+              else
+                CometIiifManifestPresenter
+              end
 
       klass.new(model)
     end
@@ -29,6 +33,14 @@ class CometIiifManifestPresenter < Hyrax::IiifManifestPresenter
     Array(super).first || ''
   rescue NoMethodError
     ''
+  end
+
+  def member_ids
+    model['member_ids_ssim']
+  end
+
+  def rendering_ids
+    model['rendering_ids_ssim']
   end
 
   ##
