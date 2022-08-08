@@ -67,9 +67,16 @@ RSpec.describe InlineUploadHandler, storage_adapter: :memory do
         expect { service.attach }
           .to change { listener.object_metadata_updated.map(&:payload) }
           .from(be_empty)
-          .to contain_exactly(include(object: object, user: user),
-            include(object: an_instance_of(Hyrax::FileSet), user: user),
-            include(object: an_instance_of(Hyrax::FileSet), user: user))
+          .to contain_exactly(
+                # we have to save the object manually again after updating its
+                # #rendering_ids, which adds additional references to the
+                # payload
+                include(object: object, user: user),
+                include(object: object, user: user),
+                include(object: object, user: user),
+                include(object: an_instance_of(Hyrax::FileSet), user: user),
+                include(object: an_instance_of(Hyrax::FileSet), user: user)
+              )
       end
 
       it "publishes file_set.attached events" do
