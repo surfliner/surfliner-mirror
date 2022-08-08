@@ -177,7 +177,6 @@ en:
     collection_types:
       create_service:
         admin_set_description: A project with shared workflow and object lifecycle policy.
-    collections:
     dashboard:
       admin_sets:
         admin_set: Project
