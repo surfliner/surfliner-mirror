@@ -36,7 +36,7 @@ class CometIiifManifestPresenter < Hyrax::IiifManifestPresenter
   end
 
   def member_ids
-    model["member_ids_ssim"]
+    model["member_ids_ssim"] || []
   end
 
   def rendering_ids
