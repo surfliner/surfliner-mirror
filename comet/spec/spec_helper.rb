@@ -10,4 +10,8 @@ RSpec.configure do |config|
   config.profile_examples = 10
   config.order = :random
   Kernel.srand config.seed
+
+  config.expect_with :rspec do |c|
+    c.max_formatted_output_length = nil
+  end
 end
