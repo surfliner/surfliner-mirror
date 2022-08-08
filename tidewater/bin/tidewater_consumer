@@ -41,7 +41,7 @@ rescue Bunny::PossibleAuthenticationFailureError
 end
 
 channel = connection.create_channel
-exchange = channel.topic(rabbitmq_topic)
+exchange = channel.topic(rabbitmq_topic, auto_delete: true)
 queue = channel.queue("", exclusive: true)
 queue.bind(exchange, routing_key: rabbitmq_routing_key)
 
