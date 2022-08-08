@@ -15,6 +15,7 @@ data:
   POSTGRES_PORT: {{ .Values.postgresql.servicePort | quote }}
   RABBITMQ_HOST: {{ .Values.consumer.rabbitmq.host }}
   RABBITMQ_NODE_PORT_NUMBER: {{ .Values.consumer.rabbitmq.port | quote }}
+  RABBITMQ_QUEUE: {{ .Values.consumer.rabbitmq.queue }}
   RABBITMQ_TIDEWATER_ROUTING_KEY: {{ .Values.consumer.rabbitmq.routing_key }}
   RABBITMQ_TOPIC: {{ .Values.consumer.rabbitmq.topic }}
   RABBITMQ_USERNAME: {{ .Values.consumer.rabbitmq.username }}

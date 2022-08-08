@@ -35,12 +35,13 @@ consumer:
     name: tidewater-consumer
     enabled: false
   rabbitmq:
-    topic: surfliner.metadata
     host: rabbitmq
-    routing_key: surfliner.metadata.tidewater
-    username: surfliner
     password: surfliner
     port: 5672
+    queue: tidewater
+    routing_key: surfliner.metadata.tidewater
+    topic: surfliner.metadata
+    username: surfliner
 
 # Settings specific to the keypair needed for signing requests
 keypair:

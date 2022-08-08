@@ -22,11 +22,12 @@ end
 require_relative "../lib/tidewater"
 
 rabbitmq_host = ENV.fetch("RABBITMQ_HOST")
-rabbitmq_user = ENV.fetch("RABBITMQ_USERNAME")
 rabbitmq_password = ENV.fetch("RABBITMQ_PASSWORD")
 rabbitmq_port = ENV.fetch("RABBITMQ_NODE_PORT_NUMBER")
-rabbitmq_topic = ENV.fetch("RABBITMQ_TOPIC")
+rabbitmq_queue = ENV.fetch("RABBITMQ_QUEUE")
 rabbitmq_routing_key = ENV.fetch("RABBITMQ_TIDEWATER_ROUTING_KEY")
+rabbitmq_topic = ENV.fetch("RABBITMQ_TOPIC")
+rabbitmq_user = ENV.fetch("RABBITMQ_USERNAME")
 
 connection_url = "amqp://#{rabbitmq_user}:#{rabbitmq_password}@#{rabbitmq_host}:#{rabbitmq_port}".freeze
 logger.info("Rabbitmq message broker connection url: #{connection_url.sub(rabbitmq_password, "REDACTED")}")
@@ -42,7 +43,7 @@ end
 
 channel = connection.create_channel
 exchange = channel.topic(rabbitmq_topic, auto_delete: true)
-queue = channel.queue("", exclusive: true)
+queue = channel.queue(rabbitmq_queue, durable: true)
 queue.bind(exchange, routing_key: rabbitmq_routing_key)
 
 logger.info(" [*] Waiting for updates. To exit press CTRL+C")
