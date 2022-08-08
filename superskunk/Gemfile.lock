@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/samvera-labs/hyrax-acl.git
-  revision: 32947b08f23e796dd1e54c1d27d715b55e4ca2cd
-  branch: main
+  revision: c27638c155f115626fec2e7cf0ab7aacce0ac0cd
+  branch: instance-permission
   specs:
     hyrax-acl (0.1.0)
       valkyrie (~> 2)
