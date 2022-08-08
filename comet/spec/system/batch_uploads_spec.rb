@@ -259,6 +259,26 @@ RSpec.describe "BatchUploads", type: :system, js: true do
       end
     end
 
+    context "with geodata" do
+      it "loads the geodata ingest form" do
+        visit "/dashboard"
+        click_on "Batch Uploads"
+
+        expect(page).to have_content("Add New Works by Batch")
+
+        select "geodata", from: "batch_upload_option"
+
+        expect(page).to have_select("batch_upload_option", selected: "geodata")
+
+        attach_file "Source File", source_file
+        select_s3_path("my-project/")
+
+        click_button "Submit"
+
+        expect(page).to have_content("Successfully ingest objects in batch.")
+      end
+    end
+
     context "with files missing from staging area" do
       let(:other_file) { Rails.root.join("spec", "fixtures", "upload.txt") }
       let(:other_s3_key) { "my-other-project/upload.txt" }

@@ -8,11 +8,15 @@ class BatchUpload < ApplicationRecord
   belongs_to :user
 
   def self.ingest_options
-    %w[metadata+files files-only]
+    %w[metadata+files files-only geodata]
   end
 
   def self.files_only_ingest
     "files-only"
+  end
+
+  def self.geodata_ingest
+    "geodata"
   end
 
   # Required to back a form
