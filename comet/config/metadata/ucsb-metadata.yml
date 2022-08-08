@@ -28,12 +28,15 @@ profile:
 
 mappings:
   dpla:
-    name: Digital Public Library of America
+    name: dpla
+    display_label: Digital Public Library of America
   dc-oai:
-    name: Dublin Core OAI
+    name: dc-oai
+    display_label: Dublin Core OAI
     iri: tag:surfliner.gitlab.io,2022:api/oai_dc
   aardvark:
-    name: OGM Aardvark  
+    name: aardvark
+    display_label: OGM Aardvark
 
 # Class Definitions
 
