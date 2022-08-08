@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/samvera-labs/hyrax-acl.git
-  revision: fd4e6b4af0989f0b7b380f902bdbd079dc69c2b2
+  revision: d826bc2f3c9d0963dc51fa0dcbf396fbdc777162
   branch: no-typecheck-permission
   specs:
     hyrax-acl (0.1.0)
