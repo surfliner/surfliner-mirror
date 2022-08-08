@@ -16,4 +16,4 @@ gem "valkyrie", "2.2.0"
 gem "valkyrie-sequel", "~> 2.2.0"
 gem "hyrax-acl",
   git: "https://github.com/samvera-labs/hyrax-acl.git",
-  branch: "instance-permission"
+  branch: "no-typecheck-permission"
