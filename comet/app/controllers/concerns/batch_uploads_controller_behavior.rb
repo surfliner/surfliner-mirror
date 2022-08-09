@@ -14,12 +14,13 @@ module BatchUploadsControllerBehavior
   #
   # Wrap up files from local mounted staging area for upload
   class StagingAreaFile
-    attr_reader :path, :filename, :original_filename
+    attr_reader :path, :filename, :file_use, :original_filename
 
-    def initialize(path:, filename:)
+    def initialize(path:, filename:, file_use: :original_file)
       @path = path
       @filename = filename
       @original_filename = filename
+      @file_use = file_use
     end
 
     # Content type of a file
@@ -45,8 +46,8 @@ module BatchUploadsControllerBehavior
     # @param path [String] - the prefix to the file like my-project/
     # @param filename [String] - the filename
     # @param s3_handler [StagingAreaS3Handler]
-    def initialize(path:, filename:, s3_handler:)
-      super(path: path, filename: filename)
+    def initialize(path:, filename:, s3_handler:, file_use: :original_file)
+      super(path: path, filename: filename, file_use: file_use)
 
       @s3_handler = s3_handler
     end
@@ -83,26 +84,34 @@ module BatchUploadsControllerBehavior
   # @param model[String] - the model name of the object to create
   # @param file_path[String] - the base path to files
   def perform_ingest(attrs, user, model, file_path)
+    file_names = attrs[FILE_NAME_KEY]
+
+    # create objcect with workflow
+    work = ingest_metadata(attrs, user, model)
+
+    # ingest the files
+    ingest_files(work, file_path, file_names, user)
+
+    # Index the object
+    Hyrax.publisher.publish("object.metadata.updated", object: work, user: user)
+
+    work
+  end
+
+  # Ingest object metadata
+  # @param attrs[Hash]
+  # @param user[User] - the depositor
+  # @param model[String] - the model name of the object to create
+  def ingest_metadata(attrs, user, model)
     # create batch upload entry
     batch_upload_entry = BatchUploadEntry.new(batch_upload_id: @batch_record.id,
       raw_metadata: attrs.to_json)
     batch_upload_entry.save
 
-    file_names = attrs.delete(FILE_NAME_KEY)
-
     # Create object
     work = model.new
     attrs.each { |k, v| work.public_send("#{k}=", v) if work.respond_to?(k.to_s) }
     work = Hyrax.persister.save(resource: work)
-
-    # Upload file(s)
-    if file_names.present?
-      file_service = InlineBatchUploadHandler.new(work: work)
-      file_service.add(files: build_files(user, file_path, file_names))
-      file_service.attach
-
-      work = Hyrax.persister.save(resource: work)
-    end
 
     # Add to workflow
     workflow_created = Hyrax::Workflow::WorkflowFactory.create(work, {}, user)
@@ -112,10 +121,23 @@ module BatchUploadsControllerBehavior
       batch_upload_entry.save
     end
 
-    # Index the object
-    Hyrax.index_adapter.save(resource: work)
-
     work
+  end
+
+  # Ingest the file(s)
+  # @param work[GenericObject]
+  # @param file_path[String] - the base path to files
+  # @param file_names[Array<String>] - the base path to files
+  # @param user[User] - the depositor
+  def ingest_files(work, file_path, file_names, user)
+    # Upload the file(s)
+    if file_names.present?
+      file_service = InlineBatchUploadHandler.new(work: work)
+      file_service.add(files: build_files(user, file_path, file_names))
+      file_service.attach
+
+      Hyrax.persister.save(resource: work)
+    end
   end
 
   ##
@@ -138,12 +160,12 @@ module BatchUploadsControllerBehavior
   # @param path [String] - the parent directory
   # @param filename [String] - the filename
   # @return [StagingAreaFile]
-  def create_staging_area_file(path, filename)
+  def create_staging_area_file(path, filename, file_use = :original_file)
     s3_enabled = Rails.application.config.staging_area_s3_enabled
-    return StagingAreaFile.new(path: path, filename: filename) unless s3_enabled
+    return StagingAreaFile.new(path: path, filename: filename, file_use: file_use) unless s3_enabled
 
     s3_handler = Rails.application.config.staging_area_s3_handler
-    S3StagingAreaFile.new(path: path, filename: filename, s3_handler: s3_handler)
+    S3StagingAreaFile.new(path: path, filename: filename, file_use: file_use, s3_handler: s3_handler)
   end
 
   ##
