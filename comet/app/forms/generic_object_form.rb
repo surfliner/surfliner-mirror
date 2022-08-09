@@ -20,6 +20,33 @@ class GenericObjectForm < Hyrax::Forms::ResourceForm(GenericObject)
   property :member_of_collections_attributes, virtual: true,
     populator: :interpret_collections_attributes
 
+  def primary_terms
+    _form_field_definitions.select { |key, form_options|
+      schema_definition = form_definition(key.to_sym)
+      if schema_definition
+        # Use the schema definition if possible.
+        schema_definition.primary?
+      else
+        # Hyrax‐defined primary terms have a :primary form option.
+        form_options[:primary]
+      end
+    }.keys.map(&:to_sym)
+  end
+
+  def secondary_terms
+    _form_field_definitions.select { |key, form_options|
+      schema_definition = form_definition(key.to_sym)
+      if schema_definition
+        # Display all schema‐defined nonprimary terms.
+        !schema_definition.primary?
+      else
+        # Hyrax‐defined secondary terms have a :display form option but a
+        # falsey :primary.
+        form_options[:display] && !form_options[:primary]
+      end
+    }.keys.map(&:to_sym)
+  end
+
   def interpret_collections_attributes(opts)
     member_attributes = input_params.permit(member_of_collections_attributes: {}).to_h
     self.member_of_collection_ids =
