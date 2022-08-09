@@ -47,6 +47,15 @@ RSpec.describe "Collections", type: :system, js: true do
       acl.save
     end
 
+    it "can destroy the collection" do
+      visit "/dashboard/collections/#{collection.id}"
+      accept_alert { click_on "Delete collection" }
+
+      expect(page).to have_content(" successfully deleted")
+      expect { Hyrax.query_service.find_by(id: collection.id) }
+        .to raise_error Valkyrie::Persistence::ObjectNotFoundError
+    end
+
     it "can edit a collection" do
       visit "/dashboard/collections/#{collection.id}"
       click_on "Edit collection"

@@ -42,6 +42,31 @@ module Hyrax
           notice: t("hyrax.dashboard.my.action.collection_create_success"))
       end
 
+      def destroy
+        @collection = Hyrax.query_service.find_by(id: params[:id])
+
+        destroyed = transactions["collection_resource.destroy"].call(@collection).value!
+        Hyrax.logger.debug("Destroyed Collection: #{destroyed}")
+
+        respond_to do |format|
+          format.html do
+            redirect_to hyrax.my_collections_path,
+              notice: t("hyrax.dashboard.my.action.collection_delete_success")
+          end
+          format.json { head :no_content, location: hyrax.my_collections_path }
+        end
+      rescue => err
+        Hyrax.logger.error(err)
+
+        respond_to do |format|
+          format.html do
+            flash[:notice] = t("hyrax.dashboard.my.action.collection_delete_fail")
+            render :edit, status: :unprocessable_entity
+          end
+          format.json { render json: {id: id}, status: :unprocessable_entity, location: dashboard_collection_path(@collection) }
+        end
+      end
+
       def edit
         @collection = Hyrax.query_service.find_by(id: params[:id])
         @collection_type = collection_type
