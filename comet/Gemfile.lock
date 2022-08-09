@@ -62,7 +62,7 @@ PATH
   remote: ../gems/surfliner_schema
   specs:
     surfliner_schema (0.1.0.pre)
-      valkyrie (~> 2.2)
+      valkyrie (>= 2.2, < 4)
 
 GEM
   remote: https://rubygems.org/

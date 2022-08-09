@@ -13,7 +13,6 @@ gem "standard", "1.14.0", group: %(development test)
 gem "surfliner_schema", path: "../gems/surfliner_schema"
 gem "tzinfo-data", "2.0.4", platforms: %i[mingw mswin x64_mingw jruby]
 gem "valkyrie", "3.0.0-beta.3"
-gem "valkyrie-sequel", "~> 2.2.0"
+gem "valkyrie-sequel", "3.0.0-beta.1"
 gem "hyrax-acl",
-  git: "https://github.com/samvera-labs/hyrax-acl.git",
-  branch: "no-typecheck-permission"
+  git: "https://github.com/samvera-labs/hyrax-acl.git"

@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir["lib/**/*.rb"] + Dir["bin/*"] + Dir["[A-Z]*"]
 
-  spec.add_dependency "valkyrie", "~> 2.2"
+  spec.add_dependency "valkyrie", ">= 2.2", "< 4"
 
   spec.add_development_dependency "debug", "~> 1.4.0"
   spec.add_development_dependency "rspec", "~> 3.0"

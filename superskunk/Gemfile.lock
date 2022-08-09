@@ -1,16 +1,15 @@
 GIT
   remote: https://github.com/samvera-labs/hyrax-acl.git
-  revision: d826bc2f3c9d0963dc51fa0dcbf396fbdc777162
-  branch: no-typecheck-permission
+  revision: f4b1eb54268f054a0cb016cbc0c4d5869cbc24e6
   specs:
     hyrax-acl (0.1.0)
-      valkyrie (~> 2)
+      valkyrie (> 2, < 4)
 
 PATH
   remote: ../gems/surfliner_schema
   specs:
     surfliner_schema (0.1.0.pre)
-      valkyrie (~> 2.2)
+      valkyrie (>= 2.2, < 4)
 
 GEM
   remote: https://rubygems.org/
@@ -65,10 +64,6 @@ GEM
       globalid (>= 0.3.6)
     activemodel (7.0.1)
       activesupport (= 7.0.1)
-    activemodel-serializers-xml (1.0.2)
-      activemodel (> 5.x)
-      activesupport (> 5.x)
-      builder (~> 3.1)
     activerecord (7.0.1)
       activemodel (= 7.0.1)
       activesupport (= 7.0.1)
@@ -94,27 +89,14 @@ GEM
       irb (>= 1.3.6)
       reline (>= 0.3.1)
     declarative (0.0.20)
-    declarative-builder (0.1.0)
-      declarative-option (< 0.2.0)
-    declarative-option (0.1.0)
     diff-lcs (1.5.0)
     digest (3.1.0)
-    disposable (0.4.7)
+    disposable (0.6.3)
       declarative (>= 0.0.9, < 1.0.0)
-      declarative-builder (< 0.2.0)
-      declarative-option (< 0.2.0)
-      representable (>= 2.4.0, <= 3.1.0)
-      uber (< 0.2.0)
-    draper (4.0.2)
-      actionpack (>= 5.0)
-      activemodel (>= 5.0)
-      activemodel-serializers-xml (>= 1.0)
-      activesupport (>= 5.0)
-      request_store (>= 1.0)
-      ruby2_keywords
-    dry-container (0.10.0)
+      representable (>= 3.1.1, < 4)
+    dry-container (0.10.1)
       concurrent-ruby (~> 1.0)
-    dry-core (0.8.0)
+    dry-core (0.8.1)
       concurrent-ruby (~> 1.0)
     dry-inflector (0.3.0)
     dry-logic (1.2.0)
@@ -130,9 +112,13 @@ GEM
       dry-core (~> 0.5, >= 0.5)
       dry-inflector (~> 0.1, >= 0.1.2)
       dry-logic (~> 1.0, >= 1.0.2)
-    erubi (1.10.0)
-    faraday (0.17.5)
-      multipart-post (>= 1.2, < 3)
+    erubi (1.11.0)
+    faraday (2.5.1)
+      faraday-net_http (>= 2.0, < 3.1)
+      ruby2_keywords (>= 0.0.4)
+    faraday-multipart (1.0.4)
+      multipart-post (~> 2)
+    faraday-net_http (3.0.0)
     globalid (1.0.0)
       activesupport (>= 5.0)
     htmlentities (4.3.4)
@@ -144,13 +130,13 @@ GEM
       reline (>= 0.3.0)
     json (2.6.2)
     json-canonicalization (0.3.0)
-    json-ld (3.2.1)
+    json-ld (3.2.3)
       htmlentities (~> 4.3)
       json-canonicalization (~> 0.3)
       link_header (~> 0.0, >= 0.0.8)
       multi_json (~> 1.15)
       rack (~> 2.2)
-      rdf (~> 3.2)
+      rdf (~> 3.2, >= 3.2.9)
     link_header (0.0.8)
     loofah (2.18.0)
       crass (~> 1.0.2)
@@ -185,7 +171,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.13.8-x86_64-linux)
       racc (~> 1.4)
-    oj (3.13.17)
+    oj (3.13.20)
     okcomputer (1.18.4)
     parallel (1.22.1)
     parser (3.1.2.1)
@@ -225,13 +211,13 @@ GEM
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
     rake (13.0.6)
-    rdf (3.2.8)
+    rdf (3.2.9)
       link_header (~> 0.0, >= 0.0.8)
     rdf-vocab (3.2.1)
       rdf (~> 3.2, >= 3.2.4)
-    reform (2.5.0)
-      disposable (>= 0.4.2, < 0.5.0)
-      representable (>= 2.4.0, < 3.1.0)
+    reform (2.6.2)
+      disposable (>= 0.5.0, < 1.0.0)
+      representable (>= 3.1.1, < 4)
       uber (< 0.2.0)
     reform-rails (0.2.3)
       activemodel (>= 5.0)
@@ -239,12 +225,10 @@ GEM
     regexp_parser (2.5.0)
     reline (0.3.1)
       io-console (~> 0.5)
-    representable (3.0.4)
+    representable (3.2.0)
       declarative (< 0.1.0)
-      declarative-option (< 0.2.0)
+      trailblazer-option (>= 0.1.1, < 0.2.0)
       uber (< 0.2.0)
-    request_store (1.5.1)
-      rack (>= 1.4)
     rexml (3.2.5)
     rspec-core (3.11.0)
       rspec-support (~> 3.11.0)
@@ -282,28 +266,28 @@ GEM
       rubocop-ast (>= 0.4.0)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
-    sequel (5.58.0)
+    sequel (5.59.0)
     sequel_pg (1.15.0)
       pg (>= 0.18.0, != 1.2.0)
       sequel (>= 4.38.0)
     standard (1.14.0)
       rubocop (= 1.32.0)
       rubocop-performance (= 1.14.3)
-    strscan (3.0.1)
+    strscan (3.0.4)
     thor (1.2.1)
     timeout (0.3.0)
+    trailblazer-option (0.1.2)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
     uber (0.1.0)
     unicode-display_width (2.2.0)
-    valkyrie (2.2.0)
+    valkyrie (3.0.0.pre.beta.3)
       activemodel
       activesupport
-      disposable (~> 0.4.5)
-      draper
       dry-struct
       dry-types (~> 1.0)
-      faraday (< 1.0)
+      faraday (>= 0.9, < 3, != 2.0.0)
+      faraday-multipart
       json
       json-ld
       railties
@@ -311,11 +295,11 @@ GEM
       rdf-vocab
       reform (~> 2.2)
       reform-rails
-    valkyrie-sequel (2.2.1)
+    valkyrie-sequel (3.0.0.pre.beta.1)
       oj (~> 3.0)
       sequel (~> 5.0)
       sequel_pg (~> 1.0)
-      valkyrie (>= 2.1, < 2.3)
+      valkyrie (>= 3.0.0.pre.beta.1)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -339,8 +323,8 @@ DEPENDENCIES
   standard (= 1.14.0)
   surfliner_schema!
   tzinfo-data (= 2.0.4)
-  valkyrie (= 2.2.0)
-  valkyrie-sequel (~> 2.2.0)
+  valkyrie (= 3.0.0.pre.beta.3)
+  valkyrie-sequel (= 3.0.0.pre.beta.1)
 
 BUNDLED WITH
-   2.3.7
+   2.3.18
