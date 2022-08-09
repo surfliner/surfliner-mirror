@@ -59,20 +59,16 @@ module SurflinerSchema
               if config.dig("cardinality", "minimum").to_i > 0
                 # At least one.
                 if config.dig("cardinality", "maximum").to_i > 1
-                  # One or more.
-                  :+
+                  :one_or_more
                 else
-                  # Only one.
-                  :!
+                  :exactly_one
                 end
               else
                 maximum = config.dig("cardinality", "maximum")
                 if maximum.nil? || maximum > 1
-                  # Zero or more (the default).
-                  :*
+                  :zero_or_more # the default
                 else
-                  # Zero or one.
-                  :"?"
+                  :zero_or_one
                 end
               end,
             extra_qualities: {} # TK: form stuff, ⁊c…

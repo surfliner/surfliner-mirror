@@ -21,14 +21,13 @@ describe SurflinerSchema::Reader::SimpleSchema do
       expect(properties[:date_uploaded].display_label).to eq "Date Uploaded"
     end
 
-    it "#form_options" do
-      form_options = reader.form_options(availability: :generic_object)
-      expect(form_options.keys).to eq [:title]
-      expect(form_options[:title]).to include(
-        required: true,
-        primary: true,
-        multiple: false
-      )
+    it "#form_definitions" do
+      form_definitions = reader.form_definitions(availability: :generic_object)
+      expect(form_definitions.keys).to eq [:title]
+      title_definition = form_definitions[:title]
+      expect(title_definition.required?).to be true
+      expect(title_definition.multiple?).to be false
+      expect(title_definition.form_options).to include(default: [])
     end
 
     it "#indices" do

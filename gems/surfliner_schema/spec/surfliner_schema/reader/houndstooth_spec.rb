@@ -48,9 +48,9 @@ describe SurflinerSchema::Reader::Houndstooth do
     expect(properties[:date_modified].display_label).to eq "Last modified"
   end
 
-  describe "#form_options" do
+  describe "#form_definitions" do
     it "includes some fields" do
-      expect(reader.form_options(availability: :GenericWork)).not_to be_empty
+      expect(reader.form_definitions(availability: :GenericWork)).not_to be_empty
     end
   end
 end

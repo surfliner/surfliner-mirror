@@ -20,18 +20,21 @@ module SurflinerSchema
 
     ##
     # The human‐readable definition for the property.
-    attribute :definition, Valkyrie::Types::Coercible::String.optional
+    attribute :definition,
+      Valkyrie::Types::Coercible::String.optional.default(nil)
 
     ##
     # The human‐readable usage guidelines for the property.
-    attribute :usage_guidelines, Valkyrie::Types::Coercible::String.optional
+    attribute :usage_guidelines,
+      Valkyrie::Types::Coercible::String.optional.default(nil)
 
     ##
     # An advisory label as to whether the property is required, optional, etc.
     #
     # This describes the property from a best‐practices standpoint; normatively,
     # its obligation is defined by its cardinality class (below).
-    attribute :requirement, Valkyrie::Types::Coercible::String.optional
+    attribute :requirement,
+      Valkyrie::Types::Coercible::String.optional.default(nil)
 
     ##
     # Resource types the property should be available on. These correspond to
@@ -47,7 +50,7 @@ module SurflinerSchema
     # intersection.
     attribute :data_type, Valkyrie::Types::Set.of(
       Valkyrie::Types.Instance(RDF::Vocabulary::Term)
-    )
+    ).default([RDF::XSD.string])
 
     ##
     # How to index the property.
@@ -104,13 +107,13 @@ module SurflinerSchema
 
     ##
     # The cardinality class of the property.
-    #
-    # - ?: Zero or one
-    # - !: Exactly one
-    # - +: One or more
-    # - *: Zero or more
     attribute :cardinality_class,
-      Valkyrie::Types::Coercible::Symbol.default(:*).enum(:"?", :!, :+, :*)
+      Valkyrie::Types::Coercible::Symbol.default(:zero_or_more).enum(
+        :zero_or_one,
+        :exactly_one,
+        :one_or_more,
+        :zero_or_more
+      )
 
     ##
     # A freeform space to store extra property information which isn’t covered

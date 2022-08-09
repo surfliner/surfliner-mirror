@@ -18,14 +18,12 @@ module SurflinerSchema
       def initialize(attr_config, availability: :generic_object)
         @availability = availability
         @properties = attr_config.each_with_object({}) do |(name, config), dfns|
+          form_options = config.fetch("form", {}).transform_keys(&:to_sym)
           dfns[name] = Property.new(
             name: name,
             display_label: name.to_s.gsub(/(\A|_)(.)/) {
               $1 == "_" ? " #{$2.capitalize}" : $2.capitalize
             },
-            definition: nil, # not supported in simple schema
-            usage_guidelines: nil, # not supported in simple schema
-            requirement: nil, # not supported in simple schema
             available_on: availability,
             data_type: self.class.rdf_type_for(config["type"]),
             indexing: config.fetch("index_keys", []).map { |index_key|
@@ -48,17 +46,17 @@ module SurflinerSchema
               end
             },
             cardinality_class:
-              if config["multiple"] && config["required"]
-                :+
-              elsif config["multiple"]
-                :*
-              elsif config["required"]
-                :!
+              if form_options[:multiple] && form_options[:required]
+                :one_or_more
+              elsif form_options[:multiple]
+                :zero_or_more
+              elsif form_options[:required]
+                :exactly_one
               else
-                :"?"
+                :zero_or_one
               end,
             extra_qualities: {
-              form_options: config.fetch("form", {}).transform_keys(&:to_sym),
+              form_options: form_options,
               index_keys: config.fetch("index_keys", []).map(&:to_sym)
             }
           )
@@ -75,14 +73,24 @@ module SurflinerSchema
       end
 
       ##
-      # A hash mapping attributes to their form options.
+      # A hash mapping properties to their form definitions.
+      #
+      # To match upstream Hyrax behaviour, properties which don’t specify form
+      # options are ignored.
       #
       # @param availability [Symbol]
-      # @return [{Symbol => {Symbol => Object}}]
-      def form_options(availability:)
-        properties(availability: availability)
-          .transform_values { |prop| prop[:extra_qualities][:form_options] }
-          .filter { |_name, opts| opts && !opts.empty? }
+      # @return [{Symbol => FormDefinition}]
+      def form_definitions(availability:)
+        properties(
+          availability: availability
+        ).each_with_object({}) do |(name, property), obj|
+          opts = property[:extra_qualities][:form_options]
+          next unless opts && !opts.empty?
+          obj[name] = FormDefinition.new(
+            property: property,
+            primary: opts[:primary]
+          )
+        end
       end
 
       ##

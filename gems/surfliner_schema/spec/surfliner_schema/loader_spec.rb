@@ -62,12 +62,7 @@ describe SurflinerSchema::Loader do
     end
 
     it "#form_definitions_for" do
-      expect(loader.form_definitions_for(schema: :generic_object).keys).to eq [:title]
-      expect(loader.form_definitions_for(schema: :generic_object)[:title]).to include(
-        required: true,
-        primary: true,
-        multiple: false
-      )
+      expect(loader.form_definitions_for(:generic_object).keys).to eq [:title]
     end
 
     it "#index_rules_for" do

@@ -1,7 +1,6 @@
 attributes:
   title:
     type: string
-    multiple: true
     index_keys:
     - title_sim
     - title_tesim

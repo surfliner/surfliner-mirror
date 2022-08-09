@@ -26,17 +26,18 @@ module SurflinerSchema
 
     ##
     # A hash mapping attributes with the provided availability to their form
-    # options.
+    # definitions.
     #
-    # This method is provided for compatibility with Hyrax’s FormFields module
-    # builder. The +schema+ parameter does not specify the schema file, but the
-    # availability.
+    # Not every property will necessarily be listed here. For example, in Simple
+    # Schema, properties without form options are suppressed on forms.
+    #
+    # Form options are not a part of the M3 model, but are a Hyrax extension.
     #
     # @param availability [Symbol]
-    # @return [Hash{Symbol => Dry::Types::Type}]
-    def form_definitions_for(schema:)
+    # @return [Hash{Symbol => FormDefinitions}]
+    def form_definitions_for(availability)
       {}.merge(*@readers.map { |reader|
-        reader.form_options(availability: schema)
+        reader.form_definitions(availability: availability)
       })
     end
 

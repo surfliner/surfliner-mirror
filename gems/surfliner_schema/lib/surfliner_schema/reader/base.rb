@@ -45,16 +45,17 @@ module SurflinerSchema
       end
 
       ##
-      # A hash mapping attributes to their form options.
+      # A hash mapping attributes to their form definitions.
       #
-      # The base definition for this method just defines each property as a
-      # nonprimary form field.
+      # The base definition for this method just gives each property the default
+      # form options.
       #
       # @param availability [Symbol]
-      # @return [{Symbol => {Symbol => Object}}]
-      def form_options(availability:)
-        properties(availability: availability)
-          .transform_values { |prop| {primary: false} }
+      # @return [{Symbol => FormDefinition}]
+      def form_definitions(availability:)
+        properties(availability: availability).transform_values do |property|
+          FormDefinition.new(property: property)
+        end
       end
 
       ##
