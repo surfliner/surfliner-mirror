@@ -3,7 +3,7 @@ source "https://rubygems.org"
 gem "bootsnap", "1.12.0", require: false
 gem "debug", "1.6.1", platforms: %i[mri mingw x64_mingw], group: %(development test)
 gem "okcomputer", "1.18.4"
-gem "pg", "1.4.1"
+gem "pg", "1.4.3"
 gem "puma", "5.6.4"
 gem "rack-test", group: "test"
 gem "rails", "7.0.1"
