@@ -32,6 +32,33 @@ RSpec.describe "Collections", type: :system, js: true do
     expect(page).to have_content("System Spec Collection")
   end
 
+  context "with edit access on an existing collection" do
+    let(:collection_type) { Hyrax::CollectionType.create(title: "Test Type") }
+    let(:collection_type_gid) { collection_type.to_global_id.to_s }
+    let(:collection) do
+      col = Hyrax::PcdmCollection.new(title: ["Test Collection"], collection_type_gid: collection_type_gid)
+      Hyrax.persister.save(resource: col)
+    end
+
+    before do
+      acl = Hyrax::AccessControlList.new(resource: collection)
+      acl.grant(:read).to(user)
+      acl.grant(:edit).to(user)
+      acl.save
+    end
+
+    it "can edit a collection" do
+      visit "/dashboard/collections/#{collection.id}"
+      click_on "Edit collection"
+
+      fill_in("Title", with: "Updated Collection")
+      click_on "Save changes"
+
+      reloaded = Hyrax.query_service.find_by(id: collection.id)
+      expect(reloaded).to have_attributes title: contain_exactly("Updated Collection")
+    end
+  end
+
   context "nested collection" do
     let(:user) { User.create(email: "comet-admin@library.ucsd.edu") }
 

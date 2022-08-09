@@ -44,13 +44,31 @@ module Hyrax
 
       def edit
         @collection = Hyrax.query_service.find_by(id: params[:id])
+        @collection_type = collection_type
         @form = CollectionForm.new(@collection)
+        @form.prepopulate!
       end
 
       def show
         @presenter =
           Hyrax::CollectionPresenter.new(curation_concern, current_ability)
         query_collection_members
+      end
+
+      def update
+        form = CollectionForm.new(Hyrax.query_service.find_by(id: params[:id]))
+
+        return after_create_errors(form) unless
+          form.validate(collection_params)
+
+        @collection = transactions["change_set.update_collection"]
+          .call(form)
+          .value_or { |failure| after_update_errors(failure.first) }
+
+        respond_to do |format|
+          format.html { redirect_to dashboard_collection_path(@collection), notice: t("hyrax.dashboard.my.action.collection_update_success") }
+          format.json { render json: @collection, status: :updated, location: dashboard_collection_path(@collection) }
+        end
       end
 
       def repository
@@ -72,6 +90,31 @@ module Hyrax
       end
 
       private
+
+      def after_create_errors(form)
+        errors = []
+
+        form.errors.messages.each do |fld, err|
+          errors << "#{fld} #{err.to_sentence}"
+        end
+
+        respond_to do |wants|
+          wants.html do
+            flash[:error] = errors.to_sentence.to_s
+            render "new", status: :unprocessable_entity
+          end
+          wants.json do
+            render_json_response(response_type: :unprocessable_entity, options: {errors: errors.to_sentence})
+          end
+        end
+      end
+
+      def collection_params
+        params.permit(collection: {})[:collection]
+          .merge(params.permit(:collection_type_gid)
+                   .with_defaults(collection_type_gid: default_collection_type_gid))
+          .merge(member_of_collection_ids: Array(params[:parent_id]))
+      end
 
       def deny_collection_access(exception)
         Hyrax.logger.info(exception)
@@ -143,6 +186,10 @@ module Hyrax
 
       def default_collection_type
         Hyrax::CollectionType.find_or_create_default_collection_type
+      end
+
+      def default_collection_type_gid
+        default_collection_type.to_global_id.to_s
       end
     end
   end
