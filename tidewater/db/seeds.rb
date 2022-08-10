@@ -1,5 +1,7 @@
 require_relative "../lib/tidewater"
 
+source_iri_base = ENV.fetch("SUPERSKUNK_MOCK_SERVER_URL")
+
 # The following is the example record provided here:
 # <http://www.openarchives.org/OAI/openarchivesprotocol.html#Record>
 example_title = <<~TITLE.strip
@@ -29,17 +31,17 @@ example_item = OaiItem.create(
   date: "2001-12-14",
   type: "e-print",
   identifier: "http://arXiv.org/abs/cs/0112017",
-  source_iri: "http://superskunk.example.com/0112017"
+  source_iri: "#{source_iri_base}/0112017"
 )
 puts "\n== loaded OAI-PMH sample item as ID - #{example_item.id}"
 
 5.times do |i|
-  item = OaiItem.create(title: "title 1#{i}", identifier: "ark://1234#{i}", creator: "surfliner #{i}", source_iri: "http://superskunk.example.com/1234#{i}")
+  item = OaiItem.create(title: "title 1#{i}", identifier: "ark://1234#{i}", creator: "surfliner #{i}", source_iri: "#{source_iri_base}/1234#{i}")
   puts "\n== loaded item ID - #{item.id}"
 end
 
 source_id = "example:cs/0112017"
-resource_uri = "http://superskunk.example.com/#{source_id}"
+resource_uri = "#{source_iri_base}/#{source_id}"
 json_file = Rails.root.join("spec", "fixtures", "mocked_metadata_response.json")
 json_data = File.read(json_file)
 
