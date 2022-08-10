@@ -45,7 +45,7 @@ query_registration_target =
   Hyrax::CustomQueries::FindCollectionsByType,
   Hyrax::CustomQueries::FindManyByAlternateIds,
   Hyrax::CustomQueries::FindIdsByModel,
-  Hyrax::CustomQueries::FindFileMetadata,
+  Comet::Spec::FindFileMetadata,
   Hyrax::CustomQueries::Navigators::FindFiles].each do |handler|
   query_registration_target.register_query_handler(handler)
 end
