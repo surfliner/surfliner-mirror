@@ -96,6 +96,14 @@ begin
             Persisters::SuperskunkSetEntryPersister.create(set_source_iri: set_source_iri, item_source_iri: item_source_iri)
           end
         end
+      elsif res.is_a?(Net::HTTPNotFound)
+        logger.info("Item #{payload_resource_url} does NOT exist in Superskunk")
+        unless Persisters::SuperskunkPersister.find_by_source_iri(payload_resource_url).nil?
+          logger.info("Deleting OaiSet Item entries for #{payload_resource_url}")
+          Persisters::SuperskunkSetEntryPersister.delete_entries_by_item_source_iri(item_source_iri: payload_resource_url)
+          logger.info("Deleting OaiItem for #{payload_resource_url}")
+          Persisters::SuperskunkPersister.delete(source_iri: payload_resource_url)
+        end
       else
         logger.error("Error response #{res.code}: #{res.message}")
         logger.error("Error body: #{res.body}")
