@@ -1,4 +1,4 @@
-FROM alpine:3.16.1 as surfliner-util
+FROM alpine:3.16.2 as surfliner-util
 
 RUN apk add --no-cache \
     postgresql-client \

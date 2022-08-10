@@ -1,5 +1,5 @@
 lark:test:solrconfig:
-  image: alpine:3.16.1
+  image: alpine:3.16.2
   stage: test
   needs: []
   extends:
