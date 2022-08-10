@@ -20,7 +20,7 @@
 * [Communication Channels](#communication-channels)
 
 ## About
-Project Surfliner is an experimental project of the UC San Diego and UC Santa Barbara libraries to collaboratively define, create, and maintain digital library products. Project Surfliner is more than shared code, or even shared objectives. The project is the collaboration effort. It is building and leveraging the strengths, experiences, and resources of each campus partner to focus on shared concepts and products.
+Project Surfliner is a project of the UC San Diego and UC Santa Barbara libraries to collaboratively define, create, and maintain digital library products. Project Surfliner is more than shared code, or even shared objectives. The project is the collaboration effort. It is building and leveraging the strengths, experiences, and resources of each campus partner to focus on shared concepts and products.
 
 The collaboration is named Project Surfliner after the Amtrak route that links our institutions together.
 
@@ -28,13 +28,13 @@ The collaboration is named Project Surfliner after the Amtrak route that links o
 The Project Surfliner team is collaboratively developing a number of products whose code all lives within this surfliner monorepo. All the products are also named after historic intra-California train routes.
 
 ### Comet
-Comet is a staff facing digital objects management platform. (More information coming soon!) Comet was named after the Sacramento Northern	Train that operated between Chico to San Francisco via Sacramento from about 1928 to 1940.
+Comet is a staff-facing digital object management platform based on [Hyrax](https://hyrax.samvera.org/about/), a front-end application that provides a user interface for common repository features. See the [Comet README](https://gitlab.com/surfliner/surfliner/blog/trunk/comet/README.md) for more information. Comet was named after the Sacramento Northern	Train that operated between Chico to San Francisco via Sacramento from about 1928 to 1940.
 
 ### Lark
 Lark is a shared authority control platform and API. See the [Lark README](https://gitlab.com/surfliner/surfliner/blob/trunk/lark/README.md) for more information. Lark was named after the Southern Pacific Lark Train that operated overnight between Los Angeles and San Francisco via San Luis Obispo from 1941 - April 1968.
 
 ### Orange Empire
-Orange Empire is are shared IIIF services (so not really a product). Orange Empire was named after the Pacific Electric train that operated between L.A. and Redlands from 1914-1929
+Orange Empire is shared IIIF services. Orange Empire was named after the Pacific Electric train that operated between L.A. and Redlands from 1914-1929.
 
 ### Shoreline
 Shoreline is a geospatial materials platform based on GeoBlacklight.  See the [Shoreline README](https://gitlab.com/surfliner/surfliner/blob/trunk/shoreline/discovery/README.md) for more information.  Shoreline was named after the Southern Pacific train that ran between Los Angeles and San Francisco between 1927 and 1931.
