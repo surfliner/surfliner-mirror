@@ -64,6 +64,18 @@ class DiscoveryPlatform
   end
 
   ##
+  # @return [Boolean]
+  def active_for?(resource:)
+    acl = Hyrax::AccessControlList.new(resource: resource)
+    agent_key = agent.agent_key
+
+    acl.permissions.any? do |permission|
+      permission.mode == :discover &&
+        permission.agent == agent_key
+    end
+  end
+
+  ##
   # @return [DiscoveryPlatform::MessageRoute]
   def message_route
     @message_route ||= MessageRoute.new(self)

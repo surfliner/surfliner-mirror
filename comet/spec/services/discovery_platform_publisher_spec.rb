@@ -48,7 +48,7 @@ RSpec.describe DiscoveryPlatformPublisher do
 
       expect(broker)
         .to have_received(:publish)
-        .with(payload: an_instance_of(String),
+        .with(payload: include("\"status\":\"published\""),
           routing_key: platform.message_route.metadata_routing_key)
     end
 
@@ -95,7 +95,7 @@ RSpec.describe DiscoveryPlatformPublisher do
 
         expect(broker)
           .to have_received(:publish)
-          .with(payload: an_instance_of(String),
+          .with(payload: include("\"status\":\"unpublished\""),
             routing_key: platform.message_route.metadata_routing_key)
       end
 
@@ -113,6 +113,46 @@ RSpec.describe DiscoveryPlatformPublisher do
 
       it "raises an error; cannot unpublish an unsaved resource" do
         expect { publisher.unpublish(resource: resource) }
+          .to raise_error(ArgumentError)
+      end
+    end
+  end
+
+  describe "#update" do
+    let(:resource) do
+      Hyrax.persister.save(resource: GenericObject.new(title: "Comet in Moominland"))
+    end
+
+    context "when it has not been published" do
+      it "does not unpublish on successive calls" do
+        publisher.update(resource: resource)
+
+        expect(broker).not_to have_received(:publish)
+      end
+    end
+
+    context "when the resource has already been published" do
+      before do
+        acl = Hyrax::AccessControlList.new(resource: resource)
+        acl.grant(:discover).to(platform.agent)
+        acl.save
+      end
+
+      it "publishes to the broker" do
+        publisher.update(resource: resource)
+
+        expect(broker)
+          .to have_received(:publish)
+          .with(payload: include("\"status\":\"updated\""),
+            routing_key: platform.message_route.metadata_routing_key)
+      end
+    end
+
+    context "when the resource is unsaved" do
+      let(:resource) { GenericObject.new }
+
+      it "raises an error; cannot unpublish an unsaved resource" do
+        expect { publisher.update(resource: resource) }
           .to raise_error(ArgumentError)
       end
     end

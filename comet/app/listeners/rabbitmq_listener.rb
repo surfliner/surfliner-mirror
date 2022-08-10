@@ -54,6 +54,18 @@ class RabbitmqListener
   end
 
   ##
+  # Updates the object in the platform when metadata is updated.
+  def on_object_metadata_updated(event)
+    Hyrax.logger.debug { "Pushing MQ events for object update with id #{event[:object].id}" }
+
+    DiscoveryPlatformPublisher.open_on(platform_name) do |publisher|
+      publisher.update(resource: event[:object])
+    end
+  rescue => err
+    Hyrax.logger.error(err)
+  end
+
+  ##
   # Handles object unpublish event.
   # This is a Dry Events event listener. The provided event should have a
   # :object key for the object that need to unpublish.

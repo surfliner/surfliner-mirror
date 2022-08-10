@@ -56,7 +56,8 @@ class DiscoveryPlatformPublisher
   # @param resource [Hyrax::Resource] the resource to publish
   def publish(resource:)
     raise(UnpublishableObject) unless resource.persisted?
-    Hyrax.logger.debug { "Publishing object with id #{resource.id}" }
+    Hyrax.logger.debug { "Publishing object with id #{resource.id} in #{platform.name}" }
+
     append_access_control_to(resource: resource) &&
       broker.publish(payload: payload_for(resource, "published"), routing_key: platform.message_route.metadata_routing_key)
   end
@@ -71,14 +72,22 @@ class DiscoveryPlatformPublisher
   def unpublish(resource:)
     raise(UnpublishableObject) unless resource.persisted?
 
-    Hyrax.logger.debug { "Unpublishing object with id #{resource.id}" }
+    Hyrax.logger.debug { "Unpublishing object with id #{resource.id} in #{platform.name}" }
     revoke_access_control_for(resource: resource) &&
       broker.publish(payload: payload_for(resource, "unpublished"), routing_key: platform.message_route.metadata_routing_key)
   end
 
-  class UnpublishableObject < ArgumentError; end
+  ##
+  # Updates the resource if it is already published.
+  #
+  # @param resource [Hyrax::Resource] the resource to update.
+  def update(resource:)
+    raise(UnpublishableObject) unless resource.persisted?
+    Hyrax.logger.debug { "Updating object with id #{resource.id} in #{platform.name}" }
 
-  private
+    platform.active_for?(resource: resource) &&
+      broker.publish(payload: payload_for(resource, "updated"), routing_key: platform.message_route.metadata_routing_key)
+  end
 
   ##
   # @return [Boolean] true if the ACL was not already present, and has been
@@ -122,6 +131,10 @@ class DiscoveryPlatformPublisher
     acl.permissions = new_permissions
     acl.save
   end
+
+  class UnpublishableObject < ArgumentError; end
+
+  private
 
   ##
   # @return [String] a JSON payload
