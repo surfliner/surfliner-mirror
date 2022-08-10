@@ -44,7 +44,7 @@ RSpec.describe "BatchUploads", type: :system, js: true do
 
         click_on "image.jpg"
 
-        expect(page).to have_link("Download the file")
+        expect(page).to have_link("Download image")
       end
     end
 
@@ -104,7 +104,7 @@ RSpec.describe "BatchUploads", type: :system, js: true do
 
         click_on "image.jpg"
 
-        expect(page).to have_link("Download the file")
+        expect(page).to have_link("Download image")
       end
     end
 
@@ -164,7 +164,7 @@ RSpec.describe "BatchUploads", type: :system, js: true do
 
         click_on "image.jpg"
 
-        expect(page).to have_link("Download the file")
+        expect(page).to have_link("Download image")
       end
 
       context "download file" do
@@ -185,8 +185,8 @@ RSpec.describe "BatchUploads", type: :system, js: true do
           find("#documents").first(:link, "Batch ingest object").click
           click_on "image.jpg"
 
-          expect(page).to have_link("Download the file")
-          click_on "Download the file"
+          expect(page).to have_link("Download image")
+          click_on "Download image"
 
           begin_time = Time.now
           sleep 0.1 until Time.now > (begin_time + 10) || Dir.entries(DOWNLOAD_PATH).include?("image.jpg")
@@ -255,7 +255,7 @@ RSpec.describe "BatchUploads", type: :system, js: true do
 
         click_on "image.jpg"
 
-        expect(page).to have_link("Download the file")
+        expect(page).to have_link("Download image")
       end
     end
 
