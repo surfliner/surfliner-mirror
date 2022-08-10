@@ -43,9 +43,12 @@ class RabbitmqListener
   # @param event [{:collection => Hyrax::PcdmCollection}]
   def on_collection_publish(event)
     Hyrax.logger.debug { "Pushing MQ events for collection publish with id #{event[:collection].id}" }
+    collection = event[:collection]
 
     DiscoveryPlatformPublisher.open_on(platform_name) do |publisher|
-      query_member_objects(collection: event[:collection]).each do |obj|
+      publisher.append_access_control_to(resource: collection)
+
+      query_member_objects(collection: collection).each do |obj|
         publisher.publish(resource: obj)
       end
     end

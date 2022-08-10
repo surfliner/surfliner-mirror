@@ -16,8 +16,20 @@ RSpec.describe RabbitmqListener, :rabbitmq do
       expect { listener.on_collection_publish(event) }.not_to raise_error
     end
 
+    it "sets discovery permission for collection" do
+      expect { listener.on_collection_publish(event) }
+        .to change { Hyrax::AccessControlList.new(resource: collection).permissions }
+        .to contain_exactly(have_attributes(mode: :discover, agent: "group/surfliner.tidewater"))
+    end
+
     context "when the collection is unsaved" do
-      it "is a no-op(?)"
+      let(:collection) { Hyrax::PcdmCollection.new }
+
+      it "is a no-op(?)" do
+        expect { listener.on_collection_publish(event) }
+          .not_to change { Hyrax::AccessControlList.new(resource: collection).permissions }
+          .from be_empty
+      end
     end
 
     context "when the collection has objects" do
