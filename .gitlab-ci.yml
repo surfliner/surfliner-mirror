@@ -56,7 +56,6 @@ include:
     entrypoint: [""]
   before_script:
     - *build_helpers
-    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
 
 # Default only -> refs settings for all jobs
 # see: https://docs.gitlab.com/ee/ci/yaml/#onlyrefsexceptrefs
