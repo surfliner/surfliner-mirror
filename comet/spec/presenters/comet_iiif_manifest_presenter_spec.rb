@@ -39,7 +39,7 @@ RSpec.describe CometIiifManifestPresenter do
           ))
       end
 
-      it "includes configured metadata" do
+      xit "includes configured metadata" do
         expect(presenter.manifest_metadata)
           .to contain_exactly({"label" => "Title", "value" => ["Comet in Moominland", "Mumintrollet på kometjakt"]},
             {"label" => "Creator", "value" => ["Tove Jansson"]},
