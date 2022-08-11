@@ -19,15 +19,19 @@ class AclsController < ApplicationController
     resource = begin
       resource_for(params.permit(:file, :resource))
     rescue Valkyrie::Persistence::ObjectNotFoundError => err
-      Rails.logger.info("Fielded access request for unknown resource: #{params}\n\t#{err}")
+      Rails.logger.info { "Fielded access request for unknown resource: #{params}\n\t#{err}" }
       render(plain: "0") && return
     end
 
     acl = AccessControlList.new(resource: resource)
 
     if acl.has_grant?(mode: mode.to_sym, agent: group)
+      Rails.logger.info { "Granting access on #{resource.id} to #{group.agent_key}" }
+      Rails.logger.debug { "Granted after finding permissions: #{acl.permissions}" }
       render plain: "1"
     else
+      Rails.logger.info { "Denying access on #{resource.id} to #{group.agent_key}" }
+      Rails.logger.debug { "Denied after finding permissions: #{acl.permissions}" }
       render plain: "0"
     end
   end
