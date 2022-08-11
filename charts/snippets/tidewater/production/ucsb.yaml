@@ -1,7 +1,7 @@
 ingress:
   enabled: true
   hosts:
-    - tidewater-prod.eks.dld.library.ucsb.edu
+    - oai.digital.library.ucsb.edu
 postgresql:
   enabled: true
 
