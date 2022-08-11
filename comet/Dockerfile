@@ -133,6 +133,8 @@ COPY $LOCAL_PROJECT $DOCKER_PROJECT
 COPY scripts/* $DOCKER_PROJECT/scripts/
 ENV PATH="${DOCKER_PROJECT}/scripts:${PATH}"
 
+RUN RAILS_ENV=production SECRET_KEY_BASE=fakedevsecret DB_ADAPTER=nulldb RABBITMQ_ENABLED=false DATABASE_URL='postgresql://fake' bundle exec rake assets:precompile
+
 ENV RAILS_ROOT=${DOCKER_PROJECT}
 ENV RAILS_SERVE_STATIC_FILES=1
 ENTRYPOINT ["/app/samvera/hyrax-webapp/scripts/entrypoint.sh"]
