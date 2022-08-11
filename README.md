@@ -24,31 +24,45 @@
 ## About
 Project Surfliner is a project of the UC San Diego and UC Santa Barbara libraries to collaboratively define, create, and maintain digital library products. Project Surfliner is more than shared code, or even shared objectives. The project is the collaboration effort. It is building and leveraging the strengths, experiences, and resources of each campus partner to focus on shared concepts and products.
 
-The collaboration is named Project Surfliner after the Amtrak route that links our institutions together.
+The collaboration is named Project Surfliner after the [Amtrak route](https://en.wikipedia.org/wiki/Pacific_Surfliner) that links our institutions together.
 
 ## Products
 The Project Surfliner team is collaboratively developing a number of products whose code all lives within this surfliner monorepo. All the products are also named after historic intra-California train routes.
 
 ### Comet
-Comet is a staff-facing digital object management platform based on [Hyrax](https://hyrax.samvera.org/about/), a front-end application that provides a user interface for common repository features. See the [Comet README](https://gitlab.com/surfliner/surfliner/blog/trunk/comet/README.md) for more information. Comet was named after the Sacramento Northern	Train that operated between Chico to San Francisco via Sacramento from about 1928 to 1940.
+Comet is a staff-facing digital object management platform based on [Hyrax](https://hyrax.samvera.org/about/), a front-end application that provides a user interface for common repository features. See the [Comet README](https://gitlab.com/surfliner/surfliner/-/blob/trunk/comet/README.md) for more information. 
+
+_Comet was named after the Sacramento Northern Train that operated between Chico to San Francisco via Sacramento from about 1928 to 1940._
 
 ### Lark
-Lark is a shared authority control platform and API. See the [Lark README](https://gitlab.com/surfliner/surfliner/blob/trunk/lark/README.md) for more information. Lark was named after the Southern Pacific Lark Train that operated overnight between Los Angeles and San Francisco via San Luis Obispo from 1941 - April 1968.
+Lark is a shared authority control platform and API. See the [Lark README](https://gitlab.com/surfliner/surfliner/blob/trunk/lark/README.md) for more information. 
+
+_Lark was named after the Southern Pacific Lark Train that operated overnight between Los Angeles and San Francisco via San Luis Obispo from 1941 to April 1968._
 
 ### Orange Empire
-Orange Empire is shared IIIF services; it uses the Cantaloupe Image Server. Orange Empire was named after the Pacific Electric train that operated between L.A. and Redlands from 1914-1929.
+Orange Empire is shared IIIF services; it uses the Cantaloupe Image Server. 
+
+_Orange Empire was named after the Pacific Electric train that operated between Los Angeles and Redlands from 1914 to 1929._
 
 ### Shoreline
-Shoreline is a geospatial materials platform based on GeoBlacklight. See the [Shoreline README](https://gitlab.com/surfliner/surfliner/blob/trunk/shoreline/discovery/README.md) for more information.  Shoreline was named after the Southern Pacific train that ran between Los Angeles and San Francisco between 1927 and 1931.
+Shoreline is a geospatial materials platform based on GeoBlacklight. See the [Shoreline README](https://gitlab.com/surfliner/surfliner/blob/trunk/shoreline/discovery/README.md) for more information.
+
+_Shoreline was named after the Southern Pacific train that ran between Los Angeles and San Francisco between 1927 and 1931._
 
 ### Starlight
-Starlight is an exhibits platform based on [Spotlight](https://github.com/projectblacklight/spotlight). See the [Starlight README](https://gitlab.com/surfliner/surfliner/blob/trunk/starlight/README.md) for more information. Starlight was named after Southern Pacific Starlight Train that operated overnight between Los Angeles and San Francisco from October 1949 - July 1957.
+Starlight is an exhibits platform based on [Spotlight](https://github.com/projectblacklight/spotlight). See the [Starlight README](https://gitlab.com/surfliner/surfliner/blob/trunk/starlight/README.md) for more information.
+
+_Starlight was named after Southern Pacific Starlight Train that operated overnight between Los Angeles and San Francisco from October 1949 to July 1957._
 
 ### Superskunk
-Superskunk is [Comet's](#comet) metadata API; used by other platforms to read metadata in real time.
+Superskunk is [Comet's](#comet) metadata API; used by other platforms to read metadata in real time. 
+
+_Superskunk was named after the California Western Railroad, popularly called the Skunk Train ("Super Skunk"), that runs from Fort Bragg to Willits starting from 1965 to the present._
 
 ### Tidewater
 Tidewater is an OAI-PMH endpoint that uses configurable metadata.
+
+_Tidewater was named after the Tidewater Southern Railway which was a short line railroad in Central California that ran from 1910 to 1987._
 
 ## Product Deployments
 
@@ -142,12 +156,12 @@ Last day of each sprint, 10:30-11:30am<br/>
 [https://ucsd.zoom.us/j/5296465230](https://ucsd.zoom.us/j/5296465230)<br/>
 
 **Project Surfliner Sprint Retrospective**<br/>
-Last day of each sprint, 1:00-2:00pm<br/>
+Day after each sprint, 1:00-2:00pm<br/>
 [https://ucsb.zoom.us/j/99140390905](https://ucsb.zoom.us/j/99140390905)<br/> 
 
 #### Comet Sprint Team
 **Backlog Refinement**<br/>
-Every other Thursday, 3:00-4:00pm<br/>
+Every other Monday, 11:00-11:45am<br/>
 [https://ucsd.zoom.us/j/5296465230](https://ucsd.zoom.us/j/5296465230)<br/>
 
 **Sprint Planning**<br/>
