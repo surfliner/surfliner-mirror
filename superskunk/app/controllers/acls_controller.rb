@@ -23,25 +23,25 @@ class AclsController < ApplicationController
       render(plain: "0") && return
     end
 
-    acl = begin
-      AccessControlList.new(resource: resource)
+    acl = AccessControlList.new(resource: resource)
+
+    begin
+      if acl.has_grant?(mode: mode.to_sym, agent: group)
+        Rails.logger.info { "Granting access on #{resource.id} to #{group.agent_key}" }
+        Rails.logger.debug { "Granted after finding permissions: #{acl.permissions}" }
+        render plain: "1"
+      else
+        Rails.logger.info { "Denying access on #{resource.id} to #{group.agent_key}" }
+        Rails.logger.debug { "Denied after finding permissions: #{acl.permissions}" }
+        render plain: "0"
+      end
     rescue Valkyrie::Persistence::ObjectNotFoundError => err
       Rails.logger.info do
-        "Fielded access request for resource #{resource.id}, but could not find ACL.\n" /
+        "Fielded access request for #{mode} on #{resource.id}, but could not find ACL.\n" /
           "\tParameters: #{params}" \
           "\t#{err}"
       end
       Rails.logger.debug { "Denied after failing to find permissions for #{resource.id}" }
-      render plain: "0"
-    end
-
-    if acl.has_grant?(mode: mode.to_sym, agent: group)
-      Rails.logger.info { "Granting access on #{resource.id} to #{group.agent_key}" }
-      Rails.logger.debug { "Granted after finding permissions: #{acl.permissions}" }
-      render plain: "1"
-    else
-      Rails.logger.info { "Denying access on #{resource.id} to #{group.agent_key}" }
-      Rails.logger.debug { "Denied after finding permissions: #{acl.permissions}" }
       render plain: "0"
     end
   end
