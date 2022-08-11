@@ -113,7 +113,7 @@ GEM
       dry-inflector (~> 0.1, >= 0.1.2)
       dry-logic (~> 1.0, >= 1.0.2)
     erubi (1.11.0)
-    faraday (2.5.1)
+    faraday (2.5.2)
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-multipart (1.0.4)
@@ -281,7 +281,7 @@ GEM
       concurrent-ruby (~> 1.0)
     uber (0.1.0)
     unicode-display_width (2.2.0)
-    valkyrie (3.0.0.pre.beta.3)
+    valkyrie (3.0.0.pre.rc.1)
       activemodel
       activesupport
       dry-struct
@@ -323,7 +323,7 @@ DEPENDENCIES
   standard (= 1.14.0)
   surfliner_schema!
   tzinfo-data (= 2.0.4)
-  valkyrie (= 3.0.0.pre.beta.3)
+  valkyrie (= 3.0.0.pre.rc.1)
   valkyrie-sequel (= 3.0.0.pre.beta.1)
 
 BUNDLED WITH
