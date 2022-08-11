@@ -45,11 +45,12 @@ comet:test:solrconfig:
     RABBITMQ_USERNAME: "user"
     RAILS_ENV: "test"
     RAILS_QUEUE: "inline"
+    RAILS_SERVE_STATIC_FILES: "1"
     REDIS_HOST: "redis"
     REDIS_PASSWORD: "redispass"
     SOLR_COLLECTION_NAME: comet-test
-    SOLR_CORES: comet-test
     SOLR_CORE_CONF_DIR: "/tmp/comet/solr/conf"
+    SOLR_CORES: comet-test
     SOLR_HOST: solr
     SOLR_PORT: 8983
 
