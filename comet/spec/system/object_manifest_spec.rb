@@ -51,7 +51,7 @@ RSpec.describe "Object Manifest", type: :system, js: true do
       expect(page).to_not have_content("sc:Canvas")
     end
 
-    it "can show manifest for object that has attachment" do
+    xit "can show manifest for object that has attachment" do
       visit "/concern/generic_objects/#{object.id}/manifest.json"
       expect(page).to have_content("Comet in Moominland")
       expect(page).to have_content("http://iiif.io/api/presentation/2/context.json")
