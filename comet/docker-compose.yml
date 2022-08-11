@@ -155,6 +155,15 @@ services:
     networks:
       - comet
 
+  cantaloupe:
+    image: uclalibrary/cantaloupe:5.0.5-1
+    ports:
+      - '8182:8182'
+    env_file:
+      - .env
+    networks:
+      - comet
+
   redis:
     image: bitnami/redis:7.0.2-debian-11-r6
     env_file:

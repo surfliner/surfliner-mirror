@@ -137,16 +137,17 @@ Hyrax.config do |config|
 
   # Returns a URL that resolves to an image provided by a IIIF image server
   config.iiif_image_url_builder = lambda do |file_id, _base_url, size, format|
-    "#{ENV["IIIF_BASE_URL"]}/iiif/2/#{file_id.split("/").first}/full/#{size}/0/default.#{format}"
+    fs = Hyrax.query_service.find_by(id: file_id)
+    fid = fs.file_ids.first.to_s.sub("shrine://", "").gsub("/", "%2F")
+    "#{ENV["IIIF_BASE_URL"]}/iiif/2/#{fid}/full/#{size}/0/default.#{format}"
   end
 
   # Returns a URL that resolves to an info.json file provided by a IIIF image server
   config.iiif_info_url_builder = lambda do |file_id, _base_url|
-    "#{ENV["IIIF_BASE_URL"]}/iiif/2/#{file_id.split("/").first}/info.json"
+    fs = Hyrax.query_service.find_by(id: file_id)
+    fid = fs.file_ids.first.to_s.sub("shrine://", "").gsub("/", "%2F")
+    "#{ENV["IIIF_BASE_URL"]}/iiif/2/#{fid}"
   end
-  # config.iiif_info_url_builder = lambda do |_, _|
-  #   ""
-  # end
 
   # Returns a URL that indicates your IIIF image server compliance level
   # config.iiif_image_compliance_level_uri = 'http://iiif.io/api/image/2/level2.json'
