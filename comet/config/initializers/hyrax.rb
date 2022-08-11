@@ -136,12 +136,12 @@ Hyrax.config do |config|
   config.iiif_image_server = true
 
   # Returns a URL that resolves to an image provided by a IIIF image server
-  config.iiif_image_url_builder = lambda do |file_id, base_url, size, format|
-    "#{ENV["IIIF_BASE_URL"]}/iiif/2/#{file_id.split("/").first}"
+  config.iiif_image_url_builder = lambda do |file_id, _base_url, size, format|
+    "#{ENV["IIIF_BASE_URL"]}/iiif/2/#{file_id.split("/").first}/full/#{size}/0/default.#{format}"
   end
 
   # Returns a URL that resolves to an info.json file provided by a IIIF image server
-  config.iiif_info_url_builder = lambda do |file_id, base_url|
+  config.iiif_info_url_builder = lambda do |file_id, _base_url|
     "#{ENV["IIIF_BASE_URL"]}/iiif/2/#{file_id.split("/").first}/info.json"
   end
   # config.iiif_info_url_builder = lambda do |_, _|
