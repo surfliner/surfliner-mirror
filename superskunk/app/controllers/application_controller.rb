@@ -10,11 +10,11 @@ class ApplicationController < ActionController::API
   #
   # Use this for badly‐formed requests (e.g. headers which don’t match the HTTP
   # syntax).
-  def bad_request(exception: nil)
+  def bad_request(exception = nil)
     if exception.is_a?(AcceptReader::BadAcceptError)
-      render_error text: "Bad Accept Header", status: 400
+      render_error text: "Bad Accept Header", status: 400, exception: exception
     else
-      render_error text: "Bad Request", status: 400
+      render_error text: "Bad Request", status: 400, exception: exception
     end
   end
 
@@ -23,8 +23,8 @@ class ApplicationController < ActionController::API
   #
   # Use this for authentication errors, but use +not_found+ for authorization
   # failures to avoid leaking information.
-  def forbidden
-    render_error text: "Forbidden", status: 403
+  def forbidden(exception = nil)
+    render_error text: "Forbidden", status: 403, exception: exception
   end
 
   ##
@@ -32,13 +32,15 @@ class ApplicationController < ActionController::API
   #
   # A resource may be not found because it doesn’t exist, or because the
   # requester is not authorized to view the resource.
-  def not_found
-    render_error text: "Not Found", status: 404
+  def not_found(exception = nil)
+    render_error text: "Not Found", status: 404, exception: exception
   end
 
   ##
   # Renders an error in a reasonable format.
-  def render_error(_exception = nil, text: "Server Error", status: 500)
+  def render_error(exception: nil, text: "Server Error", status: 500)
+    Rails.logger.error("Returning status #{status}; #{exception&.message}")
+
     if preferred_type == :json
       render json: {"error" => text, "status" => status}, status: status
     else
