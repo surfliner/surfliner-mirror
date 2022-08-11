@@ -21,13 +21,6 @@ orange-empire:deploy:ucsb-staging:
     on_stop: orange-empire:cleanup:ucsb-staging
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
-      --set ingress.hosts[0].host=orange-empire-staging.$KUBE_INGRESS_BASE_DOMAIN
-      --set ingress.hosts[0].paths[0].path=/
-      --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
-      --set ingress.tls[0].hosts[0]=orange-empire-staging.$KUBE_INGRESS_BASE_DOMAIN
-      --set ingress.tls[0].secretName=orange-empire-stage-staging
-      --set-string ingress.annotations.cert-manager\.io/cluster-issuer=letsencrypt-prod
-      --set-string ingress.annotations.kubernetes\.io/ingress\.class=nginx
       --values charts/snippets/orange-empire/staging/ucsb.yaml
 
 orange-empire:cleanup:ucsb-staging:
