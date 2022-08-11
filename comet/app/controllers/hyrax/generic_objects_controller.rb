@@ -64,12 +64,8 @@ module Hyrax
     end
 
     ##
-    # Delete and unpublish an object
+    # Delete an object
     def destroy
-      Hyrax.publisher.publish("object.unpublish",
-        object: @curation_concern,
-        user: current_user)
-
       transactions["work_resource.destroy"]
         .with_step_args("work_resource.delete" => {user: current_user})
         .call(curation_concern)

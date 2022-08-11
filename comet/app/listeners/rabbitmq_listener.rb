@@ -69,6 +69,16 @@ class RabbitmqListener
   end
 
   ##
+  # Handles unpublishing when the object has been destroyed
+  #
+  # @param event [{:object => GenericObject}]
+  def on_object_deleted(event)
+    Hyrax.publisher.publish("object.unpublish", object: event[:object], user: event[:user])
+  rescue => err
+    Hyrax.logger.error(err)
+  end
+
+  ##
   # Handles object unpublish event.
   # This is a Dry Events event listener. The provided event should have a
   # :object key for the object that need to unpublish.
