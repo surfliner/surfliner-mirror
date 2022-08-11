@@ -92,9 +92,6 @@ module BatchUploadsControllerBehavior
     # ingest the files
     ingest_files(work, file_path, file_names, user)
 
-    # Index the object
-    Hyrax.publisher.publish("object.metadata.updated", object: work, user: user)
-
     work
   end
 
@@ -112,6 +109,8 @@ module BatchUploadsControllerBehavior
     work = model.new
     attrs.each { |k, v| work.public_send("#{k}=", v) if work.respond_to?(k.to_s) }
     work = Hyrax.persister.save(resource: work)
+    # Index the object
+    Hyrax.publisher.publish("object.metadata.updated", object: work, user: user)
 
     # Add to workflow
     workflow_created = Hyrax::Workflow::WorkflowFactory.create(work, {}, user)
@@ -137,6 +136,8 @@ module BatchUploadsControllerBehavior
       file_service.attach
 
       Hyrax.persister.save(resource: work)
+      # Index the object
+      Hyrax.publisher.publish("object.metadata.updated", object: work, user: user)
     end
   end
 
