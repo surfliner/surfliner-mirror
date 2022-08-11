@@ -23,7 +23,17 @@ class AclsController < ApplicationController
       render(plain: "0") && return
     end
 
-    acl = AccessControlList.new(resource: resource)
+    acl = begin
+      AccessControlList.new(resource: resource)
+    rescue Valkyrie::Persistence::ObjectNotFoundError => err
+      Rails.logger.info do
+        "Fielded access request for resource #{resource.id}, but could not find ACL.\n" /
+          "\tParameters: #{params}" \
+          "\t#{err}"
+      end
+      Rails.logger.debug { "Denied after failing to find permissions for #{resource.id}" }
+      render plain: "0"
+    end
 
     if acl.has_grant?(mode: mode.to_sym, agent: group)
       Rails.logger.info { "Granting access on #{resource.id} to #{group.agent_key}" }
