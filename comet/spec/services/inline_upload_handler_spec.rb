@@ -68,11 +68,6 @@ RSpec.describe InlineUploadHandler, storage_adapter: :memory do
           .to change { listener.object_metadata_updated.map(&:payload) }
           .from(be_empty)
           .to contain_exactly(
-            # we have to save the object manually again after updating its
-            # #rendering_ids, which adds additional references to the
-            # payload
-            include(object: object, user: user),
-            include(object: object, user: user),
             include(object: object, user: user),
             include(object: an_instance_of(Hyrax::FileSet), user: user),
             include(object: an_instance_of(Hyrax::FileSet), user: user)

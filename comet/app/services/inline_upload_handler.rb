@@ -61,10 +61,6 @@ class InlineUploadHandler < Hyrax::WorkUploadsHandler
 
       file_set.file_ids << uploaded.id
       Hyrax.persister.save(resource: file_set)
-
-      work.rendering_ids << file_set.id
-      Hyrax.persister.save(resource: work)
-      Hyrax.publisher.publish("object.metadata.updated", object: work, user: file.user)
     end
   end
 
@@ -82,5 +78,10 @@ class InlineUploadHandler < Hyrax::WorkUploadsHandler
     Hyrax.publisher.publish("object.metadata.updated", object: file_set, user: file.user)
 
     {file_set: file_set, user: file.user}
+  end
+
+  def append_to_work(file_set)
+    super
+    work.rendering_ids << file_set.id
   end
 end
