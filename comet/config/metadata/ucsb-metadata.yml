@@ -118,8 +118,7 @@ properties:
 #      dc-oai: http://purl.org/dc/elements/1.1/title
 #      dpla: null
 #
-
-  title_alternative:
+  - &title_alternative
     name: "title_alternative"
     display_label: "Alternative title"
     definition: "Alternative or other additional title for the resource."
@@ -141,25 +140,16 @@ properties:
     cardinality:
       minimum: 0
       maximum: null
-    index_documentation: "Alternative title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: null
       dpla: http://purl.org/dc/terms/alternative
 
-  title_alternative_geospatial:
-  <<: *title_alternative
+  - &title_alternative_geospatial
+    <<: *title_alternative
     usage_guidelines: "Enter an alternative title (i.e. English translation of non-latin character title; map sheet code)."
     requirement: optional
     available_on:
@@ -167,9 +157,9 @@ properties:
         - geospatial_object
     mapping:
       gbl-1: null
-      aardvark: dct_alternative_sm
+      aardvark: http://purl.org/dc/terms/alternative
 
-  title_filing:
+  - &title_filing
     name: "title_filing"
     display_label: "Filing title"
     definition: "A modified form of the formal collection title which controls the sort order when browsing collection lists."
@@ -191,26 +181,17 @@ properties:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: null
       dpla: null
 
 ### agents and associated roles (controlled):
 
-  creator:
+  - &creator
     name: "creator"
     display_label: "Creator"
     definition: "A person or organization responsible for the intellectual or artistic content of a resource. If a more specific role is available, prefer that."
@@ -233,25 +214,16 @@ properties:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/creator
       dpla: null
 
-  creator_geospatial:
-  <<: *creator
+  - &creator_geospatial
+    <<: *creator
     definition: "This field represents the originator that will be uploaded to GeoData."
     usage_guidelines: "The originator should be a Library of Congress Name Authority File (LCNAF) entry. Use the 'originatorName' and 'originatorOrg' fields and any other information available to determine the creator of the resource.  Then use the UCSB/UCSD - Controlled Vocabulary spreadsheet to determine the authorized name and enter that in the 'originator' field. If the originator does not have an LCNAF entry, format the originator name as if it were an LCNAF entry."
     requirement: recommended
@@ -261,10 +233,10 @@ properties:
       class:
         - geospatial_object
     mapping:
-      gbl-1: dc_creator_sm
-      aardvark: dct_creator_sm
+      gbl-1: http://purl.org/dc/elements/1.1/creator
+      aardvark: http://purl.org/dc/terms/contributor
 
-  contributor:
+  - &contributor
     name: "contributor"
     display_label: "Contributor"
     definition: "A person, family or organization responsible for making contributions to the resource. If a more specific role is available, prefer that."
@@ -287,24 +259,15 @@ properties:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/contributor
       dpla: null
 
-  publisher:
+  - &publisher
     name: "publisher"
     display_label: "Publisher name"
     definition: "A person or organization responsible for publishing the resource."
@@ -327,25 +290,16 @@ properties:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/publisher
       dpla: null
 
-publisher_geospatial:
-  <<: *publisher
+- - &publisher_geospatial
+    <<: *publisher
     definition: "This field represents the publisher that will be uploaded to GeoData."
     usage_guidelines: "The publisher should be a Library of Congress Name Authority File (LCNAF) entry. Use the 'publisherName' and 'publisherOrg' fields and any other information available to determine the publisher of the resource.  Then use the UCSB/UCSD - Controlled Vocabulary spreadsheet to determine the authorized name and enter that in the 'publisher' field.  If the publisher does not have an LCNAF entry, format the publisher name as if it were an LCNAF entry."
     requirement: recommended
@@ -355,8 +309,8 @@ publisher_geospatial:
       class:
         - geospatial_object
     mapping:
-      gbl-1: dc_publisher_sm
-      aardvark: dct_publisher_sm
+      gbl-1: http://purl.org/dc/elements/1.1/publisher
+      aardvark: http://purl.org/dc/terms/publisher
 
  # placeholder for where to add additional agent roles from the MARC relator list
  #
@@ -401,7 +355,7 @@ publisher_geospatial:
 
 ### information about the origin of the resource (including dates):
 
-  publication_statement:
+  - &publication_statement
     name: "publication_statement"
     display_label: "Publication statement"
     definition: "Transcribed information on the location and/or entity responsible for the issuing, publication, release, distribution, manufacture, production, or origin of a resource."
@@ -424,24 +378,15 @@ publisher_geospatial:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/publisher
       dpla: null
 
-  date:
+  - &date
     name: "date"
     display_label: "Date"
     definition: "A point or period of time associated with an event in the lifecycle of the resource."
@@ -464,27 +409,18 @@ publisher_geospatial:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/date
       dpla: null
 
 ### This mapping from comet to the inherited geospatial date may need to be revisted
 
-  date_geospatial:
-  <<: *date
+  - &date_geospatial
+    <<: *date
     display_label: "Index Year"
     definition: "This field represents the publication date that will be uploaded to GeoData."
     usage_guidelines: "Enter the publication date (or year that the resource was made available) as a four-digit year (YYYY).  This should not be the situational date, as it is being entered into GeoData as the publication date. If the date is unknown, leave it blank.  If it is a date range (i.e. 2006-2007) enter only the first year here, and enter the date range in the subject temporal field below."
@@ -495,10 +431,10 @@ publisher_geospatial:
       class:
         - geospatial_object
     mapping:
-      gbl-1: solr_year_i
-      aardvark: gbl_indexYear_im
+      gbl-1: http://geoblacklight.org/v1.0/schema/solr_year
+      aardvark: http://geoblacklight.org/schema/aardvark/indexYear
 
-  date_created:
+  - &date_created
     name: "date_created"
     display_label: "Date created"
     definition: "The date of creation of the resource."
@@ -521,24 +457,15 @@ publisher_geospatial:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/date
       dpla: null
 
-  date_issued:
+  - &date_issued
     name: "date_issued"
     display_label: "Date issued"
     definition: "The date that the resource was published, released, or issued."
@@ -561,25 +488,16 @@ publisher_geospatial:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/date
       dpla: null
 
-  date_issued_geospatial:
-  <<: *date_issued
+  - &date_issued_geospatial
+    <<: *date_issued
     usage_guidelines: "Enter the publication date (or date the resource was made available) for the resource.  Use ISO 8601 to enter the date. (YYYY-MM-DD).  Only enter months and days if they are known and relevant.  A typical entry will be YYYY."
     requirement: optional
     available_on:
@@ -589,12 +507,12 @@ publisher_geospatial:
       minimum: 0
       maximum: 1
     mapping:
-      gbl-1: dct_issued_s
-      aardvark: dct_issued_s
+      gbl-1: http://purl.org/dc/terms/issued
+      aardvark: http://purl.org/dc/terms/issued
 
 ### physical description, etc.
 
-  physical_description:
+  - &physical_description
     name: "physical_description"
     display_label: "Physical descriptiopn"
     definition: "Description or statement indicating the extent, size, or duration of the resource."
@@ -617,24 +535,15 @@ publisher_geospatial:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/format
       dpla: null
 
-  type_of_resource:
+  - &type_of_resource
     name: "type_of_resource"
     display_label: "Type of resource"
     definition: "General nature of type of the resource."
@@ -657,25 +566,16 @@ publisher_geospatial:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/type
       dpla: null
 
-  type_of_resource_geospatial:
-  <<: *type_of_resource
+  - &type_of_resource_geospatial
+    <<: *type_of_resource
     display_label: "Resource class"
     definition: "This field is intended to help users sort between significantly different types of resources."
     requirement: required
@@ -688,10 +588,10 @@ publisher_geospatial:
       minimum: 0
       maximum: 5
     mapping:
-      gbl-1: dc_type_s
-      aardvark: gbl_resourceClass_sm
+      gbl-1: http://purl.org/dc/elements/1.1/type
+      aardvark: http://geoblacklight.org/schema/aardvark/resourceClass
 
-  genre_form:
+  - &genre_form
     name: "genre_form"
     display_label: "Genre or form"
     definition: "The genre, form, and/or physical characteristics of the resource being described"
@@ -714,24 +614,15 @@ publisher_geospatial:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/type
       dpla: null
 
-  format:
+  - &format
     name: "format"
     display_label: "Format"
     definition: null
@@ -753,25 +644,16 @@ publisher_geospatial:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: null
       dpla: null
 
-  format_geospatial:
-  <<: *format
+  - &format_geospatial
+    <<: *format
     definition: "This value represents the format of the data."
     usage_guidelines: "This value is always Shapefile."
     requirement: conditional
@@ -782,10 +664,10 @@ publisher_geospatial:
       minimum: 0
       maximum: 1
     mapping:
-      gbl-1: dc_format_s
-      aardvark: dct_format_s
+      gbl-1: http://purl.org/dc/elements/1.1/format
+      aardvark: http://purl.org/dc/terms/format
 
-  language:
+  - &language
     name: "language"
     display_label: "Language"
     definition: "Language(s) of described resource."
@@ -809,24 +691,15 @@ publisher_geospatial:
       minimum: 0
       maximum: null
     index_documentation: "Language should be indexed as searchable, displayable, and facetable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/language
       dpla: http://purl.org/dc/terms/language
 
-  language_geospatial:
-  <<: *language
+  - &language_geospatial
+    <<: *language
     definition: "This field represents the language code that will be uploaded to GeoData."
     usage_guidelines: "The language code follows ISO 639-2 (used by Library of Congress as well). The value represents the language of the data, not of the metadata. Edit this code as necessary."
     requirement: optional
@@ -834,12 +707,12 @@ publisher_geospatial:
       class:
         - geospatial_object
     mapping:
-      gbl-1: dc_language_sm
-      aardvark: dct_language_sm
+      gbl-1: http://purl.org/dc/elements/1.1/language
+      aardvark: http://purl.org/dc/terms/language
 
 ### note fields:
 
-  note_description:
+  - &note_description
     name: "note_description"
     display_label: "Description"
     definition: "Summary, abstract, or description of the resource."
@@ -862,25 +735,16 @@ publisher_geospatial:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/description
       dpla: null
 
-  note_description_geospatial:
-  <<: *note_description
+  - &note_description_geospatial
+    <<: *note_description
     definition: "This field represents the originator that will be uploaded to GeoData."
     usage_guidelines: "The originator should be a Library of Congress Name Authority File (LCNAF) entry. Use the 'originatorName' and 'originatorOrg' fields and any other information available to determine the creator of the resource.  Then use the UCSB/UCSD - Controlled Vocabulary spreadsheet to determine the authorized name and enter that in the 'originator' field. If the originator does not have an LCNAF entry, format the originator name as if it were an LCNAF entry."
     requirement: recommended
@@ -890,10 +754,10 @@ publisher_geospatial:
       class:
         - geospatial_object
     mapping:
-      gbl-1: dc_description_s
-      aardvark: dct_description_sm
+      gbl-1: http://purl.org/dc/elements/1.1/description
+      aardvark: http://purl.org/dc/terms/description
 
-  note_general:
+  - &note_general
     name: "note_general"
     display_label: "Note"
     definition: "General textual information relating to a resource"
@@ -916,19 +780,10 @@ publisher_geospatial:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/description
       dpla: null
@@ -937,7 +792,7 @@ publisher_geospatial:
 
 ### subjects
 
-  subject_topic:
+  - &subject_topic
     name: "subject_topic"
     display_label: "Subject (topic)"
     definition: "A topic or subject of the resource."
@@ -960,25 +815,16 @@ publisher_geospatial:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/subject
       dpla: null
 
-  subject_topic_geospatial:
-  <<: *subject_topic
+  - &subject_topic_geospatial
+    <<: *subject_topic
     display_label: "Subject"
     definition: "This field represents the theme keywords that will be uploaded to GeoData."
     usage_guidelines: "The subject terms should be Library of Congress Subject Headings (LCSH). Use the 'subject1' field and any other information available to determine the subject of the resource. Then use the UCSB/UCSD - Controlled Vocabulary spreadsheet to determine the authorized subject term and enter that in the 'subject' field."
@@ -989,10 +835,10 @@ publisher_geospatial:
       class:
         - geospatial_object
     mapping:
-      gbl-1: dc_subject_sm
-      aardvark: dct_subject_sm
+      gbl-1: http://purl.org/dc/elements/1.1/subject
+      aardvark: http://purl.org/dc/terms/subject
 
-  subject_name:
+  - &subject_name
     name: "subject_name"
     display_label: "Subject (name)"
     definition: "The name of a person or corporate entity that the resource is about."
@@ -1015,24 +861,15 @@ publisher_geospatial:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/subject
       dpla: null
 
-  subject_spatial:
+  - &subject_spatial
     name: "subject_spatial"
     display_label: "Subject (location)"
     definition: "The name of a geographic location that the resource is about."
@@ -1055,25 +892,16 @@ publisher_geospatial:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/coverage
       dpla: null
 
-  subject_spatial_geospatial:
-  <<: *subject_spatial
+  - &subject_spatial_geospatial
+    <<: *subject_spatial
     display_label: "Spatial Coverage"
     definition: "This field represents the place keywords that will be uploaded to GeoData."
     usage_guidelines: "Use the 'spatialSubject1' field and any other information available to determine the geographic location of the resource.  Then use the UCSB/UCSD - Controlled Vocabulary spreadsheet to determine the authorized geonames place term and enter that in the 'spatialSubject' field."
@@ -1085,10 +913,10 @@ publisher_geospatial:
       class:
         - geospatial_object
     mapping:
-      gbl-1: dct_spatial_sm
-      aardvark: dct_spatial_sm
+      gbl-1: http://purl.org/dc/terms/spatial
+      aardvark: http://purl.org/dc/terms/spatial
 
-  subject_temporal:
+  - &subject_temporal
     name: "subject_temporal"
     display_label: "Subject (time period)"
     definition: "Temporal characteristics of the described resource. Captures aboutness."
@@ -1111,23 +939,15 @@ publisher_geospatial:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/coverage
       dpla: null
 
+  - &subject_temporal_geospatial
     <<: *subject_temporal
     display_label: "Temporal Coverage"
     usage_guidelines: "Enter a text string that describes the ground condition (situational date) of the resource.  This could be a range of dates or a string (i.e. Paleozoic). For dates, use ISO 8601 (YYYY-MM-DD).  Only enter months and days if they are known and relevant. A typical entry will be YYYY."
@@ -1136,10 +956,10 @@ publisher_geospatial:
       class:
         - geospatial_object
     mapping:
-      gbl-1: dct_temporal_sm
-      aardvark: dct_temporal_sm
+      gbl-1: http://purl.org/dc/terms/temporal
+      aardvark: http://purl.org/dc/terms/temporal
 
-  subject_keywords:
+  - &subject_keywords
     name: "subject_keywords"
     display_label: "Keywords"
     definition: "Uncontrolled terms, often supplied by the creator, describing the subject of the resource."
@@ -1162,25 +982,16 @@ publisher_geospatial:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/subject
       dpla: null
 
-subject_keywords_geospatial:
-  <<: *subject_keywords
+  - &subject_keywords_geospatial
+    <<: *subject_keywords
     usage_guidelines: "Enter any theme keywords that don't conform to a standard such as LCSH. Use this when the authorized term doesn't accurately represent what users would search for."
     requirement: optional
     available_on:
@@ -1188,11 +999,11 @@ subject_keywords_geospatial:
         - geospatial_object
     mapping:
       gbl-1: null
-      aardvark: dcat_keyword_sm
+      aardvark: https://www.w3.org/ns/dcat#keyword
 
 ### cartographics
 
-  point_coordinate_latitude:
+  - &point_coordinate_latitude
     name: "point_coordinate_latitude"
     display_label: "Point coordinate latitude"
     definition: null
@@ -1214,24 +1025,15 @@ subject_keywords_geospatial:
     cardinality:
       minimum: 0
       maximum: 1
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: null
       dpla: null
 
-  point_coordinate_longitude:
+  - &point_coordinate_longitude
     name: "point_coordinate_longitude"
     display_label: "Point coordinate longitude"
     definition: null
@@ -1253,24 +1055,15 @@ subject_keywords_geospatial:
     cardinality:
       minimum: 0
       maximum: 1
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: null
       dpla: null
 
-  bounding_box_west_longitude:
+  - &bounding_box_west_longitude
     name: "bounding_box_west_longitude"
     display_label: "Bounding box westernmost"
     definition: null
@@ -1292,24 +1085,15 @@ subject_keywords_geospatial:
     cardinality:
       minimum: 0
       maximum: 1
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: null
       dpla: null
 
-  bounding_box_west_longitude_geospatial:
+  - &bounding_box_west_longitude_geospatial
     <<: *bounding_box_west_longitude
       usage_guidelines: "This value displays the westernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
       requirement: recommended
@@ -1318,9 +1102,9 @@ subject_keywords_geospatial:
           - geospatial_object
       mapping:
         gbl-1: null
-        aardvark: ddcat_bbox
+        aardvark: https://www.w3.org/ns/dcat#bbox
 
-  bounding_box_east_longitude:
+  - &bounding_box_east_longitude
     name: "bounding_box_east_longitude"
     display_label: "Bounding box easternmost"
     definition: null
@@ -1342,25 +1126,16 @@ subject_keywords_geospatial:
     cardinality:
       minimum: 0
       maximum: 1
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: null
       dpla: null
 
-  bounding_box_east_longitude_geospatial:
-  <<: *bounding_box_east_longitude
+  - &bounding_box_east_longitude_geospatial
+    <<: *bounding_box_east_longitude
     usage_guidelines: "This value displays the easternmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
     requirement: recommended
     available_on:
@@ -1368,9 +1143,9 @@ subject_keywords_geospatial:
         - geospatial_object
     mapping:
       gbl-1: null
-      aardvark: ddcat_bbox
+      aardvark: https://www.w3.org/ns/dcat#bbox
 
-  bounding_box_north_latitude:
+  - &bounding_box_north_latitude
     name: "bounding_box_north_latitude"
     display_label: "Bounding box northernmost"
     definition: null
@@ -1392,25 +1167,16 @@ subject_keywords_geospatial:
     cardinality:
       minimum: 0
       maximum: 1
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: null
       dpla: null
 
-  bounding_box_north_latitude_geospatial:
-  <<: *bounding_box_north_latitude
+  - &bounding_box_north_latitude_geospatial
+    <<: *bounding_box_north_latitude
     usage_guidelines: "This value displays the northernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
     requirement: recommended
     available_on:
@@ -1418,9 +1184,9 @@ subject_keywords_geospatial:
         - geospatial_object
     mapping:
       gbl-1: null
-      aardvark: ddcat_bbox
+      aardvark: https://www.w3.org/ns/dcat#bbox
 
-  bounding_box_south_latitude:
+  - &bounding_box_south_latitude
     name: "bounding_box_south_latitude"
     display_label: "Bounding box southernmost"
     definition: null
@@ -1442,25 +1208,16 @@ subject_keywords_geospatial:
     cardinality:
       minimum: 0
       maximum: 1
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: null
       dpla: null
 
-  bounding_box_south_latitude_geospatial:
-  <<: *bounding_box_south_latitude
+  - &bounding_box_south_latitude_geospatial
+    <<: *bounding_box_south_latitude
     usage_guidelines: "This value displays the southernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
     requirement: recommended
     available_on:
@@ -1468,9 +1225,9 @@ subject_keywords_geospatial:
         - geospatial_object
     mapping:
       gbl-1: null
-      aardvark: ddcat_bbox
+      aardvark: https://www.w3.org/ns/dcat#bbox
 
-  scale:
+  - &scale
     name: "scale"
     display_label: "Scale"
     definition: null
@@ -1493,26 +1250,17 @@ subject_keywords_geospatial:
     cardinality:
       minimum: 0
       maximum: 1
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: null
       dpla: null
 
 ### identifiers
 
-  identifier_accession:
+  - &identifier_accession
     name: "identifier_accession"
     display_label: "Accession number"
     definition: "An archival accession number for the object."
@@ -1535,24 +1283,15 @@ subject_keywords_geospatial:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/identifier
       dpla: null
 
-  identifier_barcode:
+  - &identifier_barcode
     name: "identifier_barcode"
     display_label: "Barcode"
     definition: "Barcode number assigned to the physical object."
@@ -1575,24 +1314,15 @@ subject_keywords_geospatial:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/identifier
       dpla: null
 
-  identifier_call_number:
+  - &identifier_call_number
     name: "identifier_call_number"
     display_label: "Call number"
     definition: "The call number assigned to the local resource."
@@ -1616,24 +1346,15 @@ subject_keywords_geospatial:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/identifier
       dpla: null
 
-  identifier_DOI:
+  - &identifier_DOI
     name: "identifier_DOI"
     display_label: "DOI"
     definition: "Digital object identifier"
@@ -1656,24 +1377,15 @@ subject_keywords_geospatial:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/identifier
       dpla: null
 
-  identifier_ISBN:
+  - &identifier_ISBN
     name: "identifier_ISBN"
     display_label: "ISBN"
     definition: "International standard book number"
@@ -1696,24 +1408,15 @@ subject_keywords_geospatial:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/identifier
       dpla: null
 
-  identifier_ISSN:
+  - &identifier_ISSN
     name: "identifier_ISSN"
     display_label: "ISSN"
     definition: "International standard serial number"
@@ -1736,24 +1439,15 @@ subject_keywords_geospatial:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/identifier
       dpla: null
 
-  identifier_issue_number:
+  - &identifier_issue_number
     name: "identifier_issue_number"
     display_label: "Issue number"
     definition: "Sound recording issue number"
@@ -1776,24 +1470,15 @@ subject_keywords_geospatial:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/identifier
       dpla: null
 
-  identifier_local:
+  - &identifier_local
     name: "identifier_local"
     display_label: "Local identifier"
     definition: "Unique local identifier assigned to the physical object."
@@ -1816,24 +1501,15 @@ subject_keywords_geospatial:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/identifier
       dpla: null
 
-  identifier_matrix_number:
+  - &identifier_matrix_number
     name: "identifier_matrix_number"
     display_label: "Matrix number"
     definition: "Sound recording matrix number"
@@ -1856,26 +1532,17 @@ subject_keywords_geospatial:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/identifier
       dpla: null
 
 ### relationships
 
-  series:
+  - &series
     name: "series"
     display_label: "Series name"
     definition: "Name of the series in archival location information."
@@ -1897,24 +1564,15 @@ subject_keywords_geospatial:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: null
       dpla: null
 
-  file_unit:
+  - &file_unit
     name: "file_unit"
     display_label: "File unit name"
     definition: "Name of the file unit (intellectual folder) in archival location information. File unit refers to the intellectual grouping of the archival materials and may be comprised of one or more physical folders."
@@ -1936,24 +1594,15 @@ subject_keywords_geospatial:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: null
       dpla: null
 
-  finding_aid:
+  - &finding_aid
     name: "finding_aid"
     display_label: "Finding aid "
     definition: "Link to finding aid for the collection in OAC"
@@ -1976,24 +1625,15 @@ subject_keywords_geospatial:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/relation
       dpla: null
 
-source:
+  - &source
     name: "source"
     display_label: "Source"
     definition: "A related resource from which the described resource is derived."
@@ -2015,34 +1655,25 @@ source:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: null
       dpla: null
 
-  source_geospatial:
-  <<: *source
+  - &source_geospatial
+    <<: *source
     usage_guidelines: "Enter the slug of the original resource from which this resource is derived.  This is used when the resource stands apart as a new object rather than is a part of the original resource."
     available_on:
       class:
         - geospatial_object
     mapping:
-      gbl-1: dc_source_sm
-      aardvark: dct_source_sm
+      gbl-1: http://purl.org/dc/elements/1.1/source
+      aardvark: http://purl.org/dc/terms/source
 
-replaces:
+  - &replaces
     name: replaces
     display_label: "Replaces"
     definition: "A related resource that is supplanted, displaced, or superseded by the described resource."
@@ -2064,34 +1695,25 @@ replaces:
     cardinality:
       minimum: 0
       maximum: null
-    # index_documentation:
-    # indexing: a list of dynamic field names, taken from a controlled list;
-    #   Choose a value from this list.
-    #     displayable - store as string, multi-valued
-    #     facetable - index as a string, multi-valued
-    #     searchable - index the specific data type, multi-valued
-    #     sortable - index the specific data type
-    #     stored_searchable - index and store the specific data type, multi-valued
-    #     stored_sortable - index and store as string
-    #     symbol - index and store as string, multi-valued
-    #     fulltext_searchable - index as text, multi-valued with termVectors if enabled
-    # validations:
-    #   match_regex:
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: null
       dpla: null
 
-  replaces_geospatial:
-  <<: *replaces
+  - &replaces_geospatial
+    <<: *replaces
       usage_guidelines: "Enter the slug of the resource that this resource replaces.  Also add the slug of this resource in the 'isReplacedBy' field of the previous resource's metadata.  This is used when this resource deprecates another resource."
         available_on:
       class:
         - geospatial_object
     mapping:
       gbl-1: null
-      aardvark: dct_replaces_sm
+      aardvark: http://purl.org/dc/terms/replaces
 
-is_replaced_by:
+  - &is_replaced_by
     name: is_replaced_by
     display_label: "Is Replaced By"
     definition: "A related resource that supplants, displaces, or supersedes the described resource."
@@ -2113,34 +1735,25 @@ is_replaced_by:
     cardinality:
       minimum: 0
       maximum: null
-    # index_documentation:
-    # indexing: a list of dynamic field names, taken from a controlled list;
-    #   Choose a value from this list.
-    #     displayable - store as string, multi-valued
-    #     facetable - index as a string, multi-valued
-    #     searchable - index the specific data type, multi-valued
-    #     sortable - index the specific data type
-    #     stored_searchable - index and store the specific data type, multi-valued
-    #     stored_sortable - index and store as string
-    #     symbol - index and store as string, multi-valued
-    #     fulltext_searchable - index as text, multi-valued with termVectors if enabled
-    # validations:
-    #   match_regex:
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: null
       dpla: null
 
-  is_replaced_by_geospatial:
-  <<: *is_replaced_by
+  - &is_replaced_by_geospatial
+    <<: *is_replaced_by
       usage_guidelines: "Enter the slug of the resource that replaces this resource.  Also add the slug of this resource in the 'replaces' field of the new resource's metadata.  This is used when this resource has been deprecated by another resource."
         available_on:
       class:
         - geospatial_object
     mapping:
       gbl-1: null
-      aardvark: dct_isReplacedBy_sm
+      aardvark: http://purl.org/dc/terms/isReplacedBy
 
-  is_version_of:
+  - &is_version_of
     name: is_version_of
     display_label: "Is Version Of"
     definition: "A related resource of which the described resource is a version, edition, or adaptation."
@@ -2162,34 +1775,25 @@ is_replaced_by:
     cardinality:
       minimum: 0
       maximum: null
-    # index_documentation:
-    # indexing: a list of dynamic field names, taken from a controlled list;
-    #   Choose a value from this list.
-    #     displayable - store as string, multi-valued
-    #     facetable - index as a string, multi-valued
-    #     searchable - index the specific data type, multi-valued
-    #     sortable - index the specific data type
-    #     stored_searchable - index and store the specific data type, multi-valued
-    #     stored_sortable - index and store as string
-    #     symbol - index and store as string, multi-valued
-    #     fulltext_searchable - index as text, multi-valued with termVectors if enabled
-    # validations:
-    #   match_regex:
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: null
       dpla: null
 
-  is_version_of_geospatial:
-  <<: *is_version_of
+  - &is_version_of_geospatial
+    <<: *is_version_of
       usage_guidelines: "Enter the slug of the most recent related record.  This is used when the resource is an update of the related record, but where this resource is not considered a derivative and the original resource has not been deprecated."
         available_on:
       class:
         - geospatial_object
     mapping:
       gbl-1: null
-      aardvark: dct_isVersionOf_sm
+      aardvark: http://purl.org/dc/terms/isVersionOf
 
-  relation:
+  - &relation
     name: relation
     display_label: "Relation"
     definition: "A related resource."
@@ -2211,36 +1815,27 @@ is_replaced_by:
     cardinality:
       minimum: 0
       maximum: null
-    # index_documentation:
-    # indexing: a list of dynamic field names, taken from a controlled list;
-    #   Choose a value from this list.
-    #     displayable - store as string, multi-valued
-    #     facetable - index as a string, multi-valued
-    #     searchable - index the specific data type, multi-valued
-    #     sortable - index the specific data type
-    #     stored_searchable - index and store the specific data type, multi-valued
-    #     stored_sortable - index and store as string
-    #     symbol - index and store as string, multi-valued
-    #     fulltext_searchable - index as text, multi-valued with termVectors if enabled
-    # validations:
-    #   match_regex:
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: null
       dpla: null
 
-  relation_geospatial:
-  <<: *relation
+  - &relation_geospatial
+    <<: *relation
       usage_guidelines: "Enter any other relation type or entry that is not covered by the other relationship fields. This field could be used to display DOIs to related publications."
         available_on:
       class:
         - geospatial_object
     mapping:
       gbl-1: null
-      aardvark: dct_relation_sm
+      aardvark: http://purl.org/dc/terms/relation
 
 ### rights related
 
-  rights_holder:
+  - &rights_holder
     name: "rights_holder"
     display_label: "Rights holder"
     definition: "A person or organization owning or managing the rights of the resource."
@@ -2262,25 +1857,16 @@ is_replaced_by:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: null
       dpla: null
 
-  rights_holder_geospatial:
-  <<: *rights_holder
+  - &rights_holder_geospatial
+    <<: *rights_holder
     usage_guidelines: "Enter the rights holder for this resource."
     requirement: optional
     available_on:
@@ -2288,9 +1874,9 @@ is_replaced_by:
         - geospatial_object
     mapping:
       gbl-1: null
-      aardvark: dct_rightsHolder_sm
+      aardvark: http://purl.org/dc/terms/rightsHolder
 
-  copyright_date:
+  - &copyright_date
     name: "copyright_date"
     display_label: "Copyright date"
     definition: "The date that the resource was copyrighted."
@@ -2312,24 +1898,15 @@ is_replaced_by:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: null
       dpla: null
 
-  rights_status:
+  - &rights_status
     name: "rights_status"
     display_label: "Copyright status"
     definition: "A coded designation for the copyright status of the resource, at the time the rights statement is recorded."
@@ -2351,24 +1928,15 @@ is_replaced_by:
     cardinality:
       minimum: 0
       maximum: 1
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: null
       dpla: null
 
-  rights_statement:
+  - &rights_statement
     name: "rights_statement"
     display_label: "Rights statement"
     definition: "The value in this element will indicate the copyright, usage and access rights that apply to this digital representation."
@@ -2390,26 +1958,17 @@ is_replaced_by:
     cardinality:
       minimum: 0
       maximum: 1
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/rights
       dpla: null
       gbl-1: null
-      aardvark: dct_rights_sm
+      aardvark: http://purl.org/dc/terms/rights
 
-    rights_license:
+  - &rights_license
     name: "rights_license"
     display_label: "License"
     definition: "The value in this element will indicate any licenses that apply to this digital representation."
@@ -2432,25 +1991,16 @@ is_replaced_by:
     cardinality:
       minimum: 0
       maximum: 1
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/rights
       dpla: null
 
-  rights_license_geospatial:
-  <<: *rights_license
+  - &rights_license_geospatial
+    <<: *rights_license
     usage_guidelines: "Enter a URI for an appropriate license for this resource such as Creative Commons."
     requirement: optional
     available_on:
@@ -2458,9 +2008,9 @@ is_replaced_by:
         - geospatial_object
     mapping:
       gbl-1: null
-      aardvark: dct_license_sm
+      aardvark: http://purl.org/dc/terms/license
 
-  rights_note:
+  - &rights_note
     name: "rights_note"
     display_label: "Rights note"
     definition: "Free text description of rights, such as administrative contact information, a description of the specific license terms, or other rights-related restrictions."
@@ -2483,25 +2033,16 @@ is_replaced_by:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/rights
       dpla: null
 
-  rights_note_geospatial:
-  <<: *rights_note
+  - &rights_note_geospatial
+    <<: *rights_note
     usage_guidelines: "Using the 'useLimitation1', 'useLimitation2', 'accessConst', 'useConst', and 'otherConst' fields in the original ArcGIS metadata XML, enter a brief use limitation statement that will appear in GeoBlacklight when this feature is enabled."
     requirement: recommended
     available_on:
@@ -2509,12 +2050,11 @@ is_replaced_by:
         - geospatial_object
     mapping:
       gbl-1: null
-      aardvark: dct_rights_sm
+      aardvark: http://purl.org/dc/terms/rights
 
  ### location of resource
 
-
-  sublocation:
+  - &sublocation
     name: "sublocation"
     display_label: "Sublocation"
     definition: "Name of repository, department, or unit responsible for maintaining and curating the original resource."
@@ -2548,24 +2088,15 @@ is_replaced_by:
     cardinality:
       minimum: 0
       maximum: 1
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: null
       dpla: null
 
-  preferred_citation:
+  - &preferred_citation:
     name: "preferred_citation"
     display_label: "Preferred citation"
     definition: "Citation to the resource preferred by its custodian of the resource (i.e. UCSB)."
@@ -2588,26 +2119,17 @@ is_replaced_by:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/description
       dpla: null
 
 ### record management related
 
-  provider:
+  - &provider
     name: "provider"
     display_label: "Provider"
     definition: "The organization that holds the resource or acts as the custodian for the metadata record"
@@ -2630,34 +2152,25 @@ is_replaced_by:
     cardinality:
       minimum: 0
       maximum: 1
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: null
       dpla: null
 
-  provider_geospatial:
+  - &provider_geospatial
     <<: *provider
     requirement: recommended
     available_on:
       class:
         - geospatial_object
     mapping:
-      gbl-1: dct_provenance_s
-      aardvark: schema_provider_s
+      gbl-1: http://purl.org/dc/terms/provenance
+      aardvark: http://schema.org/provider
 
-  description_standard:
+  - &description_standard
     name: "description_standard"
     display_label: "Description standard"
     definition: "Designates the rules used for the content of the description if applicable."
@@ -2679,24 +2192,15 @@ is_replaced_by:
     cardinality:
       minimum: 0
       maximum: 1
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: null
       dpla: null
 
-  digital_origin:
+  - &digital_origin
     name: "digital_origin"
     display_label: "Digital origin"
     definition: "A designation of the source of a digital file important to its creation, use, and management."
@@ -2721,19 +2225,10 @@ is_replaced_by:
     cardinality:
       minimum: 0
       maximum: null
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
     mapping:
       dc-oai: null
       dpla: null
