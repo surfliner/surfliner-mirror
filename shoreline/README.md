@@ -33,6 +33,8 @@ your local system.
 To setup a development environment:
 1. `docker-compose up --build` to build images (if necessary)
 1. `docker-compose up`  to run dev environment
+1. `docker-compose --profile queue up` to run dev environment with RabbitMQ service
+   (this is optional and will not always be desirable or necessary)
 1. Access the application on [`http://localhost:3000`][localhost].
 
 Note:

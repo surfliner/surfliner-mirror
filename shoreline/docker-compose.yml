@@ -68,6 +68,15 @@ services:
     networks:
       - shoreline
 
+  rabbitmq:
+    profiles:
+      - queue
+    image: bitnami/rabbitmq:3.10.5-debian-10-r2
+    ports:
+      - "15672:15672"
+    networks:
+      - shoreline
+
 volumes:
   shoreline_db:
   shoreline_geoserver_data:
