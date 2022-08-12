@@ -95,6 +95,7 @@ RUN apk --no-cache add \
   shared-mime-info \
   tzdata \
   zip
+RUN gem update bundler
 RUN bundle install --jobs "$(nproc)"
 
 COPY $LOCAL_PROJECT $DOCKER_PROJECT

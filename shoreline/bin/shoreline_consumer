@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
-require "bundler/inline"
+require "bundler/setup"
+require "bunny"
 require "date"
 require "json"
 require "logger"
@@ -9,12 +10,6 @@ require "net/http"
 $stdout.sync = true
 logger = Logger.new($stdout)
 logger.level = ENV.fetch("LOG_LEVEL") { Logger::INFO }
-
-gemfile do
-  source "https://rubygems.org"
-
-  gem "bunny", "2.19.0"
-end
 
 rabbitmq_host = ENV.fetch("RABBITMQ_HOST")
 rabbitmq_password = ENV.fetch("RABBITMQ_PASSWORD")
