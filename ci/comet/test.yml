@@ -31,6 +31,7 @@ comet:test:solrconfig:
     DB_PORT: 5432
     DB_USERNAME: "postgres"
     DISCOVER_PLATFORM_TIDEWATER_URL_BASE: "http://localhost:3000/tidewater/item?source_iri="
+    IIIF_BASE_URL: "http://fake"
     METADATA_API_URL_BASE: "http://localhost:3000/concern/generic_objects"
     METADATA_DATABASE_NAME: "comet-metadata-test"
     POSTGRES_DB: "comet-metadata-test"
