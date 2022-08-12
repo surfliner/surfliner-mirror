@@ -9,6 +9,9 @@ ingress:
 serviceAccount:
   name: shoreline
 
+consumer:
+  enabled: false
+
 vaultSecret:
   enabled: true
   annotations:

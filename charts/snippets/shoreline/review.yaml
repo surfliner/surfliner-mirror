@@ -2,6 +2,9 @@ shoreline:
   sample_data: true
 serviceAccount:
   name: ""
+consumer:
+  rabbitmq:
+    host: surfliner-rabbitmq-review.rabbitmq-review.svc
 geoserver:
   admin:
     username: admin

@@ -130,3 +130,14 @@ Create the name of the service account to use
 {{- .Values.solr.zookeeperHostname -}}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Supports using an existing consumer secret instead of one built using the Chart
+*/}}
+{{- define "shoreline.consumer.secretName" -}}
+{{- if .Values.consumer.existingSecret.enabled -}}
+{{- .Values.consumer.existingSecret.name -}}
+{{- else -}}
+{{ include "shoreline.fullname" . }}-consumer
+{{- end -}}
+{{- end -}}

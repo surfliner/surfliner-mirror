@@ -19,6 +19,23 @@ service:
   type: ClusterIP
   port: 80
 
+# Settings specific to the optional shoreline consumer script
+consumer:
+  replicaCount: 1
+  logLevel: info
+  enabled: true
+  existingSecret:
+    name: shoreline-consumer
+    enabled: false
+  rabbitmq:
+    host: rabbitmq
+    password: surfliner
+    port: 5672
+    queue: shoreline
+    routing_key: surfliner.metadata.shoreline
+    topic: surfliner.metadata
+    username: surfliner
+
 serviceAccount:
   # Specifies whether a service account should be created
   create: true

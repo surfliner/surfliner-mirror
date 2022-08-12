@@ -2,6 +2,9 @@
 #   enabled: true
 #   name: shoreline-prod-external
 
+consumer:
+  enabled: false
+
 shoreline:
   theme: ucsb
   provenance: UC Santa Barbara
