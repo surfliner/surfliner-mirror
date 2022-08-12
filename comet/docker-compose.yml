@@ -174,7 +174,7 @@ services:
       - comet
 
   solr:
-    image: bitnami/solr:8.11.2-debian-11-r6
+    image: bitnami/solr:8.11.2-debian-11-r20
     ports:
       - 8983:8983
     env_file:

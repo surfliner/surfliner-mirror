@@ -69,7 +69,7 @@ include:
 # Custom bitnami solr service command to fetch and load configset
 .solr-service:
   services:
-    - name: bitnami/solr:8.11.2-debian-11-r6
+    - name: bitnami/solr:8.11.2-debian-11-r20
       alias: solr
       entrypoint: [""]
       variables:
