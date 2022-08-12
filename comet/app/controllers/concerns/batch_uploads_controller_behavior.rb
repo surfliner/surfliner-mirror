@@ -74,7 +74,7 @@ module BatchUploadsControllerBehavior
   # Process multi-value fields, clean up and convert values if needed
   def process_attrs(attrs)
     attrs.dup.map do |k, v|
-      attrs[k] = v.split("|").map { |val| val.strip }
+      attrs[k] = v.split("|").map { |val| val.strip } if attrs[k].is_a?(String)
     end
   end
 
