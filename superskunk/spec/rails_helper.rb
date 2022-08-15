@@ -22,6 +22,26 @@ require "rspec/rails"
 #
 # Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 
+# register/use the memory storage adapter for tests
+Valkyrie::MetadataAdapter
+  .register(Valkyrie::Persistence::Memory::MetadataAdapter.new, :test_adapter)
+
+##
+# Finds FileMetadata objects by #file_identifier for the memory adapter
+class MemoryFindFileMetadata < FindFileMetadata
+  def find_file_metadata(file_id)
+    query_service.cache.find do |_key, resource|
+      Array(resource.try(:file_identifier)).include?(file_id)
+    end.last
+  end
+end
+
+Valkyrie::MetadataAdapter
+  .find(:test_adapter)
+  .query_service
+  .custom_queries
+  .register_query_handler(MemoryFindFileMetadata)
+
 RSpec.configure do |config|
   # Remove this line to enable support for ActiveRecord
   config.use_active_record = false
@@ -52,4 +72,9 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  config.before(:example, :comet_adapter) do |example|
+    adapter = Valkyrie::MetadataAdapter.find(example.metadata[:comet_adapter])
+    allow(Superskunk).to receive(:metadata_adapter).and_return adapter
+  end
 end

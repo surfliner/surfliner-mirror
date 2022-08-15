@@ -11,8 +11,21 @@ RSpec.describe DiscoveryPlatform do
   context "has :discover access to resource" do
     let(:adapter) { Valkyrie::MetadataAdapter.find(:comet_metadata_store) }
     let(:persister) { adapter.persister }
-    let(:resource_class) { Class.new(Valkyrie::Resource) }
+    let(:resource_class) { Superskunk::Test::Resource }
     let(:resource) { persister.save(resource: resource_class.new(title: "Test object")) }
+
+    before do
+      module Superskunk # rubocop:disable Lint/ConstantDefinitionInBlock
+        module Test
+          class Resource < Valkyrie::Resource
+          end
+        end
+      end
+    end
+
+    after do
+      Superskunk::Test.send(:remove_const, :Resource)
+    end
 
     let(:acl) do
       persister.save(
