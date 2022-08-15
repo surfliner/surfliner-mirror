@@ -5,6 +5,8 @@ existingSecret:
 superskunkApiBase: http://surfliner-superskunk-stage.superskunk-staging
 
 cantaloupe:
+  delegate:
+    enabled: false
   s3:
     sampleData: false
     cache:
