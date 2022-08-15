@@ -134,7 +134,7 @@ class CustomDelegate
   # @param options [Hash] Empty hash.
   # @return [Boolean,Hash<String,Object>] See above.
   #
-  def pre_authorize(_options = {})
+  def pre_authorize(options = {})
     require "net/http"
     resource_id = context["identifier"]
     superskunk_uri = URI("#{ENV['SUPERSKUNK_API_BASE']}/acls?file=#{resource_id}&mode=read&group=public")
@@ -165,7 +165,7 @@ class CustomDelegate
       puts "Error: #{err}"
     end
 
-    false
+    return false
   end
 
   ##
@@ -331,17 +331,7 @@ class CustomDelegate
   #         it may also contain `region`, `access_key_id`, and/or
   #         `secret_access_key` keys.
   #
-  def s3source_object_info(_options = {})
-    newkey = context['identifier'].sub(%r{[a-z]+://}, '')
-    bucket = ENV['CANTALOUPE_S3SOURCE_BUCKET_NAME']
-
-    puts "THE BUCKET IS #{bucket}"
-    puts "THE KEY IS #{newkey}"
-
-    {
-      'bucket' => bucket,
-      'key' => newkey
-    }
+  def s3source_object_info(options = {})
   end
 
   ##
