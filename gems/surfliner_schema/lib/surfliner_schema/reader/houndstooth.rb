@@ -44,8 +44,8 @@ module SurflinerSchema
             requirement: config["requirement"],
             available_on: config.dig("available_on", "class").to_a.map(&:to_sym),
             data_type: RDF::Vocabulary.find_term(config.fetch("data_type", "http://www.w3.org/2001/XMLSchema#string")),
-            indexing: config.fetch("indexing", []).map(&:to_sym),
-            mapping: config.fetch("mapping", {}).filter_map { |prefix, value|
+            indexing: config.fetch("indexing", []).to_a.map(&:to_sym),
+            mapping: config.fetch("mapping", {}).to_h.filter_map { |prefix, value|
               # `iri` is a non‐standard property and may change but let’s go
               # with it for now.
               expansion = mappings_hash.find(proc { {} }) { |(name, mapping)|
