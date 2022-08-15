@@ -26,8 +26,8 @@ def wait_for_select2
   select2_results = false
   begin_time = current_time = Time.now.to_f
   until select2_results
-    raise("Waited 10 seconds for AJAX select2 selector, but never found it.") if
-      (current_time - begin_time) > 10
+    raise("Waited 20 seconds for AJAX select2 selector, but never found it.") if
+      (current_time - begin_time) > 20
     select2_results = page.has_css?("li.select2-result")
     current_time = Time.now.to_f
   end
