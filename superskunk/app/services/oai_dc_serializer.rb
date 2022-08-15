@@ -16,13 +16,23 @@ class OaiDcSerializer < ResourceSerializer
       # OAI doesn’t support datatyping so everything should be cast to a string.
       json[term] = mapping.map(&:to_s) if mapping.size > 0
     end
+    collections = Collection.all_discoverable_parents(
+      resource: resource,
+      agent: agent
+    )
     {
       "@context" => {
         "@vocab" => "http://purl.org/dc/elements/1.1/",
         "ore" => "http://www.openarchives.org/ore/terms/"
       },
       "@id" => iri,
-      **mapped
+      **mapped,
+      "ore:isAggregatedBy" => collections.map { |collection|
+        {
+          "@id" => "#{ENV["SUPERSKUNK_API_BASE"]}/resources/#{collection.id}",
+          "title" => collection.title.first || ""
+        }
+      }
     }
   end
 end

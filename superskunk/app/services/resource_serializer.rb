@@ -6,9 +6,10 @@
 class ResourceSerializer
   ##
   # Use ResourceSerializer.serialize instead.
-  def initialize(resource:, profile:)
+  def initialize(resource:, profile:, agent:)
     @resource = resource
     @profile = profile
+    @agent = agent
   end
 
   ##
@@ -18,6 +19,10 @@ class ResourceSerializer
   ##
   # The profile to use when serializing.
   attr_reader :profile
+
+  ##
+  # The agent to serialize for.
+  attr_reader :agent
 
   ##
   # The IRI for the resource.
@@ -38,10 +43,10 @@ class ResourceSerializer
 
   ##
   # Serializes the provided resource according to the provided profile.
-  def self.serialize(resource:, profile:)
+  def self.serialize(resource:, profile:, agent:)
     serializer = supported_profiles[profile]
     raise UnsupportedProfileError("The profile #{profile} is not supported.") unless serializer
-    serializer.new(resource: resource, profile: profile).to_jsonld
+    serializer.new(resource: resource, profile: profile, agent: agent).to_jsonld
   end
 
   ##

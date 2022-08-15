@@ -21,7 +21,11 @@ class ResourcesController < ApplicationController
   ##
   # Render a JSON-LD profile.
   def profile_render
-    render json: ResourceSerializer.serialize(resource: @model, profile: @profile)
+    render json: ResourceSerializer.serialize(
+      resource: @model,
+      profile: @profile,
+      agent: @platform
+    )
   end
 
   ##

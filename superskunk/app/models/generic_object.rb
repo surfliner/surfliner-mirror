@@ -1,22 +1,15 @@
 class GenericObject < Valkyrie::Resource
-  #  ____________________________
-  # | Defined by Hyrax::Resource |
-  #  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  # § Defined by Hyrax::Resource:
   attribute :alternate_ids, Valkyrie::Types::Array.of(Valkyrie::Types::ID)
 
-  #  ________________________
-  # | Defined by Hyrax::Work |
-  #  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  # § Defined by Hyrax::Work:
   attribute :title, Valkyrie::Types::Array.of(Valkyrie::Types::String)
+  attribute :member_of_collection_ids, Valkyrie::Types::Set.of(Valkyrie::Types::ID)
 
-  #  __________________
-  # | Defined by Comet |
-  #  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  # § Defined by Comet:
   attribute :ark, Valkyrie::Types::ID
 
-  #  ________________________
-  # | Defined by environment |
-  #  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  # § Defined by schema:
   # Provides the attribute definitions:
   include SurflinerSchema::Schema(:generic_object, loader: ::EnvSchemaLoader.new)
   # Provides :mapped_to method:
