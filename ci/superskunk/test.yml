@@ -18,7 +18,7 @@ superskunk:test:
     POSTGRES_USER: "postgres"
     RAILS_ENV: test
   services:
-    - name: bitnami/postgresql:12.11.0
+    - name: bitnami/postgresql:12.12.0
       alias: postgres
   script:
     - cd superskunk

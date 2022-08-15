@@ -232,7 +232,7 @@ minio:
 postgresql:
   image:
     repository: bitnami/postgresql
-    tag: 12.11.0-debian-11-r15
+    tag: 12.12.0-debian-11-r1
   enabled: true
   architecture: standalone
   auth:
