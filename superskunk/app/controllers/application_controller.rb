@@ -41,7 +41,15 @@ class ApplicationController < ActionController::API
   def render_error(exception: nil, text: "Server Error", status: 500)
     Rails.logger.error("Returning status #{status}; #{exception&.message}")
 
-    if preferred_type == :json
+    error_type = :unknown
+    begin
+      error_type = preferred_type
+    rescue AcceptReader::BadAcceptError
+      # Don’t throw an error for a bad accept header when we’re already
+      # rendering an error for other reasons.
+    end
+
+    if error_type == :json
       render json: {"error" => text, "status" => status}, status: status
     else
       render plain: text, status: status
