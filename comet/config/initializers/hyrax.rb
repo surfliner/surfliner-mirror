@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "cgi"
+
 Hyrax.config do |config|
   # Injected via `rails g hyrax:work_resource GenericObject`
   config.register_curation_concern :generic_object
@@ -138,14 +140,14 @@ Hyrax.config do |config|
   # Returns a URL that resolves to an image provided by a IIIF image server
   config.iiif_image_url_builder = lambda do |file_id, _base_url, size, format|
     fs = Hyrax.query_service.find_by(id: file_id)
-    fid = fs.file_ids.first.to_s.gsub("/", "%2F")
+    fid = CGI.escape(fs.file_ids.first.to_s)
     "#{ENV["IIIF_BASE_URL"]}/iiif/2/#{fid}/full/#{size}/0/default.#{format}"
   end
 
   # Returns a URL that resolves to an info.json file provided by a IIIF image server
   config.iiif_info_url_builder = lambda do |file_id, _base_url|
     fs = Hyrax.query_service.find_by(id: file_id)
-    fid = fs.file_ids.first.to_s.gsub("/", "%2F")
+    fid = CGI.escape(fs.file_ids.first.to_s)
     "#{ENV["IIIF_BASE_URL"]}/iiif/2/#{fid}"
   end
 
