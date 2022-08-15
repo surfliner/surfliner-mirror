@@ -18,10 +18,9 @@ properties:
       - "On the Road"
     property_uri: http://purl.org/dc/terms/title
     available_on:
-      class:
-        - GenericWork
-        - Collection
-        - Image
+      - GenericWork
+      - Collection
+      - Image
     range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     cardinality:
@@ -73,8 +72,7 @@ properties:
     display_label: "Name"
     definition: "The name of the friend."
     available_on:
-      class:
-        - Friend
+      - Friend
     mapping:
       tidewater: http://purl.org/dc/terms/title
       my_mapping: http://xmlns.com/foaf/0.1/name
