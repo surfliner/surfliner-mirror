@@ -23,7 +23,6 @@ services:
           exit 1
         fi
     depends_on:
-      - cantaloupe
       - chrome
       - comet_migrate
       - memcached
@@ -32,7 +31,6 @@ services:
       - rabbitmq
       - redis
       - solr
-      - superskunk
     ports:
       - 3000:3000
     volumes:
@@ -78,8 +76,10 @@ services:
     #   - ../charts/orange-empire/files/delegate.rb:/home/cantaloupe/delegate.rb
     env_file:
       - .env
-    # networks:
-    #   - cluster
+    depends_on:
+      - minio
+    networks:
+      - cluster
 
   sidekiq:
     build:
@@ -202,15 +202,6 @@ services:
       - '9000:9000'
     volumes:
       - minio_data:/data
-    env_file:
-      - .env
-    networks:
-      - cluster
-
-  cantaloupe:
-    image: uclalibrary/cantaloupe:5.0.5-1
-    ports:
-      - '8182:8182'
     env_file:
       - .env
     networks:
