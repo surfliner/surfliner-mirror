@@ -298,7 +298,7 @@ properties:
       dc-oai: http://purl.org/dc/elements/1.1/publisher
       dpla: null
 
-- - &publisher_geospatial
+  - &publisher_geospatial
     <<: *publisher
     definition: "This field represents the publisher that will be uploaded to GeoData."
     usage_guidelines: "The publisher should be a Library of Congress Name Authority File (LCNAF) entry. Use the 'publisherName' and 'publisherOrg' fields and any other information available to determine the publisher of the resource.  Then use the UCSB/UCSD - Controlled Vocabulary spreadsheet to determine the authorized name and enter that in the 'publisher' field.  If the publisher does not have an LCNAF entry, format the publisher name as if it were an LCNAF entry."
