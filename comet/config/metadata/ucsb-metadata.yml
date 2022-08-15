@@ -958,7 +958,7 @@ properties:
     mapping:
       gbl-1: http://purl.org/dc/terms/temporal
       aardvark: http://purl.org/dc/terms/temporal
- 
+
   - &subject_keyword
     name: "subject_keyword"
     display_label: "Keyword"
@@ -1063,8 +1063,8 @@ properties:
       dc-oai: null
       dpla: null
 
-  - &bounding_box_west_longitude
-    name: "bounding_box_west_longitude"
+  - &bounding_box_west
+    name: "bounding_box_west"
     display_label: "Bounding box westernmost"
     definition: null
     usage_guidelines: null
@@ -1093,8 +1093,8 @@ properties:
       dc-oai: null
       dpla: null
 
-  - &bounding_box_west_longitude_geospatial
-    <<: *bounding_box_west_longitude
+  - &bounding_box_west_geospatial
+    <<: *bounding_box_west
       usage_guidelines: "This value displays the westernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
       requirement: recommended
       available_on:
@@ -1104,8 +1104,8 @@ properties:
         gbl-1: null
         aardvark: https://www.w3.org/ns/dcat#bbox
 
-  - &bounding_box_east_longitude
-    name: "bounding_box_east_longitude"
+  - &bounding_box_east
+    name: "bounding_box_east"
     display_label: "Bounding box easternmost"
     definition: null
     usage_guidelines: null
@@ -1134,8 +1134,8 @@ properties:
       dc-oai: null
       dpla: null
 
-  - &bounding_box_east_longitude_geospatial
-    <<: *bounding_box_east_longitude
+  - &bounding_box_east_geospatial
+    <<: *bounding_box_east
     usage_guidelines: "This value displays the easternmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
     requirement: recommended
     available_on:
@@ -1145,8 +1145,8 @@ properties:
       gbl-1: null
       aardvark: https://www.w3.org/ns/dcat#bbox
 
-  - &bounding_box_north_latitude
-    name: "bounding_box_north_latitude"
+  - &bounding_box_north
+    name: "bounding_box_north"
     display_label: "Bounding box northernmost"
     definition: null
     usage_guidelines: null
@@ -1175,8 +1175,8 @@ properties:
       dc-oai: null
       dpla: null
 
-  - &bounding_box_north_latitude_geospatial
-    <<: *bounding_box_north_latitude
+  - &bounding_box_north_geospatial
+    <<: *bounding_box_north
     usage_guidelines: "This value displays the northernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
     requirement: recommended
     available_on:
@@ -1186,8 +1186,8 @@ properties:
       gbl-1: null
       aardvark: https://www.w3.org/ns/dcat#bbox
 
-  - &bounding_box_south_latitude
-    name: "bounding_box_south_latitude"
+  - &bounding_box_south
+    name: "bounding_box_south"
     display_label: "Bounding box southernmost"
     definition: null
     usage_guidelines: null
@@ -1216,8 +1216,8 @@ properties:
       dc-oai: null
       dpla: null
 
-  - &bounding_box_south_latitude_geospatial
-    <<: *bounding_box_south_latitude
+  - &bounding_box_south_geospatial
+    <<: *bounding_box_south
     usage_guidelines: "This value displays the southernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
     requirement: recommended
     available_on:
