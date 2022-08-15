@@ -12,9 +12,9 @@ class FindFileMetadata
   attr_reader :query_service
 
   def find_file_metadata(file_id)
-    query_json = {file_identifier: [id: file_id.to_s]}.to_json
+    query_json = {file_identifier: [file_id.to_s]}.to_json
     refs = query_service.run_query(query_service.send(:find_inverse_references_query), query_json)
-    refs.first
+    refs.first || raise(Valkyrie::Persistence::ObjectNotFoundError)
   end
 end
 

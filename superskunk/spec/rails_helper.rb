@@ -32,7 +32,7 @@ class MemoryFindFileMetadata < FindFileMetadata
   def find_file_metadata(file_id)
     query_service.cache.find do |_key, resource|
       Array(resource.try(:file_identifier)).include?(file_id)
-    end.last
+    end&.last || Valkyrie::Persistence::ObjectNotFoundError
   end
 end
 
@@ -76,5 +76,9 @@ RSpec.configure do |config|
   config.before(:example, :comet_adapter) do |example|
     adapter = Valkyrie::MetadataAdapter.find(example.metadata[:comet_adapter])
     allow(Superskunk).to receive(:metadata_adapter).and_return adapter
+  end
+
+  config.after(:example) do |example|
+    Superskunk.metadata_adapter.persister.wipe!
   end
 end
