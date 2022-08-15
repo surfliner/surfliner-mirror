@@ -1095,14 +1095,14 @@ properties:
 
   - &bounding_box_west_geospatial
     <<: *bounding_box_west
-      usage_guidelines: "This value displays the westernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
-      requirement: recommended
-      available_on:
-        class:
-          - geospatial_object
-      mapping:
-        gbl-1: null
-        aardvark: https://www.w3.org/ns/dcat#bbox
+    usage_guidelines: "This value displays the westernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
+    requirement: recommended
+    available_on:
+      class:
+        - geospatial_object
+    mapping:
+      gbl-1: null
+      aardvark: https://www.w3.org/ns/dcat#bbox
 
   - &bounding_box_east
     name: "bounding_box_east"
@@ -1705,8 +1705,8 @@ properties:
 
   - &replaces_geospatial
     <<: *replaces
-      usage_guidelines: "Enter the slug of the resource that this resource replaces.  Also add the slug of this resource in the 'isReplacedBy' field of the previous resource's metadata.  This is used when this resource deprecates another resource."
-        available_on:
+    usage_guidelines: "Enter the slug of the resource that this resource replaces.  Also add the slug of this resource in the 'isReplacedBy' field of the previous resource's metadata.  This is used when this resource deprecates another resource."
+    available_on:
       class:
         - geospatial_object
     mapping:
@@ -1745,8 +1745,8 @@ properties:
 
   - &is_replaced_by_geospatial
     <<: *is_replaced_by
-      usage_guidelines: "Enter the slug of the resource that replaces this resource.  Also add the slug of this resource in the 'replaces' field of the new resource's metadata.  This is used when this resource has been deprecated by another resource."
-        available_on:
+    usage_guidelines: "Enter the slug of the resource that replaces this resource.  Also add the slug of this resource in the 'replaces' field of the new resource's metadata.  This is used when this resource has been deprecated by another resource."
+    available_on:
       class:
         - geospatial_object
     mapping:
@@ -1785,8 +1785,8 @@ properties:
 
   - &is_version_of_geospatial
     <<: *is_version_of
-      usage_guidelines: "Enter the slug of the most recent related record.  This is used when the resource is an update of the related record, but where this resource is not considered a derivative and the original resource has not been deprecated."
-        available_on:
+    usage_guidelines: "Enter the slug of the most recent related record.  This is used when the resource is an update of the related record, but where this resource is not considered a derivative and the original resource has not been deprecated."
+    available_on:
       class:
         - geospatial_object
     mapping:
@@ -1825,8 +1825,8 @@ properties:
 
   - &relation_geospatial
     <<: *relation
-      usage_guidelines: "Enter any other relation type or entry that is not covered by the other relationship fields. This field could be used to display DOIs to related publications."
-        available_on:
+    usage_guidelines: "Enter any other relation type or entry that is not covered by the other relationship fields. This field could be used to display DOIs to related publications."
+    available_on:
       class:
         - geospatial_object
     mapping:
