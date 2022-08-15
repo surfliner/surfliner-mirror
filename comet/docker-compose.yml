@@ -112,7 +112,7 @@ services:
       - comet
 
   chrome:
-    image: seleniarm/standalone-chromium:103.0
+    image: seleniarm/standalone-chromium:104.0
     environment:
       -  SE_START_XVFB=false
     logging:
