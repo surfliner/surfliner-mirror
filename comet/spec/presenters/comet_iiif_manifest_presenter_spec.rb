@@ -21,6 +21,19 @@ RSpec.describe CometIiifManifestPresenter do
     end
   end
 
+  describe "#file_set_presenters" do
+    let(:file_set) { Hyrax.persister.save(resource: Hyrax::FileSet.new) }
+    let(:work) { GenericObject.new(member_ids: file_set.id) }
+
+    # file sets are read from the index; is that what we want?
+    before { Hyrax.index_adapter.save(resource: file_set) }
+
+    it "presents the file sets" do
+      expect(presenter.file_set_presenters)
+        .to contain_exactly(have_attributes(id: file_set.id))
+    end
+  end
+
   describe "#manifest_metadata" do
     it "includes empty metadata" do
       expect(presenter.manifest_metadata)
@@ -39,7 +52,7 @@ RSpec.describe CometIiifManifestPresenter do
           ))
       end
 
-      xit "includes configured metadata" do
+      it "includes configured metadata" do
         expect(presenter.manifest_metadata)
           .to contain_exactly({"label" => "Title", "value" => ["Comet in Moominland", "Mumintrollet på kometjakt"]},
             {"label" => "Creator", "value" => ["Tove Jansson"]},

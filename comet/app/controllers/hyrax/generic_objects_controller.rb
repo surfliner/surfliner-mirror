@@ -77,7 +77,10 @@ module Hyrax
     end
 
     def iiif_manifest_presenter
-      CometIiifManifestPresenter.new(search_result_document(id: params[:id])).tap do |p|
+      # todo: load_and_authorize_resource instead
+      resource = Hyrax.query_service.find_by(id: params["id"])
+
+      CometIiifManifestPresenter.new(resource).tap do |p|
         p.hostname = request.base_url
         p.ability = current_ability
       end
