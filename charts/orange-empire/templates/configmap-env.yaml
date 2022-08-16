@@ -5,7 +5,14 @@ metadata:
   labels:
     {{- include "orange-empire.labels" . | nindent 4 }}
 data:
-  CANTALOUPE_DELEGATE_SCRIPT_ENABLED: {{ .Values.cantaloupe.delegate.enabled | quote }}
+{{- if .Values.cantaloupe.delegate.enabled }}
+  CANTALOUPE_DELEGATE_SCRIPT_ENABLED: "true"
+  CANTALOUPE_S3SOURCE_LOOKUP_STRATEGY: ScriptLookupStrategy
+  CANTALOUPE_S3SOURCE_BUCKET_NAME: {{ .Values.cantaloupe.s3.source.bucketName }}
+{{- else }}
+  CANTALOUPE_S3SOURCE_BASICLOOKUPSTRATEGY_BUCKET_NAME: {{ .Values.cantaloupe.s3.source.bucketName }}
+  CANTALOUPE_S3SOURCE_BASICLOOKUPSTRATEGY_PATH_SUFFIX: {{ .Values.cantaloupe.s3.source.basicLookupStrategyPathSuffix | quote }}
+{{- end }}
   CANTALOUPE_DELEGATE_SCRIPT_PATHNAME: {{ .Values.cantaloupe.delegate.mountPath }}/{{ .Values.cantaloupe.delegate.filename }}
   CANTALOUPE_ENDPOINT_ADMIN_ENABLED: {{ .Values.cantaloupe.admin.endpointEnabled | quote }}
   CANTALOUPE_CACHE_SERVER_DERIVATIVE_ENABLED: {{ .Values.cantaloupe.cacheServer.derivativeEnabled | quote }}
@@ -16,18 +23,16 @@ data:
   CANTALOUPE_MANUAL_PROCESSOR_JP2: {{ .Values.cantaloupe.manualProcessorJP2 }}
   CANTALOUPE_PROCESSOR_SELECTION_STRATEGY: {{ .Values.cantaloupe.processorSelectionStrategy }}
   CANTALOUPE_S3CACHE_BUCKET_NAME: {{ .Values.cantaloupe.s3.cache.bucketName }}
-  CANTALOUPE_S3SOURCE_BASICLOOKUPSTRATEGY_BUCKET_NAME: {{ .Values.cantaloupe.s3.source.bucketName }}
-  CANTALOUPE_S3SOURCE_BASICLOOKUPSTRATEGY_PATH_SUFFIX: {{ .Values.cantaloupe.s3.source.basicLookupStrategyPathSuffix | quote }}
   CANTALOUPE_SOURCE_STATIC: {{ .Values.cantaloupe.sourceStatic }}
   JAVA_HEAP_SIZE: {{ .Values.cantaloupe.java.heapSize }}
-  {{- if .Values.minio.enabled }}
+{{- if .Values.minio.enabled }}
   CANTALOUPE_S3SOURCE_ENDPOINT: http://{{ template "orange-empire.minio.fullname" . }}:9000
   CANTALOUPE_S3CACHE_ENDPOINT: http://{{ template "orange-empire.minio.fullname" . }}:9000
-  {{- else }}
+{{- else }}
   CANTALOUPE_S3SOURCE_ENDPOINT: {{ .Values.cantaloupe.s3.source.endpoint }}
   CANTALOUPE_S3CACHE_ENDPOINT: {{ .Values.cantaloupe.s3.cache.endpoint }}
-  {{- end }}
+{{- end }}
   SUPERSKUNK_API_BASE: {{ .Values.superskunkApiBase }}
-  {{- with .Values.vaultSecret.vaultFile }}
+{{- with .Values.vaultSecret.vaultFile }}
   VAULT_FILE: {{ . }}
-  {{- end }}
+{{- end }}
