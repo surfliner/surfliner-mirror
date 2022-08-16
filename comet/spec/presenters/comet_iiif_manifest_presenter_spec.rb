@@ -35,11 +35,8 @@ RSpec.describe CometIiifManifestPresenter do
   end
 
   describe "#manifest_metadata" do
-    it "includes empty metadata" do
-      expect(presenter.manifest_metadata)
-        .to contain_exactly({"label" => "Title", "value" => []},
-          {"label" => "Creator", "value" => []},
-          {"label" => "Rights statement", "value" => []})
+    it "excludes empty metadata" do
+      expect(presenter.manifest_metadata).to be_empty
     end
 
     context "with some metadata" do
@@ -47,16 +44,14 @@ RSpec.describe CometIiifManifestPresenter do
         Hyrax.persister.save(resource:
           GenericObject.new(
             title: ["Comet in Moominland", "Mumintrollet på kometjakt"],
-            creator: "Tove Jansson",
-            rights_statement: "free!"
+            creator: "Tove Jansson"
           ))
       end
 
       it "includes configured metadata" do
         expect(presenter.manifest_metadata)
           .to contain_exactly({"label" => "Title", "value" => ["Comet in Moominland", "Mumintrollet på kometjakt"]},
-            {"label" => "Creator", "value" => ["Tove Jansson"]},
-            {"label" => "Rights statement", "value" => ["free!"]})
+            {"label" => "Creator", "value" => ["Tove Jansson"]})
       end
     end
   end

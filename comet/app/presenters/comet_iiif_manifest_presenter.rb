@@ -40,4 +40,13 @@ class CometIiifManifestPresenter < Hyrax::IiifManifestPresenter
       Array(self[:label]).first ||
       super
   end
+
+  ##
+  # IIIF::Manifest will drop the whole structure if any labels or values are not
+  # present. Filter them preemptively to avoid this.
+  def manifest_metadata
+    super.reject do |v|
+      v["label"].blank? || v["value"].blank?
+    end
+  end
 end

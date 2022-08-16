@@ -38,7 +38,13 @@ RSpec.describe Hyrax::GenericObjectsController, storage_adapter: :memory, metada
   end
 
   describe "#manifest" do
-    let(:object) { Hyrax.persister.save(resource: GenericObject.new(title: "Comet in Moominland")) }
+    let(:object) do
+      resource =
+        GenericObject.new(title: "Comet in Moominland",
+          creator: "Tove Jansson")
+
+      Hyrax.persister.save(resource: resource)
+    end
 
     before do
       sign_in user
@@ -52,7 +58,8 @@ RSpec.describe Hyrax::GenericObjectsController, storage_adapter: :memory, metada
 
     it "displays manifest metadata" do
       get :manifest, params: {id: object.id, format: :json}
-      expect(response.body).to include "Comet in Moominland"
+      expect(response.body)
+        .to include "Comet in Moominland", "Tove Jansson"
     end
 
     context "with file members" do
