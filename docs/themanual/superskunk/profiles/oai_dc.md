@@ -16,7 +16,10 @@ Some properties are defined as producing “field values”, which are
  +  An object with `@language` and `@value` properties, representing a
       language‐tagged string.
 
- +  An array of two or more strings or language‐tagged strings.
+ +  An array of zero or more strings or language‐tagged strings.
+
+(In practice, ~superskunk typically returns arrays, but consumers should be
+prepared to handle any of the above.) 
 
 ## API Endpoints
 
