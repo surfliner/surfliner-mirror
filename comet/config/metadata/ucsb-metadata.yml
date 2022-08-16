@@ -635,9 +635,7 @@ properties:
     sample_value:
       - null
     property_uri: http://purl.org/dc/elements/1.1/format
-    available_on:
-      class:
-        - null
+    available_on: null
     range: null
     data_type: null
     syntax:  null
@@ -1646,9 +1644,7 @@ properties:
     sample_value:
       - null
     property_uri: http://purl.org/dc/elements/1.1/source
-    available_on:
-      class:
-        - null
+    available_on: null
     range: null
     data_type: null
     syntax:  null
@@ -1686,9 +1682,7 @@ properties:
     sample_value:
       - null
     property_uri: http://purl.org/dc/terms/replaces
-    available_on:
-      class:
-        - null
+    available_on: null
     range: null
     data_type: null
     syntax:  null
@@ -1726,9 +1720,7 @@ properties:
     sample_value:
       - null
     property_uri: http://purl.org/dc/terms/isReplacedBy
-    available_on:
-      class:
-        - null
+    available_on: null
     range: null
     data_type: null
     syntax:  null
@@ -1766,9 +1758,7 @@ properties:
     sample_value:
       - null
     property_uri: http://purl.org/dc/terms/isVersionOf
-    available_on:
-      class:
-        - null
+    available_on: null
     range: null
     data_type: null
     syntax:  null
@@ -1806,9 +1796,7 @@ properties:
     sample_value:
       - null
     property_uri: http://purl.org/dc/terms/relation
-    available_on:
-      class:
-        - null
+    available_on: null
     range: null
     data_type: null
     syntax:  null
