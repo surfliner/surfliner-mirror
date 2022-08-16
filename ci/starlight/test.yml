@@ -1,3 +1,17 @@
+.starlight-ci-default-services:
+  services:
+    - !reference [.solr-service, services]
+    - name: bitnami/postgresql:12.12.0-debian-11-r1
+      alias: postgres
+    - name: seleniarm/standalone-chromium:102.0-20220602
+      alias: chrome
+
+.starlight-ci-system-services:
+  services:
+    - !reference [.starlight-ci-default-services, services]
+    - name: bitnami/minio:2022.8.11-debian-11-r0
+      alias: minio
+
 starlight:test:solrconfig:
   image: alpine:3.16.2
   stage: test
@@ -27,6 +41,10 @@ starlight:test:solrconfig:
   variables:
     DB_ADAPTER: "postgresql"
     DELIVERY_METHOD: "test"
+    MINIO_DEFAULT_BUCKETS: "starlight"
+    MINIO_ENDPOINT: "minio"
+    MINIO_ROOT_PASSWORD: "minio-secret-key"
+    MINIO_ROOT_USER: "minio-access-key"
     POSTGRESQL_DATABASE: "starlight-test"
     POSTGRES_HOST: "postgres"
     POSTGRES_PASSWORD: "postgres"
@@ -36,7 +54,9 @@ starlight:test:solrconfig:
     RAILS_QUEUE: inline
     REPOSITORY_URL: $CI_REPOSITORY_URL
     S3_BUCKET_NAME: ""
+    S3_ENDPOINT: http://minio:9000
     SELENIUM_URL: "http://chrome:4444/wd/hub/"
+    SITEMAPS_HOST: http://localhost:9001/starlight/
     SOLR_CORES: starlight-test
     SOLR_CORE_CONF_DIR: /tmp/starlight/solr/config
     SOLR_HOST: solr
@@ -45,12 +65,7 @@ starlight:test:solrconfig:
     START_XVFB: "false"
     TEST_POSTGRES_DB: "starlight-test"
   services:
-    - !reference [.solr-service, services]
-    - name: bitnami/postgresql:12.12.0-debian-11-r1
-      alias: postgres
-    - name: seleniarm/standalone-chromium:102.0-20220602
-      alias: chrome
-
+    - !reference [.starlight-ci-default-services, services]
   before_script:
     - cd /home/starlight/app
     - solr-core-wait.sh
@@ -60,6 +75,8 @@ starlight:test:solrconfig:
 
 starlight:test:system:
   extends: .starlight:test
+  services:
+    - !reference [.starlight-ci-system-services, services]
   script:
     - bundle exec rspec --tag type:system --format progress --format RspecJunitFormatter --out rspec.xml
   artifacts:
