@@ -8,7 +8,7 @@ RSpec.describe "GET /acls?file={id}&mode={mode}&group={name}" do
   let(:group) { Hyrax::Acl::Group.new("public") }
   let(:persister) { Valkyrie::MetadataAdapter.find(:comet_metadata_store).persister }
   let(:query_service) { Superskunk.comet_query_service }
-  let(:resource) { persister.save(resource: FileMetadata.new(file_identifier: "file_1")) }
+  let(:resource) { persister.save(resource: FileMetadata.new(file_identifier: Valkyrie::ID.new("file_1"))) }
 
   before do
     class FileMetadata < Valkyrie::Resource # rubocop:disable Lint/ConstantDefinitionInBlock
