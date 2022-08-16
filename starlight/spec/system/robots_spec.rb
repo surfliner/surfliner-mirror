@@ -28,18 +28,25 @@ RSpec.describe "robots", type: :system do
     before do
       ENV["ALLOW_ROBOTS"] = "true"
       ENV["SITEMAPS_ENABLED"] = "true"
-      ENV["SITEMAPS_HOST"] = "https://s3-us-west-2.amazonaws.com/mybucket/"
+      ENV["S3_BUCKET_NAME"] = "starlight"
     end
 
     after do
       ENV.delete("ALLOW_ROBOTS")
       ENV.delete("SITEMAPS_ENABLED")
-      ENV.delete("SITEMAPS_HOST")
+      ENV.delete("S3_BUCKET_NAME")
     end
 
     it "specifies a Sitemap entry in the robots.txt file" do
       visit "/robots.txt"
-      expect(page).to have_content("Sitemap: https://s3-us-west-2.amazonaws.com/mybucket/sitemaps/sitemap.xml.gz")
+      expect(page).to have_content("Sitemap: #{ENV["SITEMAPS_HOST"]}sitemaps/sitemap.xml.gz")
+    end
+
+    it "successfully writes the sitemap to an S3-compatible bucket" do
+      SitemapGenerator::Interpreter.run
+      s3 = Aws::S3::Resource.new(endpoint: ENV["S3_ENDPOINT"], force_path_style: true)
+      bucket = s3.bucket(ENV["S3_BUCKET_NAME"])
+      expect(bucket.object("sitemaps/sitemap.xml.gz").exists?).to be_truthy
     end
   end
 
