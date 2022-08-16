@@ -36,4 +36,57 @@ RSpec.describe Hyrax::GenericObjectsController, storage_adapter: :memory, metada
       end
     end
   end
+
+  describe "#manifest" do
+    let(:object) { Hyrax.persister.save(resource: GenericObject.new(title: "Comet in Moominland")) }
+
+    before do
+      sign_in user
+
+      acl = Hyrax::AccessControlList.new(resource: object)
+      acl.grant(:read).to(user)
+      acl.save
+
+      Hyrax.index_adapter.save(resource: object)
+    end
+
+    it "displays manifest metadata" do
+      get :manifest, params: {id: object.id, format: :json}
+      expect(response.body).to include "Comet in Moominland"
+    end
+
+    context "with file members" do
+      let(:upload_id) { Valkyrie::ID.new("fake://1") }
+
+      let(:file_set) do
+        Hyrax.persister.save(resource: Hyrax::FileSet.new(file_ids: [upload_id]))
+      end
+
+      let(:file_metadata) do
+        Hyrax::FileMetadata.new(mime_type: "image/jpeg",
+          file_set_id: file_set.id,
+          file_identifier: upload_id,
+          type: [::Valkyrie::Vocab::PCDMUse.OriginalFile])
+      end
+
+      let(:object) do
+        resource = GenericObject.new(member_ids: [file_set.id], rendering_ids: [file_set.id])
+        Hyrax.persister.save(resource: resource)
+      end
+
+      before do
+        Hyrax.persister.save(resource: file_metadata)
+        acl = Hyrax::AccessControlList.new(resource: file_set)
+        acl.grant(:read).to(user)
+        acl.save
+
+        Hyrax.index_adapter.save(resource: file_set)
+      end
+
+      it "includes a canvas for the file_set" do
+        get :manifest, params: {id: object.id, format: :json}
+        expect(response.body).to include "sc:Canvas", file_set.id
+      end
+    end
+  end
 end
