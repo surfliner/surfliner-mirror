@@ -4,12 +4,15 @@
     ":preserveSemverRanges",
     "regexManagers:dockerfileVersions"
   ],
-  "gitlabci": {
-    "fileMatch": ["^ci/.*\\.ya?ml$"]
-  },
   "bundler": {
     "enabled": true,
     "fileMatch": ["^tidewater/bin/tidewater_consumer$"]
+  },
+  "docker-compose": {
+    "fileMatch": ["^docker-compose/.*\\.ya?ml$"]
+  },
+  "gitlabci": {
+    "fileMatch": ["^ci/.*\\.ya?ml$"]
   },
   "prHourlyLimit": 5,
   "rebaseWhen": "never",

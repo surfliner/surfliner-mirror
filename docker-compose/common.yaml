@@ -1,0 +1,39 @@
+services:
+  rabbitmq:
+    image: bitnami/rabbitmq:3.10.6-debian-11-r2
+
+  chrome:
+    image: seleniarm/standalone-chromium:104.0
+    environment:
+      -  SE_START_XVFB=false
+    logging:
+      driver: none
+    volumes:
+      - /dev/shm:/dev/shm
+    shm_size: 2G
+    ports:
+      - "4444:4444"
+      - "5959:5900"
+
+  postgres:
+    image: bitnami/postgresql:14.4.0-debian-11-r5
+    restart: always
+
+  memcached:
+    image: bitnami/memcached:1.6.15-debian-11-r11
+    ports:
+      - '11211:11211'
+
+  minio:
+    image: bitnami/minio:2022.8.11-debian-11-r0
+    ports:
+      - '9001:9001'
+      - '9000:9000'
+
+  redis:
+    image: bitnami/redis:7.0.2-debian-11-r6
+
+  solr:
+    image: bitnami/solr:8.11.2-debian-11-r20
+    ports:
+      - 8983:8983

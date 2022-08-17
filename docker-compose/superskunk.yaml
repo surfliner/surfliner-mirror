@@ -1,0 +1,19 @@
+services:
+  superskunk:
+    build:
+      context: ..
+      dockerfile: superskunk/Dockerfile
+      target: superskunk
+    image: superskunk
+    restart: always
+    volumes:
+      - ../superskunk:/home/superskunk/app
+    stdin_open: true
+    tty: true
+
+  migrate:
+    image: superskunk
+    command:
+      - db-migrate-seed.sh
+    volumes:
+      - ../superskunk:/home/superskunk/app

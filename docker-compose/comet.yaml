@@ -1,0 +1,61 @@
+services:
+  comet:
+    build:
+      context: ..
+      dockerfile: comet/Dockerfile
+      target: comet-dev
+    image: comet-dev
+    stdin_open: true
+    tty: true
+    restart: always
+    command:
+      - sh
+      - -c
+      - >
+        if ./scripts/rabbitmq-wait; then
+          bundle exec puma -v -b tcp://0.0.0.0:3000
+        else
+          echo "Timed out waiting for rabbitmq connection"
+          exit 1
+        fi
+    ports:
+      - 3000:3000
+    volumes:
+      - ../comet:/app/samvera/hyrax-webapp
+      - ../gems:/app/samvera/gems
+
+  sidekiq:
+    build:
+      context: ..
+      dockerfile: comet/Dockerfile
+      target: comet-dev
+    image: comet-dev
+    restart: always
+    command:
+      - sh
+      - -c
+      - >
+        if ./scripts/rabbitmq-wait; then
+          bundle exec sidekiq
+        else
+          echo "Timed out waiting for rabbitmq connection"
+          exit 1
+        fi
+    volumes:
+      - ../comet:/app/samvera/hyrax-webapp
+      - ../gems:/app/samvera/gems
+
+  migrate:
+    image: comet-dev
+    command:
+      - sh
+      - -c
+      - >
+        echo "Ensuring database: $METADATA_DATABASE_NAME exists" &&
+        PGPASSWORD=$DB_PASSWORD PGHOST=$DB_HOST PGUSER=$DB_USERNAME PGDATABASE=$DB_NAME; export PGPASSWORD PGHOST PGUSER PGDATABASE &&
+        while ! psql -tc "SELECT * FROM pg_database"; do echo "-- Waiting for PGSQL ..."; sleep 5s; done &&
+        psql -tc "SELECT 1 FROM pg_database WHERE datname = '$METADATA_DATABASE_NAME'" | grep -q 1 || createdb -e -w $METADATA_DATABASE_NAME &&
+        /app/samvera/hyrax-webapp/scripts/db-migrate-seed.sh
+    volumes:
+      - ../comet:/app/samvera/hyrax-webapp
+      - ../gems:/app/samvera/gems
