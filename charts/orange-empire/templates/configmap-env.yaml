@@ -7,13 +7,13 @@ metadata:
 data:
 {{- if .Values.cantaloupe.delegate.enabled }}
   CANTALOUPE_DELEGATE_SCRIPT_ENABLED: "true"
+  CANTALOUPE_DELEGATE_SCRIPT_PATHNAME: {{ .Values.cantaloupe.delegate.mountPath }}/{{ .Values.cantaloupe.delegate.filename }}
   CANTALOUPE_S3SOURCE_LOOKUP_STRATEGY: ScriptLookupStrategy
   CANTALOUPE_S3SOURCE_BUCKET_NAME: {{ .Values.cantaloupe.s3.source.bucketName }}
 {{- else }}
   CANTALOUPE_S3SOURCE_BASICLOOKUPSTRATEGY_BUCKET_NAME: {{ .Values.cantaloupe.s3.source.bucketName }}
   CANTALOUPE_S3SOURCE_BASICLOOKUPSTRATEGY_PATH_SUFFIX: {{ .Values.cantaloupe.s3.source.basicLookupStrategyPathSuffix | quote }}
 {{- end }}
-  CANTALOUPE_DELEGATE_SCRIPT_PATHNAME: {{ .Values.cantaloupe.delegate.mountPath }}/{{ .Values.cantaloupe.delegate.filename }}
   CANTALOUPE_ENDPOINT_ADMIN_ENABLED: {{ .Values.cantaloupe.admin.endpointEnabled | quote }}
   CANTALOUPE_CACHE_SERVER_DERIVATIVE_ENABLED: {{ .Values.cantaloupe.cacheServer.derivativeEnabled | quote }}
   CANTALOUPE_CACHE_SERVER_DERIVATIVE: {{ .Values.cantaloupe.cacheServer.derivative }}
