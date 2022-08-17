@@ -57,10 +57,31 @@ end
 
 # Create default user collection type to enable the New Collection button
 puts "\n== Creating default user collection type"
-Rake::Task["hyrax:default_collection_types:create"].execute
+admin_set_type = Hyrax::CollectionType.find_or_create_admin_set_type
+admin_set_type.title = I18n.t("hyrax.collection_type.admin_set_title")
+admin_set_type.description = I18n.t("hyrax.collection_types.create_service.admin_set_description")
+admin_set_type.save
+
+if Hyrax::CollectionType.exists?(machine_id: admin_set_type.machine_id)
+  puts "Default collection type is #{admin_set_type.machine_id}"
+else
+  warn "ERROR: The Admin Set collection type did not get created."
+end
+
+default_type = Hyrax::CollectionType.find_or_create_default_collection_type
+default_type.title = I18n.t("hyrax.collection_type.default_title")
+default_type.description = I18n.t("hyrax.collection_types.create_service.default_description")
+default_type.save
+
+if Hyrax::CollectionType.exists?(machine_id: default_type.machine_id)
+  puts "Default collection type is #{default_type.machine_id}"
+else
+  warn "ERROR: A default collection type did not get created."
+end
 
 # Upload examples files to S3/Minio on non-production environments
 if Rails.application.config.staging_area_s3_enabled && !ENV.fetch("STAGING_AREA_S3_EXAMPLE_FILES", "").blank?
+  puts "\n== Uploading staging area files"
   begin_time = Time.now
   sleep 2.seconds and puts "Waiting on S3/Minio connection ..." until Time.now > (begin_time + 5 * 60) || Rails.application.config.staging_area_s3_connection
 
