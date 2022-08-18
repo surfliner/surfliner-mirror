@@ -20,6 +20,11 @@ class GenericObjectForm < Hyrax::Forms::ResourceForm(GenericObject)
   property :member_of_collections_attributes, virtual: true,
     populator: :interpret_collections_attributes
 
+  property :embargo, form: EmbargoForm, populator: :embargo_populator
+  property :lease, form: LeaseForm, populator: :lease_populator
+
+  property :visibility, default: Hyrax::VisibilityIntention::PRIVATE, populator: :visibility_populator
+
   def primary_terms
     _form_field_definitions.select { |key, form_options|
       schema_definition = form_definition(key.to_sym)
@@ -53,5 +58,31 @@ class GenericObjectForm < Hyrax::Forms::ResourceForm(GenericObject)
       member_attributes["member_of_collections_attributes"].each_with_object(model.member_of_collection_ids.dup) do |(_, attribute), member_ids|
         member_ids << attribute["id"]
       end
+  end
+
+  def embargo_populator(fragment:, **)
+    self.embargo = Hyrax::EmbargoManager.embargo_for(resource: model)
+  end
+
+  def lease_populator(fragment:, **)
+    self.lease = Hyrax::LeaseManager.lease_for(resource: model)
+  end
+
+  def visibility_populator(fragment:, doc:, **)
+    case fragment
+    when "embargo"
+      self.visibility = doc["visibility_during_embargo"]
+
+      doc["embargo"] = doc.slice("visibility_after_embargo",
+        "visibility_during_embargo",
+        "embargo_release_date")
+    when "lease"
+      self.visibility = doc["visibility_during_lease"]
+      doc["lease"] = doc.slice("visibility_after_lease",
+        "visibility_during_lease",
+        "lease_expiration_date")
+    else
+      self.visibility = fragment
+    end
   end
 end

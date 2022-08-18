@@ -5,7 +5,32 @@ require "rails_helper"
 RSpec.describe Hyrax::GenericObjectsController, storage_adapter: :memory, metadata_adapter: :test_adapter do
   let(:user) { User.create(email: "moomin@example.com") }
 
+  before { sign_in user }
+
   describe "#create" do
+    before { Hyrax.metadata_adapter.persister.wipe! }
+
+    context "when creating embargo" do
+      let(:params) do
+        {generic_object: {title: ["embargo test"],
+                          visibility: "embargo",
+                          visibility_during_embargo: "restricted",
+                          embargo_release_date: Date.tomorrow.to_s,
+                          visibility_after_embargo: "open"}}
+      end
+
+      it "persists the object with an embargo" do
+        post :create, params: params
+
+        object = Hyrax.query_service.find_all_of_model(model: GenericObject).first
+
+        expect(object.embargo)
+          .to have_attributes(visibility_after_embargo: "open",
+            visibility_during_embargo: "restricted",
+            embargo_release_date: Date.tomorrow.to_s)
+      end
+    end
+
     context "when assigning a collection relationship" do
       let(:collection_type) { Hyrax::CollectionType.create(title: "Spec Type") }
       let(:collection) {
@@ -14,8 +39,6 @@ RSpec.describe Hyrax::GenericObjectsController, storage_adapter: :memory, metada
       }
 
       it "persists the collection id for the object" do
-        sign_in user
-
         persisted_collection = Hyrax.persister.save(resource: collection)
         collection_id = persisted_collection.id
 
@@ -47,8 +70,6 @@ RSpec.describe Hyrax::GenericObjectsController, storage_adapter: :memory, metada
     end
 
     before do
-      sign_in user
-
       acl = Hyrax::AccessControlList.new(resource: object)
       acl.grant(:read).to(user)
       acl.save
