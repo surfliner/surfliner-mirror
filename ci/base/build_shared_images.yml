@@ -1,0 +1,16 @@
+shared:ruby-base:
+  extends:
+    - .kaniko-build
+    - .only-refs-default
+  stage: build
+  script:
+    - >
+      /kaniko/executor \
+        --context docker/ \
+        --cache=true \
+        --push-retry 3 \
+        --dockerfile docker/Dockerfile.base \
+        --destination $CI_REGISTRY_IMAGE/base:latest
+  only:
+    changes:
+      - docker/Dockerfile.base
