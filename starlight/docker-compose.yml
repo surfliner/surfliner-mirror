@@ -1,11 +1,21 @@
 version: '3.7'
 
 services:
+  base:
+    build:
+      context: ../docker
+      dockerfile: ../docker/Dockerfile.base
+    image: registry.gitlab.com/surfliner/surfliner/base
+
   web:
     build:
       context: ..
       dockerfile: starlight/Dockerfile
       target: starlight-dev
+      args:
+        BASE_IMAGE: registry.gitlab.com/surfliner/surfliner/base
+        LOCAL_PROJECT: starlight
+        BUILD_TIME_APKS: 'build-base gcompat git libxml2-dev libxslt-dev nodejs postgresql-dev shared-mime-info tzdata yarn'
     image: starlight
     stdin_open: true
     tty: true
