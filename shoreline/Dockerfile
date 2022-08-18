@@ -2,28 +2,9 @@
 ARG ALPINE_VERSION=3.16
 # renovate: datasource=docker depName=ruby versioning=ruby
 ARG RUBY_VERSION=2.7.6
-FROM ruby:$RUBY_VERSION-alpine$ALPINE_VERSION as shoreline-base
-# the directory of the host system from which application files are copied
-ARG LOCAL_PROJECT=shoreline
-ARG DOCKER_ROOT=/home/${LOCAL_PROJECT}
-# the project path on the image
-ARG DOCKER_PROJECT=${DOCKER_ROOT}/app
-WORKDIR ${DOCKER_PROJECT}
 
-# ENV PATH="$DOCKERROOT/scripts:$PATH"
-
-# build-time dependencies only
-RUN apk --no-cache add \
-  build-base \
-  libxml2-dev \
-  libxslt-dev \
-  nodejs \
-  postgresql-dev \
-  shared-mime-info \
-  yarn
-
-COPY ${LOCAL_PROJECT}/Gemfile* ${DOCKER_PROJECT}/
-COPY gems ${DOCKER_ROOT}/gems/
+ARG BASE_IMAGE=registry.gitlab.com/surfliner/surfliner/base
+FROM $BASE_IMAGE:latest as shoreline-base
 
 FROM shoreline-base as shoreline-build
 # used in ruby-bundle-cleanup.sh for locating the bundle cache

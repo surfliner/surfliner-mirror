@@ -1,11 +1,21 @@
 version: '3.7'
 
 services:
+  base:
+    build:
+      context: ../docker
+      dockerfile: ../docker/Dockerfile.base
+    image: registry.gitlab.com/surfliner/surfliner/base
+
   web:
     build:
       context: ..
       dockerfile: shoreline/Dockerfile
       target: shoreline-dev
+      args:
+        BASE_IMAGE: registry.gitlab.com/surfliner/surfliner/base
+        LOCAL_PROJECT: shoreline
+        BUILD_TIME_APKS: 'build-base libxml2-dev libxslt-dev nodejs postgresql-dev shared-mime-info yarn'
     image: shoreline:development
     env_file:
       - .env
