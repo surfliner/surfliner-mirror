@@ -585,10 +585,29 @@ body>.masthead {
   }
   .carousel {
     .carousel-item {
-      img {
-        display: block;
+      grid-template-columns: auto;
+      align-items: center;
+      justify-content: center;
+
+      &.active,
+      &.carousel-item-next,
+      &.carousel-item-prev {
+        display: grid;
+      }
+      a {
+        grid-area: 1 / 1 / span 1 / span 1;
+
+        img {
+          display: block;
+          object-fit: contain;
+        }
       }
       .carousel-caption {
+        position: relative;
+        grid-area: 1 / 1 / span 1 / span 1;
+        align-self: end;
+        width: 0;
+        min-width: 100%;
         color: $text-on-dark;
 
         h3 {
