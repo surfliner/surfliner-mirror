@@ -583,6 +583,22 @@ body>.masthead {
       }
     }
   }
+  .carousel {
+    .carousel-item {
+      img {
+        display: block;
+      }
+      .carousel-caption {
+        color: $text-on-dark;
+
+        h3 {
+          color: inherit;
+          font-size: 1.25rem;
+          font-weight: 300;
+        }
+      }
+    }
+  }
 }
 
 /* Sidebar *****/
