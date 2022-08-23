@@ -619,6 +619,30 @@ body>.masthead {
     }
   }
 }
+#documents {
+  &:not(.documents-list) {
+    .documentHeader {
+      display: block;
+    }
+  }
+  &.documents-gallery {
+    .documentHeader {
+      &>* {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+  }
+  &.documents-masonry {
+    .document {
+      .caption-area {
+        left: 0;
+        right: 0;
+        overflow-y: auto;
+      }
+    }
+  }
+}
 
 /* Sidebar *****/
 #sidebar {
