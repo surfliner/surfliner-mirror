@@ -4,6 +4,8 @@ ARG ALPINE_VERSION=3.16
 ARG RUBY_VERSION=2.7.6
 
 ARG BASE_IMAGE=registry.gitlab.com/surfliner/surfliner/base
+ARG BUILD_TIME_APKS='build-base libxml2-dev libxslt-dev nodejs postgresql-dev shared-mime-info yarn'
+ARG LOCAL_PROJECT=shoreline
 FROM $BASE_IMAGE:latest as shoreline-base
 
 FROM shoreline-base as shoreline-build

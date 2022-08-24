@@ -12,10 +12,6 @@ services:
       context: ..
       dockerfile: shoreline/Dockerfile
       target: shoreline-dev
-      args:
-        BASE_IMAGE: registry.gitlab.com/surfliner/surfliner/base
-        LOCAL_PROJECT: shoreline
-        BUILD_TIME_APKS: 'build-base libxml2-dev libxslt-dev nodejs postgresql-dev shared-mime-info yarn'
     image: shoreline:development
     env_file:
       - .env

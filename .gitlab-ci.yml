@@ -32,8 +32,6 @@ include:
     project=$1
     image_name=$2
     target=$3
-    extra_args=$4
-
     destination="--destination $CI_REGISTRY_IMAGE/$image_name:$CI_COMMIT_SHA"
     if [ "$CI_COMMIT_BRANCH" = "trunk" ]; then
       destination="$destination --destination $CI_REGISTRY_IMAGE/$image_name:stable"
@@ -46,7 +44,7 @@ include:
       target_param="--target $target"
     fi
 
-    /kaniko/executor --context "$CI_PROJECT_DIR" --cache=true --push-retry 3 $target_param --dockerfile "$CI_PROJECT_DIR"/"$project"/Dockerfile $destination $extra_args
+    /kaniko/executor --context "$CI_PROJECT_DIR" --cache=true --push-retry 3 $target_param --dockerfile "$CI_PROJECT_DIR"/"$project"/Dockerfile $destination
   }
 
 
