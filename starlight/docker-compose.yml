@@ -73,15 +73,16 @@ services:
       - starlight
 
   memcached:
-    image: bitnami/memcached:1.6.15-debian-11-r8
+    extends:
+      file: ../docker-compose/common.yaml
+      service: memcached
     networks:
       - starlight
 
   minio:
-    image: bitnami/minio:2022.8.11-debian-11-r0
-    ports:
-      - "9000:9000"
-      - "9001:9001"
+    extends:
+      file: ../docker-compose/common.yaml
+      service: minio
     volumes:
       - starlight_minio:/data
     env_file:
@@ -90,7 +91,9 @@ services:
       - starlight
 
   redis:
-    image: bitnami/redis:6.2.7-debian-11-r5
+    extends:
+      file: ../docker-compose/common.yaml
+      service: redis
     environment:
       ALLOW_EMPTY_PASSWORD: "yes"
     volumes:
@@ -99,7 +102,9 @@ services:
       - starlight
 
   database:
-    image: bitnami/postgresql:12.12.0-debian-11-r1
+    extends:
+      file: ../docker-compose/common.yaml
+      service: postgres
     volumes:
       - "starlight_database:/bitnami/postgresql"
     env_file:
@@ -108,9 +113,9 @@ services:
       - starlight
 
   solr:
-    image: bitnami/solr:8.11.2-debian-11-r20
-    ports:
-      - 8983:8983
+    extends:
+      file: ../docker-compose/common.yaml
+      service: solr
     env_file:
       - .env
     volumes:
@@ -120,7 +125,9 @@ services:
       - starlight
 
   chrome:
-    image: seleniarm/standalone-chromium:102.0-20220602
+    extends:
+      file: ../docker-compose/common.yaml
+      service: chrome
     networks:
       - starlight
 
