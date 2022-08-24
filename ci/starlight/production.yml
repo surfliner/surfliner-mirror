@@ -12,6 +12,7 @@
   needs: ["starlight:build:prod"]
 
 starlight:deploy:surfliner-docs-production:
+  allow_failure: true
   needs: ["starlight:deploy:ucsb-stage"]
   extends:
     - .starlight:deploy:production
