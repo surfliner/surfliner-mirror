@@ -48,7 +48,9 @@ services:
       - shoreline
 
   postgres:
-    image: bitnami/postgresql:12.12.0-debian-11-r1
+    extends:
+      file: ../docker-compose/common.yaml
+      service: postgres
     volumes:
       - "shoreline_db:/bitnami/postgresql"
     env_file:
@@ -57,9 +59,9 @@ services:
       - shoreline
 
   solr:
-    image: bitnami/solr:8.11.2-debian-11-r20
-    ports:
-      - '8983:8983'
+    extends:
+      file: ../docker-compose/common.yaml
+      service: solr
     volumes:
       - ./solr/conf:/opt/shoreline
       - shoreline_solr_data:/bitnami/solr
@@ -69,9 +71,11 @@ services:
       - shoreline
 
   rabbitmq:
+    extends:
+      file: ../docker-compose/common.yaml
+      service: rabbitmq
     profiles:
       - queue
-    image: bitnami/rabbitmq:3.10.5-debian-10-r2
     ports:
       - "15672:15672"
     networks:
