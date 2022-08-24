@@ -1,27 +1,10 @@
-version: '3.8'
-
 services:
   web:
-    build:
-      context: ..
-      dockerfile: comet/Dockerfile
-      target: comet-dev
-    image: comet-dev
-    stdin_open: true
-    tty: true
-    restart: always
+    extends:
+      file: ../docker-compose/comet.yaml
+      service: comet
     env_file:
       - .env
-    command:
-      - sh
-      - -c
-      - >
-        if ./scripts/rabbitmq-wait; then
-          bundle exec puma -v -b tcp://0.0.0.0:3000
-        else
-          echo "Timed out waiting for rabbitmq connection"
-          exit 1
-        fi
     depends_on:
       - chrome
       - db_migrate
@@ -31,11 +14,7 @@ services:
       - redis
       - solr
       - rabbitmq
-    ports:
-      - 3000:3000
     volumes:
-      - .:/app/samvera/hyrax-webapp
-      - ../gems:/app/samvera/gems
       - hyrax-derivatives:/app/samvera/hyrax-webapp/derivatives
       - hyrax-uploads:/app/samvera/hyrax-webapp/uploads
       - rails-public:/app/samvera/hyrax-webapp/public
@@ -44,24 +23,11 @@ services:
       - comet
 
   sidekiq:
-    build:
-      context: ..
-      dockerfile: comet/Dockerfile
-      target: comet-dev
-    image: comet-dev
-    restart: always
+    extends:
+      file: ../docker-compose/comet.yaml
+      service: sidekiq
     env_file:
       - .env
-    command:
-      - sh
-      - -c
-      - >
-        if ./scripts/rabbitmq-wait; then
-          bundle exec sidekiq
-        else
-          echo "Timed out waiting for rabbitmq connection"
-          exit 1
-        fi
     depends_on:
       - db_migrate
       - minio
@@ -71,8 +37,6 @@ services:
       - solr
       - rabbitmq
     volumes:
-      - .:/app/samvera/hyrax-webapp
-      - ../gems:/app/samvera/gems
       - hyrax-derivatives:/app/samvera/hyrax-webapp/derivatives
       - hyrax-uploads:/app/samvera/hyrax-webapp/uploads
       - sidekiq-public:/app/samvera/hyrax-webapp/public
@@ -81,25 +45,16 @@ services:
       - comet
 
   db_migrate:
-    image: comet-dev
+    extends:
+      file: ../docker-compose/comet.yaml
+      service: migrate
     env_file:
       - .env
     environment:
       - RABBITMQ_ENABLED=false
-    command:
-      - sh
-      - -c
-      - >
-        echo "Ensuring database: $METADATA_DATABASE_NAME exists" &&
-        PGPASSWORD=$DB_PASSWORD PGHOST=$DB_HOST PGUSER=$DB_USERNAME PGDATABASE=$DB_NAME; export PGPASSWORD PGHOST PGUSER PGDATABASE &&
-        while ! psql -tc "SELECT * FROM pg_database"; do echo "-- Waiting for PGSQL ..."; sleep 5s; done &&
-        psql -tc "SELECT 1 FROM pg_database WHERE datname = '$METADATA_DATABASE_NAME'" | grep -q 1 || createdb -e -w $METADATA_DATABASE_NAME &&
-        /app/samvera/hyrax-webapp/scripts/db-migrate-seed.sh
     depends_on:
       - postgres
     volumes:
-      - .:/app/samvera/hyrax-webapp
-      - ../gems:/app/samvera/gems
       - rails-public:/app/samvera/hyrax-webapp/public
       - rails-tmp:/app/samvera/hyrax-webapp/tmp
       - hyrax-scripts:/app/samvera/hyrax-webapp/scripts
@@ -107,28 +62,23 @@ services:
       - comet
 
   rabbitmq:
-    image: bitnami/rabbitmq:3.10.6-debian-11-r2
+    extends:
+      file: ../docker-compose/common.yaml
+      service: rabbitmq
     networks:
       - comet
 
   chrome:
-    image: seleniarm/standalone-chromium:104.0
-    environment:
-      -  SE_START_XVFB=false
-    logging:
-      driver: none
-    volumes:
-      - /dev/shm:/dev/shm
-    shm_size: 2G
-    ports:
-      - "4444:4444"
-      - "5959:5900"
+    extends:
+      file: ../docker-compose/common.yaml
+      service: chrome
     networks:
       - comet
 
   postgres:
-    image: bitnami/postgresql:14.4.0-debian-11-r5
-    restart: always
+    extends:
+      file: ../docker-compose/common.yaml
+      service: postgres
     env_file:
       - .env
     volumes:
@@ -137,17 +87,16 @@ services:
       - comet
 
   memcached:
-    image: bitnami/memcached:1.6.15-debian-11-r11
-    ports:
-      - '11211:11211'
+    extends:
+      file: ../docker-compose/common.yaml
+      service: memcached
     networks:
       - comet
 
   minio:
-    image: bitnami/minio:2022.8.11-debian-11-r0
-    ports:
-      - '9001:9001'
-      - '9000:9000'
+    extends:
+      file: ../docker-compose/common.yaml
+      service: minio
     volumes:
       - comet_minio:/data
     env_file:
@@ -156,16 +105,18 @@ services:
       - comet
 
   cantaloupe:
-    image: uclalibrary/cantaloupe:5.0.5-1
-    ports:
-      - '8182:8182'
+    extends:
+      file: ../docker-compose/orange-empire.yaml
+      service: cantaloupe
     env_file:
       - .env
     networks:
       - comet
 
   redis:
-    image: bitnami/redis:7.0.2-debian-11-r6
+    extends:
+      file: ../docker-compose/common.yaml
+      service: redis
     env_file:
       - .env
     volumes:
@@ -174,9 +125,9 @@ services:
       - comet
 
   solr:
-    image: bitnami/solr:8.11.2-debian-11-r20
-    ports:
-      - 8983:8983
+    extends:
+      file: ../docker-compose/common.yaml
+      service: solr
     env_file:
       - .env
     volumes:
