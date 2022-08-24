@@ -12,10 +12,6 @@ services:
       context: ..
       dockerfile: starlight/Dockerfile
       target: starlight-dev
-      args:
-        BASE_IMAGE: registry.gitlab.com/surfliner/surfliner/base
-        LOCAL_PROJECT: starlight
-        BUILD_TIME_APKS: 'build-base gcompat git libxml2-dev libxslt-dev nodejs postgresql-dev shared-mime-info tzdata yarn'
     image: starlight
     stdin_open: true
     tty: true
