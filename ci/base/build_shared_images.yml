@@ -9,8 +9,8 @@ shared:ruby-base:
         --context docker/ \
         --cache=true \
         --push-retry 3 \
-        --dockerfile docker/Dockerfile.base \
+        --dockerfile docker/base/Dockerfile \
         --destination $CI_REGISTRY_IMAGE/base:latest
   only:
     changes:
-      - docker/Dockerfile.base
+      - docker/base/Dockerfile

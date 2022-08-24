@@ -4,7 +4,7 @@ services:
   base:
     build:
       context: ../docker
-      dockerfile: ../docker/Dockerfile.base
+      dockerfile: ../docker/base/Dockerfile
     image: registry.gitlab.com/surfliner/surfliner/base
 
   web:
