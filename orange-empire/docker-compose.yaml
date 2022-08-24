@@ -1,20 +1,17 @@
-version: '3.8'
-
 services:
   cantaloupe:
-    image: uclalibrary/cantaloupe:5.0.5-1
-    ports:
-      - '8182:8182'
+    extends:
+      file: ../docker-compose/orange-empire.yaml
+      service: cantaloupe
     volumes:
       - ../charts/orange-empire/files:/tmp/
     env_file:
       - .env
 
   minio:
-    image: bitnami/minio:2022.8.11
-    ports:
-      - '9001:9001'
-      - '9000:9000'
+    extends:
+      file: ../docker-compose/common.yaml
+      service: minio
     volumes:
       - minio:/data
     env_file:
