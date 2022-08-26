@@ -3,11 +3,11 @@ ARG ALPINE_VERSION=3.16
 # renovate: datasource=docker depName=ruby versioning=ruby
 ARG RUBY_VERSION=2.7.6
 
-ARG BASE_IMAGE=registry.gitlab.com/surfliner/surfliner/base
 # these ARGs are used by the ONBUILD commands in the base image
 ARG BUILD_TIME_APKS='build-base gcompat git libxml2-dev libxslt-dev nodejs postgresql-dev shared-mime-info tzdata yarn'
 ARG LOCAL_PROJECT=starlight
-FROM $BASE_IMAGE:latest as starlight-base
+FROM registry.gitlab.com/surfliner/surfliner/base:latest as starlight-base
+
 
 FROM starlight-base as starlight-build
 # used in ruby-bundle-cleanup.sh for locating the bundle cache
@@ -32,47 +32,12 @@ RUN \
   SKIP_TRANSLATION=yes \
   bundle exec rake assets:precompile
 
-FROM ruby:$RUBY_VERSION-alpine$ALPINE_VERSION as starlight-prod
-ARG GID=10001
-ARG UID=10000
-
+# these ARGs are used by the ONBUILD commands in the base image
+ARG BUILD_STAGE=starlight-build
 ARG LOCAL_PROJECT=starlight
-ARG DOCKER_ROOT=/home/${LOCAL_PROJECT}
-ARG DOCKER_PROJECT=${DOCKER_ROOT}/app
-WORKDIR ${DOCKER_PROJECT}
+ARG RUN_TIME_APKS='curl imagemagick libpq nodejs tini tzdata zip'
+FROM registry.gitlab.com/surfliner/surfliner/prod:latest as starlight-prod
 
-# run-time dependencies only
-RUN apk --no-cache add \
-  curl \
-  imagemagick \
-  libpq \
-  nodejs \
-  tini \
-  tzdata \
-  zip
-
-RUN addgroup -S --gid $GID app && \
-  adduser -S -G app -u $UID -s /bin/sh -h /app app
-USER app
-
-COPY --chown=$UID:$GID gems ${DOCKER_ROOT}/gems/
-COPY --chown=$UID:$GID $LOCAL_PROJECT $DOCKER_PROJECT
-COPY --chown=$UID:$GID scripts/* $DOCKER_PROJECT/scripts/
-ENV PATH="${DOCKER_PROJECT}/scripts:${PATH}"
-
-COPY --from=starlight-build --chown=$UID:$GID ${DOCKER_PROJECT}/public/assets ${DOCKER_PROJECT}/public/assets
-COPY --from=starlight-build --chown=$UID:$GID ${DOCKER_PROJECT}/public/uv ${DOCKER_PROJECT}/public/uv
-COPY --from=starlight-build --chown=$UID:$GID ${DOCKER_PROJECT}/vendor ${DOCKER_PROJECT}/vendor
-
-RUN bundle config set deployment 'true'
-RUN bundle config set without 'test development'
-ENV BUNDLE_PATH="${DOCKER_PROJECT}/vendor/bundle"
-
-# TODO: should these be set by helm/docker-compose?
-ENV RAILS_ROOT=${DOCKER_PROJECT}
-ENV RAILS_SERVE_STATIC_FILES=1
-ENTRYPOINT ["tini", "--", "bin/docker-entrypoint.sh"]
-CMD ["bundle", "exec", "puma", "-b", "tcp://0.0.0.0:3000"]
 
 FROM starlight-base as starlight-dev
 ARG LOCAL_PROJECT=starlight

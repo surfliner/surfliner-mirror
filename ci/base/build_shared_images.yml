@@ -1,16 +1,38 @@
+.build_shared: &build_shared |
+  set -x
+  build_shared() {
+    image=$1
+
+    /kaniko/executor \
+      --context docker/ \
+      --cache=true \
+      --push-retry 3 \
+      --dockerfile docker/$image/Dockerfile \
+      --destination $CI_REGISTRY_IMAGE/$image:latest
+    }
+
 shared:ruby-base:
   extends:
     - .kaniko-build
     - .only-refs-default
   stage: build
+  before_script:
+    - *build_shared
   script:
-    - >
-      /kaniko/executor \
-        --context docker/ \
-        --cache=true \
-        --push-retry 3 \
-        --dockerfile docker/base/Dockerfile \
-        --destination $CI_REGISTRY_IMAGE/base:latest
+    - build_shared 'base'
   only:
     changes:
       - docker/base/Dockerfile
+
+shared:ruby-prod:
+  extends:
+    - .kaniko-build
+    - .only-refs-default
+  stage: build
+  before_script:
+    - *build_shared
+  script:
+    - build_shared 'prod'
+  only:
+    changes:
+      - docker/prod/Dockerfile
