@@ -33,10 +33,16 @@ RUN \
   bundle exec rake assets:precompile
 
 # these ARGs are used by the ONBUILD commands in the base image
-ARG BUILD_STAGE=starlight-build
 ARG LOCAL_PROJECT=starlight
 ARG RUN_TIME_APKS='curl imagemagick libpq nodejs tini tzdata zip'
 FROM registry.gitlab.com/surfliner/surfliner/prod:latest as starlight-prod
+COPY --from=starlight-build --chown=$UID:$GID ${DOCKER_PROJECT}/public/assets ${DOCKER_PROJECT}/public/assets
+COPY --from=starlight-build --chown=$UID:$GID ${DOCKER_PROJECT}/public/uv ${DOCKER_PROJECT}/public/uv
+COPY --from=starlight-build --chown=$UID:$GID ${DOCKER_PROJECT}/vendor ${DOCKER_PROJECT}/vendor
+
+RUN bundle config set deployment 'true'
+RUN bundle config set without 'test development'
+ENV BUNDLE_PATH="${DOCKER_PROJECT}/vendor/bundle"
 
 
 FROM starlight-base as starlight-dev
