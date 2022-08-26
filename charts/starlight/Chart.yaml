@@ -24,3 +24,6 @@ dependencies:
     version: 6.0.7
     repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
     condition: solr.enabled
+  - name: common
+    version: 0.1.0
+    repository: file://../common
