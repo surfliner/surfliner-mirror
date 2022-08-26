@@ -15,7 +15,7 @@ shared:ruby-base:
   extends:
     - .kaniko-build
     - .only-refs-default
-  stage: build
+  stage: maintanence
   before_script:
     - *build_shared
   script:
@@ -28,7 +28,7 @@ shared:ruby-prod:
   extends:
     - .kaniko-build
     - .only-refs-default
-  stage: build
+  stage: maintanence
   before_script:
     - *build_shared
   script:
