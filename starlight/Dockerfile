@@ -4,6 +4,7 @@ ARG ALPINE_VERSION=3.16
 ARG RUBY_VERSION=2.7.6
 
 ARG BASE_IMAGE=registry.gitlab.com/surfliner/surfliner/base
+# these ARGs are used by the ONBUILD commands in the base image
 ARG BUILD_TIME_APKS='build-base gcompat git libxml2-dev libxslt-dev nodejs postgresql-dev shared-mime-info tzdata yarn'
 ARG LOCAL_PROJECT=starlight
 FROM $BASE_IMAGE:latest as starlight-base
