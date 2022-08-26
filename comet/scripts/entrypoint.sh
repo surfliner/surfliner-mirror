@@ -1,8 +1,8 @@
 #!/bin/sh
 set -e
 
-mkdir -p /app/samvera/hyrax-webapp/tmp/pids
-rm -f /app/samvera/hyrax-webapp/tmp/pids/*
+mkdir -p /home/comet/app/tmp/pids
+rm -f /home/comet/app/tmp/pids/*
 
 # Run the command
 exec "$@"

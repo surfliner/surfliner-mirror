@@ -15,10 +15,10 @@ services:
       - solr
       - rabbitmq
     volumes:
-      - hyrax-derivatives:/app/samvera/hyrax-webapp/derivatives
-      - hyrax-uploads:/app/samvera/hyrax-webapp/uploads
-      - rails-public:/app/samvera/hyrax-webapp/public
-      - hyrax-scripts:/app/samvera/hyrax-webapp/scripts
+      - hyrax-derivatives:/home/comet/app/derivatives
+      - hyrax-uploads:/home/comet/app/uploads
+      - rails-public:/home/comet/app/public
+      - hyrax-scripts:/home/comet/app/scripts
     networks:
       - comet
 
@@ -37,10 +37,10 @@ services:
       - solr
       - rabbitmq
     volumes:
-      - hyrax-derivatives:/app/samvera/hyrax-webapp/derivatives
-      - hyrax-uploads:/app/samvera/hyrax-webapp/uploads
-      - sidekiq-public:/app/samvera/hyrax-webapp/public
-      - sidekiq-tmp:/app/samvera/hyrax-webapp/tmp
+      - hyrax-derivatives:/home/comet/app/derivatives
+      - hyrax-uploads:/home/comet/app/uploads
+      - sidekiq-public:/home/comet/app/public
+      - sidekiq-tmp:/home/comet/app/tmp
     networks:
       - comet
 
@@ -55,9 +55,9 @@ services:
     depends_on:
       - postgres
     volumes:
-      - rails-public:/app/samvera/hyrax-webapp/public
-      - rails-tmp:/app/samvera/hyrax-webapp/tmp
-      - hyrax-scripts:/app/samvera/hyrax-webapp/scripts
+      - rails-public:/home/comet/app/public
+      - rails-tmp:/home/comet/app/tmp
+      - hyrax-scripts:/home/comet/app/scripts
     networks:
       - comet
 

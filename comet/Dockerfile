@@ -3,36 +3,20 @@ ARG ALPINE_VERSION=3.16
 # renovate: datasource=docker depName=ruby versioning=ruby
 ARG RUBY_VERSION=2.7.6
 
-FROM ruby:$RUBY_VERSION-alpine$ALPINE_VERSION as base
-# the directory of the host system from which application files are copied
+ARG BASE_IMAGE=registry.gitlab.com/surfliner/surfliner/base
+# these ARGs are used by the ONBUILD commands in the base image
+ARG BUILD_TIME_APKS='build-base curl gcompat git nodejs postgresql-dev tzdata yarn'
 ARG LOCAL_PROJECT=comet
-# the project path on the image
-ARG DOCKER_ROOT=/app/samvera
-ARG DOCKER_PROJECT=${DOCKER_ROOT}/hyrax-webapp
-WORKDIR $DOCKER_PROJECT
-
-# build-time dependencies only
-RUN apk --no-cache add \
-  build-base \
-  curl \
-  gcompat \
-  git \
-  nodejs \
-  postgresql-dev \
-  tzdata \
-  yarn
-
-COPY ${LOCAL_PROJECT}/Gemfile* ${DOCKER_PROJECT}/
-COPY gems ${DOCKER_ROOT}/gems/
+FROM $BASE_IMAGE:latest as base
 
 FROM base as ruby-build-prod
 # used in ruby-bundle-cleanup.sh for locating the bundle cache
 ENV RUBY_ABI=2.7.0
 
 ARG LOCAL_PROJECT=comet
-ARG DOCKER_ROOT=/app/samvera
+ARG DOCKER_ROOT=/home/${LOCAL_PROJECT}
 # used in ruby-bundle-cleanup.sh
-ENV DOCKER_PROJECT=${DOCKER_ROOT}/hyrax-webapp
+ENV DOCKER_PROJECT=${DOCKER_ROOT}/app
 
 COPY scripts/docker/*.sh ${DOCKER_PROJECT}/
 RUN ${DOCKER_PROJECT}/ruby-bundle-prod.sh
@@ -52,8 +36,8 @@ ARG GID=10001
 ARG UID=10000
 
 ARG LOCAL_PROJECT=comet
-ARG DOCKER_ROOT=/app/samvera
-ARG DOCKER_PROJECT=${DOCKER_ROOT}/hyrax-webapp
+ARG DOCKER_ROOT=/home/${LOCAL_PROJECT}
+ARG DOCKER_PROJECT=${DOCKER_ROOT}/app
 WORKDIR $DOCKER_PROJECT
 
 # run-time dependencies only
@@ -85,15 +69,15 @@ ENV BUNDLE_PATH="${DOCKER_PROJECT}/vendor/bundle"
 # TODO: should these be set by helm/docker-compose?
 ENV RAILS_ROOT=${DOCKER_PROJECT}
 ENV RAILS_SERVE_STATIC_FILES=1
-ENTRYPOINT ["tini", "--", "/app/samvera/hyrax-webapp/scripts/entrypoint.sh"]
+ENTRYPOINT ["tini", "--", "/home/comet/app/scripts/entrypoint.sh"]
 CMD ["bundle", "exec", "puma", "-v", "-b", "tcp://0.0.0.0:3000"]
 
 FROM comet-web-prod as comet-worker-prod
 # the directory of the host system from which application files are copied
 ARG LOCAL_PROJECT=comet
 # the project path on the image
-ARG DOCKER_ROOT=/app/samvera
-ARG DOCKER_PROJECT=${DOCKER_ROOT}/hyrax-webapp
+ARG DOCKER_ROOT=/home/${LOCAL_PROJECT}
+ARG DOCKER_PROJECT=${DOCKER_ROOT}/app
 WORKDIR $DOCKER_PROJECT
 
 USER root
@@ -121,8 +105,8 @@ CMD ["bundle", "exec", "sidekiq"]
 FROM base as comet-test
 ARG RUBY_ABI=2.7.0
 ARG LOCAL_PROJECT=comet
-ARG DOCKER_ROOT=/app/samvera
-ARG DOCKER_PROJECT=${DOCKER_ROOT}/hyrax-webapp
+ARG DOCKER_ROOT=/home/${LOCAL_PROJECT}
+ARG DOCKER_PROJECT=${DOCKER_ROOT}/app
 
 RUN bundle install --jobs "$(nproc)"
 
@@ -137,12 +121,12 @@ RUN RAILS_ENV=production SECRET_KEY_BASE=fakedevsecret DB_ADAPTER=nulldb RABBITM
 
 ENV RAILS_ROOT=${DOCKER_PROJECT}
 ENV RAILS_SERVE_STATIC_FILES=1
-ENTRYPOINT ["/app/samvera/hyrax-webapp/scripts/entrypoint.sh"]
+ENTRYPOINT ["/home/comet/app/scripts/entrypoint.sh"]
 
 FROM base as comet-dev
 ARG LOCAL_PROJECT=comet
-ARG DOCKER_ROOT=/app/samvera
-ARG DOCKER_PROJECT=${DOCKER_ROOT}/hyrax-webapp
+ARG DOCKER_ROOT=/home/${LOCAL_PROJECT}
+ARG DOCKER_PROJECT=${DOCKER_ROOT}/app
 
 # renovate: datasource=github-releases depName=harvard-lts/fits
 ARG FITS_VERSION=1.5.5
@@ -170,4 +154,4 @@ COPY $LOCAL_PROJECT $DOCKER_PROJECT
 
 RUN RAILS_ENV=production SECRET_KEY_BASE=fakedevsecret DB_ADAPTER=nulldb RABBITMQ_ENABLED=false DATABASE_URL='postgresql://fake' bundle exec rake assets:precompile
 ENV RAILS_ROOT=${DOCKER_PROJECT}
-ENTRYPOINT ["/app/samvera/hyrax-webapp/scripts/entrypoint.sh"]
+ENTRYPOINT ["/home/comet/app/scripts/entrypoint.sh"]

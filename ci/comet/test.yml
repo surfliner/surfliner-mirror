@@ -56,7 +56,7 @@ comet:test:solrconfig:
     SOLR_PORT: 8983
 
   before_script:
-    - cd /app/samvera/hyrax-webapp
+    - cd /home/comet/app
     - solr-core-wait.sh
     - RABBITMQ_ENABLED=0 db-migrate-seed.sh
 

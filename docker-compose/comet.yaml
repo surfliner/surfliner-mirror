@@ -21,8 +21,8 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ../comet:/app/samvera/hyrax-webapp
-      - ../gems:/app/samvera/gems
+      - ../comet:/home/comet/app
+      - ../gems:/home/comet/gems
 
   sidekiq:
     build:
@@ -42,8 +42,8 @@ services:
           exit 1
         fi
     volumes:
-      - ../comet:/app/samvera/hyrax-webapp
-      - ../gems:/app/samvera/gems
+      - ../comet:/home/comet/app
+      - ../gems:/home/comet/gems
 
   migrate:
     image: comet-dev
@@ -55,7 +55,7 @@ services:
         PGPASSWORD=$DB_PASSWORD PGHOST=$DB_HOST PGUSER=$DB_USERNAME PGDATABASE=$DB_NAME; export PGPASSWORD PGHOST PGUSER PGDATABASE &&
         while ! psql -tc "SELECT * FROM pg_database"; do echo "-- Waiting for PGSQL ..."; sleep 5s; done &&
         psql -tc "SELECT 1 FROM pg_database WHERE datname = '$METADATA_DATABASE_NAME'" | grep -q 1 || createdb -e -w $METADATA_DATABASE_NAME &&
-        /app/samvera/hyrax-webapp/scripts/db-migrate-seed.sh
+        /home/comet/app/scripts/db-migrate-seed.sh
     volumes:
-      - ../comet:/app/samvera/hyrax-webapp
-      - ../gems:/app/samvera/gems
+      - ../comet:/home/comet/app
+      - ../gems:/home/comet/gems

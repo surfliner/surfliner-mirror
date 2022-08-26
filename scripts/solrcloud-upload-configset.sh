@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 COUNTER=0;
-# /app/samvera/hyrax-webapp/solr/conf
+# /home/comet/app/solr/conf
 CONFDIR="${1}"
 
 if [ "$SOLR_ADMIN_USER" ]; then
