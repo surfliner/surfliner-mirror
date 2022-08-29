@@ -67,6 +67,7 @@ _Tidewater was named after the Tidewater Southern Railway which was a short line
 ## Product Deployments
 
 ### UCSB
+*  **Comet (Staging):** [http://comet-staging.eks.dld.library.ucsb.edu/](http://comet-staging.eks.dld.library.ucsb.edu/)
 *  **Shoreline (Staging):** [http://shoreline-staging.eks.dld.library.ucsb.edu/](http://shoreline-staging.eks.dld.library.ucsb.edu/)
 *  **Shoreline (Production):** [http://geodata.library.ucsb.edu/](http://geodata.library.ucsb.edu/)
 *  **Starlight (Staging):** [https://spotlight-stage.library.ucsb.edu/](https://spotlight-stage.library.ucsb.edu/)
