@@ -5,12 +5,6 @@ services:
       dockerfile: ../docker/base/Dockerfile
     image: registry.gitlab.com/surfliner/surfliner/base
 
-  prod:
-    build:
-      context: ../docker
-      dockerfile: ../docker/prod/Dockerfile
-    image: registry.gitlab.com/surfliner/surfliner/prod
-
   web:
     build:
       context: ..
