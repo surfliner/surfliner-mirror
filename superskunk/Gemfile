@@ -6,7 +6,7 @@ gem "okcomputer", "1.18.4"
 gem "pg", "1.4.3"
 gem "puma", "5.6.4"
 gem "rack-test", group: "test"
-gem "rails", "7.0.1"
+gem "rails", "7.0.3.1"
 gem "rspec_junit_formatter", "0.5.1", group: "test"
 gem "rspec-rails", "5.1.2", group: "test"
 gem "standard", "1.16.0", group: %(development test)
