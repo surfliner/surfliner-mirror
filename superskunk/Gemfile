@@ -4,7 +4,7 @@ gem "bootsnap", "1.13.0", require: false
 gem "debug", "1.6.2", platforms: %i[mri mingw x64_mingw], group: %(development test)
 gem "okcomputer", "1.18.4"
 gem "pg", "1.4.3"
-gem "puma", "5.6.4"
+gem "puma", "5.6.5"
 gem "rack-test", group: "test"
 gem "rails", "7.0.3.1"
 gem "rspec_junit_formatter", "0.5.1", group: "test"

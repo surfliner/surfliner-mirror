@@ -6,7 +6,7 @@ gem "debug", "1.6.2", platforms: %i[mri mingw x64_mingw], group: %(development t
 gem "oai", "1.2.1"
 gem "okcomputer", "1.18.4"
 gem "pg", "1.4.3"
-gem "puma", "5.6.4"
+gem "puma", "5.6.5"
 gem "rails", "7.0.3.1"
 gem "rspec-rails", "5.1.2", group: "test"
 gem "rspec_junit_formatter", "0.5.1", group: "test"
