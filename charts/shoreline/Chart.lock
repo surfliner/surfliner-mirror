@@ -8,5 +8,8 @@ dependencies:
 - name: solr
   repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
   version: 6.0.7
-digest: sha256:0bfcd7ab0951a5405eec97c2e8ad1cbdbf1c30e8caeeca88aa7aaeb44ab9a8aa
-generated: "2022-08-12T19:11:34.633997706Z"
+- name: common
+  repository: file://../common
+  version: 0.1.0
+digest: sha256:43664828ba32b1e1b495fb3ba29e5c5b950fa030c360c4a21be95359293f45eb
+generated: "2022-08-30T16:25:12.437777-07:00"

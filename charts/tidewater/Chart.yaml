@@ -8,3 +8,6 @@ dependencies:
     version: 9.8.12
     repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
     condition: postgresql.enabled
+  - name: common
+    version: 0.1.0
+    repository: file://../common

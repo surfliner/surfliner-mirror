@@ -2,7 +2,7 @@
 Expand the name of the chart.
 */}}
 {{- define "superskunk.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+{{ include "common.name" . }}
 {{- end }}
 
 {{/*
@@ -11,65 +11,42 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 If release name contains chart name it will be used as a full name.
 */}}
 {{- define "superskunk.fullname" -}}
-{{- if .Values.fullnameOverride }}
-{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
-{{- else }}
-{{- $name := default .Chart.Name .Values.nameOverride }}
-{{- if contains $name .Release.Name }}
-{{- .Release.Name | trunc 63 | trimSuffix "-" }}
-{{- else }}
-{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
-{{- end }}
-{{- end }}
+{{ include "common.fullname" . }}
 {{- end }}
 
 {{/*
 Create chart name and version as used by the chart label.
 */}}
 {{- define "superskunk.chart" -}}
-{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+{{ include "common.chart" . }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
 {{- define "superskunk.labels" -}}
-helm.sh/chart: {{ include "superskunk.chart" . }}
-{{ include "superskunk.selectorLabels" . }}
-{{- if .Chart.AppVersion }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-{{- end }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{ include "common.labels.first" . }}
 {{- end }}
 
 {{/*
 Selector labels
 */}}
 {{- define "superskunk.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "superskunk.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
+{{ include "common.selectorLabels" . }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
 {{- define "superskunk.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "superskunk.fullname" .) .Values.serviceAccount.name }}
-{{- else }}
-{{- default "default" .Values.serviceAccount.name }}
-{{- end }}
+{{ include "common.serviceAccountName" . }}
 {{- end }}
 
 {{/*
 Supports using an existing secret instead of one built using the Chart
 */}}
 {{- define "superskunk.secretName" -}}
-{{- if .Values.existingSecret.enabled -}}
-{{- .Values.existingSecret.name -}}
-{{- else -}}
-{{ include "superskunk.fullname" . }}
-{{- end -}}
+{{ include "common.secretName" . }}
 {{- end -}}
 
 {{/*
@@ -81,9 +58,5 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 Alternatively, if postgresqlHostname is set, we use that which allows for an external database
 */}}
 {{- define "superskunk.postgresql.fullname" -}}
-{{- if .Values.postgresql.enabled -}}
-{{- printf "%s-%s" .Release.Name "postgresql" | trunc 63 | trimSuffix "-" -}}
-{{- else -}}
-{{- .Values.postgresql.postgresqlHostname -}}
-{{- end -}}
+{{ include "common.postgresql.fullname" . }}
 {{- end -}}

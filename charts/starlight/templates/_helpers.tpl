@@ -50,13 +50,7 @@ Create the Sitemap Host URL, as Minio and other s3-compatible providers use endp
 Common labels
 */}}
 {{- define "starlight.labels" -}}
-app.kubernetes.io/name: {{ include "starlight.name" . }}
-helm.sh/chart: {{ include "starlight.chart" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
-{{- if .Chart.AppVersion }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-{{- end }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{ include "common.labels.second" . }}
 {{- end -}}
 
 {{- define "starlight.backups.hook" -}}
@@ -122,9 +116,5 @@ Solr hostname, supporting external hostname as well
 Zookeeper hostname, supporting external hostname as well
 */}}
 {{- define "starlight.zk.fullname" -}}
-{{- if .Values.solr.enabled -}}
-{{- printf "%s-%s" .Release.Name "zookeeper" | trunc 63 | trimSuffix "-" -}}
-{{- else -}}
-{{- .Values.solr.zookeeperHostname -}}
-{{- end -}}
+{{ include "common.zk.fullname" . }}
 {{- end -}}
