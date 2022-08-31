@@ -25,34 +25,11 @@ RUN ${DOCKER_PROJECT}/ruby-bundle-cleanup.sh
 COPY $LOCAL_PROJECT $DOCKER_PROJECT
 RUN bundle exec rake assets:precompile
 
-FROM ruby:$RUBY_VERSION-alpine$ALPINE_VERSION as shoreline-prod
-ARG GID=10001
-ARG UID=10000
 
+# these ARGs are used by the ONBUILD commands in the base image
 ARG LOCAL_PROJECT=shoreline
-ARG DOCKER_ROOT=/home/${LOCAL_PROJECT}
-ARG DOCKER_PROJECT=${DOCKER_ROOT}/app
-WORKDIR ${DOCKER_PROJECT}
-
-# run-time dependencies only
-RUN apk --no-cache add \
-  curl \
-  libpq \
-  nodejs \
-  shared-mime-info \
-  tini \
-  tzdata \
-  zip
-
-RUN addgroup -S --gid $GID app && \
-  adduser -S -G app -u $UID -s /bin/sh -h /app app
-USER app
-
-COPY --chown=$UID:$GID gems ${DOCKER_ROOT}/gems/
-COPY --chown=$UID:$GID $LOCAL_PROJECT $DOCKER_PROJECT
-COPY --chown=$UID:$GID scripts/* $DOCKER_PROJECT/scripts/
-ENV PATH="${DOCKER_PROJECT}/scripts:${PATH}"
-
+ARG RUN_TIME_APKS='curl libpq nodejs shared-mime-info tini tzdata zip'
+FROM registry.gitlab.com/surfliner/surfliner/prod:latest as shoreline-prod
 COPY --from=shoreline-build --chown=$UID:$GID ${DOCKER_PROJECT}/public/assets ${DOCKER_PROJECT}/public/assets
 COPY --from=shoreline-build --chown=$UID:$GID ${DOCKER_PROJECT}/vendor ${DOCKER_PROJECT}/vendor
 
@@ -60,11 +37,6 @@ RUN bundle config set deployment 'true'
 RUN bundle config set without 'test development'
 ENV BUNDLE_PATH="${DOCKER_PROJECT}/vendor/bundle"
 
-# TODO: should these be set by helm/docker-compose?
-ENV RAILS_ROOT=${DOCKER_PROJECT}
-ENV RAILS_SERVE_STATIC_FILES=1
-ENTRYPOINT ["tini", "--", "bin/docker-entrypoint.sh"]
-CMD ["bundle", "exec", "puma", "-b", "tcp://0.0.0.0:3000"]
 
 FROM shoreline-base as shoreline-dev
 ARG LOCAL_PROJECT=shoreline

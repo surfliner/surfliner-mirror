@@ -32,6 +32,7 @@ RUN \
   SKIP_TRANSLATION=yes \
   bundle exec rake assets:precompile
 
+
 # these ARGs are used by the ONBUILD commands in the base image
 ARG LOCAL_PROJECT=starlight
 ARG RUN_TIME_APKS='curl imagemagick libpq nodejs tini tzdata zip'
