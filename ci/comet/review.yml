@@ -34,6 +34,7 @@ comet:deploy:ucsd-review:
       --set worker.extraEnvVars[5].value=surfliner.metadata.publish.$CI_MERGE_REQUEST_ID
       --values charts/snippets/comet/init-containers.yaml
       --values charts/snippets/comet/review-deploy.yaml
+      --values charts/snippets/surfliner/solr-review.yaml
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
 
 comet:cleanup:ucsd-review:

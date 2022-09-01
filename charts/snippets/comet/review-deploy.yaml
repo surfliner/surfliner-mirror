@@ -62,26 +62,22 @@ minio:
     password: comet-access-key
   secretKey:
     password: comet-secret
+
 fcrepo:
   enabled: false
-solr:
-  persistence:
-    enabled: false
-  replicaCount: 2
-  zookeeper:
-    persistence:
-      enabled: false
-    replicaCount: 2
+
 memcached:
   architecture: standalone
   persistence:
     enabled: false
+
 redis:
   cluster:
     enabled: false
   master:
     persistence:
       enabled: false
+
 postgresql:
   persistence:
     enabled: false
