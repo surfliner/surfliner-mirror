@@ -35,8 +35,8 @@ solr:
   solrHostname: lib-solr-prod.ucsd.edu
   solrPort: "9020"
   coreName: starlight
+solrRunMode: standalone
 starlight:
-  solrRunMode: standalone
   allow_robots: true
   application:
     name: "Digital Exhibits"
