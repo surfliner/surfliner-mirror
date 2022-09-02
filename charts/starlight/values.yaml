@@ -71,6 +71,8 @@ extraContainerConfiguration: []
 #      value: "my-test-solr-url"
 extraEnvVars: []
 
+solrRunMode: cloud
+
 service:
   type: ClusterIP
   port: 80
@@ -92,7 +94,6 @@ ingress:
   tls: []
 
 starlight:
-  solrRunMode: cloud
   disableSolrConfigInit: false
   allow_robots: false # allow crawling via robots.txt
   loadSolrConfigSet: true # use false to skip solr configset maintenance init container

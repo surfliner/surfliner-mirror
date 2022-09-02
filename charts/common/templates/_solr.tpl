@@ -5,7 +5,7 @@ starlight and shoreline
 {{- if .Values.solr.enabled -}}
 {{- .Values.solr.cloudEnabled }}
 {{- else -}}
-{{- (eq "cloud" (lower .Values.starlight.solrRunMode)) }}
+{{- (eq "cloud" (lower .Values.solrRunMode)) }}
 {{- end -}}
 {{- end -}}
 
