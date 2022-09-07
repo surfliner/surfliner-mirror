@@ -47,7 +47,7 @@ cantaloupe:
     enabled: true
     mountPath: /mnt/cantaloupe
     filename: delegate.rb
-  logLevel: info
+  logLevel: debug
   processorSelectionStrategy: ManualSelectionStrategy
   manualProcessorJP2: KakaduNativeProcessor
   sourceStatic: S3Source
