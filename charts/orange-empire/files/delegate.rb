@@ -1,4 +1,5 @@
 require "net/http"
+require "java"
 
 ##
 # Sample Ruby delegate script containing stubs and documentation for all
@@ -137,10 +138,12 @@ class CustomDelegate
   # @return [Boolean,Hash<String,Object>] See above.
   #
   def pre_authorize(_options = {})
+    logger = Java::edu.illinois.library.cantaloupe.script.Logger
+
     resource_id = context["identifier"]
     superskunk_uri = URI("#{ENV['SUPERSKUNK_API_BASE']}/acls?file=#{resource_id}&mode=read&group=public")
-    puts "Authorizing resource: #{resource_id}"
-    puts superskunk_uri
+    logger.info "Authorizing resource: #{resource_id}"
+    logger.info "The Superskunk API URI is: #{superskunk_uri}"
     req = Net::HTTP::Get.new(superskunk_uri)
 
     begin
@@ -152,18 +155,18 @@ class CustomDelegate
 
       if res.is_a?(Net::HTTPSuccess)
         superskunk_response = res.body
-        puts "Response from superskunk for #{resource_id} is #{superskunk_response}"
+        logger.info "Response from superskunk for #{resource_id} is #{superskunk_response}"
         if superskunk_response.eql? "1"
           return true
         else
           return false
         end
       else
-        puts "Error response: #{res.code}: #{res}"
+        logger.error "Error response: #{res.code}: #{res}"
         return false
       end
     rescue => err
-      puts "Error: #{err}"
+      logger.error "Error: #{err}"
     end
 
     false
@@ -333,11 +336,13 @@ class CustomDelegate
   #         `secret_access_key` keys.
   #
   def s3source_object_info(_options = {})
+    logger = Java::edu.illinois.library.cantaloupe.script.Logger
+
     newkey = context['identifier'].sub(%r{[a-z]+://}, '')
     bucket = ENV['CANTALOUPE_S3SOURCE_BUCKET_NAME']
 
-    puts "THE BUCKET IS #{bucket}"
-    puts "THE KEY IS #{newkey}"
+    logger.info "THE BUCKET IS #{bucket}"
+    logger.info "THE KEY IS #{newkey}"
 
     {
       'bucket' => bucket,
