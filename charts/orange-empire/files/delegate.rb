@@ -1,3 +1,5 @@
+require "net/http"
+
 ##
 # Sample Ruby delegate script containing stubs and documentation for all
 # available delegate methods. See the user manual for more information.
@@ -135,7 +137,6 @@ class CustomDelegate
   # @return [Boolean,Hash<String,Object>] See above.
   #
   def pre_authorize(_options = {})
-    require "net/http"
     resource_id = context["identifier"]
     superskunk_uri = URI("#{ENV['SUPERSKUNK_API_BASE']}/acls?file=#{resource_id}&mode=read&group=public")
     puts "Authorizing resource: #{resource_id}"
