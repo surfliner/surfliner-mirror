@@ -26,7 +26,7 @@ ingress:
           pathType: ImplementationSpecific
   tls:
     - hosts:
-        - iiif.digital.library.ucsb.edu
+        - iiif-staging.digital.library.ucsb.edu
       secretName: tls-secret
 
 
