@@ -1,3 +1,21 @@
+loadSolrConfigSet: false
+
+solrPreSetupInitContainer:
+  - name: load-solr-config
+    image: "replace/me:nya"
+    imagePullPolicy: IfNotPresent
+    envFrom:
+      - configMapRef:
+          name: surfliner-comet-prod-hyrax-env
+      - secretRef:
+          name: surfliner-comet-prod-hyrax
+    command:
+      - sh
+      - -c
+      - >
+        solrcloud-upload-configset.sh /home/cometapp/solr/conf &&
+        solrcloud-assign-configset.sh
+
 dbPreSetupInitContainer:
   - name: ensure-metadata-db-exists
     image: "bitnami/postgresql:latest"
