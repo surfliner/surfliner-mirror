@@ -12,9 +12,10 @@ module ApplicationHelper
   end
 
   def resource_render_type(document)
-    is_pdf = (File.extname(resource_upload_path(document)) == ".pdf")
+    is_pdf = File.extname(resource_upload_path(document)).start_with?(".pdf")
 
-    (is_pdf ? "catalog/pdf" : "catalog/universal_viewer")
+    # openseadragon_default partial comes from blacklight-gallery
+    (is_pdf ? "catalog/pdf" : "openseadragon_default")
   end
 
   # Override ActionView::Helpers::TranslationHelper#translate to attempt to use

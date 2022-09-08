@@ -80,16 +80,6 @@ To add a custom theme to your Starlight installation, follow these steps:
    `app/assets/images/themes/theme-name`.  Likewise for additional stylesheets:
    `app/assets/stylesheets/themes/theme-name`.
 
-## Updating Universal Viewer
-
-We are currently vendoring Universal Viewer and providing a symlink to the
-`public/uv` directory to support cache invalidation when we update to a new
-version. In order to update Universal Viewer to a newer version:
-1. Update with yarn if you haven't already: `yarn upgrade`
-1. Update the vendored uv: `bin/uv-update`
-1. Run tests to confirm things are still working
-1. Commit and push your changes
-
 ## Developing locally
 
 You will need Docker and Docker Compose installed on your host/local system.

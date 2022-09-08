@@ -1,8 +1,0 @@
-#!/bin/sh
-set -e
-
-# Update from Universal Viewer repo
-uv_src="node_modules/universalviewer/dist"
-uv_dest="public/uv"
-echo "Copying over build uv"
-rm -rf "$uv_dest" && cp -pr "$uv_src" "$uv_dest"

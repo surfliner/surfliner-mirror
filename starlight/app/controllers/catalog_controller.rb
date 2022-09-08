@@ -23,8 +23,7 @@ class CatalogController < ApplicationController
       :show_header,
       :show,
       :oembed,
-      :openseadragon,
-      :media,
+      :media
     ]
 
     # Default parameters to send to solr for all search-like
@@ -42,7 +41,7 @@ class CatalogController < ApplicationController
     config.default_solr_params = {
       qt: "search",
       rows: 10,
-      fl: "*",
+      fl: "*"
     }
 
     config.document_solr_path = "get"
