@@ -233,7 +233,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-support (3.10.3)
-    rubocop (1.35.0)
+    rubocop (1.35.1)
       json (~> 2.3)
       parallel (~> 1.10)
       parser (>= 3.1.2.1)
@@ -263,8 +263,8 @@ GEM
       rack (~> 2.2)
       rack-protection (= 2.2.0)
       tilt (~> 2.0)
-    standard (1.16.0)
-      rubocop (= 1.35.0)
+    standard (1.16.1)
+      rubocop (= 1.35.1)
       rubocop-performance (= 1.14.3)
     thor (1.1.0)
     tilt (2.0.10)
@@ -320,7 +320,7 @@ DEPENDENCIES
   rubocop-rspec
   shotgun
   sinatra (~> 2.2.0)
-  standard (= 1.16.0)
+  standard (= 1.16.1)
   timecop
   valkyrie (= 2.2.0)
   valkyrie-sequel (= 2.2.1)
