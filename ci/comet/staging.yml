@@ -28,6 +28,7 @@ comet:deploy:staging:ucsb:
       --set solrPreSetupInitContainer[0].image=$CI_REGISTRY_IMAGE/comet_worker_web:$CI_COMMIT_SHA
       --set solrPreSetupInitContainer[0].envFrom[0].configMapRef.name=surfliner-comet-stage-hyrax-env
       --set solrPreSetupInitContainer[0].envFrom[1].secretRef.name=surfliner-comet-stage-hyrax
+      --values charts/snippets/comet/solr-setup.yaml
       --values charts/snippets/comet/init-containers.yaml
       --values charts/snippets/comet/staging-deploy.yaml
       --values charts/snippets/comet/ucsb-solr-staging.yaml
@@ -62,6 +63,7 @@ comet:deploy:staging:ucsd:
       --set solrPreSetupInitContainer[0].image=$CI_REGISTRY_IMAGE/comet_worker_web:$CI_COMMIT_SHA
       --set solrPreSetupInitContainer[0].envFrom[0].configMapRef.name=surfliner-comet-stage-hyrax-env
       --set solrPreSetupInitContainer[0].envFrom[1].secretRef.name=surfliner-comet-stage-hyrax
+      --values charts/snippets/comet/solr-setup.yaml
       --values charts/snippets/comet/staging-deploy.yaml
       --values charts/snippets/comet/ucsd-staging-deploy.yaml
 

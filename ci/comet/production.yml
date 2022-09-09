@@ -26,6 +26,7 @@ comet:deploy:production:ucsb:
       --set solrPreSetupInitContainer[0].image=$CI_REGISTRY_IMAGE/comet_worker_web:$CI_COMMIT_SHA
       --set solrPreSetupInitContainer[0].envFrom[0].configMapRef.name=surfliner-comet-prod-hyrax-env
       --set solrPreSetupInitContainer[0].envFrom[1].secretRef.name=surfliner-comet-prod-hyrax
+      --values charts/snippets/comet/solr-setup.yaml
       --values charts/snippets/comet/production-deploy.yaml
       --values charts/snippets/comet/ucsb-production-deploy.yaml
       --values charts/snippets/comet/ucsb-solr-production.yaml
@@ -61,6 +62,7 @@ comet:deploy:production:ucsd:
       --set solrPreSetupInitContainer[0].image=$CI_REGISTRY_IMAGE/comet_worker_web:$CI_COMMIT_SHA
       --set solrPreSetupInitContainer[0].envFrom[0].configMapRef.name=surfliner-comet-prod-hyrax-env
       --set solrPreSetupInitContainer[0].envFrom[1].secretRef.name=surfliner-comet-prod-hyrax
+      --values charts/snippets/comet/solr-setup.yaml
       --values charts/snippets/comet/production-deploy.yaml
       --values charts/snippets/comet/ucsd-production-deploy.yaml
 
