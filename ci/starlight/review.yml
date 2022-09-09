@@ -29,6 +29,7 @@ starlight:deploy:ucsd-review:
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
   script:
     - deploy ./charts/starlight
+    - run_chart_tests
 
 starlight:cleanup:ucsd-review:
   extends:
@@ -54,6 +55,7 @@ starlight:deploy:ucsb-review:
     - .starlight:deploy:review
   script:
     - deploy ./charts/starlight
+    - run_chart_tests
   environment:
     name: ucsb.review.starlight
     url: http://starlight-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN

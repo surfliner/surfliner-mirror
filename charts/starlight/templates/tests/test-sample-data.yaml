@@ -1,0 +1,22 @@
+{{- if .Values.starlight.sample_data }}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ include "starlight.fullname" . }}-test-sample-data
+  labels:
+{{ include "starlight.labels" . | indent 4 }}
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command:
+        - sh
+        - -c
+        - >
+          echo "--- Checking a view of the sample exhibit landing page...";
+          wget -S "http{{ if .Values.ingress.tls }}s{{ end }}://{{ index .Values.ingress.hosts 0 }}/starlight/the-anna-s-c-blake-manual-training-school";
+  restartPolicy: Never
+{{- end }}
