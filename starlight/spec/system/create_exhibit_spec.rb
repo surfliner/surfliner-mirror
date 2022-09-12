@@ -3,9 +3,9 @@
 require "rails_helper"
 
 RSpec.describe "Import and Display a Work", :clean, type: :system, js: true do
-  let(:csv_file_path)   { File.join(fixture_path, csv_file_name) }
-  let(:csv_file_name)   { "file_single_item_exhibit.csv" }
-  let(:site_admin)      { FactoryBot.create(:omniauth_site_admin) }
+  let(:csv_file_path) { File.join(fixture_path, csv_file_name) }
+  let(:csv_file_name) { "file_single_item_exhibit.csv" }
+  let(:site_admin) { FactoryBot.create(:omniauth_site_admin) }
 
   before do
     omniauth_setup_dev_auth_for(site_admin)
@@ -44,6 +44,10 @@ RSpec.describe "Import and Display a Work", :clean, type: :system, js: true do
       sign_out
       visit "/starlight/test-exhibit/catalog?utf8=%E2%9C%93&exhibit_id=test-exhibit&search_field=all_fields&q="
       expect(page).to have_content "Colima dog in Santa Rosilia"
+
+      # Test that OSD viewer is present
+      click_link "Colima dog in Santa Rosilia"
+      expect(page).to have_selector "picture.openseadragon-viewer"
     end
   end
 end
