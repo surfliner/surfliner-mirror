@@ -19,6 +19,9 @@ This chart bootstraps a [starlight][starlight] deployment on a [Kubernetes](http
 To install the chart with the release name `my-release`:
 
 ```console
+$ helm repo add bitnami https://charts.bitnami.com/bitnami
+$ helm repo update
+$ helm dependency update charts/starlight
 $ helm install my-release charts/starlight
 ```
 
