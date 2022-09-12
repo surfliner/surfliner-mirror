@@ -1,7 +1,7 @@
 dependencies:
 - name: memcached
   repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
-  version: 6.0.17
+  version: 6.2.4
 - name: minio
   repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
   version: 11.10.1
@@ -17,5 +17,5 @@ dependencies:
 - name: common
   repository: file://../common
   version: 0.1.0
-digest: sha256:26ae1fa484e5dc02305bfc469c65ae74443868d905905ce49a4f46e19f30bcab
-generated: "2022-09-12T15:10:41.988636643Z"
+digest: sha256:3a29283d91e9fce5b281e4b9be57f5658ebbeb71427349de5e8eb92237ebffcc
+generated: "2022-09-12T22:10:25.185372904Z"
