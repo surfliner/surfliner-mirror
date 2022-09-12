@@ -3,7 +3,7 @@ name: orange-empire
 description: A Helm chart for Cantaloupe
 dependencies:
   - name: minio
-    version: 11.7.7
+    version: 11.10.1
     repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
     condition: minio.enabled
   - name: common

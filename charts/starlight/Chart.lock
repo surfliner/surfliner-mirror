@@ -4,7 +4,7 @@ dependencies:
   version: 6.0.17
 - name: minio
   repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
-  version: 11.7.7
+  version: 11.10.1
 - name: postgresql
   repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
   version: 11.6.5
@@ -17,5 +17,5 @@ dependencies:
 - name: common
   repository: file://../common
   version: 0.1.0
-digest: sha256:35708b97f1e7359f3162c5e47e51dda37aa5346f7ae4bfa49e81312a1133ea1a
-generated: "2022-08-26T16:24:05.591292-07:00"
+digest: sha256:26ae1fa484e5dc02305bfc469c65ae74443868d905905ce49a4f46e19f30bcab
+generated: "2022-09-12T15:10:41.988636643Z"
