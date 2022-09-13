@@ -1,5 +1,7 @@
 ingress:
   enabled: true
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
 livenessProbe:
   enabled: true
   path: "/healthz"
