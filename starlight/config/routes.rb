@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   # Dynamic robots.txt
   get "robots.:format" => "robots#index"
 
+  # Proxy for PDFs in cloud storage
+  get "/pdfs/:id" => "pdfs#embed"
+
   # https://github.com/mperham/sidekiq/wiki/Monitoring#devise
   authenticate :user, lambda { |u| u.superadmin? } do
     mount Sidekiq::Web => "/sidekiq"
