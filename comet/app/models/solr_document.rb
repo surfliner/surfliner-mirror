@@ -31,5 +31,8 @@ class SolrDocument
   # #to_global_id
   def to_model
     @model ||= Hyrax.query_service.find_by(id: id)
+  rescue Valkyrie::Persistence::ObjectNotFoundError => err
+    Hyrax.logger.error "Failed to convert SolrDocument to object for #{id}; #{err.message}"
+    raise err
   end
 end
