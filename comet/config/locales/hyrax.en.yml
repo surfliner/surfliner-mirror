@@ -145,6 +145,7 @@ en:
         show_actions:
           confirm_delete: Are you sure you wish to delete the Project? This action cannot be undone.
       sidebar:
+        workflow_review: Workflow Tasks
         works: Objects
         works_listing: Objects listing
       stats:
@@ -152,6 +153,12 @@ en:
           main: Object Statistics
           total: 'Total Objects:'
           visibility: Totals by Visibility
+      workflows:
+        index:
+          header: Workflow Tasks
+        tabs:
+          published: Completed
+          under_review: In Progress
     base:
       form:
         batch_upload_hint: To create a separate object for each of the files, go to

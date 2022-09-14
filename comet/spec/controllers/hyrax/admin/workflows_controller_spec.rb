@@ -17,7 +17,7 @@ RSpec.describe Hyrax::Admin::WorkflowsController, storage_adapter: :memory, meta
       expect(controller).to receive(:add_breadcrumb).with("Home", root_path)
       expect(controller).to receive(:add_breadcrumb).with("Dashboard", dashboard_path)
       expect(controller).to receive(:add_breadcrumb).with("Tasks", "#")
-      expect(controller).to receive(:add_breadcrumb).with("Review Submissions", "/admin/workflows")
+      expect(controller).to receive(:add_breadcrumb).with("Workflow Tasks", "/admin/workflows")
 
       get :index
       expect(response).to be_successful

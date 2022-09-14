@@ -40,7 +40,7 @@ RSpec.describe "BatchUploads", type: :system, js: true do
 
       expect(page).to have_content("Successfully ingest objects in batch.")
 
-      click_on "Review Submissions"
+      click_on "Workflow Tasks"
 
       expect(page).to have_content("in_review")
 
@@ -68,9 +68,9 @@ RSpec.describe "BatchUploads", type: :system, js: true do
 
       expect(page).to have_content("Successfully ingest objects in batch.")
 
-      click_on "Review Submissions"
+      click_on "Workflow Tasks"
 
-      expect(page).to have_selector("h1", text: "Review Submissions")
+      expect(page).to have_selector("h1", text: "Workflow Tasks")
 
       click_link "Refined By Batch"
 
