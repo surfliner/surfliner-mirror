@@ -94,7 +94,7 @@ RUN RAILS_ENV=production SECRET_KEY_BASE=fakedevsecret DB_ADAPTER=nulldb RABBITM
 
 ENV RAILS_ROOT=${DOCKER_PROJECT}
 ENV RAILS_SERVE_STATIC_FILES=1
-ENTRYPOINT ["/home/comet/app/scripts/entrypoint.sh"]
+ENTRYPOINT ["bin/docker-entrypoint.sh"]
 
 FROM base as comet-dev
 ARG LOCAL_PROJECT=comet
@@ -127,4 +127,5 @@ COPY $LOCAL_PROJECT $DOCKER_PROJECT
 
 RUN RAILS_ENV=production SECRET_KEY_BASE=fakedevsecret DB_ADAPTER=nulldb RABBITMQ_ENABLED=false DATABASE_URL='postgresql://fake' bundle exec rake assets:precompile
 ENV RAILS_ROOT=${DOCKER_PROJECT}
-ENTRYPOINT ["/home/comet/app/scripts/entrypoint.sh"]
+
+ENTRYPOINT ["bin/docker-entrypoint.sh"]
