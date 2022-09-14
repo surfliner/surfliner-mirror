@@ -68,7 +68,7 @@ RSpec.describe Hyrax::Dashboard::CollectionsController, storage_adapter: :memory
     it "redirects to login" do
       get :show, params: {id: collection.id}
 
-      expect(response).to redirect_to("/users/sign_in")
+      expect(response).to redirect_to("/users/sign_in?locale=en")
     end
 
     context "with a logged in user" do

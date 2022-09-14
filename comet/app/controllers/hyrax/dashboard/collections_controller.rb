@@ -2,7 +2,7 @@
 
 module Hyrax
   module Dashboard
-    class CollectionsController < ApplicationController
+    class CollectionsController < Hyrax::My::CollectionsController
       with_themed_layout "dashboard"
       before_action :authenticate_user!
 
@@ -143,7 +143,13 @@ module Hyrax
 
       def deny_collection_access(exception)
         Hyrax.logger.info(exception)
-        head :unauthorized
+
+        if current_user&.present?
+          head :unauthorized
+        else
+          session["user_return_to"] = request.url
+          redirect_to main_app.new_user_session_url, alert: exception.message
+        end
       end
 
       def query_collection_members
