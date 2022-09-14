@@ -19,7 +19,7 @@ $ helm dependency update charts/starlight
 $ helm install --atomic --set starlight.sample_data=true my-release charts/starlight
 ```
 
-These commands deploys Starlight on the Kubernetes cluster in the default configuration with an admin account and a skeleton sample exhibit. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
+These commands deploy Starlight on the Kubernetes cluster in the default configuration with an admin account and a skeleton sample exhibit. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
 
 > **Tip**: List all releases using `helm list`
 
