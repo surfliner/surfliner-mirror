@@ -3,14 +3,6 @@
 Starlight is a Helm chart that leverages the [starlight][starlight] container
 image to support easy deployment via Helm and Kubernetes.
 
-## TL;DR;
-
-```console
-$ git clone https://gitlab.com/surfliner/surfliner.git
-$ helm dep update charts/starlight
-$ helm install my-release charts/starlight
-```
-
 ## Introduction
 
 This chart bootstraps a [starlight][starlight] deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
@@ -19,13 +11,14 @@ This chart bootstraps a [starlight][starlight] deployment on a [Kubernetes](http
 To install the chart with the release name `my-release`:
 
 ```console
+$ git clone https://gitlab.com/surfliner/surfliner.git
 $ helm repo add bitnami https://charts.bitnami.com/bitnami
 $ helm repo update
 $ helm dependency update charts/starlight
-$ helm install my-release charts/starlight
+$ helm install --atomic --set starlight.sample_data=true my-release charts/starlight
 ```
 
-The command deploys Starlight on the Kubernetes cluster in the default configuration. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
+The command deploys Starlight on the Kubernetes cluster in the default configuration with an admin account and a skeleton sample exhibit. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
 
 > **Tip**: List all releases using `helm list`
 
