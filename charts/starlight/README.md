@@ -12,6 +12,7 @@ To install the chart with the release name `my-release`:
 
 ```console
 $ git clone https://gitlab.com/surfliner/surfliner.git
+$ cd surfliner
 $ helm repo add bitnami https://charts.bitnami.com/bitnami
 $ helm repo update
 $ helm dependency update charts/starlight
