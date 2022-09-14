@@ -4,5 +4,5 @@
 ;; See https://www.gnu.org/software/emacs/manual/html_node/emacs/Directory-Variables.html
 ;; See https://github.com/pezra/rspec-mode#docker
 ((nil . ((rspec-use-docker-when-possible . t)
-         (rspec-docker-cwd . "/app/samvera/hyrax-webapp/")
+         (rspec-docker-cwd . "/home/comet/app/")
          (rspec-docker-container . "web"))))
