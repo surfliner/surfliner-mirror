@@ -13,9 +13,9 @@ dependencies:
   version: 17.1.4
 - name: solr
   repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
-  version: 6.0.7
+  version: 6.1.4
 - name: common
   repository: file://../common
   version: 0.1.0
-digest: sha256:5130a1fd2e6a85047acb3bdff19429fab085b11fccaf731938a63750c80d11d3
-generated: "2022-09-13T13:11:16.823770478Z"
+digest: sha256:0036e98c462a22f05d9b4131d44d8af24b7f4bff33a611f95d7bcac6e1a4c4b2
+generated: "2022-09-14T00:10:54.201380559Z"
