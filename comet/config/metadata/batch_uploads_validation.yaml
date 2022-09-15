@@ -4,3 +4,6 @@ headers:
   level
   object unique id
   title
+  publication_statement
+  date_issued
+  identifier_accession
