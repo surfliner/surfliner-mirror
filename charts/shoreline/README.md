@@ -3,26 +3,24 @@
 Shoreline is a Helm chart that leverages the [shoreline][shoreline] container
 image to support easy deployment via Helm and Kubernetes.
 
-## TL;DR;
-
-```console
-$ git clone https://gitlab.com/surfliner/surfliner.git
-$ helm dep update charts/shoreline
-$ helm install my-release charts/shoreline
-```
 
 ## Introduction
 
 This chart bootstraps a [shoreline][shoreline] deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 ## Installing the Chart
-To install the chart with the release name `my-release`:
+To install the chart with the release name `shoreline`:
 
 ```console
-$ helm install my-release charts/shoreline
+$ git clone https://gitlab.com/surfliner/surfliner.git
+$ cd surfliner
+$ helm repo add bitnami https://charts.bitnami.com/bitnami
+$ helm repo update
+$ helm dependency update charts/shoreline
+$ helm install --wait --set consumer.enabled=false shoreline charts/shoreline
 ```
 
-The command deploys Shoreline on the Kubernetes cluster in the default configuration. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
+These commands deploy Shoreline on the Kubernetes cluster in the standalone, default configuration.  If integration with Comet is required, remove the '--set consumer.enabled=false' and install or upgrade Shoreline after Comet has been installed. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
 
 > **Tip**: List all releases using `helm list`
 
