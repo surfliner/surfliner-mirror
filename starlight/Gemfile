@@ -10,7 +10,7 @@ gem "blacklight-spotlight",
     git: "https://gitlab.com/surfliner/spotlight.git",
     branch: "trunk"
 gem "bootsnap", "1.13.0", require: false
-gem "bootstrap", "4.6.1"
+gem "bootstrap", "4.6.2"
 gem "cancancan",
     git: "https://github.com/CanCanCommunity/cancancan.git",
     ref: "be14fdae4d14cff0a92c719b39889571093d82a5"
