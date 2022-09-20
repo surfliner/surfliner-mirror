@@ -8,6 +8,8 @@ RSpec.describe "Collections", type: :system, js: true do
   before { sign_in user }
 
   it "can create a new collection and add object" do
+    Hyrax::CollectionType.create(title: "Spec Type")
+
     visit "/admin/collection_types"
     click_on "Create new collection type"
     fill_in("Type name", with: "Curated Collection")
@@ -15,9 +17,11 @@ RSpec.describe "Collections", type: :system, js: true do
 
     visit "/dashboard"
     click_on "Collections"
-    expect(page).to have_link("New Collection")
-
-    click_on "New Collection"
+    find("#add-new-collection-button").click
+    within("div#collectiontypes-to-create") do
+      choose("Spec Type")
+      click_on("Create collection")
+    end
     fill_in("Title", with: "System Spec Collection")
 
     expect { click_on("Save") }

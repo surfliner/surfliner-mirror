@@ -10,9 +10,10 @@ RSpec.describe Hyrax::GenericObjectsController, storage_adapter: :memory, metada
   describe "#create" do
     before { Hyrax.metadata_adapter.persister.wipe! }
 
-    context "when creating embargo" do
+    context "when creating embargo", :with_admin_set do
       let(:params) do
         {generic_object: {title: ["embargo test"],
+                          admin_set_id: Hyrax::AdminSetCreateService.find_or_create_default_admin_set.id.to_s,
                           visibility: "embargo",
                           visibility_during_embargo: "restricted",
                           embargo_release_date: Date.tomorrow.to_s,
@@ -31,7 +32,7 @@ RSpec.describe Hyrax::GenericObjectsController, storage_adapter: :memory, metada
       end
     end
 
-    context "when assigning a collection relationship" do
+    context "when assigning a collection relationship", :with_admin_set do
       let(:collection_type) { Hyrax::CollectionType.create(title: "Spec Type") }
       let(:collection) {
         Hyrax::PcdmCollection.new(title: "Spec Type",

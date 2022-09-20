@@ -106,6 +106,7 @@ RSpec.configure do |config|
   config.include Capybara::RSpecMatchers, type: :input
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::IntegrationHelpers, type: :system
+  config.include_context "with an admin set", type: :system
 
   config.before(:each, type: :system) do
     Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"

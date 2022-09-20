@@ -11,14 +11,22 @@ RSpec.describe "Collections", type: :system, js: true, storage_adapter: :memory,
     # Create parent collection
     visit "/dashboard"
     click_on "Collections"
-    click_on "New Collection"
+    find("#add-new-collection-button").click
+    within("div#collectiontypes-to-create") do
+      choose("Spec Type")
+      click_on("Create collection")
+    end
     fill_in("Title", with: "Parent Collection")
     click_on("Save")
 
     # Create child collection
     visit "/dashboard"
     click_on "Collections"
-    click_on "New Collection"
+    find("#add-new-collection-button").click
+    within("div#collectiontypes-to-create") do
+      choose("Spec Type")
+      click_on("Create collection")
+    end
     fill_in("Title", with: "Child Collection")
     click_on("Save")
 

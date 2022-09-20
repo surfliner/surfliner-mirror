@@ -24,9 +24,13 @@ RSpec.describe "Generic Objects", type: :system, js: true do
     it "can assign a Collection to it" do
       visit "/dashboard"
       click_on "Collections"
-      expect(page).to have_link("New Collection")
+      find("#add-new-collection-button").click
 
-      click_on "New Collection"
+      within("div#collectiontypes-to-create") do
+        choose("Spec Type")
+        click_on("Create collection")
+      end
+
       fill_in("Title", with: "Test Collection 3")
 
       click_on("Save")
@@ -65,18 +69,26 @@ RSpec.describe "Generic Objects", type: :system, js: true do
     it "can assign multiple Collections to it" do
       visit "/dashboard"
       click_on "Collections"
-      expect(page).to have_link("New Collection")
 
-      click_on "New Collection"
+      find("#add-new-collection-button").click
+      within("div#collectiontypes-to-create") do
+        choose("Spec Type")
+        click_on("Create collection")
+      end
+
       fill_in("Title", with: "Test Collection 1")
 
       click_on("Save")
 
       visit "/dashboard"
       click_on "Collections"
-      expect(page).to have_link("New Collection")
 
-      click_on "New Collection"
+      find("#add-new-collection-button").click
+      within("div#collectiontypes-to-create") do
+        choose("Spec Type")
+        click_on("Create collection")
+      end
+
       fill_in("Title", with: "Test Collection 2")
 
       click_on("Save")
