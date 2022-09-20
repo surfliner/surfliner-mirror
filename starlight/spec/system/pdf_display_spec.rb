@@ -32,7 +32,7 @@ RSpec.describe "Display embedded PDFs", :clean, type: :system, js: true do
       visit "/starlight/test/catalog/#{exhibit.id}-#{pdf.id}"
 
       expect(page).to have_selector "embed"
-      expect(page).not_to have_selector "picture.openseadragon-viewer"
+      expect(page).not_to have_selector ".universal-viewer-iframe"
     end
   end
 end

@@ -45,9 +45,10 @@ RSpec.describe "Import and Display a Work", :clean, type: :system, js: true do
       visit "/starlight/test-exhibit/catalog?utf8=%E2%9C%93&exhibit_id=test-exhibit&search_field=all_fields&q="
       expect(page).to have_content "Colima dog in Santa Rosilia"
 
-      # Test that OSD viewer is present
       click_link "Colima dog in Santa Rosilia"
-      expect(page).to have_selector "picture.openseadragon-viewer"
+      # IIIF Manifest present on the page
+      expect(page.html).to match(%r{/starlight/.*/manifest})
+      expect(page).to have_selector ".universal-viewer-iframe"
     end
   end
 end
