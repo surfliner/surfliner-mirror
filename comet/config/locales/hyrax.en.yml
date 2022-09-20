@@ -239,6 +239,9 @@ en:
           you_own: "<strong>%{total_count} Objects</strong> you own"
     product_name: Comet
     product_twitter_handle: "@SamveraRepo"
+    visibility:
+      open:
+        warning_html: ""
     works:
       create:
         breadcrumb: New
