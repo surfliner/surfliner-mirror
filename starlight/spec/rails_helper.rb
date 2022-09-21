@@ -30,7 +30,7 @@ require "rspec/matchers"
 #
 Dir[Rails.root.join("spec", "support", "**", "*.rb")].sort.each { |f| require f }
 
-WebMock.allow_net_connect!(allow_localhost: true)
+WebMock.allow_net_connect!(allow_localhost: true, net_http_connect_on_start: true)
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.

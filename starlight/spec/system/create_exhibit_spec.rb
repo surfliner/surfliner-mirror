@@ -11,6 +11,7 @@ RSpec.describe "Import and Display a Work", :clean, type: :system, js: true do
     omniauth_setup_dev_auth_for(site_admin)
     sign_in
     allow(Spotlight::DefaultThumbnailJob).to receive(:perform_later)
+    allow_any_instance_of(CarrierWave::Downloader::Base).to receive(:skip_ssrf_protection?).and_return(true)
   end
 
   context "Create an exhibit" do
