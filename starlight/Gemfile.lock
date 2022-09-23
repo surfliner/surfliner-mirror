@@ -1,11 +1,4 @@
 GIT
-  remote: https://github.com/CanCanCommunity/cancancan.git
-  revision: be14fdae4d14cff0a92c719b39889571093d82a5
-  ref: be14fdae4d14cff0a92c719b39889571093d82a5
-  specs:
-    cancancan (3.3.0)
-
-GIT
   remote: https://github.com/curationexperts/riiif.git
   revision: e561d4f2e4f11e073e0344fa42ac3ecc660a689d
   specs:
@@ -187,6 +180,7 @@ GEM
       railties (>= 5.0)
     builder (3.2.4)
     byebug (11.1.3)
+    cancancan (3.3.0)
     capybara (3.37.1)
       addressable
       matrix
@@ -623,7 +617,7 @@ DEPENDENCIES
   bootsnap (= 1.13.0)
   bootstrap (= 4.6.2)
   byebug (= 11.1.3)
-  cancancan!
+  cancancan (= 3.3.0)
   capybara (= 3.37.1)
   capybara-screenshot (= 1.0.26)
   carrierwave-aws (= 1.5.0)
@@ -666,4 +660,4 @@ DEPENDENCIES
   webmock (= 3.18.1)
 
 BUNDLED WITH
-   2.3.22
+   2.3.18
