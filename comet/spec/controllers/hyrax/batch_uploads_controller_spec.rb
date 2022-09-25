@@ -43,6 +43,19 @@ RSpec.describe Hyrax::BatchUploadsController, storage_adapter: :memory, metadata
           .to change { Hyrax.query_service.count_all_of_model(model: ::GenericObject) }
           .by 1
       end
+
+      it "creates an object with the admin set id" do
+        admin_set = Hyrax.persister.save(resource: Hyrax::AdministrativeSet.new(title: "New Project"))
+        Hyrax::PermissionTemplate.find_or_create_by!(source_id: admin_set.id.to_s)
+
+        params = {batch_upload: {source_file: source_file,
+                                 files_location: files_location,
+                                 admin_set_id: admin_set.id.to_s}}
+
+        post :create, params: params
+        expect(Hyrax.query_service.find_all_of_model(model: ::GenericObject).last&.admin_set_id)
+          .to eq admin_set.id
+      end
     end
   end
 end

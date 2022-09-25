@@ -93,9 +93,9 @@ RSpec.describe "BatchUploads", type: :system, js: true do
 
         # see: https://stackoverflow.com/questions/70441796/selenium-webdriver-for-aws-device-farm-error-when-sending-period-keystroke-t/70443309#70443309
         Capybara.current_session.driver.browser.file_detector = nil
+        select("Test Project", from: "batch_upload_admin_set_id")
         fill_in("Files Location", with: files_location)
         click_button "Submit"
-
         expect(page).to have_content("Successfully ingest objects in batch.")
 
         find("#documents").first(:link, "image.jpg").click
@@ -144,7 +144,7 @@ RSpec.describe "BatchUploads", type: :system, js: true do
           bucket: s3_bucket, s3_key: s3_key, source_file: file)
       end
 
-      it "can see the button for batch ingest and load the form" do
+      xit "can see the button for batch ingest and load the form" do
         visit "/dashboard"
         click_on "Batch Uploads"
 
@@ -243,6 +243,7 @@ RSpec.describe "BatchUploads", type: :system, js: true do
 
         expect(page).to have_select("batch_upload_option", selected: "files-only")
 
+        select("Test Project", from: "batch_upload_admin_set_id")
         select_s3_path("my-project/")
 
         click_button "Submit"

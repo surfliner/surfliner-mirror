@@ -3,6 +3,7 @@
 ##
 # @see https://github.com/samvera/valkyrie/wiki/ChangeSets-and-Dirty-Tracking
 class BatchUploadForm < Valkyrie::ChangeSet
+  property :admin_set_id, multiple: false, required: true
   property :source_file, multiple: false, required: true
   property :files_location, multiple: false, required: true
 

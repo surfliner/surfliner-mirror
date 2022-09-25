@@ -14,7 +14,14 @@
                               'param-key' => @form.model_name.param_key },
                       multipart: true
                     } do |f| %>
+
+
 <div class="panel panel-default" style="padding:30px 20px;margin-right:30px;">
+  <%= f.input :admin_set_id, as: :select,
+      include_blank: false,
+      collection: admin_set_options,
+      input_html: { class: 'form-control' } %>
+
   <% if @batch_upload_option != BatchUpload.files_only_ingest %>
   <div class="row">
     <div class="form-group">

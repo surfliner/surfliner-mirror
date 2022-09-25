@@ -33,6 +33,7 @@ RSpec.describe "BatchUploads", type: :system, js: true do
 
       expect(page).to have_content("Add New Works by Batch")
 
+      select("Test Project", from: "batch_upload_admin_set_id")
       attach_file "Source File", source_file
       select_s3_path("my-project/")
 
@@ -61,6 +62,7 @@ RSpec.describe "BatchUploads", type: :system, js: true do
 
       expect(page).to have_content("Add New Works by Batch")
 
+      select("Test Project", from: "batch_upload_admin_set_id")
       attach_file "Source File", source_file
       select_s3_path("my-project/")
 

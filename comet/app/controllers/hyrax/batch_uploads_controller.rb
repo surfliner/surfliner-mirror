@@ -4,11 +4,13 @@ module Hyrax
   class BatchUploadsController < ApplicationController
     include BatchUploadsControllerBehavior
     include BatchUploadsControllerGeodataBehavior
+    include WithAdminSetSelection
 
     with_themed_layout "dashboard"
     before_action :authenticate_user!
 
     def new
+      @admin_set_options = available_admin_sets
       @batch_upload_option = params[:option]
       @batch_upload_options = BatchUpload.ingest_options
       @batch_upload = BatchUpload.new
@@ -20,7 +22,7 @@ module Hyrax
       files_only_ingest = params[:option] == BatchUpload.files_only_ingest
       geodata_ingest = params[:option] == BatchUpload.geodata_ingest
       permitted = s3_enabled && files_only_ingest ? params.permit(:files_location)
-        : params.require(:batch_upload).permit(:source_file, :files_location)
+        : params.require(:batch_upload).permit(:source_file, :files_location, :admin_set_id)
 
       permitted = permitted.merge(files_location: params.require(:files_location)) if s3_enabled
 
@@ -66,13 +68,14 @@ module Hyrax
         return
       end
 
+      # TODO: override license, visibility, embargo_release_date etc. From form?
+      # TODO: build object/component relationship, link to collections etc.
       rows.each_with_index do |row, i|
-        # TODO: override license, visibility, embargo_release_date etc. From form?
-
-        # TODO: AdministrativeSet submitted from form?
-        admin_sets = Hyrax.query_service.find_all_of_model(model: Hyrax::AdministrativeSet)
-        admin_set = admin_sets.find { |p| !Hyrax::PermissionTemplate.find_by(source_id: p.id.to_s).nil? }
-        row["admin_set_id"] = admin_set.id.to_s if admin_set
+        admin_set_id =
+          permitted[:admin_set_id].to_s ||
+          Hyrax::AdminSetCreateService.find_or_create_default_admin_set.id.to_s
+        row["admin_set_id"] = admin_set_id if
+          Hyrax::PermissionTemplate.find_by(source_id: admin_set_id).present?
 
         if geodata_ingest
           # look up files by the .shp shape file key and ingest the geospatial object
@@ -84,7 +87,6 @@ module Hyrax
           ingest_geodata_object(row.with_indifferent_access, permitted[:files_location])
         else
           ingest_object(row.with_indifferent_access, permitted[:files_location])
-          # TODO: build object/component relationship, link to collections etc.
         end
       end
 
