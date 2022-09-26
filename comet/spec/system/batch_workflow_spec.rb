@@ -39,7 +39,7 @@ RSpec.describe "BatchUploads", type: :system, js: true do
 
       click_button "Submit"
 
-      expect(page).to have_content("Successfully ingest objects in batch.")
+      expect(page).to have_content("Successfully ingested objects in batch.")
 
       click_on "Workflow Tasks"
 
@@ -68,7 +68,7 @@ RSpec.describe "BatchUploads", type: :system, js: true do
 
       click_button "Submit"
 
-      expect(page).to have_content("Successfully ingest objects in batch.")
+      expect(page).to have_content("Successfully ingested objects in batch.")
 
       click_on "Workflow Tasks"
 

@@ -36,7 +36,7 @@ RSpec.describe "BatchUploads", type: :system, js: true do
         fill_in("Files Location", with: files_location)
         click_button "Submit"
 
-        expect(page).to have_content("Successfully ingest objects in batch.")
+        expect(page).to have_content("Successfully ingested objects in batch.")
 
         find("#documents").first(:link, "Batch ingest object").click
         expect(page).to have_link("Review and Approval")
@@ -63,7 +63,7 @@ RSpec.describe "BatchUploads", type: :system, js: true do
         fill_in("Files Location", with: files_location)
         click_button "Submit"
 
-        expect(page).to have_content("Successfully ingest objects in batch.")
+        expect(page).to have_content("Successfully ingested objects in batch.")
         expect(page).to have_content("Batch ingest - download")
 
         find("#documents").first(:link, "Batch ingest - download").click
@@ -96,7 +96,7 @@ RSpec.describe "BatchUploads", type: :system, js: true do
         select("Test Project", from: "batch_upload_admin_set_id")
         fill_in("Files Location", with: files_location)
         click_button "Submit"
-        expect(page).to have_content("Successfully ingest objects in batch.")
+        expect(page).to have_content("Successfully ingested objects in batch.")
 
         find("#documents").first(:link, "image.jpg").click
         expect(page).to have_link("Review and Approval")
@@ -155,7 +155,7 @@ RSpec.describe "BatchUploads", type: :system, js: true do
 
         click_button "Submit"
 
-        expect(page).to have_content("Successfully ingest objects in batch.")
+        expect(page).to have_content("Successfully ingested objects in batch.")
         expect(page).to have_content("Batch ingest object")
 
         find("#documents").first(:link, "Batch ingest object").click
@@ -217,7 +217,7 @@ RSpec.describe "BatchUploads", type: :system, js: true do
 
         click_button "Submit"
 
-        expect(page).to have_content("Successfully ingest objects in batch.")
+        expect(page).to have_content("Successfully ingested objects in batch.")
         expect(page).to have_content("Batch ingest - download")
 
         find("#documents").first(:link, "Batch ingest - download").click
@@ -248,7 +248,7 @@ RSpec.describe "BatchUploads", type: :system, js: true do
 
         click_button "Submit"
 
-        expect(page).to have_content("Successfully ingest objects in batch.")
+        expect(page).to have_content("Successfully ingested objects in batch.")
 
         find("#documents").first(:link, "image.jpg").click
         expect(page).to have_link("Review and Approval")

@@ -58,7 +58,7 @@ en:
         header: "Add New Works by Batch"
         ingest_option_label: "Ingest Option: "
         source_file_label: "Source File"
-        submission_success: "Successfully ingest objects in batch."
+        submission_success: "Successfully ingested objects in batch."
         title: "Batch Upload"
         placeholders:
           files_location: Select files location from staging

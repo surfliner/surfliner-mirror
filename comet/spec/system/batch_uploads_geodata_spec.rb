@@ -37,7 +37,7 @@ RSpec.describe "BatchUploadsGeodata", type: :system, js: true do
         fill_in("Files Location", with: files_location)
         click_button "Submit"
 
-        expect(page).to have_content("Successfully ingest objects in batch.")
+        expect(page).to have_content("Successfully ingested objects in batch.")
 
         find("#documents").first(:link, "Lakes, Maya Forest, Guatemala, 2000").click
         expect(page).to have_link("Review and Approval")
@@ -121,7 +121,7 @@ RSpec.describe "BatchUploadsGeodata", type: :system, js: true do
 
         click_button "Submit"
 
-        expect(page).to have_content("Successfully ingest objects in batch.")
+        expect(page).to have_content("Successfully ingested objects in batch.")
         expect(page).to have_content("Lakes, Maya Forest, Guatemala, 2000")
 
         find("#documents").first(:link, "Lakes, Maya Forest, Guatemala, 2000").click
