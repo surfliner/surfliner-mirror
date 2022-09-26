@@ -233,7 +233,7 @@ RSpec.describe "BatchUploads", type: :system, js: true do
     end
 
     context "with ingest option" do
-      it "loads the files-only ingest form" do
+      xit "loads the files-only ingest form" do
         visit "/dashboard"
         click_on "Batch Uploads"
 
