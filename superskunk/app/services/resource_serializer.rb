@@ -53,6 +53,7 @@ class ResourceSerializer
   # A hash associating profile strings with the resource serializer used to
   # serialize them.
   def self.supported_profiles
-    {"tag:surfliner.gitlab.io,2022:api/oai_dc" => OaiDcSerializer}
+    {"tag:surfliner.gitlab.io,2022:api/oai_dc" => OaiDcSerializer,
+     "tag:surfliner.gitlab.io,2022:api/shoreline/ingest" => ShorelineIngestSerializer}
   end
 end

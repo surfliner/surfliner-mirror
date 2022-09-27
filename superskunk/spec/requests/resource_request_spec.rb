@@ -80,6 +80,29 @@ RSpec.describe "GET /resources/{id}" do
     end
   end
 
+  describe "ShorelineIngest" do
+    let(:geo_profile) { "tag:surfliner.gitlab.io,2022:api/shoreline/ingest" }
+    let(:geo_title) { "Test Geospatial Object for Shoreline Ingest" }
+    let(:geo_description_note) { "The description note" }
+    let(:resource) { persister.save(resource: GeospatialObject.new(title: [geo_title], note_description: [geo_description_note])) }
+    let(:id) { resource.id }
+
+    it "gets ShorelineInges" do
+      get "/resources/#{id}", {}, {
+        "HTTP_ACCEPT" => "application/ld+json;profile=\"#{geo_profile}\"",
+        "HTTP_USER_AGENT" => user_agent
+      }
+      result_json = JSON.parse(last_response.body.to_str)
+
+      expect(last_response.ok?).to be true
+      expect(result_json["@context"]).to include(
+        "note_description" => "http://purl.org/dc/elements/1.1/description"
+      )
+      expect(result_json["title"]).to contain_exactly geo_title
+      expect(result_json["note_description"]).to contain_exactly geo_description_note
+    end
+  end
+
   describe "unknown profile" do
     let(:profile) { "example:unknown_profile" }
 
