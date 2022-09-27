@@ -40,6 +40,7 @@ mappings:
   gbl-1:
     name: gbl-1
     display_label: GeoBlacklight metadata schema version 1.0
+    iri: tag:surfliner.gitlab.io,2022:api/shoreline/ingest
 
 # Class Definitions
 
