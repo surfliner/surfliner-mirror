@@ -41,7 +41,7 @@ RSpec.describe SurflinerSchema do
 
       it "maps properties with mappings" do
         expect(resource.mapped_to("example:mapping")).to eq({
-          "example:mapping#test_property" => Set.new(["etaoin"])
+          "test_field" => {property_iri: "example:mapping#test_property", value: Set.new(["etaoin"])}
         })
       end
 
