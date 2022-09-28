@@ -55,9 +55,14 @@ RSpec.describe Hyrax::Dashboard::CollectionsController, storage_adapter: :memory
   describe "#show" do
     routes { Hyrax::Engine.routes }
 
+    let(:collection_type) { Hyrax::CollectionType.create(title: "Spec Type") }
+    let(:collection_type_gid) { collection_type.to_global_id.to_s }
+
     let(:collection) do
-      c = Hyrax::PcdmCollection.new(title: ["My Collection"])
-      Hyrax.persister.save(resource: c)
+      c = Hyrax::PcdmCollection.new(title: ["My Collection"], collection_type_gid: collection_type_gid)
+      c = Hyrax.persister.save(resource: c)
+      Hyrax.index_adapter.save(resource: c)
+      c
     end
 
     it "redirects to login" do
@@ -67,9 +72,15 @@ RSpec.describe Hyrax::Dashboard::CollectionsController, storage_adapter: :memory
     end
 
     context "with a logged in user" do
-      before { sign_in(user) }
+      before do
+        sign_in(user)
 
-      xit "gives a succesful response" do
+        acl = Hyrax::AccessControlList(collection)
+        acl.grant(:read).to(user)
+        acl.save
+      end
+
+      it "gives a succesful response" do
         get :show, params: {id: collection.id}
         expect(response).to be_successful
       end
