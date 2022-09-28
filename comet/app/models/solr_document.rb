@@ -35,4 +35,13 @@ class SolrDocument
     Hyrax.logger.error "Failed to convert SolrDocument to object for #{id}; #{err.message}"
     raise err
   end
+
+  ##
+  # Rely on +generic_type_sim+ to decide if a document represents a collection.
+  # This avoids a dependency on specific model classes.
+  def collection?
+    Array(self[:generic_type_sim]).include?("Collection") ||
+      hydra_model == Collection ||
+      super
+  end
 end

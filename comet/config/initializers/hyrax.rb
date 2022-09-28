@@ -7,6 +7,7 @@ Hyrax.config do |config|
   config.register_curation_concern :generic_object
   config.disable_wings = true
 
+  config.collection_model = "Hyrax::PcdmCollection"
   config.admin_set_model = "Hyrax::AdministrativeSet"
 
   # Register roles that are expected by your implementation.
