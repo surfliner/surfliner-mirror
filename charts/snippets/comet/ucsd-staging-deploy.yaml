@@ -9,9 +9,18 @@ ingress:
         - lib-comet-staging.ucsd.edu
       secretName: tls-secret
 
+# External Solr
+solr:
+  enabled: false
+loadSolrConfigSet: false
+solrExistingSecret: comet-staging-solr
+externalSolrHost: lib-solr-stage.ucsd.edu
+externalSolrPort: "9030"
+externalSolrUser: sadmin
+externalSolrCollection: "comet"
+
 postgresql:
   enabled: false
-
 externalPostgresql:
   database: comet
   host: lib-psql-stage.ucsd.edu
