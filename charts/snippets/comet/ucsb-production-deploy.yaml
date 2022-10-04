@@ -1,7 +1,7 @@
 ingress:
   enabled: true
   hosts:
-    - host: comet.eks.dld.library.ucsb.edu
+    - host: manage.digital.library.ucsb.edu
       paths:
         - path: '/'
 

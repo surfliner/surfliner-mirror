@@ -1,6 +1,6 @@
 ingress:
   hosts:
-    - host: comet-staging.eks.dld.library.ucsb.edu
+    - host: manage-staging.digital.library.ucsb.edu
       paths:
         - path: '/'
 
