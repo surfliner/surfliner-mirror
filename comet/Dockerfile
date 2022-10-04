@@ -9,7 +9,7 @@ ARG BASE_IMAGE=registry.gitlab.com/surfliner/surfliner/base
 ARG PROD_IMAGE=registry.gitlab.com/surfliner/surfliner/prod
 
 # these ARGs are used by the ONBUILD commands in the base image
-ARG BUILD_TIME_APKS='build-base curl gcompat git nodejs postgresql-dev tzdata yarn'
+ARG BUILD_TIME_APKS='build-base curl gcompat git libxml2 libxml2-dev nodejs postgresql-dev tzdata yarn'
 ARG LOCAL_PROJECT=comet
 FROM $BASE_IMAGE:latest as comet-base
 
