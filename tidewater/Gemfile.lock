@@ -208,7 +208,7 @@ GEM
       rubocop-ast (>= 0.4.0)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
-    sequel (5.60.1)
+    sequel (5.61.0)
     standard (1.16.1)
       rubocop (= 1.35.1)
       rubocop-performance (= 1.14.3)
@@ -237,7 +237,7 @@ DEPENDENCIES
   rails (= 7.0.4)
   rspec-rails (= 5.1.2)
   rspec_junit_formatter (= 0.5.1)
-  sequel (= 5.60.1)
+  sequel (= 5.61.0)
   standard (= 1.16.1)
   tzinfo-data (= 2.0.4)
 

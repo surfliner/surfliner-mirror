@@ -15,7 +15,7 @@ gemfile do
 
   gem "bunny", "2.19.0"
   gem "pg", "1.4.3"
-  gem "sequel", "5.60.1"
+  gem "sequel", "5.61.0"
   gem "oai", "1.2.1"
 end
 
