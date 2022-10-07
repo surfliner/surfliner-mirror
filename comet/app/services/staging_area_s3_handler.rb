@@ -15,7 +15,7 @@ class StagingAreaS3Handler
     @prefix = prefix
     @connection = connection
     @bucket_name = bucket
-    @bucket = @connection.directories.get(bucket, prefix: prefix)
+    @bucket = connection.directories.new(key: bucket)
   end
 
   ##
@@ -23,7 +23,7 @@ class StagingAreaS3Handler
   # @param prefix - the prefix of the files
   # return[[String]] - file names
   def get_filenames(prefix)
-    @connection.directories.get(@bucket_name, prefix: prefix)
+    connection.directories.get(bucket_name, prefix: prefix)
       .files.map { |mf| mf.key.sub(prefix, "") }
   end
 
@@ -31,7 +31,7 @@ class StagingAreaS3Handler
   # List files in the bucket
   # return[[Fog::Storage::AWS::File]]
   def list_files
-    @bucket.files
+    bucket.files
   end
 
   ##
@@ -39,7 +39,7 @@ class StagingAreaS3Handler
   # @param key[String]
   # return [String] url expired in a week
   def file_url(key)
-    @bucket.files.get(key).url(Time.zone.now + 7.day.to_i)
+    list_files.get(key).url(Time.zone.now + 7.day.to_i)
   end
 
   ##
@@ -53,7 +53,7 @@ class StagingAreaS3Handler
     end
 
     File.open(dest_file, "wb") do |f|
-      @bucket.files.get(s3_key) do |chunk|
+      list_files.get(s3_key) do |chunk|
         f.write chunk
       end
     end
