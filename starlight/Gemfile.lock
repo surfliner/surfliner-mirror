@@ -9,15 +9,15 @@ GIT
 
 GIT
   remote: https://gitlab.com/surfliner/spotlight.git
-  revision: b2902b3ed9bd458279eb2d7a7c09ec5b2258693e
+  revision: f0817411f993d9966be07f4e5c43e0cce29fa7f4
   branch: trunk
   specs:
-    blacklight-spotlight (3.3.0)
+    blacklight-spotlight (3.5.0.2)
       activejob-status
       acts-as-taggable-on (>= 5.0, < 10)
       autoprefixer-rails
       blacklight (~> 7.18)
-      blacklight-gallery (~> 3.0)
+      blacklight-gallery (>= 3.0, < 5)
       bootstrap_form (~> 4.1)
       breadcrumbs_on_rails (>= 3.0, < 5)
       cancancan
@@ -44,17 +44,19 @@ GIT
       ostruct (!= 0.3.2, != 0.3.1, != 0.3.0)
       paper_trail (>= 11.0, < 13)
       pg
-      rails (>= 5.2, < 6.2)
+      rails (>= 6.1, < 8)
+      redcarpet (>= 2.0.1, < 4)
       riiif (~> 2.0)
       roar (~> 1.1)
       roar-rails
+      sidekiq
       signet
-      sir_trevor_rails (>= 0.6.1)
       sprockets (>= 3)
       sprockets-es6
       thor
       tophat
       underscore-rails (~> 1.6)
+      webpacker
 
 GEM
   remote: https://rubygems.org/
@@ -409,6 +411,8 @@ GEM
     rack (2.2.4)
     rack-protection (2.2.2)
       rack
+    rack-proxy (0.7.4)
+      rack
     rack-test (2.0.2)
       rack (>= 1.3)
     rails (6.1.7)
@@ -530,6 +534,7 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    semantic_range (3.0.0)
     shoulda-matchers (5.2.0)
       activesupport (>= 5.2.0)
     sidekiq (6.5.7)
@@ -541,16 +546,11 @@ GEM
       faraday (>= 0.17.5, < 3.a)
       jwt (>= 1.5, < 3.0)
       multi_json (~> 1.10)
-    sir_trevor_rails (0.6.1)
-      multi_json (~> 1.0)
-      rails (>= 3, < 7)
-      redcarpet (>= 2.0.1, < 4)
-      twitter-text (~> 1.4)
     sitemap_generator (6.3.0)
       builder (~> 3.0)
-    snaky_hash (2.0.0)
+    snaky_hash (2.0.1)
       hashie
-      version_gem (~> 1.1)
+      version_gem (~> 1.1, >= 1.1.1)
     sprockets (4.1.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -574,17 +574,12 @@ GEM
     tophat (2.3.1)
       actionpack (>= 3.0.0)
     trailblazer-option (0.1.2)
-    twitter-text (1.14.7)
-      unf (~> 0.1.0)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
     uber (0.1.0)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
     underscore-rails (1.8.3)
-    unf (0.1.4)
-      unf_ext
-    unf_ext (0.0.8.2)
     unicode-display_width (2.2.0)
     version_gem (1.1.1)
     view_component (2.35.0)
@@ -596,6 +591,11 @@ GEM
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
+    webpacker (5.4.3)
+      activesupport (>= 5.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 5.2)
+      semantic_range (>= 2.3.0)
     webrick (1.7.0)
     websocket (1.2.9)
     websocket-driver (0.7.5)
@@ -605,7 +605,7 @@ GEM
       nokogiri (~> 1.8)
     yard (0.9.28)
       webrick (~> 1.7.0)
-    zeitwerk (2.6.0)
+    zeitwerk (2.6.1)
 
 PLATFORMS
   ruby
@@ -662,4 +662,4 @@ DEPENDENCIES
   webmock (= 3.18.1)
 
 BUNDLED WITH
-   2.3.18
+   2.4.0.dev
