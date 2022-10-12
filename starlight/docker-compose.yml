@@ -94,6 +94,15 @@ services:
     networks:
       - starlight
 
+  cantaloupe:
+    extends:
+      file: ../docker-compose/orange-empire.yaml
+      service: cantaloupe
+    env_file:
+      - .env
+    networks:
+      - starlight
+
   redis:
     extends:
       file: ../docker-compose/common.yaml
