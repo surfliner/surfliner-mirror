@@ -30,17 +30,17 @@ The collaboration is named Project Surfliner after the [Amtrak route](https://en
 The Project Surfliner team is collaboratively developing a number of products whose code all lives within this surfliner monorepo. All the products are also named after historic intra-California train routes.
 
 ### Comet
-Comet is a staff-facing digital object management platform based on [Hyrax](https://hyrax.samvera.org/about/), a front-end application that provides a user interface for common repository features. See the [Comet README](https://gitlab.com/surfliner/surfliner/-/blob/trunk/comet/README.md) for more information. 
+Comet is a staff-facing digital object management platform based on [Hyrax](https://hyrax.samvera.org/about/), a front-end application that provides a user interface for common repository features. See the [Comet README](https://gitlab.com/surfliner/surfliner/-/blob/trunk/comet/README.md) for more information.
 
 _Comet was named after the Sacramento Northern Train that operated between Chico to San Francisco via Sacramento from about 1928 to 1940._
 
 ### Lark
-Lark is a shared authority control platform and API. See the [Lark README](https://gitlab.com/surfliner/surfliner/blob/trunk/lark/README.md) for more information. 
+Lark is a shared authority control platform and API. See the [Lark README](https://gitlab.com/surfliner/surfliner/blob/trunk/lark/README.md) for more information.
 
 _Lark was named after the Southern Pacific Lark Train that operated overnight between Los Angeles and San Francisco via San Luis Obispo from 1941 to April 1968._
 
 ### Orange Empire
-Orange Empire is shared IIIF services; it uses the Cantaloupe Image Server. 
+Orange Empire is shared IIIF services; it uses the Cantaloupe Image Server.
 
 _Orange Empire was named after the Pacific Electric train that operated between Los Angeles and Redlands from 1914 to 1929._
 
@@ -55,7 +55,7 @@ Starlight is an exhibits platform based on [Spotlight](https://github.com/projec
 _Starlight was named after Southern Pacific Starlight Train that operated overnight between Los Angeles and San Francisco from October 1949 to July 1957._
 
 ### Superskunk
-Superskunk is [Comet's](#comet) metadata API; used by other platforms to read metadata in real time. 
+Superskunk is [Comet's](#comet) metadata API; used by other platforms to read metadata in real time.
 
 _Superskunk was named after the California Western Railroad, popularly called the Skunk Train ("Super Skunk"), that runs from Fort Bragg to Willits starting from 1965 to the present._
 
@@ -67,7 +67,7 @@ _Tidewater was named after the Tidewater Southern Railway which was a short line
 ## Product Deployments
 
 ### UCSB
-*  **Comet (Staging):** [http://comet-staging.eks.dld.library.ucsb.edu/](http://comet-staging.eks.dld.library.ucsb.edu/)
+*  **Comet (Staging):** [http://manage-staging.digital.library.ucsb.edu/](http://manage-staging.digital.library.ucsb.edu/)
 *  **Shoreline (Staging):** [http://shoreline-staging.eks.dld.library.ucsb.edu/](http://shoreline-staging.eks.dld.library.ucsb.edu/)
 *  **Shoreline (Production):** [http://geodata.library.ucsb.edu/](http://geodata.library.ucsb.edu/)
 *  **Starlight (Staging):** [https://spotlight-stage.library.ucsb.edu/](https://spotlight-stage.library.ucsb.edu/)
@@ -105,7 +105,7 @@ Within the Project Surfliner context, there are two types of teams:
 While not necessarily involved in daily development work, the project also includes these other vitality important roles:
 * **Campus Project Owner (when needed)**: responsible for ensuring that the needs of their campus stakeholders are considered in the development of each product
 * **Project Champion**: higher level administrators who help with resourcing, advocacy, and clearing major blockers
-* **Project Sponsors**: the University Librarian for each campus partner 
+* **Project Sponsors**: the University Librarian for each campus partner
 * **Stakeholders**: individuals who are responsible for informing the decisions that product teams make and have specific knowledge and influence that help the product. Stakeholders include:
   * User Advocates;
   * Staff;
@@ -114,10 +114,10 @@ While not necessarily involved in daily development work, the project also inclu
   * etc...
 
 ### Team Meetings
-All Surfliner sprints include a mix of project-wide and per product team meetings. 
+All Surfliner sprints include a mix of project-wide and per product team meetings.
 
 #### Project-wide
-**Project Surfliner Daily Standup**<br/> 
+**Project Surfliner Daily Standup**<br/>
 Daily except last day of each sprint<br/>
 *Purpose*: Daily meeting during the sprint to discuss ongoing work and blockers.<br/>
 *Required*: Project Team<br/>
@@ -145,12 +145,12 @@ Last day of each sprint<br/>
 *Optional*: Subject Matter Experts<br/>
 
 ### Meeting Schedules for the Current Work Cycle
-The current workcycle runs from Wednesday, June 22 to Tuesday, August 16, 2022.  The meetings below are for this time period only. 
+The current workcycle runs from Wednesday, June 22 to Tuesday, August 16, 2022.  The meetings below are for this time period only.
 
 #### Project-wide
-**Project Surfliner Daily Standup**<br/> 
+**Project Surfliner Daily Standup**<br/>
 Daily, 10:30-10:45am (*except last day of each sprint*)<br/>
-[https://ucsb.zoom.us/j/310736504](https://ucsb.zoom.us/j/310736504)<br/> 
+[https://ucsb.zoom.us/j/310736504](https://ucsb.zoom.us/j/310736504)<br/>
 
 **Project Surfliner Sprint Review**<br/>
 Last day of each sprint, 10:30-11:30am<br/>
@@ -158,7 +158,7 @@ Last day of each sprint, 10:30-11:30am<br/>
 
 **Project Surfliner Sprint Retrospective**<br/>
 Day after each sprint, 1:00-2:00pm<br/>
-[https://ucsb.zoom.us/j/99140390905](https://ucsb.zoom.us/j/99140390905)<br/> 
+[https://ucsb.zoom.us/j/99140390905](https://ucsb.zoom.us/j/99140390905)<br/>
 
 #### Comet Sprint Team
 **Backlog Refinement**<br/>
