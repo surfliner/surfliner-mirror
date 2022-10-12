@@ -34,35 +34,49 @@ Comet is a staff-facing digital object management platform based on [Hyrax](http
 
 _Comet was named after the Sacramento Northern Train that operated between Chico to San Francisco via Sacramento from about 1928 to 1940._
 
+Product Owner: Gabriela Montoya (UCSD) | Tech Lead: tamsin johnson (UCSB)
+
 ### Lark
 Lark is a shared authority control platform and API. See the [Lark README](https://gitlab.com/surfliner/surfliner/blob/trunk/lark/README.md) for more information.
 
 _Lark was named after the Southern Pacific Lark Train that operated overnight between Los Angeles and San Francisco via San Luis Obispo from 1941 to April 1968._
+
+Product Owner: Kelly Revak (UCSD) | Tech Lead: tamsin johnson (UCSB)
 
 ### Orange Empire
 Orange Empire is shared IIIF services; it uses the Cantaloupe Image Server.
 
 _Orange Empire was named after the Pacific Electric train that operated between Los Angeles and Redlands from 1914 to 1929._
 
+Product Owner: Michael Stuart (UCSD) | Tech Lead: Matt Critchlow (UCSD)
+
 ### Shoreline
 Shoreline is a geospatial materials platform based on GeoBlacklight. See the [Shoreline README](https://gitlab.com/surfliner/surfliner/blob/trunk/shoreline/discovery/README.md) for more information.
 
 _Shoreline was named after the Southern Pacific train that ran between Los Angeles and San Francisco between 1927 and 1931._
+
+Product Owner: Amy Work (UCSD) | Tech Lead: Alexandra Dunn (UCSB)
 
 ### Starlight
 Starlight is an exhibits platform based on [Spotlight](https://github.com/projectblacklight/spotlight). See the [Starlight README](https://gitlab.com/surfliner/surfliner/blob/trunk/starlight/README.md) for more information.
 
 _Starlight was named after Southern Pacific Starlight Train that operated overnight between Los Angeles and San Francisco from October 1949 to July 1957._
 
+Product Owner: Chrissy Rissmeyer (UCSB) | Tech Lead: Matt Critchlow (UCSD)
+
 ### Superskunk
 Superskunk is [Comet's](#comet) metadata API; used by other platforms to read metadata in real time.
 
 _Superskunk was named after the California Western Railroad, popularly called the Skunk Train ("Super Skunk"), that runs from Fort Bragg to Willits starting from 1965 to the present._
 
+Product Owner: TBD | Tech Lead: TBD
+
 ### Tidewater
 Tidewater is an OAI-PMH endpoint that uses configurable metadata.
 
 _Tidewater was named after the Tidewater Southern Railway which was a short line railroad in Central California that ran from 1910 to 1987._
+
+Product Owner: TBD | Tech Lead: TBD
 
 ## Product Deployments
 
