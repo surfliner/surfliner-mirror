@@ -13,6 +13,31 @@ require "java"
 # This version of the script works with Cantaloupe version >= 5.
 #
 class CustomDelegate
+  NO_PRE_AUTH = %w[
+    starlight
+  ].freeze
+
+  # Transforms e.g. 'comet:comet-prod,starlight:weridname' to
+  #   { "comet" => "comet-prod", "starlight" +> "weirdname" }
+  def bucket_map
+    @bucket_map ||= {}.tap do |h|
+      ENV['CANTALOUPE_S3SOURCE_BUCKET_MAP'].split(',').each do |m|
+        bucket = m.split(':')
+        h[bucket[0]] = bucket[1]
+      end
+    end
+  end
+
+  # @param [String] identifier The ID part of one of our IIIF URLs, e.g.: starlight:1/test.png
+  def iiif_id_prefix(identifier)
+    identifier.slice(/^[^:]+/)
+  end
+
+  def iiif_id_clean(identifier)
+    identifier.match(/.?:(.*)/)[1]
+  rescue NoMethodError
+    ''
+  end
 
   ##
   # Attribute for the request context, which is a hash containing information
@@ -138,9 +163,13 @@ class CustomDelegate
   # @return [Boolean,Hash<String,Object>] See above.
   #
   def pre_authorize(_options = {})
+    if NO_PRE_AUTH.any? { |pre| pre == iiif_id_prefix(context['identifier']) }
+      return true
+    end
+
     logger = Java::edu.illinois.library.cantaloupe.delegate.Logger
 
-    resource_id = context["identifier"]
+    resource_id = iiif_id_clean(context["identifier"])
     superskunk_uri = URI("#{ENV['SUPERSKUNK_API_BASE']}/acls?file=#{resource_id}&mode=read&group=public")
     logger.info "Authorizing resource: #{resource_id}"
     logger.info "The Superskunk API URI is: #{superskunk_uri}"
@@ -338,8 +367,10 @@ class CustomDelegate
   def s3source_object_info(_options = {})
     logger = Java::edu.illinois.library.cantaloupe.delegate.Logger
 
-    newkey = context['identifier'].sub(%r{[a-z]+://}, '')
-    bucket = ENV['CANTALOUPE_S3SOURCE_BASICLOOKUPSTRATEGY_BUCKET_NAME']
+    bucket = bucket_map[iiif_id_prefix(context['identifier'])]
+
+    key = iiif_id_clean(context['identifier']).sub(%r{[a-z]+://}, '')
+    newkey = "#{ENV['CANTALOUPE_S3SOURCE_PATH_PREFIX']}#{key}"
 
     logger.info "THE BUCKET IS #{bucket}"
     logger.info "THE KEY IS #{newkey}"
@@ -465,5 +496,4 @@ class CustomDelegate
   #
   def metadata(options = {})
   end
-
 end

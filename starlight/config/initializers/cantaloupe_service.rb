@@ -10,18 +10,20 @@ module Starlight
       @endpoint ||= ENV['IIIF_BASE_URL']
     end
 
+    def self.iiif_id(image)
+      CGI.escape("starlight:#{image.id}/#{image.image.identifier}")
+    end
+
     # @param [Spotlight::FeaturedImage] image
     # @return [String]
     def self.thumbnail_url(image)
-      id = CGI.escape("#{image.id}/#{image.image.identifier}")
-      "#{endpoint}/iiif/2/#{id}/full/!400,400/0/default.jpg"
+      "#{endpoint}/iiif/2/#{iiif_id(image)}/full/!400,400/0/default.jpg"
     end
 
     # @param [Spotlight::FeaturedImage] image
     # @return [String]
     def self.info_url(image, _host = nil)
-      id = CGI.escape("#{image.id}/#{image.image.identifier}")
-      "#{endpoint}/iiif/2/#{id}/info.json"
+      "#{endpoint}/iiif/2/#{iiif_id(image)}/info.json"
     end
 
     # @param [Spotlight::Exhibit] exhibit
@@ -35,9 +37,7 @@ module Starlight
     # @return [Hash]
     def self.info(id)
       image = Spotlight::FeaturedImage.find(id)
-
-      combined_id = CGI.escape("#{image.id}/#{image.image.identifier}")
-      info_url = "#{ENV['IIIF_INTERNAL_BASE']}/iiif/2/#{combined_id}/info.json"
+      info_url = "#{ENV['IIIF_INTERNAL_BASE']}/iiif/2/#{iiif_id(image)}/info.json"
 
       OpenStruct.new(JSON.parse(URI.parse(info_url).open.read))
     end
