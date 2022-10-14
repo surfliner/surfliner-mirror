@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require 'open-uri'
-require 'ostruct'
+require "open-uri"
+require "ostruct"
 
 module Starlight
   # iiif_service module for when using the built-in riiif server
   module CantaloupeService
     def self.endpoint
-      @endpoint ||= ENV['IIIF_BASE_URL']
+      @endpoint ||= ENV["IIIF_BASE_URL"]
     end
 
     def self.iiif_id(image)
@@ -37,7 +37,7 @@ module Starlight
     # @return [Hash]
     def self.info(id)
       image = Spotlight::FeaturedImage.find(id)
-      info_url = "#{ENV['IIIF_INTERNAL_BASE']}/iiif/2/#{iiif_id(image)}/info.json"
+      info_url = "#{ENV["IIIF_INTERNAL_BASE"]}/iiif/2/#{iiif_id(image)}/info.json"
 
       OpenStruct.new(JSON.parse(URI.parse(info_url).open.read))
     end
