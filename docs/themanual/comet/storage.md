@@ -46,10 +46,15 @@ to ensure multi-platform storage support.
 
 ## File _Uses_
 
+TK: [PCDM Use Vocabulary][pcdm-use] & per campus extensions.
 
 ## Digital Preservation
 
-
+~comet is designed as a repository for content under active management. While
+its storage support is intended to be reliable and long term, it is not designed
+as a _digital preservation_ platform. Instead, we envision ~comet integrating
+with external preservation platforms, following the model outlined by the 2020
+[One-to-Many][one-to-many] grant.
 
 [comet-metadata]: ./metadata.yaml
 [minio]: https://min.io/
