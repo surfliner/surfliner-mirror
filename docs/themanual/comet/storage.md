@@ -10,12 +10,12 @@ each file as having a particular _Use_, specifying its purpose within an Object.
 This information can be used to help the system decide how best to store file
 content.
 
-This model is designed to support a simple split between long term repository
-storage and storage for access copies which is described below. We anticipate
-that campuses may need to support more sophisticated storage requirements in
-the future; e.g. storing some content on-premises, supporting per-project
-grant-funded storage, or replicating across cloud providers. The architecture
-is intentended to be flexible to these kinds of emerging needs.
+This model is designed to support a simple split between high durability
+repository storage and storage for access copies which is described below. We
+anticipate that campuses may need to support more sophisticated storage
+requirements in the future; e.g. storing some content on-premises, supporting
+per-project grant-funded storage, or replicating across cloud providers. The
+architecture is intended to be flexible to these kinds of emerging needs.
 
 > ※ This document addresses storage for files under managament (i.e.
 > "repository" or "digital library" content). ~comet handles many files that are
@@ -42,7 +42,8 @@ separately from access needs.
 campuses to use cloud storage provided by AWS as well as a variety of S3
 Compatible storage platforms which are available from other cloud providers and
 can be deployed on-premises. We actively test ~comet against [MinIO][minio]
-to ensure multi-platform storage support.
+to ensure multi-platform storage support. The durability, responsiveness, and costs
+associated with each bucket will vary based on the individual deployment.
 
 ## File _Uses_
 
@@ -51,9 +52,15 @@ TK: [PCDM Use Vocabulary][pcdm-use] & per campus extensions.
 ## Digital Preservation
 
 ~comet is designed as a repository for content under active management. While
-its storage support is intended to be reliable and long term, it is not designed
-as a _digital preservation_ platform. Instead, we envision ~comet integrating
-with external preservation platforms, following the model outlined by the 2020
+its storage support is intended to be reliable and highly durable, it is not
+designed as a _digital preservation_ platform. Instead, we envision ~comet
+integrating with external platforms to provide for long term preservation.
+
+Another way of viewing this is to say that ~comet has a role in the
+_preservation planning_ function of the overall Digital Library, but that it
+doesn't provide the technical implementation for _preservation storage_. As
+~comet's role in preservation evolves, we plan to develop integrations to
+external preservation platforms following the model outlined by the 2020
 [One-to-Many][one-to-many] grant.
 
 [comet-metadata]: ./metadata.yaml
