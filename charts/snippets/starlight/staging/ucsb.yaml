@@ -78,3 +78,13 @@ workerResources:
   requests:
     cpu: 500m
     memory: 500Mi
+
+redis:
+  master:
+    extraEnvVars:
+      - name: REDIS_AOF_ENABLED
+        value: "no"
+  replica:
+    extraEnvVars:
+      - name: REDIS_AOF_ENABLED
+        value: "no"
