@@ -29,6 +29,7 @@ data:
   SMTP_USERNAME: {{ .Values.shoreline.email.smtp_settings.user_name }}
   {{- end }}
   SOLR_CORE_NAME: {{ template "shoreline.solr.collection_core_name" . }}
+  SOLR_CONFIGSET_NAME: {{ .Values.solr.configName | default "shorelineconf" | quote }}
   SOLR_CONFIG_NAME: {{ .Values.solr.configName | default "shorelineconf" | quote }}
   SOLR_HOST: {{ template "shoreline.solr.fullname" . }}
   SOLR_PORT: {{ .Values.solr.solrPort | default "8983" | quote }}
