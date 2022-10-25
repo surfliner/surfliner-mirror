@@ -6,7 +6,7 @@ if [ "$SOLR_ADMIN_USER" ]; then
 fi
 
 solr_config_name="${SOLR_CONFIGSET_NAME:-solrconfig}"
-solr_collection_name="${SOLR_CORE_NAME:-collection1}"
+solr_collection_name="${SOLR_COLLECTION_NAME:-collection1}"
 
 # Solr Cloud Collection API URLs
 solr_collection_list_url="$SOLR_HOST:$SOLR_PORT/solr/admin/collections?action=LIST"

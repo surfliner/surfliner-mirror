@@ -6,7 +6,7 @@ OkComputer.mount_at = "healthz"
 
 # Setup additional services
 
-solr_url = "http://#{ENV.fetch("SOLR_HOST", "")}:#{ENV.fetch("SOLR_PORT", "")}/solr/#{ENV.fetch("SOLR_CORE_NAME", "")}"
+solr_url = "http://#{ENV.fetch("SOLR_HOST", "")}:#{ENV.fetch("SOLR_PORT", "")}/solr/#{ENV.fetch("SOLR_COLLECTION_NAME", "")}"
 OkComputer::Registry.register "solr", OkComputer::HttpCheck.new(solr_url)
 
 class GeoServerCheck < OkComputer::Check

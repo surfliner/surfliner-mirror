@@ -109,8 +109,8 @@ See: https://github.com/helm/charts/blob/master/incubator/solr/values.yaml
 | `solr.solrPort` | Defines the network port Solr can be accessed (only set if `solr.enabled` is `false`) | `8983` | `SOLR_PORT` |
 | `solr.zookeeperHostname` | Defines the hostname of the server running Zookeeper (only set if `solr.enabled` is `false` and `solrRunMode` is `cloud`) | `nil` | `ZK_HOST` |
 | `solr.zookeeperPort` | Defines the network port Zookeeper can be accessed (only set if `solr.enabled` is `false` and `solrRunMode` is `cloud`) | `2181` | `ZK_PORT` |
-| `solr.collection` | Solr collection name to use for application (used only if `solrRunMode` is `cloud`) | `collection1` | `SOLR_CORE_NAME` |
-| `solr.coreName` | Solr core name to use for application (used only if `solrRunMode` is `standalone`) | `shoreline` | `SOLR_CORE_NAME` |
+| `solr.collection` | Solr collection name to use for application (used only if `solrRunMode` is `cloud`) | `collection1` | `SOLR_COLLECTION_NAME` |
+| `solr.coreName` | Solr core name to use for application (used only if `solrRunMode` is `standalone`) | `shoreline` | `SOLR_COLLECTION_NAME` |
 | `solr.authentication.enabled` | Defines if the instance of Solr has Basic Authentication enabled | `true` | N/A |
 | `solr.authentication.adminUsername` | Defines the admin username for Solr Basic Authentication (only set if `solr.authentication.enabled` is `true`) | `admin` | `SOLR_ADMIN_USER` |
 | `solr.authentication.adminPassword` | Defines the admin password for Solr Basic Authenticaiton (only set if `solr.authentication.enabled` is `true`) | `admin` | `SOLR_ADMIN_PASSWORD` |

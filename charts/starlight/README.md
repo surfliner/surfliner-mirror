@@ -66,7 +66,7 @@ The following tables lists the configurable parameters of the Starlight chart an
 | `starlight.rails.queue` | Which queue adapter for ActiveJob.  | `sidekiq` | `RAILS_QUEUE` |
 | `starlight.rails.serve_static_files` | Whether Rails should not serve files in `public/`.  | `true` | `RAILS_SERVE_STATIC_FILES` |
 | `starlight.sitemaps.enabled` | Whether to enable k8s sitemap cron job to ping search engines. Note that the sitemaps will upload to the same S3/Minio bucket specified by `starlight.storage.bucket` | `true` | N/A |
-| `starlight.solr.collectionName` | Name of Solr collection.  | `collection1` | `SOLR_CORE_NAME` |
+| `starlight.solr.collectionName` | Name of Solr collection.  | `collection1` | `SOLR_COLLECTION_NAME` |
 | `starlight.solr.port` | Solr port to use.  | `8983` | `SOLR_PORT` |
 | `starlight.zookeeper.port` | Zookeeper port to use.  | `2181` | `ZK_PORT` |
 | `starlight.backups.import.enabled` | Whether to run the backup import migration jobs (when migrating data from another environment).  | `false` | N/A |
@@ -137,8 +137,8 @@ See: https://github.com/bitnami/charts/blob/master/bitnami/solr/values.yaml
 | `solr.solrPort` | Defines the network port Solr can be accessed (only set if `solr.enabled` is `false`) | `8983` | `SOLR_PORT` |
 | `solr.zookeeperHostname` | Defines the hostname of the server running Zookeeper (only set if `solr.enabled` is `false` and `solrRunMode` is `cloud`) | `nil` | `ZK_HOST` |
 | `solr.zookeeperPort` | Defines the network port Zookeeper can be accessed (only set if `solr.enabled` is `false` and `solrRunMode` is `cloud`) | `2181` | `ZK_PORT` |
-| `solr.collection` | Solr collection name to use for application (used only if `solrRunMode` is `cloud`) | `collection1` | `SOLR_CORE_NAME` |
-| `solr.coreName` | Solr core name to use for application (used only if `solrRunMode` is `standalone`) | `shoreline` | `SOLR_CORE_NAME` |
+| `solr.collection` | Solr collection name to use for application (used only if `solrRunMode` is `cloud`) | `collection1` | `SOLR_COLLECTION_NAME` |
+| `solr.coreName` | Solr core name to use for application (used only if `solrRunMode` is `standalone`) | `shoreline` | `SOLR_COLLECTION_NAME` |
 | `solr.authentication.enabled` | Defines if the instance of Solr has Basic Authentication enabled | `true` | N/A |
 | `solr.authentication.adminUsername` | Defines the admin username for Solr Basic Authentication (only set if `solr.authentication.enabled` is `true`) | `admin` | `SOLR_ADMIN_USER` |
 | `solr.authentication.adminPassword` | Defines the admin password for Solr Basic Authenticaiton (only set if `solr.authentication.enabled` is `true`) | `admin` | `SOLR_ADMIN_PASSWORD` |
