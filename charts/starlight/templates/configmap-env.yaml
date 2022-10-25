@@ -58,7 +58,6 @@ data:
   SMTP_USERNAME: {{ .Values.starlight.email.smtp_settings.user_name }}
   {{- end }}
   SOLR_CORE_NAME: {{ template "starlight.solr.collection_core_name" . }}
-  SOLR_CONFIG_NAME: {{ .Values.solr.configName | default "starlightconf" | quote }}
   SOLR_CONFIGSET_NAME: {{ .Values.solr.configName | default "starlightconf" | quote }}
   SOLR_HOST: {{ template "starlight.solr.fullname" . }}
   SOLR_PORT: {{ .Values.solr.solrPort | default "8983" | quote }}
