@@ -159,7 +159,7 @@ Last day of each sprint<br/>
 *Optional*: Subject Matter Experts<br/>
 
 ### Meeting Schedules for the Current Work Cycle
-The current workcycle runs from Wednesday, June 22 to Tuesday, August 16, 2022.  The meetings below are for this time period only.
+The current workcycle runs from Tuesday, November 1 to Tuesday, December 20, 2022.  The meetings below are for this time period only.
 
 #### Project-wide
 **Project Surfliner Daily Standup**<br/>
@@ -176,7 +176,7 @@ Day after each sprint, 1:00-2:00pm<br/>
 
 #### Comet Sprint Team
 **Backlog Refinement**<br/>
-Every other Monday, 11:00-11:45am<br/>
+TBD<br/>
 [https://ucsd.zoom.us/j/5296465230](https://ucsd.zoom.us/j/5296465230)<br/>
 
 **Sprint Planning**<br/>
