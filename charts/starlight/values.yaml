@@ -253,7 +253,7 @@ postgresql:
 redis:
   image:
     repository: bitnami/redis
-    tag: 7.0.4-debian-11-r22
+    tag: 7.0.5-debian-11-r12
   auth:
     enabled: false
 

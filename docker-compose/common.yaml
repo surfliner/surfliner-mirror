@@ -31,7 +31,7 @@ services:
       - '9000:9000'
 
   redis:
-    image: bitnami/redis:7.0.4-debian-11-r22
+    image: bitnami/redis:7.0.5-debian-11-r12
 
   solr:
     image: bitnami/solr:8.11.2-debian-11-r31

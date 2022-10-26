@@ -72,7 +72,7 @@ comet:test:unit:
     - !reference [.solr-service, services]
     - name: bitnami/postgresql:12.12.0-debian-11-r35
       alias: postgres
-    - name: bitnami/redis:7.0.4-debian-11-r22
+    - name: bitnami/redis:7.0.5-debian-11-r12
       alias: redis
   script:
     - bundle exec rspec --tag ~type:system --tag ~rabbitmq --tag ~integration
@@ -101,7 +101,7 @@ comet:test:system:
     - !reference [.solr-service, services]
     - name: bitnami/postgresql:14.4.0-debian-11-r5
       alias: postgres
-    - name: bitnami/redis:7.0.4-debian-11-r22
+    - name: bitnami/redis:7.0.5-debian-11-r12
       alias: redis
     - name: bitnami/minio:2022.9.7-debian-11-r3
       alias: minio
