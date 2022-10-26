@@ -34,6 +34,6 @@ services:
     image: bitnami/redis:7.0.5-debian-11-r12
 
   solr:
-    image: bitnami/solr:8.11.2-debian-11-r31
+    image: bitnami/solr:8.11.2-debian-11-r46
     ports:
       - 8983:8983
