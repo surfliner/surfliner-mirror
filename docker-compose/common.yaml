@@ -20,7 +20,7 @@ services:
     restart: always
 
   memcached:
-    image: bitnami/memcached:1.6.17-debian-11-r19
+    image: bitnami/memcached:1.6.17-debian-11-r20
     ports:
       - '11211:11211'
 
