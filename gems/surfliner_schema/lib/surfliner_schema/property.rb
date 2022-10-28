@@ -37,8 +37,13 @@ module SurflinerSchema
       Valkyrie::Types::Coercible::String.optional.default(nil)
 
     ##
-    # Resource types the property should be available on. These correspond to
-    # conceptual “classes” in M3, but aren’t necessarily actual Ruby classes.
+    # Resource types the property should be available on.
+    #
+    # These correspond to conceptual “classes” in M3, but aren’t necessarily
+    # actual Ruby classes.
+    #
+    # @note This attribute is a set of symbols; you will need to do additional
+    #   work if you require the corresponding +SurflinerSchema::ResourceClass+.
     attribute :available_on, Valkyrie::Types::Set.of(
       Valkyrie::Types::Coercible::Symbol
     )

@@ -21,9 +21,7 @@ module SurflinerSchema
           form_options = config.fetch("form", {}).transform_keys(&:to_sym)
           dfns[name] = Property.new(
             name: name,
-            display_label: name.to_s.gsub(/(\A|_)(.)/) {
-              $1 == "_" ? " #{$2.capitalize}" : $2.capitalize
-            },
+            display_label: self.class.format_name(name),
             available_on: availability,
             data_type: self.class.rdf_type_for(config["type"]),
             indexing: config.fetch("index_keys", []).map { |index_key|
@@ -70,6 +68,22 @@ module SurflinerSchema
       # @return [{Symbol => SurflinerSchema::Property}]
       def properties(availability:)
         @properties.filter { |_name, prop| prop.available_on?(availability) }
+      end
+
+      ##
+      # A hash mapping conceptual resource “class” names to their definitions.
+      #
+      # For simple schemas, the only supported class is the one corresponding to
+      # the availability provided during reader initialization.
+      #
+      # @return [{Symbol => SurflinerSchema::ResourceClass}]
+      def resource_classes
+        {
+          @availability => SurflinerSchema::ResourceClass.new(
+            name: @availability,
+            display_label: self.class.format_name(@availability)
+          )
+        }
       end
 
       ##

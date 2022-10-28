@@ -1,5 +1,11 @@
 m3_version: "1.0.beta1"
 
+classes:
+  - name: Collection
+  - name: GenericWork
+    display_label: Generic Work
+  - name: Image
+
 mappings:
   - display_label: Tidewater
     name: tidewater

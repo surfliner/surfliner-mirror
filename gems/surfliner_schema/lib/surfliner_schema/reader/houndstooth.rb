@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require "surfliner_schema/property"
-require "valkyrie"
-
 module SurflinerSchema
   module Reader
     ##
@@ -13,20 +10,21 @@ module SurflinerSchema
       #
       # @param houndstooth [Hash]
       def initialize(houndstooth)
-        # If the Houndstooth file specifies the properties as an array, convert
-        # it into a hash.
-        provided_properties = houndstooth.fetch("properties", {})
-        properties_hash = provided_properties.is_a?(Hash) ? provided_properties
-          : provided_properties.each_with_index.each_with_object({}) do |(v, i), o|
-              o["_#{i}"] = v
-            end
+        properties_hash = self.class.property_hash(houndstooth, :properties)
+        classes_hash = self.class.property_hash(houndstooth, :classes)
+        mappings_hash = self.class.property_hash(houndstooth, :mappings)
 
-        # Likewise for mappings.
-        provided_mappings = houndstooth.fetch("mappings", {})
-        mappings_hash = provided_mappings.is_a?(Hash) ? provided_mappings
-          : provided_mappings.each_with_index.each_with_object({}) do |(v, i), o|
-              o["_#{i}"] = v
-            end
+        # Generate the classes.
+        @resource_classes = classes_hash.each_with_object({}) do |(name, config), dfns|
+          class_name = config.fetch("name", name).to_sym
+          dfns[class_name] = ResourceClass.new(
+            name: class_name,
+            display_label: config.fetch(
+              "display_label",
+              self.class.format_name(class_name)
+            )
+          )
+        end
 
         # Generate the properties.
         @properties = properties_hash.each_with_object({}) do |(name, config), dfns|
@@ -35,9 +33,7 @@ module SurflinerSchema
             name: property_name,
             display_label: config.fetch(
               "display_label",
-              property_name.to_s.gsub(/(\A|_)(.)/) {
-                $1 == "_" ? " #{$2.capitalize}" : $2.capitalize
-              }
+              self.class.format_name(property_name)
             ),
             definition: config["definition"],
             usage_guidelines: config["usage_guidelines"],
@@ -95,6 +91,30 @@ module SurflinerSchema
       # @return [{Symbol => SurflinerSchema::Property}]
       def properties(availability:)
         @properties.fetch(availability, {})
+      end
+
+      ##
+      # A hash mapping conceptual resource “class” names to their definitions.
+      #
+      # @return [{Symbol => SurflinerSchema::ResourceClass}]
+      attr_reader :resource_classes
+
+      ##
+      # Coerces the object corresponding to the provided property name in the
+      # provided object to a hash by associating array values with keys derived
+      # from their indices.
+      #
+      # This method assumes that the value corresponding to the provided
+      # property name will either already be a Hash or else will be an Array.
+      #
+      # @param name [#to_s]
+      # @return [Hash]
+      def self.property_hash(obj, name)
+        provided_object = obj.fetch(name.to_s, {})
+        provided_object.is_a?(Hash) ? provided_object
+          : provided_object.each_with_index.each_with_object({}) do |(v, i), o|
+              o["_#{i}"] = v
+            end
       end
     end
   end

@@ -53,4 +53,23 @@ describe SurflinerSchema::Reader::Houndstooth do
       expect(reader.form_definitions(availability: :GenericWork)).not_to be_empty
     end
   end
+
+  describe "#resource_classes" do
+    it "contains the expected classes" do
+      resource_classes = reader.resource_classes
+      expect(resource_classes.keys).to eq [:Collection, :GenericWork, :Image]
+    end
+
+    it "generates classes with the correct name" do
+      expect(reader.resource_classes[:Collection].name).to eq :Collection
+      expect(reader.resource_classes[:GenericWork].name).to eq :GenericWork
+      expect(reader.resource_classes[:Image].name).to eq :Image
+    end
+
+    it "generates classes with the correct display label" do
+      expect(reader.resource_classes[:Collection].display_label).to eq "Collection"
+      expect(reader.resource_classes[:GenericWork].display_label).to eq "Generic Work"
+      expect(reader.resource_classes[:Image].display_label).to eq "Image"
+    end
+  end
 end

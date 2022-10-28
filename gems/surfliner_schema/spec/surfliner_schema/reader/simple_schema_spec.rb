@@ -41,5 +41,13 @@ describe SurflinerSchema::Reader::SimpleSchema do
       expect(indices[:title_tsim].name).to eq :title
       expect(indices[:title_tesim].name).to eq :title
     end
+
+    it "#resource_classes" do
+      resource_classes = reader.resource_classes
+      expect(resource_classes.keys).to eq [:generic_object]
+      class_definition = resource_classes[:generic_object]
+      expect(class_definition.name).to eq :generic_object
+      expect(class_definition.display_label).to eq "Generic Object"
+    end
   end
 end

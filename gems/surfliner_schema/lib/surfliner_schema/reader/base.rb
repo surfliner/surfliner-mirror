@@ -26,6 +26,14 @@ module SurflinerSchema
       end
 
       ##
+      # A hash mapping conceptual resource “class” names to their definitions.
+      #
+      # @return [{Symbol => SurflinerSchema::ResourceClass}]
+      def resource_classes
+        {}
+      end
+
+      ##
       # A hash mapping indices to Valkyrie types.
       #
       # The type is always a set of `RDF::Literal`s in order to preserve the
@@ -69,6 +77,15 @@ module SurflinerSchema
         ).each_with_object({}) do |(_name, prop), hash|
           prop.indices.each { |key| hash[key] = prop }
         end
+      end
+
+      ##
+      # Formats the provided name for display, as a fallback when no display
+      # label is provided.
+      def self.format_name(name)
+        name.to_s.gsub(/(\A|_)(.)/) {
+          $1 == "_" ? " #{$2.capitalize}" : $2.capitalize
+        }
       end
     end
   end
