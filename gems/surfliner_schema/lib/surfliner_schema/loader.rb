@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "active_support"
+require "valkyrie"
 require "yaml"
 
 module SurflinerSchema
@@ -87,6 +89,53 @@ module SurflinerSchema
     end
 
     ##
+    # A resolver for class names which dynamically creates and defines new
+    # classes as needed when accessing Valkyrie objects.
+    #
+    # To use, modify +Valkyrie.config.resource_class_resolver+ to point to this
+    # resolver (or that of a subclass).
+    #
+    # @param base_class [Class?]
+    # @return [Proc]
+    def resource_class_resolver(base_class: nil)
+      lambda do |class_name|
+        availability = availability_from_name(class_name)
+        return default_resource_class_resolver(class_name) if availability.nil?
+
+        klass = class_name.to_s.safe_constantize
+        return klass unless klass.nil?
+
+        loader = self
+        klass = Class.new(base_class || self.class.resource_base_class) do
+          @availability = availability
+          @loader = loader
+
+          include SurflinerSchema::Schema(availability, loader: loader)
+
+          # TODO: Maybe refactor this out into a service as it is not needed in
+          # every situation.
+          include SurflinerSchema::Mappings(availability, loader: loader)
+
+          ##
+          # The M3 conceptual “class” corresponding to this model.
+          def self.resource_class
+            @loader.resource_classes[@availability]
+          end
+        end
+
+        Object.const_set(class_name, klass)
+      end
+    end
+
+    ##
+    # A hash mapping M3 conceptual “class” names to their definitions.
+    #
+    # @return [{Symbol => SurflinerSchema::ResourceClass}]
+    def resource_classes
+      @resource_classes ||= {}.merge(*@readers.map { |reader| reader.resource_classes })
+    end
+
+    ##
     # A hash mapping property names with the provided availability to their
     # types.
     #
@@ -99,6 +148,22 @@ module SurflinerSchema
     end
 
     private
+
+    ##
+    # Coerces the provided class name to the name of an M3 conceptual “class”
+    # defined on the schemas for this loader.
+    #
+    # @param class_name {String | Symbol}
+    # @return {Symbol?}
+    def availability_from_name(class_name)
+      name = class_name.to_sym
+      if resource_classes.include?(name)
+        name
+      else
+        underscored = class_name.to_s.underscore.to_sym
+        underscored if resource_classes.include?(underscored)
+      end
+    end
 
     ##
     # The configuration for the requested schema.
@@ -122,6 +187,17 @@ module SurflinerSchema
       YAML.safe_load(File.open(schema_config_path), aliases: true)
     end
 
+    ##
+    # The default class resolver to use if the class is not defined in the
+    # schema.
+    #
+    # This ideally should match the default Valkyrie behaviour.
+    #
+    # @param class_name {#to_s}
+    def default_resource_class_resolver(class_name)
+      class_name.to_s.constantize
+    end
+
     public
 
     ##
@@ -138,6 +214,13 @@ module SurflinerSchema
     # @return [Array<Symbol>]
     def self.default_schemas
       []
+    end
+
+    ##
+    # The base class to use for resource class generation (see
+    # +.resource_class_resolver+).
+    def self.resource_base_class
+      Valkyrie::Resource
     end
 
     ##

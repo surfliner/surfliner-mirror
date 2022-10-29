@@ -75,5 +75,38 @@ describe SurflinerSchema::Loader do
       expect(loader.index_rules_for(schema: :generic_object)[:title_tsim]).to eq :title
       expect(loader.index_rules_for(schema: :generic_object)[:title_tesim]).to eq :title
     end
+
+    it "#resource_classes" do
+      expect(loader.resource_classes.keys).to eq [:generic_object]
+    end
+
+    describe "#resource_class_resolver" do
+      after do
+        if Object.const_defined?(:GenericObject)
+          Object.send(:remove_const, :GenericObject)
+        end
+      end
+
+      it "resolves a defined class" do
+        klass = loader.resource_class_resolver.call(:GenericObject)
+        expect(klass).to be_a Class
+        expect(klass.resource_class).to be_a SurflinerSchema::ResourceClass
+        expect(klass.resource_class.name).to eq :generic_object
+      end
+
+      it "defines a const" do
+        klass = loader.resource_class_resolver.call(:GenericObject)
+        expect(klass).to be GenericObject
+      end
+
+      it "throws an error for an undefined class" do
+        expect { loader.resource_class_resolver.call(:NotInSchema) }.to raise_error NameError
+      end
+
+      it "defines the attributes" do
+        klass = loader.resource_class_resolver.call(:GenericObject)
+        expect { klass.new.title = "Etaoin" }.not_to raise_error
+      end
+    end
   end
 end

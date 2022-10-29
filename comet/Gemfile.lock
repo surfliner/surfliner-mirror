@@ -65,6 +65,7 @@ PATH
   remote: ../gems/surfliner_schema
   specs:
     surfliner_schema (0.1.0.pre)
+      activesupport
       valkyrie (>= 2.2, < 4)
 
 GEM
