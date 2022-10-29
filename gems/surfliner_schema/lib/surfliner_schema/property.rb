@@ -50,7 +50,7 @@ module SurflinerSchema
     # intersection.
     attribute :data_type, Valkyrie::Types::Set.of(
       Valkyrie::Types.Instance(RDF::Vocabulary::Term)
-    ).default([RDF::XSD.string])
+    ).default([RDF::XSD.string].freeze)
 
     ##
     # How to index the property.
