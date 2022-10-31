@@ -1,6 +1,6 @@
 superskunk:
   db:
-    metadata_database_name: comet
+    metadata_database_name: comet_metadata
 
 ingress:
   enabled: false
