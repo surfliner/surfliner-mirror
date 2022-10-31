@@ -45,6 +45,8 @@ extraEnvVars:
     value: "surfliner-rabbitmq-stage.rabbitmq-staging.svc"
   - name: "RAILS_LOG_TO_STDOUT"
     value: "true"
+  - name: "STAGING_AREA_S3_BUCKET"
+    value: "assetstorage"
 worker:
   extraEnvVars:
     - name: "AUTH_METHOD"
@@ -59,6 +61,8 @@ worker:
       value: "surfliner-rabbitmq-stage.rabbitmq-staging.svc"
     - name: "RAILS_LOG_TO_STDOUT"
       value: "true"
+    - name: "STAGING_AREA_S3_BUCKET"
+      value: "assetstorage"
 
 brandingVolume:
   storageClass: nfs-client
