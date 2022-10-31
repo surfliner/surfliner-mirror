@@ -138,7 +138,7 @@ class CustomDelegate
   # @return [Boolean,Hash<String,Object>] See above.
   #
   def pre_authorize(_options = {})
-    logger = Java::edu.illinois.library.cantaloupe.script.Logger
+    logger = Java::edu.illinois.library.cantaloupe.delegate.Logger
 
     resource_id = context["identifier"]
     superskunk_uri = URI("#{ENV['SUPERSKUNK_API_BASE']}/acls?file=#{resource_id}&mode=read&group=public")
@@ -336,7 +336,7 @@ class CustomDelegate
   #         `secret_access_key` keys.
   #
   def s3source_object_info(_options = {})
-    logger = Java::edu.illinois.library.cantaloupe.script.Logger
+    logger = Java::edu.illinois.library.cantaloupe.delegate.Logger
 
     newkey = context['identifier'].sub(%r{[a-z]+://}, '')
     bucket = ENV['CANTALOUPE_S3SOURCE_BUCKET_NAME']
