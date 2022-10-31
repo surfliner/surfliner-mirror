@@ -33,6 +33,8 @@ extraEnvVars:
     value: "db:migrate"
   - name: "DISCOVER_PLATFORM_TIDEWATER_URL_BASE"
     value: "http://lib-tidewater-prod.ucsd.edu/item?source_iri="
+  - name: "IIIF_BASE_URL"
+    value: "https://lib-orange-empire.ucsd.edu"
   - name: "METADATA_API_URL_BASE"
     value: "http://surfliner-superskunk-prod.superskunk-prod/resources"
   - name: "METADATA_DATABASE_NAME"
@@ -45,6 +47,8 @@ extraEnvVars:
     value: "true"
   - name: "STAGING_AREA_S3_BUCKET"
     value: "assetstorage"
+  - name: "RAILS_QUEUE"
+    value: "sidekiq"
 extraEnvFrom:
   - configMapRef:
       name: comet-production-s3-bucket
@@ -60,6 +64,8 @@ worker:
   extraEnvVars:
     - name: "AUTH_METHOD"
       value: "google"
+    - name: "IIIF_BASE_URL"
+      value: "https://lib-orange-empire.ucsd.edu"
     - name: "METADATA_DATABASE_NAME"
       value: "comet_metadata"
     - name: "MINIO_PROTOCOL"
@@ -70,6 +76,8 @@ worker:
       value: "true"
     - name: "STAGING_AREA_S3_BUCKET"
       value: "assetstorage"
+    - name: "RAILS_QUEUE"
+      value: "sidekiq"
   extraEnvFrom:
     - configMapRef:
         name: comet-production-s3-bucket
