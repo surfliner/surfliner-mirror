@@ -31,6 +31,18 @@ module Comet
     # see: https://discuss.rubyonrails.org/t/cve-2022-32224-possible-rce-escalation-bug-with-serialized-columns-in-active-record/81017/1
     config.active_record.use_yaml_unsafe_load = true
 
+    # Support for Rails Engine overrides.
+    #
+    # See <https://guides.rubyonrails.org/engines.html#overriding-models-and-controllers>.
+    # (5.2 documentation: <https://guides.rubyonrails.org/v5.2/engines.html#overriding-models-and-controllers>)
+    overrides = "#{Rails.root}/app/overrides"
+    # Rails.autoloaders.main.ignore(overrides) # not needed in 5.2?
+    config.to_prepare do
+      Dir.glob("#{overrides}/**/*_override.rb").each do |override|
+        require_dependency(override)
+      end
+    end
+
     config.active_job.queue_adapter = ENV["RAILS_QUEUE"]&.to_sym
 
     # log to stdout by default
@@ -49,6 +61,11 @@ module Comet
 
     config.metadata_config_location = "config/metadata"
     config.metadata_config_schemas = ENV["METADATA_MODELS"].to_s.split(",").map(&:to_sym)
+    if config.metadata_config_schemas.empty?
+      config.metadata_config_schemas = [
+        :"build-metadata" # fallback schema if none is defined
+      ]
+    end
 
     config.metadata_api_uri_base =
       ENV.fetch("METADATA_API_URL_BASE") { "http://localhost:3000/concern/generic_objects" }

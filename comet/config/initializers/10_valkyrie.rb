@@ -60,6 +60,7 @@ unless building
   Valkyrie.config.storage_adapter = :repository_s3
 end
 
+Valkyrie.config.resource_class_resolver = ::SchemaLoader.new.resource_class_resolver
 Valkyrie.config.metadata_adapter = :comet_metadata_store
 Hyrax.query_service.instance_variable_set(:@id_type, :bigint)
 Valkyrie::IndexingAdapter.register(CometIndexingAdapter.new, :comet_index)

@@ -4,7 +4,7 @@
 #  `rails generate hyrax:work_resource GenericObject`
 class GenericObjectIndexer < Hyrax::ValkyrieWorkIndexer
   include Hyrax::Indexer(:basic_metadata)
-  include Hyrax::Indexer(:generic_object, index_loader: ::EnvSchemaLoader.new)
+  include Hyrax::Indexer(:generic_object, index_loader: ::SchemaLoader.new)
 
   def to_solr
     super.transform_values do |value|

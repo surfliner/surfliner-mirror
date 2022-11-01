@@ -3,8 +3,24 @@
 require "cgi"
 
 Hyrax.config do |config|
-  # Injected via `rails g hyrax:work_resource GenericObject`
-  config.register_curation_concern :generic_object
+  # +GenericObject+ is currently hardcoded in at least the following places:
+  #
+  # - GenericObjectForm
+  # - GenericObjectsController
+  # - GenericObjectIndexer
+  # - CometObjectPresenter (loosely)
+  # - views/hyrax/base/_attribute_rows.html.erb (loosely)
+  #
+  # TODO: These need to be replaced with a more flexible mechanism.
+  ::SchemaLoader.new.resource_class_resolver.call(:GenericObject)
+
+  # Register all M3 resource classes as curation concerns in Hyrax.
+  config.register_curation_concern(
+    *::SchemaLoader.new.resource_classes.keys.filter { |class_name|
+      !%i[collection file_set].include?(class_name) # remove “special” keys
+    }
+  )
+
   config.disable_wings = true
 
   config.collection_model = "Hyrax::PcdmCollection"

@@ -4,7 +4,7 @@
 # @see https://github.com/samvera/hyrax/wiki/Hyrax-Valkyrie-Usage-Guide#forms
 # @see https://github.com/samvera/valkyrie/wiki/ChangeSets-and-Dirty-Tracking
 class GenericObjectForm < Hyrax::Forms::ResourceForm(GenericObject)
-  include SurflinerSchema::FormFields(:generic_object, loader: ::EnvSchemaLoader.new)
+  include SurflinerSchema::FormFields(:generic_object, loader: ::SchemaLoader.new)
 
   # Define custom form fields using the Valkyrie::ChangeSet interface
   #

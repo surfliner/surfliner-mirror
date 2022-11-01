@@ -2,7 +2,7 @@
 # This is Comet's preferred presenter for displaying {GenericObject}
 class CometObjectPresenter < Hyrax::WorkShowPresenter
   # Delegate schema fields to the model.
-  delegate(*EnvSchemaLoader.new.properties_for(:generic_object).keys, to: :model)
+  delegate(*::SchemaLoader.new.properties_for(:generic_object).keys, to: :model)
 
   ##
   # @return [String] the ARK for the object, if assigned
