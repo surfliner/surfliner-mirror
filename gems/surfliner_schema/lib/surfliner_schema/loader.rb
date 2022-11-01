@@ -108,6 +108,7 @@ module SurflinerSchema
         loader = self
         klass = Class.new(base_class || self.class.resource_base_class) do
           @availability = availability
+          @class_name = class_name.to_s
           @loader = loader
 
           include SurflinerSchema::Schema(availability, loader: loader)
@@ -116,10 +117,21 @@ module SurflinerSchema
           # every situation.
           include SurflinerSchema::Mappings(availability, loader: loader)
 
+          def initialize(*args, **kwargs)
+            super(*args, **kwargs)
+            self.internal_resource = self.class.to_s # update internal_resource
+          end
+
           ##
           # The M3 conceptual “class” corresponding to this model.
           def self.resource_class
             @loader.resource_classes[@availability]
+          end
+
+          ##
+          # The Ruby class name corresponding to this model.
+          def self.to_s
+            @class_name
           end
         end
 
