@@ -5,7 +5,6 @@ require "cgi"
 Hyrax.config do |config|
   # +GenericObject+ is currently hardcoded in at least the following places:
   #
-  # - GenericObjectForm
   # - GenericObjectsController
   # - GenericObjectIndexer
   # - CometObjectPresenter (loosely)

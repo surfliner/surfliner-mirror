@@ -2,16 +2,17 @@
 
 require "rails_helper"
 
-# autoloading fix
-Hyrax::Forms::ResourceForm # rubocop:disable Lint/Void
-
-RSpec.describe GenericObjectForm do
+RSpec.describe Forms::PcdmObjectForm do
   let(:generic_object) { GenericObject.new }
-  let(:form) { GenericObjectForm.new(generic_object) }
+  let(:form) { Hyrax::Forms::ResourceForm.for(generic_object) }
+
+  it "is a Forms::PcdmObjectForm" do
+    expect(form).to be_a Forms::PcdmObjectForm
+  end
 
   describe ".definitions" do
     it "includes fields from the loaded metadata schema as keys" do
-      expect(described_class.definitions.keys.map(&:to_sym)).to include :language, :title_alternative
+      expect(form.class.definitions.keys.map(&:to_sym)).to include :language, :title_alternative
     end
   end
 
