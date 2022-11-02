@@ -5,20 +5,32 @@ require "cgi"
 Hyrax.config do |config|
   # +GenericObject+ is currently hardcoded in at least the following places:
   #
-  # - GenericObjectsController
   # - GenericObjectIndexer
   # - CometObjectPresenter (loosely)
   # - views/hyrax/base/_attribute_rows.html.erb (loosely)
   #
   # TODO: These need to be replaced with a more flexible mechanism.
-  ::SchemaLoader.new.resource_class_resolver.call(:GenericObject)
 
-  # Register all M3 resource classes as curation concerns in Hyrax.
-  config.register_curation_concern(
-    *::SchemaLoader.new.resource_classes.keys.filter { |class_name|
-      !%i[collection file_set].include?(class_name) # remove “special” keys
-    }
-  )
+  # Generate the necessary models and controllers for each M3 resource class
+  # name, and define it as a Hyrax curation concern.
+  #
+  # This unfortunately needs to all happen up‐front in the initializer due to
+  # the requirements of Rails routing.
+  ::SchemaLoader.new.resource_classes.keys.filter { |class_name|
+    !%i[collection file_set].include?(class_name) # remove “special” keys
+  }.each do |class_name|
+    model_name = class_name.to_s.camelize
+    model_class = Valkyrie.config.resource_class_resolver.call(model_name)
+    controller_name = "#{model_name.pluralize}Controller"
+    defined_controller = "Hyrax::#{controller_name}".safe_constantize
+    if !defined_controller
+      controller_class = Class.new(Hyrax::ResourcesController) do
+        self.curation_concern_type = model_class
+      end
+      Hyrax.const_set(controller_name, controller_class)
+    end
+    config.register_curation_concern(class_name)
+  end
 
   config.disable_wings = true
 

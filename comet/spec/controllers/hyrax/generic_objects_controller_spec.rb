@@ -2,6 +2,8 @@
 
 require "rails_helper"
 
+# These tests are currently serving as a proxy for tests of
+# +ResourcesController+ proper.
 RSpec.describe Hyrax::GenericObjectsController, storage_adapter: :memory, metadata_adapter: :test_adapter do
   let(:user) { User.create(email: "moomin@example.com") }
 

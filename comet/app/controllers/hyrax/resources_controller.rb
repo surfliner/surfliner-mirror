@@ -1,15 +1,16 @@
 # frozen_string_literal: true
 
-# Generated via
-#  `rails generate hyrax:work_resource GenericObject`
 module Hyrax
-  # Generated controller for GenericObject
-  class GenericObjectsController < ApplicationController
+  ##
+  # Base controller for M3‐defined resources.
+  #
+  # This class is extended in the Hyrax initializer to define specific
+  # controllers for each M3 class.
+  class ResourcesController < ApplicationController
     # Adds Hyrax behaviors to the controller.
     include Hyrax::WorksControllerBehavior
     include Hyrax::BreadcrumbsForWorks
     include WithAdminSetSelection
-    self.curation_concern_type = ::GenericObject
     self.show_presenter = CometObjectPresenter
 
     # Use a Valkyrie aware form service to generate Valkyrie::ChangeSet style
