@@ -65,6 +65,8 @@ module Comet
     config.metadata_api_uri_base =
       ENV.fetch("METADATA_API_URL_BASE") { "http://localhost:3000/concern/generic_objects" }
 
+    config.feature_bulkrax =
+      ActiveModel::Type::Boolean.new.cast(ENV.fetch("COMET_ENABLE_BULKRAX", false))
     config.feature_collection_publish =
       ActiveModel::Type::Boolean.new.cast(ENV.fetch("COMET_COLLECTION_PUBLISH", true))
     building = (ENV["DB_ADAPTER"] == "nulldb")

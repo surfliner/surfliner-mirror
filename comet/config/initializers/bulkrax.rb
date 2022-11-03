@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
-Bulkrax.setup do |config|
-  config.default_work_type = 'GenericWork'
+if Rails.application.config.feature_bulkrax
+  Bulkrax.setup do |config|
+    config.default_work_type = 'GenericObject'
+  end
+
+  Hyrax::DashboardController.sidebar_partials[:repository_content] <<
+    "hyrax/dashboard/sidebar/bulkrax_sidebar_additions"
 end

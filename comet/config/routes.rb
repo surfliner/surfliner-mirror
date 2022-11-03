@@ -18,7 +18,8 @@ Rails.application.routes.draw do
 
   mount Qa::Engine => "/authorities"
   mount Hyrax::Engine, at: "/"
-  mount Bulkrax::Engine, at: "/"
+  mount(Bulkrax::Engine, at: "/") if
+    Rails.application.config.feature_bulkrax
   resources :welcome, only: "index"
   root "hyrax/homepage#index"
   curation_concerns_basic_routes
