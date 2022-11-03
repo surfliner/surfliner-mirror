@@ -43,6 +43,10 @@ en:
           desc: "Unpublish the object from discovery platforms."
           failed: "Failed to unpublish the object."
           success: "The unpublish object request is submitted successfully."
+      component_actions:
+        remove:
+          success: "Successfully remove component from the object."
+          component_missing: "The member_id to remove from object is missing."
     collection:
       actions:
         publish:

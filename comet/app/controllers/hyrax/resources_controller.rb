@@ -29,6 +29,31 @@ module Hyrax
         notice: t("hyrax.base.show_actions.unpublish.success"))
     end
 
+    def remove_member
+      if !params["member_id"].present?
+        redirect_to(main_app.hyrax_generic_object_path(id: params[:id]),
+          alert: t("hyrax.base.component_actions.remove.component_missing"))
+        return
+      end
+
+      member_ids = curation_concern.member_ids.dup.map(&:id)
+
+      work_member_ids = {}
+      member_ids.each_with_index do |v, i|
+        work_member_ids[i.to_s] = {}
+        work_member_ids[i.to_s]["id"] = v
+        work_member_ids[i.to_s]["_destroy"] = v.to_i == params["member_id"].to_i ? "true" : "false"
+      end
+
+      transactions["change_set.update_work"]
+        .with_step_args("work_resource.update_work_members" => {work_members_attributes: work_member_ids, user: current_user})
+        .call(Hyrax::ChangeSet.for(curation_concern))
+        .value!
+
+      redirect_to(main_app.hyrax_generic_object_path(id: params[:id]),
+        notice: t("hyrax.base.component_actions.remove.success"))
+    end
+
     ##
     # Delete an object
     def destroy

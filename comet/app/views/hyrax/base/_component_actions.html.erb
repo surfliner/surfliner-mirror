@@ -1,0 +1,4 @@
+<%= form_tag "/concern/generic_objects/#{@presenter.id}/remove_member", method: :put do %>
+  <%= hidden_field_tag "member_id", component.id %>
+  <button class="btn btn-danger" data-confirm="<%= t('hyrax.base.form_child_work_relationships.confirm.text') %>"><%= t('hyrax.base.form_child_work_relationships.actions.remove') %></button>
+<% end %>

@@ -64,4 +64,35 @@ RSpec.describe "Components", type: :system, js: true do
       expect(page).to have_button("Remove from this object")
     end
   end
+
+  context "remove component from object" do
+    let(:compoment_title) { "Component To Remove" }
+    let(:success_massage) { I18n.t("hyrax.base.component_actions.remove.success") }
+    let(:comfirm_message) { I18n.t("hyrax.base.form_child_work_relationships.confirm.text") }
+
+    it "can remove the component" do
+      visit "/concern/generic_objects/#{parent_object.id}"
+
+      click_button("Add Component")
+      click_on("Attach Generic object")
+
+      fill_in("Title", with: compoment_title)
+      choose("generic_object_visibility_open")
+      click_on("Save")
+
+      visit "/concern/generic_objects/#{parent_object.id}"
+
+      expect(page).to have_content(compoment_title)
+      expect(page).to have_button("Remove from this object")
+
+      click_on("Remove from this object")
+      alert = page.driver.browser.switch_to.alert
+
+      expect(alert.text).to have_content(comfirm_message)
+      alert.accept
+
+      expect(page).to have_content(success_massage)
+      expect(page).not_to have_content(compoment_title)
+    end
+  end
 end
