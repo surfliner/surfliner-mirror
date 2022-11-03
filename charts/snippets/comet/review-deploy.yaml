@@ -51,7 +51,7 @@ extraEnvVars:
   - name: "STAGING_AREA_S3_EXAMPLE_FILES"
     value: "1"
   - name: "METADATA_MODELS"
-    value: "ucsb-metadata"
+    value: "ucsb-metadata,ucsd-metadata-sample"
 extraEnvFrom:
   - secretRef:
       name: ezid-test
