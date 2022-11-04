@@ -28,17 +28,6 @@ minio:
 serviceAccount:
   name: orange-empire
 
-vaultSecret:
+existingSecret:
+  name: orange-empire
   enabled: true
-
-podAnnotations:
-  vault.hashicorp.com/agent-pre-populate-only: 'true'
-  vault.hashicorp.com/agent-inject: 'true'
-  vault.hashicorp.com/role: 'orange-empire-staging'
-  vault.hashicorp.com/agent-inject-secret-orange-empire.env: 'applications/orange-empire/staging'
-  vault.hashicorp.com/agent-inject-template-orange-empire.env: |
-    {{- with secret "applications/orange-empire/staging" -}}
-    {{- range $k, $v := .Data.data }}
-    export {{ $k | toUpper }}='{{ $v }}'
-    {{- end }}
-    {{- end }}
