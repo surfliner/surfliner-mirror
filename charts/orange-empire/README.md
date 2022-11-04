@@ -52,8 +52,6 @@ see: https://github.com/UCLALibrary/docker-cantaloupe/tree/main/src/main/docker/
 | `nameOverride` | String to partially override orange-empire.fullname template with a string (will prepend the release name) | `""` | N/A |
 | `existingSecret.name` | Name of Kubernetes `Secret` to use that exists already in namespace | `orange-empire` | N/A |
 | `existingSecret.enabled` | Whether to use existingSecret instead of Chart generated `Secret` | `orange-empire` | N/A |
-| `vaultSecret.enabled` | Whether a Hashicorp Vault Secret will be used in deployment | `false` | N/A |
-| `vaultSecret.vaultFile` | Location that the Vault file of secrets will be written | `/vault/secrets/orange-empire.env` | `VAULT_FILE` |
 | `cantaloupe.admin.endpointEnabled` | Whether to enable the admin user and UI| `true` | `CANTALOUPE_ENDPOINT_ADMIN_ENABLED` |
 | `cantaloupe.admin.secret` | Admin password/secret to access admin UI endpoint | `admin-password` | `CANTALOUPE_ENDPOINT_ADMIN_SECRET` |
 | `cantaloupe.cacheServer.derivative` | Derivative storage source | `S3Cache` | `CANTALOUPE_CACHE_SERVER_DERIVATIVE` |
