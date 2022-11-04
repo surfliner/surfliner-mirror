@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
-# Generated via
-#  `rails generate hyrax:work_resource GenericObject`
 require "rails_helper"
 require "hyrax/specs/shared_specs/indexers"
 
-RSpec.describe GenericObjectIndexer do
-  let(:indexer_class) { described_class }
+RSpec.describe Indexers::ResourceIndexer do
+  let(:indexer_class) { Indexers::ResourceIndexer(GenericObject) }
   let(:resource) { GenericObject.new }
+  let(:resource_indexer) { indexer_class.new(resource: resource) }
 
   it_behaves_like "a Hyrax::Resource indexer"
 
@@ -18,13 +17,13 @@ RSpec.describe GenericObjectIndexer do
     end
 
     it "gives string values for RDF Literals" do
-      solr_doc = described_class.new(resource: resource).to_solr
+      solr_doc = resource_indexer.to_solr
 
       expect(solr_doc[:creator_tesim]).to eql ["Tove"]
     end
 
     xit "gives type appropriate string values for typed literals" do
-      solr_doc = described_class.new(resource: resource).to_solr
+      solr_doc = resource_indexer.to_solr
 
       expect(solr_doc[:date_created_tesim]).to eql [Date.today]
     end
