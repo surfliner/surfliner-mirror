@@ -27,11 +27,7 @@ spec:
               export AWS_SECRET_ACCESS_KEY="$CANTALOUPE_S3SOURCE_SECRET_KEY";
               apk add --no-cache curl;
               curl -L -v "$SAMPLE_IMAGE_URL" -o /tmp/puppies.jpg;
-{{- if .Values.cantaloupe.delegate.enabled }}
-              aws --endpoint-url "$CANTALOUPE_S3SOURCE_ENDPOINT" s3 cp /tmp/puppies.jpg s3://$CANTALOUPE_S3SOURCE_BUCKET_NAME/puppies.jpg
-{{- else }}
               aws --endpoint-url "$CANTALOUPE_S3SOURCE_ENDPOINT" s3 cp /tmp/puppies.jpg s3://$CANTALOUPE_S3SOURCE_BASICLOOKUPSTRATEGY_BUCKET_NAME/puppies.jpg
-{{- end }}
           envFrom:
             - configMapRef:
                 name: {{ include "orange-empire.fullname" . }}-env

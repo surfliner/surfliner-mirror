@@ -339,7 +339,7 @@ class CustomDelegate
     logger = Java::edu.illinois.library.cantaloupe.delegate.Logger
 
     newkey = context['identifier'].sub(%r{[a-z]+://}, '')
-    bucket = ENV['CANTALOUPE_S3SOURCE_BUCKET_NAME']
+    bucket = ENV['CANTALOUPE_S3SOURCE_BASICLOOKUPSTRATEGY_BUCKET_NAME']
 
     logger.info "THE BUCKET IS #{bucket}"
     logger.info "THE KEY IS #{newkey}"
