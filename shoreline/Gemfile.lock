@@ -100,38 +100,38 @@ GEM
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
       railties (>= 3.2)
-    dry-configurable (0.14.0)
+    dry-configurable (1.0.0)
+      dry-core (~> 1.0, < 2)
+      zeitwerk (~> 2.6)
+    dry-core (1.0.0)
       concurrent-ruby (~> 1.0)
-      dry-core (~> 0.6)
-    dry-container (0.9.0)
-      concurrent-ruby (~> 1.0)
-      dry-configurable (~> 0.13, >= 0.13.0)
-    dry-core (0.7.1)
-      concurrent-ruby (~> 1.0)
-    dry-inflector (0.2.1)
+      zeitwerk (~> 2.6)
+    dry-inflector (1.0.0)
     dry-initializer (3.1.1)
-    dry-logic (1.2.0)
+    dry-logic (1.4.0)
       concurrent-ruby (~> 1.0)
-      dry-core (~> 0.5, >= 0.5)
-    dry-schema (1.9.1)
+      dry-core (~> 1.0, < 2)
+      zeitwerk (~> 2.6)
+    dry-schema (1.12.0)
       concurrent-ruby (~> 1.0)
-      dry-configurable (~> 0.13, >= 0.13.0)
-      dry-core (~> 0.5, >= 0.5)
+      dry-configurable (~> 1.0, < 2)
+      dry-core (~> 1.0, < 2)
       dry-initializer (~> 3.0)
-      dry-logic (~> 1.0)
-      dry-types (~> 1.5)
-    dry-types (1.5.1)
+      dry-logic (>= 1.4, < 2)
+      dry-types (>= 1.7, < 2)
+      zeitwerk (~> 2.6)
+    dry-types (1.7.0)
       concurrent-ruby (~> 1.0)
-      dry-container (~> 0.3)
-      dry-core (~> 0.5, >= 0.5)
-      dry-inflector (~> 0.1, >= 0.1.2)
-      dry-logic (~> 1.0, >= 1.0.2)
-    dry-validation (1.8.0)
+      dry-core (~> 1.0, < 2)
+      dry-inflector (~> 1.0, < 2)
+      dry-logic (>= 1.4, < 2)
+      zeitwerk (~> 2.6)
+    dry-validation (1.10.0)
       concurrent-ruby (~> 1.0)
-      dry-container (~> 0.7, >= 0.7.1)
-      dry-core (~> 0.5, >= 0.5)
+      dry-core (~> 1.0, < 2)
       dry-initializer (~> 3.0)
-      dry-schema (~> 1.9, >= 1.9.1)
+      dry-schema (>= 1.12, < 2)
+      zeitwerk (~> 2.6)
     erubi (1.10.0)
     execjs (2.8.1)
     factory_bot (6.2.0)
@@ -173,7 +173,7 @@ GEM
       rsolr
       sanitize
       thor
-    geoblacklight (3.6.0)
+    geoblacklight (3.7.0)
       blacklight (~> 7.8)
       coderay
       config
@@ -183,7 +183,7 @@ GEM
       geo_combine (~> 0.4)
       handlebars_assets
       mime-types
-      rails (>= 5.2.4, < 6.2)
+      rails (>= 5.2.4, < 7.1)
       rgeo-geojson
     geoserver-publish (0.5.0)
       faraday
@@ -203,8 +203,8 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (2.6.2)
-    json-schema (2.8.1)
-      addressable (>= 2.4)
+    json-schema (3.0.0)
+      addressable (>= 2.8)
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.2)
@@ -408,6 +408,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
+    zeitwerk (2.6.5)
 
 PLATFORMS
   ruby
@@ -424,7 +425,7 @@ DEPENDENCIES
   devise-guests (~> 0.6)
   dotenv-rails (~> 2.7)
   factory_bot_rails
-  geoblacklight (= 3.6.0)
+  geoblacklight (= 3.7.0)
   geoserver-publish (~> 0.3)
   jbuilder (~> 2.5)
   jquery-rails (~> 4.3)
@@ -450,4 +451,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   2.3.4
+   2.3.25
