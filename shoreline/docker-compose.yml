@@ -31,8 +31,14 @@ services:
     image: shoreline:development
     env_file:
       - .env
-    entrypoint: ["sh", "-c"]
-    command: db-setup.sh
+    environment:
+      GEOSERVER_HOST: geoserver # ingest.sh can't use localhost, not on network
+    command:
+      - sh
+      - -c
+      - >
+        db-setup.sh &&
+        /home/shoreline/app/bin/ingest.sh /home/shoreline/app/spec/fixtures/shapefiles
     depends_on:
       - postgres
     volumes:
