@@ -61,11 +61,6 @@ module Comet
 
     config.metadata_config_location = "config/metadata"
     config.metadata_config_schemas = ENV["METADATA_MODELS"].to_s.split(",").map(&:to_sym)
-    if config.metadata_config_schemas.empty?
-      config.metadata_config_schemas = [
-        :"build-metadata" # fallback schema if none is defined
-      ]
-    end
 
     config.metadata_api_uri_base =
       ENV.fetch("METADATA_API_URL_BASE") { "http://localhost:3000/concern/generic_objects" }
