@@ -376,3 +376,5 @@ Hyrax::DashboardController.sidebar_partials[:repository_content] << "hyrax/dashb
 Hyrax::Engine.routes.prepend do
   get "/collections/:id", to: "dashboard/collections#show", as: :collection
 end
+
+Qa::Authorities::FindWorks.search_builder_class = CometFindWorksSearchBuilder

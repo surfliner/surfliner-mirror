@@ -21,6 +21,13 @@ def select_s3_path(s3_path)
   end
 end
 
+def select_child_work(component_title)
+  find("#s2id_generic_object_find_child_work").click
+  find(".select2-input").set(component_title)
+  wait_for_select2
+  all("li.select2-result span.select2-match").first.click
+end
+
 def wait_for_select2
   # Crude way of waiting for the AJAX response
   select2_results = false

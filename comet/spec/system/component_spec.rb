@@ -34,4 +34,34 @@ RSpec.describe "Components", type: :system, js: true do
     component = Hyrax.query_service.find_by(id: reloaded.member_ids.first)
     expect(component.title).to contain_exactly("Component")
   end
+
+  context "search component objects" do
+    let(:compoment_title) { "Test Component" }
+
+    it "can search the component objects and add to the object" do
+      visit "/dashboard/my/works"
+      click_on "add-new-work-button"
+
+      fill_in("Title", with: compoment_title)
+      choose("generic_object_visibility_open")
+
+      sleep(1.seconds)
+      click_on "Save"
+
+      expect(page).to have_content(compoment_title)
+
+      visit "/concern/generic_objects/#{parent_object.id}/edit"
+
+      click_on "Relationships"
+
+      select_child_work(compoment_title)
+
+      within all(".form-inline")[1] do
+        click_on("Add")
+      end
+
+      expect(page).to have_content(compoment_title)
+      expect(page).to have_button("Remove from this object")
+    end
+  end
 end
