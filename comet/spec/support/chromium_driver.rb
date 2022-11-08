@@ -10,6 +10,8 @@ Capybara.register_driver :selenium_chrome_comet do |app|
     # Workaround https://bugs.chromium.org/p/chromedriver/issues/detail?id=2650&q=load&sort=-id&colspec=ID%20Status%20Pri%20Owner%20Summary
     opts.add_argument("--disable-site-isolation-trials")
     opts.add_argument("--window-size=1440,1440")
+    opts.add_argument("--enable-features=NetworkService,NetworkServiceInProcess")
+    opts.add_argument("--disable-features=VizDisplayCompositor")
   end
 
   # Different versions of Chrome/selenium-webdriver require setting differently - just set them all
