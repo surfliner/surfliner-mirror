@@ -56,8 +56,6 @@ shoreline:deploy:ucsb-stage:
     url: http://shoreline-staging.$KUBE_INGRESS_BASE_DOMAIN
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
-      --set geoserver.ingress.hosts={shoreline-geoserver-staging.$KUBE_INGRESS_BASE_DOMAIN}
-      --set ingress.hosts={shoreline-staging.$KUBE_INGRESS_BASE_DOMAIN}
       --set shoreline.email.contact_email=$UCSB_SHORELINE_STAGING_EMAIL_ADDRESS
       --set shoreline.email.smtp_settings.password=$UCSB_SHORELINE_STAGING_EMAIL_PASSWORD
       --set shoreline.email.smtp_settings.user_name=$UCSB_SHORELINE_STAGING_EMAIL_ADDRESS

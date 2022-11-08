@@ -1,3 +1,16 @@
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/proxy-body-size: 1G
+  tls:
+    - hosts:
+        - shoreline-staging.eks.dld.library.ucsb.edu
+      secretName: shoreline-tls-secret
+  hosts:
+    - shoreline-staging.eks.dld.library.ucsb.edu
+
 existingSecret:
   enabled: true
   name: shoreline-stage-external
@@ -25,6 +38,18 @@ solr:
   zookeeperHostname: dld-search-staging-zookeeper.solr-staging.svc.cluster.local
 
 geoserver:
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      nginx.ingress.kubernetes.io/proxy-body-size: 1G
+    tls:
+      - hosts:
+          - shoreline-geoserver-staging.eks.dld.library.ucsb.edu
+        secretName: geoserver-tls-secret
+    hosts:
+      - shoreline-geoserver-staging.eks.dld.library.ucsb.edu
   existingData: true
   jvm:
     initialMemory: 1G
