@@ -1,3 +1,6 @@
+require_relative "../../lib/superskunk/models/resource"
+require_relative "../../lib/superskunk/schema_loader"
+
 module Superskunk
   def self.comet_query_service
     metadata_adapter.query_service

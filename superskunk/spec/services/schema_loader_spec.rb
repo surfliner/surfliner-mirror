@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe EnvSchemaLoader do
+RSpec.describe Superskunk::SchemaLoader do
   subject(:loader) { described_class.new }
 
   it "loads something" do

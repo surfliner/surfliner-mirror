@@ -44,5 +44,14 @@ else
     :comet_metadata_store
   )
 
+  Valkyrie.config.resource_class_resolver = Superskunk::SchemaLoader.new.resource_class_resolver
+
   Superskunk.comet_query_service.custom_queries.register_query_handler(FindFileMetadata)
+
+  Superskunk::SchemaLoader.new.resource_classes.keys.filter { |class_name|
+    !%i[collection file_set].include?(class_name) # remove “special” keys
+  }.each do |class_name|
+    model_name = class_name.to_s.camelize
+    Valkyrie.config.resource_class_resolver.call(model_name)
+  end
 end
