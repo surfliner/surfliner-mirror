@@ -53,6 +53,7 @@ solr:
 geoserver:
   enabled: false
   geoserverHostname: lib-geoserver-docker.ucsd.edu
+  geoserverScheme: https
   service:
     port: "8600"
   admin:
