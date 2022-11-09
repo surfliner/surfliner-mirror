@@ -55,6 +55,29 @@ Create the name of the service account to use
 {{- end -}}
 {{- end -}}
 
+{{- define "shoreline.geoserver.port" -}}
+{{- .Values.geoserver.service.port | default "80" -}}
+{{- end -}}
+
+{{- define "shoreline.geoserver.scheme" -}}
+{{- if .Values.geoserver.enabled -}}
+{{- if .Values.geoserver.ingress.tls -}}
+{{- "https" -}}
+{{- else -}}
+{{- "http" -}}
+{{- end -}}
+{{- else -}}
+{{- .Values.geoserver.geoserverScheme | default "http" -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "shoreline.geoserver.url" -}}
+{{- $scheme := ( include "shoreline.geoserver.scheme" .) -}}
+{{- $hostname := ( include "shoreline.geoserver.hostname" .) -}}
+{{- $port := ( include "shoreline.geoserver.port" .) -}}
+{{- printf "%s://%s:%s" $scheme $hostname $port -}}
+{{- end -}}
+
 {{- define "shoreline.postgresql.fullname" -}}
 {{ include "common.postgresql.fullname" . }}
 {{- end -}}

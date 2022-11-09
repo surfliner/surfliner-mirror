@@ -159,7 +159,9 @@ geoserver:
   enabled: true
   # If geoserver.enabled is false, then
   #   * set geoserverHostname to external geoserver FQDN
+  #   * set geoserverScheme to https if using TLS/SSL
   # geoserverHostname: external-shoreline-geoserver-fqdn
+  # geoserverScheme: https
   admin:
     username: admin
     password: shorelinegeo
