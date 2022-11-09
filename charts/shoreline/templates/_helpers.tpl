@@ -56,7 +56,11 @@ Create the name of the service account to use
 {{- end -}}
 
 {{- define "shoreline.geoserver.port" -}}
+{{- if (and .Values.geoserver.enabled .Values.geoserver.ingress.tls) -}}
+{{- "443" -}}
+{{- else -}}
 {{- .Values.geoserver.service.port | default "80" -}}
+{{- end -}}
 {{- end -}}
 
 {{- define "shoreline.geoserver.scheme" -}}
