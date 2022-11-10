@@ -51,7 +51,7 @@ group :development, :test do
   gem "rspec-rails", "5.1.2"
   gem "scss_lint", "0.59.0", require: false
   gem "scss_lint_reporter_checkstyle", "0.2.0", require: false
-  gem "selenium-webdriver", "4.5.0"
+  gem "selenium-webdriver", "4.6.1"
   gem "shoulda-matchers", "5.2.0"
   gem "standard", "1.16.1"
   gem "webmock", "3.18.1"
