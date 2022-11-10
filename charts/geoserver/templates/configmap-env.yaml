@@ -12,8 +12,8 @@ data:
   GEOSERVER_DATA_DIR: {{ .Values.dataDirectory }}
   GEOSERVER_PORT: {{ .Values.port | quote }}
   {{- if .Values.ingress.tls }}
-  HTTP_PROXY_NAME={{ .Values.ingress.hosts | first }}
-  HTTP_SCHEME=https
+  HTTP_PROXY_NAME: {{ .Values.ingress.hosts | first }}
+  HTTP_SCHEME: https
   {{- end }}
   INITIAL_MEMORY: {{ .Values.jvm.initialMemory }}
   MAXIMUM_MEMORY: {{ .Values.jvm.maximumMemory }}
