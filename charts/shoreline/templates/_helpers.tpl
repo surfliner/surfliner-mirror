@@ -55,6 +55,14 @@ Create the name of the service account to use
 {{- end -}}
 {{- end -}}
 
+{{- define "shoreline.geoserver.internal_hostname" -}}
+{{- if .Values.geoserver.enabled -}}
+{{- printf "%s-%s" .Release.Name "geoserver" | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
+{{- .Values.geoserver.geoserverHostname -}}
+{{- end -}}
+{{- end -}}
+
 {{- define "shoreline.geoserver.port" -}}
 {{- if (and .Values.geoserver.enabled .Values.geoserver.ingress.tls) -}}
 {{- "443" -}}
