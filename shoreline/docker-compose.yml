@@ -31,9 +31,8 @@ services:
     image: shoreline:development
     env_file:
       - .env
-    environment: # ingest.sh/importer can't use localhost for geoserver
-      GEOSERVER_HOST: geoserver
-      GEOSERVER_URL: http://geoserver:8080
+    environment:
+      GEOSERVER_HOST: geoserver # ingest.sh can't use localhost, not on network
     command:
       - sh
       - -c
