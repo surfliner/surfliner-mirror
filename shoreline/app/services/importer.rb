@@ -23,8 +23,8 @@ module Importer
   }.freeze
 
   REFERENCES = {
-    wfs: "#{ENV["GEOSERVER_URL"]}/geoserver/wfs",
-    wms: "#{ENV["GEOSERVER_URL"]}/geoserver/wms"
+    wfs: "http://#{ENV["GEOSERVER_HOST"]}:#{ENV["GEOSERVER_PORT"]}/geoserver/wfs",
+    wms: "http://#{ENV["GEOSERVER_HOST"]}:#{ENV["GEOSERVER_PORT"]}/geoserver/wms"
   }
 
   BOUNDS = {
@@ -55,7 +55,7 @@ module Importer
 
   def self.publish_to_geoserver(file_path:)
     conn = Geoserver::Publish::Connection.new(
-      "url" => "#{ENV["GEOSERVER_URL"]}/geoserver/rest",
+      "url" => "http://#{ENV["GEOSERVER_HOST"]}:#{ENV["GEOSERVER_PORT"]}/geoserver/rest",
       "user" => ENV["GEOSERVER_ADMIN_USER"],
       "password" => ENV["GEOSERVER_ADMIN_PASSWORD"]
     )
@@ -163,7 +163,7 @@ module Importer
       ENV["GEOSERVER_ADMIN_PASSWORD"]
     )
 
-    url = "#{ENV["GEOSERVER_URL"]}/geoserver/rest/layers/#{name}.json"
+    url = "http://#{ENV["GEOSERVER_HOST"]}:#{ENV["GEOSERVER_PORT"]}/geoserver/rest/layers/#{name}.json"
 
     ready = false
     tries = 10
