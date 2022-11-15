@@ -67,6 +67,16 @@ The following tables list a few key configurable parameters for Shoreline chart 
 
 #### GeoServer
 
+If GeoServer is enabled via `geoserver.enabled` then it is desirable for ingest network traffic to be routing internally
+in Kubernetes to avoid cost for moving data in a cloud environment.
+
+We use two environment variables to distinguish between Geoserver traffic routed internally and externally.
+
+`GEOSERVER_URL` - Used for Solr document indexing and Leaflet to render and pull data for clients/users.
+
+`GEOSERVER_INTERNAL_URL` - Used for ingest of content into Geoserver. If `geoserver.enabled=true` then this will use the
+internal hostname for the deployment. If `false` this value will be the same as `GEOSERVER_URL`
+
 See: [Geoserver values.yaml](../geoserver/values.yaml)
 
 | Parameter | Description | Default | Environment Variable |

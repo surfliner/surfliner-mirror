@@ -83,6 +83,14 @@ Create the name of the service account to use
 {{- end -}}
 {{- end -}}
 
+{{- define "shoreline.geoserver.internal_url" -}}
+{{- if .Values.geoserver.enabled -}}
+{{- printf "http://%s" (include "shoreline.geoserver.internal_hostname" . ) -}}
+{{- else -}}
+{{- include "shoreline.geoserver.url" . -}}
+{{- end -}}
+{{- end -}}
+
 {{- define "shoreline.geoserver.url" -}}
 {{- $scheme := ( include "shoreline.geoserver.scheme" .) -}}
 {{- $hostname := ( include "shoreline.geoserver.hostname" .) -}}
