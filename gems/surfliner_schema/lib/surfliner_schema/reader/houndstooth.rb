@@ -29,6 +29,7 @@ module SurflinerSchema
         # Generate the properties.
         @properties = properties_hash.each_with_object({}) do |(name, config), dfns|
           property_name = config.fetch("name", name).to_sym
+          cardinality_maximum = config.dig("cardinality", "maximum")
           property = Property.new(
             name: property_name,
             display_label: config.fetch(
@@ -56,18 +57,15 @@ module SurflinerSchema
             cardinality_class:
               if config.dig("cardinality", "minimum").to_i > 0
                 # At least one.
-                if config.dig("cardinality", "maximum").to_i > 1
+                if cardinality_maximum.nil? || cardinality_maximum.to_i > 1
                   :one_or_more
                 else
                   :exactly_one
                 end
+              elsif cardinality_maximum.nil? || cardinality_maximum.to_i > 1
+                :zero_or_more # the default
               else
-                maximum = config.dig("cardinality", "maximum")
-                if maximum.nil? || maximum > 1
-                  :zero_or_more # the default
-                else
-                  :zero_or_one
-                end
+                :zero_or_one
               end,
             extra_qualities: {} # TK: form stuff, ⁊c…
           )
