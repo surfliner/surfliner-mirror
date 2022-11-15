@@ -30,6 +30,8 @@ class SolrDocument
   # since ActiveFedoraDummyModel doesn't return the correct Valkyrized GID with
   # #to_global_id
   def to_model
+    return super if collection?
+
     @model ||= Hyrax.query_service.find_by(id: id)
   rescue Valkyrie::Persistence::ObjectNotFoundError => err
     Hyrax.logger.error "Failed to convert SolrDocument to object for #{id}; #{err.message}"
