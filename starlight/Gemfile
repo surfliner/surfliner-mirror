@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 
 gem "activerecord-nulldb-adapter"
-gem "blacklight", "7.18.1"
+gem "blacklight", "7.31.0"
 gem "blacklight-gallery", "3.5.0"
 gem "blacklight-oembed", "1.1.0"
 gem "blacklight-spotlight",
@@ -33,7 +33,7 @@ gem "sass-rails", "6.0.0"
 gem "sidekiq", "6.5.8"
 gem "sitemap_generator", "6.3.0"
 gem "uglifier", "4.2.0"
-gem "view_component", "2.35.0" # TODO: figure out what's breaking between here and 2.55.0
+gem "view_component", "< 2.74"
 
 group :development, :test do
   gem "byebug", "11.1.3"
