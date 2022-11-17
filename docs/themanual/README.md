@@ -22,3 +22,6 @@ The Surliner Manual TOC
   * [Tidewater API Endpoints](./tidewater/api.md)
   * [Configuring Tidewater](./tidewater/configuration.md)
   * [The Tidewater Database](./tidewater/database.md)
+
+* Deployment
+  * [Helm Tips and Tricks](./helm/tips.md)
