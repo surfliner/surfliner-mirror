@@ -68,6 +68,9 @@ en:
           files_location: Select files location from staging
       sidebar:
         batch_uploads: "Batch Uploads"
+      my:
+        action:
+          not_implemeted: The action for collection members is not implemented
     workflows:
       batch_review:
         button_label: "Batch Review"

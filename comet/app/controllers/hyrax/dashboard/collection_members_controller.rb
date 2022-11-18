@@ -37,9 +37,20 @@ module Hyrax
 
         collection.reindex_extent = Hyrax::Adapters::NestingIndexAdapter::LIMITED_REINDEX
         begin
-          Hyrax::Collections::CollectionMemberService.add_members_by_ids(collection_id: collection.id,
-            new_member_ids: batch_ids,
-            user: current_user)
+          case member_action
+          when "add"
+            Hyrax::Collections::CollectionMemberService.add_members_by_ids(collection_id: collection.id,
+              new_member_ids: batch_ids,
+              user: current_user)
+          when "remove"
+            Hyrax::Collections::CollectionMemberService.remove_members_by_ids(collection_id: collection.id,
+              member_ids: batch_ids,
+              user: current_user)
+          else
+            after_update_error("#{t("hyrax.dashboard.my.action.not_implemeted")}: #{member_action}")
+            return
+          end
+
           after_update
         rescue Hyrax::SingleMembershipError => err
           messages = JSON.parse(err.message)
@@ -57,7 +68,6 @@ module Hyrax
       def validate
         return t("hyrax.dashboard.my.action.members_no_access") if batch_ids.blank?
         return t("hyrax.dashboard.my.action.collection_deny_add_members") unless current_ability.can?(:deposit, collection)
-        return t("hyrax.dashboard.my.action.add_to_collection_only") unless member_action == "add" # should never happen
       end
 
       def success_return_path
