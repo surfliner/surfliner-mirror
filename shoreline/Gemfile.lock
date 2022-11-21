@@ -103,6 +103,7 @@ GEM
     config (4.1.0)
       deep_merge (~> 1.2, >= 1.2.1)
       dry-validation (~> 1.0, >= 1.0.0)
+    connection_pool (2.3.0)
     crass (1.0.6)
     deep_merge (1.2.2)
     deprecation (1.1.0)
@@ -159,54 +160,35 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
-    faraday (1.10.2)
-      faraday-em_http (~> 1.0)
-      faraday-em_synchrony (~> 1.0)
-      faraday-excon (~> 1.1)
-      faraday-httpclient (~> 1.0)
-      faraday-multipart (~> 1.0)
-      faraday-net_http (~> 1.0)
-      faraday-net_http_persistent (~> 1.0)
-      faraday-patron (~> 1.0)
-      faraday-rack (~> 1.0)
-      faraday-retry (~> 1.0)
+    faraday (2.7.1)
+      faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
-    faraday-em_http (1.0.0)
-    faraday-em_synchrony (1.0.0)
-    faraday-excon (1.1.0)
-    faraday-httpclient (1.0.1)
-    faraday-multipart (1.0.4)
-      multipart-post (~> 2)
-    faraday-net_http (1.0.1)
-    faraday-net_http_persistent (1.2.0)
-    faraday-patron (1.0.0)
-    faraday-rack (1.0.0)
-    faraday-retry (1.0.3)
-    faraday_middleware (1.0.0)
-      faraday (~> 1.0)
+    faraday-net_http (3.0.2)
+    faraday-net_http_persistent (2.1.0)
+      faraday (~> 2.5)
+      net-http-persistent (~> 4.0)
     ffi (1.15.5)
-    geo_combine (0.6.0)
+    geo_combine (0.7.0)
       activesupport
+      faraday-net_http_persistent (~> 2.0)
       json-schema
-      net-http-persistent (~> 2.0)
       nokogiri
       rsolr
       sanitize
       thor
-    geoblacklight (3.7.0)
-      blacklight (~> 7.8)
+    geoblacklight (4.0.0)
+      blacklight (~> 7.12)
       coderay
       config
       deprecation
-      faraday (~> 1.0)
-      faraday_middleware (~> 1.0.0.rc1)
+      faraday (>= 1.0)
       geo_combine (~> 0.4)
       handlebars_assets
       mime-types
-      rails (>= 5.2.4, < 7.1)
+      rails (>= 6.1, < 7.1)
       rgeo-geojson
-    geoserver-publish (0.5.0)
-      faraday
+    geoserver-publish (0.6.0)
+      faraday (~> 2.2)
     globalid (1.0.0)
       activesupport (>= 5.0)
     handlebars_assets (0.23.9)
@@ -269,8 +251,8 @@ GEM
     mini_portile2 (2.8.0)
     minitest (5.16.3)
     msgpack (1.6.0)
-    multipart-post (2.2.3)
-    net-http-persistent (2.9.4)
+    net-http-persistent (4.0.1)
+      connection_pool (~> 2.2)
     nio4r (2.5.8)
     nokogiri (1.13.9)
       mini_portile2 (~> 2.8.0)
@@ -445,6 +427,7 @@ GEM
 PLATFORMS
   ruby
   x86_64-linux
+  x86_64-linux-musl
 
 DEPENDENCIES
   blacklight (= 7.31.0)
@@ -457,8 +440,8 @@ DEPENDENCIES
   devise-guests (~> 0.6)
   dotenv-rails (~> 2.7)
   factory_bot_rails
-  geoblacklight (= 3.7.0)
-  geoserver-publish (~> 0.3)
+  geoblacklight (= 4.0.0)
+  geoserver-publish (= 0.6.0)
   jbuilder (~> 2.5)
   jquery-rails (~> 4.3)
   letter_opener_web
@@ -485,4 +468,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   2.3.24
+   2.3.26
