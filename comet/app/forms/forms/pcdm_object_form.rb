@@ -14,7 +14,7 @@ module Forms
       self.model_class = model_class
 
       include Hyrax::FormFields(:core_metadata)
-      include SurflinerSchema::FormFields(model_class.resource_class.name, loader: ::SchemaLoader.new)
+      include SurflinerSchema::FormFields(model_class.availability, loader: ::SchemaLoader.new)
 
       def self.inspect
         return "Forms::PcdmObjectForm(#{model_class})" if name.blank?

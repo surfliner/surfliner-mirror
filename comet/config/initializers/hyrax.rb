@@ -15,7 +15,7 @@ Hyrax.config do |config|
   #
   # This unfortunately needs to all happen up‐front in the initializer due to
   # the requirements of Rails routing.
-  ::SchemaLoader.new.resource_classes.keys.filter { |class_name|
+  ::SchemaLoader.new.availabilities.filter { |class_name|
     !%i[collection file_set].include?(class_name) # remove “special” keys
   }.each do |class_name|
     model_name = class_name.to_s.camelize

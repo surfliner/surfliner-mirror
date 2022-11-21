@@ -11,7 +11,7 @@ module Indexers
       prepend ::Indexers::ResourceIndexer
 
       include Hyrax::Indexer(:basic_metadata)
-      include Hyrax::Indexer(model_class.resource_class.name, index_loader: ::SchemaLoader.new)
+      include Hyrax::Indexer(model_class.availability, index_loader: ::SchemaLoader.new)
 
       def self.inspect
         return "ResourceIndexer(#{@model_class})" if name.blank?
