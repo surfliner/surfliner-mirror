@@ -72,4 +72,16 @@ describe SurflinerSchema::Reader::Houndstooth do
       expect(reader.resource_classes[:Image].display_label).to eq "Image"
     end
   end
+
+  describe "#sections" do
+    it "contains the expected sections" do
+      expect(reader.sections.keys).to eq [:my_metadata]
+    end
+  end
+
+  describe "#groupings" do
+    it "contains the expected groupings" do
+      expect(reader.groupings.keys).to eq [:date]
+    end
+  end
 end

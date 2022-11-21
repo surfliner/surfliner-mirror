@@ -34,6 +34,22 @@ module SurflinerSchema
       end
 
       ##
+      # A hash mapping section names to their definitions.
+      #
+      # @return [{Symbol => SurflinerSchema::Section}]
+      def sections
+        {}
+      end
+
+      ##
+      # A hash mapping grouping names to their definitions.
+      #
+      # @return [{Symbol => SurflinerSchema::Grouping}]
+      def groupings
+        {}
+      end
+
+      ##
       # A hash mapping indices to Valkyrie types.
       #
       # The type is always a set of `RDF::Literal`s in order to preserve the

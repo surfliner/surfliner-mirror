@@ -49,6 +49,20 @@ module SurflinerSchema
     )
 
     ##
+    # The name of the sectional division to which the property belongs.
+    #
+    # @note This attribute is a symbol; you will need to do additional work if
+    #   you require the corresponding +SurflinerSchema::Section+.
+    attribute :section, Valkyrie::Types::Coercible::Symbol.optional.default(nil)
+
+    ##
+    # The name of the grouping division to which the property belongs.
+    #
+    # @note This attribute is a symbol; you will need to do additional work if
+    #   you require the corresponding +SurflinerSchema::Grouping+.
+    attribute :grouping, Valkyrie::Types::Coercible::Symbol.optional.default(nil)
+
+    ##
     # The RDF datatype of the property.
     #
     # If multiple values are provided, they are treated as a union, not an

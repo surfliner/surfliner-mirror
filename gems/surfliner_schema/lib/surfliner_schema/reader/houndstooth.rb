@@ -12,6 +12,8 @@ module SurflinerSchema
       def initialize(houndstooth)
         properties_hash = self.class.property_hash(houndstooth, :properties)
         classes_hash = self.class.property_hash(houndstooth, :classes)
+        sections_hash = self.class.property_hash(houndstooth, :sections)
+        groupings_hash = self.class.property_hash(houndstooth, :groupings)
         mappings_hash = self.class.property_hash(houndstooth, :mappings)
 
         # Generate the classes.
@@ -23,6 +25,32 @@ module SurflinerSchema
               "display_label",
               self.class.format_name(class_name)
             )
+          )
+        end
+
+        # Generate the sections.
+        @sections = sections_hash.each_with_object({}) do |(name, config), dfns|
+          section_name = config.fetch("name", name).to_sym
+          dfns[section_name] = Section.new(
+            name: section_name,
+            display_label: config.fetch(
+              "display_label",
+              self.class.format_name(section_name)
+            )
+          )
+        end
+
+        # Generate the groupings.
+        @groupings = groupings_hash.each_with_object({}) do |(name, config), dfns|
+          group_name = config.fetch("name", name).to_sym
+          dfns[group_name] = Grouping.new(
+            name: group_name,
+            display_label: config.fetch(
+              "display_label",
+              self.class.format_name(group_name)
+            ),
+            definition: config["definition"],
+            usage_guidelines: config["usage_guidelines"]
           )
         end
 
@@ -42,6 +70,8 @@ module SurflinerSchema
             available_on: config.dig("available_on").is_a?(Hash) ?
                 config.dig("available_on", "class").to_a.map(&:to_sym) :
                 config.dig("available_on").to_a.map(&:to_sym),
+            section: config["section"].nil? ? nil : config["section"].to_sym,
+            grouping: config["grouping"].nil? ? nil : config["grouping"].to_sym,
             data_type: RDF::Vocabulary.find_term(config.fetch("data_type", "http://www.w3.org/2001/XMLSchema#string")),
             indexing: config.fetch("indexing", []).to_a.map(&:to_sym),
             mapping: config.fetch("mapping", {}).to_h.filter_map { |prefix, value|
@@ -96,6 +126,18 @@ module SurflinerSchema
       #
       # @return [{Symbol => SurflinerSchema::ResourceClass}]
       attr_reader :resource_classes
+
+      ##
+      # A hash mapping section names to their definitions.
+      #
+      # @return [{Symbol => SurflinerSchema::Section}]
+      attr_reader :sections
+
+      ##
+      # A hash mapping grouping names to their definitions.
+      #
+      # @return [{Symbol => SurflinerSchema::Groupings}]
+      attr_reader :groupings
 
       ##
       # Coerces the object corresponding to the provided property name in the

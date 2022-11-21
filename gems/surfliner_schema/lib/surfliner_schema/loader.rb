@@ -27,6 +27,25 @@ module SurflinerSchema
     end
 
     ##
+    # An Array of symbols corresponding to availabilities usable with this
+    # Loader’s methods.
+    #
+    # @return [Array<Symbol>]
+    def availabilities
+      class_divisions.keys
+    end
+
+    ##
+    # A SurflinerSchema::Division listing the sections, groupings, and
+    # properties with the provided availability.
+    #
+    # @param availability [Symbol]
+    # @return [SurflinerSchema::Division]
+    def class_division_for(availability)
+      class_divisions[availability]
+    end
+
+    ##
     # A hash mapping attributes with the provided availability to their form
     # definitions.
     #
@@ -122,29 +141,25 @@ module SurflinerSchema
             self.internal_resource = self.class.to_s # update internal_resource
           end
 
-          ##
-          # The M3 conceptual “class” corresponding to this model.
-          def self.resource_class
-            @loader.resource_classes[@availability]
-          end
+          class << self
+            ##
+            # The “availability” symbol corresponding to this model.
+            #
+            # @return [Symbol]
+            attr_reader :availability
 
-          ##
-          # The Ruby class name corresponding to this model.
-          def self.to_s
-            @class_name
+            ##
+            # The Ruby class name corresponding to this model.
+            #
+            # @return [String]
+            def to_s
+              @class_name
+            end
           end
         end
 
         Object.const_set(class_name, klass)
       end
-    end
-
-    ##
-    # A hash mapping M3 conceptual “class” names to their definitions.
-    #
-    # @return [{Symbol => SurflinerSchema::ResourceClass}]
-    def resource_classes
-      @resource_classes ||= {}.merge(*@readers.map { |reader| reader.resource_classes })
     end
 
     ##
@@ -169,12 +184,30 @@ module SurflinerSchema
     # @return {Symbol?}
     def availability_from_name(class_name)
       name = class_name.to_sym
-      if resource_classes.include?(name)
+      if availabilities.include?(name)
         name
       else
         underscored = class_name.to_s.underscore.to_sym
-        underscored if resource_classes.include?(underscored)
+        underscored if availabilities.include?(underscored)
       end
+    end
+
+    ##
+    # A hash mapping M3 conceptual “class” names to SurflinerSchema::Divisions
+    # which wrap the corresponding definition and contain the associated
+    # properties.
+    #
+    # @return [{Symbol => SurflinerSchema::Division}]
+    def class_divisions
+      @class_divisions ||= {}.merge(*@readers.map { |reader|
+        reader.resource_classes.keys.each_with_object({}) do |name, divs|
+          div = Division.new(name: name, kind: :class, reader: reader)
+          reader.properties(availability: name).values.each do |property|
+            div << property
+          end
+          divs[name] = div
+        end
+      })
     end
 
     ##
