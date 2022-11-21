@@ -48,7 +48,7 @@ else
 
   Superskunk.comet_query_service.custom_queries.register_query_handler(FindFileMetadata)
 
-  Superskunk::SchemaLoader.new.resource_classes.keys.filter { |class_name|
+  Superskunk::SchemaLoader.new.availabilities.filter { |class_name|
     !%i[collection file_set].include?(class_name) # remove “special” keys
   }.each do |class_name|
     model_name = class_name.to_s.camelize
