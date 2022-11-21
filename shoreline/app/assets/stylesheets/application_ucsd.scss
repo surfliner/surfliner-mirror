@@ -22,9 +22,6 @@ $primary: #004663;
 // Imports
 //---
 
-/*
-*= require leaflet-label
-*/
 @import 'bootstrap';
 @import 'blacklight/blacklight';
 @import 'geoblacklight/geoblacklight';
@@ -191,7 +188,7 @@ $color-footer-text: #fff;
 
 		display: flex;
 		justify-content: center;
-	
+
 	}
 }
 
