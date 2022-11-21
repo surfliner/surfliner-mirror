@@ -22,11 +22,6 @@ RSpec.describe "Search", type: :system, js: true do
       click_on "Objects"
       click_on "add-new-work-button"
 
-      within all("div.select-worktype")[0] do
-        choose("Generic Object")
-      end
-
-      click_on("Create Object")
       fill_in("Title", with: "Test Object")
       choose("generic_object_visibility_open")
 
