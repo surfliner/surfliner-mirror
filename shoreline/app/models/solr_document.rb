@@ -5,7 +5,7 @@ class SolrDocument
   include Geoblacklight::SolrDocument
 
   # self.unique_key = 'id'
-  self.unique_key = "layer_slug_s"
+  self.unique_key = Settings.FIELDS.UNIQUE_KEY
 
   # Email uses the semantic field mappings below to generate the body of an
   # email.
