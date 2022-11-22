@@ -36,7 +36,7 @@ services:
       - -c
       - >
         db-setup.sh &&
-        /home/shoreline/app/bin/ingest.sh /home/shoreline/app/spec/fixtures/shapefiles
+        bundle exec rake "geoblacklight:index:seed[:remote]"
     depends_on:
       - postgres
     volumes:
