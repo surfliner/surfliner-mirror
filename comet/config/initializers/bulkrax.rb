@@ -2,6 +2,7 @@
 
 if Rails.application.config.feature_bulkrax
   Bulkrax.setup do |config|
+    config.object_factory = Bulkrax::ValkyrieObjectFactory
     config.default_work_type = 'GenericObject'
   end
 
