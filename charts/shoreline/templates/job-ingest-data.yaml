@@ -24,8 +24,10 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: "{{ .Values.image.pullPolicy }}"
           args:
-            - /home/shoreline/app/bin/ingest.sh
-            - /home/shoreline/app/spec/fixtures/shapefiles
+            - bundle
+            - exec
+            - rake
+            - "geoblacklight:index:seed[:remote]"
           envFrom:
             - configMapRef:
                 name: {{ include "shoreline.fullname" . }}-env
