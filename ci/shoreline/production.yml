@@ -24,7 +24,6 @@ shoreline:deploy:prod:ucsb:
     HELM_ENCODED_VALUES_FILES: $UCSB_SOLR_PROD_AUTH, $UCSB_SHORELINE_GEOSERVER_PROD
     HELM_RELEASE_NAME: surfliner-shoreline-prod
     HELM_UPGRADE_EXTRA_ARGS: >
-      --set ingress.hosts={geodata.library.ucsb.edu}
       --set shoreline.email.contact_email=$UCSB_SHORELINE_EMAIL_ADDRESS
       --set shoreline.email.smtp_settings.password=$UCSB_SHORELINE_EMAIL_PASSWORD
       --set shoreline.email.smtp_settings.user_name=$UCSB_SHORELINE_EMAIL_ADDRESS

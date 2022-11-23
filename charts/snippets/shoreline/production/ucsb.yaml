@@ -1,3 +1,16 @@
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/proxy-body-size: 1G
+  tls:
+    - hosts:
+        - geodata.library.ucsb.edu
+      secretName: geodata-tls-secret
+  hosts:
+    - geodata.library.ucsb.edu
+
 # existingSecret:
 #   enabled: true
 #   name: shoreline-prod-external
@@ -25,6 +38,18 @@ solr:
   zookeeperHostname: dld-search-zookeeper.solr-prod.svc.cluster.local
 
 geoserver:
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      nginx.ingress.kubernetes.io/proxy-body-size: 1G
+    tls:
+      - hosts:
+          - geoserver.geodata.library.ucsb.edu
+        secretName: geoserver-prod-tls-secret
+    hosts:
+      - geoserver.geodata.library.ucsb.edu
   existingData: true
   podSecurityContext:
     fsGroup: 10001
