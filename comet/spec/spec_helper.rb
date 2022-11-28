@@ -1,5 +1,3 @@
-require "rake"
-
 RSpec.configure do |config|
   config.filter_run_when_matching :focus
   config.example_status_persistence_file_path = "tmp/examples.txt"
@@ -17,5 +15,3 @@ RSpec.configure do |config|
     c.max_formatted_output_length = nil
   end
 end
-
-Rake::Task["bulkrax:install:migrations"].invoke
