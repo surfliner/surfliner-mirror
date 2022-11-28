@@ -55,6 +55,16 @@ if Rails.application.config.feature_bulkrax
     mod.prepend HasMappingExt
   end
 
+  module CsvEntryExt
+    def self.parent_field(parser)
+      parser.related_parents_parsed_mapping
+    end
+  end
+
+  [Bulkrax::CsvEntry, Bulkrax::CsvEntry.singleton_class].each do |mod|
+    mod.prepend CsvEntryExt
+  end
+
   Hyrax::DashboardController.sidebar_partials[:repository_content] <<
     "hyrax/dashboard/sidebar/bulkrax_sidebar_additions"
 end
