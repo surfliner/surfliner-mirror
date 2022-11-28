@@ -81,6 +81,7 @@ comet:test:system:
   extends: .comet:test
   variables:
     AUTH_METHOD: "developer"
+    COMET_ENABLE_BULKRAX: "true"
     HUB_URL: "http://localhost:4444/wd/hub/"
     LOG_LEVEL: "ERROR"
     MINIO_DEFAULT_BUCKETS: "comet-test-bucket,comet-staging-area-test"
