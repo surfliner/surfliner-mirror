@@ -11,6 +11,7 @@ module Bulkrax
       return match if match
     rescue => err
       Hyrax.logger.error(err)
+      false
     end
   end
 end

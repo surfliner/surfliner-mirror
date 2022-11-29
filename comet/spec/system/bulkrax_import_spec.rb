@@ -31,6 +31,15 @@ RSpec.describe "Bulkrax Import", type: :system, js: true do
       expect(page).to have_content("w1")
       expect(page).to have_content("w2")
       expect(page).to have_selector(".glyphicon.glyphicon-ok", count: 2)
+
+      click_on "w1"
+      expect(page).to have_content("Raw Metadata:")
+
+      within("#raw-metadata-heading") do
+        find(".accordion-title").click
+      end
+
+      expect(page).to have_content("Lovely Title")
     end
   end
 end
