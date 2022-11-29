@@ -1,82 +1,44 @@
 # frozen_string_literal: true
 
 ##
-# @see bin/ingest and doc/deploy.md
+# @see doc/deploy.md
 module Importer
-  XPATHS = {
-    dc_description_s: "//xmlns:identificationInfo//xmlns:abstract/gco:CharacterString",
-    dc_format_s: "//xmlns:MD_Format/xmlns:name/gco:CharacterString",
-    dc_title_s: "//xmlns:title/gco:CharacterString"
-  }.freeze
-
-  XPATHS_MULTIVALUE = {
-    dc_creator_sm: "//xmlns:identificationInfo//xmlns:role[xmlns:CI_RoleCode[@codeListValue='originator']]/preceding-sibling::xmlns:organisationName/gco:CharacterString",
-    dc_publisher_sm: "//xmlns:identificationInfo//xmlns:role[xmlns:CI_RoleCode[@codeListValue='publisher']]/preceding-sibling::xmlns:organisationName/gco:CharacterString",
-    dc_subject_sm: "//xmlns:MD_Keywords[xmlns:type/xmlns:MD_KeywordTypeCode[@codeListValue='theme']]/xmlns:keyword/gco:CharacterString",
-    dct_isPartOf_sm: "//xmlns:identificationInfo//xmlns:collectiveTitle/gco:CharacterString",
-    dct_spatial_sm: "//xmlns:MD_Keywords[xmlns:type/xmlns:MD_KeywordTypeCode[@codeListValue='place']]/xmlns:keyword/gco:CharacterString"
-  }.freeze
-  # rubocop:enable Layout/LineLength
-
-  EXTRA_FIELDS = {
-    geoblacklight_version: "1.0"
-  }.freeze
-
   REFERENCES = {
     wfs: "#{ENV["GEOSERVER_URL"]}/geoserver/wfs",
     wms: "#{ENV["GEOSERVER_URL"]}/geoserver/wms"
   }
 
-  BOUNDS = {
-    east: "//xmlns:eastBoundLongitude/gco:Decimal",
-    north: "//xmlns:northBoundLatitude/gco:Decimal",
-    south: "//xmlns:southBoundLatitude/gco:Decimal",
-    west: "//xmlns:westBoundLongitude/gco:Decimal"
-  }.freeze
+  # @param [Hash] metadata
+  # @param [String] shapefile_url
+  def self.ingest(metadata:, shapefile_url: nil)
+    file_id = metadata["id"]
+    merged_metadata = metadata.merge({"dct_references_s": geoserver_references(metadata: metadata)})
 
-  def self.ingest_csv(csv:, file_root:)
-    table = CSV.table(csv, encoding: "UTF-8")
-
-    table.each do |row|
-      if row[:zipfilename].nil?
-        warn "missing field zipfilename"
-        warn row.inspect
-        exit 1
-      end
-      zipfile = Pathname.new(file_root).join(row[:zipfilename]).to_s
-      puts "-- Processing #{zipfile}"
-
-      publish_to_geoserver(file_path: zipfile)
-
-      metadata = assemble_attributes(row: row, file: zipfile)
-      publish_to_geoblacklight(metadata: metadata)
+    if shapefile_url.present?
+      publish_to_geoserver(file_url: shapefile_url, file_id: file_id)
+      merged_metadata = merged_metadata.merge(hash_from_geoserver(id: file_id))
     end
+
+    publish_to_geoblacklight(metadata: merged_metadata)
   end
 
-  def self.publish_to_geoserver(file_path:)
+  # @param [String] file_url
+  # @param [String] file_id
+  def self.publish_to_geoserver(file_url:, file_id:)
     conn = Geoserver::Publish::Connection.new(
       "url" => "#{ENV["GEOSERVER_INTERNAL_URL"]}/geoserver/rest",
       "user" => ENV["GEOSERVER_ADMIN_USER"],
       "password" => ENV["GEOSERVER_ADMIN_PASSWORD"]
     )
 
-    file = File.read(file_path)
-    file_id = File.basename(file_path, File.extname(file_path))
+    file = URI.parse(file_url).open.read
+    # file_id = File.basename(file_path, File.extname(file_path))
     workspace = ENV.fetch("GEOSERVER_WORKSPACE", "public")
 
     puts "-- Publishing to GeoServer as #{file_id}"
 
     Geoserver::Publish.create_workspace(workspace_name: workspace, connection: conn)
     Geoserver::Publish::DataStore.new(conn).upload(workspace_name: workspace, data_store_name: file_id, file: file)
-  end
-
-  def self.assemble_attributes(row:, file:)
-    initial = hash_from_xml(file: file)
-
-    initial
-      .merge(hash_from_csv(row: row))
-      .merge(hash_from_geoserver(id: initial[:layer_slug_s]))
-      .merge(EXTRA_FIELDS).reject { |_k, v| v.blank? }
   end
 
   def self.publish_to_geoblacklight(metadata:)
@@ -87,73 +49,10 @@ module Importer
     Blacklight.default_index.connection.commit
   end
 
-  def self.hash_from_csv(row:)
-    values = {
-      dc_rights_s: row[:access] || "Public",
-      dct_provenance_s: row[:provenance]
-    }
-
-    extra_references = if row[:references].present?
-      parse_references(row[:references])
-    else
-      {}
-    end
-    references = transform_reference_uris(REFERENCES.merge(extra_references))
-
-    values.merge({dct_references_s: references.to_json})
-  end
-
   def self.hash_from_geoserver(id:)
     {
       layer_geom_type_s: get_layer_type("public:#{id}")
     }
-  end
-
-  def self.hash_from_xml(file:)
-    Dir.mktmpdir do |dir|
-      puts "Unzipping #{file} to #{dir}"
-
-      # -j: flatten directory structure in `dest'
-      # -o: overwrite existing files in `dest'
-      system "unzip", "-qq", "-j", "-o", file, "-d", dir
-
-      iso = Dir.entries(dir).find do |f|
-        /.*-iso\.xml$/i.match(f)
-      end
-
-      xml = Nokogiri::XML(File.open("#{dir}/#{iso}"))
-
-      id = File.basename(Dir.glob("*.shp", base: dir)[0], ".shp")
-      xml_attrs(id: id, xml: xml)
-    end
-  rescue ArgumentError => e
-    warn "No ISO metadata found in #{file}"
-    raise e
-  end
-
-  def self.xml_attrs(options)
-    attributes = {}
-
-    id = options[:id]
-    attributes[:dc_identifier_s] = "public:#{id}"
-    attributes[:layer_slug_s] = id.to_s
-    attributes[:layer_id_s] = "public:#{id}"
-
-    attributes[:solr_year_i] = year(options[:xml])
-    attributes[:solr_geom] = envelope(options[:xml])
-
-    XPATHS.each do |k, v|
-      attributes[k] = CGI.unescapeHTML(options[:xml].xpath(v).first.children.first.to_s)
-    end
-
-    XPATHS_MULTIVALUE.each do |k, v|
-      attributes[k] = options[:xml].xpath(v).map(&:children).flatten.map(&:to_s).map { |s| CGI.unescapeHTML(s) }
-    end
-
-    attributes
-  rescue NoMethodError => e
-    warn "Could not extract #{k} from #{iso}"
-    raise e
   end
 
   def self.get_layer_type(name)
@@ -183,25 +82,10 @@ module Importer
     json["layer"]["defaultStyle"]["name"].titlecase
   end
 
-  def self.year(xml)
-    xml.xpath("substring(//xmlns:MD_DataIdentification/xmlns:citation//gco:Date, 1, 4)")
-  end
-
-  def self.envelope(xml)
-    coords = %i[west east north south].map do |dir|
-      xml.xpath(BOUNDS[dir]).map(&:children).flatten.map(&:to_s).first
-    end
-
-    "ENVELOPE(#{coords.join(",")})"
-  end
-
-  # @param [String] references
-  # @return [Hash]
-  def self.parse_references(references)
-    references.split("|").map do |ref|
-      keyvalue = ref.split("^")
-      {keyvalue[0].to_sym => keyvalue[1]}
-    end.reduce(&:merge)
+  def self.geoserver_references(metadata:)
+    JSON.parse(metadata["dct_references_s"]).merge(
+      transform_reference_uris(REFERENCES)
+    ).to_json
   end
 
   # @param [Hash] references

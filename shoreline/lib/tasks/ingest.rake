@@ -2,16 +2,14 @@
 
 $stdout.sync = true
 
-require "csv"
+require "json"
 
 namespace :shoreline do
-  desc "ingest a CSV of objects into GeoServer and GeoBlacklight"
-  task :ingest, [:csv_path] => :environment do |_t, args|
-    file_root = ENV["SHORELINE_FILE_ROOT"]
+  desc "ingest an Aardvark JSON file into GeoBlacklight"
+  task :ingest_aardvark, [:json_path] => :environment do |_t, args|
+    blob = JSON.parse(File.read(args[:json_path]))
 
-    puts "-- Ingesting files from #{file_root} with metadata located at #{args[:csv_path]}"
-
-    Importer.ingest_csv(csv: args[:csv_path], file_root: file_root)
+    Importer.ingest(metadata: blob)
   rescue => e
     warn "--- ERROR: #{e.message}"
     warn "--- ERROR: #{e.backtrace}"

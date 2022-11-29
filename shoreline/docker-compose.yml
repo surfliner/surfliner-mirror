@@ -35,8 +35,8 @@ services:
       - sh
       - -c
       - >
-        db-setup.sh &&
-        bundle exec rake "geoblacklight:index:seed[:remote]"
+        db-setup.sh
+        # && bundle exec rake "geoblacklight:index:seed[:remote]"
     depends_on:
       - postgres
     volumes:
