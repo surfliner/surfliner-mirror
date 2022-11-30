@@ -12,7 +12,7 @@ solr_config_name="${SOLR_CONFIGSET_NAME:-solrconfig}"
 
 # Solr Cloud ConfigSet API URLs
 solr_config_list_url="http://$SOLR_HOST:$SOLR_PORT/api/cluster/configs?omitHeader=true"
-solr_config_upload_url="http://$SOLR_HOST:$SOLR_PORT/solr/admin/configs?action=UPLOAD&name=${solr_config_name}"
+solr_config_upload_url="http://$SOLR_HOST:$SOLR_PORT/solr/admin/configs?action=UPLOAD&name=${solr_config_name}&overwrite=true&cleanup=true"
 
 while [ $COUNTER -lt 30 ]; do
   echo "-- Looking for Solr (${SOLR_HOST}:${SOLR_PORT})..."
