@@ -10,6 +10,7 @@ stages:
   - result_notification
 
 include:
+  - local: ci/rabbitmq.yml
   - local: ci/base.yml
   - local: ci/comet.yml
   - local: ci/lark.yml
@@ -19,7 +20,6 @@ include:
   - local: ci/superskunk.yml
   - local: ci/surfliner_schema.yml
   - local: ci/tidewater.yml
-  - local: ci/rabbitmq.yml
 
 # Build with Kaniko. When building on `trunk`, tag a new stable image.
 .build_helpers: &build_helpers |
