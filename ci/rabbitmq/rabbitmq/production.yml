@@ -1,0 +1,72 @@
+.rabbitmq:deploy:production:
+  stage: production
+  extends:
+    - .helm3-deploy
+  variables:
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/rabbitmq_web
+    DEPLOY_TAG: $CI_COMMIT_SHA
+    HELM_RELEASE_NAME: surfliner-rabbitmq-prod
+    KUBE_NAMESPACE: rabbitmq-prod
+  rules:
+    - !reference [.rabbitmq-default-branch-rules, rules]
+
+rabbitmq:deploy:production:ucsb:
+  needs: ["rabbitmq:deploy:staging:ucsb"]
+  extends:
+    - .rabbitmq:deploy:production
+    - .rabbitmq-chart-deploy
+  environment:
+    name: ucsb.production.rabbitmq
+    url: http://rabbitmq.$KUBE_INGRESS_BASE_DOMAIN
+    on_stop: rabbitmq:cleanup:production:ucsb
+  variables:
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --set worker.image.repository=$CI_REGISTRY_IMAGE/rabbitmq_worker_web
+      --set worker.image.tag=$CI_COMMIT_SHA
+      --values charts/snippets/rabbitmq/production-deploy.yaml
+      --values charts/snippets/rabbitmq/ucsb-production-deploy.yaml
+      --values charts/snippets/rabbitmq/ucsb-solr-production.yaml
+
+rabbitmq:cleanup:production:ucsb:
+  extends:
+    - .rabbitmq:deploy:production
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - delete
+  environment:
+    name: ucsb.production.rabbitmq
+    action: stop
+  when: manual
+
+rabbitmq:deploy:production:ucsd:
+  needs: ["rabbitmq:deploy:staging:ucsd"]
+  extends:
+    - .rabbitmq:deploy:production
+    - .rabbitmq-chart-deploy
+  environment:
+    name: ucsd.production.rabbitmq
+    url: https://lib-rabbitmq.ucsd.edu
+    on_stop: rabbitmq:cleanup:production:ucsd
+  tags:
+    - ucsd
+  variables:
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --set worker.image.repository=$CI_REGISTRY_IMAGE/rabbitmq_worker_web
+      --set worker.image.tag=$CI_COMMIT_SHA
+      --values charts/snippets/rabbitmq/production-deploy.yaml
+      --values charts/snippets/rabbitmq/ucsd-production-deploy.yaml
+
+rabbitmq:cleanup:production:ucsd:
+  extends:
+    - .rabbitmq:deploy:production
+  variables:
+    GIT_STRATEGY: none
+    KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
+  script:
+    - delete
+  environment:
+    name: ucsd.production.rabbitmq
+    action: stop
+  when: manual

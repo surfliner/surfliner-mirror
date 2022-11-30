@@ -19,6 +19,7 @@ include:
   - local: ci/superskunk.yml
   - local: ci/surfliner_schema.yml
   - local: ci/tidewater.yml
+  - local: ci/rabbitmq.yml
 
 # Build with Kaniko. When building on `trunk`, tag a new stable image.
 .build_helpers: &build_helpers |

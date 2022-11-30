@@ -1,0 +1,26 @@
+include:
+  - local: ci/rabbitmq/review.yml
+#  - local: ci/rabbitmq/staging.yml
+#  - local: ci/rabbitmw/production.yml
+
+.only-rabbitmq-changes: &only-rabbitmq-changes
+  changes:
+    - .gitlab-ci.yml
+    - ci/rabbitmq/**/*
+    - ci/rabbitmq.yml
+
+.rabbitmq-mr-rules:
+  rules:
+    - if: '$CI_MERGE_REQUEST_LABELS =~ /rabbitmq/'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      << : *only-rabbitmq-changes
+
+.rabbitmq-default-branch-rules:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      << : *only-rabbitmq-changes
+
+.rabbitmq-chart-deploy:
+  script:
+    - helm repo add bitnami https://charts.bitnami.com/bitnami
+    - deploy bitnami/rabbitmq-cluster-operator
