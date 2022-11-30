@@ -25,7 +25,7 @@ module Forms
 
   ##
   # @see https://github.com/samvera/valkyrie/wiki/ChangeSets-and-Dirty-Tracking
-  class PcdmObjectForm < Hyrax::Forms::ResourceForm
+  class PcdmObjectForm < Hyrax::Forms::PcdmObjectForm
     # Define custom form fields using the Valkyrie::ChangeSet interface
     #
     # property :my_custom_form_field
