@@ -14,6 +14,8 @@ if Rails.application.config.feature_bulkrax
 
       return false if excluded?(field)
       return true if supported_bulkrax_fields.include?(field)
+      # title is not defined in M3
+      return true if field == "title"
 
       property_defined = factory_class.singleton_methods.include?(:properties) && factory_class.properties[field].present?
 
@@ -33,12 +35,14 @@ if Rails.application.config.feature_bulkrax
 
       return true if @multiple_bulkrax_fields.include?(field)
       return false if field == "model"
+      # title is not defined in M3
+      return false if field == "title"
 
       field_supported?(field) && (multiple_field?(field) || factory_class.singleton_methods.include?(:properties) && factory_class&.properties&.[](field)&.[]("multiple"))
     end
 
     def multiple_field?(field)
-      form_definition = schema_form_definitions.find { |d| d.property_name == field }
+      form_definition = schema_form_definitions[field]
       form_definition.nil? ? false : form_definition.multiple?
     end
 
