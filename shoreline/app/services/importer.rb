@@ -12,12 +12,14 @@ module Importer
   # @param [String] shapefile_url
   def self.ingest(metadata:, shapefile_url: nil)
     file_id = metadata["id"]
-    merged_metadata = metadata.merge({"dct_references_s": geoserver_references(metadata: metadata)})
+    merged_metadata = metadata.merge({dct_references_s: geoserver_references(metadata: metadata)})
 
     if shapefile_url.present?
       publish_to_geoserver(file_url: shapefile_url, file_id: file_id)
       merged_metadata = merged_metadata.merge(hash_from_geoserver(id: file_id))
     end
+
+    raise "--- ERROR: metadata failed validation against Aardvark schema" unless is_metadata_valid?(merged_metadata)
 
     publish_to_geoblacklight(metadata: merged_metadata)
   end
@@ -53,6 +55,21 @@ module Importer
     {
       layer_geom_type_s: get_layer_type("public:#{id}")
     }
+  end
+
+  # Validate the provided metadata against geoblacklight-schema-aardvark
+  # @param [Hash] metadata
+  def self.is_metadata_valid?(metadata)
+    schema_path = Gem::Specification.find_by_name("geoblacklight").full_gem_path +
+      "/schema/geoblacklight-schema-aardvark.json"
+    schema = Pathname.new(schema_path)
+    errors = JSONSchemer.schema(schema).validate(metadata)
+    if errors.count > 0
+      puts "-- Aardvark validation errors: #{errors.map { |e| JSONSchemer::Errors.pretty(e) }}"
+      false
+    else
+      true
+    end
   end
 
   def self.get_layer_type(name)

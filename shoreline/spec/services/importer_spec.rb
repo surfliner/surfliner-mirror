@@ -5,6 +5,28 @@ require "rails_helper"
 require "rsolr"
 
 RSpec.describe Importer do
+  describe "#is_metadata_valid?" do
+    let(:valid_json_fixture) do
+      File.read(Rails.root.join("spec",
+        "fixtures",
+        "aardvark-metadata",
+        "esri-feature-layer.json"))
+    end
+    let(:invalid_json_fixture) do
+      File.read(Rails.root.join("spec",
+        "fixtures",
+        "aardvark-metadata",
+        "esri-feature-layer-invalid.json"))
+    end
+    it "returns true with valid json" do
+      metadata = JSON.parse(valid_json_fixture)
+      expect(described_class.is_metadata_valid?(metadata)).to be_truthy
+    end
+    it "returns false with invalid json" do
+      metadata = JSON.parse(invalid_json_fixture)
+      expect(described_class.is_metadata_valid?(metadata)).to be_falsey
+    end
+  end
   describe "#publish_to_geoblacklight" do
     let(:csv) do
       CSV.table(Rails.root.join(
