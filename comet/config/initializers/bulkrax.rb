@@ -19,7 +19,7 @@ if Rails.application.config.feature_bulkrax
 
       property_defined = factory_class.singleton_methods.include?(:properties) && factory_class.properties[field].present?
 
-      factory_class.method_defined?(field) && (schema_properties.include?(field) || property_defined)
+      factory_class.method_defined?(field) && (Bulkrax::ValkyrieObjectFactory.schema_properties(factory_class).include?(field) || property_defined)
     end
 
     ##
@@ -46,10 +46,6 @@ if Rails.application.config.feature_bulkrax
       form_definition.nil? ? false : form_definition.multiple?
     end
 
-    def schema_properties
-      @schema_properties ||= ::SchemaLoader.new.properties_for(factory_class.name.underscore.to_sym).values.map { |pro| pro.name.to_s }
-    end
-
     def schema_form_definitions
       @schema_form_definitions ||= ::SchemaLoader.new.form_definitions_for(factory_class.name.underscore.to_sym)
     end
@@ -67,6 +63,19 @@ if Rails.application.config.feature_bulkrax
 
   [Bulkrax::CsvEntry, Bulkrax::CsvEntry.singleton_class].each do |mod|
     mod.prepend CsvEntryExt
+  end
+
+  module CsvParserExt
+    ##
+    # Note: use 'perform_now' to facilitate development for now
+    # @return [String]
+    def perform_method
+      "perform_now"
+    end
+  end
+
+  [Bulkrax::CsvParser, Bulkrax::CsvParser.singleton_class].each do |mod|
+    mod.prepend CsvParserExt
   end
 
   Hyrax::DashboardController.sidebar_partials[:repository_content] <<
