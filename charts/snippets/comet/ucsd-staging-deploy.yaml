@@ -30,7 +30,7 @@ extraEnvVars:
   - name: "AUTH_METHOD"
     value: "google"
   - name: "DATABASE_COMMAND"
-    value: "bulkrax:install:migrations db:migrate"
+    value: "db:migrate"
   - name: "DISCOVER_PLATFORM_TIDEWATER_URL_BASE"
     value: "http://lib-tidewater-staging.ucsd.edu/item?source_iri="
   - name: "IIIF_BASE_URL"
