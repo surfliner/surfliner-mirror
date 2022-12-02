@@ -72,11 +72,11 @@ module Importer
   end
 
   def self.get_layer_type(name)
-    connection = Faraday.new(headers: {"Content-Type" => "application/json"})
-    connection.basic_auth(
-      ENV["GEOSERVER_ADMIN_USER"],
-      ENV["GEOSERVER_ADMIN_PASSWORD"]
-    )
+    connection = Faraday.new(headers: {"Content-Type" => "application/json"}) do |conn|
+      conn.request :authorization, :basic,
+                   ENV["GEOSERVER_ADMIN_USER"],
+                   ENV["GEOSERVER_ADMIN_PASSWORD"]
+    end
 
     url = "#{ENV["GEOSERVER_INTERNAL_URL"]}/geoserver/rest/layers/#{name}.json"
 
