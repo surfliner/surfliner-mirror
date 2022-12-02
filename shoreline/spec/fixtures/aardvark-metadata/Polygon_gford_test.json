@@ -41,11 +41,11 @@
   "dcat_bbox": "ENVELOPE(-91.252774,-89.137868,17.839753,16.65436)",
   "dct_accessRights_s": "Public",
   "dct_format_s": "Shapefile",
-  "gbl_wxsIdentifier_s": "public:gford-20140000-010002_lakes-d",
+  "gbl_wxsIdentifier_s": "public:gford-20140000-010002_lakes",
   "dct_references_s": "{\"http://www.opengis.net/def/serviceType/ogc/wfs\":\"https://shoreline-geoserver-staging.eks.dld.library.ucsb.edu:443/geoserver/wfs\",\"http://www.opengis.net/def/serviceType/ogc/wms\":\"https://shoreline-geoserver-staging.eks.dld.library.ucsb.edu:443/geoserver/wms\",\"http://schema.org/downloadUrl\":[{\"label\":\"Shapefile\",\"url\":\"https://dataverse.ucla.edu/api/v1/access/datafile/:persistentId?persistentId=doi:10.25346/S6/B5LBFD/O7ULJ5\"}]}",
-  "id": "gford-20140000-010002_lakes-d",
+  "id": "gford-20140000-010002_lakes",
   "dct_identifier_sm": [
-    "public:gford-20140000-010002_lakes-d"
+    "public:gford-20140000-010002_lakes"
   ],
   "gbl_mdModified_dt": "2022-12-01T22:14:15Z",
   "gbl_mdVersion_s": "Aardvark"
