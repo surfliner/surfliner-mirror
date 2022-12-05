@@ -37,6 +37,7 @@ services:
       - >
         db-setup.sh
         && bundle exec rake "shoreline:staging_area:upload_shapefiles"
+        && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/Polygon_gford_test.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/gford-20140000-010002_lakes.zip]"
     depends_on:
       - postgres
       - minio

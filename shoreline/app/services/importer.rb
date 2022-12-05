@@ -33,14 +33,18 @@ module Importer
       "password" => ENV["GEOSERVER_ADMIN_PASSWORD"]
     )
 
-    file = URI.parse(file_url).open.read
     # file_id = File.basename(file_path, File.extname(file_path))
     workspace = ENV.fetch("GEOSERVER_WORKSPACE", "public")
 
     puts "-- Publishing to GeoServer as #{file_id}"
 
     Geoserver::Publish.create_workspace(workspace_name: workspace, connection: conn)
-    Geoserver::Publish::DataStore.new(conn).upload(workspace_name: workspace, data_store_name: file_id, file: file)
+    Geoserver::Publish::DataStore.new(conn).upload(
+      workspace_name: workspace,
+      data_store_name: file_id,
+      file: file_url,
+      method: "url"
+    )
   end
 
   def self.publish_to_geoblacklight(metadata:)

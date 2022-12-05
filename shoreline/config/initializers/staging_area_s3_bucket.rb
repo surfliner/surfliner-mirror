@@ -31,24 +31,4 @@ unless ENV["DB_ADAPTER"] == "nulldb" ||
 
   fog_connection = Fog::Storage.new(provider: "AWS", **fog_connection_options)
   Rails.application.config.staging_area_s3_connection = fog_connection
-
-  s3_bucket = ENV.fetch("STAGING_AREA_S3_BUCKET", "shoreline-staging-area-#{Rails.env}")
-
-  Rails.logger.debug { "Using bucket #{s3_bucket} as the file staging area" }
-
-  retries = 5
-  begin
-    Rails.application.config.staging_area_s3_handler =
-      StagingAreaS3Handler.new(connection: fog_connection,
-        bucket: s3_bucket,
-        prefix: "")
-  rescue => e
-    if (retries -= 1) > 0
-      Rails.logger.debug "Retrying to connect to S3 bucket #{ENV["STAGING_AREA_S3_BUCKET"]}."
-      sleep(2.seconds)
-      retry
-    else
-      Rails.logger.error { "Error connect to S3 bucket #{ENV["STAGING_AREA_S3_BUCKET"]}: #{e}" }
-    end
-  end
 end
