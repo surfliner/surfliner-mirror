@@ -9,13 +9,13 @@ module Importer
   }
 
   # @param [Hash] metadata
-  # @param [#read] file
-  def self.ingest(metadata:, file: nil)
+  # @param [String] shapefile_url
+  def self.ingest(metadata:, shapefile_url: nil)
     file_id = metadata["id"]
     merged_metadata = metadata.merge({dct_references_s: geoserver_references(metadata: metadata)})
 
-    if file.present?
-      publish_to_geoserver(file: file, file_id: file_id)
+    if shapefile_url.present?
+      publish_to_geoserver(file_url: shapefile_url, file_id: file_id)
       merged_metadata = merged_metadata.merge(hash_from_geoserver(id: file_id))
     end
 
@@ -24,22 +24,23 @@ module Importer
     publish_to_geoblacklight(metadata: merged_metadata)
   end
 
-  # @param [#read] file
+  # @param [String] file_url
   # @param [String] file_id
-  def self.publish_to_geoserver(file:, file_id:)
+  def self.publish_to_geoserver(file_url:, file_id:)
     conn = Geoserver::Publish::Connection.new(
       "url" => "#{ENV["GEOSERVER_INTERNAL_URL"]}/geoserver/rest",
       "user" => ENV["GEOSERVER_ADMIN_USER"],
       "password" => ENV["GEOSERVER_ADMIN_PASSWORD"]
     )
 
+    file = URI.parse(file_url).open.read
     # file_id = File.basename(file_path, File.extname(file_path))
     workspace = ENV.fetch("GEOSERVER_WORKSPACE", "public")
 
     puts "-- Publishing to GeoServer as #{file_id}"
 
     Geoserver::Publish.create_workspace(workspace_name: workspace, connection: conn)
-    Geoserver::Publish::DataStore.new(conn).upload(workspace_name: workspace, data_store_name: file_id, file: file.read)
+    Geoserver::Publish::DataStore.new(conn).upload(workspace_name: workspace, data_store_name: file_id, file: file)
   end
 
   def self.publish_to_geoblacklight(metadata:)
