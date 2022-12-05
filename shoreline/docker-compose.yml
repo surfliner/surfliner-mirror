@@ -36,9 +36,10 @@ services:
       - -c
       - >
         db-setup.sh
-        # && bundle exec rake "geoblacklight:index:seed[:remote]"
+        && bundle exec rake "shoreline:staging_area:upload_shapefiles"
     depends_on:
       - postgres
+      - minio
     volumes:
       - .:/home/shoreline/app
     networks:
@@ -89,10 +90,22 @@ services:
     networks:
       - shoreline
 
+  minio:
+    extends:
+      file: ../docker-compose/common.yaml
+      service: minio
+    volumes:
+      - shoreline_minio_data:/data
+    env_file:
+      - .env
+    networks:
+      - shoreline
+
 volumes:
   shoreline_db:
   shoreline_geoserver_data:
   shoreline_solr_data:
+  shoreline_minio_data:
 
 networks:
   shoreline:
