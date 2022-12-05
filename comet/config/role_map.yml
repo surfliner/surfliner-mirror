@@ -10,6 +10,8 @@ test:
 production:
   admin:
     - adunn@ucsb.edu
+    - awork@ucsd.edu
+    - krevak@ucsd.edu
     - tnbrickman@ucsd.edu
     - crissmeyer@ucsb.edu
     - tchu@ucsd.edu
