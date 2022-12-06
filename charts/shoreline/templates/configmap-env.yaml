@@ -17,6 +17,12 @@ data:
   GEOSERVER_INTERNAL_URL: {{ template "shoreline.geoserver.internal_url" . }}
   GEOSERVER_PORT: {{ (include "shoreline.geoserver.port" .) | quote }}
   GEOSERVER_URL: {{ template "shoreline.geoserver.url" . }}
+  {{- if .Values.shoreline.sample_data }}
+  MINIO_ENDPOINT: {{ template "shoreline.minio.fullname" . }}
+  MINIO_ROOT_USER: {{ .Values.minio.auth.rootUser }}
+  STAGING_AREA_S3_BUCKET: {{ first (splitList ":" .Values.minio.defaultBuckets) }}
+  STAGING_AREA_S3_EXAMPLE_FILES: "1"
+  {{- end }}
   POSTGRES_DB: {{ .Values.postgresql.auth.database }}
   POSTGRES_HOST: {{ template "shoreline.postgresql.fullname" . }}
   POSTGRES_PORT: {{ .Values.postgresql.containerPorts.postgresql | quote }}

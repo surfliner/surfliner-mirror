@@ -102,6 +102,10 @@ Create the name of the service account to use
 {{ include "common.postgresql.fullname" . }}
 {{- end -}}
 
+{{- define "shoreline.minio.fullname" -}}
+{{- printf "%s-%s" .Release.Name "minio" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{- define "shoreline.solr.cloudEnabled" -}}
 {{ include "common.solr.cloudEnabled" . }}
 {{- end -}}

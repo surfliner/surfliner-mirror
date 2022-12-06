@@ -20,7 +20,7 @@ spec:
         - -c
         - >
           IFS=' ';
-          IDS='tufts-cambridgegrid100-04 cugir-007957 2eddde2f-c222-41ca-bd07-2fd74a21f4de cugir-008186 nyu-2451-34564 nyu_2451_34636 stanford-fb897vt9938 stanford-fb897vt9938 cornell-ny-aerial-photos-1960s';
+          IDS='gford-20140000-010002_lakes';
           for id in ${IDS}; do
             echo "--- Checking presence of ${id}...";
             wget -S "http{{ if .Values.ingress.tls }}s{{ end }}://{{ index .Values.ingress.hosts 0 }}/catalog/$id";

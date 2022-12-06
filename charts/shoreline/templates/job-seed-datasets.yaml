@@ -2,13 +2,13 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ include "shoreline.fullname" . }}-ingest-data
+  name: {{ include "shoreline.fullname" . }}-seed-datasets
   labels:
     {{- include "shoreline.labels" . | nindent 4 }}
   annotations:
     "helm.sh/hook": post-install
     "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
-    "helm.sh/hook-weight": "10"
+    "helm.sh/hook-weight": "1"
 spec:
   template:
     metadata:
@@ -16,19 +16,19 @@ spec:
       annotations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-      name: {{ include "shoreline.fullname" . }}-ingest-data
+      name: {{ include "shoreline.fullname" . }}-seed-datasets
     spec:
       restartPolicy: OnFailure
       serviceAccountName: {{ template "shoreline.serviceAccountName" . }}
       containers:
-        - name: ingest-sample-data
+        - name: seed-sample-datasets
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: "{{ .Values.image.pullPolicy }}"
           args:
             - bundle
             - exec
             - rake
-            - "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/Polygon_gford_test.json,http://$(MINIO_ENDPOINT):9000/shoreline-staging-area-dev/shapefiles/gford-20140000-010002_lakes.zip]"
+            - "shoreline:staging_area:upload_shapefiles"
           envFrom:
             - configMapRef:
                 name: {{ include "shoreline.fullname" . }}-env

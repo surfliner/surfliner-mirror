@@ -174,6 +174,21 @@ geoserver:
     hosts: ['geoserver.local']
     tls: []
 
+# Configuration for minio chart
+# This is currently only used for Review applications in CI/CD pipelines
+# see: https://github.com/bitnami/charts/blob/master/bitnami/minio/README.md
+minio:
+  enabled: false
+  defaultBuckets: shoreline-staging-area-dev:public
+  auth:
+    rootUser: shoreline-access-key
+    rootPassword: shoreline-secret-key
+  persistence:
+    enabled: false
+  image:
+    repository: bitnami/minio
+    tag: 2022.10.29-debian-11-r3
+
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
