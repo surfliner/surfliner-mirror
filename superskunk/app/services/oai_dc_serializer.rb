@@ -10,11 +10,11 @@ class OaiDcSerializer < ResourceSerializer
       :identifier, :language, :publisher, :relation, :rights, :source, :subject,
       :title, :type
     ].each_with_object({}) do |term, json|
-      propertity_iri = "http://purl.org/dc/elements/1.1/#{term}"
+      property_iri = "http://purl.org/dc/elements/1.1/#{term}"
       mapping = mappings.values
-        .select { |mapping| mapping[:property_iri] == propertity_iri }
+        .select { |mapping| mapping[:property_iri] == property_iri }
         .map { |prop| prop[:value].to_a }.flatten
-      # At present, `:title` is provided by Hyrax, not the schema.
+      # At present, +:title+ is provided by Hyrax, not the schema.
       mapping += resource.title.to_a if term === :title
       # OAI doesn’t support datatyping so everything should be cast to a string.
       json[term] = mapping.map(&:to_s) if mapping.size > 0

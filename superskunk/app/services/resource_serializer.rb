@@ -54,6 +54,6 @@ class ResourceSerializer
   # serialize them.
   def self.supported_profiles
     {"tag:surfliner.gitlab.io,2022:api/oai_dc" => OaiDcSerializer,
-     "tag:surfliner.gitlab.io,2022:api/shoreline/ingest" => ShorelineIngestSerializer}
+     "tag:surfliner.gitlab.io,2022:api/aardvark" => AardvarkSerializer}
   end
 end

@@ -9,6 +9,10 @@ module Superskunk
 
     # § Defined by Hyrax::Work:
     attribute :title, Valkyrie::Types::Array.of(Valkyrie::Types::String)
+    attribute :date_modified,
+      Valkyrie::Types::Array.of(Valkyrie::Types::DateTime)
+    attribute :date_uploaded,
+      Valkyrie::Types::Array.of(Valkyrie::Types::DateTime)
     attribute :member_of_collection_ids, Valkyrie::Types::Set.of(Valkyrie::Types::ID)
 
     # § Defined by Comet:
