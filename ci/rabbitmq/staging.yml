@@ -11,36 +11,36 @@
   rules:
     - !reference [.rabbitmq-default-branch-rules, rules]
 
-rabbitmq:deploy:staging:ucsb:
-  extends:
-    - .rabbitmq:deploy:stage
-    - .rabbitmq-chart-deploy
-  environment:
-    name: ucsb.staging.rabbitmq
-    url: http://rabbitmq-staging.$KUBE_INGRESS_BASE_DOMAIN
-  variables:
-    HELM_UPGRADE_EXTRA_ARGS: >
-      --set worker.image.repository=$CI_REGISTRY_IMAGE/rabbitmq_worker_web
-      --set worker.image.tag=$CI_COMMIT_SHA
-      --set dbPreSetupInitContainer[0].envFrom[0].configMapRef.name=surfliner-rabbitmq-stage-hyrax-env
-      --set dbPreSetupInitContainer[0].envFrom[1].secretRef.name=surfliner-rabbitmq-stage-hyrax
-      --set dbPreSetupInitContainer[0].envFrom[2].secretRef.name=rabbitmq-postgres
-      --values charts/snippets/rabbitmq/init-containers.yaml
-      --values charts/snippets/rabbitmq/staging-deploy.yaml
-      --values charts/snippets/rabbitmq/ucsb-solr-staging.yaml
-      --values charts/snippets/rabbitmq/ucsb-staging-deploy.yaml
+# rabbitmq:deploy:staging:ucsb:
+#   extends:
+#     - .rabbitmq:deploy:stage
+#     - .rabbitmq-chart-deploy
+#   environment:
+#     name: ucsb.staging.rabbitmq
+#     url: http://rabbitmq-staging.$KUBE_INGRESS_BASE_DOMAIN
+#   variables:
+#     HELM_UPGRADE_EXTRA_ARGS: >
+#       --set worker.image.repository=$CI_REGISTRY_IMAGE/rabbitmq_worker_web
+#       --set worker.image.tag=$CI_COMMIT_SHA
+#       --set dbPreSetupInitContainer[0].envFrom[0].configMapRef.name=surfliner-rabbitmq-stage-hyrax-env
+#       --set dbPreSetupInitContainer[0].envFrom[1].secretRef.name=surfliner-rabbitmq-stage-hyrax
+#       --set dbPreSetupInitContainer[0].envFrom[2].secretRef.name=rabbitmq-postgres
+#       --values charts/snippets/rabbitmq/init-containers.yaml
+#       --values charts/snippets/rabbitmq/staging-deploy.yaml
+#       --values charts/snippets/rabbitmq/ucsb-solr-staging.yaml
+#       --values charts/snippets/rabbitmq/ucsb-staging-deploy.yaml
 
-rabbitmq:cleanup:staging:ucsb:
-  extends:
-    - .rabbitmq:deploy:stage
-  variables:
-    GIT_STRATEGY: none
-  script:
-    - delete
-  environment:
-    name: ucsb.staging.rabbitmq
-    action: stop
-  when: manual
+# rabbitmq:cleanup:staging:ucsb:
+#   extends:
+#     - .rabbitmq:deploy:stage
+#   variables:
+#     GIT_STRATEGY: none
+#   script:
+#     - delete
+#   environment:
+#     name: ucsb.staging.rabbitmq
+#     action: stop
+#   when: manual
 
 rabbitmq:deploy:staging:ucsd:
   extends:
