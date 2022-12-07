@@ -1,5 +1,6 @@
 .rabbitmq:deploy:review:
   stage: review
+  needs: []
   extends:
     - .helm3-deploy
   variables:
