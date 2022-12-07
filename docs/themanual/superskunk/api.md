@@ -10,6 +10,9 @@ values are recognized:
 - `application/ld+json;profile="tag:surfliner.gitlab.io,2022:api/oai_dc"`:
   [OAI/DC metadata](./profiles/oai_dc.md)
 
+- `application/ld+json;profile="tag:surfliner.gitlab.io,2022:api/aardvark"`:
+  [Aardvark metadata](./profiles/aardvark.md)
+
 A generic `Accept` value like `application/json` or `*/*` will default to an
 OAI/DC response.
 
