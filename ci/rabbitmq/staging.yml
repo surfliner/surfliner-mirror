@@ -1,15 +1,13 @@
 .rabbitmq:deploy:stage:
   stage: staging
+  needs: []
   extends:
     - .helm3-deploy
   variables:
-    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/rabbitmq_web
-    DEPLOY_TAG: $CI_COMMIT_SHA
     HELM_RELEASE_NAME: surfliner-rabbitmq-stage
     KUBE_NAMESPACE: rabbitmq-staging
-  needs: ["rabbitmq:build:app", "rabbitmq:build:worker"]
   rules:
-    - !reference [.rabbitmq-default-branch-rules, rules]
+    - !reference [.rabbitmq-mr-rules, rules]
 
 # rabbitmq:deploy:staging:ucsb:
 #   extends:
@@ -54,10 +52,8 @@ rabbitmq:deploy:staging:ucsd:
   variables:
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
     HELM_UPGRADE_EXTRA_ARGS: >
-      --set worker.image.repository=$CI_REGISTRY_IMAGE/rabbitmq_worker_web
-      --set worker.image.tag=$CI_COMMIT_SHA
-      --values charts/snippets/rabbitmq/staging-deploy.yaml
-      --values charts/snippets/rabbitmq/ucsd-staging-deploy.yaml
+      --set clusterOperator.image.tag=1.14.0-scratch-r8
+      --set clusterOperator.extraEnvVarsSecret=rabbitmq.credentials
 
 rabbitmq:cleanup:staging:ucsd:
   extends:

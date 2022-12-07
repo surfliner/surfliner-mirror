@@ -23,7 +23,7 @@ rabbitmq:deploy:ucsd-review:
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
       --set clusterOperator.image.tag=1.14.0-scratch-r8
-      --set clusterOperator.extraEnvVarsSecret=comet-review-rabbitmq
+      --set clusterOperator.extraEnvVarsSecret=rabbitmq-credentials
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
 
 rabbitmq:cleanup:ucsd-review:

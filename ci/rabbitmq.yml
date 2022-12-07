@@ -1,7 +1,7 @@
 include:
   - local: ci/rabbitmq/review.yml
-#  - local: ci/rabbitmq/staging.yml
-#  - local: ci/rabbitmw/production.yml
+  - local: ci/rabbitmq/staging.yml
+  - local: ci/rabbitmq/production.yml
 
 .only-rabbitmq-changes: &only-rabbitmq-changes
   changes:
