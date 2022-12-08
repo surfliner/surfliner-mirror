@@ -7,7 +7,7 @@
     HELM_RELEASE_NAME: surfliner-rabbitmq-prod
     KUBE_NAMESPACE: rabbitmq-prod
   rules:
-    - !reference [.rabbitmq-mr-rules, rules]
+    - !reference [.rabbitmq-default-branch-rules, rules]
 
 # rabbitmq:deploy:production:ucsb:
 #   needs: ["rabbitmq:deploy:staging:ucsb"]

@@ -7,7 +7,7 @@
     HELM_RELEASE_NAME: surfliner-rabbitmq-stage
     KUBE_NAMESPACE: rabbitmq-staging
   rules:
-    - !reference [.rabbitmq-mr-rules, rules]
+    - !reference [.rabbitmq-default-branch-rules, rules]
 
 # rabbitmq:deploy:staging:ucsb:
 #   extends:

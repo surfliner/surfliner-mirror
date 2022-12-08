@@ -10,8 +10,8 @@ stages:
   - result_notification
 
 include:
-  - local: ci/rabbitmq.yml
   - local: ci/base.yml
+  - local: ci/rabbitmq.yml
   - local: ci/comet.yml
   - local: ci/lark.yml
   - local: ci/orange-empire.yml
