@@ -27,7 +27,7 @@ module Queries
     def query(property, value)
       <<-SQL
       select * FROM orm_resources WHERE
-      metadata @> '{\"#{property}\": [\"#{value}\"]}'
+      metadata @> '{"#{property}": ["#{value}"]}'
       ORDER BY created_at
       SQL
     end

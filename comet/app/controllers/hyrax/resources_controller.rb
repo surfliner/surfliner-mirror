@@ -42,7 +42,7 @@ module Hyrax
       member_ids.each_with_index do |v, i|
         work_member_ids[i.to_s] = {}
         work_member_ids[i.to_s]["id"] = v
-        work_member_ids[i.to_s]["_destroy"] = v.to_i == params["member_id"].to_i ? "true" : "false"
+        work_member_ids[i.to_s]["_destroy"] = (v.to_i == params["member_id"].to_i) ? "true" : "false"
       end
 
       transactions["change_set.update_work"]

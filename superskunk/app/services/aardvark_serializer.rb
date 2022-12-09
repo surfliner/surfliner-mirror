@@ -192,7 +192,7 @@ class AardvarkSerializer < ResourceSerializer
       # Cast mappings to the appropriate types.
       case dfn[:type]
       when :boolean
-        mapping.map! { |v| v == "false" ? false : v.present? }
+        mapping.map! { |v| (v == "false") ? false : v.present? }
       when :integer
         mapping.map!(&:to_i)
       else

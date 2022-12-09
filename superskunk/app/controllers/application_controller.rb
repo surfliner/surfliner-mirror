@@ -88,7 +88,7 @@ class ApplicationController < ActionController::API
   # This will match the output of +render_error+, so there’s no reason to
   # override it unless you are using custom error handling.
   def err_content_type
-    preferred_type == :json ? "application/json" : "text/plain"
+    (preferred_type == :json) ? "application/json" : "text/plain"
   end
 
   ##

@@ -66,7 +66,7 @@ class StagingAreaS3Handler
     [].tap do |pro|
       list_files.each do |mf|
         path = mf.key
-        path = path.rindex("/").nil? || !path.downcase.start_with?(q.downcase) ? "" : path[0..path.rindex("/")]
+        path = (path.rindex("/").nil? || !path.downcase.start_with?(q.downcase)) ? "" : path[0..path.rindex("/")]
         pro << path unless pro.include?(path) || path.blank?
       end
     end

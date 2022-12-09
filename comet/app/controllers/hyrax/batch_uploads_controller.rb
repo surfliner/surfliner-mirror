@@ -21,7 +21,7 @@ module Hyrax
       s3_enabled = Rails.application.config.staging_area_s3_enabled
       files_only_ingest = params[:option] == BatchUpload.files_only_ingest
       geodata_ingest = params[:option] == BatchUpload.geodata_ingest
-      permitted = s3_enabled && files_only_ingest ? params.permit(:files_location)
+      permitted = (s3_enabled && files_only_ingest) ? params.permit(:files_location)
         : params.require(:batch_upload).permit(:source_file, :files_location, :admin_set_id)
 
       permitted = permitted.merge(files_location: params.require(:files_location)) if s3_enabled
