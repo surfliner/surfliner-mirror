@@ -42,7 +42,7 @@ module Shoreline
 
     NEW_VALUES = {
       dct_rightsHolder_sm: proc { |solr| [solr[:dc_publisher_s]].compact },
-      gbl_mdModified_dt: proc { |_solr| DateTime.now.iso8601 },
+      gbl_mdModified_dt: proc { |_solr| DateTime.now.new_offset(0).strftime("%FT%TZ") },
       gbl_mdVersion_s: proc { |_solr| "Aardvark" },
       gbl_resourceClass_sm: proc { |_solr| ["Datasets"] },
       gbl_resourceType_sm: proc { |solr| ["#{solr[:layer_geom_type_s]} data"] },
