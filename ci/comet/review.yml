@@ -33,7 +33,7 @@ comet:deploy:ucsd-review:
       --set solrPreSetupInitContainer[0].image=$CI_REGISTRY_IMAGE/comet_worker_web:$CI_COMMIT_SHA
       --set solrPreSetupInitContainer[0].envFrom[0].configMapRef.name=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax-env
       --set solrPreSetupInitContainer[0].envFrom[1].secretRef.name=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax
-      --set extraEnvVars[5].value=surfliner.metadata.publish.$CI_MERGE_REQUEST_ID
+      --set extraEnvVars[6].value=surfliner.metadata.publish.$CI_MERGE_REQUEST_ID
       --set worker.extraEnvVars[5].value=surfliner.metadata.publish.$CI_MERGE_REQUEST_ID
       --values charts/snippets/comet/solr-setup.yaml
       --values charts/snippets/comet/init-containers.yaml
@@ -83,8 +83,8 @@ comet:deploy:ucsb-review:
       --set solrPreSetupInitContainer[0].image=$CI_REGISTRY_IMAGE/comet_worker_web:$CI_COMMIT_SHA
       --set solrPreSetupInitContainer[0].envFrom[0].configMapRef.name=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax-env
       --set solrPreSetupInitContainer[0].envFrom[1].secretRef.name=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax
-      --set extraEnvVars[4].value=surfliner.metadata.publish.$CI_MERGE_REQUEST_ID
-      --set worker.extraEnvVars[4].value=surfliner.metadata.publish.$CI_MERGE_REQUEST_ID
+      --set extraEnvVars[6].value=surfliner.metadata.publish.$CI_MERGE_REQUEST_ID
+      --set worker.extraEnvVars[5].value=surfliner.metadata.publish.$CI_MERGE_REQUEST_ID
       --values charts/snippets/surfliner/solr-review.yaml
       --values charts/snippets/comet/solr-setup.yaml
       --values charts/snippets/comet/init-containers.yaml
