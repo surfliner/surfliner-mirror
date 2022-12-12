@@ -1,8 +1,8 @@
 #!/bin/sh
 COUNTER=0
 while [ $COUNTER -lt 120 ]; do
-  echo "-- Looking for GeoServer at ${GEOSERVER_INTERNAL_HOST}:${GEOSERVER_PORT} ..."
-  if nc -z "${GEOSERVER_INTERNAL_HOST}" "${GEOSERVER_PORT}" ; then
+  echo "-- Looking for GeoServer at ${GEOSERVER_INTERNAL_HOST} ..."
+  if curl --fail "${GEOSERVER_INTERNAL_HOST}" ; then
     echo "-- Found GeoServer; ingesting..."
 
     # shellcheck disable=SC2102
