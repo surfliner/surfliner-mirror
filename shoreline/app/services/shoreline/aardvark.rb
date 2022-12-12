@@ -82,7 +82,7 @@ module Shoreline
         end
 
         MAPPED_VALUES_SINGLE_TO_MULTIVALUE.each do |k, v|
-          hash[v] = [solr[k]]
+          hash[v] = [solr[k]].compact
         end
 
         NEW_VALUES.each do |k, v|
