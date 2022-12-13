@@ -1,6 +1,6 @@
 starlight-shellcheck:
   stage: lint
-  image: koalaman/shellcheck-alpine:v0.8.0
+  image: koalaman/shellcheck-alpine:v0.9.0
   needs: []
   script:
     - cd starlight
