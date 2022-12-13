@@ -3,6 +3,7 @@ shoreline:
 serviceAccount:
   name: ""
 consumer:
+  enabled: false
   rabbitmq:
     host: surfliner-rabbitmq-review.rabbitmq-review.svc
 geoserver:
