@@ -1,7 +1,7 @@
 # renovate: datasource=docker depName=alpine
 ARG ALPINE_VERSION=3.16
 # renovate: datasource=docker depName=ruby versioning=ruby
-ARG RUBY_VERSION=2.7.6
+ARG RUBY_VERSION=2.7.7
 FROM ruby:$RUBY_VERSION-alpine$ALPINE_VERSION as base
 # set these at build-time with --build-arg
 ONBUILD ARG LOCAL_PROJECT

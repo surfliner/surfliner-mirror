@@ -1,7 +1,7 @@
 # renovate: datasource=docker depName=alpine
 ARG ALPINE_VERSION=3.16
 # renovate: datasource=docker depName=ruby versioning=ruby
-ARG RUBY_VERSION=2.7.6
+ARG RUBY_VERSION=2.7.7
 
 # these ARGs are used by the ONBUILD commands in the base image
 ARG BUILD_TIME_APKS='build-base gcompat git libxml2-dev libxslt-dev nodejs postgresql-dev shared-mime-info tzdata yarn'

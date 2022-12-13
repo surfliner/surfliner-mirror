@@ -1,7 +1,7 @@
 # renovate: datasource=docker depName=alpine
 ARG ALPINE_VERSION=3.16
 # renovate: datasource=docker depName=ruby versioning=ruby
-ARG RUBY_VERSION=2.7.6
+ARG RUBY_VERSION=2.7.7
 
 ARG BASE_IMAGE=registry.gitlab.com/surfliner/surfliner/base
 # these ARGs are used by the ONBUILD commands in the base image
