@@ -10,7 +10,7 @@ $(document).ready(function(){
       $(`#${tab}`).find(".dataTables_filter").hide();
 
       workflow_widge = $(`#workflow-actions-${tab}`);
-      if (workflow_widge.html().trim().length == 0) {
+      if (workflow_widge.html() != null && workflow_widge.html().trim().length == 0) {
         $(`#${tab}`).find(".btn-batch-workflow").attr("disabled", true);
       }
     });
