@@ -3,7 +3,7 @@
     - !reference [.solr-service, services]
     - name: bitnami/postgresql:12.12.0-debian-11-r36
       alias: postgres
-    - name: seleniarm/standalone-chromium:102.0-20220602
+    - name: seleniarm/standalone-chromium:108.0
       alias: chrome
 
 .starlight-ci-system-services:
