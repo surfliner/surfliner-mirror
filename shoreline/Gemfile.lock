@@ -228,7 +228,7 @@ GEM
     json (2.6.3)
     json-schema (3.0.0)
       addressable (>= 2.8)
-    json_schemer (0.2.23)
+    json_schemer (0.2.24)
       ecma-re-validator (~> 0.3)
       hana (~> 1.3)
       regexp_parser (~> 2.0)
@@ -472,7 +472,7 @@ DEPENDENCIES
   geoserver-publish (= 0.6.0)
   jbuilder (~> 2.5)
   jquery-rails (~> 4.3)
-  json_schemer (= 0.2.23)
+  json_schemer (= 0.2.24)
   letter_opener_web
   listen (= 3.7.1)
   mimemagic (= 0.4.3)
