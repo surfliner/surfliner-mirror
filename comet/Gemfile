@@ -16,7 +16,7 @@ gem "hyrax",
   git: "https://github.com/samvera/hyrax.git",
   branch: "3.x-stable"
 gem "jbuilder", "2.11.5"
-gem "jquery-rails", "4.5.0"
+gem "jquery-rails", "4.5.1"
 gem "okcomputer", "1.18.4"
 gem "omniauth-google-oauth2", "0.8.2"
 gem "pg", "1.4.5"
