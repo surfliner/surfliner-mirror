@@ -48,18 +48,9 @@ RSpec.describe "Bulkrax Export", type: :system, js: true do
 
       expect(page).to have_content("Exporter was successfully created. A download link will appear once it completes.")
 
-      sleep(2.seconds)
       click_on "Exporters"
 
       expect(page).to have_link("exporter_1")
-      expect(page).to have_content("Complete")
-
-      click_on "exporter_1"
-      click_on "Work Entries"
-
-      within "div#work-entries" do
-        expect(page).to have_content "Complete"
-      end
     end
   end
 end
