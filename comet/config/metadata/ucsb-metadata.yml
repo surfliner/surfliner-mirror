@@ -898,7 +898,7 @@ properties:
         - geospatial_object
     mapping:
       gbl-1: http://geoblacklight.org/v1.0/schema/solr_year
-      aardvark: http://geoblacklight.org/schema/aardvark/indexYear
+      aardvark: https://opengeometadata.org/docs/ogm-aardvark/index-year
 
   - &date_created
     name: "date_created"
@@ -1055,7 +1055,7 @@ properties:
       maximum: 5
     mapping:
       gbl-1: http://purl.org/dc/elements/1.1/type
-      aardvark: http://geoblacklight.org/schema/aardvark/resourceClass
+      aardvark: https://opengeometadata.org/docs/ogm-aardvark/resource-class
 
   - &genre_form
     name: "genre_form"
