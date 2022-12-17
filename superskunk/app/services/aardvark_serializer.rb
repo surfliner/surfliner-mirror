@@ -5,8 +5,9 @@ class AardvarkSerializer < ResourceSerializer
   # A mapping of Open GeoMetadata Aardvark terms to definition hashes which
   # provide us the information needed to process them.
   #
-  # We currently use +http://geoblacklight.org/schema/aardvark/+ as the prefix
-  # for +gbl_+ terms, although I’m not sure this has been made standard.
+  # We currently use the corresponding documentation URLs for +gbl_+ terms,
+  # although it’s not clear that these have strong stability guarantees (we may
+  # need to change them later).
   AARDVARK_TERMS = {
     dct_accessRights_s: { # Access Rights (REQUIRED)
       iri: "http://purl.org/dc/terms/accessRights",
@@ -31,13 +32,13 @@ class AardvarkSerializer < ResourceSerializer
       singular: true
     },
     gbl_dateRange_drsim: { # Date Range
-      iri: "http://geoblacklight.org/schema/aardvark/dateRange"
+      iri: "https://opengeometadata.org/docs/ogm-aardvark/date-range"
     },
     dct_description_sm: { # Description
       iri: "http://purl.org/dc/terms/description"
     },
     gbl_fileSize_s: { # File Size
-      iri: "http://geoblacklight.org/schema/aardvark/fileSize",
+      iri: "https://opengeometadata.org/docs/ogm-aardvark/file-size",
       singular: true
     },
     dct_format_s: { # Format
@@ -49,7 +50,7 @@ class AardvarkSerializer < ResourceSerializer
       singular: true
     },
     gbl_georeferenced_b: { # Georeferenced
-      iri: "http://geoblacklight.org/schema/aardvark/georeferenced",
+      iri: "https://opengeometadata.org/docs/ogm-aardvark/georeferenced",
       singular: true,
       type: :boolean
     },
@@ -61,7 +62,7 @@ class AardvarkSerializer < ResourceSerializer
       iri: "http://purl.org/dc/terms/identifier"
     },
     gbl_indexYear_im: { # Index Year
-      iri: "http://geoblacklight.org/schema/aardvark/indexYear",
+      iri: "https://opengeometadata.org/docs/ogm-aardvark/index-year",
       type: :integer
     },
     dct_isPartOf_sm: { # Is Part Of
@@ -86,11 +87,11 @@ class AardvarkSerializer < ResourceSerializer
       iri: "http://pcdm.org/models#memberOf"
     },
     gbl_mdVersion_s: { # Metadata Version (REQUIRED)
-      iri: "http://geoblacklight.org/schema/aardvark/mdVersion",
+      iri: "https://opengeometadata.org/docs/ogm-aardvark/metadata-version",
       singular: true
     },
     gbl_mdModified_dt: { # Modified (REQUIRED)
-      iri: "http://geoblacklight.org/schema/aardvark/mdModified",
+      iri: "https://opengeometadata.org/docs/ogm-aardvark/modified",
       singular: true
     },
     schema_provider_s: { # Provider
@@ -111,10 +112,10 @@ class AardvarkSerializer < ResourceSerializer
       iri: "http://purl.org/dc/terms/replaces"
     },
     gbl_resourceClass_sm: { # Resource Class (REQUIRED)
-      iri: "http://geoblacklight.org/schema/aardvark/resourceClass"
+      iri: "https://opengeometadata.org/docs/ogm-aardvark/resource-class"
     },
     gbl_resourceType_sm: { # Resource Type
-      iri: "http://geoblacklight.org/schema/aardvark/resourceType"
+      iri: "https://opengeometadata.org/docs/ogm-aardvark/resource-type"
     },
     dct_rightsHolder_sm: { # Rights Holder
       iri: "http://purl.org/dc/terms/rightsHolder"
@@ -132,7 +133,7 @@ class AardvarkSerializer < ResourceSerializer
       iri: "http://purl.org/dc/terms/subject"
     },
     gbl_suppressed_b: { # Suppressed
-      iri: "http://geoblacklight.org/schema/aardvark/suppressed",
+      iri: "https://opengeometadata.org/docs/ogm-aardvark/suppressed",
       singular: true,
       type: :boolean
     },
@@ -147,7 +148,7 @@ class AardvarkSerializer < ResourceSerializer
       singular: true
     },
     gbl_wxsIdentifier_s: { # WxS Identifier
-      iri: "http://geoblacklight.org/schema/aardvark/wxsIdentifier",
+      iri: "https://opengeometadata.org/docs/ogm-aardvark/wxs-identifier",
       singular: true
     }
   }
