@@ -37,10 +37,10 @@ mappings:
   aardvark:
     name: aardvark
     display_label: OGM Aardvark
+    iri: tag:surfliner.gitlab.io,2022:api/aardvark
   gbl-1:
     name: gbl-1
     display_label: GeoBlacklight metadata schema version 1.0
-    iri: tag:surfliner.gitlab.io,2022:api/shoreline/ingest
 
 # Class Definitions
 
@@ -343,7 +343,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/contributor
       dpla: null
- 
+
   - &architect
     name: "architect"
     display_label: "architect"
@@ -374,7 +374,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/contributor
       dpla: null
- 
+
   - &artist
     name: "artist"
     display_label: "artist"
@@ -405,7 +405,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/contributor
       dpla: null
- 
+
   - &author
     name: "author"
     display_label: "author"
@@ -436,7 +436,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/contributor
       dpla: null
- 
+
   - &client
     name: "client"
     display_label: "client"
@@ -467,7 +467,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/contributor
       dpla: null
- 
+
   - &collector
     name: "collector"
     display_label: "collector"
@@ -498,7 +498,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/contributor
       dpla: null
- 
+
   - &compiler
     name: "compiler"
     display_label: "compiler"
@@ -529,7 +529,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/contributor
       dpla: null
- 
+
   - &composer
     name: "composer"
     display_label: "composer"
@@ -560,7 +560,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/contributor
       dpla: null
- 
+
   - &editor
     name: "editor"
     display_label: "editor"
@@ -591,7 +591,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/contributor
       dpla: null
- 
+
   - &illustrator
     name: "illustrator"
     display_label: "illustrator"
@@ -622,7 +622,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/contributor
       dpla: null
- 
+
   - &issuing_body
     name: "issuing_body"
     display_label: "issuing_body"
@@ -653,7 +653,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/contributor
       dpla: null
- 
+
   - &performer
     name: "performer"
     display_label: "performer"
@@ -684,7 +684,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/contributor
       dpla: null
- 
+
   - &photographer
     name: "photographer"
     display_label: "photographer"
@@ -715,7 +715,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/contributor
       dpla: null
- 
+
   - &singer
     name: "singer"
     display_label: "singer"
@@ -746,7 +746,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/contributor
       dpla: null
- 
+
   - &translator
     name: "translator"
     display_label: "translator"
