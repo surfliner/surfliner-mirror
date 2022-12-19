@@ -1,7 +1,7 @@
 <%= presenter.attribute_to_html(:ark, label: t('hyrax.base.show.permanent_id'), html_dl: true) %>
 <%= presenter.attribute_to_html(:date_modified, label: t('hyrax.base.show.last_modified'), html_dl: true) %>
 
-<% ::SchemaLoader.new.properties_for(:generic_object).values.each do |property| %>
+<% presenter.schema_property_names.each do |property| %>
   <%= presenter.attribute_to_html(property.name, render_as: :schema_property, html_dl: true, property_definition: property) %>
 <% end %>
 

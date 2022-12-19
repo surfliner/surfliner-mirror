@@ -11,7 +11,6 @@ module Hyrax
     include Hyrax::WorksControllerBehavior
     include Hyrax::BreadcrumbsForWorks
     include WithAdminSetSelection
-    self.show_presenter = CometObjectPresenter
 
     # Use a Valkyrie aware form service to generate Valkyrie::ChangeSet style
     # forms.
@@ -65,6 +64,13 @@ module Hyrax
       title = Array(curation_concern.title).first
 
       after_destroy_response(title)
+    end
+
+    ##
+    # The presenter class used to generate presenters for showing this resource.
+    def show_presenter
+      resource = Hyrax.query_service.find_by(id: params["id"])
+      ::Presenters::CometObjectPresenter.class_for(model: resource)
     end
 
     def iiif_manifest_presenter

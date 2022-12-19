@@ -3,13 +3,6 @@
 require "cgi"
 
 Hyrax.config do |config|
-  # +GenericObject+ is currently hardcoded in at least the following places:
-  #
-  # - CometObjectPresenter (loosely)
-  # - views/hyrax/base/_attribute_rows.html.erb (loosely)
-  #
-  # TODO: These need to be replaced with a more flexible mechanism.
-
   # Generate the necessary models and controllers for each M3 resource class
   # name, and define it as a Hyrax curation concern.
   #
