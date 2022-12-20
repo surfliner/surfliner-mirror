@@ -1,0 +1,4 @@
+:queues:
+  - ["import", 1]
+  - ["export", 1]
+  - ["default", 2]
