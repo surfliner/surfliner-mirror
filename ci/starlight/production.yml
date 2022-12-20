@@ -11,23 +11,6 @@
     KUBE_NAMESPACE: starlight-prod
   needs: ["starlight:build:prod"]
 
-starlight:deploy:surfliner-docs-production:
-  allow_failure: true
-  needs: ["starlight:deploy:ucsb-stage"]
-  extends:
-    - .starlight:deploy:production
-  environment:
-    name: ucsb.production.starlight-docs
-    url: http://docs.digital.library.ucsb.edu
-  script:
-    - deploy ./charts/starlight
-  variables:
-    HELM_RELEASE_NAME: surfliner-starlight-docs
-    KUBE_NAMESPACE: starlight-docs
-    DEPLOY_TAG: starlight-v0.2.2
-    HELM_UPGRADE_EXTRA_ARGS: >
-      --values charts/snippets/starlight/production/surfliner-docs.yaml
-
 starlight:deploy:ucsb-production:
   needs: ["starlight:deploy:ucsb-stage"]
   extends:
