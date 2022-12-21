@@ -67,7 +67,7 @@ module Importer
     schema_path = Gem::Specification.find_by_name("geoblacklight").full_gem_path +
       "/schema/geoblacklight-schema-aardvark.json"
     schema = Pathname.new(schema_path)
-    errors = JSONSchemer.schema(schema).validate(metadata)
+    errors = JSONSchemer.schema(schema).validate(metadata.with_indifferent_access)
     if errors.count > 0
       puts "-- Aardvark validation errors: #{errors.map { |e| JSONSchemer::Errors.pretty(e) }}"
       false
