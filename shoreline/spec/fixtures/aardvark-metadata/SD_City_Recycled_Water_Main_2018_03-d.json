@@ -1,0 +1,67 @@
+{
+  "dct_title_s": "Recycled Water Mains, San Diego, California, March 2018",
+  "dct_description_sm": [
+    "Line features to show the location of City of San Diego owned recycled water pipes (also known as recycled water mains). The majority of the information is sourced from construction drawings (\"as-builts\") and supplimented with information gathered from the field. The California State Water Resources Control Board sets the standards for treatment and types of uses for recycled water. The City of San Diego produces recycled water through tertiary treatment of waste water. Recycled water pipes transport water for private irrigation services, irrigation of City maintained parks, landscaping, and industrial processes."
+  ],
+  "dct_language_sm": [
+    "eng"
+  ],
+  "dct_creator_sm": [
+    "San Diego (Calif.). Public Utilities Department"
+  ],
+  "dct_publisher_sm": [
+    "SanGIS (Agency)"
+  ],
+  "schema_provider_s": "UC San Diego",
+  "gbl_resourceClass_sm": [
+    "Datasets"
+  ],
+  "gbl_resourceType_sm": [
+    "Line data"
+  ],
+  "dct_rights_sm": [
+    "This map/data is provided without warranty of any kind, either expressed or implied, including but not limited to, the implied warranties of merchantability and fitness for a particular purpose. Please acknowledge SanGIS as a source when SanGIS data are used in the preparation of reports, papers, publications, maps, and other products. Full text of this legal notice can be found at [https://www.sangis.org/legal_notice.htm](https://www.sangis.org/legal_notice.htm)"
+  ],
+  "dct_license_sm": [
+    "https://creativecommons.org/licenses/by/4.0/"
+  ],
+  "dct_rightsHolder_sm": [
+    "SanGIS (Agency)"
+  ],
+  "dct_subject_sm": [
+    "Water utilities",
+    "Public utilities",
+    "Water-pipes"
+  ],
+  "dcat_keyword_sm": [
+    "Reclaimed water",
+    "Recycled water"
+  ],
+  "pcdm_memberOf_sm": [
+    "San Diego County GIS Data"
+  ],
+  "dct_temporal_sm": [
+    "2018-03"
+  ],
+  "dct_issued_s": "2018-03",
+  "gbl_indexYear_im": [
+    2018
+  ],
+  "dct_spatial_sm": [
+    "City of San Diego",
+    "California"
+  ],
+  "locn_geometry": "ENVELOPE(-117.247442,-116.962327,33.060232,32.542267)",
+
+  "dcat_bbox": "ENVELOPE(-117.247442,-116.962327,33.060232,32.542267)",
+  "dct_accessRights_s": "Public",
+  "dct_format_s": "Shapefile",
+  "gbl_wxsIdentifier_s": "SD_City_Recycled_Water_Main_2018_03-d",
+  "dct_references_s": "{\"http://www.opengis.net/def/serviceType/ogc/wfs\":\"http://lib-geoserver-docker.ucsd.edu:8600/geoserver/wfs\",\"http://www.opengis.net/def/serviceType/ogc/wms\":\"http://lib-geoserver-docker.ucsd.edu:8600/geoserver/wms\",\"http://schema.org/downloadUrl\":[{\"label\":\"Shapefile\",\"url\":\"http://nyx.ucsd.edu/projectsurfliner/shoreline/4_StagingReady/SD_City_Recycled_Water_Main_2018_03-a.zip\"}]}",
+  "id": "SD_City_Recycled_Water_Main_2018_03-d",
+  "dct_identifier_sm": [
+    "public:SD_City_Recycled_Water_Main_2018_03-d"
+  ],
+  "gbl_mdModified_dt": "2022-12-01T22:14:15Z",
+  "gbl_mdVersion_s": "Aardvark"
+}
