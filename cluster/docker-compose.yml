@@ -1,24 +1,87 @@
 services:
+  base:
+    build:
+      context: ../docker
+      dockerfile: ../docker/base/Dockerfile
+    image: registry.gitlab.com/surfliner/surfliner/base
+
   comet:
     extends:
       file: ../docker-compose/comet.yaml
       service: comet
     env_file:
       - .env
+      - comet.env
     depends_on:
       - chrome
       - comet_migrate
+      - comet_solr
       - memcached
       - minio
       - postgres
       - rabbitmq
       - redis
-      - solr
     volumes:
       - hyrax-derivatives:/home/comet/app/derivatives
       - hyrax-uploads:/home/comet/app/uploads
       - rails-public:/home/comet/app/public
       - hyrax-scripts:/home/comet/app/scripts
+    networks:
+      - cluster
+
+  comet_sidekiq:
+    extends:
+      file: ../docker-compose/comet.yaml
+      service: sidekiq
+    env_file:
+      - .env
+      - comet.env
+    depends_on:
+      - comet_migrate
+      - comet_solr
+      - memcached
+      - minio
+      - postgres
+      - rabbitmq
+      - redis
+    volumes:
+      - hyrax-derivatives:/home/comet/app/derivatives
+      - hyrax-uploads:/home/comet/app/uploads
+      - sidekiq-public:/home/comet/app/public
+      - sidekiq-tmp:/home/comet/app/tmp
+    networks:
+      - cluster
+
+  comet_migrate:
+    extends:
+      file: ../docker-compose/comet.yaml
+      service: migrate
+    env_file:
+      - .env
+      - comet.env
+    # this has to be set locally or it is overridden by .env
+    # https://docs.docker.com/compose/extends/#adding-and-overriding-configuration
+    environment:
+      - RABBITMQ_ENABLED=false
+    depends_on:
+      - postgres
+    volumes:
+      - rails-public:/home/comet/app/public
+      - rails-tmp:/home/comet/app/tmp
+      - hyrax-scripts:/home/comet/app/scripts
+    networks:
+      - cluster
+
+  comet_solr:
+    extends:
+      file: ../docker-compose/common.yaml
+      service: solr
+    env_file:
+      - .env
+      - comet.env
+    volumes:
+      - ../comet/solr/conf:/opt/comet
+      - comet_solr:/bitnami/solr
     networks:
       - cluster
 
@@ -37,6 +100,83 @@ services:
     networks:
       - cluster
 
+  superskunk_migrate:
+    extends:
+      file: ../docker-compose/superskunk.yaml
+      service: migrate
+    env_file:
+      - .env
+      - superskunk.env
+    networks:
+      - cluster
+
+  # shoreline_web:
+  #   build:
+  #     context: ..
+  #     dockerfile: shoreline/Dockerfile
+  #     target: shoreline-dev
+  #   image: shoreline:development
+  #   env_file:
+  #     - .env
+  #     - shoreline.env
+  #   volumes:
+  #     - ./shoreline:/home/shoreline/app
+  #   depends_on:
+  #     - geoserver
+  #     - postgres
+  #     - shoreline_db_migrate
+  #     - shoreline_solr
+  #   stdin_open: true
+  #   tty: true
+  #   ports:
+  #    - '3001:3000'
+  #   networks:
+  #     - cluster
+
+  # shoreline_db_migrate:
+  #   image: shoreline:development
+  #   env_file:
+  #     - .env
+  #     - shoreline.env
+  #   command:
+  #     - sh
+  #     - -c
+  #     - >
+  #       db-setup.sh
+  #       && bundle exec rake "shoreline:staging_area:upload_shapefiles"
+  #       && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/Polygon_gford_test.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/gford-20140000-010002_lakes.zip]"
+  #   depends_on:
+  #     - postgres
+  #     - minio
+  #   volumes:
+  #     - .:/home/shoreline/app
+  #   networks:
+  #     - cluster
+
+  # shoreline_solr:
+  #   image: bitnami/solr:8.11.2-debian-11-r62
+  #   env_file:
+  #     - .env
+  #     - shoreline.env
+  #   ports:
+  #     - "8984:8984"
+  #   volumes:
+  #     - ../shorline/solr/conf:/opt/shoreline
+  #     - shoreline_solr:/bitnami/solr
+  #   networks:
+  #     - cluster
+
+  geoserver:
+    image: kartoza/geoserver:2.21.2
+    volumes:
+      - cluster_geoserver_data:/data
+    env_file:
+      - .env
+    ports:
+      - '8080:8080'
+    networks:
+      - cluster
+
   cantaloupe:
     extends:
       file: ../docker-compose/orange-empire.yaml
@@ -45,57 +185,6 @@ services:
       - .env
     depends_on:
       - minio
-    networks:
-      - cluster
-
-  sidekiq:
-    extends:
-      file: ../docker-compose/comet.yaml
-      service: sidekiq
-    env_file:
-      - .env
-    depends_on:
-      - comet_migrate
-      - minio
-      - memcached
-      - postgres
-      - redis
-      - solr
-      - rabbitmq
-    volumes:
-      - hyrax-derivatives:/home/comet/app/derivatives
-      - hyrax-uploads:/home/comet/app/uploads
-      - sidekiq-public:/home/comet/app/public
-      - sidekiq-tmp:/home/comet/app/tmp
-    networks:
-      - cluster
-
-  comet_migrate:
-    extends:
-      file: ../docker-compose/comet.yaml
-      service: migrate
-    env_file:
-      - .env
-    # this has to be set locally or it is overridden by .env
-    # https://docs.docker.com/compose/extends/#adding-and-overriding-configuration
-    environment:
-      - RABBITMQ_ENABLED=false
-    depends_on:
-      - postgres
-    volumes:
-      - rails-public:/home/comet/app/public
-      - rails-tmp:/home/comet/app/tmp
-      - hyrax-scripts:/home/comet/app/scripts
-    networks:
-      - cluster
-
-  superskunk_migrate:
-    extends:
-      file: ../docker-compose/superskunk.yaml
-      service: migrate
-    env_file:
-      - .env
-      - superskunk.env
     networks:
       - cluster
 
@@ -153,19 +242,9 @@ services:
     networks:
       - cluster
 
-  solr:
-    extends:
-      file: ../docker-compose/common.yaml
-      service: solr
-    env_file:
-      - .env
-    volumes:
-      - ../comet/solr/conf:/opt/comet
-      - solr_home:/bitnami/solr
-    networks:
-      - cluster
-
 volumes:
+  cluster_geoserver_data:
+  comet_solr:
   db:
   hyrax-derivatives:
   hyrax-scripts:
@@ -174,9 +253,9 @@ volumes:
   rails-public:
   rails-tmp:
   redis:
+  shoreline_solr:
   sidekiq-public:
   sidekiq-tmp:
-  solr_home:
   superskunk_tmp:
 
 networks:

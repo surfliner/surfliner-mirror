@@ -51,10 +51,10 @@ services:
       - sh
       - -c
       - >
-        echo "Ensuring database: $METADATA_DATABASE_NAME exists" &&
         PGPASSWORD=$DB_PASSWORD PGHOST=$DB_HOST PGUSER=$DB_USERNAME PGDATABASE=$DB_NAME; export PGPASSWORD PGHOST PGUSER PGDATABASE &&
-        while ! psql -tc "SELECT * FROM pg_database"; do echo "-- Waiting for PGSQL ..."; sleep 5s; done &&
+        while ! db-wait.sh "${DB_HOST}:${DB_PORT}"; do echo "-- Waiting for PGSQL ..."; sleep 5s; done &&
         psql -tc "SELECT 1 FROM pg_database WHERE datname = '$METADATA_DATABASE_NAME'" | grep -q 1 || createdb -e -w $METADATA_DATABASE_NAME &&
+        psql -tc "SELECT 1 FROM pg_database WHERE datname = '$METADATA_DATABASE_NAME'" | grep -q 1 || createdb -e -w $PGDATABASE &&
         /home/comet/app/scripts/db-migrate-seed.sh
     volumes:
       - ../comet:/home/comet/app
