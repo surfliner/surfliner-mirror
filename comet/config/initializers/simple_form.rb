@@ -49,6 +49,7 @@ SimpleForm.setup do |config|
     ## Inputs
     b.use :label
     b.use :hint, wrap_with: {tag: :span, class: :hint}
+    b.use :usage_guidelines, wrap_with: {tag: :div, class: :usage_guidelines}
     b.use :error, wrap_with: {tag: :span, class: :error}
     b.use :input
 
@@ -171,3 +172,14 @@ SimpleForm.setup do |config|
   # Defines which i18n scope will be used in Simple Form.
   # config.i18n_scope = 'simple_form'
 end
+
+module SimpleFormUsageGuidelinesComponent
+  def usage_guidelines(wrapper_options = nil)
+    @usage_guidelines ||= html_escape(options[:usage_guidelines])
+    @usage_guidelines.present? ? ("<details><summary>#{html_escape(
+      I18n.t(:usage_guidelines, scope: i18n_scope, default: "Usage guidelines")
+    )}</summary>" + @usage_guidelines + "</details>").html_safe : ""
+  end
+end
+
+SimpleForm.include_component(SimpleFormUsageGuidelinesComponent)
