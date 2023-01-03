@@ -15,17 +15,18 @@ services:
     depends_on:
       - chrome
       - comet_migrate
-      - comet_solr
       - memcached
       - minio
       - postgres
       - rabbitmq
       - redis
+      - solr
+      - zk
     volumes:
-      - hyrax-derivatives:/home/comet/app/derivatives
-      - hyrax-uploads:/home/comet/app/uploads
-      - rails-public:/home/comet/app/public
-      - hyrax-scripts:/home/comet/app/scripts
+      - comet-derivatives:/home/comet/app/derivatives
+      - comet-public:/home/comet/app/public
+      - comet-scripts:/home/comet/app/scripts
+      - comet-uploads:/home/comet/app/uploads
     networks:
       - cluster
 
@@ -38,17 +39,18 @@ services:
       - comet.env
     depends_on:
       - comet_migrate
-      - comet_solr
       - memcached
       - minio
       - postgres
       - rabbitmq
       - redis
+      - solr
+      - zk
     volumes:
-      - hyrax-derivatives:/home/comet/app/derivatives
-      - hyrax-uploads:/home/comet/app/uploads
-      - sidekiq-public:/home/comet/app/public
-      - sidekiq-tmp:/home/comet/app/tmp
+      - comet-derivatives:/home/comet/app/derivatives
+      - comet-public:/home/comet/app/public
+      - comet-scripts:/home/comet/app/scripts
+      - comet-uploads:/home/comet/app/uploads
     networks:
       - cluster
 
@@ -66,22 +68,28 @@ services:
     depends_on:
       - postgres
     volumes:
-      - rails-public:/home/comet/app/public
-      - rails-tmp:/home/comet/app/tmp
-      - hyrax-scripts:/home/comet/app/scripts
+      - comet-derivatives:/home/comet/app/derivatives
+      - comet-public:/home/comet/app/public
+      - comet-scripts:/home/comet/app/scripts
+      - comet-uploads:/home/comet/app/uploads
     networks:
       - cluster
 
-  comet_solr:
+  comet_configure_solr:
     extends:
-      file: ../docker-compose/common.yaml
-      service: solr
+      file: ../docker-compose/comet.yaml
+      service: configure_solr
     env_file:
       - .env
       - comet.env
+    depends_on:
+      - solr
+      - zk
     volumes:
-      - ../comet/solr/conf:/opt/comet
-      - comet_solr:/bitnami/solr
+      - comet-derivatives:/home/comet/app/derivatives
+      - comet-public:/home/comet/app/public
+      - comet-scripts:/home/comet/app/scripts
+      - comet-uploads:/home/comet/app/uploads
     networks:
       - cluster
 
@@ -166,6 +174,28 @@ services:
   #   networks:
   #     - cluster
 
+  solr:
+    extends:
+      file: ../docker-compose/common.yaml
+      service: solr
+    env_file:
+      - .env
+    volumes:
+      - solr:/bitnami/solr
+    networks:
+      - cluster
+
+  zk:
+    extends:
+      file: ../docker-compose/common.yaml
+      service: zk
+    env_file:
+      - .env
+    volumes:
+      - zk:/bitnami/zookeeper
+    networks:
+      - cluster
+
   geoserver:
     image: kartoza/geoserver:2.21.2
     volumes:
@@ -244,19 +274,16 @@ services:
 
 volumes:
   cluster_geoserver_data:
-  comet_solr:
+  comet-derivatives:
+  comet-public:
+  comet-scripts:
+  comet-uploads:
   db:
-  hyrax-derivatives:
-  hyrax-scripts:
-  hyrax-uploads:
   minio_data:
-  rails-public:
-  rails-tmp:
   redis:
-  shoreline_solr:
-  sidekiq-public:
-  sidekiq-tmp:
+  solr:
   superskunk_tmp:
+  zk:
 
 networks:
   cluster:

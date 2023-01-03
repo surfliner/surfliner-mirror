@@ -125,7 +125,8 @@ RUN apk --no-cache add \
   mediainfo \
   openjdk11-jre \
   perl \
-  postgresql-client
+  postgresql-client \
+  zip
 
 RUN bundle install --jobs "$(nproc)"
 

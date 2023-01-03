@@ -6,7 +6,7 @@ if [ "$SOLR_ADMIN_USER" ]; then
   solr_user_settings="--user $SOLR_ADMIN_USER:$SOLR_ADMIN_PASSWORD"
 fi
 
-solr_config_name="${SOLR_CONFIG_NAME:-solrconfig}"
+solr_config_name="${SOLR_CONFIGSET_NAME:-solrconfig}"
 solr_collection_name="${SOLR_COLLECTION_NAME:-collection1}"
 solr_collection_shards="${SOLR_COLLECTION_SHARDS:-2}"
 
