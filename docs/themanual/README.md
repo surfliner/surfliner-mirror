@@ -7,16 +7,18 @@ The Surliner Manual TOC
 
 * Comet
   * [Setting up a development environment.](./comet/devsetup.md).
-  * [The Access Control Model in `comet`](./comet/access_control.md)
+  * [The Access Control Model in Comet](./comet/access_control.md)
   * [Configuring Comet to use an external PostgreSQL
     database](./comet/external-db.md)
   * [Metadata in Comet](./comet/metadata.md)
+  * [Storage in Comet](./comet/storage.md)
 
 * Starlight
   * [Migrating a Starlight instance](./starlight/migration.md)
 
 * Superskunk
   * [Access Controls in Superskunk](./superskunk/acl.md)
+  * [Aardvark Metadata Profile in Superskunk](./superskunk/api.md)
 
 * Tidewater
   * [Tidewater API Endpoints](./tidewater/api.md)
