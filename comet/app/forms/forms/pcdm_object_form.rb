@@ -47,7 +47,7 @@ module Forms
 
     def primary_terms
       _form_field_definitions.select { |key, form_options|
-        schema_definition = form_definition(key.to_sym)
+        schema_definition = self.class.form_definition(key.to_sym)
         if schema_definition
           # Use the schema definition if possible.
           schema_definition.primary?
@@ -60,7 +60,7 @@ module Forms
 
     def secondary_terms
       _form_field_definitions.select { |key, form_options|
-        schema_definition = form_definition(key.to_sym)
+        schema_definition = self.class.form_definition(key.to_sym)
         if schema_definition
           # Display all schema‐defined nonprimary terms.
           !schema_definition.primary?

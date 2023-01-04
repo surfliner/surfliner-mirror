@@ -5,7 +5,7 @@ module HydraEditorHelper
 
   def render_edit_field_partial(field_name, **locals)
     form = locals[:f].object
-    schema_definition = form.form_definition(field_name.to_sym) if form.is_a?(SurflinerSchema::FormFields)
+    schema_definition = form.class.form_definition(field_name.to_sym) if form.is_a?(SurflinerSchema::FormFields)
     if schema_definition
       # The field name has a form definition in the schema.
       render_schema_edit_field_partial_with_action(schema_definition, **locals)

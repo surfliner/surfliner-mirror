@@ -3,15 +3,25 @@
 module SurflinerSchema
   ##
   # Builds a module which provides Reform::Form fields as well as a few
-  # additional useful methods for form processing.
+  # additional useful (class) methods for form processing.
   #
-  # The additional methods are:
+  # The additional methods are :—
   #
   # [form_definition]
   #
   #   Returns a +SurflinerSchema::FormDefinition+ corresponding to the provided
   #   property name, if such a property is available through the schema on the
   #   form; otherwise, returns nil.
+  #
+  # [primary_division]
+  #
+  #   Returns a +SurflinerSchema::Division+ for the form’s availability, limited
+  #   to only primary fields.
+  #
+  # [secondary_division]
+  #
+  #   Returns a +SurflinerSchema::Division+ for the form’s availability, limited
+  #   to only nonprimary fields.
   #
   # @param availability [Symbol]
   # @param loader [#form_definitions_for]
@@ -38,31 +48,66 @@ module SurflinerSchema
   #
   # @see .FormFields
   class FormFields < Module
+    attr_reader :availability, :definitions, :loader
+
     ##
     # @param availability [Symbol]
     # @param loader [#properties_for]
     def initialize(availability, loader:)
       @availability = availability
-      form_definitions = loader.form_definitions_for(availability)
-      @form_definitions = form_definitions
-
-      define_method(:form_definition) do |property_name|
-        form_definitions[property_name]
-      end
+      @definitions = loader.form_definitions_for(availability)
+      @loader = loader
     end
 
     ##
     # @return [String]
     def inspect
-      "#{self.class}(#{@availability})"
+      "#{self.class}(#{availability})"
     end
 
     private
 
     def included(descendant)
       super
+      descendant.instance_variable_set(:@form_definitions, definitions)
+      descendant.instance_variable_set(:@schema_availability, availability)
+      descendant.instance_variable_set(:@schema_loader, loader)
 
-      @form_definitions.each do |property_name, definition|
+      class << descendant
+        ##
+        # Returns the +SurflinerSchema::FormDefinition+ for the provided
+        # property name in the form.
+        #
+        # @param property_name [Symbol]
+        # @return [SurflinerSchema::Division]
+        def form_definition(property_name)
+          @form_definitions[property_name.to_sym]
+        end
+
+        ##
+        # Returns a +SurflinerSchema::Division+ containing only primary
+        # properties.
+        #
+        # @return [SurflinerSchema::Division]
+        def primary_division
+          @primary_division ||= @schema_loader.class_division_for(@schema_availability) do |property|
+            @form_definitions[property.name].primary?
+          end
+        end
+
+        ##
+        # Returns a +SurflinerSchema::Division+ containing only nonprimary
+        # properties.
+        #
+        # @return [SurflinerSchema::Division]
+        def secondary_division
+          @secondary_division ||= @schema_loader.class_division_for(@schema_availability) do |property|
+            !@form_definitions[property.name].primary?
+          end
+        end
+      end
+
+      definitions.each do |property_name, definition|
         descendant.property property_name, **definition.form_options
         descendant.validates(property_name, presence: true) if definition.required?
       end
