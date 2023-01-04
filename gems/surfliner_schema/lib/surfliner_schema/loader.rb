@@ -45,10 +45,13 @@ module SurflinerSchema
     # A SurflinerSchema::Division listing the sections, groupings, and
     # properties with the provided availability.
     #
+    # If a block is provided, it is used to filter the resultant properties.
+    # Otherwise, every property will be included.
+    #
     # @param availability [Symbol]
     # @return [SurflinerSchema::Division]
-    def class_division_for(availability)
-      class_divisions[availability]
+    def class_division_for(availability, &block)
+      class_divisions(&block)[availability]
     end
 
     ##
@@ -203,17 +206,24 @@ module SurflinerSchema
     # which wrap the corresponding definition and contain the associated
     # properties.
     #
+    # If a block is provided, properties will be yielded to it; the resulting
+    # divisions will only contain those properties for which the block returns
+    # with a truthy value.
+    #
     # @return [{Symbol => SurflinerSchema::Division}]
     def class_divisions
-      @class_divisions ||= {}.merge(*@readers.map { |reader|
+      return @class_divisions unless block_given? || @class_divisions.nil?
+      divs = {}.merge(*@readers.map { |reader|
         reader.resource_classes.keys.each_with_object({}) do |name, divs|
           div = Division.new(name: name, kind: :class, reader: reader)
           reader.properties(availability: name).values.each do |property|
-            div << property
+            div << property if !block_given? || yield(property)
           end
           divs[name] = div
         end
       })
+      @class_divisions = divs unless block_given?
+      divs
     end
 
     ##
