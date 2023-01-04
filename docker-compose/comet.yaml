@@ -67,8 +67,8 @@ services:
       - -c
       - >
         while ! nc -z "${SOLR_HOST}" "${SOLR_PORT}"; do echo "--- Waiting for Solr ..."; sleep 5s; done &&
-        /home/comet/app/scripts/solrcloud-upload-configset.sh /home/comet/app/solr/conf &&
-        /home/comet/app/scripts/solrcloud-create-collection.sh
+        solrcloud-upload-configset.sh /home/comet/app/solr/conf &&
+        solrcloud-create-collection.sh
     volumes:
       - ../comet:/home/comet/app
       - ../gems:/home/comet/gems

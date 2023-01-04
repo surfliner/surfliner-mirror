@@ -118,61 +118,72 @@ services:
     networks:
       - cluster
 
-  # shoreline_web:
-  #   build:
-  #     context: ..
-  #     dockerfile: shoreline/Dockerfile
-  #     target: shoreline-dev
-  #   image: shoreline:development
-  #   env_file:
-  #     - .env
-  #     - shoreline.env
-  #   volumes:
-  #     - ./shoreline:/home/shoreline/app
-  #   depends_on:
-  #     - geoserver
-  #     - postgres
-  #     - shoreline_db_migrate
-  #     - shoreline_solr
-  #   stdin_open: true
-  #   tty: true
-  #   ports:
-  #    - '3001:3000'
-  #   networks:
-  #     - cluster
+  shoreline_web:
+    build:
+      context: ..
+      dockerfile: shoreline/Dockerfile
+      target: shoreline-dev
+    image: shoreline:development
+    env_file:
+      - .env
+      - shoreline.env
+    # volumes:
+    #   - shoreline-derivatives:/home/shoreline/app/derivatives
+    #   - shoreline-public:/home/shoreline/app/public
+    #   - shoreline-uploads:/home/shoreline/app/uploads
+    depends_on:
+      - geoserver
+      - postgres
+      - shoreline_db_migrate
+      - solr
+      - zk
+    stdin_open: true
+    tty: true
+    ports:
+     - '3001:3000'
+    networks:
+      - cluster
 
-  # shoreline_db_migrate:
-  #   image: shoreline:development
-  #   env_file:
-  #     - .env
-  #     - shoreline.env
-  #   command:
-  #     - sh
-  #     - -c
-  #     - >
-  #       db-setup.sh
-  #       && bundle exec rake "shoreline:staging_area:upload_shapefiles"
-  #       && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/Polygon_gford_test.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/gford-20140000-010002_lakes.zip]"
-  #   depends_on:
-  #     - postgres
-  #     - minio
-  #   volumes:
-  #     - .:/home/shoreline/app
-  #   networks:
-  #     - cluster
+  shoreline_db_migrate:
+    image: shoreline:development
+    env_file:
+      - .env
+      - shoreline.env
+    command:
+      - sh
+      - -c
+      - >
+        db-setup.sh
+        && bundle exec rake "shoreline:staging_area:upload_shapefiles"
+        && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/Polygon_gford_test.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/gford-20140000-010002_lakes.zip]"
+    depends_on:
+      - postgres
+      - minio
+      - solr
+      - zk
+    networks:
+      - cluster
 
-  # shoreline_solr:
-  #   image: bitnami/solr:8.11.2-debian-11-r62
-  #   env_file:
-  #     - .env
-  #     - shoreline.env
-  #   ports:
-  #     - "8984:8984"
-  #   volumes:
-  #     - ../shorline/solr/conf:/opt/shoreline
-  #     - shoreline_solr:/bitnami/solr
-  #   networks:
-  #     - cluster
+  shoreline_configure_solr:
+    image: shoreline:development
+    env_file:
+      - .env
+      - shoreline.env
+    env_file:
+      - .env
+      - shoreline.env
+    depends_on:
+      - solr
+      - zk
+    command:
+      - sh
+      - -c
+      - >
+        while ! nc -z "${SOLR_HOST}" "${SOLR_PORT}"; do echo "--- Waiting for Solr ..."; sleep 5s; done &&
+        solrcloud-upload-configset.sh /home/shoreline/app/solr/conf &&
+        solrcloud-create-collection.sh
+    networks:
+      - cluster
 
   solr:
     extends:
@@ -281,6 +292,10 @@ volumes:
   db:
   minio_data:
   redis:
+  shoreline-derivatives:
+  shoreline-public:
+  shoreline-scripts:
+  shoreline-uploads:
   solr:
   superskunk_tmp:
   zk:
