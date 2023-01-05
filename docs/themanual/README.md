@@ -18,7 +18,7 @@ The Surliner Manual TOC
 
 * Superskunk
   * [Access Controls in Superskunk](./superskunk/acl.md)
-  * [Aardvark Metadata Profile in Superskunk](./superskunk/api.md)
+  * [Aardvark Metadata Profile in Superskunk](./superskunk/profiles/aardvark.md)
 
 * Tidewater
   * [Tidewater API Endpoints](./tidewater/api.md)
