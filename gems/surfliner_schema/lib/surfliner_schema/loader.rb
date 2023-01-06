@@ -51,7 +51,11 @@ module SurflinerSchema
     # @param availability [Symbol]
     # @return [SurflinerSchema::Division]
     def class_division_for(availability, &block)
-      class_divisions(&block)[availability]
+      if block
+        filtered_class_division(availability, &block)
+      else
+        class_divisions[availability]
+      end
     end
 
     ##
@@ -206,24 +210,35 @@ module SurflinerSchema
     # which wrap the corresponding definition and contain the associated
     # properties.
     #
-    # If a block is provided, properties will be yielded to it; the resulting
-    # divisions will only contain those properties for which the block returns
-    # with a truthy value.
-    #
     # @return [{Symbol => SurflinerSchema::Division}]
     def class_divisions
-      return @class_divisions unless block_given? || @class_divisions.nil?
-      divs = {}.merge(*@readers.map { |reader|
-        reader.resource_classes.keys.each_with_object({}) do |name, divs|
-          div = Division.new(name: name, kind: :class, reader: reader)
-          reader.properties(availability: name).values.each do |property|
-            div << property if !block_given? || yield(property)
-          end
-          divs[name] = div
+      @class_divisions ||= @readers.each_with_object({}) do |reader, divs|
+        reader.resource_classes.keys.each do |name|
+          # If multiple readers define a class, only the first definition is
+          # used to generate divisions.
+          divs[name] ||= filtered_class_division(name)
         end
-      })
-      @class_divisions = divs unless block_given?
-      divs
+      end
+    end
+
+    ##
+    # A +SurflinerSchema::Division+ which contains all the properties which
+    # match the provided block for the given availability.
+    #
+    # If no block is given, every property is matched.
+    #
+    # @param availability [Symbol]
+    # @return [SurflinerSchema::Division]
+    def filtered_class_division(availability)
+      reader = @readers.find { |reader|
+        # Divisions can only support one schema per class; take the first.
+        reader.resource_classes.key?(availability)
+      }
+      div = Division.new(name: availability, kind: :class, reader: reader)
+      reader.properties(availability: availability).values.each do |property|
+        div << property if !block_given? || yield(property)
+      end
+      div
     end
 
     ##
