@@ -16,6 +16,16 @@
     kubectl --kubeconfig $KUBECONFIG -n $KUBE_NAMESPACE apply -f -
   }
 
+  create_bitnami_rabbitmq_cluster() {
+    if kubectl --kubeconfig $KUBECONFIG get rabbitmqclusters.rabbitmq.com/$RABBITMQ_RELEASE_NAME -n $KUBE_NAMESPACE; then
+      echo "RABBITMQ CLUSTER EXISTS $RABBITMQ_RELEASE_NAME"
+      return 0
+    fi
+    echo "CREATING RABBITMQ CLUSTER $RABBITMQ_RELEASE_NAME"
+    sed "s/NAME/$RABBITMQ_RELEASE_NAME/" util/bitnami-rabbitmq-instance.yml |\
+    kubectl --kubeconfig $KUBECONFIG -n $KUBE_NAMESPACE apply -f -
+  }
+
 .rabbitmq-cluster:
   stage: maintanence
   extends:
@@ -24,6 +34,15 @@
     - *rabbitmq_helpers
     - create_rabbitmq_namespace
     - create_rabbitmq_cluster
+
+.bitnami-rabbitmq-cluster:
+  stage: maintanence
+  extends:
+    - .helm3-deploy
+  script:
+    - *rabbitmq_helpers
+    - create_rabbitmq_namespace
+    - create_bitnami_rabbitmq_cluster
 
 .rabbitmq-review:
   variables:
@@ -34,6 +53,7 @@
       changes:
         - ci/base/rabbitmq_cluster.yml
         - util/rabbitmq-instance.yml
+        - util/bitnami-rabbitmq-instance.yml
     - if: $DEPLOY_RABBITMQ_CLUSTER && '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
 
 .rabbitmq-rules-default-branch:
@@ -92,7 +112,7 @@ rabbitmq-cluster:ucsb-staging:
 
 rabbitmq-cluster:ucsd-review:
   extends:
-    - .rabbitmq-cluster
+    - .bitnami-rabbitmq-cluster
     - .rabbitmq-review
   variables:
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
