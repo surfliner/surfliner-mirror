@@ -1,0 +1,46 @@
+{
+  "dct_references_s": "{\"http://www.opengis.net/def/serviceType/ogc/wfs\":\"http://localhost:8080/geoserver/wfs\", \"http://www.opengis.net/def/serviceType/ogc/wms\":\"http://localhost:8080/geoserver/wms\"}",
+  "dct_spatial_sm": [
+    "Departamento del Petén",
+    "Guatemala",
+    "Belize"
+  ],
+  "dct_creator_sm": [
+    "UCSB Maya Forest GIS"
+  ],
+  "dct_format_s": "Shapefile",
+  "dct_publisher_sm": [
+    "UCSB Maya Forest GIS"
+  ],
+  "dct_accessRights_s": "Public",
+  "dct_subject_sm": [
+    "Maya Forest",
+    "Roads"
+  ],
+  "pcdm_memberOf_sm": [
+    "Maya Forest GIS"
+  ],
+  "dct_title_s": "Roads, Maya Forest, Guatemala-Belize, 2000",
+  "schema_provider_s": "UC Santa Barbara",
+  "gbl_mdVersion_s": "Aardvark",
+  "gbl_wxsIdentifier_s": "public:gford-20140000-010006_gps_roadsutm",
+  "id": "gford-20140000-010006_gps_roadsutm",
+  "dcat_bbox": "ENVELOPE(-89.923822,-88.821603,17.286246,15.484317)",
+  "dct_description_sm": [
+    "This line shapefile represents roads in parts of Western Belize and the Peten of Guatemala for 2000.\n\n"
+  ],
+  "dct_identifier_sm": [
+    "public:gford-20140000-010006_gps_roadsutm"
+  ],
+  "gbl_indexYear_im": [
+    2000
+  ],
+  "gbl_mdModified_dt": "2022-12-14T19:04:46Z",
+  "gbl_resourceClass_sm": [
+    "Datasets"
+  ],
+  "gbl_resourceType_sm": [
+    "Line data"
+  ],
+  "locn_geometry": "ENVELOPE(-89.923822,-88.821603,17.286246,15.484317)"
+}

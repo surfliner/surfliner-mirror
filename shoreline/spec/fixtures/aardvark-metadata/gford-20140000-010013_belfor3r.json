@@ -1,0 +1,48 @@
+{
+  "dct_references_s": "{\"http://www.opengis.net/def/serviceType/ogc/wfs\":\"http://localhost:8080/geoserver/wfs\", \"http://www.opengis.net/def/serviceType/ogc/wms\":\"http://localhost:8080/geoserver/wms\"}",
+  "dct_spatial_sm": [
+    "Belize"
+  ],
+  "dct_creator_sm": [
+    "University of Florida. GeoPlan Center",
+    "University of Florida. GeoPlan Center",
+    "University of Florida; Wildlife Conservation Society; Caribbean Conservation Corporation"
+  ],
+  "dct_format_s": "Shapefile",
+  "dct_publisher_sm": [
+    "University of Florida. GeoPlan Center",
+    "The Paseo Pantera Consortium, University of Florida, USAID"
+  ],
+  "dct_accessRights_s": "Public",
+  "dct_subject_sm": [
+    "Maya Forest",
+    "Forest biodiversity",
+    "Land cover"
+  ],
+  "pcdm_memberOf_sm": [
+    "Maya Forest GIS"
+  ],
+  "dct_title_s": "Forest Cover, Maya Forest, Belize (Central), 1995",
+  "schema_provider_s": "UC Santa Barbara",
+  "gbl_mdVersion_s": "Aardvark",
+  "gbl_wxsIdentifier_s": "public:gford-20140000-010013_belfor3r",
+  "id": "gford-20140000-010013_belfor3r",
+  "dcat_bbox": "ENVELOPE(-89.179092,-87.769513,17.760549,16.743506)",
+  "dct_description_sm": [
+    "This polygon shapefile represents forest cover in the Maya Forest Region of Mexico, Guatemala, and Belize (Central) for 1995.\n\n"
+  ],
+  "dct_identifier_sm": [
+    "public:gford-20140000-010013_belfor3r"
+  ],
+  "gbl_indexYear_im": [
+    1995
+  ],
+  "gbl_mdModified_dt": "2022-12-14T19:04:46Z",
+  "gbl_resourceClass_sm": [
+    "Datasets"
+  ],
+  "gbl_resourceType_sm": [
+    "Polygon data"
+  ],
+  "locn_geometry": "ENVELOPE(-89.179092,-87.769513,17.760549,16.743506)"
+}

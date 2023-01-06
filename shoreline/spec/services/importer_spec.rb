@@ -33,7 +33,7 @@ RSpec.describe Importer do
         "spec",
         "fixtures",
         "shapefiles",
-        "gford-20140000-010004_rivers.zip"
+        "gford-20140000-010002_lakes.zip"
       )).to_s
     end
 
@@ -42,7 +42,7 @@ RSpec.describe Importer do
         "spec",
         "fixtures",
         "aardvark-metadata",
-        "Polygon_gford_test.json"
+        "gford-20140000-010002_lakes.json"
       )))
     end
 

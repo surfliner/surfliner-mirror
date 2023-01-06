@@ -1,0 +1,46 @@
+{
+  "dct_references_s": "{\"http://www.opengis.net/def/serviceType/ogc/wfs\":\"http://localhost:8080/geoserver/wfs\", \"http://www.opengis.net/def/serviceType/ogc/wms\":\"http://localhost:8080/geoserver/wms\"}",
+  "dct_spatial_sm": [
+    "Departamento del Petén",
+    "Guatemala",
+    "Reserva de la Biosfera Maya (Guatemala)"
+  ],
+  "dct_creator_sm": [
+    "Consejo Nacional de Áreas Protegidas (Guatemala)"
+  ],
+  "dct_format_s": "Shapefile",
+  "dct_publisher_sm": [
+    "Consejo Nacional de Áreas Protegidas (Guatemala)"
+  ],
+  "dct_accessRights_s": "Public",
+  "dct_subject_sm": [
+    "Maya Forest",
+    "Rivers"
+  ],
+  "pcdm_memberOf_sm": [
+    "Maya Forest GIS"
+  ],
+  "dct_title_s": "Rivers, Maya Forest, Guatemala, 2000",
+  "schema_provider_s": "UC Santa Barbara",
+  "gbl_mdVersion_s": "Aardvark",
+  "gbl_wxsIdentifier_s": "public:gford-20140000-010004_rivers",
+  "id": "gford-20140000-010004_rivers",
+  "dcat_bbox": "ENVELOPE(-91.453487,-89.127493,17.838888,16.649914)",
+  "dct_description_sm": [
+    "This line shapefile represents rivers in the Maya Biosphere Reserve for 2000.\n\n"
+  ],
+  "dct_identifier_sm": [
+    "public:gford-20140000-010004_rivers"
+  ],
+  "gbl_indexYear_im": [
+    2000
+  ],
+  "gbl_mdModified_dt": "2022-12-14T19:04:46Z",
+  "gbl_resourceClass_sm": [
+    "Datasets"
+  ],
+  "gbl_resourceType_sm": [
+    "Line data"
+  ],
+  "locn_geometry": "ENVELOPE(-91.453487,-89.127493,17.838888,16.649914)"
+}
