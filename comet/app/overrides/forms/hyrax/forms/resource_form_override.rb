@@ -24,3 +24,16 @@ end
 Hyrax::Forms::ResourceForm.singleton_class.class_eval do
   prepend ResourceFormForOverride
 end
+
+##
+# A module which provides a +schema_derived?+ method to Hyrax resource forms,
+# to identify whether they support +SurflinerSchema::FormFields+ methods or not.
+module ResourceFormSchemaDerivedOverride
+  def schema_derived?
+    self.class.included_modules.any? { |m| m.is_a? SurflinerSchema::FormFields }
+  end
+end
+
+Hyrax::Forms::ResourceForm.class_eval do
+  include ResourceFormSchemaDerivedOverride
+end
