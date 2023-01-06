@@ -1,0 +1,38 @@
+<div class="base-terms">
+  <% if f.object.try(:schema_derived?) %>
+    <% primary_division_property_names = f.object.class.primary_division.properties.map(&:name) %>
+    <% f.object.primary_terms.each do |term| %>
+      <%# fallback for terms not in schema division %>
+      <%= render_edit_field_partial(term, f: f) unless primary_division_property_names.include?(term) %>
+    <% end %>
+    <%= render "hyrax/base/form_metadata_schema_division", division: f.object.class.primary_division, f: f %>
+  <% else %>
+    <% f.object.primary_terms.each do |term| %>
+      <%= render_edit_field_partial(term, f: f) %>
+    <% end %>
+  <% end %>
+</div>
+<% if f.object.display_additional_fields? %>
+  <%= link_to t('hyrax.works.form.additional_fields'),
+              '#extended-terms',
+              class: 'btn btn-default additional-fields',
+              data: { toggle: 'collapse' },
+              role: "button",
+              'aria-expanded'=> "false",
+              'aria-controls'=> "extended-terms" %>
+  <div id="extended-terms" class='collapse'>
+    <%= render 'form_media', f: f %>
+    <% if f.object.try(:schema_derived?) %>
+      <% secondary_division_property_names = f.object.class.secondary_division.properties.map(&:name) %>
+      <% f.object.secondary_terms.each do |term| %>
+        <%# fallback for terms not in schema division %>
+        <%= render_edit_field_partial(term, f: f) unless secondary_division_property_names.include?(term) %>
+      <% end %>
+      <%= render "hyrax/base/form_metadata_schema_division", division: f.object.class.secondary_division, f: f %>
+    <% else %>
+      <% f.object.secondary_terms.each do |term| %>
+        <%= render_edit_field_partial(term, f: f) %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,34 @@
+<% case division.kind %>
+<% when :class %>
+  <%# For readability, put all children which are not in sections before any %>
+  <%# sections are opened. %>
+  <% sections = [] %>
+  <% division.each do |child| %>
+    <% if child.is_a? SurflinerSchema::Property %>
+      <%= render_edit_field_partial child.name, f: f %>
+    <% elsif child.kind == :section %>
+      <% sections << child %>
+    <% else %>
+      <%= render "hyrax/base/form_metadata_schema_division", division: child, f: f %>
+    <% end %>
+  <% end %>
+  <% sections.each do |subdiv| %>
+    <%= render "hyrax/base/form_metadata_schema_division", division: subdiv, f: f %>
+  <% end %>
+<% when :section %>
+  <fieldset>
+    <legend><%= division.display_label %></legend>
+    <% division.each do |child| %>
+      <% if child.is_a? SurflinerSchema::Property %>
+        <%= render_edit_field_partial child.name, f: f %>
+      <% else %>
+        <%= render "hyrax/base/form_metadata_schema_division", division: child, f: f %>
+      <% end %>
+    <% end %>
+  </fieldset>
+<%# TODO: when :grouping %>
+<% else %>
+  <% division.properties.each do |property| %>
+    <%= render_edit_field_partial property.name, f: f %>
+  <% end %>
+<% end %>
