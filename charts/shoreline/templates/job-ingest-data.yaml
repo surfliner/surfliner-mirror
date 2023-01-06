@@ -25,10 +25,13 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: "{{ .Values.image.pullPolicy }}"
           args:
-            - bundle
-            - exec
-            - rake
-            - "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/gford-20140000-010002_lakes.json,http://$(MINIO_ENDPOINT):9000/shoreline-staging-area-dev/shapefiles/gford-20140000-010002_lakes.zip]"
+            - sh
+            - -c
+            - >
+              bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/gford-20140000-010002_lakes.json,http://$(MINIO_ENDPOINT):9000/shoreline-staging-area-dev/shapefiles/gford-20140000-010002_lakes.zip]"
+              && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/SD_City_Recycled_Water_Main_2018_03-d.json,http://$(MINIO_ENDPOINT):9000/shoreline-staging-area-dev/shapefiles/SD_City_Recycled_Water_Main_2018_03-d.zip]"
+              && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/Recycled_Water_Main_2016-d.json,http://$(MINIO_ENDPOINT):9000/shoreline-staging-area-dev/shapefiles/Recycled_Water_Main_2016-d.zip]"
+              && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/gford-20140000-010007_archr.json,http://$(MINIO_ENDPOINT):9000/shoreline-staging-area-dev/shapefiles/gford-20140000-010007_archr.zip]"
           envFrom:
             - configMapRef:
                 name: {{ include "shoreline.fullname" . }}-env
