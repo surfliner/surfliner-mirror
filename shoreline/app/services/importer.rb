@@ -38,12 +38,17 @@ module Importer
 
     puts "-- Publishing to GeoServer as #{file_id}"
 
+    # GeoServer claims to support uploading shapefiles by providing a url and
+    # passing `url` as the method (instead of `file` and uploading a binary
+    # stream), but this is not true.
+    file = URI.parse(file_url).open.read
+
     Geoserver::Publish.create_workspace(workspace_name: workspace, connection: conn)
     Geoserver::Publish::DataStore.new(conn).upload(
       workspace_name: workspace,
       data_store_name: file_id,
-      file: file_url,
-      method: "url"
+      file: file,
+      method: "file"
     )
   end
 
