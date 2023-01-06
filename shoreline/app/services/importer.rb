@@ -109,7 +109,7 @@ module Importer
   end
 
   def self.geoserver_references(metadata:)
-    JSON.parse(metadata["dct_references_s"]).merge(
+    JSON.parse(metadata["dct_references_s"].gsub("http://localhost:8080", ENV["GEOSERVER_URL"])).merge(
       transform_reference_uris(REFERENCES)
     ).to_json
   end
