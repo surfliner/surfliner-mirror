@@ -28,7 +28,7 @@ spec:
             - bundle
             - exec
             - rake
-            - "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/Polygon_gford_test.json,http://$(MINIO_ENDPOINT):9000/shoreline-staging-area-dev/shapefiles/gford-20140000-010002_lakes.zip]"
+            - "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/gford-20140000-010002_lakes.json,http://$(MINIO_ENDPOINT):9000/shoreline-staging-area-dev/shapefiles/gford-20140000-010002_lakes.zip]"
           envFrom:
             - configMapRef:
                 name: {{ include "shoreline.fullname" . }}-env
