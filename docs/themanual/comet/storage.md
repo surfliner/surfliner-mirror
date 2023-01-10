@@ -45,6 +45,10 @@ can be deployed on-premises. We actively test ~comet against [MinIO][minio]
 to ensure multi-platform storage support. The durability, responsiveness, and costs
 associated with each bucket will vary based on the individual deployment.
 
+## Versioning
+
+TK: [How versioning works][s3-versioning]
+
 ## File _Uses_
 
 TK: [PCDM Use Vocabulary][pcdm-use] & per campus extensions.
@@ -63,7 +67,65 @@ doesn't provide the technical implementation for _preservation storage_. As
 external preservation platforms following the model outlined by the 2020
 [One-to-Many][one-to-many] grant.
 
+### File Fixity
+
+~comet's storage durability is primarily a function of the durability of the
+object storage layer used for its buckets. Object storage systems normally
+provides some degree of replication in support of their durability claims.
+Where needed, additional techniques for replication can be employed at the
+bucket layer, e.g. to provide cross-region replication . The details of storage
+durability are therefore dependent on configuration of the individual deployment.
+
+Instead of providing a blanket durability guarantee directly, ~comet seeks to
+provide tools for managing file fixity. The fixity functionality is intended
+to provide a degree of control and auditibility from at various points in the
+management lifecycle.
+
+__On ingest__ we ensure checksums provided with file content are consistent with
+ingested content by checking fixity prior to ingest. Additionally, ~comet
+generates digests [alg support?] of the content as received and stores them in
+the metadata store. These digests are checked against those calculated by the
+storage layer on upload [do/can we use `Content-MD5` header? HTTP Trailer?] to
+ensure fixity through the ingest process.
+
+These ingest time fixity checks seek to provide [NDSA Level][ndsa] 1 [benefits][dpc-fixity]:
+
+>  - Corrupted or incorrect digital materials are not knowingly stored.
+>  - Authenticity of the digital materials can be asserted.
+>  - Baseline fixity established so unwanted data changes have potential to be detected.
+
+__Periodically__: TK
+
+> note: There are open questions about the goals of periodic fixity checks given
+> the storage model. for ~comet, we might choose to be satisfied that the storage
+> layer "takes care of it", delegating the requirements for what that means to
+> individual deployments.
+>
+> The S3 API doesn't provide a mechanism guaranteeing an active fixity check for
+> data at rest on the storage layer. If ~comet wants to actively check fixity,
+> it probably needs to do so by downloading content and running checksums
+> locally. This strategy has some sense to it: if ~comet wants to manage fixity
+> of the content it has access to, it needs to check on realistic access. A
+> downside is a relatively high likelihood of false positives for corruption, as
+> the most likely place for corruption to occur is in the network transfer to
+> ~comet itself.
+>
+> Periodic fixity checks are introduced at [NDSA Level 3][ndsa], which requires
+> we "Check fixity of content at fixed intervals" (why fixed?) and "Maintain
+> logs of fixity info; supply audit on demand". The goal of these capabilities
+> seems to be to provide the "Ability to detect corrupt data". Is this goal
+> meaningful in the context of an "11 nines of durability" service level from
+> the storage layer? What other goals might we have for active fixity checks?
+
+__Event Driven__: TK
+__Audit Logging__: TK
+
+
 [comet-metadata]: ./metadata.yaml
+[dpc-fixity]: https://www.dpconline.org/handbook/technical-solutions-and-tools/fixity-and-checksums
+[ndsa]: https://www.digitalpreservation.gov/documents/NDSA_Levels_Archiving_2013.pdf
 [minio]: https://min.io/
 [one-to-many]: https://wiki.lyrasis.org/display/OTM
 [pcdm-use]: https://pcdm.org/2015/05/12/use
+[s3-get-object-attrs]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html
+[s3-versioning]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/versioning-workflows.html
