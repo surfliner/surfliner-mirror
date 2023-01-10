@@ -33,18 +33,76 @@ describe SurflinerSchema::Loader do
   end
 
   describe "instance" do
-    let(:loader_class) {
-      Class.new(SurflinerSchema::Loader) do
-        def self.config_location
-          "spec/fixtures"
+    let(:reader_class) do
+      Class.new(SurflinerSchema::Reader::Base) do
+        def properties(availability:)
+          {
+            title: SurflinerSchema::Property.new(
+              name: :title,
+              display_label: "Title",
+              available_on: [:generic_object, :collection, :Image],
+              section: :my_metadata,
+              indexing: [:searchable, :symbol],
+              cardinality: :exactly_one
+            ),
+            date_uploaded: SurflinerSchema::Property.new(
+              name: :date_uploaded,
+              display_label: "Date Uploaded",
+              available_on: [:generic_object, :Image],
+              section: :my_metadata,
+              grouping: :date
+            ),
+            date_modified: SurflinerSchema::Property.new(
+              name: :date_modified,
+              display_label: "Date Modified",
+              available_on: [:generic_object, :Image],
+              section: :my_metadata,
+              grouping: :date
+            )
+          }.filter { |_, property| property.available_on.include?(availability) }
         end
 
-        def self.default_schemas
-          [:core_schema]
+        def resource_classes
+          {
+            generic_object: SurflinerSchema::ResourceClass.new(
+              name: :generic_object,
+              display_label: "Generic Object"
+            ),
+            collection: SurflinerSchema::ResourceClass.new(
+              name: :collection,
+              display_label: "Collection"
+            ),
+            Image: SurflinerSchema::ResourceClass.new(
+              name: :Image,
+              display_label: "Image"
+            )
+          }
+        end
+
+        def sections
+          {
+            my_metadata: SurflinerSchema::Section.new(
+              name: :my_metadata,
+              display_label: "My Metadata"
+            )
+          }
+        end
+
+        def groupings
+          {
+            date: SurflinerSchema::Grouping.new(
+              name: :date,
+              display_label: "Date"
+            )
+          }
         end
       end
-    }
-    let(:loader) { loader_class.new }
+    end
+    let(:loader) do
+      loader = SurflinerSchema::Loader.new([])
+      loader.instance_variable_set(:@readers, [reader_class.new])
+      loader
+    end
 
     it "#attributes_for" do
       # is there a better way of checking this?
@@ -55,35 +113,46 @@ describe SurflinerSchema::Loader do
         **{
           title: typestr,
           date_modified: typestr,
-          date_uploaded: typestr,
-          depositor: typestr
+          date_uploaded: typestr
         }.transform_values(&:to_s)
       )
     end
 
     it "#form_definitions_for" do
-      expect(loader.form_definitions_for(:generic_object).keys).to eq [:title]
+      expect(loader.form_definitions_for(:collection).keys).to eq [:title]
     end
 
     it "#index_rules_for" do
       expect(loader.index_rules_for(schema: :generic_object).keys).to contain_exactly(
         :title_sim,
-        :title_tsim,
-        :title_tesim
+        :title_tsim
       )
       expect(loader.index_rules_for(schema: :generic_object)[:title_sim]).to eq :title
       expect(loader.index_rules_for(schema: :generic_object)[:title_tsim]).to eq :title
-      expect(loader.index_rules_for(schema: :generic_object)[:title_tesim]).to eq :title
     end
 
     it "#availabilities" do
-      expect(loader.availabilities).to eq [:generic_object]
+      expect(loader.availabilities).to eq [:generic_object, :collection, :Image]
     end
 
-    it "#class_division_for" do
-      div = loader.class_division_for(:generic_object)
-      expect(div.name).to eq :generic_object
-      expect(div.properties).to eq loader.properties_for(:generic_object).values
+    describe "#class_division_for" do
+      it "contains only the properties for the class" do
+        div = loader.class_division_for(:generic_object)
+        expect(div.properties).to eq loader.properties_for(:generic_object).values
+      end
+
+      it "correctly generates subdivisions" do
+        div = loader.class_division_for(:generic_object)
+        expect(div.to_a.map(&:name)).to eq [:my_metadata]
+        section = div.first
+        expect(section).to be_a SurflinerSchema::Division
+        expect(section.kind).to eq :section
+        expect(section.to_a.map(&:name)).to eq [:title, :date]
+        grouping = section.drop(1).first
+        expect(grouping).to be_a SurflinerSchema::Division
+        expect(grouping.kind).to eq :grouping
+        expect(grouping.to_a.map(&:name)).to eq [:date_uploaded, :date_modified]
+      end
     end
 
     describe "#resource_class_resolver" do
@@ -111,41 +180,6 @@ describe SurflinerSchema::Loader do
       it "defines the attributes" do
         klass = loader.resource_class_resolver.call(:GenericObject)
         expect { klass.new.title = "Etaoin" }.not_to raise_error
-      end
-    end
-  end
-
-  describe "houndstooth instance" do
-    let(:loader_class) {
-      Class.new(SurflinerSchema::Loader) do
-        def self.config_location
-          "spec/fixtures"
-        end
-
-        def self.default_schemas
-          [:core_metadata]
-        end
-      end
-    }
-    let(:loader) { loader_class.new }
-
-    describe "#class_division_for" do
-      it "contains only the properties for the class" do
-        div = loader.class_division_for(:Collection)
-        expect(div.properties).to eq loader.properties_for(:Collection).values
-      end
-
-      it "correctly generates subdivisions" do
-        div = loader.class_division_for(:GenericWork)
-        expect(div.to_a.map(&:name)).to eq [:my_metadata]
-        section = div.first
-        expect(section).to be_a SurflinerSchema::Division
-        expect(section.kind).to eq :section
-        expect(section.to_a.map(&:name)).to eq [:title, :date]
-        grouping = section.drop(1).first
-        expect(grouping).to be_a SurflinerSchema::Division
-        expect(grouping.kind).to eq :grouping
-        expect(grouping.to_a.map(&:name)).to eq [:date_uploaded, :date_modified]
       end
     end
   end
