@@ -155,7 +155,9 @@ services:
       - >
         db-setup.sh
         && bundle exec rake "shoreline:staging_area:upload_shapefiles"
-        && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/Polygon_gford_test.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/gford-20140000-010002_lakes.zip]"
+        && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/gford-20140000-010002_lakes.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/gford-20140000-010002_lakes.zip]"
+        && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/SD_City_Recycled_Water_Main_2018_03-d.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/SD_City_Recycled_Water_Main_2018_03-d.zip]"
+        && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/Recycled_Water_Main_2016-d.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/Recycled_Water_Main_2016-d.zip]"
     depends_on:
       - postgres
       - minio
