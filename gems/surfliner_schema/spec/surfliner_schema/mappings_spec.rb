@@ -11,17 +11,28 @@ RSpec.describe SurflinerSchema do
     end
     let(:resource) { model_class.new(test_field: "etaoin") }
 
-    let(:fake_loader) do
-      Class.new do
-        def property_mappings_for(availability, schema_iri:)
-          return {} unless availability == :my_availability
-          schema_iri == "example:mapping" ? {
-            test_field: Set.new(["example:mapping#test_property"])
-          } : {}
+    let(:reader_class) do
+      Class.new(SurflinerSchema::Reader::Base) do
+        def properties(availability:)
+          return unless availability == :my_availability
+          {
+            test_field: SurflinerSchema::Property.new(
+              name: :test_field,
+              display_label: "Test Field",
+              available_on: [:my_availability],
+              mapping: {
+                "example:mapping" => ["example:mapping#test_property"]
+              }
+            )
+          }
         end
       end
     end
-    let(:loader) { fake_loader.new }
+    let(:loader) do
+      loader = SurflinerSchema::Loader.new([])
+      loader.instance_variable_set(:@readers, [reader_class.new])
+      loader
+    end
 
     it "builds a mappings module" do
       expect(described_class.Mappings(:my_availability, loader: loader))

@@ -8,14 +8,25 @@ RSpec.describe SurflinerSchema do
       Class.new(Valkyrie::Resource)
     end
 
-    let(:fake_loader) do
-      Class.new do
-        def struct_attributes_for(availability)
-          availability == :my_availability ? {test_field: Valkyrie::Types::String} : {}
+    let(:reader_class) do
+      Class.new(SurflinerSchema::Reader::Base) do
+        def properties(availability:)
+          return unless availability == :my_availability
+          {
+            test_field: SurflinerSchema::Property.new(
+              name: :test_field,
+              display_label: "Test Field",
+              available_on: [:my_availability]
+            )
+          }
         end
       end
     end
-    let(:loader) { fake_loader.new }
+    let(:loader) do
+      loader = SurflinerSchema::Loader.new([])
+      loader.instance_variable_set(:@readers, [reader_class.new])
+      loader
+    end
 
     it "builds a schema module" do
       expect(described_class.Schema(:my_availability, loader: loader))
