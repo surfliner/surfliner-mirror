@@ -210,7 +210,7 @@ services:
       - cluster
 
   geoserver:
-    image: kartoza/geoserver:2.21.2
+    image: kartoza/geoserver:2.22.0
     volumes:
       - cluster_geoserver_data:/data
     env_file:
