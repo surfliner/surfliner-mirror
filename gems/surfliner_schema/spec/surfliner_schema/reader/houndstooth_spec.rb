@@ -12,7 +12,7 @@ describe SurflinerSchema::Reader::Houndstooth do
       end
     end
   }
-  let(:loader) { loader_class.new([:core_metadata]) }
+  let(:loader) { loader_class.new([:houndstooth]) }
   let(:reader) { loader.readers[0] }
 
   it "correctly determines availability" do

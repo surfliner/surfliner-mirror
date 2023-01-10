@@ -13,7 +13,7 @@ describe SurflinerSchema::Reader::SimpleSchema do
         end
       end
     }
-    let(:loader) { loader_class.new([:core_schema]) }
+    let(:loader) { loader_class.new([:simple_schema]) }
     let(:reader) { loader.readers[0] }
 
     it "derives display labels" do
