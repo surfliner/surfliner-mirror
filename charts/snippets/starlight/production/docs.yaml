@@ -1,0 +1,94 @@
+# Note that various variables in this deployment are named "-staging"
+# this is an artifact of the history of this deployment: it used to be
+# the UCSB staging deployment which was used as a documentation site.
+replicaCount: 3
+workerReplicaCount: 2
+workerReadinessProbe:
+  enabled: false
+ingress:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/proxy-body-size: 1G
+  tls:
+    - hosts:
+        - docs.digital.library.ucsb.edu
+        - spotlight-stage.library.ucsb.edu
+      secretName: tls-secret
+  hosts:
+    - docs.digital.library.ucsb.edu
+    - spotlight-stage.library.ucsb.edu
+existingSecret:
+  enabled: true
+persistence:
+  cache:
+    class: gp2
+  public:
+    class: gp2
+postgresql:
+  enabled: false
+  postgresqlHostname: starlight-staging-postgresql.postgresql-staging
+  auth:
+    database: starlight-staging
+    username: starlight
+memcached:
+  enabled: true
+  priorityClassName: normal
+  resources:
+    limits:
+      cpu: 500m
+      memory: 500Mi
+    requests:
+      cpu: 50m
+      memory: 50Mi
+starlight:
+  application:
+    name: "Starlight"
+  backups:
+    import:
+      enabled: false
+  rails:
+    max_threads: 7
+  storage:
+    enabled: true
+    accessKey: AKIAV5LYGG4AN76W5ZGV
+    acl: bucket-owner-full-control
+    bucket: starlight-uploads-staging
+    region: us-west-2
+  sitemaps:
+    enabled: false
+  email:
+    from_address: library-spotlight@ucsb.edu
+    delivery_method: smtp
+    smtp_settings:
+      address: smtp.gmail.com
+      port: 587
+      user_name: library-spotlight-staging@ucsb.edu
+      authentication: plain
+  auth:
+    method: google
+
+resources:
+  limits:
+    cpu: 2000m
+    memory: 1500Mi
+  requests:
+    cpu: 1000m
+    memory: 500Mi
+
+workerResources:
+  limits:
+    cpu: 1000m
+    memory: 1000Mi
+  requests:
+    cpu: 500m
+    memory: 500Mi
+
+redis:
+  master:
+    extraEnvVars:
+      - name: REDIS_AOF_ENABLED
+        value: "no"
+  replica:
+    extraEnvVars:
+      - name: REDIS_AOF_ENABLED
+        value: "no"

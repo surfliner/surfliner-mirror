@@ -11,8 +11,22 @@
     KUBE_NAMESPACE: starlight-prod
   needs: ["starlight:build:prod"]
 
+starlight:deploy:surfliner-docs-production:
+  extends:
+    - .starlight:deploy:production
+  script:
+    - deploy ./charts/starlight
+  environment:
+    name: ucsb.staging.starlight
+    url: http://starlight-staging.$KUBE_INGRESS_BASE_DOMAIN
+  variables:
+    HELM_RELEASE_NAME: surfliner-starlight-stage # legacy name
+    KUBE_NAMESPACE: starlight-staging # legacy name
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --values charts/snippets/starlight/production/docs.yaml
+
 starlight:deploy:ucsb-production:
-  needs: ["starlight:deploy:ucsb-stage"]
+  # needs: ["starlight:deploy:ucsb-stage"]
   extends:
     - .starlight:deploy:production
   script:
