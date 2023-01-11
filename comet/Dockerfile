@@ -3,13 +3,18 @@ ARG ALPINE_VERSION=3.16
 # renovate: datasource=docker depName=ruby versioning=ruby
 ARG RUBY_VERSION=2.7.7
 
+# see ../docker/base/Dockerfile
 ARG BASE_IMAGE=registry.gitlab.com/surfliner/surfliner/base
+# see ../docker/prod/Dockerfile
+ARG PROD_IMAGE=registry.gitlab.com/surfliner/surfliner/prod
+
 # these ARGs are used by the ONBUILD commands in the base image
 ARG BUILD_TIME_APKS='build-base curl gcompat git nodejs postgresql-dev tzdata yarn'
 ARG LOCAL_PROJECT=comet
-FROM $BASE_IMAGE:latest as base
+FROM $BASE_IMAGE:latest as comet-base
 
-FROM base as ruby-build-prod
+
+FROM comet-base as ruby-build-prod
 # used in ruby-bundle-cleanup.sh for locating the bundle cache
 ENV RUBY_ABI=2.7.0
 
@@ -35,7 +40,8 @@ RUN \
 # these ARGs are used by the ONBUILD commands in the base image
 ARG LOCAL_PROJECT=comet
 ARG RUN_TIME_APKS='curl libpq nodejs tini tzdata zip'
-FROM registry.gitlab.com/surfliner/surfliner/prod:latest as comet-web-prod
+FROM $PROD_IMAGE:latest as comet-web-prod
+
 COPY --from=ruby-build-prod --chown=$UID:$GID ${DOCKER_PROJECT}/public/assets ${DOCKER_PROJECT}/public/assets
 COPY --from=ruby-build-prod --chown=$UID:$GID ${DOCKER_PROJECT}/public/uv ${DOCKER_PROJECT}/public/uv
 COPY --from=ruby-build-prod --chown=$UID:$GID ${DOCKER_PROJECT}/vendor ${DOCKER_PROJECT}/vendor
@@ -75,7 +81,7 @@ ENV MALLOC_ARENA_MAX=2
 
 CMD ["bundle", "exec", "sidekiq"]
 
-FROM base as comet-test
+FROM comet-base as comet-test
 ARG RUBY_ABI=2.7.0
 ARG LOCAL_PROJECT=comet
 ARG DOCKER_ROOT=/home/${LOCAL_PROJECT}
@@ -96,7 +102,7 @@ ENV RAILS_ROOT=${DOCKER_PROJECT}
 ENV RAILS_SERVE_STATIC_FILES=1
 ENTRYPOINT ["bin/docker-entrypoint.sh"]
 
-FROM base as comet-dev
+FROM comet-base as comet-dev
 ARG LOCAL_PROJECT=comet
 ARG DOCKER_ROOT=/home/${LOCAL_PROJECT}
 ARG DOCKER_PROJECT=${DOCKER_ROOT}/app

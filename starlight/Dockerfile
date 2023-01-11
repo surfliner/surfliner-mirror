@@ -3,10 +3,15 @@ ARG ALPINE_VERSION=3.16
 # renovate: datasource=docker depName=ruby versioning=ruby
 ARG RUBY_VERSION=2.7.7
 
+# see ../docker/base/Dockerfile
+ARG BASE_IMAGE=registry.gitlab.com/surfliner/surfliner/base
+# see ../docker/prod/Dockerfile
+ARG PROD_IMAGE=registry.gitlab.com/surfliner/surfliner/prod
+
 # these ARGs are used by the ONBUILD commands in the base image
 ARG BUILD_TIME_APKS='build-base gcompat git libxml2-dev libxslt-dev nodejs postgresql-dev shared-mime-info tzdata yarn'
 ARG LOCAL_PROJECT=starlight
-FROM registry.gitlab.com/surfliner/surfliner/base:latest as starlight-base
+FROM $BASE_IMAGE:latest as starlight-base
 
 
 FROM starlight-base as starlight-build
@@ -36,7 +41,8 @@ RUN \
 # these ARGs are used by the ONBUILD commands in the base image
 ARG LOCAL_PROJECT=starlight
 ARG RUN_TIME_APKS='curl imagemagick libpq nodejs tini tzdata zip'
-FROM registry.gitlab.com/surfliner/surfliner/prod:latest as starlight-prod
+FROM $PROD_IMAGE:latest as starlight-prod
+
 COPY --from=starlight-build --chown=$UID:$GID ${DOCKER_PROJECT}/public/assets ${DOCKER_PROJECT}/public/assets
 COPY --from=starlight-build --chown=$UID:$GID ${DOCKER_PROJECT}/public/uv ${DOCKER_PROJECT}/public/uv
 COPY --from=starlight-build --chown=$UID:$GID ${DOCKER_PROJECT}/vendor ${DOCKER_PROJECT}/vendor

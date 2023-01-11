@@ -3,11 +3,16 @@ ARG ALPINE_VERSION=3.16
 # renovate: datasource=docker depName=ruby versioning=ruby
 ARG RUBY_VERSION=2.7.7
 
+# see ../docker/base/Dockerfile
 ARG BASE_IMAGE=registry.gitlab.com/surfliner/surfliner/base
+# see ../docker/prod/Dockerfile
+ARG PROD_IMAGE=registry.gitlab.com/surfliner/surfliner/prod
+
 # these ARGs are used by the ONBUILD commands in the base image
 ARG BUILD_TIME_APKS='build-base libxml2-dev libxslt-dev nodejs postgresql-dev shared-mime-info yarn'
 ARG LOCAL_PROJECT=shoreline
 FROM $BASE_IMAGE:latest as shoreline-base
+
 
 FROM shoreline-base as shoreline-build
 # used in ruby-bundle-cleanup.sh for locating the bundle cache
@@ -29,7 +34,8 @@ RUN bundle exec rake assets:precompile
 # these ARGs are used by the ONBUILD commands in the base image
 ARG LOCAL_PROJECT=shoreline
 ARG RUN_TIME_APKS='curl libpq nodejs shared-mime-info tini tzdata zip'
-FROM registry.gitlab.com/surfliner/surfliner/prod:latest as shoreline-prod
+FROM $PROD_IMAGE:latest as shoreline-prod
+
 COPY --from=shoreline-build --chown=$UID:$GID ${DOCKER_PROJECT}/public/assets ${DOCKER_PROJECT}/public/assets
 COPY --from=shoreline-build --chown=$UID:$GID ${DOCKER_PROJECT}/vendor ${DOCKER_PROJECT}/vendor
 
