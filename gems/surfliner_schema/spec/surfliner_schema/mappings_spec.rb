@@ -28,11 +28,7 @@ RSpec.describe SurflinerSchema do
         end
       end
     end
-    let(:loader) do
-      loader = SurflinerSchema::Loader.new([])
-      loader.instance_variable_set(:@readers, [reader_class.new])
-      loader
-    end
+    let(:loader) { SurflinerSchema::Loader.for_readers([reader_class.new]) }
 
     it "builds a mappings module" do
       expect(described_class.Mappings(:my_availability, loader: loader))

@@ -98,11 +98,7 @@ describe SurflinerSchema::Loader do
         end
       end
     end
-    let(:loader) do
-      loader = SurflinerSchema::Loader.new([])
-      loader.instance_variable_set(:@readers, [reader_class.new])
-      loader
-    end
+    let(:loader) { SurflinerSchema::Loader.for_readers([reader_class.new]) }
 
     it "#attributes_for" do
       # is there a better way of checking this?

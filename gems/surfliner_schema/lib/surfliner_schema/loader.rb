@@ -262,6 +262,17 @@ module SurflinerSchema
     end
 
     ##
+    # Returns a new +SurflinerSchema::Loader+ using the provided reader objects.
+    #
+    # @param readers [Array<SurflinerSchema::Reader::Base>]
+    # @return [SurflinerSchema::Loader]
+    def self.for_readers(readers)
+      loader = new([])
+      loader.instance_variable_set(:@readers, readers)
+      loader
+    end
+
+    ##
     # The base class to use for resource class generation (see
     # +.resource_class_resolver+).
     def self.resource_base_class
