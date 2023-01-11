@@ -38,6 +38,14 @@ services:
         db-setup.sh
         && bundle exec rake "shoreline:staging_area:upload_shapefiles"
         && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/gford-20140000-010002_lakes.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/gford-20140000-010002_lakes.zip]"
+        && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/gford-20140000-010004_rivers.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/gford-20140000-010004_rivers.zip]"
+        && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/gford-20140000-010005_ssimm_16.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/gford-20140000-010005_ssimm_16.zip]"
+        && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/gford-20140000-010006_gps_roadsutm.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/gford-20140000-010006_gps_roadsutm.zip]"
+        && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/gford-20140000-010007_archr.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/gford-20140000-010007_archr.zip]"
+        && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/gford-20140000-010011_belfor1r.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/gford-20140000-010011_belfor1r.zip]"
+        && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/gford-20140000-010012_belfor2r.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/gford-20140000-010012_belfor2r.zip]"
+        && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/gford-20140000-010013_belfor3r.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/gford-20140000-010013_belfor3r.zip]"
+        && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/gford-20140000-010014_belfor4r.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/gford-20140000-010014_belfor4r.zip]"
         && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/SD_City_Recycled_Water_Main_2018_03-d.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/SD_City_Recycled_Water_Main_2018_03-d.zip]"
         && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/Recycled_Water_Main_2016-d.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/Recycled_Water_Main_2016-d.zip]"
     depends_on:
