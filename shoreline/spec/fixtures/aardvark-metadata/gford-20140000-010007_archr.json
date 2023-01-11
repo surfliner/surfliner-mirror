@@ -41,8 +41,5 @@
   "gbl_resourceClass_sm": [
     "Datasets"
   ],
-  "gbl_resourceType_sm": [
-    "Point data"
-  ],
   "locn_geometry": "ENVELOPE(-93.947768,-86.764686,21.567248,13.156171)"
 }

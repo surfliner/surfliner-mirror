@@ -39,8 +39,5 @@
   "gbl_resourceClass_sm": [
     "Datasets"
   ],
-  "gbl_resourceType_sm": [
-    "Line data"
-  ],
   "locn_geometry": "ENVELOPE(-89.923822,-88.821603,17.286246,15.484317)"
 }

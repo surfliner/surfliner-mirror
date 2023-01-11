@@ -36,8 +36,5 @@
   "gbl_resourceClass_sm": [
     "Datasets"
   ],
-  "gbl_resourceType_sm": [
-    "Polygon data"
-  ],
   "locn_geometry": "ENVELOPE(-91.457134,-89.134203,17.846069,15.814963)"
 }
