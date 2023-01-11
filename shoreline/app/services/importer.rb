@@ -21,6 +21,8 @@ module Importer
 
     raise "--- ERROR: metadata failed validation against Aardvark schema" unless is_metadata_valid?(merged_metadata)
 
+    # puts "Finalized metadata: #{merged_metadata}"
+
     publish_to_geoblacklight(metadata: merged_metadata)
   end
 
@@ -62,7 +64,7 @@ module Importer
 
   def self.hash_from_geoserver(id:)
     {
-      layer_geom_type_s: get_layer_type("public:#{id}")
+      gbl_resourceType_sm: get_layer_type("public:#{id}")
     }
   end
 
@@ -105,7 +107,9 @@ module Importer
     raise "--- ERROR: failed to get #{name} from GeoServer" if tries == 0
 
     json = JSON.parse(connection.get(url).body)
-    json["layer"]["defaultStyle"]["name"].titlecase
+    rtype = json["layer"]["defaultStyle"]["name"].titlecase
+
+    ["#{rtype} data"]
   end
 
   def self.geoserver_references(metadata:)
