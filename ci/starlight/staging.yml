@@ -11,33 +11,36 @@
     - !reference [.starlight-default-branch-rules, rules]
   needs: ["starlight:build:prod"]
 
-# starlight:deploy:ucsb-stage:
-#   extends:
-#     - .starlight:deploy:stage
-#   script:
-#     - deploy ./charts/starlight
-#   environment:
-#     name: ucsb.staging.starlight
-#     url: http://starlight-staging.$KUBE_INGRESS_BASE_DOMAIN
-#     on_stop: starlight:cleanup:ucsb-stage
-#   variables:
-#     HELM_UPGRADE_EXTRA_ARGS: >
-#       --values charts/snippets/starlight/staging/ucsb.yaml
+starlight:deploy:ucsb-stage:
+  extends:
+    - .starlight:deploy:stage
+  script:
+    - deploy ./charts/starlight
+  environment:
+    name: ucsb.staging.starlight
+    url: http://starlight-staging.$KUBE_INGRESSB_ASE_DOMAIN
+    on_stop: starlight:cleanup:ucsb-stage
+  variables:
+    HELM_RELEASE_NAME: surfliner-starlight-staging
+    KUBE_NAMESPACE: starlight-staging-v2022
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --values charts/snippets/starlight/staging/ucsb.yaml
 
-# starlight:cleanup:ucsb-stage:
-#   extends:
-#     - .starlight:deploy:stage
-#   environment:
-#     name: ucsb.staging.starlight
-#     action: stop
-#   when: manual
-#   allow_failure: true
-#   variables:
-#     GIT_STRATEGY: none
-#     HELM_RELEASE_NAME: surfliner-starlight-stage
-#   script:
-#     - delete
-#     - delete_stateful_set_pvcs
+starlight:cleanup:ucsb-stage:
+  extends:
+    - .starlight:deploy:stage
+  environment:
+    name: ucsb.staging.starlight
+    action: stop
+  when: manual
+  allow_failure: true
+  variables:
+    GIT_STRATEGY: none
+    HELM_RELEASE_NAME: surfliner-starlight-staging
+    KUBE_NAMESPACE: starlight-staging-v2022
+  script:
+    - delete
+    - delete_stateful_set_pvcs
 
 starlight:deploy:ucsd-stage:
   extends:

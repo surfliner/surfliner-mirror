@@ -26,7 +26,7 @@ starlight:deploy:surfliner-docs-production:
       --values charts/snippets/starlight/production/docs.yaml
 
 starlight:deploy:ucsb-production:
-  # needs: ["starlight:deploy:ucsb-stage"]
+  needs: ["starlight:deploy:ucsb-stage"]
   extends:
     - .starlight:deploy:production
   script:

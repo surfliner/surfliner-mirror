@@ -1,32 +1,21 @@
 replicaCount: 3
-workerReplicaCount: 2
 workerReadinessProbe:
   enabled: false
+workerReplicaCount: 2
+existingSecret:
+  enabled: true
 ingress:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/proxy-body-size: 1G
-  tls:
-    - hosts:
-        - docs.digital.library.ucsb.edu
-        - spotlight-stage.library.ucsb.edu
-      secretName: tls-secret
   hosts:
-    - docs.digital.library.ucsb.edu
-    - spotlight-stage.library.ucsb.edu
-existingSecret:
-  enabled: true
-persistence:
-  cache:
-    class: gp2
-  public:
-    class: gp2
-postgresql:
-  enabled: false
-  postgresqlHostname: starlight-staging-postgresql.postgresql-staging
-  auth:
-    database: starlight-staging
-    username: starlight
+  - spotlight-stage.eks.dld.library.ucsb.edu
+  - spotlight-stage.digital.library.ucsb.edu
+  tls:
+  - hosts:
+    - spotlight-stage.eks.dld.library.ucsb.edu
+    - spotlight-stage.digital.library.ucsb.edu
+    secretName: tls-secret
 memcached:
   enabled: true
   priorityClassName: normal
@@ -37,32 +26,21 @@ memcached:
     requests:
       cpu: 50m
       memory: 50Mi
-starlight:
-  application:
-    name: "Starlight"
-  backups:
-    import:
-      enabled: false
-  rails:
-    max_threads: 7
-  storage:
-    enabled: true
-    accessKey: AKIAV5LYGG4AN76W5ZGV
-    acl: bucket-owner-full-control
-    bucket: starlight-uploads-staging
-    region: us-west-2
-  sitemaps:
-    enabled: false
-  email:
-    from_address: library-spotlight@ucsb.edu
-    delivery_method: smtp
-    smtp_settings:
-      address: smtp.gmail.com
-      port: 587
-      user_name: library-spotlight-staging@ucsb.edu
-      authentication: plain
+postgresql:
   auth:
-    method: google
+    database: starlight-staging-new
+    username: starlight
+  enabled: false
+  postgresqlHostname: starlight-staging-postgresql.postgresql-staging
+redis:
+  master:
+    extraEnvVars:
+    - name: REDIS_AOF_ENABLED
+      value: "no"
+  replica:
+    extraEnvVars:
+    - name: REDIS_AOF_ENABLED
+      value: "no"
 
 resources:
   limits:
@@ -71,7 +49,40 @@ resources:
   requests:
     cpu: 1000m
     memory: 500Mi
-
+solr:
+  collection: starlight-stage
+  configName: starlight-stage-conf
+  coreName: starlight-stage
+  enabled: false
+  solrHostname: dld-search-staging-solr.solr-staging
+  solrPort: 8983
+  zookeeperHostname: blah
+starlight:
+  application:
+    name: Starlight
+  auth:
+    method: google
+  backups:
+    import:
+      enabled: false
+  email:
+    delivery_method: smtp
+    from_address: library-spotlight@ucsb.edu
+    smtp_settings:
+      address: smtp.gmail.com
+      authentication: plain
+      port: 587
+      user_name: library-spotlight-staging@ucsb.edu
+  rails:
+    max_threads: 7
+  sitemaps:
+    enabled: false
+  storage:
+    accessKey: AKIAV5LYGG4APALBI3PR
+    acl: bucket-owner-full-control
+    bucket: starlight-uploads-staging-2022
+    enabled: true
+    region: us-west-2
 workerResources:
   limits:
     cpu: 1000m
@@ -79,13 +90,3 @@ workerResources:
   requests:
     cpu: 500m
     memory: 500Mi
-
-redis:
-  master:
-    extraEnvVars:
-      - name: REDIS_AOF_ENABLED
-        value: "no"
-  replica:
-    extraEnvVars:
-      - name: REDIS_AOF_ENABLED
-        value: "no"
