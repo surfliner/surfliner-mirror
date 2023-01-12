@@ -18,7 +18,7 @@ starlight:deploy:surfliner-docs-production:
     - deploy ./charts/starlight
   environment:
     name: ucsb.staging.starlight
-    url: http://starlight-staging.$KUBE_INGRESS_BASE_DOMAIN
+    url: https://docs.digital.library.ucsb.edu
   variables:
     HELM_RELEASE_NAME: surfliner-starlight-stage # legacy name
     KUBE_NAMESPACE: starlight-staging # legacy name

@@ -12,11 +12,9 @@ ingress:
   tls:
     - hosts:
         - docs.digital.library.ucsb.edu
-        - spotlight-stage.library.ucsb.edu
       secretName: tls-secret
   hosts:
     - docs.digital.library.ucsb.edu
-    - spotlight-stage.library.ucsb.edu
 existingSecret:
   enabled: true
 persistence:

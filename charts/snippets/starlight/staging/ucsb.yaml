@@ -9,10 +9,12 @@ ingress:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/proxy-body-size: 1G
   hosts:
+  - spotlight-stage.library.ucsb.edu
   - spotlight-stage.eks.dld.library.ucsb.edu
   - spotlight-stage.digital.library.ucsb.edu
   tls:
   - hosts:
+    - spotlight-stage.library.ucsb.edu
     - spotlight-stage.eks.dld.library.ucsb.edu
     - spotlight-stage.digital.library.ucsb.edu
     secretName: tls-secret
