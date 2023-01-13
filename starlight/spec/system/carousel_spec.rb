@@ -4,16 +4,26 @@ require "rails_helper"
 
 RSpec.describe "Solr Documents Carousel Block", :clean, type: :system, js: true do
   let(:image_upload_file_path) { File.join(fixture_path, "/images/colima-dog.jpg") }
-  let(:exhibit) { FactoryBot.create(:exhibit) }
   let(:site_admin) { FactoryBot.create(:omniauth_site_admin) }
-  let!(:feature_page) { FactoryBot.create(:feature_page, exhibit: exhibit) }
 
   before do
     omniauth_setup_dev_auth_for(site_admin)
     sign_in
 
+    allow(Spotlight::DefaultThumbnailJob).to receive(:perform_later)
+    allow_any_instance_of(CarrierWave::Downloader::Base).to receive(:skip_ssrf_protection?).and_return(true)
+    visit "/"
+    click_link site_admin.user_key
+    click_link "Create new exhibit"
+    fill_in("Title", with: "Test Exhibit")
+    fill_in("Tag list", with: "testing")
+    click_button "Create Exhibit"
+    visit "/starlight/test-exhibit/edit"
+    page.check("exhibit_published")
+    click_button "Save changes"
+
     # Upload image for carousel
-    visit spotlight.new_exhibit_resource_path(exhibit)
+    visit("/starlight/test-exhibit/resources/new")
     click_link "Upload item"
     page.attach_file("resources_upload[url]", image_upload_file_path)
     fill_in("Title", with: "Colima")
@@ -22,7 +32,7 @@ RSpec.describe "Solr Documents Carousel Block", :clean, type: :system, js: true 
     end
 
     # Setup Carousel widget block
-    visit spotlight.edit_exhibit_feature_page_path(exhibit, feature_page)
+    visit("/starlight/test-exhibit/home/edit")
     add_widget "solr_documents_carousel"
   end
 
