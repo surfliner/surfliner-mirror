@@ -70,6 +70,10 @@ module SurflinerSchema
 
         # Generate the properties.
         @properties = properties_hash.each_with_object({}) do |(name, config), dfns|
+          availability = config.dig("available_on").is_a?(Hash) ?
+            config.dig("available_on", "class").to_a.map(&:to_sym) :
+            config.dig("available_on").to_a.map(&:to_sym)
+          next unless availability.size > 0 # ignore unavailable properties
           property_name = config.fetch("name", name).to_sym
           cardinality_maximum = config.dig("cardinality", "maximum")
           property = Property.new(
@@ -81,9 +85,7 @@ module SurflinerSchema
             definition: config["definition"],
             usage_guidelines: config["usage_guidelines"],
             requirement: config["requirement"],
-            available_on: config.dig("available_on").is_a?(Hash) ?
-                config.dig("available_on", "class").to_a.map(&:to_sym) :
-                config.dig("available_on").to_a.map(&:to_sym),
+            available_on: availability,
             section: config["section"].nil? ? nil : config["section"].to_sym,
             grouping: config["grouping"].nil? ? nil : config["grouping"].to_sym,
             data_type: RDF::Vocabulary.find_term(
