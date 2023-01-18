@@ -18,10 +18,7 @@ RSpec.describe "Search", type: :system, js: true do
     end
 
     it "performing a search" do
-      visit "/dashboard"
-      click_on "Objects"
-      click_on "add-new-work-button"
-
+      visit "/concern/generic_objects/new"
       fill_in("Title", with: "Test Object")
       choose("generic_object_visibility_open")
 

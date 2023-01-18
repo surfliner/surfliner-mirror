@@ -14,10 +14,7 @@ RSpec.describe "FileDownload", type: :system, storage_adapter: :memory, js: true
   after { sign_out user }
 
   it "can attach and download and view a file" do
-    visit "/dashboard"
-    click_on "Objects"
-    click_on "add-new-work-button"
-
+    visit "/concern/generic_objects/new"
     click_link "Files"
     expect(page).to have_content "Add files"
     expect(page).to have_content "Add folder"
@@ -45,9 +42,7 @@ RSpec.describe "FileDownload", type: :system, storage_adapter: :memory, js: true
     let(:file) { Rails.root.join("spec", "fixtures", "staging_area", "demo_files", "test.txt") }
 
     it "show the file content" do
-      visit "/dashboard"
-      click_on "Objects"
-      click_on "add-new-work-button"
+      visit "/concern/generic_objects/new"
 
       click_link "Files"
       expect(page).to have_content "Add files"

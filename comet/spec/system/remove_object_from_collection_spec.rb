@@ -27,10 +27,7 @@ RSpec.describe "Generic Objects", type: :system, js: true do
         col.title == ["Test Collection"]
       end
 
-      visit "/dashboard"
-      click_on "Objects"
-      click_on "add-new-work-button"
-
+      visit "/concern/generic_objects/new"
       fill_in("Title", with: "Test Object")
       choose("generic_object_visibility_open")
 

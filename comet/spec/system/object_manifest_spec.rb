@@ -7,9 +7,7 @@ RSpec.describe "Object Manifest", type: :system, js: true do
   before { sign_in user }
 
   it "can show manifest for object has no file sets" do
-    visit "/dashboard/my/works"
-    click_on "add-new-work-button"
-
+    visit "/concern/generic_objects/new"
     fill_in("Title", with: "My Title 7")
     choose("generic_object_visibility_open")
 
