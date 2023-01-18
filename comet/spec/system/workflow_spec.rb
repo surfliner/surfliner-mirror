@@ -6,15 +6,9 @@ RSpec.describe "Base Workflow", type: :system, js: true do
   let(:workflow_name) { "surfliner_default" }
   let(:approving_user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
 
-  before {
-    setup_workflow_for(approving_user)
-    sign_in approving_user
-  }
-
-  it "deposits items into workflow" do
-    visit "/dashboard"
-    click_on "Objects"
-    click_on "add-new-work-button"
+  # @return [#to_s] an object id for the created object
+  def create_object_in_test_project
+    visit "/concern/generic_objects/new"
 
     fill_in("Title", with: "Object in Workflow")
     choose("generic_object_visibility_open")
@@ -22,7 +16,16 @@ RSpec.describe "Base Workflow", type: :system, js: true do
     select "Test Project", from: "generic_object_admin_set_id"
     click_on("Save")
 
-    id = page.current_path.split("/").last
+    return page.current_path.split("/").last
+  end
+
+  before {
+    setup_workflow_for(approving_user)
+    sign_in approving_user
+  }
+
+  it "deposits items into workflow" do
+    id = create_object_in_test_project
     workflow_entity = Sipity::Entity(Hyrax.query_service.find_by(id: id))
 
     expect(workflow_entity.workflow_state).to have_attributes name: "in_review"
@@ -34,17 +37,7 @@ RSpec.describe "Base Workflow", type: :system, js: true do
     }
 
     it "assign an ARK" do
-      visit "/dashboard"
-      click_on "Objects"
-      click_on "add-new-work-button"
-
-      fill_in("Title", with: "Object in Workflow")
-      choose("generic_object_visibility_open")
-      click_on "Relationships"
-      select "Test Project", from: "generic_object_admin_set_id"
-      click_on("Save")
-
-      id = page.current_path.split("/").last
+      id = create_object_in_test_project
 
       click_on "Review and Approval"
       choose("Approve")
@@ -62,17 +55,8 @@ RSpec.describe "Base Workflow", type: :system, js: true do
     }
 
     it "assign an ARK" do
-      visit "/dashboard"
-      click_on "Objects"
-      click_on "add-new-work-button"
+      id = create_object_in_test_project
 
-      fill_in("Title", with: "Object in Workflow")
-      choose("generic_object_visibility_open")
-      click_on "Relationships"
-      select "Test Project", from: "generic_object_admin_set_id"
-      click_on("Save")
-
-      id = page.current_path.split("/").last
       obj = Hyrax.query_service.find_by(id: id)
       obj.ark = "ark:/99999/fk4test"
       Hyrax.persister.save(resource: obj)
