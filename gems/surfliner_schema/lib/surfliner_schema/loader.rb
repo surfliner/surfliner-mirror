@@ -19,11 +19,17 @@ module SurflinerSchema
     # application will be using a predefined set of schemas (e·g specified in
     # an environment variable).
     #
+    # Additional readers can be manually provided with the +additional_readers+
+    # keyword argument; this is mainly useful for testing. Using the static
+    # +:for_readers+ method is preferred if you don’t want from‐file schema
+    # loading at all.
+    #
     # @param schema_names [Array<Symbol>]
-    def initialize(schema_names = nil)
-      @readers = (schema_names || self.class.default_schemas).map do |schema|
+    # @param additional_readers [Array<SurflinerSchema::Reader::Base>]
+    def initialize(schema_names = nil, additional_readers: [])
+      @readers = (schema_names || self.class.default_schemas).map { |schema|
         SurflinerSchema::Reader.read(config_for(schema), schema_name: schema)
-      end
+      }.concat(additional_readers.to_a)
     end
 
     ##
@@ -267,9 +273,7 @@ module SurflinerSchema
     # @param readers [Array<SurflinerSchema::Reader::Base>]
     # @return [SurflinerSchema::Loader]
     def self.for_readers(readers)
-      loader = new([])
-      loader.instance_variable_set(:@readers, readers)
-      loader
+      new([], additional_readers: readers)
     end
 
     ##
