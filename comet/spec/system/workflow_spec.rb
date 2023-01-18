@@ -16,7 +16,7 @@ RSpec.describe "Base Workflow", type: :system, js: true do
     select "Test Project", from: "generic_object_admin_set_id"
     click_on("Save")
 
-    return page.current_path.split("/").last
+    page.current_path.split("/").last
   end
 
   before {
