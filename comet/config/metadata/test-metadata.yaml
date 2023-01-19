@@ -1,0 +1,392 @@
+# This file provides a minimal, annotated metadata file in the M3 Houndstooth
+# format recognized by Comet. It is intended to serve as an example for both
+# reference (when writing institution‐specific metadata files) and demoing.
+#
+# See </docs/themanual/surfliner_schema/houndstooth.md> for more extensive
+# documentation on the Houndstooth format and what is supported in the
+# surfliner_schema gem.
+#
+# Features of M3 which are not currently supported by Comet are commented out.
+#
+# ______________________________________________________________________________
+
+# M3 VERSION
+# ==============================================================================
+#
+# The first thing in the file should be an `m3_version` property, with a value
+# of `"1.0.beta1"`. This notifies Comet that the file is an M3 file.
+m3_version: 1.0.beta1
+
+# PROFILE METADATA
+# ==============================================================================
+#
+# M3 provides some properties for specifying administrative metametadata
+# regarding the schema, but Comet does not currently recognize or use this
+# information.
+#
+# profile:
+#   responsibility: "https://surfliner.ucsd.edu"
+#   responsibility_statement: "Project Surfliner"
+#   date_modified: 2023-01-11
+#   type: "Surfliner Demo"
+#   version: 0.0
+
+# SCHEMA DEFINITION
+# ==============================================================================
+#
+# All of the remaining top‐level properties define the schema, and can have one
+# of two forms :—
+#
+# 1. An “object” form (key‐value pairs), in which the `name` property is implied
+#    by the key. For example:
+#
+#        classes:
+#          my_class:
+#            display_label: My Class
+#
+# 2. An “array” form (list of items), in which case the `name` property must be
+#    explicitly provided. For example:
+#
+#        classes:
+#          - name: my_class
+#            display_label: My Class
+#
+# The latter form is **recommended**; the former is for backwards‐compatibility
+# with the original Samvera Houndstooth.
+
+# Mapping Definitions
+# ------------------------------------------------------------------------------
+#
+# The `name` of the mapping is the internal identifier by which the mapping will
+# be referenced _in this file_. It doesn’t have any bearing on how properties
+# are mapped in Comet or Superskunk.
+#
+# In order to be meaningful, mappings need to also have an `iri` property which
+# corresponds to a recognized profile. We’ve been using Tag URIs which begin
+# with the string `tag:surfliner.gitlab.io,2022:api/` for this. Mapping IRIs are
+# **not** the same as property namespaces; for example we might have multiple
+# different mappings to Dublin Core, depending on the application, so defining
+# a mapping with an IRI of `http://purl.org/dc/terms/` would generally not be
+# appropriate. Instead we use `tag:surfliner.gitlab.io,2022:api/oai_dc` (for
+# example) to define the Dublin Core mapping which specifically targets OAI‐PMH
+# feeds.
+#
+# Mappings without `iri` properties will just be ignored by Comet. We’ve
+# tentatively set aside a `display_label` property, but it’s ignored as we don’t
+# display these mappings anywhere in Comet right now.
+mappings:
+  - name: oai_dc
+    # display_label: OAI‐PMH Dublin Core
+    iri: tag:surfliner.gitlab.io,2022:api/oai_dc
+  - name: ogm_aardvark
+    # display_label: Open GeoMetadata Aardvark
+    iri: tag:surfliner.gitlab.io,2022:api/aardvark
+
+# Class Definitions
+# ------------------------------------------------------------------------------
+#
+# Classes are conceptual categories of resource; each resource can belong to
+# only one class. The class a resource is in determines its available
+# properties. Every class needs to be defined in order to be used.
+#
+# I say “resource” and not “object” because I think the intention is that
+# classes may eventually be used for things which are not objects (collections,
+# file sets, files…?); however, at the moment all classes are converted to
+# objects and classes with names like “collection” will simply be ignored.
+#
+# The `name` of the class is used to reference it within this file, _and also_
+# is transformed to determine the name of the corresponding Ruby class used to
+# model the object in Comet. Our present convention has been to name classes
+# using `snake_case`.
+#
+# A `display_label` property on classes has been set aside, but it isn’t used
+# right now.
+#
+# Samvera Hyrax also supports a `schema_uri` property which is used to associate
+# the class with a given ontology, but we have no current plans to support this.
+classes:
+  - name: generic_object
+    # display_label: "Generic Object"
+  - name: geospatial_object
+    # display_label: "Geospatial Object"
+
+# Section Definitions
+# ------------------------------------------------------------------------------
+#
+# Sections are used to group related properties in the user interface, to make
+# metadata easier to view and/or edit. Sections are referenced by their `name`
+# and need to be declared in order to be used.
+#
+# Sections are not class‐specific, but only sections which have properties will
+# be rendered. A property can only belong to at most one section.
+#
+# The `display_label` is used to render the section title.
+sections:
+  - name: titling
+    display_label: Title‐related Metadata
+  - name: identifiers
+    display_label: Identifers
+  - name: notes
+    display_label: Notes
+
+# Grouping Definitions
+# ------------------------------------------------------------------------------
+#
+# Groupings are like sections: They group together related properties in the
+# user interface, to make editing easier. However, while sections list each
+# property individually, groupings only display as a single field with a
+# dropdown for selecting the specific desired property. This is useful when
+# there are a large number of closely‐related properties and only a small number
+# may actually be relevant.
+#
+# In addition to a `display_label`, groupings **may** (but are not required to)
+# have a `definition` and `usage_guidelines` for describing the entire property
+# grouping.
+#
+# Groupings are not currently implemented in Comet, so these definitions are
+# speculative for now.
+#
+# groupings:
+#   - name: identifier
+#     display_label: Identifier
+#     definition: Identifiers used to identify the object.
+#     usage_guidelines: |-
+#       See the individual identifier properties for information on usage.
+
+# Property Definitions
+# ------------------------------------------------------------------------------
+#
+# Property definitions identify the metadata properties which are available on
+# various classes. Property `name`s **must** be unique within a class, but two
+# different classes can have different properties with the same `name`.
+#
+# The `title` property is hardcoded into Comet and (for now) you **should not**
+# define it separately. Properties appear within sections and groupings in the
+# order in which they are declared.
+#
+# Not all properties of properties (ugh) which have been defined in Houndstooth
+# are currently supported in Comet; we only support the ones which are not
+# commented below. `cardinality` is technically supported but has no practical
+# effect.
+#
+# Only four practical values for `cardinality` are allowed :—
+#
+# - `{ minimum: 1, maximum: null }` (one or more)
+# - `{ minimum: 1, maximum: 1 }` (exactly one)
+# - `{ minimum: 0, maximum: 1 }` (zero or one)
+# - `{ minimum: 0, maximum: null }` (zero or more)
+#
+# You **can** specify cardinalities other than these, but they will be coerced
+# into one of the above values.
+#
+# Properties can be “extended” via a special YAML syntax: first, the base
+# property must be given an identifier (beginning with `&`); then, the derived
+# property must include the base property via a YAML reference (using the
+# magical `<<` key). Here is what that looks like in practice :—
+#
+#     properties:
+#       - &base_property
+#         name: my_property
+#         display_label: My Property
+#         available_on:
+#           - generic_object
+#
+#       - &derived_property
+#         <<: *base_property
+#         available_on:
+#           - geospatial_object
+#
+# Some notes on doing this correctly :—
+#
+# - Anything you define in the derived property will override the values in the
+#   base property. This _includes_ setting things to `null` or the empty string.
+#   Omit (or comment out) anything you want to be inherited!
+#
+# - You **must** override `available_on` to specify a new availability for the
+#   property. Availabilities **must not** be shared between the base and derived
+#   properties.
+#
+# - Typically you will want to keep the `name` the same between the base and
+#   derived property (do not override this).
+#
+# - It is only required to specify an `&identifier` for properties which you are
+#   actually going to reference in a derived property, but for consistency and
+#   ease of maintenance we have been specifying them for all properties.
+properties:
+
+# ### Titling properties:
+
+  - &title_alternative
+    name: title_alternative
+    # property_uri: http://purl.org/dc/terms/alternative
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: Alternative title
+    definition: Alternative or other additional title for the resource.
+    usage_guidelines: null
+    # requirement: recommended, if applicable
+    # sample_value:
+    #   - First impressions
+    # controlled_values: null
+    # syntax: null
+    # validations: null
+    cardinality:
+      minimum: 0
+      maximum: null
+    indexing: null
+    # index_documentation: null
+    section: titling
+    # grouping: null
+    mapping:
+      oai_dc: null
+      aardvark: http://purl.org/dc/terms/alternative
+    available_on:
+      - generic_object
+
+  - &title_alternative_geospatial
+    <<: *title_alternative
+    usage_guidelines: |-
+      Enter an alternative title (i·e an English translation of a
+      non–Latin‐script title; a map sheet code).
+    available_on:
+      - geospatial_object
+
+# ### Identifier properties:
+
+  # This example shows how you can use an “abstract” base property to define a
+  # number of related properties in the M3; it may be useful for property
+  # groupings.
+  - &identifier_abstract
+    name: null # this is not a real property
+    # property_uri: null
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: Identifier
+    definition: An identifier assigned to the object.
+    usage_guidelines: null
+    # requirement: recommended, if applicable
+    # sample_value: null
+    # controlled_values: null
+    # syntax: null
+    # validations: null
+    cardinality:
+      minimum: 0
+      maximum: null
+    indexing: null
+    # index_documentation: null
+    section: identifiers
+    # grouping: identifier
+    mapping:
+      oai_dc: http://purl.org/dc/elements/1.1/identifier
+      aardvark: null
+    available_on: null # this is an abstract property not available on anything
+
+  - &identifier_barcode
+    <<: *identifier_abstract
+    name: identifier_barcode
+    # property_uri: http://id.loc.gov/ontologies/bibframe/Barcode
+    display_label: Barcode
+    definition: Barcode number assigned to the physical object.
+    # requirement: required, if applicable
+    available_on:
+      - generic_object
+
+  - &identifier_call_number
+    <<: *identifier_abstract
+    name: identifier_call_number
+    # property_uri: http://id.loc.gov/ontologies/bibframe/ShelfMark
+    display_label: Call number
+    definition: The call number assigned to the local resource.
+    available_on:
+      - generic_object
+
+  - &identifier_doi
+    <<: *identifier_abstract
+    name: identifier_doi
+    # property_uri: http://id.loc.gov/vocabulary/identifiers/doi
+    display_label: DOI
+    definition: Digital object identifier
+    available_on:
+      - generic_object
+
+  - &identifier_isbn
+    <<: *identifier_abstract
+    name: identifier_isbn
+    # property_uri: http://id.loc.gov/vocabulary/identifiers/isbn
+    display_label: ISBN
+    definition: International standard book number
+    # sample_value:
+    #   - "9781267294944"
+    available_on:
+      - generic_object
+
+  - &identifier_issn
+    <<: *identifier_abstract
+    name: identifier_issn
+    # property_uri: http://id.loc.gov/vocabulary/identifiers/issn
+    display_label: ISSN
+    definition: International standard serial number
+    available_on:
+      - generic_object
+
+# ### Note properties:
+
+  - &note_description
+    name: note_description
+    # property_uri: http://purl.org/dc/terms/description
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    display_label: Description
+    definition: Summary, abstract, or description of the resource.
+    usage_guidelines: null
+    # requirement: recommended
+    # sample_value:
+    #   - Contact sheet with multiple views of State Street.
+    # controlled_values: null
+    # syntax: null
+    # validations: null
+    cardinality:
+      minimum: 0
+      maximum: null
+    indexing: null
+    # index_documentation: null
+    section: notes
+    # grouping: null
+    mapping:
+      oai_dc: http://purl.org/dc/elements/1.1/description
+      aardvark: http://purl.org/dc/terms/description
+    available_on:
+      - generic_object
+
+  - &note_description_geospatial
+    <<: *note_description
+    definition: |-
+      This field represents the originator that will be uploaded to GeoData.
+    # sample_value:
+    #   - This polygon shapefile represents 100-year flood hazard data in Santa Barbara County.
+    available_on:
+      - geospatial_object
+
+  - &note_general
+    name: note_general
+    # property_uri: http://id.loc.gov/ontologies/bibframe/Note
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    display_label: Note
+    definition: General textual information relating to a resource
+    usage_guidelines: null
+    # requirement: recommended, if applicable
+    # sample_value: null
+    # controlled_values: null
+    # syntax: null
+    # validations: null
+    cardinality:
+      minimum: 0
+      maximum: null
+    indexing: null
+    # index_documentation: null
+    section: notes
+    # grouping: null
+    mapping:
+      oai_dc: http://purl.org/dc/elements/1.1/description
+      aardvark: null
+    available_on:
+      - generic_object
