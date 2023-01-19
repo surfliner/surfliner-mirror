@@ -1,0 +1,14 @@
+<%# This partial requires a +:level+; either "primary" or "secondary" %>
+<% if f.object.try(:schema_derived?) %>
+  <% division = f.object.class.public_send("#{level}_division") %>
+  <% division_property_names = division.properties.map(&:name) %>
+  <% f.object.public_send("#{level}_terms").each do |term| %>
+    <%# fallback for terms not in schema division %>
+    <%= render_edit_field_partial(term, f: f) unless division_property_names.include?(term) %>
+  <% end %>
+  <%= render "hyrax/base/form_metadata_schema_division", division: division, f: f %>
+<% else %>
+  <% f.object.public_send("#{level}_terms").each do |term| %>
+    <%= render_edit_field_partial(term, f: f) %>
+  <% end %>
+<% end %>
