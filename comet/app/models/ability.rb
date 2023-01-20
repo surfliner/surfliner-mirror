@@ -65,6 +65,15 @@ class Ability
     true
   end
 
+  # for bulkrax
+  def can_import_works?
+    can_create_any_work?
+  end
+
+  def can_export_works?
+    can_create_any_work?
+  end
+
   ##
   # Grant publish access to collections that exist (have an id) and allow edit.
   def object_publication
