@@ -24,6 +24,8 @@ starlight:deploy:ucsd-review:
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
       --set ingress.hosts={starlight-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN}
+      --set minio.ingress.hostname=starlight-minio-console-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
+      --set minio.apiIngress.hostname=starlight-minio-api-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
       --values charts/snippets/starlight/review.yaml
       --values charts/snippets/surfliner/solr-review.yaml
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
@@ -64,6 +66,8 @@ starlight:deploy:ucsb-review:
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
       --set ingress.hosts={starlight-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN}
+      --set minio.ingress.hostname=starlight-minio-console-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
+      --set minio.apiIngress.hostname=starlight-minio-api-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
       --set priorityClassName=review-apps
       --values charts/snippets/starlight/review.yaml
       --values charts/snippets/surfliner/solr-review.yaml

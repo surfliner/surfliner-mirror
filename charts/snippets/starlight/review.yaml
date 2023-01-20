@@ -1,7 +1,5 @@
 persistence:
   enabled: false
-minio:
-  enabled: true
 postgresql:
   persistence:
     enabled: false
@@ -23,6 +21,13 @@ starlight:
 
 serviceAccount:
   name: ""
+
+minio:
+  enabled: true
+  ingress:
+    enabled: true
+  apiIngress:
+    enabled: true
 
 ingress:
   enabled: true
