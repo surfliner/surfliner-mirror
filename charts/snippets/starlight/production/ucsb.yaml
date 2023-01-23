@@ -57,7 +57,7 @@ starlight:
   storage:
     enabled: true
     accessKey: AKIAV5LYGG4AHTG7NMFD
-    acl: bucket-owner-full-control
+    acl: public-read
     bucket: starlight-uploads-prod
     region: us-west-2
   sitemaps:
