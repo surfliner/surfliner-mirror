@@ -50,6 +50,14 @@ module SurflinerSchema
       end
 
       ##
+      # A hash mapping mapping names to their definitions.
+      #
+      # @return [{Symbol => SurflinerSchema::Mapping}]
+      def mappings
+        {}
+      end
+
+      ##
       # A hash mapping indices to Valkyrie types.
       #
       # The type is always a set of `RDF::Literal`s in order to preserve the

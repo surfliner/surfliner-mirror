@@ -39,10 +39,10 @@ module SurflinerSchema
     def initialize(availability, loader:)
       @availability = availability
 
-      define_method(:mapped_to) do |schema_iri|
+      define_method(:mapped_to) do |mapping|
         loader.property_mappings_for(
           availability,
-          schema_iri: schema_iri
+          mapping: mapping
         ).each_with_object({}) do |(name, mappings), result|
           # Ιterate over each property and define its mappings.
           value = public_send(name)

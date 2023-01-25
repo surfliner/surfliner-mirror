@@ -28,6 +28,20 @@ module SurflinerSchema
           )
         end
 
+        # Generate the mappings.
+        @mappings = mappings_hash.each_with_object({}) do |(name, config), dfns|
+          next unless config.key?("iri")
+          mapping_name = config.fetch("name", name).to_sym
+          dfns[mapping_name] = Mapping.new(
+            name: mapping_name,
+            display_label: config.fetch(
+              "display_label",
+              self.class.format_name(mapping_name)
+            ),
+            iri: config["iri"]
+          )
+        end
+
         # Generate the sections.
         @sections = sections_hash.each_with_object({}) do |(name, config), dfns|
           section_name = config.fetch("name", name).to_sym
@@ -136,8 +150,14 @@ module SurflinerSchema
       ##
       # A hash mapping grouping names to their definitions.
       #
-      # @return [{Symbol => SurflinerSchema::Groupings}]
+      # @return [{Symbol => SurflinerSchema::Grouping}]
       attr_reader :groupings
+
+      ##
+      # A hash mapping mapping names to their definitions.
+      #
+      # @return [{Symbol => SurflinerSchema::Mapping}]
+      attr_reader :mappings
 
       ##
       # Coerces the object corresponding to the provided property name in the

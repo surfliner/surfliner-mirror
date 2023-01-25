@@ -179,15 +179,16 @@ module SurflinerSchema
     end
 
     ##
-    # Returns a Set of IRI’s that this property maps to in the provided schema.
+    # Returns a Set of IRI’s that this property maps to in the mapping
+    # corresponding to the provided IRI.
     #
-    # If this property has no mapping in the provided schema, the result will be
+    # If this property has no mapping with the provided IRI, the result will be
     # the empty set.
     #
-    # @param schema_iri [String]
+    # @param mapping_iri [#to_s]
     # @return [Valkyrie::Types::Set]
-    def mappings_for(schema_iri)
-      mapping.fetch(schema_iri, Set.new)
+    def mappings_for(mapping_iri)
+      mapping.fetch(mapping_iri.to_s, Set.new)
     end
 
     private
