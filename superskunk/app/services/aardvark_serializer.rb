@@ -160,9 +160,7 @@ class AardvarkSerializer < ResourceSerializer
     AARDVARK_TERMS.each_with_object({
       "@context" => {"@base": "#{ENV["SUPERSKUNK_API_BASE"]}/resources/"}
     }) do |(term, dfn), json|
-      mapping = mappings.values
-        .select { |mapping| mapping[:property_iri] == dfn[:iri] }
-        .map { |prop| prop[:value].to_a }.flatten
+      mapping = mappings[dfn[:iri]].to_a
 
       # Special handling for specific terms.
       #

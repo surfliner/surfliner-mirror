@@ -50,11 +50,8 @@ module SurflinerSchema
             # For each mapping, add the value of the property to the result.
             #
             # Properties may have multiple values.
-            name_s = name.to_s
-            result[name_s] ||= {}
-            result[name_s][:property_iri] = property_iri
-            result[name_s][:value] ||= Set.new
-            result[name_s][:value].merge(
+            result[property_iri] ||= Set.new
+            result[property_iri].merge(
               value.respond_to?(:to_a) ? value.to_a : [value]
             )
           end
