@@ -1,6 +1,16 @@
 module Hyrax
   module Renderers
     class SchemaPropertyAttributeRenderer < AttributeRenderer
+      ##
+      # The label for the property.
+      def label
+        if options&.key?(:label)
+          options.fetch(:label)
+        else
+          property.display_label
+        end
+      end
+
       private
 
       ##
