@@ -28,8 +28,6 @@ services:
       - memcached
       - redis
       - solr
-    stdin_open: true
-    tty: true
     networks:
       - starlight
 

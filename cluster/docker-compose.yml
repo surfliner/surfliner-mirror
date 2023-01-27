@@ -64,7 +64,7 @@ services:
     # this has to be set locally or it is overridden by .env
     # https://docs.docker.com/compose/extends/#adding-and-overriding-configuration
     environment:
-      - RABBITMQ_ENABLED=false
+      RABBITMQ_ENABLED: false
     depends_on:
       - postgres
     volumes:
@@ -171,9 +171,6 @@ services:
     env_file:
       - .env
       - shoreline.env
-    env_file:
-      - .env
-      - shoreline.env
     depends_on:
       - solr
       - zk
@@ -183,6 +180,99 @@ services:
       - >
         while ! nc -z "${SOLR_HOST}" "${SOLR_PORT}"; do echo "--- Waiting for Solr ..."; sleep 5s; done &&
         solrcloud-upload-configset.sh /home/shoreline/app/solr/conf &&
+        solrcloud-create-collection.sh
+    networks:
+      - cluster
+
+  starlight_web:
+    build:
+      context: ..
+      dockerfile: starlight/Dockerfile
+      target: starlight-dev
+    image: starlight:development
+    stdin_open: true
+    tty: true
+    restart: always
+    env_file:
+      - .env
+      - starlight.env
+    volumes:
+      - starlight_assets:/home/starlight/app/public/assets
+      - starlight_tmp:/home/starlight/app/tmp
+    ports:
+      - "3002:3000"
+    depends_on:
+      - memcached
+      - minio
+      - postgres
+      - redis
+      - solr
+      - starlight_db_migrate
+      - zk
+    networks:
+      - cluster
+
+  starlight_sidekiq:
+    image: starlight:development
+    restart: always
+    env_file:
+      - .env
+      - starlight.env
+    volumes:
+      - starlight_assets:/home/starlight/app/public/assets
+      - starlight_tmp:/home/starlight/app/tmp
+    command:
+      - bundle
+      - exec
+      - sidekiq
+    depends_on:
+      - starlight_db_migrate
+      - postgres
+      - redis
+      - solr
+    networks:
+      - cluster
+
+  starlight_db_migrate:
+    image: starlight:development
+    env_file:
+      - .env
+      - starlight.env
+    environment:
+      SKIP_TRANSLATION: "yes"
+    command:
+      - sh
+      - -c
+      - >
+    command:
+      - sh
+      - -c
+      - >
+        PGPASSWORD=$DB_PASSWORD PGHOST=$DB_HOST PGUSER=$DB_USERNAME PGDATABASE=$STARLIGHT_DB_NAME; export PGPASSWORD PGHOST PGUSER PGDATABASE &&
+        while ! db-wait.sh "${DB_HOST}:${DB_PORT}"; do echo "-- Waiting for PGSQL ..."; sleep 5s; done &&
+        psql -tc "SELECT 1 FROM pg_database WHERE datname = 'PGDATABASE'" | grep -q 1 || createdb -e -w $PGDATABASE &&
+        db-setup.sh &&
+        bundle exec rake starlight:seed_admin_user &&
+        bundle exec rake starlight:sample:seed_exhibit
+    depends_on:
+      - postgres
+    networks:
+      - cluster
+
+  starlight_configure_solr:
+    image: starlight:development
+    env_file:
+      - .env
+      - starlight.env
+    depends_on:
+      - solr
+      - zk
+    command:
+      - sh
+      - -c
+      - >
+        while ! nc -z "${SOLR_HOST}" "${SOLR_PORT}"; do echo "--- Waiting for Solr ..."; sleep 5s; done &&
+        solrcloud-upload-configset.sh /home/starlight/app/solr/config &&
         solrcloud-create-collection.sh
     networks:
       - cluster
@@ -281,7 +371,7 @@ services:
     env_file:
       - .env
     volumes:
-      - redis:/bitnami/redis
+      - redis:/bitnami/redis/data
     networks:
       - cluster
 
@@ -299,6 +389,8 @@ volumes:
   shoreline-scripts:
   shoreline-uploads:
   solr:
+  starlight_assets:
+  starlight_tmp:
   superskunk_tmp:
   zk:
 

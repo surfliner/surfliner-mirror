@@ -115,8 +115,6 @@ RUN mkdir -p /app/fits && \
     unzip fits.zip && \
     rm fits.zip && \
     chmod a+x /app/fits/fits.sh
-COPY scripts/* $DOCKER_PROJECT/scripts/
-ENV PATH="${DOCKER_PROJECT}/scripts:${PATH}:/app/fits"
 
 RUN apk --no-cache add \
   bash \
@@ -128,9 +126,13 @@ RUN apk --no-cache add \
   postgresql-client \
   zip
 
+RUN gem update bundler
 RUN bundle install --jobs "$(nproc)"
 
 COPY $LOCAL_PROJECT $DOCKER_PROJECT
+
+COPY scripts/* $DOCKER_PROJECT/scripts/
+ENV PATH="${DOCKER_PROJECT}/scripts:${PATH}:/app/fits"
 
 RUN RAILS_ENV=production SECRET_KEY_BASE=fakedevsecret DB_ADAPTER=nulldb RABBITMQ_ENABLED=false DATABASE_URL='postgresql://fake' bundle exec rake assets:precompile
 ENV RAILS_ROOT=${DOCKER_PROJECT}
