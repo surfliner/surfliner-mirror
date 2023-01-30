@@ -15,11 +15,11 @@ services:
     depends_on:
       - chrome
       - comet_migrate
+      - comet_redis
       - memcached
       - minio
       - postgres
       - rabbitmq
-      - redis
       - solr
       - zk
     volumes:
@@ -39,11 +39,11 @@ services:
       - comet.env
     depends_on:
       - comet_migrate
+      - comet_redis
       - memcached
       - minio
       - postgres
       - rabbitmq
-      - redis
       - solr
       - zk
     volumes:
@@ -205,9 +205,9 @@ services:
       - memcached
       - minio
       - postgres
-      - redis
       - solr
       - starlight_db_migrate
+      - starlight_redis
       - zk
     networks:
       - cluster
@@ -226,10 +226,10 @@ services:
       - exec
       - sidekiq
     depends_on:
-      - starlight_db_migrate
       - postgres
-      - redis
       - solr
+      - starlight_db_migrate
+      - starlight_redis
     networks:
       - cluster
 
@@ -364,14 +364,25 @@ services:
     networks:
       - cluster
 
-  redis:
+  comet_redis:
     extends:
       file: ../docker-compose/common.yaml
       service: redis
     env_file:
-      - .env
+      - comet.env
     volumes:
-      - redis:/bitnami/redis/data
+      - comet_redis:/bitnami/redis/data
+    networks:
+      - cluster
+
+  starlight_redis:
+    extends:
+      file: ../docker-compose/common.yaml
+      service: redis
+    env_file:
+      - starlight.env
+    volumes:
+      - starlight_redis:/bitnami/redis/data
     networks:
       - cluster
 
@@ -379,17 +390,18 @@ volumes:
   cluster_geoserver_data:
   comet-derivatives:
   comet-public:
+  comet_redis:
   comet-scripts:
   comet-uploads:
   db:
   minio_data:
-  redis:
   shoreline-derivatives:
   shoreline-public:
   shoreline-scripts:
   shoreline-uploads:
   solr:
   starlight_assets:
+  starlight_redis:
   starlight_tmp:
   superskunk_tmp:
   zk:
