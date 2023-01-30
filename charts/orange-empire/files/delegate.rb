@@ -367,10 +367,14 @@ class CustomDelegate
   def s3source_object_info(_options = {})
     logger = Java::edu.illinois.library.cantaloupe.delegate.Logger
 
-    bucket = bucket_map[iiif_id_prefix(context['identifier'])]
+    svc = iiif_id_prefix(context['identifier'])
+    bucket = bucket_map[svc]
 
     key = iiif_id_clean(context['identifier']).sub(%r{[a-z]+://}, '')
-    newkey = "#{ENV['CANTALOUPE_S3SOURCE_PATH_PREFIX']}#{key}"
+
+    path_prefix_key = "CANTALOUPE_#{svc.upcase}_PATH_PREFIX"
+    # logger.info "LOOKING FOR SVC VAR #{path_prefix_key}"
+    newkey = "#{ENV.fetch(path_prefix_key, '')}#{key}"
 
     logger.info "THE BUCKET IS #{bucket}"
     logger.info "THE KEY IS #{newkey}"
