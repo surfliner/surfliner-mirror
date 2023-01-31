@@ -5,7 +5,7 @@ require "spotlight"
 if ENV["S3_BUCKET_NAME"].present?
   CarrierWave.configure do |config|
     config.storage = :aws
-    config.asset_host_public = true
+    config.asset_host_public = ActiveModel::Type::Boolean.new.cast(ENV["S3_ASSET_HOST_PUBLIC"])
     config.aws_acl = ENV["S3_ACL"]
     config.aws_bucket = ENV["S3_BUCKET_NAME"]
 

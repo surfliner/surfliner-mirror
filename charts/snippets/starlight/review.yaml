@@ -18,6 +18,8 @@ starlight:
   sitemaps:
     enabled: false
   sample_data: true
+  storage:
+    asset_host_public: true
 
 serviceAccount:
   name: ""

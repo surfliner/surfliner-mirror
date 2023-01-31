@@ -42,6 +42,7 @@ data:
   AWS_ACCESS_KEY_ID: {{ .Values.starlight.storage.accessKey }}
   AWS_REGION: {{ .Values.starlight.storage.region }}
   S3_ACL: {{ .Values.starlight.storage.acl }}
+  S3_ASSET_HOST_PUBLIC: {{ if .Values.starlight.storage.asset_host_public }}"true"{{else }}"false"{{ end }}
   S3_BUCKET_NAME: {{ .Values.starlight.storage.bucket }}
   {{- if .Values.starlight.storage.endpointUrl }}
   S3_ENDPOINT: {{ .Values.starlight.storage.endpointUrl }}
