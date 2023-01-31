@@ -97,7 +97,11 @@ Spotlight::Engine.config.uploader_storage = :aws if ENV["S3_BUCKET_NAME"].presen
 Spotlight::Engine.config.allowed_upload_extensions = %w[jpg jpeg png tif tiff pdf]
 Spotlight::Engine.config.upload_dir = Rails.root.join("public", "uploads") unless ENV["S3_BUCKET_NAME"].present?
 
-Spotlight::Engine.config.iiif_service = Starlight::CantaloupeService
+Spotlight::Engine.config.iiif_service = if ActiveModel::Type::Boolean.new.cast(ENV["EXTERNAL_IIIF"])
+                                          Starlight::CantaloupeService
+                                        else
+                                          Spotlight::RiiifService
+                                        end
 
 # Spotlight::Engine.config.featured_image_thumb_size = [400, 300]
 # Spotlight::Engine.config.featured_image_square_size = [400, 400]

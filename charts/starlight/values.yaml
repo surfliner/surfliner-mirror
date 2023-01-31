@@ -158,6 +158,10 @@ starlight:
     google:
       api_id:
       api_secret:
+  # if false, use riiif; else use Cantaloupe
+  iiif:
+    external:
+      enabled: false
 
 # Configuration for solr chart
 # see: https://github.com/bitnami/charts/blob/master/bitnami/solr/values.yaml

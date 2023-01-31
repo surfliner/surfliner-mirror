@@ -71,8 +71,10 @@ RUN bundle install --jobs "$(nproc)"
 
 COPY $LOCAL_PROJECT $DOCKER_PROJECT
 
-COPY scripts/* ${DOCKER_PROJECT}/scripts/
-ENV PATH="${DOCKER_PROJECT}/scripts:${PATH}"
+# put in DOCKER_ROOT rather than DOCKER_PROJECT so that docker-compose volume
+# mounting doesn't overwrite them
+COPY scripts/* ${DOCKER_ROOT}/scripts/
+ENV PATH="${DOCKER_ROOT}/scripts:${PATH}"
 
 ENV RAILS_ROOT=${DOCKER_PROJECT}
 ENV RAILS_SERVE_STATIC_FILES=1

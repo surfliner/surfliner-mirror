@@ -19,6 +19,7 @@ data:
   DATABASE_COMMAND: {{ .Values.starlight.rails.db_setup_command }}
   DELIVERY_METHOD: {{ .Values.starlight.email.delivery_method }}
   DB_ADAPTER: {{ .Values.starlight.rails.db_adapter }}
+  EXTERNAL_IIIF: {{ if .Values.starlight.iiif.external.enabled }}"true"{{ else }}"false"{{ end }}
   FROM_EMAIL: {{ .Values.starlight.email.from_address }}
   {{- if .Values.starlight.analytics.webPropertyId }}
   GA_WEB_PROPERTY_ID: {{ .Values.starlight.analytics.webPropertyId }}
