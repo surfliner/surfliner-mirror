@@ -12,20 +12,8 @@ serviceAccount:
 consumer:
   enabled: false
 
-vaultSecret:
+existingSecret:
   enabled: true
-  annotations:
-    vault.hashicorp.com/agent-pre-populate-only: 'true'
-    vault.hashicorp.com/agent-inject: 'true'
-    vault.hashicorp.com/agent-init-first: 'true'
-    vault.hashicorp.com/role: 'shoreline-prod'
-    vault.hashicorp.com/agent-inject-secret-shoreline.env: 'applications/shoreline/prod'
-    vault.hashicorp.com/agent-inject-template-shoreline.env: |
-      {{- with secret "applications/shoreline/prod" -}}
-      {{- range $k, $v := .Data.data }}
-      export {{ $k | toUpper }}='{{ $v }}'
-      {{- end }}
-      {{- end }}
 
 shoreline:
   theme: ucsd
