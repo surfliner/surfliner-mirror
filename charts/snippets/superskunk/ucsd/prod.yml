@@ -11,20 +11,8 @@ postgresql:
   postgresqlHostname: lib-psql-prod.ucsd.edu
   postgresqlUsername: comet
 
-vaultSecret:
+existingSecret:
   enabled: true
 
 serviceAccount:
   name: superskunk
-
-podAnnotations:
-  vault.hashicorp.com/agent-pre-populate-only: 'true'
-  vault.hashicorp.com/agent-inject: 'true'
-  vault.hashicorp.com/role: 'superskunk-prod'
-  vault.hashicorp.com/agent-inject-secret-superskunk.env: 'applications/superskunk/prod'
-  vault.hashicorp.com/agent-inject-template-superskunk.env: |
-    {{- with secret "applications/superskunk/prod" -}}
-    {{- range $k, $v := .Data.data }}
-    export {{ $k | toUpper }}='{{ $v }}'
-    {{- end }}
-    {{- end }}
