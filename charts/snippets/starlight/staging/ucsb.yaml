@@ -81,7 +81,7 @@ starlight:
     enabled: false
   storage:
     accessKey: AKIAV5LYGG4APALBI3PR
-    acl: public-read
+    acl: bucket-owner-full-control
     bucket: starlight-uploads-staging-2022
     enabled: true
     region: us-west-2

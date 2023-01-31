@@ -118,7 +118,7 @@ starlight:
   storage:
     enabled: true
     accessKey: starlight-access-key
-    acl: 'public-read' #aws/minio ACL
+    acl: bucket-owner-full-control # aws/minio ACL
     bucket: starlight
     # endpointUrl: aws/minio (optional for aws, reguired for minio)
     region: us-west-2
