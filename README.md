@@ -109,12 +109,12 @@ Surfliner development follows two-week sprint cycles that include both the Santa
 * **Product Owner**: represents the user community and is responsible for working with the user group to determine what features will be in the product release.
 * **Tech Lead**: the technical lead is responsible for the technical decision making on a given product; they provide facilitation and direction to guide development and architectural decisions.
 * **Developer**: an individual that builds and create software and applications.
-* **Domain Expert**: a person who is an authority in a particular area or topic. For example, an accessibility expert.
+* **Subject Matter Expert (or domain expert)**: a person who is an authority in a particular area or topic. For example, an accessibility expert.
 
 Within the Project Surfliner context, there are two types of teams:
 
-* **Project Team**: the entire active Surfliner team, including Product Owners, Tech Leads, Developers & Domain Experts for all products under active development.
-* **Product Team**: the group of people currently working on a given product; including Product Owner, Tech Lead, Developers & Domain Experts.
+* **Project Team**: the entire active Surfliner team, including Product Owners, Tech Leads, Developers & Subject Matter Experts for all products under active development.
+* **Product Team**: the group of people currently working on a given product; including Product Owner, Tech Lead, Developers & Subject Matter Experts.
 
 While not necessarily involved in daily development work, the project also includes these other vitality important roles:
 * **Campus Project Owner (when needed)**: responsible for ensuring that the needs of their campus stakeholders are considered in the development of each product
@@ -136,10 +136,16 @@ Daily except last day of each sprint<br/>
 *Purpose*: Daily meeting during the sprint to discuss ongoing work and blockers.<br/>
 *Required*: Project Team<br/>
 
+**Project Surfliner Sprint Review Planning**<br/>
+Last day of each sprint<br/>
+*Purpose*: Brief meeting on the last day of the sprint to plan for the demo. The Product Owner(s) & Tech Lead(s) for products in sprint are responsible for demo content & ensuring the demo gets recorded and shared.<br/>
+*Required*: Product Owner(s) & Tech Lead(s) for products in sprint<br/>
+*Optional*: Project Team<br/>
+
 **Project Surfliner Sprint Review**<br/>
 Last day of each sprint<br/>
-*Purpose*: Informal meeting on the last day of the sprint to show what the product team(s) has accomplished during the sprint, typically taking the form of a demo. Demos are recorded. The Product Owner(s) & Tech Lead(s) for products in sprint are responsible for demo content & ensuring the demo gets recorded and shared.<br/>
-*Required*: Product Owner(s) & Tech Lead(s) for products in sprint<br/>
+*Purpose*: Informal meeting on the last day of the sprint to show what the product team(s) has accomplished during the sprint, typically taking the form of a demo. Demos are recorded.<br/>
+*Required*: Product Owner(s) & Tech Lead(s) for products in sprint, Subject Matter Experts, and stakeholders<br/>
 *Optional*: Project Team<br/>
 
 **Project Surfliner Sprint Retrospective**<br/>
@@ -159,15 +165,19 @@ Last day of each sprint<br/>
 *Optional*: Subject Matter Experts<br/>
 
 ### Meeting Schedules for the Current Work Cycle
-The current workcycle runs from Tuesday, November 1 to Tuesday, December 20, 2022.  The meetings below are for this time period only.
+The current workcycle runs from Wednesday, March 15 to Tuesday, May 16, 2023.  The meetings below are for this time period only.
 
 #### Project-wide
 **Project Surfliner Daily Standup**<br/>
 Daily, 10:30-10:45am (*except last day of each sprint*)<br/>
 [https://ucsb.zoom.us/j/310736504](https://ucsb.zoom.us/j/310736504)<br/>
 
+**Project Surfliner Sprint Review Planning**<br/>
+Last day of each sprint, 10:30-10:45am<br/>
+[https://ucsd.zoom.us/j/5296465230](https://ucsd.zoom.us/j/5296465230)<br/>
+
 **Project Surfliner Sprint Review**<br/>
-Last day of each sprint, 10:30-11:30am<br/>
+Last day of each sprint, 10:45-11:30am<br/>
 [https://ucsd.zoom.us/j/5296465230](https://ucsd.zoom.us/j/5296465230)<br/>
 
 **Project Surfliner Sprint Retrospective**<br/>
