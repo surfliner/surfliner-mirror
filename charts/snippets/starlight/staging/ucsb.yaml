@@ -59,6 +59,7 @@ solr:
   solrHostname: dld-search-staging-solr.solr-staging
   solrPort: 8983
   zookeeperHostname: blah
+
 starlight:
   application:
     name: Starlight
@@ -86,6 +87,16 @@ starlight:
     bucket: starlight-uploads-staging-2022
     enabled: true
     region: us-west-2
+  iiif:
+    external:
+      enabled: true
+
+extraEnvVars:
+  - name: "IIIF_BASE_URL"
+    value: "https://iiif-staging.digital.library.ucsb.edu"
+  - name: "IIIF_INTERNAL_BASE"
+    value: "https://iiif-staging.digital.library.ucsb.edu"
+
 workerResources:
   limits:
     cpu: 1000m

@@ -45,6 +45,8 @@ spec:
                 name: {{ include "orange-empire.fullname" . }}-env
             - secretRef:
                 name: {{ template "orange-empire.secretName" . }}
+          env:
+            {{- toYaml .Values.extraEnvVars | nindent 12 }}
           ports:
             - name: http
               containerPort: {{ .Values.cantaloupe.port }}

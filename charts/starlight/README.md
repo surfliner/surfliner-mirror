@@ -87,6 +87,7 @@ The following tables lists the configurable parameters of the Starlight chart an
 | `starlight.auth.method` | Application authentication method (`google` or `developer`).  | `developer` | `AUTH_METHOD` |
 | `starlight.auth.google.api_id` | Google authentication API identifier.  | `nil` | `GOOGLE_AUTH_ID` |
 | `starlight.auth.google.secret` | Google authentication API secret.  | `nil` | `GOOGLE_AUTH_SECRET` |
+| `starlight.iiif.external.enabled` | Whether to use external (Cantaloupe) or RIIIF server..  | `false` | `EXTERNAL_IIIF` |
 | `starlight.storage.accessKey` | S3/Minio access key.  | `nil` | `AWS_ACCESS_KEY_ID` |
 | `starlight.storage.acl` | S3/Minio ACL. e.g: 'public-read' | `nil` | `S3_ACL` |
 | `starlight.storage.asset_host_public` | Tell CarrierWave whether to generate bare URLs or attach auth parameters to them. | `false` | `S3_ASSET_HOST_PUBLIC` |

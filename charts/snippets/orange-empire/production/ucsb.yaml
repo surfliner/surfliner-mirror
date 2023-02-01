@@ -11,8 +11,12 @@ cantaloupe:
       bucketName: cantaloupe-production-cache
       endpoint: https://s3.us-west-2.amazonaws.com
     source:
-      bucketName: comet-production-repository-files
+      bucketMap: "comet:comet-production-repository-files,starlight:starlight-uploads-prod"
       endpoint: https://s3.us-west-2.amazonaws.com
+
+extraEnvVars:
+  - name: "CANTALOUPE_STARLIGHT_PATH_PREFIX"
+    value: "uploads/spotlight/featured_image/image/"
 
 ingress:
   annotations:

@@ -11,8 +11,12 @@ cantaloupe:
       bucketName: cantaloupe-staging-cache
       endpoint: https://s3.us-west-2.amazonaws.com
     source:
-      bucketName: comet-staging-repository-files
+      bucketMap: "comet:comet-staging-repository-files,starlight:starlight-uploads-staging"
       endpoint: https://s3.us-west-2.amazonaws.com
+
+extraEnvVars:
+  - name: "CANTALOUPE_STARLIGHT_PATH_PREFIX"
+    value: "uploads/spotlight/featured_image/image/"
 
 ingress:
   annotations:
@@ -28,7 +32,6 @@ ingress:
     - hosts:
         - iiif-staging.digital.library.ucsb.edu
       secretName: tls-secret
-
 
 minio:
   enabled: false

@@ -73,6 +73,15 @@ starlight:
       authentication: plain
   auth:
     method: google
+  iiif:
+    external:
+      enabled: true
+
+extraEnvVars:
+  - name: "IIIF_BASE_URL"
+    value: "https://iiif.digital.library.ucsb.edu"
+  - name: "IIIF_INTERNAL_BASE"
+    value: "https://iiif.digital.library.ucsb.edu"
 
 resources:
   limits:
