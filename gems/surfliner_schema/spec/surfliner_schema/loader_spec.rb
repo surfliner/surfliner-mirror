@@ -50,14 +50,16 @@ describe SurflinerSchema::Loader do
               display_label: "Date Uploaded",
               available_on: [:generic_object, :Image],
               section: :my_metadata,
-              grouping: :date
+              grouping: :date,
+              data_type: RDF::XSD.datetime
             ),
             date_modified: SurflinerSchema::Property.new(
               name: :date_modified,
               display_label: "Date Modified",
               available_on: [:generic_object, :Image],
               section: :my_metadata,
-              grouping: :date
+              grouping: :date,
+              data_type: RDF::XSD.datetime
             )
           }.filter { |_, property| property.available_on.include?(availability) }
         end
@@ -100,18 +102,28 @@ describe SurflinerSchema::Loader do
     end
     let(:loader) { SurflinerSchema::Loader.for_readers([reader_class.new]) }
 
-    it "#attributes_for" do
-      # is there a better way of checking this?
-      typestr = Valkyrie::Types::Set.of(
-        Valkyrie::Types.Constructor(RDF::Literal)
-      ).to_s
-      expect(loader.struct_attributes_for(:generic_object).transform_values(&:to_s)).to include(
-        **{
-          title: typestr,
-          date_modified: typestr,
-          date_uploaded: typestr
-        }.transform_values(&:to_s)
-      )
+    describe "#struct_attributes_for" do
+      let(:attributes) do
+        loader.struct_attributes_for(:generic_object)
+      end
+
+      it "defines the attributes" do
+        attributes.values.each do |attribute|
+          expect(attribute).to be_a Dry::Types::Type
+          expect(attribute.member).to be_a Dry::Types::Type
+          expect(attribute.member.primitive).to eq RDF::Literal
+        end
+      end
+
+      it "appropriately sets the datatypes" do
+        # Attribute “values” are +Dry::Type+s; the +#[]+ syntax here is used to
+        # construct new values. Resulting vaules should be +RDF::Literal+s with
+        # the datatype defined in the schema.
+        expect(attributes[:title].member["foo"]).to be_a RDF::Literal
+        expect(attributes[:title].member["foo"].datatype).to eq RDF::XSD.string
+        expect(attributes[:date_uploaded].member["1972-12-31T00:00:00Z"]).to be_a RDF::Literal
+        expect(attributes[:date_uploaded].member["1972-12-31T00:00:00Z"].datatype).to eq RDF::XSD.datetime
+      end
     end
 
     it "#form_definitions_for" do

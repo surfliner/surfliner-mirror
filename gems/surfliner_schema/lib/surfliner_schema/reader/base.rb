@@ -66,12 +66,17 @@ module SurflinerSchema
       # cardinality or XSD datatype is required, Valkyrie change set validators
       # should be used.
       #
+      # The datatype of the resulting `RDF::Literal` will be the same as that
+      # defined in the schema.
+      #
       # @param availability [Symbol]
       # @return [{Symbol => Object}]
       def to_struct_attributes(availability:)
-        properties(availability: availability).transform_values { |_prop|
+        properties(availability: availability).transform_values { |property|
           Valkyrie::Types::Set.of(
-            Valkyrie::Types.Constructor(RDF::Literal)
+            Valkyrie::Types.Constructor(RDF::Literal) { |value|
+              RDF::Literal.new(value, datatype: property.data_type)
+            }
           )
         }
       end

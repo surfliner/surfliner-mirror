@@ -65,11 +65,11 @@ module SurflinerSchema
     ##
     # The RDF datatype of the property.
     #
-    # If multiple values are provided, they are treated as a union, not an
-    # intersection.
-    attribute :data_type, Valkyrie::Types::Set.of(
-      Valkyrie::Types.Instance(RDF::Vocabulary::Term)
-    ).default([RDF::XSD.string].freeze)
+    # This will be ignored if the property is an object property (has a non‐nil
+    # +:range+).
+    attribute :data_type, Valkyrie::Types.Instance(
+      RDF::Vocabulary::Term
+    ).default(RDF::XSD.string)
 
     ##
     # How to index the property.
