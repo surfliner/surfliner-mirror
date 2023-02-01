@@ -86,7 +86,18 @@ module SurflinerSchema
                 config.dig("available_on").to_a.map(&:to_sym),
             section: config["section"].nil? ? nil : config["section"].to_sym,
             grouping: config["grouping"].nil? ? nil : config["grouping"].to_sym,
-            data_type: RDF::Vocabulary.find_term(config.fetch("data_type", "http://www.w3.org/2001/XMLSchema#string")),
+            data_type: RDF::Vocabulary.find_term(
+              # This provides support for data_type being explicitly set to
+              # null.
+              #
+              # In current RDF (1.1) semantics, all “untyped” data values are
+              # actually just +xsd:string+ (in the absence of language
+              # information). We _could_ enforce that schemas explicitly state
+              # +http://www.w3.org/2001/XMLSchema#string+ in full and not write
+              # +data_type: null+, but we allow explicit nulls in most other
+              # places so this is probably fine.
+              config["data_type"] || "http://www.w3.org/2001/XMLSchema#string"
+            ),
             indexing: config.fetch("indexing", []).to_a.map(&:to_sym),
             mapping: config.fetch("mapping", {}).to_h.filter_map { |prefix, value|
               # `iri` is a non‐standard property and may change but let’s go
