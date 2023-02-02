@@ -50,7 +50,6 @@ cantaloupe:
   java:
     heapSize: 1g
   s3:
-    sampleData: true
     cache:
       accessKeyId: cantaloupe-access-key
       bucketName: cantaloupe-cache

@@ -6,7 +6,6 @@ superskunkApiBase: http://surfliner-superskunk-stage.superskunk-staging
 
 cantaloupe:
   s3:
-    sampleData: false
     cache:
       bucketName: cantaloupe-staging-cache
       endpoint: https://s3.us-west-2.amazonaws.com
