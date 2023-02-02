@@ -57,7 +57,7 @@ cantaloupe:
       secretKey: cantaloupe-secret
     source:
       accessKeyId: cantaloupe-access-key
-      bucketName: cantaloupe-source
+      bucketMap: ""
       basicLookupStrategyPathSuffix: "" #.jpx
       secretKey: cantaloupe-secret
 

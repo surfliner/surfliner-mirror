@@ -69,9 +69,9 @@ see: https://github.com/UCLALibrary/docker-cantaloupe/tree/main/src/main/docker/
 | `cantaloupe.s3.cache.bucketName` | S3Cache bucket name | `nil` | `CANTALOUPE_S3CACHE_BUCKET_NAME` |
 | `cantaloupe.s3.cache.endpoint` | S3Cache endpoint URL | `nil` | `CANTALOUPE_S3CACHE_ENDPOINT` |
 | `cantaloupe.s3.cache.secretKey` | S3Cache secret key | `nil` | `CANTALOUPE_S3CACHE_SECRET_KEY` |
-| `cantaloupe.s3.source.accessKeyId` | S3Source access key id | `nil` | `CANTALOUPE_S3SOURCE_ACCESS_KEY_ID` |
+| `cantaloupe.s3.source.accessKeyId` | S3Source access key id (must be used for all buckets specified in the bucketMap) | `nil` | `CANTALOUPE_S3SOURCE_ACCESS_KEY_ID` |
 | `cantaloupe.s3.source.basicLookupStrategyPathSuffix` | S3Source lookup strategy suffix | `.jpx` | `CANTALOUPE_S3SOURCE_BASICLOOKUPSTRATEGY_PATH_SUFFIX` |
-| `cantaloupe.s3.source.bucketName` | S3Source bucket name | `nil` | `CANTALOUPE_S3SOURCE_BASICLOOKUPSTRATEGY_BUCKET_NAME` |
+| `cantaloupe.s3.source.bucketMap` | Comma-separated list of `service:bucket` definitions; e.g. `comet:comet-prod,starlight:starlight-prod` | `""` | `CANTALOUPE_S3SOURCE_BUCKET_MAP` |
 | `cantaloupe.s3.source.endpoint` | S3Source endpoint URL | `nil` | `CANTALOUPE_S3SOURCE_ENDPOINT` |
 | `cantaloupe.s3.source.secretKey` | S3Source secret key | `nil` | `CANTALOUPE_S3SOURCE_SECRET_KEY` |
 
