@@ -51,8 +51,6 @@ services:
     depends_on:
       - postgres
       - minio
-    volumes:
-      - .:/home/shoreline/app
     networks:
       - shoreline
 
