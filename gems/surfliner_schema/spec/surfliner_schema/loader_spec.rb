@@ -60,6 +60,13 @@ describe SurflinerSchema::Loader do
               section: :my_metadata,
               grouping: :date,
               data_type: RDF::XSD.datetime
+            ),
+            unsupported_object: SurflinerSchema::Property.new(
+              # for testing invalid ranges
+              name: :unsupported_object,
+              display_label: "Unsupported Object",
+              available_on: [:unsupported_range_model],
+              range: "example:unsupported_range"
             )
           }.filter { |_, property| property.available_on.include?(availability) }
         end
@@ -73,6 +80,11 @@ describe SurflinerSchema::Loader do
             collection: SurflinerSchema::ResourceClass.new(
               name: :collection,
               display_label: "Collection"
+            ),
+            unsupported_range_model: SurflinerSchema::ResourceClass.new(
+              # for testing invalid ranges
+              name: :unsupported_range_model,
+              display_label: "Unsupported Range Model"
             ),
             Image: SurflinerSchema::ResourceClass.new(
               name: :Image,
@@ -124,6 +136,12 @@ describe SurflinerSchema::Loader do
         expect(attributes[:date_uploaded].member["1972-12-31T00:00:00Z"]).to be_a RDF::Literal
         expect(attributes[:date_uploaded].member["1972-12-31T00:00:00Z"].datatype).to eq RDF::XSD.datetime
       end
+
+      it "raises an error with an unrecognized object property" do
+        expect {
+          loader.struct_attributes_for(:unsupported_range_model)
+        }.to raise_error(SurflinerSchema::Reader::Error::UnknownRange)
+      end
     end
 
     it "#form_definitions_for" do
@@ -140,7 +158,8 @@ describe SurflinerSchema::Loader do
     end
 
     it "#availabilities" do
-      expect(loader.availabilities).to eq [:generic_object, :collection, :Image]
+      expect(loader.availabilities).to contain_exactly :generic_object,
+        :collection, :unsupported_range_model, :Image
     end
 
     describe "#class_division_for" do

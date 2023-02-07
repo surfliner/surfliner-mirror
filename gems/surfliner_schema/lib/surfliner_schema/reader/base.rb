@@ -26,6 +26,18 @@ module SurflinerSchema
       end
 
       ##
+      # A hash mapping IRIs (corresponding to M3 +range+s) to the
+      # +Valkyrie::Resource+ classes which should be used to implement them.
+      #
+      # The default implementation just returns the default set for the reader
+      # class.
+      #
+      # @return [{String => Class}]
+      def supported_ranges
+        self.class.default_supported_ranges
+      end
+
+      ##
       # A hash mapping conceptual resource “class” names to their definitions.
       #
       # @return [{Symbol => SurflinerSchema::ResourceClass}]
@@ -73,11 +85,23 @@ module SurflinerSchema
       # @return [{Symbol => Object}]
       def to_struct_attributes(availability:)
         properties(availability: availability).transform_values { |property|
-          Valkyrie::Types::Set.of(
-            Valkyrie::Types.Constructor(RDF::Literal) { |value|
-              RDF::Literal.new(value, datatype: property.data_type)
-            }
-          )
+          if property.range != RDF::RDFS.Literal
+            range = property.range.to_s
+            if supported_ranges.key?(range)
+              Valkyrie::Types::Set.of(supported_ranges[range])
+            else
+              raise(
+                Error::UnknownRange,
+                "The range '#{range}' on #{property.name} is not recognized."
+              )
+            end
+          else
+            Valkyrie::Types::Set.of(
+              Valkyrie::Types.Constructor(RDF::Literal) { |value|
+                RDF::Literal.new(value, datatype: property.data_type)
+              }
+            )
+          end
         }
       end
 
@@ -106,6 +130,18 @@ module SurflinerSchema
         ).each_with_object({}) do |(_name, prop), hash|
           prop.indices.each { |key| hash[key] = prop }
         end
+      end
+
+      ##
+      # A hash mapping IRIs (corresponding to M3 +range+s) to the
+      # +Valkyrie::Resource+ classes which should be used to implement them.
+      #
+      # This method provides the default value; individual readers may provide
+      # additional mappings in the future.
+      #
+      # @return [{String => Class}]
+      def self.default_supported_ranges
+        {} # empty for now
       end
 
       ##

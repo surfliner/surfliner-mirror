@@ -75,6 +75,17 @@ module SurflinerSchema
             config.dig("available_on").to_a.map(&:to_sym)
           next unless availability.size > 0 # ignore unavailable properties
           property_name = config.fetch("name", name).to_sym
+          range = config["range"]
+          if range && range != RDF::RDFS.Literal && !supported_ranges.key?(range)
+            # Skip this property if it is an object property and the range is
+            # not recognized.
+            #
+            # This allows a delayed rollout of object property types by getting
+            # them in the schema, then building the necessary components for
+            # displaying/mapping them, and finally adding them to the hash of
+            # supported ranges here to turn them on.
+            next
+          end
           cardinality_maximum = config.dig("cardinality", "maximum")
           property = Property.new(
             name: property_name,
@@ -88,7 +99,8 @@ module SurflinerSchema
             available_on: availability,
             section: config["section"].nil? ? nil : config["section"].to_sym,
             grouping: config["grouping"].nil? ? nil : config["grouping"].to_sym,
-            data_type: RDF::Vocabulary.find_term(
+            range: config["range"] || RDF::RDFS.Literal,
+            data_type:
               # This provides support for data_type being explicitly set to
               # null.
               #
@@ -98,8 +110,7 @@ module SurflinerSchema
               # +http://www.w3.org/2001/XMLSchema#string+ in full and not write
               # +data_type: null+, but we allow explicit nulls in most other
               # places so this is probably fine.
-              config["data_type"] || "http://www.w3.org/2001/XMLSchema#string"
-            ),
+              config["data_type"] || RDF::XSD.string,
             indexing: config.fetch("indexing", []).to_a.map(&:to_sym),
             mapping: config.fetch("mapping", {}).to_h.filter_map { |prefix, value|
               # `iri` is a non‐standard property and may change but let’s go

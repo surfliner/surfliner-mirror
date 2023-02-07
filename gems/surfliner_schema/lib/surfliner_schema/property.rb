@@ -63,13 +63,17 @@ module SurflinerSchema
     attribute :grouping, Valkyrie::Types::Coercible::Symbol.optional.default(nil)
 
     ##
+    # The range of the property.
+    #
+    # If not +RDF::RDFS.Literal+, this identifies the property as an object
+    # property and the datatype will be ignored.
+    attribute :range, Valkyrie::Types.Constructor(RDF::URI).default(RDF::RDFS.Literal)
+
+    ##
     # The RDF datatype of the property.
     #
-    # This will be ignored if the property is an object property (has a non‐nil
-    # +:range+).
-    attribute :data_type, Valkyrie::Types.Instance(
-      RDF::Vocabulary::Term
-    ).default(RDF::XSD.string)
+    # This will be ignored if the property is an object property.
+    attribute :data_type, Valkyrie::Types.Constructor(RDF::URI).default(RDF::XSD.string)
 
     ##
     # How to index the property.
