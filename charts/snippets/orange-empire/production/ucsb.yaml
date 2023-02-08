@@ -16,7 +16,7 @@ cantaloupe:
 ingress:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
-    ingress.annotations.kubernetes.io/ingress.class: nginx
+    kubernetes.io/ingress.class: nginx
   enabled: true
   hosts:
     - host: iiif.digital.library.ucsb.edu

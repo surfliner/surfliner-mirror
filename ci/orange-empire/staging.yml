@@ -17,7 +17,7 @@ orange-empire:deploy:ucsb-staging:
     - run_chart_tests
   environment:
     name: ucsb.staging.orange-empire
-    url: http://orange-empire-staging.$KUBE_INGRESS_BASE_DOMAIN
+    url: https://orange-empire-staging.$KUBE_INGRESS_BASE_DOMAIN
     on_stop: orange-empire:cleanup:ucsb-staging
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
