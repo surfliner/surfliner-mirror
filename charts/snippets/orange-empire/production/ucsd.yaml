@@ -18,7 +18,6 @@ cantaloupe:
       bucketName: cantaloupe-prod-cache
       endpoint: https://lib-minio.ucsd.edu:9006
     source:
-      bucketName: production
       bucketMap: "comet:production,starlight:starlight-production"
       endpoint: https://lib-minio.ucsd.edu:9006
 
