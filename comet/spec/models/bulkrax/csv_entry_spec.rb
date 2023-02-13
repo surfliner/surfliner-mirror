@@ -13,29 +13,30 @@ RSpec.describe Bulkrax::CsvEntry do
     context "with object fields and no prefix" do
       let(:work) do
         w = GenericObject.new(title: "Test Object Title",
-                          title_alternative: "An Alternative Title",
-                          creator: "Tester")
+          title_alternative: "An Alternative Title",
+          creator: "Tester")
         Hyrax.persister.save(resource: w)
       end
 
       let(:exporter) do
         Bulkrax::Exporter.new(name: "Export from Importer",
-                              user: user,
-                              export_type: "metadata",
-                              export_from: "importer",
-                              export_source: "importer_1",
-                              parser_klass: "Bulkrax::CsvParser",
-                              limit: 0,
-                              field_mapping: {},
-                              generated_metadata: false)
+          user: user,
+          export_type: "metadata",
+          export_from: "importer",
+          export_source: "importer_1",
+          parser_klass: "Bulkrax::CsvParser",
+          limit: 0,
+          field_mapping: {},
+          generated_metadata: false)
       end
 
-      it "populates metadata" do
-        metadata = csv_entry.build_export_metadata
-
-        expect(metadata["title"]).to eq("Test Object Title")
-        expect(metadata["title_alternative"]).to eq("An Alternative Title")
-        expect(metadata["creator"]).to eq("Tester")
+      describe "#build_export_metadata" do
+        it "populates metadata" do
+          expect(csv_entry.build_export_metadata)
+            .to include "title" => "Test Object Title",
+              "title_alternative" => "An Alternative Title",
+              "creator" => "Tester"
+        end
       end
     end
   end
