@@ -13,5 +13,5 @@ solrPreSetupInitContainer:
       - sh
       - -c
       - >
-        solrcloud-upload-configset.sh /home/cometapp/solr/conf &&
+        solrcloud-upload-configset.sh /home/comet/app/solr/conf &&
         solrcloud-assign-configset.sh
