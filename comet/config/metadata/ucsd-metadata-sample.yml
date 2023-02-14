@@ -40,6 +40,7 @@ mappings:
   aardvark:
     name: aardvark
     display_label: OGM Aardvark
+    iri: tag:surfliner.gitlab.io,2022:api/aardvark
   gbl-1:
     name: gbl-1
     display_label: GeoBlacklight metadata schema version 1.0
@@ -67,6 +68,26 @@ classes:
     display_label: "RDCP Object"
 #   schema_uri:  URI for the class, from a local or shared ontology.
 
+# Section Definitions
+# ------------------------------------------------------------------------------
+sections:
+  - name: title
+    display_label: Title information
+  - name: contributors
+    display_label: Creators and contributors      
+  - name: dates
+    display_label: Dates
+  - name: notes
+    display_label: Notes
+  - name: subjects
+    display_label: Headings and subjects
+  - name: geographics
+    display_label: Geographics
+  - name: related
+    display_label: Related resources
+  - name: rights
+    display_label: Rights
+
 # Property Definitions
 
 ## The properties below are roughly organized as follows:
@@ -85,370 +106,1105 @@ classes:
 
 properties:
 
-### title-related:
-
-# `title` is defined by Hyrax and can’t be overridden.
-#
-#       title:
-#       name: "title"
-#        display_label: "Title"
-#        definition: "Formal or supplied title for the resource."
-#        usage_guidelines: null
-#        requirement: required
-#        controlled_values:
-#          format: null
-#          sources:
-#            - null
-#        sample_value:
-#          - "Pride and prejudice"
-#        property_uri: http://purl.org/dc/terms/title
-#        available_on:
-#          class:
-#            - null
-#        range: http://www.w3.org/2000/01/rdf-schema#Literal
-#        data_type: null
-#        syntax:  null
-#        cardinality:
-#          minimum: 1
-#          maximum: 1
-#    index_documentation: "Title should be indexed as searchable and displayable."
-#    indexing: a list of dynamic field names, taken from a controlled list;
-#      Choose a value from this list.
-#        displayable - store as string, multi-valued
-#        facetable - index as a string, multi-valued
-#        searchable - index the specific data type, multi-valued
-#        sortable - index the specific data type
-#        stored_searchable - index and store the specific data type, multi-valued
-#        stored_sortable - index and store as string
-#        symbol - index and store as string, multi-valued
-#        fulltext_searchable - index as text, multi-valued with termVectors if enabled
-#    validations:
-#      match_regex:  Regular Expression pattern each value must match to be valid.
-#    mapping:
-#      dc-oai: http://purl.org/dc/elements/1.1/title
-#      dpla: null
-#
-
-### agents and associated roles (controlled)
-
-  - &agent_contributor
-    name: "agent_contributor"
-    display_label: "Contributor"
-    definition: "A person or organization responsible for making contributions to the resource."
-    usage_guidelines: "Use as the broadest possible role, i.e. when lacking specific information on an agent's role, or the role is unclear or unknown. If a more specific role is available, prefer that, e.g. editor, compiler, illustrator."
-    sample_value: "Smith, Joe S."
-    available_on:
-      class:
-         - collection
-         - generic_object
-         - rdcp_object
-    range: lark:agent
-    cardinality:
-      minimum: 0
-      maximum:
+  - &title
+    name: "title"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Title"
+    definition: "The title of the resource."
+    usage_guidelines: "Preferrably, make the titles of resources unique within a collection. However, there is no hard rule against duplicate object titles"
+    # requirement: Required
+    # sample_value: "Sun God: decorated as Rambird, 1986: front view"
+    cardinality: 
+      minimum: 1
+      maximum: 1
+    section: title
     mapping:
-      dc-oai: http://purl.org/dc/elements/1.1/contributor
-      datacite: https://schema.datacite.org/meta/kernel-4.4/contributorName
-#     ucsdD4: Person_Contributor;_Corporate_Contributor
+      dc-oai: http://purl.org/dc/terms/title
+      aardvark: http://purl.org/dc/terms/title
+     # d4-templates: Title
+    available_on:
+      - collection
+      - generic_object
+      - rdcp_object
+      - geospatial_object
+
+  - &title_subtitle
+    name: "title_subtitle"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Subtitle"
+    definition: "A subtitle for the resource (usually transcribed)."
+    usage_guidelines: "Use a string that captures the subtitle"
+    # requirement: Required
+    # sample_value: "front view"
+    cardinality: 
+      minimum: 0
+      maximum: 1
+    section: title
+    mapping:
+     # d4-templates: Subtitle
+    available_on:
+      - collection
+      - generic_object
+      - rdcp_object
+
+  - &title_alternative
+    name: "title_alternative"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Title Variant"
+    definition: "An alternative title for the resource."
+    # sample_value: "Rambird, 1986"
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: title
+    mapping:
+      dc-oai: http://purl.org/dc/terms/alternative
+     # d4-templates: Variant
+    available_on:
+      - collection
+      - generic_object
+
+  - &title_alternative_geospatial
+    <<: *title_alternative
+    name: "title_alternative_geospatial"
+    usage_guidelines: "Use for translated and alternate titles."
+    mapping:
+      aardvark: http://purl.org/dc/terms/alternative
+    available_on:
+      - geospatial_object
 
   - &agent_creator
-    name: "agent_creator"
+    name: "agent_creator"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Creator"
     definition: "A person or organization responsible for creating the resource."
     usage_guidelines: "Can be used when lacking specific information on an agent's exact role in creating the resource."
-    sample_value: "Alphabet, Inc."
-    available_on:
-      class:
-         - collection
-         - generic_object
-         - rdcp_object
-    range: lark:agent
-    cardinality:
+    # sample_value: "Alphabet, Inc."
+    cardinality: 
       minimum: 0
-      maximum:
+      maximum: null
+    section: contributors
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/creator
       datacite: https://schema.datacite.org/meta/kernel-4.4/creatorName
-#     ucsdD4: Person:Creator; Corporate:Creator
-
-### information about the origin of the resource (including dates)
-  - &date_created
-    name: "date_created"
-    display_label: "Creation Date"
-    definition: "A date associated with the creation of the resource."
-    usage_guidelines: "The date the resource was created"
+      aardvark: http://purl.org/dc/elements/1.1/creator
+     # d4-templates: Person:Creator; Corporate:Creator
     available_on:
-      class:
-         - collection
-         - generic_object
-         - rdcp_object
-    range: http://www.europeana.eu/schemas/edm/TimeSpan
-    cardinality:
+      - collection
+      - generic_object
+      - rdcp_object
+      - geospatial_object
+
+  - &agent_pi
+    name: "agent_pi"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Primary Investigator"
+    cardinality: 
       minimum: 0
-      maximum:
+      maximum: null
+    section: contributors
+    mapping:
+     # d4-templates: Person:Prinicipal Investigator
+    available_on:
+      - collection
+      - rdcp_object
+
+  - &agent_author
+    name: "agent_author"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Author"
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: contributors
+    mapping:
+     # d4-templates: Person:Author
+    available_on:
+      - collection
+      - generic_object
+      - rdcp_object
+
+  - &agent_photographer
+    name: "agent_photographer"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Photographer"
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: contributors
+    mapping:
+     # d4-templates: Person:Photographer
+    available_on:
+      - collection
+      - generic_object
+
+  - &agent_contributor
+    name: "agent_contributor"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Contributor"
+    definition: "A person or organization responsible for making contributions to the resource."
+    usage_guidelines: "Use as the broadest possible role, i.e. when lacking specific information on an agent's role, or the role is unclear or unknown. If a more specific role is available, prefer that, e.g. editor, compiler, illustrator."
+    # sample_value: "Smith, Joe S."
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: contributors
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/contributor
+      datacite: https://schema.datacite.org/meta/kernel-4.4/contributorName
+     # d4-templates: Person:Contributor; Corporate:Contributor
+    available_on:
+      - collection
+      - generic_object
+      - rdcp_object
+
+  - &agent_publisher
+    name: "agent_publisher"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Publisher"
+    definition: "A person or organization responsible for publishing the resource."
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: contributors
+    mapping:
+      dc-oai: http://purl.org/dc/terms/publisher
+      aardvark: http://purl.org/dc/terms/publisher
+     # d4-templates: Person:Publisher; Corporate:Publisher
+    available_on:
+      - collection
+      - generic_object
+      - geospatial_object
+
+  - &date_collection
+    name: "date_collection"  
+    # range: http://www.europeana.eu/schemas/edm/TimeSpan
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Date Collected"
+    definition: "The date that the physical or digital materials represented by the object were collected."
+    usage_guidelines: "Can be used to record when materials were collected, or when a researcher or when data was observed/collected/analyzed."
+    # sample_value: "June 1, 2013 to July, 18 2013"
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: dates
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/date
-#     ucsdD4: Date:creation
+      aardvark: http://purl.org/dc/elements/1.1/date
+     # d4-templates: Date:collected
+    available_on:
+      - collection
+      - generic_object
+      - rdcp_object
+      - geospatial_object
 
-  - &date_issue
-    name: "date_issue"
+  - &date_created
+    name: "date_created"  
+    # range: http://www.europeana.eu/schemas/edm/TimeSpan
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Creation Date"
+    definition: "A date associated with the creation of the resource. "
+    usage_guidelines: "The date the resource was created"
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: dates
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/date
+      aardvark: https://opengeometadata.org/docs/ogm-aardvark/index-year
+     # d4-templates: Date:creation
+    available_on:
+      - collection
+      - generic_object
+      - rdcp_object
+      - geospatial_object
+
+  - &date_issued
+    name: "date_issued"  
+    # range: http://www.europeana.eu/schemas/edm/TimeSpan
+    data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Date Issued"
     definition: "The year in which the resource was issued (e.g., the year a digital collection was first viewable by the public)."
-    usage_guidelines: "Use the year (YYYY) the object was made available in the DAMS. For continuing collections (i.e., ongoing collections with no set end date), use the year in which the collection was first published"
-    sample_value: "2017"
-    available_on:
-      class:
-         - collection
-         - generic_object
-         - rdcp_object
-    range: http://www.europeana.eu/schemas/edm/TimeSpan
-    cardinality:
+    usage_guidelines: "Date representing when the material was published or issued by the original creator"
+    # sample_value: "2017.0"
+    cardinality: 
       minimum: 0
-      maximum:
+      maximum: null
+    section: dates
     mapping:
       dc-oai: http://purl.org/dc/terms/issued
       gbl-1: http://purl.org/dc/terms/issued
       aardvark: http://purl.org/dc/terms/issued
-#     ucsdD4: Date:issued
+     # d4-templates: Date:issued
+    available_on:
+      - collection
+      - generic_object
+      - geospatial_object
 
-### physical description, etc.
+  - &date_issued_rdcp
+    <<: *date_issued
+    name: "date_issued_rdcp"
+    usage_guidelines: "Use the year (YYYY) the object was made available in the DAMS.  For continuing collections (i.e., ongoing collections with no set end date), use the year in which the collection was first published"
+    cardinality: 
+      minimum: 1
+      maximum: 1
+    mapping:
+    available_on:
+      - rdcp_object
+
+  - &date_event
+    name: "date_event"  
+    # range: http://www.europeana.eu/schemas/edm/TimeSpan
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Event Date"
+    definition: "The date of the event depicted in the resource."
+    usage_guidelines: "Typically these dates are for objects representing a performance or other event"
+    # sample_value: "1908-04-08T00:00-08:00"
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: dates
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/date
+     # d4-templates: Date:event
+    available_on:
+      - collection
+      - generic_object
+      - rdcp_object
+      - geospatial_object
+
+  - &note_description
+    name: "note_description"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Description"
+    definition: "A description or summary of a resource"
+    usage_guidelines: "Used for descriptions which provide 'a summary of the content of a resource'. This includes: abstracts, descriptions, summaries or scope and contents information.  When the content provider distinguishes between scope and contents information and abstract/description/summary information, keep them separate using a Note type 'scope and content' attribute."
+    # sample_value: "A alteration by unnamed student(s) intended as a parody of De Saint Phalle's Sun God."
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: notes
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/description
+      aardvark: http://purl.org/dc/elements/1.1/description
+     # d4-templates: Note:description
+    available_on:
+      - collection
+      - generic_object
+      - rdcp_object
+      - geospatial_object
 
   - &language
-    name: "language"
+    name: "language"  
+    # range: http://www.w3.org/2001/XMLSchema#anyURI
+    data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Language"
     definition: "Language(s) of described resource. Strongly recommended for text materials."
     usage_guidelines: "Resources can have multiple languages represented. It is not necessary to record the language of non-texual or non-audiovisual content."
-    controlled_values:
-      sources: https://id.loc.gov/vocabulary/iso639-2.html
-    sample_value: "eng"
-    available_on:
-      class:
-         - collection
-         - generic_object
-         - rdcp_object
-    range: http://www.w3.org/2001/XMLSchema#anyURI
-    cardinality:
-      minimum: 1
-      maximum:
+    # sample_value: "eng"
+    # controlled_values:
+      # sources: https://id.loc.gov/vocabulary/iso639-2.html
+    cardinality: 
+      minimum: 0
+      maximum: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/language
       datacite: https://schema.datacite.org/meta/kernel-4.4/language
       gbl-1: http://purl.org/dc/elements/1.1/language
-      aardvark: http://purl.org/dc/terms/language
-#     ucsdD4: Language
-
-  - &type_of_resource
-    name: "type_of_resource"
-    display_label: "Formats"
-    definition: "The nature or genre of the resource."
-    usage_guidelines: "Type of content of the resource. Different from file type. For example, a jpeg of a page of text would have a type_of_resource of text"
-    controlled_values:
-      sources: https://id.loc.gov/vocabulary/resourceTypes.html
-    sample_value: "Still Image"
+      aardvark: http://purl.org/dc/elements/1.1/language
+     # d4-templates: Language
     available_on:
-      class:
-         - collection
-         - generic_object
-    range: http://www.w3.org/2004/02/skos/core#Concept
-    cardinality:
-      minimum: 1
-      maximum:
-    mapping:
-      dc-oai: http://purl.org/dc/elements/1.1/type
-      gbl-1: http://purl.org/dc/elements/1.1/type
-      aardvark: http://geoblacklight.org/schema/aardvark/resourceClass
-#     ucsdD4: Type of Resource...
-
-  - &note_technical_details
-    name: "note_technical_details"
-    display_label: "Technical Details"
-    definition: "Information that can reflect technical requirements needed to use the resource (both software and hardware). Can also provide information about anomalies, bugs, and other issues that are known about the files in the digital object."
-    usage_guidelines: "Use to record technical aspects or requirements for the resource. This note can be used to express details about the digital file itself, such as anomalies the user should be warned about (e.g. image corruption/artifacts, audio corruption.)"
-    sample_value: "R routines were run in R 3.1.2"
-    available_on:
-      class:
-         - collection
-         - generic_object
-    range: http://www.w3.org/2000/01/rdf-schema#Literal
-    cardinality:
-      minimum: 0
-      maximum:
-    mapping:
-      dc-oai: http://purl.org/dc/elements/1.1/description
-#     ucsdD4: Note:technical details
-
-  - &note_technical_details_rdcp
-    <<: *note_technical_details
-    name: "rdcp_note_technical_details"
-    available_on:
-      class:
-         - generic_object
-         - rdcp_object
-    mapping:
-#     ucsdD4: Note:technical details
-
-### note fields
-  - &note_description
-    name: "note_description"
-    display_label: "Description"
-    definition: "A description or summary of a resource"
-    usage_guidelines: "Used for descriptions which provide a summary of the content of a resource. This includes abstracts, descriptions, summaries or scope and contents information. When the content provider distinguishes between scope and contents information and abstract/description/summary information, keep them separate using a Note type scope and content attribute."
-    sample_value: "A alteration by unnamed student(s) intended as a parody of De Saint Phalle's Sun God."
-    available_on:
-      class:
-         - collection
-         - generic_object
-         - rdcp_object
-    range: http://www.w3.org/2000/01/rdf-schema#Literal
-    cardinality:
-      minimum: 0
-      maximum:
-    mapping:
-      dc-oai: http://purl.org/dc/elements/1.1/description
-#     ucsdD4: Note:description
+      - collection
+      - generic_object
+      - rdcp_object
+      - geospatial_object
 
   - &note_inscription
-    name: "note_inscription"
+    name: "note_inscription"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Inscription"
     definition: "Words, numbers, symbols, stamps, and marks applied to the object during or after creation, whether by the artist or architect, his agent, or an owner or other later hand."
-    usage_guidelines: "Transcribe from item. If needed and available contextual information about the type/source of inscription (signature, inscribed by author, annotations, etc.) can be added to the note text."
-    sample_value: "Mrs. D.J. Chase 613 Belden St. Peekskill New York"
-    available_on:
-      class:
-         - collection
-         - generic_object
-         - rdcp_object
-    range: http://www.w3.org/2000/01/rdf-schema#Literal
-    cardinality:
+    usage_guidelines: "Transcribe from item.  If needed and available contextual information about the type/source of inscription (signature, inscribed by author, annotations, etc.) can be added to the note text."
+    # sample_value: "Mrs. D.J. Chase 613 Belden St. Peekskill New York"
+    cardinality: 
       minimum: 0
-      maximum:
+      maximum: null
+    section: notes
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/description
-#     ucsdD4: Note:inscription
+     # d4-templates: Note:inscription
+    available_on:
+      - collection
+      - generic_object
+
+  - &note_location_of_originals
+    name: "note_location_of_originals"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Location of Originals"
+    definition: "Information on the physical arrangement of the source materials used to create the object. Can also contain location and contact information for the user to request access to the materials."
+    usage_guidelines: "Physical location and arrangement of the original/archival resources "
+    # sample_value: "This digital image is a surrogate of an item from the Leo Szilard Papers (MSS 32, Box 18, Folder 30)."
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: notes
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/description
+     # d4-templates: Note:location of originals
+    available_on:
+      - collection
+      - generic_object
 
   - &note_preferred_citation
-    name: "note_preferred_citation"
+    name: "note_preferred_citation"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Cite This Work"
-    definition: "Citation to the resource preferred by its custodian of the resource (i.e. UCSD)."
+    definition: "Citation to use for referencing the resource."
     usage_guidelines: "Record a citation for the user in order for them to cite the resource at hand. Although there is no required format, it should adhere to general citation guidelines for internet resources, and use full/valid URLs when possible"
-    sample_value: "Keen, Eric M; Wray, Janie; Meuter, Hermann; Thompson, Kim-Ly; Barlow, Jay P; Picard, Chris R (2017): Data from: 'Whale Wave': shifting strategies structure the complex use of critical fjord habitat by humpbacks. UC San Diego Library Digital Collections. http://doi.org/10.6075/J0GT5K3B"
-    available_on:
-      class:
-         - collection
-         - generic_object
-    range: http://www.w3.org/2000/01/rdf-schema#Literal
-    cardinality:
+    # sample_value: "Keen, Eric M; Wray, Janie; Meuter, Hermann; Thompson, Kim-Ly; Barlow, Jay P; Picard, Chris R (2017): Data from: 'Whale Wave': shifting strategies structure the complex use of critical fjord habitat by humpbacks. UC San Diego Library Digital Collections. http://doi.org/10.6075/J0GT5K3B"
+    cardinality: 
       minimum: 0
-      maximum:
+      maximum: 1
+    section: notes
     mapping:
       dc-oai: http://purl.org/dc/terms/bibliographicCitation
-#     ucsdD4: Note:preferred citation
+     # d4-templates: Note:preferred citation
+    available_on:
+      - collection
+      - generic_object
 
   - &note_preferred_citation_rdcp
     <<: *note_preferred_citation
-    name: "rdcp_note_preferred_citation"
-    display_label: ""
-    usage_guidelines: "Follow format: Creators/authors names. Year issued. DAMS Collection or object that is desired to be cited. Full hyperlink to DOI or resolvable ARK link"
-    sample_value: "Russell, Lynn M; Betha, Raghu; Sanchez, Kevin J; Liu, Jun; Price, Derek J; Chen, Chia-Li; Lee, Alex (2017): Aerosol Composition and Size Measurements at Fresno and Fontana. UC San Diego Library Digital Collections. https://doi.org/10.6075/J0VX0DF9"
-    available_on:
-      class:
-         - generic_object
-         - rdcp_object
+    name: "note_preferred_citation_rdcp"
+    usage_guidelines: "Follow format: Creators/authors names. Year issued. DAMS Collection or object that is desired to be cited. Full hyperlink to DOI or resolvable ARK link  "
+    # sample_value: "Russell, Lynn M; Betha, Raghu; Sanchez, Kevin J; Liu, Jun; Price, Derek J; Chen, Chia-Li; Lee, Alex (2017): Aerosol Composition and Size Measurements at Fresno and Fontana. UC San Diego Library Digital Collections. https://doi.org/10.6075/J0VX0DF9"
     mapping:
-#     ucsdD4: Note:preferred citation
-
-### subjects
-
-
-### cartographics
-
-
-### identifiers
-
-  - &identifier_accession
-    name: "identifier_accession"
-    display_label: "Accession Number"
-    definition: "An archival accession number for the object."
-    usage_guidelines: "Only use when the original accession numbers are important (e.g. for collection maintenance)"
-    sample_value: "40822459663"
     available_on:
-      class:
-         - collection
-         - generic_object
-         - rdcp_object
-    range: http://www.w3.org/2000/01/rdf-schema#Literal
-    cardinality:
+      - rdcp_object
+
+  - &note_scope_and_content
+    name: "note_scope_and_content"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Scope and Content"
+    definition: "Describes the primary content of a collection or resource"
+    usage_guidelines: "Typically this is broader coverage than an arrangement note, and contains information about scope and content in a general sense. To describe how a file or directory is strucured, for instance, an arrangement note is more appropriate"
+    # sample_value: "The dataMares Collection contains a selection of datasets associated with scientific research, some of which is featured at http://datamares.ucsd.edu. "
+    cardinality: 
       minimum: 0
-      maximum:
+      maximum: null
+    section: notes
     mapping:
-      dc-oai: http://purl.org/dc/elements/1.1/identifier
-#     ucsdD4: Identifier:accession number
-
-  - &identifier_catalog_record
-    name: "identifier_catalog_record"
-    display_label: "Catalog Number"
-    definition: "The identifier from the ILS or catalog (currently Roger records)"
-    usage_guidelines: "Only indicate the 'bib' number. Do not include any hyperlink-specific IDs and suffixes, e.g. '~9'"
-    sample_value: "b33478636"
+      dc-oai: http://purl.org/dc/elements/1.1/description
+     # d4-templates: Note:scope and content
     available_on:
-      class:
-         - collection
-         - generic_object
-         - rdcp_object
-    range: http://www.w3.org/2000/01/rdf-schema#Literal
-    cardinality:
+      - collection
+      - generic_object
+      - rdcp_object
+
+  - &note_methods
+    name: "note_methods"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Methods"
+    definition: "Information on the methods in which the researcher carried out their research, in relation to the resource."
+    usage_guidelines: "Information on the methods in which the researcher carried out their research, in relation to the resource."
+    # sample_value: "Acoustic backscattering data were collected between stations using a hull-mounted Simrad EK60 split-beam echo sounder"
+    cardinality: 
       minimum: 0
-      maximum:
+      maximum: null
+    section: notes
     mapping:
-      dc-oai: http://purl.org/dc/elements/1.1/identifier
-#     ucsdD4: Identifier:mms_id
+      dc-oai: http://purl.org/dc/elements/1.1/description
+     # d4-templates: Note:methods
+    available_on:
+      - collection
+      - generic_object
+
+  - &note_physical_description
+    name: "note_physical_description"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Physical Description"
+    definition: "Physical description of the described item, including its extent, dimensions, and such other physical details as a description of any accompanying materials and unit type and size."
+    usage_guidelines: "Record physical characteristics of the object represented, may include, extent, material type (negative, reel to reel, etc.,) and other details."
+    # sample_value: "1 sound tape reel : analog, 7 1/2 ips 5 in., 1/2 in. tape"
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: notes
+    mapping:
+      dc-oai: http://purl.org/dc/terms/format
+     # d4-templates: Note:physical description
+    available_on:
+      - collection
+      - generic_object
+
+  - &note_technical_details
+    name: "note_technical_details"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Technical Details"
+    definition: "Information that can reflect technical requirements needed to use the resource (both software and hardware). Can also provide information about anomalies, bugs, and other issues that are known about the files in the digital object."
+    usage_guidelines: "Use to record technical aspects or requirements for the resource. This note can be used to express details about the digital file itself, such as anomalies the user should be warned about (e.g. image corruption/artifacts, audio corruption.)"
+    # sample_value: "R routines were run in R 3.1.2 "
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: notes
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/description
+     # d4-templates: Note:technical details
+    available_on:
+      - collection
+      - generic_object
+
+  - &note_technical_details_rdcp
+    <<: *note_technical_details
+    name: "note_technical_details_rdcp"
+    usage_guidelines: "For scripts and software, provide all information about hardware and software requirements to run it. This includes code language version (e.g. python 3.6), as well as any necessary softare libraries and their versions (e.g. matplotlib 2.1). Usually this information is contained in a readme, but can also be asked from the data provider"
+    mapping:
+    available_on:
+      - rdcp_object
+
+  - &note_funding
+    name: "note_funding"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Funding"
+    definition: "Information identifying organizations that have funded the creation of a resource."
+    usage_guidelines: "Information identifying organizations that have funded (grants, etc.) the creation of a resource."
+    # sample_value: "California Air Resources Board (Agreement No: 13-330)"
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: notes
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/description
+     # d4-templates: Note:funding
+    available_on:
+      - collection
+      - generic_object
+      - rdcp_object
+
+  - &note_arrangement
+    name: "note_arrangement"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Arrangement"
+    definition: "Information about the intellectual organization and arrangement of the object in a collection. "
+    usage_guidelines: "The resources place in the intellectual arrangement or the original/archival resources"
+    # sample_value: "Located in Series 10) Audiovisual Materials, subseries A) Audiotapes."
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: notes
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/description
+     # d4-templates: Note:arrangement
+    available_on:
+      - collection
+      - generic_object
+
+  - &note_note
+    name: "note_note"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Note"
+    definition: "General textual information relating to a resource"
+    usage_guidelines: "General textual information relating to a resource.  Multiple notes will be displayed, unordered, under a single 'Note' header in the UI. "
+    # sample_value: "Title derived from original collection inventory."
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: notes
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/description
+     # d4-templates: Note:note
+    available_on:
+      - collection
+      - generic_object
+
+  - &note_table_of_contents
+    name: "note_table_of_contents"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Table of Contents"
+    definition: "A list of subunits of the resource."
+    # sample_value: "1. Beginnings 2. The Academic Plan 3. The 1966 Revision 4. Conclusion"
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: notes
+    mapping:
+      dc-oai: http://purl.org/dc/terms/tableOfContents
+     # d4-templates: Note:table of contents
+    available_on:
+      - collection
+      - generic_object
+
+  - &note_credits
+    name: "note_credits"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Credits"
+    definition: "Information in note form of credits for persons or organizations who have participated in the creation and/or production of the resource."
+    usage_guidelines: "Credits for persons or organizations who have participated in the creation and/or production of the resource.  Not needed if entities are linked individually as creators, contributors, or other roles.  For performances, use 'Performer note.'"
+    # sample_value: "Roger Reynolds, Bryan Reynolds, Joshua Tonies, Nick Drashner, Andy Muehlhausen, Trevor Henthorn, Hunjoo Jung, Tracy Cornish"
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: notes
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/description
+     # d4-templates: Note:credits
+    available_on:
+      - collection
+      - generic_object
+
+  - &type_of_resource
+    name: "type_of_resource"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Formats"
+    definition: "The nature or genre of the resource."
+    usage_guidelines: "Type of content of the resource.  Different from file type.  For example, a jpeg of a page of text would have a type_of_resource of 'text.'  The lines between data, software, and text can be thin, but in general: scripts are considered 'software', a readme about the script is considered 'text', and a delimited file output from running the script is considered 'data.' For geospatial use 'data'"
+    # sample_value: "Still Image"
+    # controlled_values:
+      # sources: https://id.loc.gov/vocabulary/resourceTypes.html
+    cardinality: 
+      minimum: 1
+      maximum: null
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/type
+      gbl-1: http://purl.org/dc/elements/1.1/type
+      aardvark: https://opengeometadata.org/docs/ogm-aardvark/resource-class
+     # d4-templates: Type of Resource
+    available_on:
+      - collection
+      - generic_object
+      - rdcp_object
+      - geospatial_object
+
+  - &geo_data_type
+    name: "geo_data_type"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Data type"
+    definition: "A secondary level of categories for classifying the spatial type or structure of a dataset."
+    usage_guidelines: "Use value from the Aardvark type list https://opengeometadata.org/docs/ogm-aardvark/resource-type"
+    # requirement: Optional
+    # sample_value: "Bathymetric maps"
+    # controlled_values:
+      # sources: https://opengeometadata.org/docs/ogm-aardvark/resource-type
+    cardinality: 
+      minimum: 0
+      maximum: null
+    mapping:
+      aardvark: https://opengeometadata.org/docs/ogm-aardvark/resource-type
+     # d4-templates: n/a
+    available_on:
+      - geospatial_object
+
+  - &subject_topic
+    name: "subject_topic"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Topic"
+    definition: "A topic or subject of the resource."
+    # sample_value: "American poetry"
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: subjects
+    mapping:
+      dc-oai: http://purl.org/dc/terms/subject
+      aardvark: http://purl.org/dc/terms/subject
+     # d4-templates: Subject:topic; Subject:common name
+    available_on:
+      - collection
+      - generic_object
+      - rdcp_object
+      - geospatial_object
+
+  - &subject_name
+    name: "subject_name"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Name"
+    definition: "The name of a person or corporate entity that the resource is about."
+    usage_guidelines: "Ensure that if a name occurs more than once in a collection, it appears in the exact same form to avoid creation of duplicate authority records"
+    # sample_value: "Einstein, Albert, 1879-1955"
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: subjects
+    mapping:
+      dc-oai: http://purl.org/dc/terms/subject
+     # d4-templates: Subject:conference name; Subject:corporate name; Subject:family name; Subject:personal name
+    available_on:
+      - collection
+      - generic_object
+
+  - &subject_spatial
+    name: "subject_spatial"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Geographics"
+    definition: "Spatial characteristics of described resource, such as a country, city, region, address or other geographical term. Captures aboutness."
+    usage_guidelines: "Place followed in parentheses by its next highest division (so a state for a city in the US, a country or region for other cities)."
+    # sample_value: "Jalisco (Mexico)"
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: subjects
+    mapping:
+      dc-oai: http://purl.org/dc/terms/spatial
+     # d4-templates: Subject:geographic
+    available_on:
+      - collection
+      - generic_object
+      - rdcp_object
+
+  - &subject_spatial_geospatial
+    <<: *subject_spatial
+    name: "subject_spatial_geospatial"
+    usage_guidelines: "Place name taken from Geonames"
+    mapping:
+      aardvark: http://purl.org/dc/terms/spatial
+    available_on:
+      - geospatial_object
+
+  - &keyword
+    name: "keyword"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Keyword(s)"
+    definition: "Uncontrolled keywords or topics.  "
+    usage_guidelines: "Enter tags that will be useful for enhancing searches and interpretation. Keywords will be in the metadata, but will be hidden to the user by default."
+    # requirement: Optional
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: subjects
+    mapping:
+      aardvark: https://www.w3.org/ns/dcat#keyword
+     # d4-templates: n/a
+    available_on:
+      - geospatial_object
+
+  - &identifier_ark
+    name: "identifier_ark"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "ARK"
+    definition: "An ARK identifier for an object."
+    usage_guidelines: "If pointing to a related DAMS object, use related resource instead"
+    # sample_value: "bb1234567x"
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: identifiers
+    mapping:
+      dc-oai: http://purl.org/dc/terms/identifier
+      aardvark: http://purl.org/dc/terms/identifier
+     # d4-templates: Identifier:ARK
+    available_on:
+      - collection
+      - generic_object
+      - rdcp_object
+      - geospatial_object
 
   - &identifier_doi
-    name: "identifier_doi"
+    name: "identifier_doi"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "DOI"
     definition: "A Digital Object Identifier for the object"
     usage_guidelines: "Do not use this identifier if already specified in a preferred citation"
-    sample_value: "19671209__01"
-    available_on:
-      class:
-         - collection
-         - generic_object
-         - rdcp_object
-    range: http://www.w3.org/2000/01/rdf-schema#Literal
-    cardinality:
+    # sample_value: "19671209__01"
+    cardinality: 
       minimum: 0
-      maximum:
+      maximum: null
+    section: identifiers
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/identifier
       datacite: https://schema.datacite.org/meta/kernel-4.4/identifier[@identifierType='DOI']
-#     ucsdD4: Identifier:DOI
-
-### relationships
-
-
-### rights related
-
-
-### location of resource
-
-  - &note_location_of_originals
-    name: "note_location_of_originals"
-    display_label: "Location of Originals"
-    definition: "Information on the physical arrangement of the source materials used to create the object. Can also contain location and contact information for the user to request access to the materials."
-    usage_guidelines: "Physical location and arrangement of the original/archival resources"
-    sample_value: "This digital image is a surrogate of an item from the Leo Szilard Papers (MSS 32, Box 18, Folder 30)."
+      aardvark: http://purl.org/dc/terms/identifier
+     # d4-templates: Identifier:DOI
     available_on:
-      class:
-         - collection
-         - generic_object
-         - rdcp_object
-    range: http://www.w3.org/2000/01/rdf-schema#Literal
-    cardinality:
-      minimum: 0
-      maximum:
-    mapping:
-      dc-oai: http://purl.org/dc/elements/1.1/description
-#     ucsdD4: Note:location of originals
+      - collection
+      - generic_object
+      - rdcp_object
+      - geospatial_object
 
-### record management related
+  - &identifier_file_name
+    name: "identifier_file_name"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Filename"
+    definition: "A source file name for the file of an object"
+    usage_guidelines: "Only use when the original filenames are important and have been altered"
+    # sample_value: "19600122"
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: identifiers
+    mapping:
+      dc-oai: http://purl.org/dc/terms/identifier
+      aardvark: http://purl.org/dc/terms/identifier
+     # d4-templates: Identifier:filename
+    available_on:
+      - collection
+      - generic_object
+      - geospatial_object
+
+  - &identifier_orcid
+    name: "identifier_orcid"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "ORCID"
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: identifiers
+    mapping:
+     # d4-templates: Identifier:ORCID
+    available_on:
+      - rdcp_object
+
+  - &georeferenced
+    name: "georeferenced"  
+    # range: boolean
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Georeferenced"
+    definition: "An indication of whether or not a scanned map or other imagery has a georeferenced version."
+    # requirement: Optional?
+    # sample_value: "false"
+    cardinality: 
+      minimum: 0
+      maximum: 1
+    section: geographics
+    mapping:
+      aardvark: https://opengeometadata.org/docs/ogm-aardvark/georeferenced
+     # d4-templates: n/a
+    available_on:
+      - geospatial_object
+
+  - &bounding_box_east
+    name: "bounding_box_east"  
+    # range: http://www.w3.org/2001/XMLSchema#float
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Bounding box easternmost"
+    definition: "This value displays the easternmost extent in decimal degrees"
+    usage_guidelines: "This value displays the easternmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
+    # requirement: Optional
+    # sample_value: "-89.137868"
+    cardinality: 
+      minimum: 0
+      maximum: 1
+    section: geographics
+    mapping:
+      aardvark: https://www.w3.org/ns/dcat#bbox|http://www.w3.org/ns/locn#Geometry
+     # d4-templates: n/a
+    available_on:
+      - geospatial_object
+
+  - &bounding_box_north
+    name: "bounding_box_north"  
+    # range: http://www.w3.org/2001/XMLSchema#float
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Bounding box northernmost"
+    definition: "This value displays the northernmost extent in decimal degrees"
+    usage_guidelines: "This value displays the northernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
+    # requirement: Optional
+    # sample_value: "17.839753"
+    cardinality: 
+      minimum: 0
+      maximum: 1
+    section: geographics
+    mapping:
+      aardvark: https://www.w3.org/ns/dcat#bbox|http://www.w3.org/ns/locn#Geometry
+     # d4-templates: n/a
+    available_on:
+      - geospatial_object
+
+  - &bounding_box_south
+    name: "bounding_box_south"  
+    # range: http://www.w3.org/2001/XMLSchema#float
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Bounding box southernmost"
+    definition: "This value displays the southernmost extent in decimal degrees"
+    usage_guidelines: "This value displays the southernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
+    # requirement: Optional
+    # sample_value: "16.65436"
+    cardinality: 
+      minimum: 0
+      maximum: 1
+    section: geographics
+    mapping:
+      aardvark: https://www.w3.org/ns/dcat#bbox|http://www.w3.org/ns/locn#Geometry
+     # d4-templates: n/a
+    available_on:
+      - geospatial_object
+
+  - &bounding_box_west
+    name: "bounding_box_west"  
+    # range: http://www.w3.org/2001/XMLSchema#float
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Bounding box westernmost"
+    definition: "This value displays the westernmost extent in decimal degrees"
+    usage_guidelines: "This value displays the westernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
+    # requirement: Optional
+    # sample_value: "-91.252774"
+    cardinality: 
+      minimum: 0
+      maximum: 1
+    section: geographics
+    mapping:
+      aardvark: https://www.w3.org/ns/dcat#bbox|http://www.w3.org/ns/locn#Geometry
+     # d4-templates: n/a
+    available_on:
+      - geospatial_object
+
+  - &point
+    name: "point"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Point"
+    definition: "A comma-separated representation of a latitude, longitude coordinate"
+    usage_guidelines: "Separate the lat/long coordinates with a comma"
+    # requirement: Optional
+    # sample_value: "53.3849, -1.468"
+    cardinality: 
+      minimum: 0
+      maximum: 1
+    section: geographics
+    mapping:
+      aardvark: https://www.w3.org/ns/dcat#centroid
+     # d4-templates: Geographic:point
+    available_on:
+      - generic_object
+      - rdcp_object
+      - geospatial_object
+
+  - &polygon
+    name: "polygon"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Polygon"
+    definition: "A series of geographic coordinates that form an n-dimensional shape when joined"
+    usage_guidelines: "While not required, the point coordinates that make up the polygon should sequence in the desired direction (e.g. clockwise). The final point must be the same as the original point, in order to close the polygon"
+    # requirement: Optional
+    # sample_value: "42.6,139.908333 42.6,141.008333 40.633333,141.008333 40.633333,139.908333 42.6,139.908333"
+    cardinality: 
+      minimum: 0
+      maximum: 1
+    section: geographics
+    mapping:
+      aardvark: http://www.w3.org/ns/locn#Geometry
+     # d4-templates: Geographic:polygon
+    available_on:
+      - collection
+      - generic_object
+      - rdcp_object
+      - geospatial_object
+
+  - &online_finding_aid
+    name: "online_finding_aid"  
+    # range: 
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Online Finding Aid"
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: related
+    mapping:
+     # d4-templates: Related resource:online finding aid
+    available_on:
+      - generic_object
+
+  - &isSupplementTo_publication
+    name: "isSupplementTo_publication"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Primary associated publication"
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: related
+    mapping:
+     # d4-templates: Related resource:is supplement to - publication
+    available_on:
+      - rdcp_object
+
+  - &isSupplementTo_dataset
+    name: "isSupplementTo_dataset"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Related data"
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: related
+    mapping:
+     # d4-templates: Related resource:is supplement to - dataset
+    available_on:
+      - rdcp_object
+
+  - &isReferencedBy
+    name: "isReferencedBy"  
+    # range: 
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Referenced by"
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: related
+    mapping:
+     # d4-templates: Related resource:is referenced by
+    available_on:
+      - rdcp_object
+
+  - &references
+    name: "references"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Reference"
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: related
+    mapping:
+      dc-oai: http://purl.org/dc/terms/references
+      aardvark: http://purl.org/dc/terms/references
+     # d4-templates: Related resource:references
+    available_on:
+      - rdcp_object
+      - geospatial_object
+
+  - &isDerivedFrom_dataset
+    name: "isDerivedFrom_dataset"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Source data"
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: related
+    mapping:
+      dc-oai: http://purl.org/dc/terms/source
+      aardvark: http://purl.org/dc/terms/source
+     # d4-templates: Related resource:is derived from - dataset
+    available_on:
+      - rdcp_object
+
+  - &isDerivedFrom_software
+    name: "isDerivedFrom_software"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Software"
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: related
+    mapping:
+      aardvark: http://purl.org/dc/terms/source
+     # d4-templates: Related resource:is derived from - software
+    available_on:
+      - rdcp_object
+
+  - &relatedResource
+    name: "relatedResource"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Related resource"
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: related
+    mapping:
+      aardvark: http://purl.org/dc/elements/1.1/relation
+     # d4-templates: Related resource:related
+    available_on:
+      - collection
+      - generic_object
+      - rdcp_object
+
+  - &rights_note_geospatial
+    name: "rights_note_geospatial"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Rights note"
+    definition: "This field is intended to be flexible to accommodate different types of rights and disclaimers. Users are encouraged to adopt one of the rightsstatements.org statements."
+    usage_guidelines: "Enter free text of generic, catch-all access and usage rights. It can include clickable links; all access and usage rights."
+    # requirement: Optional
+    cardinality: 
+      minimum: 0
+      maximum: 1
+    section: rights
+    mapping:
+      aardvark: http://purl.org/dc/terms/rights
+     # d4-templates: n/a?
+    available_on:
+      - rdcp_object
+      - geospatial_object
+
+  - &license
+    name: "license"  
+    # range: http://www.w3.org/2001/XMLSchema#anyURI
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "License"
+    definition: "An associated license for the object (i.e. Creative Commons license, software licenses, etc.)"
+    usage_guidelines: "It is most often used for RDCP collections, and can be used by the owner to license their software. Licenses must be granted by the owner of the resource"
+    # requirement: Required when applicable
+    # sample_value: "CC-BY"
+    # controlled_values:
+      # sources: DAMS licenses controlled vocabulary
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: rights
+    mapping:
+      dc-oai: http://purl.org/dc/terms/license
+      aardvark: http://purl.org/dc/terms/license
+     # d4-templates: license:licenseURI, license:licenseNote
+    available_on:
+      - generic_object
+      - rdcp_object
+      - geospatial_object
+
+  - &rights_holder
+    name: "rights_holder"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Rights Holder"
+    definition: "A person or organization owning or managing rights over the resource."
+    usage_guidelines: "Use a controlled name for the entity. New entities will be created as agent authorities"
+    # sample_value: "UC Regents"
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: rights
+    mapping:
+      dc-oai: http://purl.org/dc/terms/rightsHolder
+      aardvark: http://purl.org/dc/terms/rightsHolder
+     # d4-templates: rightsHOlderPersonal, rightsHolderCorporate, rightsHolderName
+    available_on:
+      - generic_object
+      - rdcp_object
+      - geospatial_object
 
