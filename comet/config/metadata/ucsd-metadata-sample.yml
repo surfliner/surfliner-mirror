@@ -13,9 +13,9 @@ m3_version: "1.0.beta1"
 profile:
   responsibility: https://library.ucsd.edu
   responsibility_statement: UC San Diego Library
-  date_modified: "2022-10-18"
+  date_modified: "2023-02-14"
   type: UCSD Comet Test
-  version: 0.2
+  version: 0.3
 
 #---------------------------------------------------------
 # Mapping Definitions
