@@ -106,29 +106,6 @@ sections:
 
 properties:
 
-  - &title
-    name: "title"  
-    # range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: http://www.w3.org/2001/XMLSchema#string
-    display_label: "Title"
-    definition: "The title of the resource."
-    usage_guidelines: "Preferrably, make the titles of resources unique within a collection. However, there is no hard rule against duplicate object titles"
-    # requirement: Required
-    # sample_value: "Sun God: decorated as Rambird, 1986: front view"
-    cardinality: 
-      minimum: 1
-      maximum: 1
-    section: title
-    mapping:
-      dc-oai: http://purl.org/dc/terms/title
-      aardvark: http://purl.org/dc/terms/title
-     # d4-templates: Title
-    available_on:
-      - collection
-      - generic_object
-      - rdcp_object
-      - geospatial_object
-
   - &title_subtitle
     name: "title_subtitle"  
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
@@ -140,7 +117,7 @@ properties:
     # sample_value: "front view"
     cardinality: 
       minimum: 0
-      maximum: 1
+      maximum: null
     section: title
     mapping:
      # d4-templates: Subtitle
@@ -355,8 +332,8 @@ properties:
     name: "date_issued_rdcp"
     usage_guidelines: "Use the year (YYYY) the object was made available in the DAMS.  For continuing collections (i.e., ongoing collections with no set end date), use the year in which the collection was first published"
     cardinality: 
-      minimum: 1
-      maximum: 1
+      minimum: 0
+      maximum: null
     mapping:
     available_on:
       - rdcp_object
@@ -477,7 +454,7 @@ properties:
     # sample_value: "Keen, Eric M; Wray, Janie; Meuter, Hermann; Thompson, Kim-Ly; Barlow, Jay P; Picard, Chris R (2017): Data from: 'Whale Wave': shifting strategies structure the complex use of critical fjord habitat by humpbacks. UC San Diego Library Digital Collections. http://doi.org/10.6075/J0GT5K3B"
     cardinality: 
       minimum: 0
-      maximum: 1
+      maximum: null
     section: notes
     mapping:
       dc-oai: http://purl.org/dc/terms/bibliographicCitation
@@ -686,7 +663,7 @@ properties:
     # controlled_values:
       # sources: https://id.loc.gov/vocabulary/resourceTypes.html
     cardinality: 
-      minimum: 1
+      minimum: 0
       maximum: null
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/type
@@ -1012,7 +989,7 @@ properties:
     # sample_value: "42.6,139.908333 42.6,141.008333 40.633333,141.008333 40.633333,139.908333 42.6,139.908333"
     cardinality: 
       minimum: 0
-      maximum: 1
+      maximum: null
     section: geographics
     mapping:
       aardvark: http://www.w3.org/ns/locn#Geometry
@@ -1154,7 +1131,7 @@ properties:
     # requirement: Optional
     cardinality: 
       minimum: 0
-      maximum: 1
+      maximum: null
     section: rights
     mapping:
       aardvark: http://purl.org/dc/terms/rights
