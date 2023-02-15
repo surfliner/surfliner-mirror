@@ -873,7 +873,7 @@ properties:
     # sample_value: "false"
     cardinality: 
       minimum: 0
-      maximum: 1
+      maximum: null
     section: geographics
     mapping:
       aardvark: https://opengeometadata.org/docs/ogm-aardvark/georeferenced
@@ -892,7 +892,7 @@ properties:
     # sample_value: "-89.137868"
     cardinality: 
       minimum: 0
-      maximum: 1
+      maximum: null
     section: geographics
     mapping:
       aardvark: https://www.w3.org/ns/dcat#bbox|http://www.w3.org/ns/locn#Geometry
@@ -911,7 +911,7 @@ properties:
     # sample_value: "17.839753"
     cardinality: 
       minimum: 0
-      maximum: 1
+      maximum: null
     section: geographics
     mapping:
       aardvark: https://www.w3.org/ns/dcat#bbox|http://www.w3.org/ns/locn#Geometry
@@ -930,7 +930,7 @@ properties:
     # sample_value: "16.65436"
     cardinality: 
       minimum: 0
-      maximum: 1
+      maximum: null
     section: geographics
     mapping:
       aardvark: https://www.w3.org/ns/dcat#bbox|http://www.w3.org/ns/locn#Geometry
@@ -949,7 +949,7 @@ properties:
     # sample_value: "-91.252774"
     cardinality: 
       minimum: 0
-      maximum: 1
+      maximum: null
     section: geographics
     mapping:
       aardvark: https://www.w3.org/ns/dcat#bbox|http://www.w3.org/ns/locn#Geometry
@@ -968,7 +968,7 @@ properties:
     # sample_value: "53.3849, -1.468"
     cardinality: 
       minimum: 0
-      maximum: 1
+      maximum: null
     section: geographics
     mapping:
       aardvark: https://www.w3.org/ns/dcat#centroid
