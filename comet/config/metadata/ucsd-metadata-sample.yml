@@ -83,6 +83,8 @@ sections:
     display_label: Headings and subjects
   - name: geographics
     display_label: Geographics
+  - name: identifiers
+    display_label: Identifiers
   - name: related
     display_label: Related resources
   - name: rights
