@@ -266,8 +266,8 @@ properties:
 
   - &date_collection
     name: "date_collection"  
-    # range: http://www.europeana.eu/schemas/edm/TimeSpan
-    data_type: http://www.w3.org/2001/XMLSchema#string
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://id.loc.gov/datatypes/edtf/EDTF
     display_label: "Date Collected"
     definition: "The date that the physical or digital materials represented by the object were collected."
     usage_guidelines: "Can be used to record when materials were collected, or when a researcher or when data was observed/collected/analyzed."
@@ -288,8 +288,8 @@ properties:
 
   - &date_created
     name: "date_created"  
-    # range: http://www.europeana.eu/schemas/edm/TimeSpan
-    data_type: http://www.w3.org/2001/XMLSchema#string
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://id.loc.gov/datatypes/edtf/EDTF
     display_label: "Creation Date"
     definition: "A date associated with the creation of the resource. "
     usage_guidelines: "The date the resource was created"
@@ -309,8 +309,8 @@ properties:
 
   - &date_issued
     name: "date_issued"  
-    # range: http://www.europeana.eu/schemas/edm/TimeSpan
-    data_type: http://www.w3.org/2001/XMLSchema#string
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://id.loc.gov/datatypes/edtf/EDTF
     display_label: "Date Issued"
     definition: "The year in which the resource was issued (e.g., the year a digital collection was first viewable by the public)."
     usage_guidelines: "Date representing when the material was published or issued by the original creator"
@@ -342,8 +342,8 @@ properties:
 
   - &date_event
     name: "date_event"  
-    # range: http://www.europeana.eu/schemas/edm/TimeSpan
-    data_type: http://www.w3.org/2001/XMLSchema#string
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://id.loc.gov/datatypes/edtf/EDTF
     display_label: "Event Date"
     definition: "The date of the event depicted in the resource."
     usage_guidelines: "Typically these dates are for objects representing a performance or other event"
