@@ -4,17 +4,9 @@ require "rails_helper"
 
 RSpec.describe "Objects", type: :system, js: true do
   let(:collection) do
-    col = Hyrax::PcdmCollection.new(title: ["Test Collection for Object Assignment"],
-      collection_type_gid: collection_type.to_global_id.to_s)
-    col = Hyrax.persister.save(resource: col)
-    col
+    FactoryBot.valkyrie_create(:collection, :with_permission_template, user: user)
   end
 
-  let(:collection_type) do
-    type = Hyrax::CollectionType.create(title: "Spec Type")
-    Hyrax::CollectionTypeParticipant.create(hyrax_collection_type: type, agent_id: user.id, agent_type: "user", access: Hyrax::CollectionTypeParticipant::MANAGE_ACCESS)
-    type
-  end
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
 
   before do
@@ -55,14 +47,12 @@ RSpec.describe "Objects", type: :system, js: true do
 
       visit "/dashboard/collections/#{collection.id}"
 
-      expect(page).to have_content("Test Collection for Object Assignment")
+      expect(page).to have_content(collection.title.first)
       expect(page).to have_content("Object Added to Collection by Spec")
     end
 
     it "can assign multiple Collections to it" do
-      col = Hyrax::PcdmCollection.new(title: ["Another Test Collection for Object Assignment"],
-        collection_type_gid: collection_type.to_global_id.to_s)
-      other_collection = Hyrax.persister.save(resource: col)
+      other_collection = FactoryBot.valkyrie_create(:collection, :with_permission_template, user: user)
 
       visit main_app.hyrax_generic_object_path(id: object.id, locale: "en")
 
@@ -76,7 +66,7 @@ RSpec.describe "Objects", type: :system, js: true do
       select_member_of_collection(other_collection)
       click_button "Save changes"
 
-      expect(persisted_object.member_of_collection_ids)
+      expect(Hyrax.query_service.find_by(id: object.id).member_of_collection_ids)
         .to contain_exactly(collection.id, other_collection.id)
     end
   end
