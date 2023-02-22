@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
 RSpec.describe Bulkrax::ValkyrieObjectFactory, storage_adapter: :memory, metadata_adapter: :test_adapter do
   subject(:object_factory) do
     described_class.new(attributes: attributes,
