@@ -62,6 +62,15 @@ GIT
       tinymce-rails (~> 5.10)
       valkyrie (~> 2, >= 2.1.1)
 
+GIT
+  remote: https://gitlab.com/surfliner/rdf-edtf.git
+  revision: 4918af1e8806a672b223257b20b8970740f86aca
+  branch: trunk
+  specs:
+    rdf-edtf (0.1.0)
+      edtf (~> 3.1.1)
+      rdf (~> 3.2.9)
+
 PATH
   remote: ../gems/surfliner_schema
   specs:
@@ -362,6 +371,8 @@ GEM
       scanf (~> 1.0)
       sxp (~> 1.2)
       unicode-types (~> 1.7)
+    edtf (3.1.1)
+      activesupport (>= 3.0, < 8.0)
     equivalent-xml (0.6.0)
       nokogiri (>= 1.4.3)
     erubi (1.12.0)
@@ -1063,6 +1074,7 @@ DEPENDENCIES
   pry-rescue (= 1.5.2)
   puma (= 5.6.5)
   rails (= 5.2.8.1)
+  rdf-edtf!
   redis (= 4.8.1)
   rsolr (= 2.5.0)
   rspec-rails (= 5.1.2)
