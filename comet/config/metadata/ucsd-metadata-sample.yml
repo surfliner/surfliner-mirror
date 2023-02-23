@@ -13,9 +13,9 @@ m3_version: "1.0.beta1"
 profile:
   responsibility: https://library.ucsd.edu
   responsibility_statement: UC San Diego Library
-  date_modified: "2023-02-14"
+  date_modified: "2023-02-23"
   type: UCSD Comet Test
-  version: 0.3
+  version: 0.3.2
 
 #---------------------------------------------------------
 # Mapping Definitions
@@ -286,8 +286,8 @@ properties:
       - rdcp_object
       - geospatial_object
 
-  - &date_created
-    name: "date_created"  
+  - &creation_date
+    name: "creation_date"  
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://id.loc.gov/datatypes/edtf/EDTF
     display_label: "Creation Date"
