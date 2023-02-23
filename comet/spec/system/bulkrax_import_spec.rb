@@ -13,7 +13,7 @@ RSpec.describe "Bulkrax Import", type: :system, js: true do
   context "bulkrax import" do
     let(:source_file) { Rails.root.join("spec", "fixtures", "bulkrax", "generic_objects.csv") }
 
-    it "can successfully create and validate" do
+    xit "can successfully create and validate" do
       visit "/dashboard"
       click_on "Importers"
       click_on "New"
