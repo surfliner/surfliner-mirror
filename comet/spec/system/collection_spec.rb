@@ -5,6 +5,15 @@ require "rails_helper"
 RSpec.describe "Collections", type: :system, js: true do
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
 
+  let(:collection) do
+    FactoryBot.valkyrie_create(:collection,
+      :with_permission_template,
+      title: ["Test Collection"],
+      edit_users: [user],
+      read_users: [user],
+      user: user)
+  end
+
   before { sign_in user }
 
   it "can create a new collection and add object" do
@@ -37,20 +46,6 @@ RSpec.describe "Collections", type: :system, js: true do
   end
 
   context "with edit access on an existing collection" do
-    let(:collection_type) { Hyrax::CollectionType.create(title: "Test Type") }
-    let(:collection_type_gid) { collection_type.to_global_id.to_s }
-    let(:collection) do
-      col = Hyrax::PcdmCollection.new(title: ["Test Collection"], collection_type_gid: collection_type_gid)
-      Hyrax.persister.save(resource: col)
-    end
-
-    before do
-      acl = Hyrax::AccessControlList.new(resource: collection)
-      acl.grant(:read).to(user)
-      acl.grant(:edit).to(user)
-      acl.save
-    end
-
     it "can destroy the collection" do
       visit "/dashboard/collections/#{collection.id}"
       accept_alert { click_on "Delete collection" }
@@ -75,80 +70,69 @@ RSpec.describe "Collections", type: :system, js: true do
   context "nested collection" do
     let(:user) { User.create(email: "comet-admin@library.ucsd.edu") }
 
-    let(:collection_type) { Hyrax::CollectionType.create(title: "Spec Type") }
-    let(:collection_type_gid) { collection_type.to_global_id.to_s }
     let(:collection) do
-      Hyrax.persister.save(resource: Hyrax::PcdmCollection.new(title: ["Test Collection"], collection_type_gid: collection_type_gid))
+      FactoryBot.valkyrie_create(:collection,
+        :with_index,
+        :with_permission_template,
+        title: ["Test Collection"],
+        edit_users: [user],
+        member_of_collection_ids: [nested_collection.id, another_nested_collection.id],
+        read_users: [user],
+        user: user)
     end
+
     let(:nested_collection) do
-      Hyrax.persister.save(resource: Hyrax::PcdmCollection.new(title: ["Nested Collection"], collection_type_gid: collection_type_gid))
+      FactoryBot.valkyrie_create(:collection,
+        :with_index,
+        :with_permission_template,
+        title: ["Nested Collection"],
+        edit_users: [user],
+        read_users: [user],
+        user: user)
     end
+
     let(:another_nested_collection) do
-      Hyrax.persister.save(resource: Hyrax::PcdmCollection.new(title: ["Another Nested Collection"], collection_type_gid: collection_type_gid))
+      FactoryBot.valkyrie_create(:collection,
+        :with_index,
+        :with_permission_template,
+        title: ["Another Nested Collection"],
+        edit_users: [user],
+        read_users: [user],
+        user: user)
     end
 
-    before {
-      Hyrax::Collections::PermissionsCreateService.create_default(collection: collection, creating_user: user)
-      collection.permission_manager.read_users += [user.user_key]
-      collection.permission_manager.edit_users += [user.user_key]
-      collection.permission_manager.acl.save
-
-      collection.member_of_collection_ids = [nested_collection.id, another_nested_collection.id]
-
-      Hyrax.persister.save(resource: collection)
-      Hyrax.index_adapter.save(resource: collection)
-      Hyrax.index_adapter.save(resource: nested_collection)
-      Hyrax.index_adapter.save(resource: another_nested_collection)
-
-      sign_in(user)
-    }
-
-    it "shows the nested collection" do
+    it "shows the nested collections" do
       visit "/dashboard/collections/#{collection.id}"
 
-      expect(page).to have_content("Test Collection")
-      expect(page).to have_content("Nested Collection")
-      expect(page).to have_content("Another Nested Collection")
+      within("section#parent-collections-wrapper") do
+        expect(page).to have_content("Nested Collection")
+        expect(page).to have_content("Another Nested Collection")
+      end
     end
   end
 
   context "collection object members" do
-    let(:user) { User.create(email: "comet-admin@library.ucsd.edu") }
+    before do
+      obj_a = ::GenericObject.new(
+        title: ["Test Member Object A"],
+        member_of_collection_ids: [collection.id]
+      )
+      Hyrax.index_adapter.save(
+        resource: Hyrax.persister.save(resource: obj_a)
+      )
 
-    let(:collection_type) { Hyrax::CollectionType.create(title: "Test Type") }
-    let(:collection_type_gid) { collection_type.to_global_id.to_s }
-    let(:collection) do
-      col = Hyrax::PcdmCollection.new(title: ["Test Collection"], collection_type_gid: collection_type_gid)
-      Hyrax.persister.save(resource: col)
+      obj_b = ::GenericObject.new(
+        title: ["Test Member Object B"],
+        member_of_collection_ids: [collection.id]
+      )
+      Hyrax.index_adapter.save(
+        resource: Hyrax.persister.save(resource: obj_b)
+      )
     end
-
-    let(:object_a) do
-      obj_a = ::GenericObject.new(title: ["Test Member Object A"], member_of_collection_ids: [collection.id])
-      Hyrax.persister.save(resource: obj_a)
-    end
-
-    let(:object_b) do
-      obj_b = ::GenericObject.new(title: ["Test Member Object B"], member_of_collection_ids: [collection.id])
-      Hyrax.persister.save(resource: obj_b)
-    end
-
-    before {
-      sign_in(user)
-
-      Hyrax::Collections::PermissionsCreateService.create_default(collection: collection, creating_user: user)
-      collection.permission_manager.read_users += [user.user_key]
-      collection.permission_manager.edit_users += [user.user_key]
-      collection.permission_manager.acl.save
-
-      Hyrax.index_adapter.save(resource: collection)
-      Hyrax.index_adapter.save(resource: object_a)
-      Hyrax.index_adapter.save(resource: object_b)
-    }
 
     it "display object members to authorized user" do
       visit "/dashboard/collections/#{collection.id}"
 
-      expect(page).to have_content("Test Collection")
       expect(page).to have_content("Test Member Object A")
       expect(page).to have_content("Test Member Object B")
     end
