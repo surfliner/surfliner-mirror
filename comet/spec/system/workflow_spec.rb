@@ -11,18 +11,23 @@ RSpec.describe "Base Workflow", type: :system, js: true do
     visit "/concern/generic_objects/new"
 
     fill_in("Title", with: "Object in Workflow")
+    click_on("Additional fields")
+    fill_in("Formats", with: "bits and bytes")
+    fill_in("Language", with: "computer langauge")
+
     choose("generic_object_visibility_open")
     click_on "Relationships"
     select "Test Project", from: "generic_object_admin_set_id"
+
     click_on("Save")
 
     page.current_path.split("/").last
   end
 
-  before {
+  before do
     setup_workflow_for(approving_user)
     sign_in approving_user
-  }
+  end
 
   it "deposits items into workflow" do
     id = create_object_in_test_project
