@@ -5,8 +5,6 @@ require "rails_helper"
 RSpec.describe "BatchUploads", type: :system, js: true do
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
   let(:source_file) { Rails.root.join("spec", "fixtures", "batch.csv") }
-  let(:s3_enabled_default) { Rails.application.config.staging_area_s3_enabled }
-
   let(:approving_user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
 
   before do
@@ -14,7 +12,11 @@ RSpec.describe "BatchUploads", type: :system, js: true do
     sign_in user
   end
 
-  after { Rails.application.config.staging_area_s3_enabled = s3_enabled_default }
+  around do |example|
+    original_s3_setting = Rails.application.config.staging_area_s3_enabled
+    example.run
+    Rails.application.config.staging_area_s3_enabled = original_s3_setting
+  end
 
   context "move batch of objects through workflow" do
     let(:file) { Rails.root.join("spec", "fixtures", "image.jpg") }
@@ -47,7 +49,6 @@ RSpec.describe "BatchUploads", type: :system, js: true do
 
       click_button "Batch Review"
       expect(page).to have_content("Batch Workflow Actions")
-
       choose(option: "request_changes")
       fill_in("workflow_action_comment", with: "Typos in title.")
       click_button "Submit"

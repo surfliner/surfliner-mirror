@@ -5,8 +5,6 @@ require "rails_helper"
 RSpec.describe "BatchUploadsGeodata", type: :system, js: true do
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
   let(:source_file) { Rails.root.join("spec", "fixtures", "gford-geodata-test.csv") }
-  let(:s3_enabled_default) { Rails.application.config.staging_area_s3_enabled }
-
   let(:approving_user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
 
   before do
@@ -14,7 +12,11 @@ RSpec.describe "BatchUploadsGeodata", type: :system, js: true do
     sign_in user
   end
 
-  after { Rails.application.config.staging_area_s3_enabled = s3_enabled_default }
+  around do |example|
+    original_s3_setting = Rails.application.config.staging_area_s3_enabled
+    example.run
+    Rails.application.config.staging_area_s3_enabled = original_s3_setting
+  end
 
   context "with local staging" do
     let(:files_location) { Rails.root.join("spec", "fixtures", "geodata", "shapefiles", "gford-20140000-010002_lakes") }
