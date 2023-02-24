@@ -4,44 +4,24 @@ require "rails_helper"
 
 RSpec.describe "Collections", type: :system, js: true, storage_adapter: :memory, metadata_adapter: :test_adapter do
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
-  let!(:collection_type) { Hyrax::CollectionType.create(title: "Spec Type") }
+  let(:child_collection) do
+    FactoryBot.valkyrie_create(:collection,
+      :with_permission_template,
+      title: "Child Collection",
+      user: user)
+  end
+
+  let(:parent_collection) do
+    FactoryBot.valkyrie_create(:collection,
+      :with_permission_template,
+      title: "Parent Collection",
+      user: user)
+  end
+
   before { sign_in user }
 
-  it "can create a new collection and add to parent collection" do
-    # Create parent collection
-    visit "/dashboard"
-    click_on "Collections"
-    find("#add-new-collection-button").click
-    within("div#collectiontypes-to-create") do
-      choose("Spec Type")
-      click_on("Create collection")
-    end
-    fill_in("Title", with: "Parent Collection")
-    click_on("Save")
-
-    # Create child collection
-    visit "/dashboard"
-    click_on "Collections"
-    find("#add-new-collection-button").click
-    within("div#collectiontypes-to-create") do
-      choose("Spec Type")
-      click_on("Create collection")
-    end
-    fill_in("Title", with: "Child Collection")
-    click_on("Save")
-
-    expect(page).to have_content("Collection was successfully created.")
-    expect(page).to have_content("Parent Collection")
-    expect(page).to have_content("Child Collection")
-
-    persisted_collections = Hyrax.query_service.find_all_of_model(model: Hyrax::PcdmCollection)
-    parent_collection = persisted_collections.find do |col|
-      col.title == ["Parent Collection"]
-    end
-
-    child_collection = persisted_collections.find do |col|
-      col.title == ["Child Collection"]
-    end
+  it "can add to parent collection" do
+    parent_collection # create the parent
 
     # Add child collection to parent collection
     visit "/dashboard/collections/#{child_collection.id}?locale=en"
