@@ -7,46 +7,38 @@ RSpec.describe "Generic Objects", type: :system, js: true do
   before { sign_in user }
 
   context "remove object from collection" do
-    let!(:collection_type) { Hyrax::CollectionType.create(title: "Test Type") }
+    let(:collection) do
+      FactoryBot.valkyrie_create(:collection,
+        :with_permission_template,
+        title: "Test Collection",
+        user: user)
+    end
+
+    before { collection } # create explictly
 
     it "remove an object" do
-      visit "/dashboard"
-      click_on "Collections"
-      find("#add-new-collection-button").click
-
-      within("div#collectiontypes-to-create") do
-        choose("Test Type")
-        click_on("Create collection")
-      end
-
-      fill_in("Title", with: "Test Collection")
-      click_on("Save")
-
-      collections = Hyrax.query_service.find_all_of_model(model: Hyrax::PcdmCollection)
-      col_created = collections.find do |col|
-        col.title == ["Test Collection"]
-      end
-
       visit "/concern/generic_objects/new"
       fill_in("Title", with: "Test Object")
       choose("generic_object_visibility_open")
 
-      # ensure that the form fields are fully populated
-      sleep(1.seconds)
-      click_on "Save"
+      within("div#savewidget") do
+        expect(page).to have_content "Save"
+        click_on "Save"
+      end
 
       click_button "Add to collection"
-      select_member_of_collection(col_created)
+      select_member_of_collection(collection)
       click_button "Save changes"
 
       expect(page).to have_content("Test Collection")
 
-      visit "/dashboard/collections/#{col_created.id}"
+      visit "/dashboard/collections/#{collection.id}"
 
       expect(page).to have_content("Test Object")
 
       click_on "Remove"
 
+      visit "/dashboard/collections/#{collection.id}"
       expect(page).not_to have_content("Test Object")
     end
   end
