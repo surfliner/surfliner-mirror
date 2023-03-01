@@ -70,11 +70,12 @@ GEM
     dry-container (0.9.0)
       concurrent-ruby (~> 1.0)
       dry-configurable (~> 0.13, >= 0.13.0)
-    dry-core (0.7.1)
+    dry-core (0.9.1)
       concurrent-ruby (~> 1.0)
-    dry-events (0.3.0)
+      zeitwerk (~> 2.6)
+    dry-events (0.4.0)
       concurrent-ruby (~> 1.0)
-      dry-core (~> 0.5, >= 0.5)
+      dry-core (~> 0.9, >= 0.9)
     dry-inflector (0.2.1)
     dry-initializer (3.0.4)
     dry-logic (1.2.0)
@@ -82,9 +83,10 @@ GEM
       dry-core (~> 0.5, >= 0.5)
     dry-matcher (0.9.0)
       dry-core (~> 0.4, >= 0.4.8)
-    dry-monads (1.4.0)
+    dry-monads (1.5.0)
       concurrent-ruby (~> 1.0)
-      dry-core (~> 0.7)
+      dry-core (~> 0.9, >= 0.9)
+      zeitwerk (~> 2.6)
     dry-schema (1.8.0)
       concurrent-ruby (~> 1.0)
       dry-configurable (~> 0.13, >= 0.13.0)
@@ -104,11 +106,11 @@ GEM
       dry-core (~> 0.5, >= 0.5)
       dry-inflector (~> 0.1, >= 0.1.2)
       dry-struct (~> 1.0)
-    dry-transaction (0.13.3)
+    dry-transaction (0.14.0)
       dry-container (>= 0.2.8)
-      dry-events (>= 0.1.0)
+      dry-events (>= 0.4.0)
       dry-matcher (>= 0.7.0)
-      dry-monads (>= 0.4.0)
+      dry-monads (>= 0.5.0)
     dry-types (1.5.1)
       concurrent-ruby (~> 1.0)
       dry-container (~> 0.3)
@@ -297,7 +299,7 @@ GEM
       valkyrie (>= 2.1, < 2.3)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.5.1)
+    zeitwerk (2.6.7)
 
 PLATFORMS
   ruby
@@ -306,9 +308,9 @@ DEPENDENCIES
   capybara_discoball (~> 0.1.0)
   dotenv
   dry-configurable (= 0.14.0)
-  dry-events (= 0.3.0)
+  dry-events (= 0.4.0)
   dry-system (= 0.22.0)
-  dry-transaction (= 0.13.3)
+  dry-transaction (= 0.14.0)
   dry-validation (= 1.7.0)
   ezid-client (= 1.9.4)
   factory_bot
@@ -328,4 +330,4 @@ DEPENDENCIES
   valkyrie-sequel (= 2.2.1)
 
 BUNDLED WITH
-   2.3.17
+   2.4.7
