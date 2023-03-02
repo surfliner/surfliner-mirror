@@ -1,4 +1,7 @@
-The Surliner Manual TOC
+**The Surliner Technical Manual**
+
+> Table of Contents
+
 ========================
 
 * Surfliner
