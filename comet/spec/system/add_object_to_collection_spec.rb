@@ -18,11 +18,19 @@ RSpec.describe "Objects", type: :system, js: true do
     it "can create a new object and assign a Collection to it" do
       visit "/concern/generic_objects/new"
 
-      fill_in("Title", with: "My Title")
+      fill_in("Title", with: "Spec Object in Collection")
       click_on "Relationships"
       click_on "Select a collection"
-      # TODO: type in "My Collection"
-      # TODO: expect a result
+      find(".select2-input").set(collection.title.first)
+      wait_for_select2
+      all("li.select2-result span").first.click
+
+      click_on("Save")
+
+      id = page.current_path.split("/").last
+
+      expect(Hyrax.query_service.find_by(id: id).member_of_collection_ids)
+        .to contain_exactly collection.id
     end
   end
 
