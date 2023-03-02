@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 require "dry/configurable"
-require "dry/system/container"
-require "dry/system/loader/autoloading"
+require "dry/system"
 require "dry/transaction"
 require "dry/validation"
 require "yaml"

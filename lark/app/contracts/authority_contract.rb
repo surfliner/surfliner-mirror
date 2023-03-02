@@ -6,7 +6,10 @@ module Contracts
   class AuthorityContract < Dry::Validation::Contract
     config.validate_keys = true
 
-    schema { optional(:scheme) }
+    schema do
+      optional(:id)
+      optional(:scheme)
+    end
 
     def self.[](schema_name)
       Class.new(self) do
