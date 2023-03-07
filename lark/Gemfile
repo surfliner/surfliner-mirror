@@ -9,7 +9,7 @@ gem "dotenv", group: %w[development test]
 gem "dry-configurable", "1.0.1"
 gem "dry-events", "1.0.1"
 gem "dry-system", "1.0.1"
-gem "dry-transaction", "0.14.0"
+gem "dry-transaction", "0.15.0"
 gem "dry-validation", "1.10.0"
 gem "ezid-client", "1.9.4"
 gem "factory_bot", group: "test"
