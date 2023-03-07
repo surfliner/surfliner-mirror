@@ -5,7 +5,7 @@ services:
   chrome:
     image: seleniarm/standalone-chromium:108.0
     environment:
-      -  SE_START_XVFB=false
+      -  START_XVFB=false
     logging:
       driver: none
     volumes:

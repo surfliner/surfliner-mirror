@@ -111,7 +111,7 @@ comet:test:system:
     - name: seleniarm/standalone-chromium:108.0
       alias: chrome
       variables:
-        SE_START_XVFB: "false"
+        START_XVFB: "false"
   script:
     - >
       if ./scripts/rabbitmq-wait; then
