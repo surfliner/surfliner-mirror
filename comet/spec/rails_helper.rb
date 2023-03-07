@@ -109,6 +109,7 @@ RSpec.configure do |config|
   config.include Capybara::RSpecMatchers, type: :input
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::IntegrationHelpers, type: :system
+  config.include CometCapybaraHelpers
   config.include_context "with an admin set", type: :system
 
   config.before(:each, type: :system) do
