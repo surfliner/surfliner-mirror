@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Bulkrax::ValkyrieObjectFactory, storage_adapter: :memory, metadata_adapter: :test_adapter do
+RSpec.describe Bulkrax::ValkyrieObjectFactory do
   subject(:object_factory) do
     described_class.new(attributes: attributes,
       source_identifier_value: source_identifier,
@@ -11,7 +11,7 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory, storage_adapter: :memory, metadat
 
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
 
-  describe "create" do
+  context "when work_identifier is empty" do
     let(:work_identifier) { "" }
     let(:source_identifier) { "object_1" }
     let(:title) { "Test Bulkrax Import Title" }
@@ -21,27 +21,30 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory, storage_adapter: :memory, metadat
     it "create object with metadata" do
       object_factory.run!
 
-      objects = Hyrax.query_service.find_all_of_model(model: GenericObject)
-      object_imported = objects.find { |o| o.alternate_ids == [source_identifier] }
+      object_imported = Hyrax.query_service.find_all_of_model(model: GenericObject).first
 
-      expect(object_imported.title_alternative).to eq [alternative_title]
+      expect(object_imported).to have_attributes(
+        title: contain_exactly(title),
+        alternate_ids: contain_exactly(source_identifier)
+      )
     end
   end
 
-  describe "update" do
+  describe "when work_identifier matches an existing object" do
+    let(:object) do
+      FactoryBot.valkyrie_create(:generic_object,
+        :with_index,
+        title: ["Test Object"],
+        title_alternative: ["Test Alternative Title"],
+        alternate_ids: [source_identifier])
+    end
+
     let(:source_identifier) { "object_2" }
     let(:title_updated) { "Test Bulkrax Import Title Update" }
     let(:alternative_title_updated) { "Test Alternative Title Added" }
-
-    let(:object) {
-      Hyrax.persister.save(resource: GenericObject.new(title: ["Test Object"],
-        title_alternative: ["Test Alternative Title"],
-        alternate_ids: [source_identifier]))
-    }
     let(:work_identifier) { object.id }
     let(:attributes) { {title: title_updated, title_alternative: [alternative_title_updated], id: work_identifier, alternate_ids: [source_identifier]} }
 
-    before { Hyrax.index_adapter.save(resource: object) }
     it "update object with metadata" do
       object_factory.run!
 

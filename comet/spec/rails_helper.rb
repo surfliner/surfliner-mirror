@@ -72,6 +72,7 @@ RSpec.configure do |config|
   end
 
   config.before do
+    Hyrax.persister.wipe!
     Hyrax.index_adapter.wipe!
   end
 
