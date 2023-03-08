@@ -381,7 +381,7 @@ GEM
       snaky_hash (~> 2.0)
       version_gem (~> 1.1)
     okcomputer (1.18.4)
-    omniauth (2.1.0)
+    omniauth (2.1.1)
       hashie (>= 3.4.6)
       rack (>= 2.2.3)
       rack-protection
@@ -646,7 +646,7 @@ DEPENDENCIES
   method_source (= 1.0.0)
   mimemagic (= 0.4.3)
   okcomputer (= 1.18.4)
-  omniauth (= 2.1.0)
+  omniauth (= 2.1.1)
   omniauth-google-oauth2 (= 1.1.1)
   optimist (= 3.0.1)
   pg (= 1.4.6)
