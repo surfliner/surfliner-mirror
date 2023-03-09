@@ -20,6 +20,6 @@ dependencies:
     version: 0.1.0
     repository: file://../common
   - name: minio
-    version: 11.10.12
+    version: 11.10.26
     repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
     condition: minio.enabled
