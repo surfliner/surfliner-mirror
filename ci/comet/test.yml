@@ -104,7 +104,7 @@ comet:test:system:
       alias: postgres
     - name: bitnami/redis:7.0.9-debian-11-r3
       alias: redis
-    - name: bitnami/minio:2022.10.29-debian-11-r3
+    - name: bitnami/minio:2022.12.12-debian-11-r12
       alias: minio
     - name: bitnami/rabbitmq:3.10.7-debian-11-r14
       alias: rabbitmq

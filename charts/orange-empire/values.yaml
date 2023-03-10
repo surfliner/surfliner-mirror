@@ -139,4 +139,4 @@ minio:
     enabled: false
   image:
     repository: bitnami/minio
-    tag: 2022.10.29-debian-11-r3
+    tag: 2022.12.12-debian-11-r12

@@ -9,7 +9,7 @@
 .starlight-ci-system-services:
   services:
     - !reference [.starlight-ci-default-services, services]
-    - name: bitnami/minio:2022.10.29-debian-11-r3
+    - name: bitnami/minio:2022.12.12-debian-11-r12
       alias: minio
 
 starlight:test:solrconfig:
