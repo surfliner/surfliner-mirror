@@ -72,10 +72,13 @@ services:
       - sh
       - -c
       - >
-        PGPASSWORD=$DB_PASSWORD PGHOST=$DB_HOST PGUSER=$DB_USERNAME PGDATABASE=$COMET_DB_NAME; export PGPASSWORD PGHOST PGUSER PGDATABASE &&
+        export PGPASSWORD=$DB_PASSWORD &&
+        export PGHOST=$DB_HOST &&
+        export PGUSER=$DB_USERNAME &&
+
         while ! db-wait.sh "${DB_HOST}:${DB_PORT}"; do echo "-- Waiting for PGSQL ..."; sleep 5s; done &&
         psql -tc "SELECT 1 FROM pg_database WHERE datname = '$METADATA_DATABASE_NAME'" | grep -q 1 || createdb -e -w $METADATA_DATABASE_NAME &&
-        psql -tc "SELECT 1 FROM pg_database WHERE datname = '$PGDATABASE'" | grep -q 1 || createdb -e -w $PGDATABASE &&
+        psql -tc "SELECT 1 FROM pg_database WHERE datname = '$COMET_DB_NAME'" | grep -q 1 || createdb -e -w $COMET_DB_NAME &&
         /home/comet/app/scripts/db-migrate-seed.sh
     volumes:
       - comet-derivatives:/home/comet/app/derivatives
