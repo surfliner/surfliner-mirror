@@ -124,6 +124,8 @@ classes:
 sections:
   - name: titling
     display_label: Title‐related Metadata
+  - name: agents
+    display_label: Agents & Associated Roles
   - name: identifiers
     display_label: Identifers
   - name: notes
@@ -248,6 +250,54 @@ properties:
     usage_guidelines: |-
       Enter an alternative title (i·e an English translation of a
       non–Latin‐script title; a map sheet code).
+    available_on:
+      - geospatial_object
+
+# ### Agent properties:
+
+  - &creator
+    name: "creator"
+    # property_uri: http://purl.org/dc/elements/1.1/creator
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Creator"
+    definition: -|
+      A person or organization responsible for the intellectual or artistic
+      content of a resource. If a more specific role is available, prefer that.
+    usage_guidelines: -|
+      Can be used when lacking specific information on an agent's exact role in
+      creating the resource.
+    # requirement: recommended, if applicable
+    # sample_value: []
+    # controlled_values: null
+    # syntax: null
+    # validations: null
+    cardinality:
+      minimum: 0
+      maximum: null
+    indexing: null
+    index_documentation: null
+    section: agents
+    # grouping: null
+    mapping:
+      oai_dc: http://purl.org/dc/elements/1.1/creator
+      aardvark: http://purl.org/dc/terms/contributor
+    available_on:
+      - generic_object
+
+  - &creator_geospatial
+    <<: *creator
+    usage_guidelines: |-
+      The originator should be a Library of Congress Name Authority File (LCNAF)
+      entry. Use the 'originatorName' and 'originatorOrg' fields and any other
+      information available to determine the creator of the resource. Then use
+      the UCSB/UCSD - Controlled Vocabulary spreadsheet to determine the
+      authorized name and enter that in the 'originator' field. If the
+      originator does not have an LCNAF entry, format the originator name as if
+      it were an LCNAF entry.
+    # requirement: recommended
+    # sample_value:
+    #   - Santa Barbara County (Calif.)
     available_on:
       - geospatial_object
 

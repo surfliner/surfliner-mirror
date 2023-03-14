@@ -42,8 +42,7 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   # Load metadata files from fixtures instead of the environment.
-  config.metadata_config_location = "spec/fixtures/metadata"
-  config.metadata_config_schemas = [:"m3-metadata"]
+  config.metadata_config_schemas = [:"test-metadata"]
 
   ## Comet Feature Flags should be ON for the test environment
   config.feature_collection_publish = true
