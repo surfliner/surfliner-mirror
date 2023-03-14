@@ -25,10 +25,8 @@ tidewater:test:
       alias: postgres
     - name: jordimartin/mmock:v3.1.5
       alias: mmock
-      entrypoint: [""]
+      entrypoint: ["/bin/sh", "-c"]
       command:
-        - /bin/sh
-        - -c
         - "curl --output /config/${SUPERSKUNK_CONFIG_FILENAME} ${SUPERSKUNK_CONFIG_FILEPATH} && mmock -config-path /config -tls-path /tls -server-ip 0.0.0.0 -console-ip 0.0.0.0"
   script:
     - cd tidewater
