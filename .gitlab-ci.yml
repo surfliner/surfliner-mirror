@@ -79,7 +79,7 @@ include:
   services:
     - name: bitnami/solr:8.11.2-debian-11-r91
       alias: solr
-      entrypoint: [""]
+      entrypoint: []
       variables:
         JQ_VERSION: "jq-1.6"
         SOLR_JAVA_MEM: "-Xms1g -Xmx1g"
