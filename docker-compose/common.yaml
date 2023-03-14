@@ -1,6 +1,6 @@
 services:
   rabbitmq:
-    image: bitnami/rabbitmq:3.10.18-debian-11-r2
+    image: bitnami/rabbitmq:3.11.10-debian-11-r3
 
   chrome:
     image: seleniarm/standalone-chromium:108.0
