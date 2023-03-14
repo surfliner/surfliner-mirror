@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require "spec_helper"
-require_relative "../../../app/parsers/tabular_parsers/csv_parser"
+require "rails_helper"
 
 RSpec.describe TabularParsers::CSVParser do
   subject(:parser) { described_class.new }
