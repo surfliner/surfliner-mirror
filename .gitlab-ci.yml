@@ -79,13 +79,11 @@ include:
   services:
     - name: bitnami/solr:8.11.2-debian-11-r91
       alias: solr
-      entrypoint: []
+      entrypoint: ["/bin/sh", "-c"]
       variables:
         JQ_VERSION: "jq-1.6"
         SOLR_JAVA_MEM: "-Xms1g -Xmx1g"
       command:
-        - /bin/sh
-        - -c
         - >-
           curl -L -v --output /tmp/jq "https://github.com/stedolan/jq/releases/download/$JQ_VERSION/jq-linux64";
           chmod +x /tmp/jq;
