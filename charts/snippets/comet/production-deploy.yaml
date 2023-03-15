@@ -15,6 +15,12 @@ minio:
 fcrepo:
   enabled: false
 
+embargoRelease:
+  enabled: false
+
+leaseRelease:
+  enabled: false
+
 podSecurityContext:
   runAsUser: 10000
   runAsGroup: 10001

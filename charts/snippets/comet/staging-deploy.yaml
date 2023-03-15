@@ -15,6 +15,11 @@ minio:
 fcrepo:
   enabled: false
 
+embargoRelease:
+  enabled: false
+leaseRelease:
+  enabled: false
+
 extraEnvVars:
   - name: "STAGING_AREA_S3_EXAMPLE_FILES"
     value: "1"

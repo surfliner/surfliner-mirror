@@ -65,6 +65,12 @@ minio:
   secretKey:
     password: comet-secret
 
+embargoRelease:
+  enabled: false
+
+leaseRelease:
+  enabled: false
+
 fcrepo:
   enabled: false
 
