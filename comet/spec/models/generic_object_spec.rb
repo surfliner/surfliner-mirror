@@ -34,7 +34,7 @@ RSpec.describe GenericObject do
       # Ensure each property can be changed and casts to an RDF literal.
       expect { work.public_send("#{property_name}=".to_sym, ["etaoin"]) }
         .to change { work.public_send(property_name.to_sym) }
-        .to contain_exactly RDF::Literal.new("etaoin")
+        .to contain_exactly RDF::Literal("etaoin", datatype: property["data_type"])
     end
   end
 end

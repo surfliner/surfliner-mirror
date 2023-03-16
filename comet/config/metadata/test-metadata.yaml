@@ -126,6 +126,8 @@ sections:
     display_label: Title‐related Metadata
   - name: agents
     display_label: Agents & Associated Roles
+  - name: dates
+    display_label: Dates
   - name: identifiers
     display_label: Identifers
   - name: notes
@@ -256,7 +258,7 @@ properties:
 # ### Agent properties:
 
   - &creator
-    name: "creator"
+    name: creator
     # property_uri: http://purl.org/dc/elements/1.1/creator
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
@@ -300,6 +302,35 @@ properties:
     #   - Santa Barbara County (Calif.)
     available_on:
       - geospatial_object
+
+# ### Date properties:
+
+  - &date_created
+    name: date_created
+    # property_uri: http://purl.org/dc/terms/created
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#date # TODO: Use EDTF for this
+    display_label: "Date Created"
+    definition: -|
+      The date of creation of the resource.
+    usage_guidelines: null
+    # requirement: required, if applicable
+    # sample_value: []
+    # controlled_values: null
+    # syntax: null
+    # validations: null
+    cardinality:
+      minimum: 0
+      maximum: null
+    indexing: null
+    index_documentation: null
+    section: dates
+    # grouping: null
+    mapping:
+      oai_dc: http://purl.org/dc/elements/1.1/date
+      aardvark: null
+    available_on:
+      - generic_object
 
 # ### Identifier properties:
 
