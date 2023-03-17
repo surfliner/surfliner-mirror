@@ -41,6 +41,12 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory, :with_admin_set do
     let(:rights_statement) { "http://rightsstatements.org/vocab/NoC-US/1.0/" }
     let(:attributes) { {title: title, title_alternative: [alternative_title], rights_statement: rights_statement} }
 
+    before do
+      setup_workflow_for(user)
+      attributes[:admin_set_id] = Hyrax.query_service.find_all_of_model(model: Hyrax::AdministrativeSet)
+        .find { |p| p.title.include?("Test Project") }.id
+    end
+
     it "create object with metadata" do
       object_factory.run!
 
@@ -51,6 +57,15 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory, :with_admin_set do
         alternate_ids: contain_exactly(source_identifier),
         rights_statement: contain_exactly(rights_statement)
       )
+    end
+
+    it "create object in workflow" do
+      object_factory.run!
+      object_imported = Hyrax.query_service.find_all_of_model(model: GenericObject).first
+
+      workflow_object = Sipity::Entity(Hyrax.query_service.find_by(id: object_imported.id))
+
+      expect(workflow_object.workflow_state).to have_attributes name: "in_review"
     end
   end
 
@@ -76,6 +91,12 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory, :with_admin_set do
         id: work_identifier,
         alternate_ids: [source_identifier]
       }
+    end
+
+    before do
+      setup_workflow_for(user)
+      attributes[:admin_set_id] = Hyrax.query_service.find_all_of_model(model: Hyrax::AdministrativeSet)
+        .find { |p| p.title.include?("Test Project") }.id
     end
 
     it "update object with metadata" do
