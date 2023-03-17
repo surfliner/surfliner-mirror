@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require Rails.root.join('lib/hyrax/transactions/comet_container')
 
 module Bulkrax
   class ValkyrieObjectFactory < ObjectFactory
@@ -12,9 +13,6 @@ module Bulkrax
 
     def run!
       run
-      # Create the error exception if the object is not validly saved for some reason
-      raise RecordInvalid, object if !object.persisted?
-      object
     end
 
     def find_by_id
@@ -38,22 +36,32 @@ module Bulkrax
     # 2+ years later, still open!
     def create
       attrs = transform_attributes
-      @object = klass.new(alternate_ids: [source_identifier_value])
-      @object.reindex_extent = Hyrax::Adapters::NestingIndexAdapter::LIMITED_REINDEX if @object.respond_to?(:reindex_extent)
-      run_callbacks :save do
-        run_callbacks :create do
-          if klass == Collection
-            create_collection(attrs)
-          elsif klass == FileSet
-            create_file_set(attrs)
-          else
-            @object = persist_metadata(resource: @object, attrs: attrs)
-          end
-        end
-      end
 
-      @object = apply_depositor_metadata(@object, @user) if @object.depositor.nil?
-      log_created(@object)
+      @object = klass.new(attrs.merge(alternate_ids: [source_identifier_value]).symbolize_keys)
+      cx = Hyrax::ChangeSet.for(@object)
+
+      s3_bucket_name = ENV.fetch("STAGING_AREA_S3_BUCKET", "comet-staging-area-#{Rails.env}")
+      s3_bucket = Rails.application.config.staging_area_s3_connection
+                    .directories.get(s3_bucket_name)
+      s3_files = begin
+                   attributes['remote_files'].map { |r| r['url'] }.map do |key|
+                     s3_bucket.files.get(key)
+                   end
+                 rescue => e
+                   Hyrax.logger.error(e)
+                   []
+                 end.compact
+
+      Hyrax::Transactions::CometContainer['change_set.bulkrax_create_work']
+        .with_step_args(
+          'work_resource.add_to_parent' => { parent_id: @related_parents_parsed_mapping, user: @user },
+          'work_resource.add_bulkrax_files' => { files: s3_files, user: @user },
+          'change_set.set_user_as_depositor' => { user: @user },
+          'work_resource.change_depositor' => { user: @user },
+          # TODO: uncomment when we upgrade Hyrax 4.x
+          # 'work_resource.save_acl' => { permissions_params: [attrs.try('visibility') || 'open'].compact }
+        )
+        .call(cx)
     end
 
     def update
