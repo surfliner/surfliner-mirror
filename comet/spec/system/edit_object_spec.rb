@@ -23,7 +23,7 @@ RSpec.describe "Objects", type: :system, js: true do
       Hyrax.index_adapter.save(resource: obj)
       obj
     end
-    
+
     it "can edit the object after assigning the collection to it" do
       visit main_app.hyrax_generic_object_path(id: object.id, locale: "en")
 
