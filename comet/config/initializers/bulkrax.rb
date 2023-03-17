@@ -33,6 +33,7 @@ module HasMappingExt
       %W[
         file
         remote_files
+        rights_statement
         #{related_parents_parsed_mapping}
         #{related_children_parsed_mapping}
       ]

@@ -16,7 +16,8 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory do
     let(:source_identifier) { "object_1" }
     let(:title) { "Test Bulkrax Import Title" }
     let(:alternative_title) { "Test Alternative Title" }
-    let(:attributes) { {title: title, title_alternative: [alternative_title]} }
+    let(:rights_statement) { "http://rightsstatements.org/vocab/NoC-US/1.0/" }
+    let(:attributes) { {title: title, title_alternative: [alternative_title], rights_statement: rights_statement} }
 
     it "create object with metadata" do
       object_factory.run!
@@ -25,7 +26,8 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory do
 
       expect(object_imported).to have_attributes(
         title: contain_exactly(title),
-        alternate_ids: contain_exactly(source_identifier)
+        alternate_ids: contain_exactly(source_identifier),
+        rights_statement: contain_exactly(rights_statement)
       )
     end
   end
@@ -42,8 +44,17 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory do
     let(:source_identifier) { "object_2" }
     let(:title_updated) { "Test Bulkrax Import Title Update" }
     let(:alternative_title_updated) { "Test Alternative Title Added" }
+    let(:rights_statement) { "http://rightsstatements.org/vocab/NoC-US/1.0/" }
     let(:work_identifier) { object.id }
-    let(:attributes) { {title: title_updated, title_alternative: [alternative_title_updated], id: work_identifier, alternate_ids: [source_identifier]} }
+    let(:attributes) do
+      {
+        title: title_updated,
+        title_alternative: [alternative_title_updated],
+        rights_statement: rights_statement,
+        id: work_identifier,
+        alternate_ids: [source_identifier]
+      }
+    end
 
     it "update object with metadata" do
       object_factory.run!
@@ -54,6 +65,7 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory do
       expect(objects_updated.length).to eq 1
       expect(objects_updated.first.title).to eq [title_updated]
       expect(objects_updated.first.title_alternative).to eq [alternative_title_updated]
+      expect(objects_updated.first.rights_statement).to eq [rights_statement]
     end
   end
 end

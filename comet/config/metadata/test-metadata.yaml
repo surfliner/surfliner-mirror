@@ -471,3 +471,37 @@ properties:
       aardvark: null
     available_on:
       - generic_object
+
+# ### rights related
+
+  - &rights_statement
+    name: "rights_statement"
+    display_label: "Rights statement"
+    definition: "The value in this element will indicate the copyright, usage and access rights that apply to this digital representation."
+    usage_guidelines: null
+    requirement: required, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - "http://rightsstatements.org"
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/terms/rights
+    available_on:
+      class:
+        - generic_object
+    # range: http://www.w3.org/2001/XMLSchema#anyURI
+    data_type: null
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: 1
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/rights
+      dpla: null
+      gbl-1: null
+      aardvark: http://purl.org/dc/terms/rights
