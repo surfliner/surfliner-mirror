@@ -20,6 +20,8 @@ uploadsVolume:
 extraEnvVars:
   - name: "AUTH_METHOD"
     value: "developer"
+  - name: "COMET_ENABLE_BULKRAX"
+    value: "true"
   - name: "DATABASE_COMMAND"
     value: "db:create db:migrate"
   - name: "DISCOVER_PLATFORM_TIDEWATER_URL_BASE"
@@ -112,6 +114,8 @@ worker:
   extraEnvVars:
     - name: "AUTH_METHOD"
       value: "developer"
+    - name: "COMET_ENABLE_BULKRAX"
+      value: "true"
     - name: "DISCOVER_PLATFORM_TIDEWATER_URL_BASE"
       value: "http://localhost:3000/tidewater/item?source_iri="
     - name: "METADATA_DATABASE_NAME"
