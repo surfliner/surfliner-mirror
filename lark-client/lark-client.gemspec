@@ -16,10 +16,10 @@ Gem::Specification.new do |gem|
     Dir.glob("lib/**/*.rb")
   gem.require_paths = %w[lib]
 
-  gem.required_ruby_version = ">= 2.5.0"
+  gem.required_ruby_version = ">= 3.1.0"
   gem.requirements = []
 
-  gem.add_development_dependency "dry-struct", "~> 0.6"
+  gem.add_development_dependency "dry-struct", "~> 1.6.0"
   gem.add_development_dependency "rake", "~> 12.0"
   gem.add_development_dependency "rspec", "~> 3.7"
   gem.add_development_dependency "rubocop-rspec"
