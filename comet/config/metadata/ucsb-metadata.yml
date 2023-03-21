@@ -13,9 +13,9 @@ m3_version: "1.0.beta1"
 profile:
   responsibility: https://library.ucsb.edu/
   responsibility_statement: UC Santa Barbara Library
-  date_modified: "2022-08-10"
+  date_modified: "2023-03-20"
   type: UCSB Comet
-  version: 0.3
+  version: 0.4
 
 #---------------------------------------------------------
 # Mapping Definitions
@@ -177,7 +177,7 @@ properties:
       class:
         - collection
     range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: null
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -209,8 +209,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: http://www.w3.org/2001/XMLSchema#anyURI
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -254,8 +254,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: http://www.w3.org/2001/XMLSchema#anyURI
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -285,8 +285,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: http://www.w3.org/2001/XMLSchema#anyURI
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -330,8 +330,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: http://www.w3.org/2001/XMLSchema#anyURI
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -361,8 +361,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: http://www.w3.org/2001/XMLSchema#anyURI
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -392,8 +392,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: http://www.w3.org/2001/XMLSchema#anyURI
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -423,8 +423,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: http://www.w3.org/2001/XMLSchema#anyURI
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -454,8 +454,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: http://www.w3.org/2001/XMLSchema#anyURI
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -485,8 +485,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: http://www.w3.org/2001/XMLSchema#anyURI
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -516,8 +516,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: http://www.w3.org/2001/XMLSchema#anyURI
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -547,8 +547,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: http://www.w3.org/2001/XMLSchema#anyURI
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -578,8 +578,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: http://www.w3.org/2001/XMLSchema#anyURI
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -609,8 +609,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: http://www.w3.org/2001/XMLSchema#anyURI
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -640,8 +640,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: http://www.w3.org/2001/XMLSchema#anyURI
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -671,8 +671,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: http://www.w3.org/2001/XMLSchema#anyURI
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -702,8 +702,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: http://www.w3.org/2001/XMLSchema#anyURI
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -733,8 +733,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: http://www.w3.org/2001/XMLSchema#anyURI
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -764,8 +764,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: http://www.w3.org/2001/XMLSchema#anyURI
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -839,7 +839,7 @@ properties:
         - generic_object
         - collection
     range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: null
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -869,8 +869,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: http://www.europeana.eu/schemas/edm/TimeSpan
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://id.loc.gov/datatypes/edtf/EDTF
     syntax:  null
     cardinality:
       minimum: 0
@@ -917,8 +917,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: http://www.europeana.eu/schemas/edm/TimeSpan
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://id.loc.gov/datatypes/edtf/EDTF
     syntax:  null
     cardinality:
       minimum: 0
@@ -948,8 +948,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: http://www.europeana.eu/schemas/edm/TimeSpan
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://id.loc.gov/datatypes/edtf/EDTF
     syntax:  null
     cardinality:
       minimum: 0
@@ -996,7 +996,7 @@ properties:
         - generic_object
         - collection
     range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: null
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -1026,8 +1026,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: null
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -1074,8 +1074,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: http://www.w3.org/2001/XMLSchema#anyURI
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -1102,8 +1102,8 @@ properties:
       - null
     property_uri: http://purl.org/dc/elements/1.1/format
     available_on: null
-    range: null
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -1148,8 +1148,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: http://www.w3.org/2001/XMLSchema#anyURI
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -1194,7 +1194,7 @@ properties:
         - generic_object
         - collection
     range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: null
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -1239,7 +1239,7 @@ properties:
         - generic_object
         - collection
     range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: null
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -1273,8 +1273,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: null
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -1319,8 +1319,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: null
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -1350,8 +1350,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: null
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -1397,8 +1397,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: null
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -1441,7 +1441,7 @@ properties:
         - generic_object
         - collection
     range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: null
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -1483,8 +1483,8 @@ properties:
     available_on:
       class:
         - generic_object
-    range: null
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -1513,8 +1513,8 @@ properties:
     available_on:
       class:
         - generic_object
-    range: null
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -1543,8 +1543,8 @@ properties:
     available_on:
       class:
         - generic_object
-    range: null
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -1584,8 +1584,8 @@ properties:
     available_on:
       class:
         - generic_object
-    range: null
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -1625,8 +1625,8 @@ properties:
     available_on:
       class:
         - generic_object
-    range: null
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -1666,8 +1666,8 @@ properties:
     available_on:
       class:
         - generic_object
-    range: null
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -1708,8 +1708,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: null
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -1741,8 +1741,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: null
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -1772,8 +1772,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: null
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -1804,8 +1804,8 @@ properties:
         - generic_object
         - collection
         - geospatial_object
-    range: null
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -1835,8 +1835,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: null
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -1867,7 +1867,7 @@ properties:
         - generic_object
         - collection
     range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: null
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -1897,8 +1897,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: null
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -1929,7 +1929,7 @@ properties:
         - generic_object
         - collection
     range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: null
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -1960,7 +1960,7 @@ properties:
         - generic_object
         - collection
     range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: null
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -1991,7 +1991,7 @@ properties:
         - generic_object
         - collection
     range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: null
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -2023,7 +2023,7 @@ properties:
       class:
         - generic_object
     range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: null
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -2053,7 +2053,7 @@ properties:
       class:
         - generic_object
     range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: null
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -2083,8 +2083,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: http://www.w3.org/2001/XMLSchema#anyURI
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -2111,8 +2111,8 @@ properties:
       - null
     property_uri: http://purl.org/dc/elements/1.1/source
     available_on: null
-    range: null
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -2149,8 +2149,8 @@ properties:
       - null
     property_uri: http://purl.org/dc/terms/replaces
     available_on: null
-    range: null
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -2187,8 +2187,8 @@ properties:
       - null
     property_uri: http://purl.org/dc/terms/isReplacedBy
     available_on: null
-    range: null
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -2225,8 +2225,8 @@ properties:
       - null
     property_uri: http://purl.org/dc/terms/isVersionOf
     available_on: null
-    range: null
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -2263,8 +2263,8 @@ properties:
       - null
     property_uri: http://purl.org/dc/terms/relation
     available_on: null
-    range: null
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -2305,8 +2305,8 @@ properties:
     available_on:
       class:
         - generic_object
-    range: null
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -2346,8 +2346,8 @@ properties:
     available_on:
       class:
         - generic_object
-    range: null
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -2376,8 +2376,8 @@ properties:
     available_on:
       class:
         - generic_object
-    range: http://www.w3.org/2001/XMLSchema#anyURI
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -2406,8 +2406,8 @@ properties:
     available_on:
       class:
         - generic_object
-    range: http://www.w3.org/2001/XMLSchema#anyURI
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -2439,8 +2439,8 @@ properties:
     available_on:
       class:
         - generic_object
-    range: http://www.w3.org/2001/XMLSchema#anyURI
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -2482,7 +2482,7 @@ properties:
         - generic_object
         - collection
     range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: null
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -2537,7 +2537,7 @@ properties:
         - generic_object
         - collection
     range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: null
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -2568,7 +2568,7 @@ properties:
         - generic_object
         - collection
     range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: null
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -2600,8 +2600,8 @@ properties:
       class:
         - generic_object
         - collection
-    range: http://www.w3.org/2001/XMLSchema#anyURI
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -2640,8 +2640,8 @@ properties:
     available_on:
       class:
         - generic_object
-    range: http://www.w3.org/2001/XMLSchema#anyURI
-    data_type: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
@@ -2674,7 +2674,7 @@ properties:
       class:
         - generic_object
     range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: null
+    data_type: http://www.w3.org/2001/XMLSchema#string
     syntax:  null
     cardinality:
       minimum: 0
