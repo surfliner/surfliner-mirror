@@ -23,7 +23,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "rake", "~> 12.0"
   gem.add_development_dependency "rspec", "~> 3.7"
   gem.add_development_dependency "rubocop-rspec"
-  gem.add_development_dependency "standard", "1.2.0"
+  gem.add_development_dependency "standard", "1.19.1"
   gem.add_development_dependency "yard", "~> 0.9.12"
 
   gem.post_install_message = nil
