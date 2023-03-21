@@ -7,7 +7,7 @@ module Lark
     ##
     # Types for Authority values
     module Types
-      include Dry::Types.module
+      include Dry.Types()
     end
 
     ##
