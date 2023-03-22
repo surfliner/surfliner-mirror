@@ -15,6 +15,7 @@ RSpec.describe Indexers::ResourceIndexer do
     before do
       resource.creator = [RDF::Literal("Tove")]
       resource.date_created = [RDF::Literal(current_date, datatype: RDF::XSD.date)]
+      resource.language = [RDF::Literal("epo", datatype: "http://id.loc.gov/vocabulary/languageschemes/iso6392b")]
     end
 
     it "gives appropriate values for string literals" do
@@ -27,6 +28,12 @@ RSpec.describe Indexers::ResourceIndexer do
       solr_doc = resource_indexer.to_solr
 
       expect(solr_doc[:date_created_tesim]).to eql [current_date]
+    end
+
+    it "gives appropriate values for unrecognized literals" do
+      solr_doc = resource_indexer.to_solr
+
+      expect(solr_doc[:language_tsim]).to eql ["epo"]
     end
   end
 end

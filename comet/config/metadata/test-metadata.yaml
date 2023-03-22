@@ -218,6 +218,36 @@ sections:
 #   ease of maintenance we have been specifying them for all properties.
 properties:
 
+  # This property intentionally uses an unrecognized datatype to test the
+  # indexing of such values.
+  - &language
+    name: language
+    # property_uri: http://purl.org/dc/terms/language
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://id.loc.gov/vocabulary/languageschemes/iso6392b
+    display_label: Language
+    definition: ISO 639-2/B language code for the object.
+    usage_guidelines: null
+    # requirement: recommended, if applicable
+    # sample_value:
+    #   - First impressions
+    # controlled_values: null
+    # syntax: null
+    # validations: null
+    cardinality:
+      minimum: 0
+      maximum: null
+    indexing:
+      - symbol
+    # index_documentation: null
+    section: null
+    # grouping: null
+    mapping:
+      oai_dc: http://purl.org/dc/elements/1.1/language
+      aardvark: null
+    available_on:
+      - generic_object
+
 # ### Titling properties:
 
   - &title_alternative

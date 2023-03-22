@@ -37,7 +37,16 @@ module Indexers
       when Enumerable
         value.map { |v| cast_literals(v) }
       when RDF::Literal
-        value.plain? ? value.value : value.object
+        # For unrecognized +RDF::Literal+s or anything which makes use of the
+        # default implementation, +#object+ defaults to whatever is passed in as
+        # the first argument. Use the lexical value in these cases instead. The
+        # +#object+ value is only desirable for datatypes which explicitly cast
+        # it, for example dates.
+        if value.instance_of? RDF::Literal # not a subclass
+          value.value
+        else
+          value.object
+        end
       else
         value
       end
