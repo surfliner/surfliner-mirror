@@ -10,7 +10,7 @@ module Indexers
 
       prepend ::Indexers::ResourceIndexer
 
-      include Hyrax::Indexer(:basic_metadata)
+      include Hyrax::Indexer(:core_metadata)
       include Hyrax::Indexer(model_class.availability, index_loader: ::SchemaLoader.new)
 
       def self.inspect

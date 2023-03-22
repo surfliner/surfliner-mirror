@@ -21,13 +21,13 @@ RSpec.describe Indexers::ResourceIndexer do
     it "gives appropriate values for string literals" do
       solr_doc = resource_indexer.to_solr
 
-      expect(solr_doc[:creator_tesim]).to eql ["Tove"]
+      expect(solr_doc[:creator_tsim]).to eql ["Tove"]
     end
 
     it "gives appropriate values for date literals" do
       solr_doc = resource_indexer.to_solr
 
-      expect(solr_doc[:date_created_tesim]).to eql [current_date]
+      expect(solr_doc[:date_created_tsim]).to eql [current_date]
     end
 
     it "gives appropriate values for unrecognized literals" do

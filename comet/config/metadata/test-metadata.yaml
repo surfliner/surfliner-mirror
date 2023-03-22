@@ -307,7 +307,8 @@ properties:
     cardinality:
       minimum: 0
       maximum: null
-    indexing: null
+    indexing:
+      - symbol
     index_documentation: null
     section: agents
     # grouping: null
@@ -352,7 +353,8 @@ properties:
     cardinality:
       minimum: 0
       maximum: null
-    indexing: null
+    indexing:
+      - symbol
     index_documentation: null
     section: dates
     # grouping: null
