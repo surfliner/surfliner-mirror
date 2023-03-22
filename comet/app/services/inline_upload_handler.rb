@@ -17,16 +17,6 @@ class InlineUploadHandler < Hyrax::WorkUploadsHandler
   def attach
     return true if Array.wrap(files).empty?
 
-    event_payloads = []
-
-    acquire_lock_for(work.id) do
-      event_payloads = files.map { |file| attach_member(file: file) }.to_a
-
-      @persister.save(resource: work) &&
-        Hyrax.publisher.publish("object.metadata.updated", object: work, user: files.first.user)
-    end
-
-    event_payloads.each { |payload| Hyrax.publisher.publish("file.set.attached", payload) }
     ingest(files: files)
   end
 
@@ -38,50 +28,16 @@ class InlineUploadHandler < Hyrax::WorkUploadsHandler
     files.each do |file|
       uploader = file.uploader
 
-      file_metadata =
-        Hyrax::FileMetadata.new(label: uploader.file.original_filename,
-          original_filename: uploader.file.original_filename,
-          mime_type: uploader.file.content_type,
-          size: uploader.file.size,
-          file_set_id: file.file_set_uri)
-      file_metadata = Hyrax.persister.save(resource: file_metadata)
-      Hyrax::AccessControlList.copy_permissions(source: target_permissions, target: file_metadata)
-
-      file_set = Hyrax.query_service.find_by(id: file.file_set_uri)
-
-      uploaded = Hyrax.storage_adapter
-        .upload(resource: file_metadata,
-          file: File.open(uploader.file.file),
-          original_filename: file_metadata.original_filename)
-
-      file_metadata.file_identifier = uploaded.id
-      saved_metadata = Hyrax.persister.save(resource: file_metadata)
-      Hyrax.publisher.publish("file.metadata.updated", metadata: saved_metadata, user: file.user)
-      Hyrax.publisher.publish("object.file.uploaded", metadata: saved_metadata, file: uploaded)
-
-      file_set.file_ids << uploaded.id
-      Hyrax.persister.save(resource: file_set)
+      FileIngest.upload(
+        content_type: uploader.file.content_type,
+        file_body: File.open(uploader.file.file),
+        filename: uploader.file.original_filename,
+        last_modified: file.created_at,
+        permissions: target_permissions,
+        size: uploader.file.size,
+        user: file.user,
+        work: work
+      )
     end
-  end
-
-  ##
-  # @api private
-  # @return [Hash{Symbol => Object}] event payloads for `file.set.attached`
-  #   events. we want to publish these after updating the work metadata
-  def attach_member(file:)
-    file_set = @persister.save(resource: Hyrax::FileSet.new(file_set_args(file)))
-    file.add_file_set!(file_set) # update carrierwave db record
-
-    Hyrax::AccessControlList.copy_permissions(source: target_permissions, target: file_set)
-
-    append_to_work(file_set)
-    Hyrax.publisher.publish("object.metadata.updated", object: file_set, user: file.user)
-
-    {file_set: file_set, user: file.user}
-  end
-
-  def append_to_work(file_set)
-    super
-    work.rendering_ids << file_set.id
   end
 end
