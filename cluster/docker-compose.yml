@@ -257,10 +257,6 @@ services:
       - sh
       - -c
       - >
-    command:
-      - sh
-      - -c
-      - >
         PGPASSWORD=$DB_PASSWORD PGHOST=$DB_HOST PGUSER=$DB_USERNAME PGDATABASE=$STARLIGHT_DB_NAME; export PGPASSWORD PGHOST PGUSER PGDATABASE &&
         while ! db-wait.sh "${DB_HOST}:${DB_PORT}"; do echo "-- Waiting for PGSQL ..."; sleep 5s; done &&
         psql -tc "SELECT 1 FROM pg_database WHERE datname = 'PGDATABASE'" | grep -q 1 || createdb -e -w $PGDATABASE &&
