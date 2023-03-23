@@ -29,6 +29,8 @@ externalPostgresql:
 extraEnvVars:
   - name: "AUTH_METHOD"
     value: "google"
+  - name: "COMET_ENABLE_BULKRAX"
+    value: "true"
   - name: "DATABASE_COMMAND"
     value: "db:migrate"
   - name: "DISCOVER_PLATFORM_TIDEWATER_URL_BASE"
@@ -57,6 +59,8 @@ worker:
   extraEnvVars:
     - name: "AUTH_METHOD"
       value: "google"
+    - name: "COMET_ENABLE_BULKRAX"
+      value: "true"
     - name: "IIIF_BASE_URL"
       value: "https://lib-orange-empire-staging.ucsd.edu"
     - name: "METADATA_DATABASE_NAME"
