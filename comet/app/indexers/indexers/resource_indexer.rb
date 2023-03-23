@@ -42,7 +42,10 @@ module Indexers
         # the first argument. Use the lexical value in these cases instead. The
         # +#object+ value is only desirable for datatypes which explicitly cast
         # it, for example dates.
-        if value.instance_of? RDF::Literal # not a subclass
+        #
+        # Also use the lexical value for any invalid literal, as the object is
+        # not meaningful in this case.
+        if value.instance_of?(RDF::Literal) || !value.valid? # not a valid subclass
           value.value
         else
           value.object

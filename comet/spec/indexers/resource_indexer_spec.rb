@@ -30,6 +30,13 @@ RSpec.describe Indexers::ResourceIndexer do
       expect(solr_doc[:date_created_tsim]).to eql [current_date]
     end
 
+    it "gives appropriate values for invalid literals" do
+      resource.date_created = [RDF::Literal("🆖", datatype: RDF::XSD.date)]
+      solr_doc = resource_indexer.to_solr
+
+      expect(solr_doc[:date_created_tsim]).to eql ["🆖"]
+    end
+
     it "gives appropriate values for unrecognized literals" do
       solr_doc = resource_indexer.to_solr
 
