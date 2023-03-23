@@ -1,6 +1,6 @@
 solr:
   enabled: false
-  authentication:
+  auth:
     enabled: true
     adminUsername: admin
 

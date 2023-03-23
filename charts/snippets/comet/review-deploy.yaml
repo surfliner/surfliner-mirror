@@ -62,10 +62,9 @@ minio:
   persistence:
     enabled: false
   defaultBuckets: comet-review,comet-staging-area-review
-  accessKey:
-    password: comet-access-key
-  secretKey:
-    password: comet-secret
+  auth:
+    rootUser: comet-access-key
+    rootPassword: comet-secret
 
 embargoRelease:
   enabled: false
