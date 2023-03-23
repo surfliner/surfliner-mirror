@@ -98,7 +98,18 @@ module SurflinerSchema
           else
             Valkyrie::Types::Set.of(
               Valkyrie::Types.Constructor(RDF::Literal) { |value|
-                RDF::Literal.new(value, datatype: property.data_type)
+                if value.is_a?(RDF::Literal)
+                  # If the provided value is already an RDF::Literal, preserve
+                  # the lexical value but change the datatype.
+                  #
+                  # This differs from both the default behaviour of
+                  # +RDF::Literal+ (which simply returns its argument) and
+                  # +RDF::Literal.new+ (which may cast the literal to another
+                  # kind of value, erasing the original lexical value).
+                  RDF::Literal.new(value.value, datatype: property.data_type)
+                else
+                  RDF::Literal.new(value, datatype: property.data_type)
+                end
               }
             )
           end

@@ -16,7 +16,8 @@ RSpec.describe SurflinerSchema do
             test_field: SurflinerSchema::Property.new(
               name: :test_field,
               display_label: "Test Field",
-              available_on: [:my_availability]
+              available_on: [:my_availability],
+              data_type: RDF::XSD.dateTime
             )
           }
         end
@@ -33,6 +34,15 @@ RSpec.describe SurflinerSchema do
       expect { model_class.include(described_class.Schema(:my_availability, loader: loader)) }
         .to change { model_class.attribute_names }
         .to include(:test_field)
+    end
+
+    it "correctly casts RDF literals" do
+      # The cast must preserve the lexical value of the literal while changing
+      # the datatype.
+      dry_type = described_class.Schema(:my_availability, loader: loader).attributes[:test_field]
+      expect(
+        dry_type[RDF::Literal("🆖", datatype: RDF::XSD.date)]
+      ).to contain_exactly RDF::Literal("🆖", datatype: RDF::XSD.dateTime)
     end
   end
 end
