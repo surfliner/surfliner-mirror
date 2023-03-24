@@ -51,7 +51,7 @@ _Orange Empire was named after the Pacific Electric train that operated between 
 Product Owner: Michael Stuart (UCSD) | Tech Lead: Matt Critchlow (UCSD)
 
 ### Shoreline
-Shoreline is a geospatial materials platform based on GeoBlacklight. See the [Shoreline README](https://gitlab.com/surfliner/surfliner/blob/trunk/shoreline/discovery/README.md) for more information.
+Shoreline is a geospatial materials platform based on GeoBlacklight. See the [Shoreline README](https://gitlab.com/surfliner/surfliner/-/blob/trunk/shoreline/README.md) for more information.
 
 _Shoreline was named after the Southern Pacific train that ran between Los Angeles and San Francisco between 1927 and 1931._
 
