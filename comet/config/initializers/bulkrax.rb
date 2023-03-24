@@ -10,6 +10,13 @@ Bulkrax.setup do |config|
   config.default_work_type = "GenericObject"
 end
 
+module Bulkrax
+  def self.curation_concerns
+    return ::Hyrax.config.curation_concerns if defined?(::Hyrax)
+    []
+  end
+end
+
 module HasMappingExt
   ##
   # Field of the model that can be supported
