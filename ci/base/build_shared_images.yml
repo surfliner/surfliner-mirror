@@ -2,14 +2,16 @@
   set -x
   build_shared() {
     image=$1
+    version=$2
 
     /kaniko/executor \
       --context docker/ \
       --cache=true \
       --push-retry 3 \
+      --build-arg "RUBY_VERSION=$version" \
       --dockerfile docker/$image/Dockerfile \
-      --destination $CI_REGISTRY_IMAGE/$image:latest
-    }
+      --destination $CI_REGISTRY_IMAGE/$image-$version:latest
+  }
 
 shared:ruby-base:
   extends:
@@ -19,10 +21,12 @@ shared:ruby-base:
   before_script:
     - *build_shared
   script:
-    - build_shared 'base'
+    - build_shared 'base' '2.7.7'
+    - build_shared 'base' '3.2.1'
   only:
     changes:
       - docker/base/Dockerfile
+      - ci/base/build_shared_images.yml
 
 shared:ruby-prod:
   extends:
@@ -32,7 +36,9 @@ shared:ruby-prod:
   before_script:
     - *build_shared
   script:
-    - build_shared 'prod'
+    - build_shared 'prod' '2.7.7'
+    - build_shared 'prod' '3.2.1'
   only:
     changes:
       - docker/prod/Dockerfile
+      - ci/base/build_shared_images.yml
