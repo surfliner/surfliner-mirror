@@ -1,12 +1,12 @@
 # renovate: datasource=docker depName=alpine
-ARG ALPINE_VERSION=3.16
+ARG ALPINE_VERSION=3.17
 # renovate: datasource=docker depName=ruby versioning=ruby
-ARG RUBY_VERSION=3.2.1
+ARG RUBY_VERSION=3.1.3
 
 # see ../docker/base/Dockerfile
-ARG BASE_IMAGE=registry.gitlab.com/surfliner/surfliner/base
+ARG BASE_IMAGE=registry.gitlab.com/surfliner/surfliner/base-${RUBY_VERSION}
 # see ../docker/prod/Dockerfile
-ARG PROD_IMAGE=registry.gitlab.com/surfliner/surfliner/prod
+ARG PROD_IMAGE=registry.gitlab.com/surfliner/surfliner/prod-${RUBY_VERSION}
 
 # these ARGs are used by the ONBUILD commands in the base image
 ARG BUILD_TIME_APKS='build-base gcompat git libxml2-dev libxslt-dev nodejs postgresql-dev shared-mime-info tzdata yarn'
@@ -16,7 +16,7 @@ FROM $BASE_IMAGE:latest as starlight-base
 
 FROM starlight-base as starlight-build
 # used in ruby-bundle-cleanup.sh for locating the bundle cache
-ENV RUBY_ABI=2.7.0
+ENV RUBY_ABI=3.1.0
 
 ARG LOCAL_PROJECT=starlight
 ARG DOCKER_ROOT=/home/${LOCAL_PROJECT}
