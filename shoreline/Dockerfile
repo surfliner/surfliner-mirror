@@ -4,9 +4,9 @@ ARG ALPINE_VERSION=3.16
 ARG RUBY_VERSION=2.7.7
 
 # see ../docker/base/Dockerfile
-ARG BASE_IMAGE=registry.gitlab.com/surfliner/surfliner/base
+ARG BASE_IMAGE=registry.gitlab.com/surfliner/surfliner/base-${RUBY_VERSION}
 # see ../docker/prod/Dockerfile
-ARG PROD_IMAGE=registry.gitlab.com/surfliner/surfliner/prod
+ARG PROD_IMAGE=registry.gitlab.com/surfliner/surfliner/prod-${RUBY_VERSION}
 
 # these ARGs are used by the ONBUILD commands in the base image
 ARG BUILD_TIME_APKS='build-base libxml2-dev libxslt-dev nodejs postgresql-dev shared-mime-info yarn'
