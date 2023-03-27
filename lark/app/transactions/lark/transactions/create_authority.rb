@@ -43,7 +43,8 @@ module Lark
       ##
       # Mint a unique identifier for authority record
       def mint_id(attributes:)
-        id = @minter.mint
+        id = (attributes[:id] || "").strip
+        id = id.blank? ? @minter.mint : id
         Success(attributes: attributes, id: id)
       rescue Lark::Minter::MinterError => e
         Failure(reason: :minter_failed, message: e.message)

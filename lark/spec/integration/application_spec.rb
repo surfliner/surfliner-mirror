@@ -19,7 +19,7 @@ RSpec.describe Lark::Application do
   end
 
   it "round-trips new Authorities" do
-    data = {pref_label: "Moomin"}.to_json
+    data = {id: "a_fake_id", pref_label: "Moomin"}.to_json
     headers = {"Content-Type" => "application/json"}
 
     body = Net::HTTP.post(app_uri, data, headers).body
