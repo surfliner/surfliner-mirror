@@ -141,6 +141,8 @@ worker:
       value: "comet-review"
     - name: "STAGING_AREA_S3_BUCKET"
       value: "comet-staging-area-review"
+    - name: "METADATA_MODELS"
+      value: "ucsb-metadata,ucsd-metadata-sample"
   extraEnvFrom:
     - secretRef:
         name: ezid-test
