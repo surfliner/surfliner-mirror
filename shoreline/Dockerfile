@@ -1,7 +1,7 @@
 # renovate: datasource=docker depName=alpine
-ARG ALPINE_VERSION=3.16
+ARG ALPINE_VERSION=3.1.7
 # renovate: datasource=docker depName=ruby versioning=ruby
-ARG RUBY_VERSION=2.7.7
+ARG RUBY_VERSION=3.1.3
 
 # see ../docker/base/Dockerfile
 ARG BASE_IMAGE=registry.gitlab.com/surfliner/surfliner/base-${RUBY_VERSION}
@@ -16,7 +16,7 @@ FROM $BASE_IMAGE:latest as shoreline-base
 
 FROM shoreline-base as shoreline-build
 # used in ruby-bundle-cleanup.sh for locating the bundle cache
-ENV RUBY_ABI=2.7.0
+ENV RUBY_ABI=3.1.0
 
 ARG LOCAL_PROJECT=shoreline
 ARG DOCKER_ROOT=/home/${LOCAL_PROJECT}
