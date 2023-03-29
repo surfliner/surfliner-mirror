@@ -14,7 +14,7 @@ RSpec.describe Indexers::ResourceIndexer do
   context "with RDF data" do
     before do
       resource.creator = [RDF::Literal("Tove")]
-      resource.date_created = [RDF::Literal(current_date, datatype: RDF::XSD.date)]
+      resource.date_created = [RDF::Literal(current_date, datatype: "http://id.loc.gov/datatypes/edtf/EDTF")]
       resource.language = [RDF::Literal("epo", datatype: "http://id.loc.gov/vocabulary/languageschemes/iso6392b")]
     end
 
