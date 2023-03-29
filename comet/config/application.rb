@@ -41,6 +41,9 @@ module Comet
       Dir.glob("#{overrides}/**/*_override.rb").each do |override|
         require_dependency(override)
       end
+
+      # Autoload EDTF literal support. Will this still be needed in Rails 6+?
+      "RDF::EDTF::Literal".constantize
     end
 
     config.active_job.queue_adapter = ENV["RAILS_QUEUE"]&.to_sym
