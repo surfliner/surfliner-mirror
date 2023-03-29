@@ -37,9 +37,6 @@ Rails.application.routes.draw do
   # allow derivative download
   get "downloads/:id/:use", controller: "hyrax/downloads", action: :show
 
-  resources :staging_area, only: "index"
-
-  put "/admin/workflows/batch_actions" => "hyrax/admin/workflows#batch_actions"
   post "/dashboard/collections/:id/publish" => "hyrax/dashboard/collections#publish"
   put "/concern/generic_objects/:id/unpublish" => "hyrax/generic_objects#unpublish"
   put "/concern/generic_objects/:id/remove_member" => "hyrax/generic_objects#remove_member"

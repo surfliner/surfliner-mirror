@@ -364,8 +364,6 @@ end
 
 Hyrax::Transactions::Container.merge(CometTransactionContainer)
 
-Hyrax::DashboardController.sidebar_partials[:repository_content] << "hyrax/dashboard/sidebar/batch_upload"
-
 Hyrax::Engine.routes.prepend do
   get "/collections/:id", to: "dashboard/collections#show", as: :collection
 end
