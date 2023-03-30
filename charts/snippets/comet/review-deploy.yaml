@@ -11,12 +11,30 @@ readinessProbe:
   path: "/healthz"
   initialDelaySeconds: 10
 skipHyraxEngineSeed: "true"
+extraDeploy:
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: hyrax-exports
+    spec:
+      accessModes:
+        - ReadWriteMany
+      resources:
+        requests:
+          storage: 100G
 brandingVolume:
   enabled: false
 derivativesVolume:
   enabled: false
 uploadsVolume:
   enabled: false
+extraVolumeMounts:
+  - name: exports
+    mountPath: /app/samvera/exports
+extraVolumes:
+  - name: exports
+    persistentVolumeClaim:
+      claimName: hyrax-exports
 extraEnvVars:
   - name: "AUTH_METHOD"
     value: "developer"
@@ -54,6 +72,8 @@ extraEnvVars:
     value: "1"
   - name: "METADATA_MODELS"
     value: "ucsb-metadata,ucsd-metadata-sample"
+  - name: "BULKRAX_EXPORT_PATH"
+    value: "/app/samvera/exports"
 extraEnvFrom:
   - secretRef:
       name: ezid-test
@@ -110,6 +130,24 @@ worker:
     timeoutSeconds: 1
     failureThreshold: 10
     successThreshold: 2
+  extraDeploy:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: hyrax-exports
+      spec:
+        accessModes:
+          - ReadWriteMany
+        resources:
+          requests:
+            storage: 100G
+  extraVolumeMounts:
+    - name: exports
+      mountPath: /app/samvera/exports
+  extraVolumes:
+    - name: "exports"
+      persistentVolumeClaim:
+        claimName: hyrax-exports
   extraEnvVars:
     - name: "AUTH_METHOD"
       value: "developer"
@@ -143,6 +181,8 @@ worker:
       value: "comet-staging-area-review"
     - name: "METADATA_MODELS"
       value: "ucsb-metadata,ucsd-metadata-sample"
+    - name: "BULKRAX_EXPORT_PATH"
+      value: "/app/samvera/exports"
   extraEnvFrom:
     - secretRef:
         name: ezid-test
