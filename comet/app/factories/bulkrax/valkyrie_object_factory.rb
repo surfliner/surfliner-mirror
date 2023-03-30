@@ -42,8 +42,14 @@ module Bulkrax
       cx = Hyrax::ChangeSet.for(@object)
 
       s3_bucket_name = ENV.fetch("STAGING_AREA_S3_BUCKET", "comet-staging-area-#{Rails.env}")
-      s3_bucket = Rails.application.config.staging_area_s3_connection
-        .directories.get(s3_bucket_name)
+      s3_bucket = begin
+        Rails.application.config.staging_area_s3_connection
+          .directories.get(s3_bucket_name)
+      rescue NoMethodError => e
+        # most likely because S3/AWS were not set
+        Hyrax.logger.error "No S3 connection found: #{e}"
+      end
+
       s3_files = begin
         attributes["remote_files"].map { |r| r["url"] }.map do |key|
           s3_bucket.files.get(key)
