@@ -6,10 +6,10 @@ require "hyrax/specs/spy_listener"
 RSpec.describe InlineUploadHandler, storage_adapter: :memory do
   subject(:service) { described_class.new(work: object) }
 
-  let(:file) { Tempfile.new("image.jp2") }
+  let(:file_1) { Tempfile.new("image1.jp2") }
   let(:file_2) { Tempfile.new("image2.jp2") }
   let(:object) { Hyrax.persister.save(resource: GenericObject.new) }
-  let(:upload) { Hyrax::UploadedFile.create(user: user, file: file) }
+  let(:upload) { Hyrax::UploadedFile.create(user: user, file: file_1) }
   let(:uploads) { [upload, Hyrax::UploadedFile.create(user: user, file: file_2)] }
   let(:user) { User.create(email: "moomin@example.com") }
 
@@ -68,6 +68,7 @@ RSpec.describe InlineUploadHandler, storage_adapter: :memory do
           .to change { listener.object_metadata_updated.map(&:payload) }
           .from(be_empty)
           .to contain_exactly(
+            include(object: object, user: user),
             include(object: object, user: user),
             include(object: an_instance_of(Hyrax::FileSet), user: user),
             include(object: an_instance_of(Hyrax::FileSet), user: user)
