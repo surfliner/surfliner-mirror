@@ -2,17 +2,3 @@ ingress:
   enabled: true
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-staging
-
-
-extraDeploy:
-  - apiVersion: v1
-    kind: PersistentVolumeClaim
-    metadata:
-      name: hyrax-exports
-    spec:
-      accessModes:
-        - ReadWriteMany
-      resources:
-        requests:
-          storage: 100G
-      storageClassName: efs-sc
