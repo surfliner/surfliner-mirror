@@ -85,6 +85,17 @@ worker:
     requests:
       memory: 350Mi
       cpu: 500m
+  extraDeploy:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: hyrax-exports
+      spec:
+        accessModes:
+          - ReadWriteMany
+        resources:
+          requests:
+            storage: 100G
   extraVolumeMounts:
     - name: exports
       mountPath: /app/samvera/exports
