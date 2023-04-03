@@ -11,8 +11,6 @@ Bulkrax.setup do |config|
 end
 
 module Bulkrax
-  self.export_path = ENV.fetch("BULKRAX_EXPORT_PATH", "tmp/exports")
-
   def self.curation_concerns
     return ::Hyrax.config.curation_concerns if defined?(::Hyrax)
     []
