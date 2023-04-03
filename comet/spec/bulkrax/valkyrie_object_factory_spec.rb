@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "rails_helper"
+
 RSpec.describe Bulkrax::ValkyrieObjectFactory do
   subject(:object_factory) do
     described_class.new(attributes: attributes,
@@ -11,7 +13,7 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory do
 
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
 
-  context "when work_identifier is empty" do
+  context "when work_identifier is empty", :with_admin_set do
     let(:work_identifier) { "" }
     let(:source_identifier) { "object_1" }
     let(:title) { "Test Bulkrax Import Title" }
@@ -32,7 +34,7 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory do
     end
   end
 
-  describe "when work_identifier matches an existing object" do
+  context "when work_identifier matches an existing object", :with_admin_set do
     let(:object) do
       FactoryBot.valkyrie_create(:generic_object,
         :with_index,
