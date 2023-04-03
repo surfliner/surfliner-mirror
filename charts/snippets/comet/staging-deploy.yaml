@@ -20,24 +20,6 @@ embargoRelease:
 leaseRelease:
   enabled: false
 
-extraDeploy:
-  - apiVersion: v1
-    kind: PersistentVolumeClaim
-    metadata:
-      name: hyrax-exports
-    spec:
-      accessModes:
-        - ReadWriteMany
-      resources:
-        requests:
-          storage: 100G
-extraVolumeMounts:
-  - name: exports
-    mountPath: /app/samvera/exports
-extraVolumes:
-  - name: exports
-    persistentVolumeClaim:
-      claimName: hyrax-exports
 extraEnvVars:
   - name: "STAGING_AREA_S3_EXAMPLE_FILES"
     value: "1"
@@ -85,24 +67,6 @@ worker:
     requests:
       memory: 350Mi
       cpu: 500m
-  extraDeploy:
-    - apiVersion: v1
-      kind: PersistentVolumeClaim
-      metadata:
-        name: hyrax-exports
-      spec:
-        accessModes:
-          - ReadWriteMany
-        resources:
-          requests:
-            storage: 100G
-  extraVolumeMounts:
-    - name: exports
-      mountPath: /app/samvera/exports
-  extraVolumes:
-    - name: exports
-      persistentVolumeClaim:
-        claimName: hyrax-exports
   extraEnvFrom:
     - configMapRef:
         name: comet-staging-s3-bucket
