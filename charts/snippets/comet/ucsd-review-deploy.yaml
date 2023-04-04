@@ -1,8 +1,3 @@
-ingress:
-  enabled: true
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-staging
-
 extraEnvVars:
   # When reordering these, be sure to update the `--set extraEnvVars` in
   # `ci/comet/review.yml`.
@@ -19,7 +14,7 @@ extraEnvVars:
   - name: "METADATA_DATABASE_NAME"
     value: "comet_metadata"
   - name: "METADATA_MODELS"
-    value: "ucsb-metadata"
+    value: "ucsd-metadata-sample"
   - name: "RABBITMQ_ENABLED"
     value: "false"
   - name: "RABBITMQ_HOST"
