@@ -1,6 +1,6 @@
 # renovate: datasource=docker depName=ruby versioning=ruby
 ARG RUBY_VERSION=3.2.1
-FROM ruby:$RUBY_VERSION-alpine as base
+FROM ruby:$RUBY_VERSION-alpine as lark-ui
 
 ARG PROJECTPATH=lark-ui
 ARG DOCKERROOT=/home/${PROJECTPATH}
@@ -21,7 +21,7 @@ CMD ["bundle", "exec", "puma", "-v", "--debug", "-b", "tcp://0.0.0.0:3000"]
 ENTRYPOINT ["bin/docker-entrypoint.sh"]
 
 
-FROM base as development
+FROM lark-ui as development
 ARG PROJECTPATH=lark-ui
 ARG DOCKERROOT=/home/${PROJECTPATH}
 
@@ -36,7 +36,7 @@ COPY ${PROJECTPATH} ${DOCKERROOT}/app/
 COPY scripts ${DOCKERROOT}/scripts/
 
 
-FROM base as production
+FROM lark-ui as production
 ARG PROJECTPATH=lark-ui
 ARG DOCKERROOT=/home/${PROJECTPATH}
 
