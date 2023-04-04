@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 gem "bootsnap", "1.16.0", require: false
-gem "debug", "1.7.1", platforms: %i[mri mingw x64_mingw], group: %(development test)
+gem "debug", "1.7.2", platforms: %i[mri mingw x64_mingw], group: %(development test)
 gem "okcomputer", "1.18.4"
 gem "pg", "1.4.6"
 gem "puma", "5.6.5"
