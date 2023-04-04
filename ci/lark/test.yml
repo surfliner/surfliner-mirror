@@ -74,7 +74,7 @@ lark:ui:test:unit:
   image: $CI_REGISTRY_IMAGE/lark-ui_web:$CI_COMMIT_SHA
   script:
     - apk add build-base # need to build gem extensions and compile assets
-    - bundle config set without 'development' # to get test group gems back
+    - bundle config set with 'test' # to get test group gems back
     - cd lark-ui
     - bundle check || bundle
     - bundle exec rspec
