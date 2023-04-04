@@ -36,9 +36,12 @@ module Bulkrax
     # https://github.com/projecthydra/active_fedora/issues/874
     # 2+ years later, still open!
     def create
-      attrs = transform_attributes
+      attrs = transform_attributes.merge(
+        alternate_ids: [source_identifier_value],
+        visibility: attributes.try("visibility") || "restricted"
+      ).symbolize_keys
 
-      @object = klass.new(attrs.merge(alternate_ids: [source_identifier_value]).symbolize_keys)
+      @object = klass.new(attrs)
       cx = Hyrax::ChangeSet.for(@object)
 
       s3_bucket_name = ENV.fetch("STAGING_AREA_S3_BUCKET", "comet-staging-area-#{Rails.env}")
@@ -97,10 +100,15 @@ module Bulkrax
     end
 
     ##
-    # TODO: What else fields are necessary: %i[id edit_users edit_groups read_groups visibility work_members_attributes admin_set_id]?
+    # TODO: What else fields are necessary: %i[id edit_users edit_groups read_groups work_members_attributes]?
     # Regardless of what the Parser gives us, these are the properties we are prepared to accept.
     def permitted_attributes
-      Bulkrax::ValkyrieObjectFactory.schema_properties(klass) + %i[title]
+      Bulkrax::ValkyrieObjectFactory.schema_properties(klass) +
+        %i[
+          admin_set_id
+          title
+          visibility
+        ]
     end
 
     def apply_depositor_metadata(object, user)
