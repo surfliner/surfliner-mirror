@@ -38,6 +38,16 @@
     },
     {
       "fileMatch": [
+        "^ci/base/build_shared_images.yml$"
+      ],
+      "matchStrings": [
+        ".+?build_shared\\s'(base|prod)'\\s'\\d\\.\\d\\.\\d'\\s'(?<currentValue>.+?)'"
+      ],
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "alpine"
+    },
+    {
+      "fileMatch": [
         "^ci/comet.yml$"
       ],
       "matchStrings": [
