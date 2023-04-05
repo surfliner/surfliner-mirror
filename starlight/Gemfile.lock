@@ -223,7 +223,7 @@ GEM
     declarative (0.0.20)
     deprecation (1.1.0)
       activesupport
-    devise (4.8.1)
+    devise (4.9.2)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0)
@@ -336,7 +336,7 @@ GEM
       letter_opener (~> 1.7)
       railties (>= 5.2)
       rexml
-    loofah (2.19.1)
+    loofah (2.20.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.8.1)
@@ -636,7 +636,7 @@ DEPENDENCIES
   carrierwave-aws (= 1.5.0)
   dalli (= 2.7.11)
   database_cleaner-active_record (= 2.1.0)
-  devise (= 4.8.1)
+  devise (= 4.9.2)
   devise-guests (= 0.8.1)
   dotenv-rails (= 2.8.1)
   factory_bot_rails (= 6.2.0)
