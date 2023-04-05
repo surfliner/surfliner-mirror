@@ -1,7 +1,3 @@
-superskunk:
-  db:
-    standalone: true
-
 consumers:
   defaultKeyEnabled: true
   keys:

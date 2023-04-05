@@ -1,0 +1,5 @@
+superskunk:
+  db:
+    standalone: true
+  metadata_models:
+    - ucsd-metadata-sample

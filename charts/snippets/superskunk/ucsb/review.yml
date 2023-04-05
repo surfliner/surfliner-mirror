@@ -1,3 +1,9 @@
+superskunk:
+  db:
+    standalone: true
+  metadata_models:
+    - ucsb-metadata
+
 ingress:
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"

@@ -9,7 +9,7 @@ superskunk:test:
     DB_PORT: 5432
     DB_USERNAME: postgres
     METADATA_DATABASE_NAME: comet_metadata_development
-    METADATA_MODELS: "ucsb-metadata,ucsd-metadata-sample"
+    METADATA_MODELS: test-metadata
     POSTGRES_ADMIN_PASSWORD: password
     POSTGRES_DB: "skunk-test"
     POSTGRES_HOST: postgres

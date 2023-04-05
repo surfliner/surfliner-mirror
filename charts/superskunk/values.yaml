@@ -17,8 +17,7 @@ fullnameOverride: ""
 superskunk:
   allow_robots: false # allow crawling via robots.txt
   metadata_models:
-    - ucsb-metadata
-    - ucsd-metadata-sample
+    - test-metadata
   port: 3000
   db:
     standalone: false # whether to deploy with its own DB instead of connecting to Comet

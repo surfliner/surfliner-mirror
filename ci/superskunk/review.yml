@@ -28,6 +28,7 @@ superskunk:deploy:ucsd-review:
       --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
       --set consumers.keys[0].secretName=$HELM_RELEASE_NAME-tidewater-keypair
       --values charts/snippets/superskunk/review.yaml
+      --values charts/snippets/superskunk/ucsd/review.yml
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
   script:
     - deploy ./charts/superskunk
