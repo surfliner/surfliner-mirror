@@ -13,28 +13,26 @@ gem "devise-guests", "0.8.1"
 gem "down", "~> 5.0"
 gem "ezid-client", "1.9.4"
 gem "fog-aws", "3.18.0"
-gem "hyrax",
-  git: "https://github.com/samvera/hyrax.git",
-  branch: "3.x-stable"
+gem "hyrax", "4.0.0.rc2"
 gem "jbuilder", "2.11.5"
 gem "jquery-rails", "4.5.1"
 gem "okcomputer", "1.18.4"
 gem "omniauth-google-oauth2", "0.8.2"
 gem "pg", "1.5.3"
 gem "puma", "6.2.2"
-gem "rails", "5.2.8.1"
+gem "rails", ">=6.0"
 gem "rdf-edtf",
   git: "https://gitlab.com/surfliner/rdf-edtf.git",
   branch: "trunk"
 gem "redis", "4.8.1"
 gem "rsolr", "2.5.0"
-gem "sass-rails", "5.1.0"
+gem "sass-rails"
 gem "sidekiq", "7.1.0"
 gem "surfliner_schema", path: "../gems/surfliner_schema"
 gem "tinymce-rails", "5.10.7"
 gem "turbolinks", "5.2.1"
 gem "uglifier", "4.2.0"
-gem "valkyrie-sequel", "~> 2.2.0"
+gem "valkyrie-sequel", "~> 3.0"
 gem "valkyrie-shrine", "~> 1.0"
 
 group :development do
