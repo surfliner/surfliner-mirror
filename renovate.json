@@ -6,41 +6,76 @@
   ],
   "bundler": {
     "enabled": true,
-    "fileMatch": ["^tidewater/bin/tidewater_consumer$"]
+    "fileMatch": [
+      "^tidewater/bin/tidewater_consumer$"
+    ]
   },
   "docker-compose": {
-    "fileMatch": ["^docker-compose/.*\\.ya?ml$"]
+    "fileMatch": [
+      "^docker-compose/.*\\.ya?ml$"
+    ]
   },
   "gitlabci": {
-    "fileMatch": ["^ci/.*\\.ya?ml$"]
+    "fileMatch": [
+      "^ci/.*\\.ya?ml$"
+    ]
   },
   "prHourlyLimit": 5,
   "rebaseWhen": "never",
-  "labels": [ "dependencies" ],
+  "labels": [
+    "dependencies"
+  ],
   "regexManagers": [
     {
-      "fileMatch": ["^ci/comet.yml$"],
-      "matchStrings": [".+?helm\\spull\\soci:\/\/(?<depName>.+?)\\s--version\\s(?<currentValue>.+?)\\s.*"],
+      "fileMatch": [
+        "^ci/base/build_shared_images.yml$"
+      ],
+      "matchStrings": [
+        ".+?build_shared\\s'(base|prod)'\\s'(?<currentValue>.+?)'\\s.*"
+      ],
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "ruby"
+    },
+    {
+      "fileMatch": [
+        "^ci/comet.yml$"
+      ],
+      "matchStrings": [
+        ".+?helm\\spull\\soci:\/\/(?<depName>.+?)\\s--version\\s(?<currentValue>.+?)\\s.*"
+      ],
       "datasourceTemplate": "docker"
     },
     {
-      "fileMatch": ["^ci/base/rabbitmq_operator.yml$"],
-      "matchStrings": ["RABBITMQ_OPERATOR_VERSION:\\s(?<currentValue>.+)"],
+      "fileMatch": [
+        "^ci/base/rabbitmq_operator.yml$"
+      ],
+      "matchStrings": [
+        "RABBITMQ_OPERATOR_VERSION:\\s(?<currentValue>.+)"
+      ],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "rabbitmq/cluster-operator"
     },
     {
-      "fileMatch": ["^\\.gitlab-ci\\.yml$"],
-      "matchStrings": ["JQ_VERSION:\\s(?<currentValue>.+)"],
+      "fileMatch": [
+        "^\\.gitlab-ci\\.yml$"
+      ],
+      "matchStrings": [
+        "JQ_VERSION:\\s(?<currentValue>.+)"
+      ],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "stedolan/jq"
     }
   ],
-  "packageRules":[
+  "packageRules": [
     {
       "description": "Use custom regex versioning for bitnami images",
-      "matchPackagePrefixes": ["gcr.io/bitnami-containers/", "bitnami/"],
-      "matchDatasources": ["docker"],
+      "matchPackagePrefixes": [
+        "gcr.io/bitnami-containers/",
+        "bitnami/"
+      ],
+      "matchDatasources": [
+        "docker"
+      ],
       "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(:?-(?<compatibility>.*-r)(?<build>\\d+))?$"
     }
   ]
