@@ -69,7 +69,7 @@ RUN apk --no-cache add \
 USER app
 
 # renovate: datasource=github-releases depName=harvard-lts/fits
-ARG FITS_VERSION=1.5.5
+ARG FITS_VERSION=1.6.0
 RUN mkdir -p /app/fits && \
     cd /app/fits && \
     wget https://github.com/harvard-lts/fits/releases/download/${FITS_VERSION}/fits-${FITS_VERSION}.zip -O fits.zip && \
@@ -108,7 +108,7 @@ ARG DOCKER_ROOT=/home/${LOCAL_PROJECT}
 ARG DOCKER_PROJECT=${DOCKER_ROOT}/app
 
 # renovate: datasource=github-releases depName=harvard-lts/fits
-ARG FITS_VERSION=1.5.5
+ARG FITS_VERSION=1.6.0
 RUN mkdir -p /app/fits && \
     cd /app/fits && \
     wget https://github.com/harvard-lts/fits/releases/download/${FITS_VERSION}/fits-${FITS_VERSION}.zip -O fits.zip && \
