@@ -502,7 +502,7 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.12.0)
-    rspec_junit_formatter (0.5.1)
+    rspec_junit_formatter (0.6.0)
       rspec-core (>= 2, < 4, != 2.12.0)
     rubocop (1.39.0)
       json (~> 2.3)
@@ -659,7 +659,7 @@ DEPENDENCIES
   riiif!
   rsolr (= 2.5.0)
   rspec-rails (= 5.1.2)
-  rspec_junit_formatter (= 0.5.1)
+  rspec_junit_formatter (= 0.6.0)
   sass-rails (= 6.0.0)
   scss_lint (= 0.59.0)
   scss_lint_reporter_checkstyle (= 0.2.0)
