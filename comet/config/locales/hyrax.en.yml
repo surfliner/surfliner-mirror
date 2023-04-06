@@ -69,7 +69,7 @@ en:
           notification: Project deleted.
         document_list:
           edit: Edit
-          no_works:  The Project does not contain any objects.
+          no_works: The Project does not contain any objects.
           title: List of items managed by this Project
         edit:
           header: 'Edit Project: %{title}'
@@ -216,6 +216,11 @@ en:
           works: "Filter Objects:"
         works: Objects
         your_works: Your Objects
+        heading:
+          collection:
+            published: Pub Status
+          work:
+            published: Pub Status
       heading:
         work:
           visibility: Visibility
@@ -242,10 +247,13 @@ en:
         works:
           in_repo: "<strong>%{total_count} Objects</strong> in the repository"
           works_listing: Objects listing
-          you_manage:  "<strong>%{total_count} Objects</strong> you can manage"
+          you_manage: "<strong>%{total_count} Objects</strong> you can manage"
           you_own: "<strong>%{total_count} Objects</strong> you own"
     product_name: Comet
     product_twitter_handle: "@SamveraRepo"
+    publish:
+      published: Published
+      unpublished: Unpublished
     visibility:
       open:
         warning_html: ""
