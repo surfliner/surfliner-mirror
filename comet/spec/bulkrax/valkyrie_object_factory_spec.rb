@@ -48,9 +48,7 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory, :with_admin_set do
     end
 
     it "create object with metadata" do
-      object_factory.run!
-
-      object_imported = Hyrax.query_service.find_all_of_model(model: GenericObject).first
+      object_imported = object_factory.run!
 
       expect(object_imported).to have_attributes(
         title: contain_exactly(title),
@@ -60,8 +58,7 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory, :with_admin_set do
     end
 
     it "create object in workflow" do
-      object_factory.run!
-      object_imported = Hyrax.query_service.find_all_of_model(model: GenericObject).first
+      object_imported = object_factory.run!
 
       workflow_object = Sipity::Entity(Hyrax.query_service.find_by(id: object_imported.id))
 
@@ -93,22 +90,13 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory, :with_admin_set do
       }
     end
 
-    before do
-      setup_workflow_for(user)
-      attributes[:admin_set_id] = Hyrax.query_service.find_all_of_model(model: Hyrax::AdministrativeSet)
-        .find { |p| p.title.include?("Test Project") }.id
-    end
-
     it "update object with metadata" do
-      object_factory.run!
+      object_updated = object_factory.run!
 
-      objects = Hyrax.query_service.find_all_of_model(model: GenericObject)
-      objects_updated = objects.select { |o| o.alternate_ids == [source_identifier] }
-
-      expect(objects_updated.length).to eq 1
-      expect(objects_updated.first.title).to eq [title_updated]
-      expect(objects_updated.first.title_alternative).to eq [alternative_title_updated]
-      expect(objects_updated.first.rights_statement).to eq [rights_statement]
+      expect(object_updated)
+        .to have_attributes(title: contain_exactly(title_updated),
+          title_alternative: contain_exactly(alternative_title_updated),
+          rights_statement:  contain_exactly(rights_statement))
     end
   end
 end

@@ -12,6 +12,9 @@ module Bulkrax
 
     def run!
       run
+      return object if object.persisted?
+
+      raise(RecordInvalid, object)
     end
 
     def find_by_id
@@ -52,7 +55,7 @@ module Bulkrax
         )
         .call(cx)
 
-      result.value!
+      @object = result.value!
     end
 
     def update
