@@ -111,6 +111,42 @@ module CsvParserExt
 
     @object_names
   end
+
+  # find the related file set ids so entries can be made for export
+  def find_child_file_sets(work_ids)
+    work_ids.each do |id|
+      work = Hyrax.query_service.find_by(id: id)
+      Hyrax.custom_queries.find_child_file_set_ids(resource: work).each { |fs_id| @file_set_ids << fs_id.to_s }
+    end
+  end
+
+  def store_files(identifier, folder_count)
+    record = Hyrax.query_service.find_by(id: identifier)
+    return unless record
+
+    file_sets = record.file_set? ? Array.wrap(record) : Hyrax.custom_queries.find_child_file_sets(resource: record)
+    file_sets << record.thumbnail if exporter.include_thumbnails && record.thumbnail.present? && record.work?
+    file_sets.each do |fs|
+      path = File.join(exporter_export_path, folder_count, "files")
+      FileUtils.mkdir_p(path) unless File.exist? path
+      # file = filename(fs)
+      # next if file.blank? || fs.original_file.blank?
+      file_metadata = Hyrax::FileSetFileService.new(file_set: fs).original_file
+      file = Hyrax.storage_adapter.find_by(id: file_metadata.file_identifier)
+
+      file.rewind
+      File.open(File.join(path, file_metadata.original_filename), "wb") do |f|
+        f.write(file.read)
+        f.close
+      end
+    end
+  end
+
+  # Override to exclude file sets from export entry
+  def current_record_ids
+    super
+    @work_ids
+  end
 end
 
 [Bulkrax::CsvParser, Bulkrax::CsvParser.singleton_class].each do |mod|
@@ -145,6 +181,10 @@ module CsvEntryExt
 
     build_system_metadata
     build_files_metadata unless hyrax_record.is_a?(Collection)
+
+    # A hack to initiate mapping for related_parents_parsed_mapping to avoid error.
+    # see Bulkrax::CsvEntry#build_relationship_metadata
+    mapping[related_parents_parsed_mapping] = mapping[related_parents_parsed_mapping] || {}
     build_relationship_metadata
 
     # Extract M3 properties before other configured mappings.
@@ -155,6 +195,15 @@ module CsvEntryExt
     self.save!
 
     self.parsed_metadata
+  end
+
+  def build_files_metadata
+    # Note: Bulkrax attaching files to the FileSet row only so we don't have duplicates when importing to a new tenant
+    # Comet will attach file wth filename as column to objects metadata
+    file_mapping = key_for_export("file")
+    file_sets = hyrax_record.file_set? ? Array.wrap(hyrax_record) : Hyrax.custom_queries.find_child_file_sets(resource: hyrax_record)
+    filenames = map_file_sets(file_sets)
+    handle_join_on_export(file_mapping, filenames, mapping["file"]&.[]("join")&.present?)
   end
 
   ##
@@ -187,6 +236,12 @@ module CsvEntryExt
     end
 
     self.parsed_metadata["title"] = hyrax_record.send(:title).first
+  end
+
+  private
+
+  def map_file_sets(file_sets)
+    file_sets.map { |fs| Hyrax::FileSetFileService.new(file_set: fs)&.original_file&.original_filename }.compact
   end
 end
 # rubocop:enable Style/RedundantSelf
