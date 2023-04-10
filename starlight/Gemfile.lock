@@ -669,7 +669,7 @@ DEPENDENCIES
   sitemap_generator (= 6.3.0)
   standard (= 1.26.0)
   uglifier (= 4.2.0)
-  view_component (< 2.74)
+  view_component (< 2.82.1)
   webmock (= 3.18.1)
 
 BUNDLED WITH
