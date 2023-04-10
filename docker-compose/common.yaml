@@ -3,7 +3,7 @@ services:
     image: bitnami/rabbitmq:3.11.13-debian-11-r2
 
   chrome:
-    image: seleniarm/standalone-chromium:108.0
+    image: seleniarm/standalone-chromium:111.0
     environment:
       -  START_XVFB=false
     logging:
