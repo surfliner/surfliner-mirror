@@ -221,7 +221,7 @@ include:
 
 # Helm3-based image for tiller-less deploys
 .helm3-deploy:
-  image: dtzar/helm-kubectl:3.10.3
+  image: dtzar/helm-kubectl:3.11.2
   stage: deploy
   variables:
     HELM_VALUES_FILE: /helm-values.yml
