@@ -53,4 +53,40 @@ RSpec.describe "Bulkrax Export", type: :system, js: true do
       expect(page).to have_link("exporter_1")
     end
   end
+
+  context "bulkrax export with files" do
+    let(:upload_file_id) { Valkyrie::ID.new("fake://1") }
+    let(:file_set) { Hyrax.persister.save(resource: Hyrax::FileSet.new(file_ids: [upload_file_id])) }
+    let(:file_metadata) do
+      Hyrax::FileMetadata.new(mime_type: "image/jpeg",
+        file_set_id: file_set.id,
+        file_identifier: upload_file_id,
+        type: [::Valkyrie::Vocab::PCDMUse.OriginalFile])
+    end
+    let(:object) { GenericObject.new(member_ids: [file_set.id], rendering_ids: [file_set.id]) }
+
+    before do
+      Hyrax.persister.save(resource: file_metadata)
+      Hyrax.index_adapter.save(resource: file_set)
+      Hyrax.persister.save(resource: object)
+    end
+
+    it "can successfully create and export" do
+      visit "/dashboard"
+      click_on "Exporters"
+      click_on "New"
+
+      fill_in("Name", with: "exporter_1")
+
+      find(:css, "#exporter_export_type").find(:xpath, "option[3]").select_option
+      find(:css, "#exporter_export_from").find(:xpath, "option[4]").select_option
+      find(:css, "#exporter_export_source_worktype").find(:xpath, "option[2]").select_option
+      find(:css, "#exporter_parser_klass").find(:xpath, "option[2]").select_option
+
+      click_button "Create and Export"
+
+      expect(page).to have_content("Exporter was successfully created. A download link will appear once it completes.")
+      expect(page).to have_link("exporter_1")
+    end
+  end
 end
