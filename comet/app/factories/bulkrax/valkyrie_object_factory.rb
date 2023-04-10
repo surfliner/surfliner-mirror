@@ -53,14 +53,15 @@ module Bulkrax
         Hyrax.logger.error "No S3 connection found: #{e}"
       end
 
-      s3_files = begin
-        attributes["remote_files"].map { |r| r["url"] }.map do |key|
-          s3_bucket.files.get(key)
-        end
-      rescue => e
-        Hyrax.logger.error(e)
-        []
-      end.compact
+      remote_files = attributes["remote_files"]
+      s3_files = if remote_files.blank?
+                   Hyrax.logger.info "No remote files listed for #{attributes['source_identifier']}"
+                   []
+                 else
+                   remote_files.map { |r| r["url"] }.map do |key|
+                     s3_bucket.files.get(key)
+                   end.compact
+                 end
 
       Hyrax::Transactions::CometContainer["change_set.bulkrax_create_work"]
         .with_step_args(
