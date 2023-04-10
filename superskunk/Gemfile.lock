@@ -169,7 +169,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.13.10-x86_64-linux)
       racc (~> 1.4)
-    oj (3.13.21)
+    oj (3.14.3)
     okcomputer (1.18.4)
     parallel (1.22.1)
     parser (3.2.2.0)
@@ -264,8 +264,8 @@ GEM
       rubocop-ast (>= 0.4.0)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
-    sequel (5.60.0)
-    sequel_pg (1.16.0)
+    sequel (5.67.0)
+    sequel_pg (1.17.1)
       pg (>= 0.18.0, != 1.2.0)
       sequel (>= 4.38.0)
     standard (1.26.0)
@@ -294,11 +294,11 @@ GEM
       rdf-vocab
       reform (~> 2.2)
       reform-rails
-    valkyrie-sequel (3.0.0.pre.beta.1)
+    valkyrie-sequel (3.0.0)
       oj (~> 3.0)
       sequel (~> 5.0)
       sequel_pg (~> 1.0)
-      valkyrie (>= 3.0.0.pre.beta.1)
+      valkyrie (~> 3.0)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -323,7 +323,7 @@ DEPENDENCIES
   surfliner_schema!
   tzinfo-data (= 2.0.4)
   valkyrie (= 3.0.1)
-  valkyrie-sequel (= 3.0.0.pre.beta.1)
+  valkyrie-sequel (= 3.0.0)
 
 BUNDLED WITH
-   2.3.18
+   2.4.10
