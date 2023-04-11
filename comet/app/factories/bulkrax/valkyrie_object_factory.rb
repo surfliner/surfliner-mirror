@@ -42,32 +42,13 @@ module Bulkrax
       @object = klass.new(attrs)
       cx = Hyrax::ChangeSet.for(@object)
 
-      s3_bucket_name = ENV.fetch("STAGING_AREA_S3_BUCKET", "comet-staging-area-#{Rails.env}")
-      s3_bucket = begin
-        Rails.application.config.staging_area_s3_connection
-          .directories.get(s3_bucket_name)
-      rescue NoMethodError => e
-        # most likely because S3/AWS were not set
-        Hyrax.logger.error "No S3 connection found: #{e}"
-      end
-
-      remote_files = attributes["remote_files"]
-      s3_files = if remote_files.blank?
-                   Hyrax.logger.info "No remote files listed for #{attributes['source_identifier']}"
-                   []
-                 else
-                   remote_files.map { |r| r["url"] }.map do |key|
-                     s3_bucket.files.get(key)
-                   end.compact
-                 end
-
       steps = Hyrax::Transactions::WorkCreate::DEFAULT_STEPS.dup
       steps[steps.index('work_resource.add_file_sets')] = 'add_bulkrax_files'
 
       Hyrax::Transactions::WorkCreate.new(steps: steps)
         .with_step_args(
           "work_resource.add_to_parent" => {parent_id: @related_parents_parsed_mapping, user: @user},
-          "add_bulkrax_files" => {files: s3_files, user: @user},
+          "add_bulkrax_files" => {files: get_s3_files(remote_files: attributes["remote_files"]), user: @user},
           "change_set.set_user_as_depositor" => {user: @user},
           "work_resource.change_depositor" => {user: @user}
           # TODO: uncomment when we upgrade Hyrax 4.x
@@ -99,6 +80,21 @@ module Bulkrax
       # Index the object
       Hyrax.publisher.publish("object.metadata.updated", object: object, user: @user)
       object
+    end
+
+    def get_s3_files(remote_files: {})
+      if remote_files.blank?
+        Hyrax.logger.info "No remote files listed for #{attributes["source_identifier"]}"
+        return []
+      end
+
+      s3_bucket_name = ENV.fetch("STAGING_AREA_S3_BUCKET", "comet-staging-area-#{Rails.env}")
+      s3_bucket = Rails.application.config.staging_area_s3_connection
+        .directories.get(s3_bucket_name)
+
+      remote_files.map { |r| r["url"] }.map do |key|
+        s3_bucket.files.get(key)
+      end.compact
     end
 
     ##
