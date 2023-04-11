@@ -39,11 +39,11 @@ module Bulkrax
         visibility: attributes.try("visibility") || "restricted"
       ).symbolize_keys
 
-      @object = klass.new(attrs)
-      cx = Hyrax::ChangeSet.for(@object)
+      cx = Hyrax::Forms::ResourceForm.for(klass.new).prepopulate!
+      cx.validate(attrs)
 
       steps = Hyrax::Transactions::WorkCreate::DEFAULT_STEPS.dup
-      steps[steps.index('work_resource.add_file_sets')] = 'add_bulkrax_files'
+      steps[steps.index("work_resource.add_file_sets")] = "add_bulkrax_files"
 
       Hyrax::Transactions::WorkCreate.new(steps: steps)
         .with_step_args(
