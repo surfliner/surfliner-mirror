@@ -194,3 +194,9 @@ end
 [Bulkrax::CsvEntry, Bulkrax::CsvEntry.singleton_class].each do |mod|
   mod.prepend EntryExt
 end
+
+require Rails.root.join("lib/hyrax/transactions/steps/add_bulkrax_files")
+
+Hyrax::Transactions::Container.register "add_bulkrax_files" do
+  Hyrax::Transactions::Steps::AddBulkraxFiles.new
+end

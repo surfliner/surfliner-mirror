@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require Rails.root.join("lib/hyrax/transactions/comet_container")
-
 module Bulkrax
   class ValkyrieObjectFactory < ObjectFactory
     ##
@@ -63,10 +61,13 @@ module Bulkrax
                    end.compact
                  end
 
-      Hyrax::Transactions::CometContainer["change_set.bulkrax_create_work"]
+      steps = Hyrax::Transactions::WorkCreate::DEFAULT_STEPS.dup
+      steps[steps.index('work_resource.add_file_sets')] = 'add_bulkrax_files'
+
+      Hyrax::Transactions::WorkCreate.new(steps: steps)
         .with_step_args(
           "work_resource.add_to_parent" => {parent_id: @related_parents_parsed_mapping, user: @user},
-          "work_resource.add_bulkrax_files" => {files: s3_files, user: @user},
+          "add_bulkrax_files" => {files: s3_files, user: @user},
           "change_set.set_user_as_depositor" => {user: @user},
           "work_resource.change_depositor" => {user: @user}
           # TODO: uncomment when we upgrade Hyrax 4.x
