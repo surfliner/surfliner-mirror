@@ -1,0 +1,63 @@
+
+<%  array_of_ids = presenter.list_of_item_ids_to_display %>
+<%  members = presenter.member_presenters_for(array_of_ids) %>
+<% if members.present? %>
+  <div class="col-md-12">
+    <div class="panel panel-default tabs" role="main">
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <% ["file_sets", "components"].each_with_index do | tab, i | %>
+          <% if i == 0 %>
+            <li role="presentation" class="active">
+          <% else %>
+            <li role="presentation">
+          <% end %>
+              <a href="#<%= tab %>" aria-controls="<%= tab %>" role="tab" data-toggle="tab">
+                <%= t(".#{tab}") %> (<%= i == 0 ? presenter.file_sets_count : presenter.components_count %>)
+              </a>
+            </li>
+        <% end %>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <% ["file_sets", "components"].each_with_index do | tab, i | %>
+          <% if i == 0 %>
+            <div role="tabpanel" class="tab-pane active" id="<%= tab %>">
+          <% else %>
+            <div role="tabpanel" class="tab-pane" id="<%= tab %>">
+          <% end %>
+            <div class="form-tab-content">
+
+              <table class="table table-striped related-files">
+                <thead>
+                  <tr>
+                    <th><%= t('.thumbnail') %></th>
+                    <th><%= t('.title') %></th>
+                    <th><%= t('.date_uploaded') %></th>
+                    <th><%= t('.visibility') %></th>
+                    <th><%= t('.actions') %></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <%= render partial: 'member', collection: i == 0 ? presenter.file_set_presenters : presenter.work_presenters %>
+                </tbody>
+              </table>
+              <div class="row">
+                <% if presenter.total_pages > 1 %>
+                    <div class="row record-padding col-md-9">
+                      <%= paginate array_of_ids, outer_window: 2, theme: 'blacklight', param_name: :page, route_set: main_app %>
+                    </div><!-- /pager -->
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% elsif can? :edit, presenter.id %>
+    <div class="alert alert-warning" role="alert"><%= t('.empty', type: presenter.human_readable_type) %></div>
+<% else %>
+  <div class="alert alert-warning" role="alert"><%= t('.unauthorized', type: presenter.human_readable_type) %></div>
+<% end %>

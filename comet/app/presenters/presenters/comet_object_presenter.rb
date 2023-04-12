@@ -16,6 +16,20 @@ module Presenters
     delegate :ark, to: :model
 
     ##
+    # Count for file sets
+    # @return [Integer]
+    def file_sets_count
+      @file_sets_count ||= file_set_presenters.count
+    end
+
+    ##
+    # Count for components
+    # @return [Integer]
+    def components_count
+      @components_count ||= work_presenters.count
+    end
+
+    ##
     # Provides a data structure representing the discovery links for this object.
     #
     # When the object is published in a given discovery platform, we want to
