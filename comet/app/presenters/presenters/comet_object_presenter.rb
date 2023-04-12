@@ -29,6 +29,23 @@ module Presenters
       @components_count ||= work_presenters.count
     end
 
+    # @return [Integer] total number of pages of viewable items
+    def total_pages
+      (authorized_item_ids.size.to_f / rows_from_params.to_f).ceil
+    end
+
+    def authorized_item_ids(filter_unreadable: Flipflop.hide_private_items?)
+      super
+
+      tab = request.params[:tab]
+      ((tab == "components") ? (@member_item_list_ids - file_set_ids) : (@member_item_list_ids & file_set_ids))
+    end
+
+    # @return [Array] list of file set ids in the object
+    def file_set_ids
+      file_set_presenters.map { |fp| fp.id }
+    end
+
     ##
     # Provides a data structure representing the discovery links for this object.
     #
