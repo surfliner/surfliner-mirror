@@ -13,7 +13,9 @@
             <li role="presentation">
           <% end %>
               <a href="#<%= tab %>" aria-controls="<%= tab %>" role="tab" data-toggle="tab">
-                <%= t(".#{tab}") %> (<%= i == 0 ? presenter.components_count : presenter.file_sets_count %>)
+                <div onclick="javascript: load_tab_content('<%= tab %>');">
+                  <%= t(".#{tab}") %> (<%= i == 0 ? presenter.components_count : presenter.file_sets_count %>)
+                </div>
               </a>
             </li>
         <% end %>
