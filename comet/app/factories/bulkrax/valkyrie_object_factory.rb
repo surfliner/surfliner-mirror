@@ -34,18 +34,14 @@ module Bulkrax
     # https://github.com/projecthydra/active_fedora/issues/874
     # 2+ years later, still open!
     def create
-      attrs = transform_attributes.merge(
-        alternate_ids: [source_identifier_value],
-        visibility: attributes.try("visibility") || "restricted"
-      ).symbolize_keys
+      attrs = transform_attributes
+        .merge(alternate_ids: [source_identifier_value])
+        .symbolize_keys
 
       cx = Hyrax::Forms::ResourceForm.for(klass.new).prepopulate!
       cx.validate(attrs)
 
-      steps = Hyrax::Transactions::WorkCreate::DEFAULT_STEPS.dup
-      steps[steps.index("work_resource.add_file_sets")] = "add_bulkrax_files"
-
-      Hyrax::Transactions::WorkCreate.new(steps: steps)
+      result = transaction
         .with_step_args(
           "work_resource.add_to_parent" => {parent_id: @related_parents_parsed_mapping, user: @user},
           "add_bulkrax_files" => {files: get_s3_files(remote_files: attributes["remote_files"]), user: @user},
@@ -55,6 +51,8 @@ module Bulkrax
           # 'work_resource.save_acl' => { permissions_params: [attrs.try('visibility') || 'open'].compact }
         )
         .call(cx)
+
+      result.value!
     end
 
     def update
@@ -114,6 +112,15 @@ module Bulkrax
       object = Hyrax.persister.save(resource: object)
       Hyrax.publisher.publish("object.metadata.updated", object: object, user: @user)
       object
+    end
+
+    private
+
+    def transaction
+      steps = Hyrax::Transactions::WorkCreate::DEFAULT_STEPS.dup
+      steps[steps.index("work_resource.add_file_sets")] = "add_bulkrax_files"
+
+      Hyrax::Transactions::WorkCreate.new(steps: steps)
     end
   end
 

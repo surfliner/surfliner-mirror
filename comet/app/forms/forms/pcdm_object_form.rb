@@ -33,6 +33,8 @@ module Forms
     # if you want a field in the form, but it doesn't have a directly
     # corresponding model attribute, make it virtual
 
+    property :alternate_ids
+
     # This property is passed by the form when collections are associated with
     # GenericObjects. Particularly important, is that in the cases we’ve
     # identified thus far, the member_of_collections_ids params is empty, so we

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Bulkrax::ValkyrieObjectFactory do
+RSpec.describe Bulkrax::ValkyrieObjectFactory, :with_admin_set do
   subject(:object_factory) do
     described_class.new(attributes: attributes,
       source_identifier_value: source_identifier,
@@ -12,9 +12,29 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory do
   end
 
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
+  let(:work_identifier) { "" }
 
-  context "when work_identifier is empty", :with_admin_set do
-    let(:work_identifier) { "" }
+  describe "#create" do
+    context "with a visibility" do
+      let(:attributes) do
+        {title: "Test Import Title with Visibility",
+         visibility: "open",
+         source_identifier_value: "object_with_viz"}
+      end
+
+      let(:source_identifier) { "object_with_viz" }
+
+      it "assigns the visibility" do
+        object_factory.run!
+
+        imported = Hyrax.query_service.find_all_of_model(model: GenericObject).first
+        expect(imported)
+          .to have_attributes(visibility: "open")
+      end
+    end
+  end
+
+  context "when work_identifier is empty" do
     let(:source_identifier) { "object_1" }
     let(:title) { "Test Bulkrax Import Title" }
     let(:alternative_title) { "Test Alternative Title" }
@@ -34,7 +54,7 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory do
     end
   end
 
-  context "when work_identifier matches an existing object", :with_admin_set do
+  context "when work_identifier matches an existing object" do
     let(:object) do
       FactoryBot.valkyrie_create(:generic_object,
         :with_index,
