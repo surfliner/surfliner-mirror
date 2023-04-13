@@ -64,4 +64,53 @@ RSpec.describe "Objects", type: :system, js: true do
     click_on("Components (1)")
     expect(page).to have_link("Test Component")
   end
+
+  context "load page from paginator" do
+    let(:show_work_item_rows) { Rails.application.config.show_work_item_rows }
+
+    before { Rails.application.config.show_work_item_rows = 1 }
+
+    after { Rails.application.config.show_work_item_rows = show_work_item_rows }
+
+    it "has paginator and can load page" do
+      visit "/concern/generic_objects/new"
+
+      fill_in("Title", with: "Test Object")
+      choose("generic_object_visibility_open")
+
+      # ensure that the form fields are fully populated
+      sleep(1.seconds)
+      click_on("Save")
+      id = page.current_path.split("/").last
+
+      click_button("Add Component")
+      click_on("Attach Generic object")
+
+      fill_in("Title", with: "Test Component")
+      choose("generic_object_visibility_open")
+
+      sleep(1.seconds)
+      click_on("Save")
+
+      visit "/concern/generic_objects/#{id}"
+      click_button("Add Component")
+      click_on("Attach Generic object")
+
+      fill_in("Title", with: "Another Test Component")
+      choose("generic_object_visibility_open")
+
+      sleep(1.seconds)
+      click_on("Save")
+
+      visit "/concern/generic_objects/#{id}"
+      expect(page).to have_content("Components (2)")
+      expect(page).to have_content("File Sets (0)")
+
+      click_on("Components (2)")
+      expect(page).to have_link("Test Component")
+
+      click_on("2")
+      expect(page).to have_link("Another Test Component")
+    end
+  end
 end
