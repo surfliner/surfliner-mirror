@@ -73,11 +73,18 @@ module Forms
     end
 
     def interpret_collections_attributes(opts)
+      adds = []
+      deletes = []
       member_attributes = input_params.permit(member_of_collections_attributes: {}).to_h
-      self.member_of_collection_ids =
-        member_attributes["member_of_collections_attributes"].each_with_object(model.member_of_collection_ids.dup) do |(_, attribute), member_ids|
+      tmp_member_ids = member_attributes["member_of_collections_attributes"].each_with_object(model.member_of_collection_ids.dup) do |(_, attribute), member_ids|
+        if attribute["_destroy"] == "true"
+          deletes << Valkyrie::ID.new(attribute["id"])
+        else
+          adds << Valkyrie::ID.new(attribute["id"])
           member_ids << attribute["id"]
         end
+      end
+      self.member_of_collection_ids = ((tmp_member_ids + adds) - deletes).uniq
     end
 
     def embargo_populator(fragment:, **)

@@ -40,9 +40,15 @@ RSpec.describe Hyrax::GenericObjectsController, storage_adapter: :memory, metada
         Hyrax::PcdmCollection.new(title: "Spec Type",
           collection_type_gid: collection_type.to_global_id)
       }
+      let(:persisted_collection) {
+        Hyrax.persister.save(resource: collection)
+      }
+      let(:create_params) do
+        {title: "comet in moominland abcd",
+         member_of_collection_ids: [persisted_collection.id.to_s]}
+      end
 
-      it "persists the collection id for the object" do
-        persisted_collection = Hyrax.persister.save(resource: collection)
+      it "persists with member of collections attributes" do
         collection_id = persisted_collection.id
 
         post :create, params: {generic_object: {title: "Test for #{collection_id}",
@@ -58,6 +64,17 @@ RSpec.describe Hyrax::GenericObjectsController, storage_adapter: :memory, metada
           gob.title == ["Test for #{collection_id}"]
         end
 
+        expect(persisted_object.member_of_collection_ids).to eq([collection_id])
+      end
+
+      it "persists with member of collection id" do
+        collection_id = persisted_collection.id
+
+        post :create, params: {generic_object: create_params}
+        gobjs = Hyrax.query_service.find_all_of_model(model: GenericObject)
+        persisted_object = gobjs.find do |gob|
+          gob.title == ["comet in moominland abcd"]
+        end
         expect(persisted_object.member_of_collection_ids).to eq([collection_id])
       end
     end
