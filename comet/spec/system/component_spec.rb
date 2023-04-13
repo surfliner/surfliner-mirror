@@ -81,6 +81,7 @@ RSpec.describe "Components", type: :system, js: true do
 
       visit "/concern/generic_objects/#{parent_object.id}"
 
+      click_link(href: "#components")
       expect(page).to have_content(component_title)
       expect(page).to have_button("Remove from this object")
 
