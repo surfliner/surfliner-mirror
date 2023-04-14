@@ -31,7 +31,7 @@ gem "puma", "6.2.2"
 gem "rails", "7.0.4.3"
 gem "rsolr", ">= 1.0", "< 3"
 gem "rspec-its", group: [:test]
-gem "rspec-rails", "~> 5.0", group: [:test]
+gem "rspec-rails", "~> 6.0", group: [:test]
 gem "rspec_junit_formatter", group: [:test]
 gem "sass-rails", "~> 6.0"
 gem "standard", "1.28.2"
