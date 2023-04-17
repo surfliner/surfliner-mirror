@@ -286,7 +286,28 @@ access_control_list.save
 
 This will persist any changes to the ACL to the Valkyrie store.
 
+## Understanding `visibility`
+
+Resources in Hyrax have a [`#visibility`][hyrax-visibility] utility accessor
+that provides a limited, at-a-glance view of current **AccessControlList**
+state. `#visibility` reduces an **AccessControlList** to a single string value
+(like "public", or "restricted") intended to summarize read access to the
+object. These values are used for display purposes, as well as in the UI forms
+and batch ingest processes to allow quick changes to a resource's access
+controls.
+
+~comet customizes the `visibility` settings to reflect the following levels:
+
+| Visibility Flag   | Condition                                                                  |
+|-------------------|----------------------------------------------------------------------------|
+| Public            | `public` group has read access.                                            |
+| Campus            | `campus` group has read access, but `public` group does not.               |
+| Metadata only     | Object meets condition for "Public", but member FileSets and Files do not. |
+| Comet             | `comet` group has read access, but `public` and `campus` groups do not.    |
+| Restricted Access | None of the above conditions are met.                                      |
+
 [hyrax]: https://github.com/samvera/hyrax "Hyrax on GitHub"
+[hyrax-visibility]: https://github.com/samvera/hyrax/wiki/Hyrax-Valkyrie-Usage-Guide#visibility "Hyrax Valkyrie Usage Guide -- #visibility"
 [rubydoc-hyrax-acl]: https://rubydoc.info/gems/hyrax/Hyrax/AccessControlList "Class: Hyrax::AccessControlList"
 [valkyrie]: https://github.com/samvera/valkyrie "Valkyrie on GitHub"
 [webacl]: https://solid.github.io/web-access-control-spec/ "SOLID Web Access Control"
