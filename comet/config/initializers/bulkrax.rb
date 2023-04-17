@@ -18,6 +18,13 @@ Bulkrax.parsers = [
   {name: "XML", class_name: "Bulkrax::XmlParser", partial: "xml_fields"}
 ]
 
+module Bulkrax
+  # @override return the valkyrie ::FileSet in comet
+  def file_model_class
+    ::FileSet
+  end
+end
+
 module HasMappingExt
   ##
   # Field of the model that can be supported
@@ -76,6 +83,39 @@ end
 
 [Bulkrax::CsvEntry, Bulkrax::CsvEntry.singleton_class].each do |mod|
   mod.prepend CsvEntryExt
+end
+
+module ParserExportRecordSetBaseExt
+  # @override count works only in comet
+  # @return [Integer]
+  def count
+    sum = works.count
+    return sum if limit.zero?
+    return limit if sum > limit
+    sum
+  end
+
+  # @override Yield works only for comet.  Once we've yielded as many times
+  # as the parser's limit, we break the iteration and return.
+  #
+  # @yieldparam id [String] The ID of the work/collection/file_set
+  # @yieldparam entry_class [Class] The parser associated entry class for the
+  #             work/collection/file_set.
+  #
+  # @note The order of what we yield has been previously determined.
+  def each
+    counter = 0
+
+    works.each do |work|
+      break if limit_reached?(limit, counter)
+      yield(work.fetch("id"), work_entry_class)
+      counter += 1
+    end
+  end
+end
+
+[Bulkrax::ParserExportRecordSet::Base, Bulkrax::ParserExportRecordSet::Base.singleton_class].each do |mod|
+  mod.prepend ParserExportRecordSetBaseExt
 end
 
 module CsvParserExt
@@ -140,12 +180,6 @@ module CsvParserExt
         f.close
       end
     end
-  end
-
-  # Override to exclude file sets from export entry
-  def current_record_ids
-    super
-    @work_ids
   end
 end
 
