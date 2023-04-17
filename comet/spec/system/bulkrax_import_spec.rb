@@ -41,5 +41,30 @@ RSpec.describe "Bulkrax Import", type: :system, js: true do
 
       expect(page).to have_content("Lovely Title")
     end
+
+    context "import records with no source identifier" do
+      let(:source_file) { Rails.root.join("spec", "fixtures", "bulkrax", "missing_source_id.csv") }
+
+      it "can successfully create and import" do
+        visit "/dashboard"
+        click_on "Importers"
+        click_on "New"
+
+        fill_in("Name", with: "importer_no_source_id")
+
+        find(:css, "#importer_admin_set_id").find(:xpath, "option[2]").select_option
+        find(:css, "#importer_parser_klass").find(:xpath, "option[4]").select_option
+        choose("importer_parser_fields_file_style_upload_a_file")
+        attach_file "File", source_file
+
+        click_button "Create and Import"
+
+        expect(page).to have_content("Importer was successfully created and import has been queued.")
+
+        sleep(2.seconds)
+        click_on "Importers"
+        expect(page).to have_content("Complete")
+      end
+    end
   end
 end
