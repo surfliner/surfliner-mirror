@@ -1,0 +1,35 @@
+en:
+  bulkrax:
+    admin:
+      sidebar:
+        exporters: Exporters
+        importers: Importers
+    exporter:
+      labels:
+        total_entries: Total Objects
+        worktype: Object Type
+        work_entries: Object Entries
+        collection_entries: Collection Entries
+        file_set_entries: File Set Entries
+    importer:
+      labels:
+        name: Name
+        user: User
+        admin_set: Project
+        frequency: Frequency
+        parser_klass: Parser
+        limit: Limit
+        total_work_entries: Total Objects
+        total_collections: Total Collections
+        total_file_sets: Total File Sets
+        work_entries: Object Entries
+        collection_entries: Collection Entries
+        file_set_entries: File Set Entries
+    table_header:
+      labels:
+        identifier: Source Identifier
+        entry_id: Entry No
+        status: Status
+        errors: Errors
+        status_set_at: Status Set At
+        actions: Actions

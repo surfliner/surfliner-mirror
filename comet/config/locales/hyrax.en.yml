@@ -173,6 +173,7 @@ en:
           actions: Action
           title: Title
       show:
+        items: Members
         permanent_id: ARK
         last_modified: Last Modified
       show_actions:
@@ -219,8 +220,10 @@ en:
         heading:
           collection:
             published: Pub Status
+            visibility: Visibility
           work:
             published: Pub Status
+            visibility: Visibility
       heading:
         work:
           visibility: Visibility
@@ -229,6 +232,8 @@ en:
       shared: Shared with Me
       works: Objects
       your_works: Your Objects
+      work_type_graph:
+        title: Object Types
     directory:
       suffix: "@example.org"
     footer:
