@@ -12,11 +12,11 @@ Bulkrax.setup do |config|
 end
 
 Bulkrax.parsers = [
-  {name: "OAI - Dublin Core", class_name: "Bulkrax::OaiDcParser", partial: "oai_fields"},
-  {name: "OAI - Qualified Dublin Core", class_name: "Bulkrax::OaiQualifiedDcParser", partial: "oai_fields"},
-  {name: "CSV - Comma Separated Values", class_name: "Bulkrax::CsvParser", partial: "csv_fields_no_visibility"},
-  {name: "Bagit", class_name: "Bulkrax::BagitParser", partial: "bagit_fields"},
-  {name: "XML", class_name: "Bulkrax::XmlParser", partial: "xml_fields"}
+  # {name: "OAI - Dublin Core", class_name: "Bulkrax::OaiDcParser", partial: "oai_fields"},
+  # {name: "OAI - Qualified Dublin Core", class_name: "Bulkrax::OaiQualifiedDcParser", partial: "oai_fields"},
+  {name: "CSV - Comma Separated Values", class_name: "Bulkrax::CsvParser", partial: "csv_fields_no_visibility"}
+  # {name: "Bagit", class_name: "Bulkrax::BagitParser", partial: "bagit_fields"},
+  # {name: "XML", class_name: "Bulkrax::XmlParser", partial: "xml_fields"}
 ]
 
 module Bulkrax
