@@ -66,5 +66,54 @@ RSpec.describe "Bulkrax Import", type: :system, js: true do
         expect(page).to have_content("Complete")
       end
     end
+
+    context "import records with delimited column values" do
+      let(:source_file) { Rails.root.join("spec", "fixtures", "bulkrax", "multivalue_columns.csv") }
+      it "can successfully split a delimited column value into multiple values" do
+        visit "/dashboard"
+        click_on "Importers"
+        click_on "New"
+
+        fill_in("Name", with: "importer_multivalue_columns")
+
+        find(:css, "#importer_admin_set_id").find(:xpath, "option[2]").select_option
+        find(:css, "#importer_parser_klass").find("option[value='Bulkrax::CsvParser']").select_option
+        choose("importer_parser_fields_file_style_upload_a_file")
+        attach_file "File", source_file
+
+        click_button "Create and Import"
+
+        expect(page).to have_content("Importer was successfully created and import has been queued.")
+
+        click_on "importer_multivalue_columns"
+
+        expect(page).to have_content("w1")
+        expect(page).to have_content("w2")
+
+        # check the 1st record in the csv
+        click_on "w1"
+        expect(page).to have_content("Raw Metadata:")
+
+        within("#parsed-metadata-heading") do
+          find(".accordion-title").click
+        end
+
+        expect(page).to have_content("[\"Creator 1\", \"Creator 2\"]")
+
+        # check the 2nd record in the csv
+        within("nav.breadcrumb") do
+          click_on "importer_multivalue_columns"
+        end
+
+        click_on "w2"
+        expect(page).to have_content("Raw Metadata:")
+
+        within("#parsed-metadata-heading") do
+          find(".accordion-title").click
+        end
+
+        expect(page).to have_content("[\"Creator 2\", \"Creator 3\"]")
+      end
+    end
   end
 end

@@ -1,0 +1,3 @@
+model,source_identifier,title,creator,parents_column
+GenericObject,w1,Lovely Title,Creator 1 | Creator 2,,
+GenericObject,w2,Another Title,Creator 2 | Creator 3,,

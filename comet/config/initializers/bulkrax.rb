@@ -9,6 +9,8 @@ Bulkrax.setup do |config|
   config.object_factory = Bulkrax::ValkyrieObjectFactory
   config.default_work_type = "GenericObject"
   config.fill_in_blank_source_identifiers = ->(parser, index) { "b-#{parser.importer.id}-#{index}" }
+  # Specify the delimiter regular expression for splitting an attribute's values into a multi-value array.
+  config.multi_value_element_split_on = /\s*[:;|]\s*/.freeze
 end
 
 Bulkrax.parsers = [
@@ -63,8 +65,26 @@ module HasMappingExt
   end
 
   def multiple_field?(field)
-    form_definition = schema_form_definitions[field]
+    form_definition = schema_form_definitions[field.to_sym]
     form_definition.nil? ? false : form_definition.multiple?
+  end
+
+  # override: we want to directly infer from a property being multiple that we should split when it's a String
+  def multiple_metadata(content)
+    return unless content
+
+    case content
+    when Nokogiri::XML::NodeSet
+      content&.content
+    when Array
+      content
+    when Hash
+      Array.wrap(content)
+    when String
+      String(content).strip.split(Bulkrax.multi_value_element_split_on)
+    else
+      Array.wrap(content)
+    end
   end
 
   def schema_form_definitions
