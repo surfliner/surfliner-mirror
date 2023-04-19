@@ -31,7 +31,7 @@ gem "rdf-edtf",
 gem "redis", "4.8.1"
 gem "rsolr", "2.5.0"
 gem "sass-rails", "5.1.0"
-gem "sidekiq", "7.0.8"
+gem "sidekiq", "7.0.9"
 gem "surfliner_schema", path: "../gems/surfliner_schema"
 gem "tinymce-rails", "5.10.7"
 gem "turbolinks", "5.2.1"
