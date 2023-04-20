@@ -9,8 +9,11 @@ Bulkrax.setup do |config|
   config.object_factory = Bulkrax::ValkyrieObjectFactory
   config.default_work_type = "GenericObject"
   config.fill_in_blank_source_identifiers = ->(parser, index) { "b-#{parser.importer.id}-#{index}" }
+
   # Specify the delimiter regular expression for splitting an attribute's values into a multi-value array.
-  config.multi_value_element_split_on = /\s*[:;|]\s*/.freeze
+  config.multi_value_element_split_on = /\s*\|\s*/
+  # Specify the delimiter for joining an attribute's multi-value array into a string.
+  config.multi_value_element_join_on = " | "
 end
 
 Bulkrax.parsers = [
@@ -283,11 +286,10 @@ module CsvEntryExt
 
   ##
   # Add mappings from M3
-  # TODO: How values for multi-value field are delimited?
   def build_m3_metadata
     Bulkrax::ValkyrieObjectFactory.schema_properties(hyrax_record.class).each do |pro|
       value = hyrax_record.send(pro)
-      self.parsed_metadata[pro] = value.present? ? value.join("|") : nil
+      self.parsed_metadata[pro] = value.present? ? value.join(Bulkrax.multi_value_element_join_on) : nil
     end
 
     self.parsed_metadata["title"] = hyrax_record.send(:title).first
