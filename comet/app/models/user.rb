@@ -5,6 +5,8 @@ class User < ApplicationRecord
   include Hyrax::User
   include Hyrax::UserUsageStats
 
+  attr_writer :assigned_groups
+
   if Blacklight::Utils.needs_attr_accessible?
     attr_accessible :email, :password, :password_confirmation
   end
@@ -16,11 +18,19 @@ class User < ApplicationRecord
     :google_oauth2
   ]
 
+  self.group_service = ::CometRoleMapper
+
   # Method added by Blacklight; Blacklight uses #to_s on your
   # user class to get a user-displayable login/identifier for
   # the account.
   def to_s
     email
+  end
+
+  def assigned_groups
+    return @assigned_groups unless @assigned_groups.nil?
+    return ["comet"] unless provider.nil?
+    []
   end
 
   #
@@ -31,6 +41,7 @@ class User < ApplicationRecord
     User.find_or_create_by(email: auth.info.email) do |u|
       u.provider = auth.provider
       u.uid = auth.uid
+      u.assigned_groups = ["comet"]
     end
   rescue => e
     logger.error e && return
@@ -40,7 +51,10 @@ class User < ApplicationRecord
   # Override Hyrax's default version of this method, which assumes our user
   # model will have a `password`.
   def self.find_or_create_system_user(user_key)
-    User.find_by_user_key(user_key) ||
-      User.find_or_create_by!(Hydra.config.user_key_field => user_key, :provider => Devise.omniauth_providers.first)
+    user = (User.find_by_user_key(user_key) ||
+      User.find_or_create_by!(Hydra.config.user_key_field => user_key, :provider => Devise.omniauth_providers.first))
+    user.assigned_groups.push("comet")
+
+    user
   end
 end

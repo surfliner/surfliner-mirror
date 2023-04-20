@@ -322,6 +322,58 @@ Hyrax::Group.class_eval do
   end
 end
 
+access_rights_binding = Hydra::AccessControls::AccessRight.class_eval("binding", __FILE__, __LINE__)
+access_rights_binding.eval('PERMISSION_TEXT_VALUE_COMET = "comet"')
+access_rights_binding.eval('VISIBILITY_TEXT_VALUE_COMET = "comet"')
+
+Hyrax::VisibilityMap.class_eval("binding", __FILE__, __LINE__).eval(
+  'DEFAULT_MAP = {
+    Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC => {
+      permission: Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_PUBLIC,
+      additions: [Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_PUBLIC].freeze,
+      deletions: [].freeze
+    }.freeze,
+    Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED => {
+      permission: Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_AUTHENTICATED,
+      additions: [Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_AUTHENTICATED].freeze,
+      deletions: [Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_PUBLIC].freeze
+    }.freeze,
+    Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_COMET => {
+      permission: Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_COMET,
+      additions: [Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_COMET].freeze,
+      deletions: [Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_PUBLIC,
+                  Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_AUTHENTICATED].freeze
+    }.freeze,
+    Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE => {
+      permission: :PRIVATE,
+      additions: [].freeze,
+      deletions: [Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_PUBLIC,
+                  Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_AUTHENTICATED,
+                  Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_COMET].freeze
+    }.freeze
+  }.freeze'
+)
+
+module VisibilityReaderExtension
+  ##
+  # @return [String]
+  def read
+    if permission_manager.read_groups.include? Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_PUBLIC
+      visibility_map.visibility_for(group: Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_PUBLIC)
+    elsif permission_manager.read_groups.include? Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_AUTHENTICATED
+      visibility_map.visibility_for(group: Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_AUTHENTICATED)
+    elsif permission_manager.read_groups.include? Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_COMET
+      visibility_map.visibility_for(group: Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_COMET)
+    else
+      visibility_map.visibility_for(group: :PRIVATE)
+    end
+  end
+end
+
+[Hyrax::VisibilityReader, Hyrax::VisibilityReader.singleton_class].each do |mod|
+  mod.prepend VisibilityReaderExtension
+end
+
 class CometTransactionContainer
   extend Dry::Container::Mixin
 
