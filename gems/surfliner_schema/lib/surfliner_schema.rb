@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "surfliner_schema/controlled_value"
+require "surfliner_schema/controlled_values"
 require "surfliner_schema/division"
 require "surfliner_schema/form_definition"
 require "surfliner_schema/form_fields"

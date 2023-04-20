@@ -111,6 +111,27 @@ module SurflinerSchema
               # +data_type: null+, but we allow explicit nulls in most other
               # places so this is probably fine.
               config["data_type"] || RDF::XSD.string,
+            controlled_values: config["controlled_values"] ? {
+              sources: config.dig("controlled_values", "sources").to_a,
+              values: self.class.property_hash(
+                config.fetch("controlled_values", {}),
+                "values"
+              ).each_with_object({}) { |(name, config), values|
+                value_name = config.fetch("name", name).to_sym
+                values[value_name] = {
+                  name: value_name,
+                  display_label: config.fetch(
+                    "display_label",
+                    self.class.format_name(value_name)
+                  ),
+                  iri: config.fetch(
+                    "iri",
+                    "about:surfliner_schema/controlled_values/#{property_name}/#{value_name}" # fallback iri if none is specified
+                  )
+                }
+                values
+              }
+            } : nil,
             indexing: config.fetch("indexing", []).to_a.map(&:to_sym),
             mapping: config.fetch("mapping", {}).to_h.filter_map { |prefix, value|
               # `iri` is a non‐standard property and may change but let’s go

@@ -76,6 +76,10 @@ module SurflinerSchema
     attribute :data_type, Valkyrie::Types.Constructor(RDF::URI).default(RDF::XSD.string)
 
     ##
+    # Controlled value definition for the property.
+    attribute :controlled_values, SurflinerSchema::ControlledValues.optional.default(nil)
+
+    ##
     # How to index the property.
     #
     # These correlate with the Hyrda Solr suffixes as follows:

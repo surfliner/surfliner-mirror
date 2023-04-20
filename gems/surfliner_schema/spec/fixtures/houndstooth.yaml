@@ -97,3 +97,18 @@ properties:
     data_type: http://www.w3.org/2001/XMLSchema#dateTime
     cardinality:
       minimum: 0
+
+  controlled:
+    name: controlled
+    display_label: "Controlled field"
+    definition: A field with controlled values.
+    available_on:
+      - GenericWork
+    controlled_values:
+      sources:
+        - https://example.example/values
+        - http://my.example/vocab
+      values:
+        - name: named
+        - display_label: "Unnamed with IRI"
+          iri: "example:unnamed"

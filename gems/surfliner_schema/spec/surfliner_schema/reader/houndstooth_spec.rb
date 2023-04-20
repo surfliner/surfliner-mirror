@@ -19,7 +19,8 @@ describe SurflinerSchema::Reader::Houndstooth do
     expect(reader.names(availability: :GenericWork)).to contain_exactly(
       :title,
       :date_uploaded,
-      :date_modified
+      :date_modified,
+      :controlled
     )
     expect(reader.names(availability: :Collection)).not_to include(:date_uploaded)
     expect(reader.names(availability: :Collection)).not_to include(:date_modified)
@@ -46,6 +47,28 @@ describe SurflinerSchema::Reader::Houndstooth do
     properties = reader.properties(availability: :GenericWork)
     expect(properties[:date_uploaded].display_label).to eq "Date Uploaded"
     expect(properties[:date_modified].display_label).to eq "Last modified"
+  end
+
+  it "correctly processes controlled values when specified" do
+    properties = reader.properties(availability: :GenericWork)
+    controlled_values = properties[:controlled].controlled_values
+    expect(controlled_values).not_to be_nil
+    expect(controlled_values.sources).to contain_exactly(
+      "https://example.example/values",
+      "http://my.example/vocab"
+    )
+    expect(controlled_values.values.keys).to contain_exactly(:named, :_1)
+    expect(controlled_values.values[:named].name).to eq :named
+    expect(controlled_values.values[:named].display_label).to eq "Named"
+    expect(controlled_values.values[:named].iri).to eq "about:surfliner_schema/controlled_values/controlled/named"
+    expect(controlled_values.values[:_1].name).to eq :_1
+    expect(controlled_values.values[:_1].display_label).to eq "Unnamed with IRI"
+    expect(controlled_values.values[:_1].iri).to eq "example:unnamed"
+  end
+
+  it "gives nil when no controlled values are specified" do
+    properties = reader.properties(availability: :GenericWork)
+    expect(properties[:date_modified].controlled_values).to be_nil
   end
 
   describe "#form_definitions" do
