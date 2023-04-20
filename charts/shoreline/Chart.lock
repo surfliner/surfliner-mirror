@@ -6,13 +6,13 @@ dependencies:
   repository: file://../geoserver
   version: 1.5.0
 - name: solr
-  repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
-  version: 6.1.4
+  repository: oci://registry-1.docker.io/bitnamicharts
+  version: 7.2.4
 - name: common
   repository: file://../common
   version: 0.1.0
 - name: minio
   repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
   version: 11.10.26
-digest: sha256:df16fcfd12e3ec404669face3195cf1ec9e0a2f8ca9811e1d35681637e216a4c
-generated: "2023-04-14T17:14:39.201697282Z"
+digest: sha256:44729a6fe619302b25c1d5fef782ca8902c3e6e33848d076801e32a4f7e99488
+generated: "2023-04-20T16:10:34.374912832-07:00"
