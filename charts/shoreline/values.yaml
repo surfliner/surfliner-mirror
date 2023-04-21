@@ -187,7 +187,7 @@ minio:
     enabled: false
   image:
     repository: bitnami/minio
-    tag: 2023.4.13-debian-11-r1
+    tag: 2023.4.20-debian-11-r0
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
