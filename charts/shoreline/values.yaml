@@ -92,7 +92,7 @@ solr:
   enabled: true
   image:
     repository: bitnami/solr
-    tag: 8.11.2-debian-11-r104
+    tag: 8.11.2-debian-11-r105
   auth:
     enabled: true
     adminUsername: admin
