@@ -24,13 +24,6 @@ Bulkrax.parsers = [
   # {name: "XML", class_name: "Bulkrax::XmlParser", partial: "xml_fields"}
 ]
 
-module Bulkrax
-  # @override return the valkyrie ::FileSet in comet
-  def file_model_class
-    ::FileSet
-  end
-end
-
 module HasMappingExt
   ##
   # Field of the model that can be supported
@@ -135,6 +128,20 @@ module ParserExportRecordSetBaseExt
       yield(work.fetch("id"), work_entry_class)
       counter += 1
     end
+  end
+
+  private
+
+  def works_query_kwargs
+    query_kwargs
+  end
+
+  # @override use the class name for fileset to avoid solr query error
+  # @note Specifically not memoizing this so we can merge values without changing the object.
+  #
+  # No sense attempting to query for more than the limit.
+  def query_kwargs
+    {fl: "id,#{Bulkrax.file_model_class.name.demodulize.underscore}_ids_ssim", method: :post, rows: row_limit}
   end
 end
 
