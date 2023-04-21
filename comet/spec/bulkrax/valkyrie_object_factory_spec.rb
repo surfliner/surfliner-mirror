@@ -38,7 +38,12 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory, :with_admin_set do
     let(:source_identifier) { "object_1" }
     let(:title) { "Test Bulkrax Import Title" }
     let(:alternative_title) { "Test Alternative Title" }
-    let(:rights_statement) { "http://rightsstatements.org/vocab/NoC-US/1.0/" }
+    let(:rights_statement) do
+      RDF::Literal(
+        "http://rightsstatements.org/vocab/NoC-US/1.0/",
+        datatype: RDF::XSD.anyURI
+      )
+    end
     let(:attributes) { {title: title, title_alternative: [alternative_title], rights_statement: rights_statement} }
 
     before do
@@ -78,7 +83,12 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory, :with_admin_set do
     let(:source_identifier) { "object_2" }
     let(:title_updated) { "Test Bulkrax Import Title Update" }
     let(:alternative_title_updated) { "Test Alternative Title Added" }
-    let(:rights_statement) { "http://rightsstatements.org/vocab/NoC-US/1.0/" }
+    let(:rights_statement) do
+      RDF::Literal(
+        "http://rightsstatements.org/vocab/NoC-US/1.0/",
+        datatype: RDF::XSD.anyURI
+      )
+    end
     let(:work_identifier) { object.id }
     let(:attributes) do
       {

@@ -223,7 +223,7 @@ properties:
   - &language
     name: language
     # property_uri: http://purl.org/dc/terms/language
-    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://id.loc.gov/vocabulary/languageschemes/iso6392b
     display_label: Language
     definition: ISO 639-2/B language code for the object.
@@ -253,7 +253,7 @@ properties:
   - &title_alternative
     name: title_alternative
     # property_uri: http://purl.org/dc/terms/alternative
-    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: Alternative title
     definition: Alternative or other additional title for the resource.
@@ -290,7 +290,7 @@ properties:
   - &creator
     name: creator
     # property_uri: http://purl.org/dc/elements/1.1/creator
-    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Creator"
     definition: -|
@@ -339,7 +339,7 @@ properties:
   - &date_created
     name: date_created
     # property_uri: http://purl.org/dc/terms/created
-    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://id.loc.gov/datatypes/edtf/EDTF
     display_label: "Date Created"
     definition: -|
@@ -372,7 +372,7 @@ properties:
   - &identifier_abstract
     name: null # this is not a real property
     # property_uri: null
-    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: Identifier
     definition: An identifier assigned to the object.
@@ -447,7 +447,8 @@ properties:
   - &note_description
     name: note_description
     # property_uri: http://purl.org/dc/terms/description
-    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: Description
     definition: Summary, abstract, or description of the resource.
     usage_guidelines: null
@@ -482,7 +483,8 @@ properties:
   - &note_general
     name: note_general
     # property_uri: http://id.loc.gov/ontologies/bibframe/Note
-    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: Note
     definition: General textual information relating to a resource
     usage_guidelines: null
@@ -504,36 +506,34 @@ properties:
     available_on:
       - generic_object
 
-# ### rights related
+# ### Rights‐related:
 
   - &rights_statement
-    name: "rights_statement"
-    display_label: "Rights statement"
-    definition: "The value in this element will indicate the copyright, usage and access rights that apply to this digital representation."
+    name: rights_statement
+    # property_uri: http://purl.org/dc/terms/rights
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#anyURI
+    display_label: Rights statement
+    definition: |-
+      The value in this element will indicate the copyright, usage and access
+      rights that apply to this digital representation.
     usage_guidelines: null
-    requirement: required, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - "http://rightsstatements.org"
-    sample_value:
-      - null
-    property_uri: http://purl.org/dc/terms/rights
-    available_on:
-      class:
-        - generic_object
-    # range: http://www.w3.org/2001/XMLSchema#anyURI
-    data_type: null
-    syntax:  null
+    # requirement: required, if applicable
+    # sample_value: null
+    # controlled_values:
+    #   sources:
+    #     - "http://rightsstatements.org"
+    # syntax: null
+    # validations: null
     cardinality:
       minimum: 0
       maximum: 1
-    index_documentation: null
     indexing: null
-    validations:
-      match_regex: null
+    # index_documentation: null
+    section: null
+    # grouping: null
     mapping:
-      dc-oai: http://purl.org/dc/elements/1.1/rights
-      dpla: null
-      gbl-1: null
+      oai_dc: http://purl.org/dc/elements/1.1/rights
       aardvark: http://purl.org/dc/terms/rights
+    available_on:
+      - generic_object
