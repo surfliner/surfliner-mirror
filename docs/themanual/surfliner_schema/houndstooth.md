@@ -24,6 +24,8 @@ this document:
 
 - `classes`
 - `mappings`
+- `sections`
+- `groupings`
 - `properties`
 
 > Samvera!Houndstooth also supports a `profile` property for describing the
@@ -36,7 +38,7 @@ this document:
 
 ## Keyed Lists
 
-The `classes`, `mappings`, and `properties` properties are represented in
+The `classes`, `mappings` and `properties` properties are represented in
 Samvera!Houndstooth as objects, with object keys supplying the internal “name”
 for the associated value. For example:
 
@@ -96,6 +98,10 @@ properties:
     # …
 ```
 
+In addition to `classes`, `mappings` and `properties`,
+SurflinerSchema!Houndstooth uses the “keyed list” pattern for `sections`,
+`groupings`, and the `values` of a property’s `controlled_values`.
+
 ## Classes
 
 SurflinerSchema!Houndstooth supports classes. These classes are considered
@@ -135,6 +141,36 @@ fully supported. The properties of mappings are as follows:
 
   > This is a SurflinerSchema!Houndstooth addition.
 
+## Sections
+
+SurflinerSchema!Houndstooth supports collecting related properties together into
+“sections”, which **must** be declared within the toplevel `sections` property
+to be used. The properties of sections are as follows:
+
+- **`name`:** The internal name of the section. This name is used to identify
+  the section from elsewhere in the file.
+
+- **`display_label`:** The human‐readable name for the section (i.e., its
+  title).
+
+## Groupings
+
+SurflinerSchema!Houndstooth further supports collecting related properties
+together into “groupings”, which **must** be declared within the toplevel
+`groupings` property to be used. Groupings differ from sections in that
+groupings are “tighter” and may have shared descriptions and usage guidelines.
+Properties may be in both sections and groupings. The properties of groupings
+are as follows:
+
+- **`name`:** The internal name of the grouping. This name is used to identify
+  the grouping from elsewhere in the file.
+
+- **`display_label`:** The human‐readable name for the grouping.
+
+- **`definition`:** The prose definition for the grouping.
+
+- **`usage_guidelines`:** Prose usage guidelines for the grouping.
+
 ## Properties
 
 Properties form the core of the schema definition. They are used to define the
@@ -151,6 +187,14 @@ properties of properties (oof) are as follows:
   Schemas **may** include multiple properties of the same name, but they
   **must** have different availabilities.
 
+- **`range`:** The (RDF) class of the property’s value. Only
+  `http://www.w3.org/2000/01/rdf-schema#Literal` is supported by default. The
+  default value is `http://www.w3.org/2000/01/rdf-schema#Literal`.
+
+- **`data_type`:** The (RDF) datatype of the property’s value. Only meaningful
+  if `range` is `http://www.w3.org/2000/01/rdf-schema#Literal`. The default
+  value is `http://www.w3.org/2001/XMLSchema#string`.
+
 - **`display_label`:** The human‐readable name for the property.
 
 - **`definition`:** The prose definition for the property.
@@ -160,14 +204,28 @@ properties of properties (oof) are as follows:
 - **`requirement`:** Human‐readable guidance on whether a value should be
   provided, from a best‐practices standpoint.
 
-- **`available_on`:** The “availability” of the property, which is to say, a
-  YAML list of names of classes that the property is available on.
+- **`controlled_values`:** The controlled values for a property. This **may** be
+  `null` if the property does not have controlled values. Otherwise, the value
+  **must** be an object with **optional** `sources` and `values` properties.
 
-  For backwards‐compatibility, this **may** be specified within a `class`
-  subproperty, but this is **optional**. SurflinerSchema!Houndstooth does not
-  support a `context` subproperty here.
+  The `sources` property, if provided, **must** be an array of external IRIs
+  which define the controlled values for the property.
 
-- **`data_type`:** The (RDF) datatype of the property’s value.
+  The `values` property, if provided, **must** be a “keyed list” (see above) of
+  objects representing schema‐defined controlled values. These objects may have
+  the following properties:
+
+  - **`name`:** The internal name of the value, used to assert value identity
+    across schema versions.
+
+  - **`display_label`:** The human‐readable name for the value.
+
+  - **`iri`:** The IRI associated with the value. If none is provided, an IRI
+    will be generated in the `about:surfliner_schema/controlled_values/`
+    namespace.
+
+- **`validations`:** An object with a `match_regex` property, which gives a
+  regular expression pattern that each value must match to be valid.
 
 - **`cardinality`:** The (potentially) system‐enforced cardinality of the
   property. This **must** be specified as an object with **optional** `minimum`
@@ -196,14 +254,24 @@ properties of properties (oof) are as follows:
   > specified in Samvera!Houndstooth, but they are confusing and probably merit
   > further discussion.
 
-- **`validations`:** An object with a `match_regex` property, which gives a
-  regular expression pattern that each value must match to be valid.
+- **`section`:** The name of the section (see above) to which this property
+  belongs.
 
-- **`mappings`:** An object whose keys are names of mappings, and whose values
+- **`grouping`:** The name of the grouping (see above) to which this property
+  belongs.
+
+- **`mapping`:** An object whose keys are names of mappings, and whose values
   are either:
 
   - An IRI of the corresponding property in the mapping, or
-  - An array of multiple such properties
+  - An array of multiple such properties.
+
+- **`available_on`:** The “availability” of the property, which is to say, a
+  YAML list of names of classes that the property is available on.
+
+  For backwards‐compatibility, this **may** be specified within a `class`
+  subproperty, but this is **optional**. SurflinerSchema!Houndstooth does not
+  support a `context` subproperty here.
 
 Defaults are defined for all of the above properties if they are not specified.
 
@@ -212,20 +280,12 @@ Defaults are defined for all of the above properties if they are not specified.
 > names. SurflinerSchema!Houndstooth does not allow this; define a separate
 > property with the same name and different availability instead.
 >
-> Samvera!Houndstooth defines a `controlled_values` property for defining a
-> property’s controlled values. SurflinerSchema!Houndstooth does not support
-> this yet.
->
 > Samvera!Houndstooth defines a `sample_value` property for defining an example
 > value for the property. SurflinerSchema!Houndstooth does not support this yet.
 >
 > Samvera!Houndstooth defines a `property_uri` property for defining a URI which
 > is associated with the property. SurflinerSchema!Houndstooth does not support
 > this yet.
->
-> Samvera!Houndstooth defines a `range` property for defining a class constraint
-> on property values. SurflinerSchema!Houndstooth does not support this yet, and
-> presently only really supports RDF literal values.
 >
 > Samvera!Houndstooth defines a `syntax` property for documenting (for humans)
 > an advisory syntax for property values. SurflinerSchema!Houndstooth does not
