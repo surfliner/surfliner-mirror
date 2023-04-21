@@ -28,7 +28,8 @@ module Indexers
       super.transform_values do |value|
         cast_literals(value)
       end.merge(
-        rendering_ids_ssim: resource.rendering_ids.map(&:to_s)
+        rendering_ids_ssim: resource.rendering_ids.map(&:to_s),
+        source_tesim: resource.alternate_ids.map(&:to_s)
       )
     end
 
