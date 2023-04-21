@@ -12,7 +12,7 @@ dependencies:
   repository: file://../common
   version: 0.1.0
 - name: minio
-  repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
-  version: 11.10.26
-digest: sha256:44729a6fe619302b25c1d5fef782ca8902c3e6e33848d076801e32a4f7e99488
-generated: "2023-04-20T16:10:34.374912832-07:00"
+  repository: oci://registry-1.docker.io/bitnamicharts
+  version: 12.3.1
+digest: sha256:0b7c8f9c32e77325748b9eaba87c4d616d46e85687bcbb7ebf94b12d82976946
+generated: "2023-04-21T13:37:35.182811224-07:00"
