@@ -3,8 +3,8 @@ dependencies:
   repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
   version: 6.3.14
 - name: minio
-  repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
-  version: 11.10.26
+  repository: oci://registry-1.docker.io/bitnamicharts
+  version: 12.3.1
 - name: postgresql
   repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
   version: 11.9.13
@@ -17,5 +17,5 @@ dependencies:
 - name: common
   repository: file://../common
   version: 0.1.0
-digest: sha256:45e7ef893015ca347d777f14fdb1145637da25e6afa4a2f51f472d87af43d279
-generated: "2023-04-20T16:12:54.148943594-07:00"
+digest: sha256:7a0e46f94bf7680f1bca62a86682cc81dc4fd54b65785bfabd74d989a30bdd19
+generated: "2023-04-21T13:38:37.973955789-07:00"
