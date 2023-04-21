@@ -54,10 +54,10 @@ class SolrDocument
       Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_LEASE
     elsif public?
       Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
-    elsif registered?
-      Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED
     elsif read_groups.include?(Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_COMET)
       Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_COMET
+    elsif registered?
+      Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED
     else
       Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
     end

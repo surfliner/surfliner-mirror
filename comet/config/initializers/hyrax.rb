@@ -322,6 +322,19 @@ Hyrax::Group.class_eval do
   end
 end
 
+# @override add comet permission badge
+Hyrax::PermissionBadge.class_eval("binding", __FILE__, __LINE__).eval(
+  'VISIBILITY_LABEL_CLASS = {
+    authenticated: "label-info",
+    comet: "label-primary",
+    embargo: "label-warning",
+    lease: "label-warning",
+    open: "label-success",
+    restricted: "label-danger"
+  }.freeze'
+)
+
+# @override add comet visibility and permission values
 access_rights_binding = Hydra::AccessControls::AccessRight.class_eval("binding", __FILE__, __LINE__)
 access_rights_binding.eval('PERMISSION_TEXT_VALUE_COMET = "comet"')
 access_rights_binding.eval('VISIBILITY_TEXT_VALUE_COMET = "comet"')
