@@ -902,7 +902,7 @@ GEM
       sass (~> 3.5, >= 3.5.5)
     scss_lint_reporter_checkstyle (0.2.0)
     select2-rails (3.5.11)
-    selenium-webdriver (4.8.6)
+    selenium-webdriver (4.9.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
@@ -1085,7 +1085,7 @@ DEPENDENCIES
   sass-rails (= 5.1.0)
   scss_lint (= 0.60.0)
   scss_lint_reporter_checkstyle (= 0.2.0)
-  selenium-webdriver (= 4.8.6)
+  selenium-webdriver (= 4.9.0)
   sidekiq (= 7.0.9)
   standard (= 1.27.0)
   surfliner_schema!
