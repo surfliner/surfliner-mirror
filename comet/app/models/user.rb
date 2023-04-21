@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  COMET_PERMISSION = Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_COMET
+
   # Connects this user object to Hydra behaviors.
   include Hydra::User
   # Connects this user object to Hyrax behaviors.
@@ -29,7 +31,7 @@ class User < ApplicationRecord
 
   def assigned_groups
     return @assigned_groups unless @assigned_groups.nil?
-    return ["comet"] unless provider.nil?
+    return [COMET_PERMISSION] unless provider.nil?
     []
   end
 
@@ -41,7 +43,7 @@ class User < ApplicationRecord
     User.find_or_create_by(email: auth.info.email) do |u|
       u.provider = auth.provider
       u.uid = auth.uid
-      u.assigned_groups = ["comet"]
+      u.assigned_groups = [COMET_PERMISSION]
     end
   rescue => e
     logger.error e && return
@@ -53,7 +55,7 @@ class User < ApplicationRecord
   def self.find_or_create_system_user(user_key)
     user = (User.find_by_user_key(user_key) ||
       User.find_or_create_by!(Hydra.config.user_key_field => user_key, :provider => Devise.omniauth_providers.first))
-    user.assigned_groups.push("comet")
+    user.assigned_groups.push(COMET_PERMISSION)
 
     user
   end
