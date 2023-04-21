@@ -157,6 +157,23 @@ services:
     networks:
       - cluster
 
+  shoreline_consumer:
+    image: shoreline:development
+    restart: always
+    env_file:
+      - .env
+      - shoreline.env
+    command:
+      - sh
+      - -c
+      - >
+        while ! nc -z "${RABBITMQ_HOST}" "${RABBITMQ_NODE_PORT_NUMBER}"; do echo "--- Waiting for 🐰 ..."; sleep 5s; done &&
+        bin/shoreline_consumer
+    depends_on:
+      - rabbitmq
+    networks:
+      - cluster
+
   shoreline_db_migrate:
     image: shoreline:development
     env_file:
