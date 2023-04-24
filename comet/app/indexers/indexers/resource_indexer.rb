@@ -29,7 +29,8 @@ module Indexers
         cast_literals(value)
       end.merge(
         rendering_ids_ssim: resource.rendering_ids.map(&:to_s),
-        source_tesim: resource.alternate_ids.map(&:to_s)
+        source_tesim: resource.alternate_ids.map(&:to_s),
+        workflow_state_name_ssim: (sipity_entity&.workflow_state ? sipity_entity.workflow_state.name : [])
       )
     end
 
@@ -54,6 +55,14 @@ module Indexers
       else
         value
       end
+    end
+
+    # Retrieve Sipity::Entity for workflow state
+    def sipity_entity
+      @sipity_entity ||= Sipity::Entity(resource)
+    rescue Sipity::ConversionError => e
+      Hyrax.logger.error { "Error retrieving Sipity::Entity for resource with id #{resource.id}: #{e}" }
+      nil
     end
 
     ##
