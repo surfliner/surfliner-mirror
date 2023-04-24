@@ -109,4 +109,29 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory, :with_admin_set do
           rights_statement:  contain_exactly(rights_statement))
     end
   end
+
+  describe "#schema_properties" do
+    let(:generic_properties) { Bulkrax::ValkyrieObjectFactory.schema_properties(::GenericObject) }
+    let(:geospatial_properties) { Bulkrax::ValkyrieObjectFactory.schema_properties(::GeospatialObject) }
+
+    context "with GenericObject" do
+      let(:generic_object) { GenericObject.new }
+
+      it "being responded to GenericObject instant" do
+        generic_properties.each do |pro|
+          expect(generic_object.respond_to?(pro))
+        end
+      end
+    end
+
+    context "with GeospatialObject" do
+      let(:geospatial_object) { GeospatialObject.new }
+
+      it "being responded to GeospatialObject instant" do
+        geospatial_properties.each do |pro|
+          expect(geospatial_object.respond_to?(pro))
+        end
+      end
+    end
+  end
 end

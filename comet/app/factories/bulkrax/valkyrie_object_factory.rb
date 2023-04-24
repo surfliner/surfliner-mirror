@@ -7,7 +7,14 @@ module Bulkrax
     # @param klass the model
     # return Array<string>
     def self.schema_properties(klass)
-      @schema_properties ||= ::SchemaLoader.new.properties_for(klass.name.underscore.to_sym).values.map { |pro| pro.name.to_s }
+      @schema_properties_map ||= {}
+
+      klass_key = klass.name
+      unless @schema_properties_map.has_key?(klass_key)
+        @schema_properties_map[klass_key] = ::SchemaLoader.new.properties_for(klass.name.underscore.to_sym).values.map { |pro| pro.name.to_s }
+      end
+
+      @schema_properties_map[klass_key]
     end
 
     def run!
