@@ -15,17 +15,17 @@ RSpec.describe CometPublishedBadge do
 
     context "when there are no published platforms" do
       let(:platforms) { [] }
-      it { is_expected.to eq "<span class=\"label label-danger\">Unpublished</span>" }
+      it { is_expected.to eq "<span class=\"badge badge-danger\">Unpublished</span>" }
     end
 
     context "when there is one published platforms" do
       let(:platforms) { [["Tidewater", "http://tidewater/1234"]] }
-      it { is_expected.to eq "<span class=\"label label-success\">Published</span>" }
+      it { is_expected.to eq "<span class=\"badge badge-success\">Published</span>" }
     end
 
     context "when there are multiple published platforms" do
       let(:platforms) { [["Tidewater", "http://tidewater/1234"], ["Shoreline", "http://shoreline/1234"]] }
-      it { is_expected.to eq "<span class=\"label label-success\">Published</span>" }
+      it { is_expected.to eq "<span class=\"badge badge-success\">Published</span>" }
     end
   end
 end

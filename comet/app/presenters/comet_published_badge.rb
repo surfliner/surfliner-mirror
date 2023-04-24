@@ -4,8 +4,8 @@ class CometPublishedBadge
   include ActionView::Helpers::TagHelper
 
   PUBLISHED_LABEL_CLASS = {
-    published: "label-success",
-    unpublished: "label-danger"
+    published: "badge-success",
+    unpublished: "badge-danger"
   }.freeze
 
   # @param object [String] the current object id
@@ -15,7 +15,7 @@ class CometPublishedBadge
 
   # Draws a span tag with styles for a bootstrap label
   def render
-    tag.span(text, class: "label #{dom_label_class}")
+    tag.span(text, class: "badge #{dom_label_class}")
   end
 
   private
