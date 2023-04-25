@@ -5,8 +5,8 @@ name: shoreline
 version: 0.7.0
 dependencies:
   - name: postgresql
-    version: 11.9.13
-    repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
+    version: 12.4.1
+    repository: oci://registry-1.docker.io/bitnamicharts
     condition: postgresql.enabled
   - name: geoserver
     version: 1.5.0

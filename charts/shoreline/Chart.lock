@@ -1,7 +1,7 @@
 dependencies:
 - name: postgresql
-  repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
-  version: 11.9.13
+  repository: oci://registry-1.docker.io/bitnamicharts
+  version: 12.4.1
 - name: geoserver
   repository: file://../geoserver
   version: 1.5.0
@@ -14,5 +14,5 @@ dependencies:
 - name: minio
   repository: oci://registry-1.docker.io/bitnamicharts
   version: 12.3.1
-digest: sha256:0b7c8f9c32e77325748b9eaba87c4d616d46e85687bcbb7ebf94b12d82976946
-generated: "2023-04-21T13:37:35.182811224-07:00"
+digest: sha256:5c5229a12193e3e7970c13e3e72408c87d9f5c81eb4874650158d482cf04899a
+generated: "2023-04-25T15:25:29.973184201-07:00"
