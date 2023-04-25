@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  COMET_PERMISSION = Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_COMET
+  COMET_PERMISSION = Comet::PERMISSION_TEXT_VALUE_COMET
 
   # Connects this user object to Hydra behaviors.
   include Hydra::User

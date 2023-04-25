@@ -31,8 +31,8 @@
         </li>
         <li class="radio">
           <label>
-            <%= f.radio_button :visibility, Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_COMET %>
-            <%= visibility_badge(Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_COMET) %>
+            <%= f.radio_button :visibility, Comet::VISIBILITY_TEXT_VALUE_COMET %>
+            <%= visibility_badge(Comet::VISIBILITY_TEXT_VALUE_COMET) %>
             <br />
             <%= t('hyrax.visibility.comet.note_html') %>
           </label>

@@ -8,8 +8,8 @@ module VisibilityReaderOverride
       visibility_map.visibility_for(group: Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_PUBLIC)
     elsif permission_manager.read_groups.include? Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_AUTHENTICATED
       visibility_map.visibility_for(group: Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_AUTHENTICATED)
-    elsif permission_manager.read_groups.include? Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_COMET
-      visibility_map.visibility_for(group: Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_COMET)
+    elsif permission_manager.read_groups.include? Comet::PERMISSION_TEXT_VALUE_COMET
+      visibility_map.visibility_for(group: Comet::PERMISSION_TEXT_VALUE_COMET)
     else
       visibility_map.visibility_for(group: :PRIVATE)
     end
