@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 
 gem "bootsnap", "1.16.0", require: false
-gem 'bootstrap', '~> 4.0'
+gem "bootstrap", "4.6.2"
 gem "bulkrax",
   git: "https://github.com/samvera-labs/bulkrax.git",
   branch: "hyrax-4-rails-6"
@@ -22,7 +22,7 @@ gem "okcomputer", "1.18.4"
 gem "omniauth-google-oauth2", "0.8.2"
 gem "pg", "1.5.3"
 gem "puma", "6.2.2"
-gem "rails", ">=6.0"
+gem "rails", "6.1.7.3"
 gem "rdf-edtf",
   git: "https://gitlab.com/surfliner/rdf-edtf.git",
   branch: "trunk"
