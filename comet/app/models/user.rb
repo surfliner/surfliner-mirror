@@ -31,7 +31,7 @@ class User < ApplicationRecord
 
   def assigned_groups
     return @assigned_groups unless @assigned_groups.nil?
-    return [COMET_PERMISSION] unless provider.nil?
+    return [COMET_PERMISSION] if !provider.blank? && Devise.omniauth_providers.include?(provider.to_sym)
     []
   end
 
