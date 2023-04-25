@@ -1,11 +1,13 @@
 services:
   rabbitmq:
     image: bitnami/rabbitmq:3.11.13-debian-11-r7
+    ports:
+      - "15672:15672"
 
   chrome:
     image: seleniarm/standalone-chromium:111.0
     environment:
-      -  START_XVFB=false
+      - START_XVFB=false
     logging:
       driver: none
     volumes:
