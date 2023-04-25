@@ -9,8 +9,8 @@ dependencies:
     repository: oci://registry-1.docker.io/bitnamicharts
     condition: solr.enabled
   - name: postgresql
-    version: 9.8.12
-    repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
+    version: 12.4.1
+    repository: oci://registry-1.docker.io/bitnamicharts
     condition: postgresql.enabled
   - name: common
     version: 0.1.0

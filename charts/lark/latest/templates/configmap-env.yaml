@@ -19,9 +19,9 @@ data:
   EVENT_ADAPTER: {{ .Values.persistence_adapters.event }}
   {{- if .Values.postgresql.enabled }}
   DATABASE_COMMAND: "db:migrate"
-  POSTGRES_DB: {{ .Values.postgresql.postgresqlDatabase }}
+  POSTGRES_DB: {{ .Values.postgresql.auth.database }}
   POSTGRES_HOST: {{ template "lark.postgresql.fullname" . }}
-  POSTGRES_PORT: {{ .Values.postgresql.servicePort | quote }}
+  POSTGRES_PORT: {{ .Values.postgresql.primary.service.ports.postgresql | quote }}
   {{- end }}
   SOLR_COLLECTION_NAME: {{ .Values.lark.solr.collectionName }}
   SOLR_HOST: {{ template "lark.solr.fullname" . }}

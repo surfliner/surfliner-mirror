@@ -37,21 +37,32 @@ persistence_adapters:
   event: sql
 
 # Configuration for postgresql chart
-# see: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md
+# see: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
 postgresql:
   image:
     repository: bitnami/postgresql
     tag: 12.11.0-debian-10-r23
   enabled: true
-  cpu: 1000m
-  memory: 1Gi
-  postgresqlUsername: lark
-  postgresqlPassword: larkpass
-  postgresqlPostgresPassword: adminpass
-  postgresqlDatabase: lark-events
-  servicePort: 5432
-  persistence:
-    size: 10Gi
+  auth:
+    database: lark-events
+    password: larkpass
+    postgresPassword: adminpass
+    username: lark
+  primary:
+    service:
+      ports:
+        postgresql: 5432
+    persistence:
+      size: 10Gi
+    resources:
+      cpu: 1000m
+      memory: 1Gi
+  readReplicas:
+    persistence:
+      size: 10Gi
+    resources:
+      cpu: 1000m
+      memory: 1Gi
 
 solr:
   enabled: true
