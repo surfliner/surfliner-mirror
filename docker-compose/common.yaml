@@ -43,4 +43,4 @@ services:
       - 8983:8983
 
   zk:
-    image: bitnami/zookeeper:3.8.1-debian-11-r25
+    image: bitnami/zookeeper:3.8.1-debian-11-r27
