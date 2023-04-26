@@ -65,3 +65,6 @@ en:
       comet:
         note_html: Restrict access to Comet.
         text: Comet
+      metadata_only:
+        note_html: Restrict access Metadata-only.
+        text: Metadata-only

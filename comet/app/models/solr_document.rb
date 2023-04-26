@@ -52,6 +52,8 @@ class SolrDocument
       Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_EMBARGO
     elsif lease_expiration_date.present?
       Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_LEASE
+    elsif read_groups.include?(Comet::PERMISSION_TEXT_VALUE_METADATA_ONLY)
+      Comet::VISIBILITY_TEXT_VALUE_METADATA_ONLY
     elsif public?
       Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
     elsif read_groups.include?(Comet::PERMISSION_TEXT_VALUE_COMET)

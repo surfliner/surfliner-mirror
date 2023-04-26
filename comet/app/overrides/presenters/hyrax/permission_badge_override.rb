@@ -4,6 +4,7 @@ module PermissionBadgeOverride
   COMET_VISIBILITY_LABEL_CLASS = {
     authenticated: "label-info",
     comet: "label-primary",
+    metadata_only: "label-warning",
     embargo: "label-warning",
     lease: "label-warning",
     open: "label-success",

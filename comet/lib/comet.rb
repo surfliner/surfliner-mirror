@@ -3,5 +3,7 @@
 module Comet
   # visibility and permission values for comet
   PERMISSION_TEXT_VALUE_COMET = "comet"
+  PERMISSION_TEXT_VALUE_METADATA_ONLY = "metadata_only"
   VISIBILITY_TEXT_VALUE_COMET = "comet"
+  VISIBILITY_TEXT_VALUE_METADATA_ONLY = "metadata_only"
 end

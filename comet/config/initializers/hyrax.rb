@@ -341,14 +341,23 @@ Hyrax::VisibilityMap.class_eval("binding", __FILE__, __LINE__).eval(
       permission: Comet::PERMISSION_TEXT_VALUE_COMET,
       additions: [Comet::PERMISSION_TEXT_VALUE_COMET].freeze,
       deletions: [Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_PUBLIC,
-                  Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_AUTHENTICATED].freeze
+                  Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_AUTHENTICATED,
+                  Comet::PERMISSION_TEXT_VALUE_METADATA_ONLY].freeze
+    }.freeze,
+    Comet::VISIBILITY_TEXT_VALUE_METADATA_ONLY => {
+      permission: Comet::PERMISSION_TEXT_VALUE_METADATA_ONLY,
+      additions: [Comet::PERMISSION_TEXT_VALUE_METADATA_ONLY,
+                  Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_PUBLIC].freeze,
+      deletions: [Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_AUTHENTICATED,
+                  Comet::PERMISSION_TEXT_VALUE_COMET].freeze
     }.freeze,
     Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE => {
       permission: :PRIVATE,
       additions: [].freeze,
       deletions: [Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_PUBLIC,
                   Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_AUTHENTICATED,
-                  Comet::VISIBILITY_TEXT_VALUE_COMET].freeze
+                  Comet::VISIBILITY_TEXT_VALUE_COMET,
+                  Comet::PERMISSION_TEXT_VALUE_METADATA_ONLY].freeze
     }.freeze
   }.freeze'
 )
