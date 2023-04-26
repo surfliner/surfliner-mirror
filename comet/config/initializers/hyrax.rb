@@ -322,6 +322,8 @@ Hyrax::Group.class_eval do
   end
 end
 
+Hyrax.logger.warn "Hyrax::VisibilityMap constant override will be no longer needed with Hyrax::VERSION starts with '4', " \
+                   "see https://github.com/samvera/hyrax/pull/6009."
 Hyrax::VisibilityMap.class_eval("binding", __FILE__, __LINE__).eval(
   'DEFAULT_MAP = {
     Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC => {
