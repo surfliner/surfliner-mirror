@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Cpmet Visibility", type: :system, js: true do
+RSpec.describe "Comet Visibility", type: :system, js: true do
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
 
   before do

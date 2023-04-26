@@ -58,4 +58,30 @@ RSpec.describe User, type: :model do
       expect(described_class.find_by(uid: "test", provider: "google_oauth2")).to be nil
     end
   end
+
+  describe "comet role" do
+    context "with public user" do
+      it "has no comet group role" do
+        user = described_class.new
+
+        expect(user.groups).not_to include(Comet::PERMISSION_TEXT_VALUE_COMET)
+      end
+    end
+
+    context "with login user" do
+      it "assigns comet group role to developer" do
+        user = described_class.from_omniauth(dev_auth_hash)
+        expect(user).to be_persisted
+
+        expect(user.groups).to include(Comet::PERMISSION_TEXT_VALUE_COMET)
+      end
+
+      it "assigns comet group role to user with google_auth" do
+        user = described_class.from_omniauth(google_auth_hash)
+        expect(user).to be_persisted
+
+        expect(user.groups).to include(Comet::PERMISSION_TEXT_VALUE_COMET)
+      end
+    end
+  end
 end
