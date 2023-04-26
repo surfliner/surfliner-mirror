@@ -23,12 +23,20 @@ class RabbitmqListener
   ##
   # @!attribute [rw] platform_name
   #   @return [Symbol]
-  attr_accessor :platform_name
+  #
+  # @!attribute [rw] publisher_class
+  #   @return [.open_on]  a class yielding a {DiscoveryPlatformPublisher} from
+  #     +.open_on+
+  #   @see DiscoveryPlatformPublisher for the reference implementation
+  attr_accessor :platform_name, :publisher_class
 
   ##
   # @param platform_name [Symbol]
-  def initialize(platform_name:)
+  # @param publisher_class [.open_on] a class yielding a
+  #   {DiscoveryPlatformPublisher} from +.open_on+
+  def initialize(platform_name:, publisher_class: DiscoveryPlatformPublisher)
     self.platform_name = platform_name
+    self.publisher_class = publisher_class
   end
 
   ##
@@ -45,11 +53,15 @@ class RabbitmqListener
     Hyrax.logger.debug { "Pushing MQ events for collection publish with id #{event[:collection].id}" }
     collection = event[:collection]
 
-    DiscoveryPlatformPublisher.open_on(platform_name) do |publisher|
+    publisher_class.open_on(platform_name) do |publisher|
       publisher.append_access_control_to(resource: collection)
 
       query_member_objects(collection: collection).each do |obj|
         publisher.publish(resource: obj)
+      rescue DiscoveryPlatformPublisher::UnpublishableObject => err
+        # log and continue publishing the remainder of the collection
+        Hyrax.logger.error { "Failed to publish Object with id #{obj.id} from collection #{collection.id} to platform: #{platform_name}." }
+        Hyrax.logger.error(err.message)
       end
     end
   rescue => err
@@ -61,7 +73,7 @@ class RabbitmqListener
   def on_object_metadata_updated(event)
     Hyrax.logger.debug { "Pushing MQ events for object update with id #{event[:object].id}" }
 
-    DiscoveryPlatformPublisher.open_on(platform_name) do |publisher|
+    publisher_class.open_on(platform_name) do |publisher|
       publisher.update(resource: event[:object])
     end
   rescue => err
@@ -87,7 +99,7 @@ class RabbitmqListener
   def on_object_unpublish(event)
     Hyrax.logger.debug("Pushing MQ events to unpublish object with id #{event[:object].id}")
 
-    DiscoveryPlatformPublisher.open_on(platform_name) do |publisher|
+    publisher_class.open_on(platform_name) do |publisher|
       publisher.unpublish(resource: event[:object])
     end
   rescue => err

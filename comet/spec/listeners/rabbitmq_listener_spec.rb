@@ -48,6 +48,40 @@ RSpec.describe RabbitmqListener, :rabbitmq do
             include(have_attributes(mode: :discover, agent: "group/surfliner.tidewater")),
             include(have_attributes(mode: :discover, agent: "group/surfliner.tidewater")))
       end
+
+      context "when some objects are unpublishable" do
+        subject(:listener) do
+          described_class
+            .new(platform_name: :tidewater, publisher_class: fake_publisher)
+        end
+
+        let(:fake_publisher) do
+          Class.new do
+            attr_reader :published
+
+            def open_on(*)
+              yield self
+            end
+
+            def append_access_control_to(**)
+              :no_op
+            end
+
+            def publish(resource:)
+              @published ||= []
+              @published << resource
+
+              raise DiscoveryPlatformPublisher::UnpublishableObject
+            end
+          end.new
+        end
+
+        it "attempts to publish all objects" do
+          expect { listener.on_collection_publish(event) }
+            .to change { fake_publisher.published }
+            .to contain_exactly(*objects)
+        end
+      end
     end
   end
 end

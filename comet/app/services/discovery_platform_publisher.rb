@@ -54,9 +54,12 @@ class DiscoveryPlatformPublisher
   # ACLs. A resource must be unpublished before it can be republished.
   #
   # @param resource [Hyrax::Resource] the resource to publish
+  #
+  # @raise UnpublishableObject when the object isn't publishable, e.g. because
+  #   it isn't persisted
   def publish(resource:)
     raise(UnpublishableObject) unless resource.persisted?
-    Hyrax.logger.debug { "Publishing object with id #{resource.id} in #{platform.name}" }
+    Hyrax.logger.debug { "Emiting RabbitMQ event to publish object with id #{resource.id} in #{platform.name}" }
 
     append_access_control_to(resource: resource) &&
       broker.publish(payload: payload_for(resource, "published"), routing_key: platform.message_route.metadata_routing_key)
@@ -69,10 +72,13 @@ class DiscoveryPlatformPublisher
   # ACLs. A resource must be published before it can be unpublished.
   #
   # @param resource [Hyrax::Resource] the resource to unpublish
+  #
+  # @raise UnpublishableObject when the object isn't publishable, e.g. because
+  #   it isn't persisted
   def unpublish(resource:)
     raise(UnpublishableObject) unless resource.persisted?
 
-    Hyrax.logger.debug { "Unpublishing object with id #{resource.id} in #{platform.name}" }
+    Hyrax.logger.debug { "Emiting RabbitMQ event to unpublish object with id #{resource.id} in #{platform.name}" }
     revoke_access_control_for(resource: resource) &&
       broker.publish(payload: payload_for(resource, "unpublished"), routing_key: platform.message_route.metadata_routing_key)
   end
@@ -81,6 +87,9 @@ class DiscoveryPlatformPublisher
   # Updates the resource if it is already published.
   #
   # @param resource [Hyrax::Resource] the resource to update.
+  #
+  # @raise UnpublishableObject when the object isn't publishable, e.g. because
+  #   it isn't persisted
   def update(resource:)
     raise(UnpublishableObject) unless resource.persisted?
     Hyrax.logger.debug { "Updating object with id #{resource.id} in #{platform.name}" }
