@@ -50,7 +50,7 @@ class RabbitmqListener
   #
   # @param event [{:collection => Hyrax::PcdmCollection}]
   def on_collection_publish(event)
-    Hyrax.logger.debug { "Pushing MQ events for collection publish with id #{event[:collection].id}" }
+    Hyrax.logger.debug { "Received collection.publish event for collection with id #{event[:collection].id}, targeting platform: #{platform_name}" }
     collection = event[:collection]
 
     publisher_class.open_on(platform_name) do |publisher|
@@ -71,7 +71,7 @@ class RabbitmqListener
   ##
   # Updates the object in the platform when metadata is updated.
   def on_object_metadata_updated(event)
-    Hyrax.logger.debug { "Pushing MQ events for object update with id #{event[:object].id}" }
+    Hyrax.logger.debug { "Received object.metadata.updated event for object with id #{event[:object].id} targeting platform: #{platform_name}" }
 
     publisher_class.open_on(platform_name) do |publisher|
       publisher.update(resource: event[:object])
@@ -85,6 +85,8 @@ class RabbitmqListener
   #
   # @param event [{:object => GenericObject}]
   def on_object_deleted(event)
+    Hyrax.logger.debug("Received object.deleted event for object with id #{event[:object].id} targeting platform: #{platform_name}")
+
     Hyrax.publisher.publish("object.unpublish", object: event[:object], user: event[:user])
   rescue => err
     Hyrax.logger.error(err)
@@ -97,7 +99,7 @@ class RabbitmqListener
   #
   # @param event [{:object => GenericObject}]
   def on_object_unpublish(event)
-    Hyrax.logger.debug("Pushing MQ events to unpublish object with id #{event[:object].id}")
+    Hyrax.logger.debug("Received object.unpublish event for object with id #{event[:object].id} targeting platform: #{platform_name}")
 
     publisher_class.open_on(platform_name) do |publisher|
       publisher.unpublish(resource: event[:object])

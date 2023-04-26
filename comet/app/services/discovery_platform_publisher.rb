@@ -59,7 +59,7 @@ class DiscoveryPlatformPublisher
   #   it isn't persisted
   def publish(resource:)
     raise(UnpublishableObject) unless resource.persisted?
-    Hyrax.logger.debug { "Emiting RabbitMQ event to publish object with id #{resource.id} in #{platform.name}" }
+    Hyrax.logger.debug { "Emiting RabbitMQ event to publish object with id #{resource.id} to routing key #{platform.message_route.metadata_routing_key}" }
 
     append_access_control_to(resource: resource) &&
       broker.publish(payload: payload_for(resource, "published"), routing_key: platform.message_route.metadata_routing_key)
@@ -77,8 +77,8 @@ class DiscoveryPlatformPublisher
   #   it isn't persisted
   def unpublish(resource:)
     raise(UnpublishableObject) unless resource.persisted?
+    Hyrax.logger.debug { "Emiting RabbitMQ event to unpublish object with id #{resource.id} to routing key #{platform.message_route.metadata_routing_key}" }
 
-    Hyrax.logger.debug { "Emiting RabbitMQ event to unpublish object with id #{resource.id} in #{platform.name}" }
     revoke_access_control_for(resource: resource) &&
       broker.publish(payload: payload_for(resource, "unpublished"), routing_key: platform.message_route.metadata_routing_key)
   end
@@ -92,7 +92,7 @@ class DiscoveryPlatformPublisher
   #   it isn't persisted
   def update(resource:)
     raise(UnpublishableObject) unless resource.persisted?
-    Hyrax.logger.debug { "Updating object with id #{resource.id} in #{platform.name}" }
+    Hyrax.logger.debug { "Emiting RabbitMQ event to update object with id #{resource.id} to routing key #{platform.message_route.metadata_routing_key}" }
 
     platform.active_for?(resource: resource) &&
       broker.publish(payload: payload_for(resource, "updated"), routing_key: platform.message_route.metadata_routing_key)
