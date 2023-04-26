@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "cgi"
+require "comet"
 
 Hyrax.config do |config|
   # Generate the necessary models and controllers for each M3 resource class
