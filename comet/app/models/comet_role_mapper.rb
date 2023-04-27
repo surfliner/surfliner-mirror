@@ -3,6 +3,6 @@
 # Your override should include a Module that implements the same behaviors as Hydra::RoleMapperBehavior
 class CometRoleMapper < RoleMapper
   def self.fetch_groups(user:)
-    super + (user.assigned_groups.nil? ? [] : user.assigned_groups)
+    super + (user.assigned_groups.nil? ? [] : user.assigned_groups.to_a)
   end
 end

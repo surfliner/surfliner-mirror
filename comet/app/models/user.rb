@@ -7,8 +7,6 @@ class User < ApplicationRecord
   include Hyrax::User
   include Hyrax::UserUsageStats
 
-  attr_writer :assigned_groups
-
   if Blacklight::Utils.needs_attr_accessible?
     attr_accessible :email, :password, :password_confirmation
   end
@@ -31,8 +29,8 @@ class User < ApplicationRecord
 
   def assigned_groups
     return @assigned_groups unless @assigned_groups.nil?
-    return [COMET_PERMISSION] if !provider.blank? && Devise.omniauth_providers.include?(provider.to_sym)
-    []
+    return Set[COMET_PERMISSION] if !provider.blank? && Devise.omniauth_providers.include?(provider.to_sym)
+    Set.new
   end
 
   #
@@ -43,7 +41,7 @@ class User < ApplicationRecord
     User.find_or_create_by(email: auth.info.email) do |u|
       u.provider = auth.provider
       u.uid = auth.uid
-      u.assigned_groups = [COMET_PERMISSION]
+      u.instance_variable_set(:@assigned_groups, Set[COMET_PERMISSION])
     end
   rescue => e
     logger.error e && return
@@ -55,7 +53,8 @@ class User < ApplicationRecord
   def self.find_or_create_system_user(user_key)
     user = (User.find_by_user_key(user_key) ||
       User.find_or_create_by!(Hydra.config.user_key_field => user_key, :provider => Devise.omniauth_providers.first))
-    user.assigned_groups.push(COMET_PERMISSION)
+
+    user.instance_variable_set(:@assigned_groups, Set[COMET_PERMISSION])
 
     user
   end
