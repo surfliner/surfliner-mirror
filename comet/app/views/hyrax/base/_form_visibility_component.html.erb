@@ -31,18 +31,18 @@
         </li>
         <li class="radio">
           <label>
-            <%= f.radio_button :visibility, Comet::VISIBILITY_TEXT_VALUE_COMET %>
-            <%= visibility_badge(Comet::VISIBILITY_TEXT_VALUE_COMET) %>
-            <br />
-            <%= t('hyrax.visibility.comet.note_html') %>
-          </label>
-        </li>
-        <li class="radio">
-          <label>
             <%= f.radio_button :visibility, Comet::VISIBILITY_TEXT_VALUE_METADATA_ONLY %>
             <%= visibility_badge(Comet::VISIBILITY_TEXT_VALUE_METADATA_ONLY) %>
             <br />
             <%= t('hyrax.visibility.metadata_only.note_html') %>
+          </label>
+        </li>
+        <li class="radio">
+          <label>
+            <%= f.radio_button :visibility, Comet::VISIBILITY_TEXT_VALUE_COMET %>
+            <%= visibility_badge(Comet::VISIBILITY_TEXT_VALUE_COMET) %>
+            <br />
+            <%= t('hyrax.visibility.comet.note_html') %>
           </label>
         </li>
         <li class="radio">
