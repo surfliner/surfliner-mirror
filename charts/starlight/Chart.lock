@@ -10,12 +10,12 @@ dependencies:
   version: 12.4.1
 - name: redis
   repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
-  version: 17.1.4
+  version: 17.10.1
 - name: solr
   repository: oci://registry-1.docker.io/bitnamicharts
   version: 7.2.4
 - name: common
   repository: file://../common
   version: 0.1.0
-digest: sha256:17ee18c20bf49ea16ab55fc78162e1b28f38b8d5ba85fa3ed13da16b4a85ff82
-generated: "2023-04-25T15:28:05.214346287-07:00"
+digest: sha256:3520a12d1f86e3495ca4c176bb018ea0924e7127454fa18662d4b45677db4238
+generated: "2023-04-27T17:10:19.212984813Z"
