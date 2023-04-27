@@ -520,9 +520,12 @@ properties:
     usage_guidelines: null
     # requirement: required, if applicable
     # sample_value: null
-    # controlled_values:
-    #   sources:
-    #     - "http://rightsstatements.org"
+    controlled_values:
+      sources:
+        - "http://rightsstatements.org"
+      values:
+        - name: my_statement
+          display_label: My Rights Statement
     # syntax: null
     # validations: null
     cardinality:
