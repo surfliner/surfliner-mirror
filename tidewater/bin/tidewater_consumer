@@ -14,7 +14,7 @@ gemfile do
   source "https://rubygems.org"
 
   gem "bunny", "2.20.3"
-  gem "pg", "1.4.6"
+  gem "pg", "1.5.2"
   gem "rexml"
   gem "sequel", "5.67.0"
   gem "oai", "1.2.1"
