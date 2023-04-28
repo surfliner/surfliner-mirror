@@ -16,7 +16,20 @@ Rails.application.routes.draw do
     get "/users/sign_out", to: "users/sessions#destroy", as: :destroy_user_session
   end
 
-  mount Qa::Engine => "/authorities"
+  namespace :qa, path: "/authorities", as: :qa_schema do
+    get "/terms/schema/:availability/:property", controller: :schema, action: :index
+    get "/search/schema/:availability/:property", controller: :schema, action: :search
+    get "/show/schema/:availability/:property/:id", controller: :schema, action: :show
+    get "/fetch/schema/:availability/:property", controller: :schema, action: :fetch
+
+    # CORS handling
+    match "/terms/schema/:availability/:property", to: "application#options", via: [:options]
+    match "/search/schema/:availability/:property", to: "application#options", via: [:options]
+    match "/show/schema/:availability/:property/:id", to: "application#options", via: [:options]
+    match "/fetch/schema/:availability/:property", to: "application#options", via: [:options]
+  end
+  mount Qa::Engine, at: "/authorities"
+
   mount Hyrax::Engine, at: "/"
   mount(Bulkrax::Engine, at: "/") if
     Rails.application.config.feature_bulkrax
