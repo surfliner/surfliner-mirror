@@ -3,7 +3,7 @@
 module CampusPermissionBadgeOverride
   CAMPUS_VISIBILITY_LABEL_CLASS = {
     authenticated: "label-info",
-    comet: "label-primary",
+    campus: "label-primary",
     embargo: "label-warning",
     lease: "label-warning",
     open: "label-success",
