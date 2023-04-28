@@ -44,6 +44,14 @@
             <br />
             <%= t('hyrax.visibility.comet.note_html') %>
           </label>
+        </li>       
+        <li class="radio">
+          <label>
+            <%= f.radio_button :visibility, Comet::VISIBILITY_TEXT_VALUE_CAMPUS %>
+            <%= visibility_badge(Comet::VISIBILITY_TEXT_VALUE_CAMPUS) %>
+            <br />
+            <%= t('hyrax.visibility.campus.note_html') %>
+          </label>
         </li>
         <li class="radio">
           <label>

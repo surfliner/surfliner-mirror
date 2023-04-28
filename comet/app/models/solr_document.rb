@@ -58,6 +58,8 @@ class SolrDocument
       Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
     elsif read_groups.include?(Comet::PERMISSION_TEXT_VALUE_COMET)
       Comet::VISIBILITY_TEXT_VALUE_COMET
+    elsif read_groups.include?(Comet::PERMISSION_TEXT_VALUE_CAMPUS)
+      Comet::VISIBILITY_TEXT_VALUE_CAMPUS
     elsif registered?
       Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED
     else

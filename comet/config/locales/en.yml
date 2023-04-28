@@ -68,3 +68,6 @@ en:
       metadata_only:
         note_html: Restrict access Metadata-only.
         text: Metadata-only
+      campus:
+        note_html: Restrict access to Campus.
+        text: Campus
