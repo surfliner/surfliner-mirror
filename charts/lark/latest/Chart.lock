@@ -1,12 +1,12 @@
 dependencies:
 - name: solr
   repository: oci://registry-1.docker.io/bitnamicharts
-  version: 7.2.4
+  version: 7.4.0
 - name: postgresql
   repository: oci://registry-1.docker.io/bitnamicharts
   version: 12.4.1
 - name: common
   repository: file://../../common
   version: 0.1.0
-digest: sha256:0b4d4c8f67cfe480af727ffbea32153c27458456a75f774ca2bba73898bdd8f3
-generated: "2023-04-25T13:25:31.887886044-07:00"
+digest: sha256:a602ec78ec18215cb3dec3ac99b1e0e60ab7a2f4390c5e469a5c713e7e00cef4
+generated: "2023-04-28T22:09:50.611946115Z"

@@ -13,7 +13,7 @@ dependencies:
     repository: file://../geoserver
     condition: geoserver.enabled
   - name: solr
-    version: 7.2.4
+    version: 7.4.0
     repository: oci://registry-1.docker.io/bitnamicharts
     condition: solr.enabled
   - name: common
