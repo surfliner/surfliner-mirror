@@ -30,7 +30,7 @@ class User < ApplicationRecord
 
   def assigned_groups
     return @assigned_groups unless @assigned_groups.nil?
-    return Set[COMET_PERMISSION,CAMPUS_PERMISSION] if !provider.blank? && Devise.omniauth_providers.include?(provider.to_sym)
+    return Set[COMET_PERMISSION, CAMPUS_PERMISSION] if !provider.blank? && Devise.omniauth_providers.include?(provider.to_sym)
     Set.new
   end
 
@@ -42,7 +42,7 @@ class User < ApplicationRecord
     User.find_or_create_by(email: auth.info.email) do |u|
       u.provider = auth.provider
       u.uid = auth.uid
-      u.instance_variable_set(:@assigned_groups, Set[COMET_PERMISSION,CAMPUS_PERMISSION])
+      u.instance_variable_set(:@assigned_groups, Set[COMET_PERMISSION, CAMPUS_PERMISSION])
     end
   rescue => e
     logger.error e && return
@@ -55,7 +55,7 @@ class User < ApplicationRecord
     user = (User.find_by_user_key(user_key) ||
       User.find_or_create_by!(Hydra.config.user_key_field => user_key, :provider => Devise.omniauth_providers.first))
 
-    user.instance_variable_set(:@assigned_groups, Set[COMET_PERMISSION,CAMPUS_PERMISSION])
+    user.instance_variable_set(:@assigned_groups, Set[COMET_PERMISSION, CAMPUS_PERMISSION])
 
     user
   end

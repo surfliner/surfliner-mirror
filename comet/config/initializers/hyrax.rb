@@ -351,6 +351,7 @@ Hyrax::VisibilityMap.class_eval("binding", __FILE__, __LINE__).eval(
                   Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_PUBLIC].freeze,
       deletions: [Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_AUTHENTICATED,
                   Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_AUTHENTICATED].freeze
+    }.freeze,
     Comet::VISIBILITY_TEXT_VALUE_CAMPUS => {
       permission: Comet::PERMISSION_TEXT_VALUE_CAMPUS,
       additions: [Comet::PERMISSION_TEXT_VALUE_CAMPUS].freeze,
@@ -362,7 +363,7 @@ Hyrax::VisibilityMap.class_eval("binding", __FILE__, __LINE__).eval(
       deletions: [Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_PUBLIC,
                   Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_AUTHENTICATED,
                   Comet::PERMISSION_TEXT_VALUE_COMET,
-                  Comet::PERMISSION_TEXT_VALUE_METADATA_ONLY].freeze
+                  Comet::PERMISSION_TEXT_VALUE_METADATA_ONLY,
                   Comet::VISIBILITY_TEXT_VALUE_CAMPUS].freeze
     }.freeze
   }.freeze'

@@ -84,4 +84,37 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe "campus role" do
+    context "with public user" do
+      it "has no campus group role" do
+        user = described_class.new
+
+        expect(user.groups).not_to include(Comet::PERMISSION_TEXT_VALUE_CAMPUS)
+      end
+    end
+
+    context "with login user" do
+      it "assigns campus group role to developer" do
+        user = described_class.from_omniauth(dev_auth_hash)
+        expect(user).to be_persisted
+
+        expect(user.groups).to include(Comet::PERMISSION_TEXT_VALUE_CAMPUS)
+      end
+
+      it "assigns campus group role to developer" do
+        user = described_class.from_omniauth(dev_auth_hash)
+        expect(user).to be_persisted
+
+        expect(user.groups).to include(Comet::PERMISSION_TEXT_VALUE_CAMPUS)
+      end
+
+      it "assigns campus group role to user with google_auth" do
+        user = described_class.from_omniauth(google_auth_hash)
+        expect(user).to be_persisted
+
+        expect(user.groups).to include(Comet::PERMISSION_TEXT_VALUE_CAMPUS)
+      end
+    end
+  end
 end
