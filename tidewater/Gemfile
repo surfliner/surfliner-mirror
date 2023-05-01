@@ -10,7 +10,7 @@ gem "puma", "6.2.2"
 gem "rails", "7.0.4.3"
 gem "rspec-rails", "5.1.2", group: "test"
 gem "rspec_junit_formatter", "0.6.0", group: "test"
-gem "standard", "1.28.0", group: %(development test)
+gem "standard", "1.28.2", group: %(development test)
 gem "sequel", "5.68.0", group: %(development test)
 gem "tzinfo-data", "2.0.4", platforms: %i[mingw mswin x64_mingw jruby]
 

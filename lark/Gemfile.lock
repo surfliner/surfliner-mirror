@@ -247,7 +247,7 @@ GEM
       rack (~> 2.2, >= 2.2.4)
       rack-protection (= 3.0.5)
       tilt (~> 2.0)
-    standard (1.28.0)
+    standard (1.28.2)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.0)
       rubocop (~> 1.50.2)
@@ -313,7 +313,7 @@ DEPENDENCIES
   rubocop-rspec
   shotgun
   sinatra (~> 3.0.0)
-  standard (= 1.28.0)
+  standard (= 1.28.2)
   timecop
   valkyrie (= 3.0.2)
   valkyrie-sequel (= 3.0.0.pre.beta.1)
