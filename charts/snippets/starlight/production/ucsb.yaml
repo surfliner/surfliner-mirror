@@ -54,6 +54,7 @@ starlight:
       enabled: false
   rails:
     max_threads: 10
+    log_level: debug
   storage:
     enabled: true
     accessKey: AKIAV5LYGG4AHTG7NMFD
