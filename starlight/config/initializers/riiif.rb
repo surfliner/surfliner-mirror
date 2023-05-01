@@ -5,10 +5,10 @@ ActiveSupport::Reloader.to_prepare do
   if ENV["S3_BUCKET_NAME"].present?
     Riiif::Image.file_resolver = Riiif::HTTPFileResolver.new
     Riiif::Image.file_resolver.id_to_uri = lambda do |id|
-      featured_image_id = Spotlight::Resource.find(id).upload_id
-      aws_file = Spotlight::FeaturedImage.find(featured_image_id).image.file
+      featured_image = Spotlight::Resource.find(id).upload
+      aws_file = featured_image.image.file
 
-      Rails.logger.debug "Resource ID #{id}, FeaturedImage ID #{featured_image_id} -- generating signed URI"
+      Rails.logger.debug "Resource ID #{id}, FeaturedImage ID #{featured_image.id} -- generating signed URI"
 
       raise Riiif::ImageNotFoundError, "unable to find file for #{id}" if aws_file.nil?
 
