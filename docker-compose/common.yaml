@@ -5,7 +5,7 @@ services:
       - "15672:15672"
 
   chrome:
-    image: seleniarm/standalone-chromium:111.0
+    image: seleniarm/standalone-chromium:112.0
     environment:
       - START_XVFB=false
     logging:

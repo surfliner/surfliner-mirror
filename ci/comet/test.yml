@@ -108,7 +108,7 @@ comet:test:system:
       alias: minio
     - name: bitnami/rabbitmq:3.11.13-debian-11-r8
       alias: rabbitmq
-    - name: seleniarm/standalone-chromium:111.0
+    - name: seleniarm/standalone-chromium:112.0
       alias: chrome
       variables:
         START_XVFB: "false"
