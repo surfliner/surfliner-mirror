@@ -8,9 +8,9 @@ ActiveSupport::Reloader.to_prepare do
       featured_image = Spotlight::Resource.find(id).upload
       aws_file = featured_image.image.file
 
-      Rails.logger.debug "Resource ID #{id}, FeaturedImage ID #{featured_image.id} -- generating signed URI"
-
       raise Riiif::ImageNotFoundError, "unable to find file for #{id}" if aws_file.nil?
+
+      Rails.logger.debug "Resource ID #{id}, FeaturedImage ID #{featured_image.id} -- generating signed URI"
 
       aws_file.file.presigned_url("get")
     end
