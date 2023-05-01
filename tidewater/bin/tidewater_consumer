@@ -16,7 +16,7 @@ gemfile do
   gem "bunny", "2.20.3"
   gem "pg", "1.5.3"
   gem "rexml"
-  gem "sequel", "5.67.0"
+  gem "sequel", "5.68.0"
   gem "oai", "1.2.1"
 end
 
