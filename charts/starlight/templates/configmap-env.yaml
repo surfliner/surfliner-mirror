@@ -34,6 +34,7 @@ data:
   POSTGRES_PORT: {{ .Values.postgresql.containerPorts.postgresql | quote }}
   POSTGRESQL_DATABASE: {{ .Values.postgresql.auth.database }}
   RAILS_ENV: {{ .Values.starlight.rails.environment }}
+  RAILS_LOG_LEVEL: {{ .Values.starlight.rails.log_level | quote }}
   RAILS_LOG_TO_STDOUT: {{ .Values.starlight.rails.log_to_stdout | quote }}
   RAILS_MAX_THREADS: {{ .Values.starlight.rails.max_threads | quote }}
   RAILS_QUEUE: {{ .Values.starlight.rails.queue }}

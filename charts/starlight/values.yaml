@@ -107,6 +107,7 @@ starlight:
     db_adapter: postgresql
     db_setup_command: "db:migrate"
     environment: production
+    log_level: info
     log_to_stdout: true
     max_threads: 5
     queue: sidekiq

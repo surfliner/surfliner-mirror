@@ -41,6 +41,10 @@ module Starlight
       logger           = ActiveSupport::Logger.new(STDOUT)
       logger.formatter = config.log_formatter
       config.logger    = ActiveSupport::TaggedLogging.new(logger)
+
+      # Use the lowest log level to ensure availability of diagnostic information
+      # when problems arise.
+      config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info").to_sym
     end
   end
 end
