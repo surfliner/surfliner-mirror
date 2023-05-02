@@ -1,7 +1,7 @@
 # renovate: datasource=docker depName=alpine
 ARG ALPINE_VERSION=3.16
 # renovate: datasource=docker depName=ruby versioning=ruby
-ARG RUBY_VERSION=3.2.1
+ARG RUBY_VERSION=3.1.3
 
 # see ../docker/base/Dockerfile
 ARG BASE_IMAGE=registry.gitlab.com/surfliner/surfliner/base-${RUBY_VERSION}
