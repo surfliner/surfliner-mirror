@@ -259,6 +259,8 @@ en:
     publish:
       published: Published
       unpublished: Unpublished
+    upload:
+      change_access_message_html: "<p>You have changed the access controls on Object <i>%{curation_concern}</i>, making it accessible to other users or groups to view or edit.</p><p>Would you like change all of the files within the work to grant access to the same users and groups as well?</p>"
     visibility:
       open:
         warning_html: ""
