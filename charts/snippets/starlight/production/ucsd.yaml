@@ -31,6 +31,8 @@ starlight:
     name: "Digital Exhibits"
   analytics:
     webPropertyId: UA-3409104-68
+  rails:
+    log_level: debug
   storage:
     enabled: true
     accessKey: uhedJUGHTahvohloo1Oh
