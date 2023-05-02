@@ -18,7 +18,7 @@ ActiveSupport::Reloader.to_prepare do
     Riiif::Image.file_resolver = Spotlight::CarrierwaveFileResolver.new
   end
 
-  # Riiif::Image.authorization_service = IiifAuthorizationService
+  # Riiif::Image.authorization_service = IIIFAuthorizationService
 
   # Riiif.not_found_image = 'app/assets/images/us_404.svg'
   #
