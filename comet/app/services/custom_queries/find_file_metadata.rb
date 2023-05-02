@@ -10,6 +10,7 @@ module CustomQueries
         :find_original_file,
         :find_extracted_text,
         :find_thumbnail,
+        :find_many_file_metadata_by_ids,
         :find_many_file_metadata_by_use]
     end
 
@@ -55,6 +56,15 @@ module CustomQueries
         resource: file_set,
         use: Hyrax::FileMetadata::Use::THUMBNAIL
       ).first || raise(Valkyrie::Persistence::ObjectNotFoundError)
+    end
+
+    # Find an array of file metadata using Valkyrie IDs, and map them to Hyrax::FileMetadata maintaining order based on given ids
+    # @param ids [Array<Valkyrie::ID, String>]
+    # @return [Array<Hyrax::FileMetadata>] or empty array if there are no ids or none of the ids map to Hyrax::FileMetadata
+    # NOTE: Ignores non-existent ids and ids for non-file metadata resources.
+    def find_many_file_metadata_by_ids(ids:)
+      results = query_service.find_many_by_ids(ids: ids)
+      results.select { |resource| resource.is_a? Hyrax::FileMetadata }
     end
 
     def find_many_file_metadata_by_use(resource:, use:)
