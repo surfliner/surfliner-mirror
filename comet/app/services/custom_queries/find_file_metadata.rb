@@ -59,7 +59,7 @@ module CustomQueries
 
     def find_many_file_metadata_by_use(resource:, use:)
       return [] unless resource.try(:file_ids)
-      return enum_for(:find_many_file_metadata_by_use, resource: resource, use: use) unless
+      return enum_for(:find_many_file_metadata_by_use, resource: resource, use: use).to_a unless
         block_given?
 
       files_for_file_set(resource) { |fm| yield fm if fm.type.include?(use) }
