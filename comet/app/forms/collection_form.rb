@@ -3,7 +3,7 @@
 ##
 # @see https://github.com/samvera/valkyrie/wiki/ChangeSets-and-Dirty-Tracking
 class CollectionForm < Valkyrie::ChangeSet
-  BannerInfoPrepopulator = lambda do |_options|
+  BannerInfoPrepopulator = lambda do |**_options|
     self.banner_info ||= begin
       banner_info = CollectionBrandingInfo.where(collection_id: id.to_s, role: "banner")
       banner_file = File.split(banner_info.first.local_path).last unless banner_info.empty?
@@ -14,7 +14,7 @@ class CollectionForm < Valkyrie::ChangeSet
     end
   end
 
-  LogoInfoPrepopulator = lambda do |_options|
+  LogoInfoPrepopulator = lambda do |**_options|
     self.logo_info ||= begin
       logos_info = CollectionBrandingInfo.where(collection_id: id.to_s, role: "logo")
 
