@@ -99,9 +99,11 @@ RSpec.describe "Bulkrax Import", type: :system, js: true do
         end
 
         expect(page).to have_content("[\"Creator 1\", \"Creator 2\"]")
-        # check the 2nd record in the csv
-        within("nav.breadcrumb") do
-          click_on "importer_multivalue_columns"
+
+        within("div.main-content") do
+          within("nav") do
+            click_on "importer_multivalue_columns"
+          end
         end
 
         click_on "w2"
@@ -148,9 +150,10 @@ RSpec.describe "Bulkrax Import", type: :system, js: true do
 
         expect(page).to have_content("[\"Creator 1\", \"Creator 2\"]")
 
-        # check the 2nd record in the csv
-        within("nav.breadcrumb") do
-          click_on "importer_multivalue_columns"
+        within("div.main-content") do
+          within("nav") do
+            click_on "importer_multivalue_columns"
+          end
         end
 
         click_on "w2"
