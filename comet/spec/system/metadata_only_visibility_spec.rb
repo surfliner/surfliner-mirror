@@ -40,7 +40,7 @@ RSpec.describe "Metadata-only Visibility", type: :system, js: true do
       visit "/concern/generic_objects/#{id}?locale=en"
 
       expect(page).to have_content("test.txt")
-      expect(page).to have_css(".file_set.attributes span.label.label-danger", text: "Private")
+      expect(page).to have_css(".file_set.attributes span.label.label-primary", text: "Comet")
     end
   end
 
@@ -85,12 +85,12 @@ RSpec.describe "Metadata-only Visibility", type: :system, js: true do
         expect(page).to have_css("span.label.label-warning", text: "Metadata-only")
       end
 
-      # FileSet with Private visibility
+      # FileSet with Comet visibility
       sleep(2.seconds)
       visit "/concern/generic_objects/#{id}?locale=en"
 
       expect(page).to have_content("upload.txt")
-      expect(page).to have_css(".file_set.attributes span.label.label-danger", text: "Private")
+      expect(page).to have_css(".file_set.attributes span.label.label-primary", text: "Comet")
 
       click_on "Edit"
 

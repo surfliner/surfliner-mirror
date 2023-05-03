@@ -346,9 +346,9 @@ Hyrax::VisibilityMap.class_eval("binding", __FILE__, __LINE__).eval(
     Comet::VISIBILITY_TEXT_VALUE_METADATA_ONLY => {
       permission: Comet::PERMISSION_TEXT_VALUE_METADATA_ONLY,
       additions: [Comet::PERMISSION_TEXT_VALUE_METADATA_ONLY,
+                  Comet::PERMISSION_TEXT_VALUE_COMET,
                   Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_PUBLIC].freeze,
       deletions: [Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_AUTHENTICATED,
-                  Comet::PERMISSION_TEXT_VALUE_COMET,
                   Comet::PERMISSION_TEXT_VALUE_CAMPUS].freeze
     }.freeze,
     Comet::VISIBILITY_TEXT_VALUE_CAMPUS => {
