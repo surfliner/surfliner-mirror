@@ -111,5 +111,38 @@ RSpec.describe "Metadata-only Visibility", type: :system, js: true do
         expect(page).to have_css("span.label.label-primary", text: "Comet")
       end
     end
+
+    it "can update to Public visibility" do
+      visit "/concern/generic_objects/new?locale=en"
+
+      fill_in("Title", with: "Test Object - METADATA-ONLY Visibility")
+      choose("generic_object_visibility_metadata_only")
+
+      # ensure that the form fields are fully populated
+      sleep(1.seconds)
+      click_on "Save"
+
+      within("div.title-with-badges") do
+        expect(page).to have_content("Test Object - METADATA-ONLY Visibility")
+        expect(page).to have_css("span.label.label-warning", text: "Metadata-only")
+      end
+
+      click_on "Edit"
+
+      fill_in("Title", with: "Test Object - METADATA-ONLY to PUBLIC Visibility")
+      within(:css, "ul.visibility") do
+        expect(page).to have_checked_field("generic_object_visibility_metadata_only")
+
+        choose("generic_object_visibility_open")
+      end
+
+      click_on "Save changes"
+
+      # Visibility is changed to Comet
+      within("div.title-with-badges") do
+        expect(page).to have_content("Test Object - METADATA-ONLY to PUBLIC Visibility")
+        expect(page).to have_css("span.label.label-success", text: "Public")
+      end
+    end
   end
 end

@@ -330,7 +330,7 @@ Hyrax::VisibilityMap.class_eval("binding", __FILE__, __LINE__).eval(
     Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC => {
       permission: Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_PUBLIC,
       additions: [Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_PUBLIC].freeze,
-      deletions: [].freeze
+      deletions: [Comet::PERMISSION_TEXT_VALUE_METADATA_ONLY].freeze
     }.freeze,
     Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED => {
       permission: Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_AUTHENTICATED,
