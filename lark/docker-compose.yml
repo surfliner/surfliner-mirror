@@ -12,7 +12,7 @@ services:
       - sh
       - -c
       - >
-        bundle exec puma --debug -b tcp://0.0.0.0:5000
+        bundle exec puma --debug -b tcp://0.0.0.0:4000
     volumes:
       - .:/home/lark/app
     depends_on:
@@ -22,7 +22,7 @@ services:
     stdin_open: true
     tty: true
     ports:
-     - '5000:5000'
+     - '4000:4000'
     networks:
       - lark
 

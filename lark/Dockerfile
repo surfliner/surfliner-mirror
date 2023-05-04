@@ -8,6 +8,7 @@ ARG DOCKERROOT=/home/${PROJECTPATH}
 RUN apk update && apk add \
     build-base \
     curl \
+    gcompat \
     git \
     libc-dev \
     libxml2 \
