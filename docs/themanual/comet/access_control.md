@@ -314,3 +314,18 @@ controls.
 [webacl-acl-resource]: https://solid.github.io/web-access-control-spec/#acl-resource-representation "SOLID Web Access Control: ACL Resource Representation"
 [webacl-authorization]: https://solid.github.io/web-access-control-spec/#authorization-rule "SOLID Web Access Control: Authorization Rule"
 [webacl-effective]: https://solid.github.io/web-access-control-spec/#effective-acl-resource "SOLID Web Access Control: Effective ACL Resource"
+
+## Bulkrax Import with `visibility`
+
+Batch ingest with Bulkrax supports custom visibility settings under the column name `visibility`. The visibility values are case-sensitive and you may get error `Dry::Monads::UnwrapError` if unexpected values are present in the `visibility` column.
+
+The expected `visibility` values are as follows:
+
+| Visibility Flag   | visibility                                                                 |
+|-------------------|----------------------------------------------------------------------------|
+| Public            | `open`, or empty                                                           |
+| Campus            | `campus`                                                                    |
+| Metadata only     | `metadata_only`                                                             |
+| Comet             | `comet`                                                                     |
+| Restricted Access | `restricted`                                                                |
+
