@@ -75,7 +75,8 @@ describe SurflinerSchema::Loader do
           {
             generic_object: SurflinerSchema::ResourceClass.new(
               name: :generic_object,
-              display_label: "Generic Object"
+              display_label: "Generic Object",
+              iri: "example:generic_object"
             ),
             collection: SurflinerSchema::ResourceClass.new(
               name: :collection,
@@ -210,6 +211,13 @@ describe SurflinerSchema::Loader do
       it "defines a const" do
         klass = loader.resource_class_resolver.call(:GenericObject)
         expect(klass).to be GenericObject
+      end
+
+      it "resolves an iri to its corresponding class" do
+        klass = loader.resource_class_resolver.call("example:generic_object")
+        expect(klass).to be GenericObject
+        expect(klass).to be_a Class
+        expect(klass.availability).to eq :generic_object
       end
 
       it "throws an error for an undefined class" do

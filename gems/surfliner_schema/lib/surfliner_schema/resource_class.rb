@@ -13,5 +13,9 @@ module SurflinerSchema
     ##
     # The human‐readable display label for the class.
     attribute :display_label, Valkyrie::Types::Coercible::String
+
+    ##
+    # The IRI which identifies the class.
+    attribute :iri, Valkyrie::Types::Coercible::String.optional.default(nil)
   end
 end

@@ -148,13 +148,14 @@ module SurflinerSchema
         availability = availability_from_name(class_name)
         return default_resource_class_resolver(class_name) if availability.nil?
 
-        klass = class_name.to_s.safe_constantize
+        camelized = availability.to_s.camelize
+        klass = camelized.safe_constantize
         return klass unless klass.nil?
 
         loader = self
         klass = Class.new(base_class || self.class.resource_base_class) do
           @availability = availability
-          @class_name = class_name.to_s
+          @class_name = camelized
           @loader = loader
 
           include SurflinerSchema::Schema(availability, loader: loader)
@@ -185,7 +186,7 @@ module SurflinerSchema
           end
         end
 
-        Object.const_set(class_name, klass)
+        Object.const_set(camelized, klass)
       end
     end
 
@@ -210,9 +211,12 @@ module SurflinerSchema
     # @param class_name {String | Symbol}
     # @return {Symbol?}
     def availability_from_name(class_name)
-      name = class_name.to_sym
-      if availabilities.include?(name)
-        name
+      class_division = class_divisions.values.find { |resource_class|
+        resource_class.name == class_name.to_sym ||
+          resource_class.iri && resource_class.iri == class_name.to_s
+      }
+      if class_division
+        class_division.name
       else
         underscored = class_name.to_s.underscore.to_sym
         underscored if availabilities.include?(underscored)

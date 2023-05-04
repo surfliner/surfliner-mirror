@@ -24,7 +24,8 @@ module SurflinerSchema
             display_label: config.fetch(
               "display_label",
               self.class.format_name(class_name)
-            )
+            ),
+            iri: config["iri"]
           )
         end
 

@@ -26,18 +26,6 @@ module SurflinerSchema
       end
 
       ##
-      # A hash mapping IRIs (corresponding to M3 +range+s) to the
-      # +Valkyrie::Resource+ classes which should be used to implement them.
-      #
-      # The default implementation just returns the default set for the reader
-      # class.
-      #
-      # @return [{String => Class}]
-      def supported_ranges
-        self.class.default_supported_ranges
-      end
-
-      ##
       # A hash mapping conceptual resource “class” names to their definitions.
       #
       # @return [{Symbol => SurflinerSchema::ResourceClass}]
@@ -86,32 +74,16 @@ module SurflinerSchema
       def to_struct_attributes(availability:)
         properties(availability: availability).transform_values { |property|
           if property.range != RDF::RDFS.Literal
-            range = property.range.to_s
-            if supported_ranges.key?(range)
-              Valkyrie::Types::Set.of(supported_ranges[range])
-            else
+            begin
+              self.class.dry_range(property.range)
+            rescue
               raise(
                 Error::UnknownRange,
-                "The range '#{range}' on #{property.name} is not recognized."
+                "The range #{property.range} on #{property.name} is not recognized."
               )
             end
           else
-            Valkyrie::Types::Set.of(
-              Valkyrie::Types.Constructor(RDF::Literal) { |value|
-                if value.is_a?(RDF::Literal)
-                  # If the provided value is already an RDF::Literal, preserve
-                  # the lexical value but change the datatype.
-                  #
-                  # This differs from both the default behaviour of
-                  # +RDF::Literal+ (which simply returns its argument) and
-                  # +RDF::Literal.new+ (which may cast the literal to another
-                  # kind of value, erasing the original lexical value).
-                  RDF::Literal.new(value.value, datatype: property.data_type)
-                else
-                  RDF::Literal.new(value, datatype: property.data_type)
-                end
-              }
-            )
+            self.class.dry_data_type(property.data_type)
           end
         }
       end
@@ -144,15 +116,33 @@ module SurflinerSchema
       end
 
       ##
-      # A hash mapping IRIs (corresponding to M3 +range+s) to the
-      # +Valkyrie::Resource+ classes which should be used to implement them.
+      # Returns a +Dry::Type+ for the provided range.
       #
-      # This method provides the default value; individual readers may provide
-      # additional mappings in the future.
-      #
-      # @return [{String => Class}]
-      def self.default_supported_ranges
-        {} # empty for now
+      # This just calls out to +Valkyrie.config.resource_class_resolver+ to
+      # attempt to resolve the range into a nested Valkyrie resource.
+      def self.dry_range(range)
+        Valkyrie.config.resource_class_resolver.call(range)
+      end
+
+      ##
+      # Returns a Dry::Type for the provided RDF datatype.
+      def self.dry_data_type(data_type = RDF::XSD.string)
+        Valkyrie::Types::Set.of(
+          Valkyrie::Types.Constructor(RDF::Literal) { |value|
+            if value.is_a?(RDF::Literal)
+              # If the provided value is already an RDF::Literal, preserve
+              # the lexical value but change the datatype.
+              #
+              # This differs from both the default behaviour of
+              # +RDF::Literal+ (which simply returns its argument) and
+              # +RDF::Literal.new+ (which may cast the literal to another
+              # kind of value, erasing the original lexical value).
+              RDF::Literal.new(value.value, datatype: data_type)
+            else
+              RDF::Literal.new(value, datatype: data_type)
+            end
+          }
+        )
       end
 
       ##
