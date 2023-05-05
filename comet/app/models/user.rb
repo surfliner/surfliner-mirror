@@ -38,7 +38,7 @@ class User < ApplicationRecord
 
   # TODO: campus authentication integration
   def campus_access?
-    !provider.blank? && Devise.omniauth_providers.include?(provider.to_sym)
+    !provider.blank? && provider == CAMPUS_PERMISSION
   end
 
   #

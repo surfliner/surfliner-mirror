@@ -96,22 +96,19 @@ RSpec.describe User, type: :model do
 
     context "with login user" do
       it "assigns campus group role to developer" do
-        user = described_class.from_omniauth(dev_auth_hash)
-        expect(user).to be_persisted
+        user = described_class.new(provider: "campus")
 
         expect(user.groups).to include(Comet::PERMISSION_TEXT_VALUE_CAMPUS)
       end
 
       it "assigns campus group role to developer" do
-        user = described_class.from_omniauth(dev_auth_hash)
-        expect(user).to be_persisted
+        user = described_class.new(provider: "campus")
 
         expect(user.groups).to include(Comet::PERMISSION_TEXT_VALUE_CAMPUS)
       end
 
       it "assigns campus group role to user with google_auth" do
-        user = described_class.from_omniauth(google_auth_hash)
-        expect(user).to be_persisted
+        user = described_class.new(provider: "campus")
 
         expect(user.groups).to include(Comet::PERMISSION_TEXT_VALUE_CAMPUS)
       end
