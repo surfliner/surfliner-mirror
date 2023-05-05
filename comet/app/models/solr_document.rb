@@ -56,10 +56,10 @@ class SolrDocument
       Comet::VISIBILITY_TEXT_VALUE_METADATA_ONLY
     elsif public?
       Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
-    elsif read_groups.include?(Comet::PERMISSION_TEXT_VALUE_COMET)
-      Comet::VISIBILITY_TEXT_VALUE_COMET
     elsif read_groups.include?(Comet::PERMISSION_TEXT_VALUE_CAMPUS)
       Comet::VISIBILITY_TEXT_VALUE_CAMPUS
+    elsif read_groups.include?(Comet::PERMISSION_TEXT_VALUE_COMET)
+      Comet::VISIBILITY_TEXT_VALUE_COMET
     elsif registered?
       Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED
     else
