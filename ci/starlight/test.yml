@@ -1,7 +1,7 @@
 .starlight-ci-default-services:
   services:
     - !reference [.solr-service, services]
-    - name: bitnami/postgresql:12.14.0-debian-11-r25
+    - name: bitnami/postgresql:12.14.0-debian-11-r29
       alias: postgres
     - name: seleniarm/standalone-chromium:112.0
       alias: chrome

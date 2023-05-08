@@ -239,7 +239,7 @@ minio:
 postgresql:
   image:
     repository: bitnami/postgresql
-    tag: 12.14.0-debian-11-r25
+    tag: 12.14.0-debian-11-r29
   enabled: true
   architecture: standalone
   auth:
