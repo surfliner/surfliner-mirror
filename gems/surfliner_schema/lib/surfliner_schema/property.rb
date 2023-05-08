@@ -73,7 +73,7 @@ module SurflinerSchema
     # The RDF datatype of the property.
     #
     # This will be ignored if the property is an object property.
-    attribute :data_type, Valkyrie::Types.Constructor(RDF::URI).default(RDF::XSD.string)
+    attribute :data_type, Valkyrie::Types.Constructor(RDF::URI).default(RDF::RDFV.PlainLiteral)
 
     ##
     # Controlled value definition for the property.

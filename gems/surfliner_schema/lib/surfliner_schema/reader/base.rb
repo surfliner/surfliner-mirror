@@ -126,7 +126,7 @@ module SurflinerSchema
 
       ##
       # Returns a Dry::Type for the provided RDF datatype.
-      def self.dry_data_type(data_type = RDF::XSD.string)
+      def self.dry_data_type(data_type = RDF::RDFV.PlainLiteral)
         Valkyrie::Types::Set.of(
           Valkyrie::Types.Constructor(RDF::Literal) { |value|
             if value.is_a?(RDF::Literal)
@@ -137,8 +137,35 @@ module SurflinerSchema
               # +RDF::Literal+ (which simply returns its argument) and
               # +RDF::Literal.new+ (which may cast the literal to another
               # kind of value, erasing the original lexical value).
-              RDF::Literal.new(value.value, datatype: data_type)
+              if data_type == RDF::RDFV.PlainLiteral ||
+                data_type == RDF::RDFV.langString
+                # The datatype supports language‐tagged strings.
+                if value.language?
+                  # The provided value is tagged with a language tag.
+                  RDF::Literal.new(value.value, language: value.language)
+                elsif data_type == RDF::RDFV.langString
+                  # The provided value has no language tag, but one is required.
+                  # Use "und" (undetermined).
+                  RDF::Literal.new(value.value, language: "und")
+                else
+                  # Use a datatype of +xsd:string+.
+                  RDF::Literal.new(value.value, datatype: RDF::XSD.string)
+                end
+              else
+                # The datatype is not plain and does not support language‐tagged
+                # strings.
+                RDF::Literal.new(value.value, datatype: data_type)
+              end
+            elsif data_type == RDF::RDFV.langString
+              # The datatype mandates a language tag; use "und" (undetermined).
+              RDF::Literal.new(value, language: "und")
+            elsif data_type == RDF::RDFV.PlainLiteral
+              # This is a non–language‐tagged plain literal; use +xsd:string+ as
+              # the datatype.
+              RDF::Literal.new(value, datatype: RDF::XSD.string)
             else
+              # The datatype is not plain and does not support language‐tagged
+              # strings.
               RDF::Literal.new(value, datatype: data_type)
             end
           }

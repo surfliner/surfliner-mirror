@@ -105,13 +105,11 @@ module SurflinerSchema
               # This provides support for data_type being explicitly set to
               # null.
               #
-              # In current RDF (1.1) semantics, all “untyped” data values are
-              # actually just +xsd:string+ (in the absence of language
-              # information). We _could_ enforce that schemas explicitly state
-              # +http://www.w3.org/2001/XMLSchema#string+ in full and not write
-              # +data_type: null+, but we allow explicit nulls in most other
-              # places so this is probably fine.
-              config["data_type"] || RDF::XSD.string,
+              # SurflinerSchema!Houndstooth follows OWL semantics where the
+              # “default” datatype is +rdf:PlainLiteral+ (a union of both
+              # +rdf:langString+ and +rdf:string+). This allows, without
+              # requiring, language‐tagged values.
+              config["data_type"] || RDF::RDFV.PlainLiteral,
             controlled_values: config["controlled_values"] ? {
               sources: config.dig("controlled_values", "sources").to_a,
               values: self.class.property_hash(
