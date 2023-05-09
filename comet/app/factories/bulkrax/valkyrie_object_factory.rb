@@ -67,27 +67,24 @@ module Bulkrax
 
     def update
       raise "Object doesn't exist" unless @object
-      destroy_existing_files if @replace_files && ![Collection, FileSet].include?(klass)
-      attrs = transform_attributes(update: true)
-      run_callbacks :save do
-        if klass == Collection
-          update_collection(attrs)
-        elsif klass == FileSet
-          update_file_set(attrs)
-        else
-          @object = persist_metadata(resource: @object, attrs: attrs)
-        end
-      end
-      @object = apply_depositor_metadata(@object, @user) if @object.depositor.nil?
-      log_updated(@object)
-    end
 
-    def persist_metadata(resource:, attrs:)
-      attrs.each { |k, v| resource.public_send("#{k}=", v) if resource.respond_to?(k.to_s) }
-      object = Hyrax.persister.save(resource: resource)
-      # Index the object
-      Hyrax.publisher.publish("object.metadata.updated", object: object, user: @user)
-      object
+      destroy_existing_files if @replace_files && ![Collection, FileSet].include?(klass)
+
+      attrs = transform_attributes(update: true)
+
+      cx = Hyrax::Forms::ResourceForm.for(@object)
+      cx.validate(attrs)
+
+      result = update_transaction
+        .with_step_args(
+          "add_bulkrax_files" => {files: get_s3_files(remote_files: attributes["remote_files"]), user: @user}
+
+          # TODO: uncomment when we upgrade Hyrax 4.x
+          # 'work_resource.save_acl' => { permissions_params: [attrs.try('visibility') || 'open'].compact }
+        )
+        .call(cx)
+
+      @object = result.value!
     end
 
     def get_s3_files(remote_files: {})
@@ -124,10 +121,58 @@ module Bulkrax
       object
     end
 
+    # @Override remove branch for FileSets replace validation with errors
+    def new_remote_files
+      @new_remote_files ||= if @object.is_a? FileSet
+        parsed_remote_files.select do |file|
+          # is the url valid?
+          is_valid = file[:url]&.match(URI::ABS_URI)
+          # does the file already exist
+          is_existing = @object.import_url && @object.import_url == file[:url]
+          is_valid && !is_existing
+        end
+      else
+        parsed_remote_files.select do |file|
+          file[:url]&.match(URI::ABS_URI)
+        end
+      end
+    end
+
+    # @Override Destroy existing files with Hyrax::Transactions
+    def destroy_existing_files
+      existing_files = fetch_child_file_sets(resource: @object)
+
+      existing_files.each do |fs|
+        Hyrax::Transactions::Container["file_set.destroy"]
+          .with_step_args("file_set.remove_from_work" => {user: @user},
+            "file_set.delete" => {user: @user})
+          .call(fs)
+          .value!
+      end
+
+      @object.member_ids = @object.member_ids.reject { |m| existing_files.detect { |f| f.id == m } }
+      @object.rendering_ids = []
+      @object.representative_id = nil
+      @object.thumbnail_id = nil
+    end
+
     private
 
     def transaction
       Hyrax::Transactions::Container["work_resource.create_with_bulk_behavior"]
+    end
+
+    # Customize Hyrax::Transactions::WorkUpdate transaction step add_file_sets to ingest files
+    def update_transaction
+      steps = Hyrax::Transactions::WorkUpdate::DEFAULT_STEPS.dup
+      steps[steps.index("work_resource.add_file_sets")] = "add_bulkrax_files"
+
+      Hyrax::Transactions::WorkUpdate.new(steps: steps)
+    end
+
+    # Query child FileSet in the resource/object
+    def fetch_child_file_sets(resource:)
+      Hyrax.custom_queries.find_child_file_sets(resource: resource)
     end
   end
 
