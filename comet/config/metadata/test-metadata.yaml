@@ -78,7 +78,7 @@ mappings:
   - name: oai_dc
     # display_label: OAI‐PMH Dublin Core
     iri: tag:surfliner.gitlab.io,2022:api/oai_dc
-  - name: ogm_aardvark
+  - name: aardvark
     # display_label: Open GeoMetadata Aardvark
     iri: tag:surfliner.gitlab.io,2022:api/aardvark
 
@@ -542,3 +542,153 @@ properties:
       aardvark: http://purl.org/dc/terms/rights
     available_on:
       - generic_object
+
+# ### Bounding box properties
+  - &bounding_box_west
+    name: "bounding_box_west"
+    display_label: "Bounding box westernmost"
+    definition: null
+    usage_guidelines: null
+    requirement: null
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/terms/Boxwestlimit
+    available_on:
+      class:
+        - generic_object
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    syntax: null
+    cardinality:
+      minimum: 0
+      maximum: 1
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
+    mapping:
+      dc-oai: null
+      dpla: null
+
+  - &bounding_box_west_geospatial
+    <<: *bounding_box_west
+    usage_guidelines: "This value displays the westernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
+    requirement: recommended
+    available_on:
+      class:
+        - geospatial_object
+    mapping:
+      gbl-1: null
+      aardvark: https://www.w3.org/ns/dcat#bbox
+
+  - &bounding_box_east
+    name: "bounding_box_east"
+    display_label: "Bounding box easternmost"
+    definition: null
+    usage_guidelines: null
+    requirement: null
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/terms/Boxeastlimit
+    available_on:
+      class:
+        - generic_object
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    syntax: null
+    cardinality:
+      minimum: 0
+      maximum: 1
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
+    mapping:
+      dc-oai: null
+      dpla: null
+
+  - &bounding_box_east_geospatial
+    <<: *bounding_box_east
+    usage_guidelines: "This value displays the easternmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
+    requirement: recommended
+    available_on:
+      class:
+        - geospatial_object
+    mapping:
+      gbl-1: null
+      aardvark: https://www.w3.org/ns/dcat#bbox
+
+  - &bounding_box_north
+    name: "bounding_box_north"
+    display_label: "Bounding box northernmost"
+    definition: null
+    usage_guidelines: null
+    requirement: null
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/terms/Boxnorthlimit
+    available_on:
+      class:
+        - generic_object
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    syntax: null
+    cardinality:
+      minimum: 0
+      maximum: 1
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
+    mapping:
+      dc-oai: null
+      dpla: null
+
+  - &bounding_box_north_geospatial
+    <<: *bounding_box_north
+    usage_guidelines: "This value displays the northernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
+    requirement: recommended
+    available_on:
+      class:
+        - geospatial_object
+    mapping:
+      gbl-1: null
+      aardvark: https://www.w3.org/ns/dcat#bbox
+
+  - &bounding_box_south
+    name: "bounding_box_south"
+    display_label: "Bounding box southernmost"
+    definition: null
+    usage_guidelines: null
+    requirement: null
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/terms/Boxsouthlimit
+    available_on:
+      class:
+        - generic_object
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    syntax: null
+    cardinality:
+      minimum: 0
+      maximum: 1
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
+    mapping:
+      dc-oai: null
+      dpla: null
+
+  - &bounding_box_south_geospatial
+    <<: *bounding_box_south
+    usage_guidelines: "This value displays the southernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
+    requirement: recommended
+    available_on:
+      class:
+        - geospatial_object
+    mapping:
+      gbl-1: null
+      aardvark: https://www.w3.org/ns/dcat#bbox
+

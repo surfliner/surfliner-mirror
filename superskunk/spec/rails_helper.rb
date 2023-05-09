@@ -42,6 +42,12 @@ Valkyrie::MetadataAdapter
   .custom_queries
   .register_query_handler(MemoryFindFileMetadata)
 
+##
+# Preload defined availabilities/resource classes
+Superskunk::SchemaLoader.new.availabilities.each do |availability|
+  Valkyrie.config.resource_class_resolver.call(availability)
+end
+
 RSpec.configure do |config|
   # Remove this line to enable support for ActiveRecord
   config.use_active_record = false

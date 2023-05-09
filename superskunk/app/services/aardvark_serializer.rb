@@ -170,6 +170,9 @@ class AardvarkSerializer < ResourceSerializer
       when :dct_accessRights_s
         # For now we only support "Public" access.
         mapping = ["Public"] unless mapping.present?
+      when :dcat_bbox, :locn_geometry
+        # Both use concatenated bounding_box_ values
+        mapping = concatenated_bounding_box
       when :id
         # Add the +:id+.
         mapping << resource.id
@@ -207,5 +210,24 @@ class AardvarkSerializer < ResourceSerializer
         json["@context"][term] = dfn[:iri]
       end
     end
+  end
+
+  private
+
+  ##
+  # Concats four values (bounding_box_west, bounding_box_east, bounding_box_north, bounding_box_south)
+  # to a single bounding box value for aardvark
+  # Aardvark expects value to be in this format ENVELOPE(-93.947768,-86.764686,21.567248,13.156171)
+  def concatenated_bounding_box
+    bbox_keys = [:bounding_box_west, :bounding_box_east, :bounding_box_north, :bounding_box_south]
+    all_keys_present = true
+    bbox_keys.each do |k|
+      unless resource[k].present?
+        Rails.logger.warn("#{k} not present, unable to create dcat_bbox and locn_geometry mapping")
+        all_keys_present = false
+      end
+    end
+    return [] unless all_keys_present
+    Array("ENVELOPE(#{bbox_keys.map { |k| resource[k].first }.join(",")})")
   end
 end
