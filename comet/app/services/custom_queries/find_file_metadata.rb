@@ -69,10 +69,10 @@ module CustomQueries
 
     def find_many_file_metadata_by_use(resource:, use:)
       return [] unless resource.try(:file_ids)
-      return enum_for(:find_many_file_metadata_by_use, resource: resource, use: use).to_a unless
+      return enum_for(:find_many_file_metadata_by_use, resource: resource, use: use) unless
         block_given?
 
-      files_for_file_set(resource) { |fm| yield fm if fm.type.include?(use) }
+      files_for_file_set(resource).each { |fm| yield fm if fm.type.include?(use) }
     end
 
     private
@@ -80,41 +80,21 @@ module CustomQueries
     ##
     # Yields the +FileMetadata+ objects corresponding to the provided +FileSet+.
     #
-    # TODO: replace this with an efficient query that joins on the resource.
+    # @note this relies on a private method in the +Valkyrie::Sequel+ query
+    #   adapter.
     def files_for_file_set(file_set)
-      if query_service.is_a?(Valkyrie::Sequel::MetadataAdapter)
-        file_set.file_ids.each do |file_id|
-          query_json = {file_identifier: [id: file_id.to_s]}.to_json
-          # This relies on a private method in the +Valkyrie::Sequel+ query
-          # adapter.
-          query_service.run_query(
-            query_service.send(:find_inverse_references_with_model_query),
-            query_json,
-            "Hyrax::FileMetadata"
-          ).each { |fm| yield fm }
-        end
-      else
-        file_set.file_ids.each do |file_id|
-          # A slower implementation for non‐SQL scenarios.
-          query_service.find_inverse_references_by(
-            id: file_id.to_s,
-            property: :file_identifier,
-            model: Hyrax::FileMetadata
-          ).each { |fm| yield fm }
-        end
-      end
+      query_service.run_query(find_file_metadata_by_file_set_id, file_set.id.id)
     end
 
     ##
     # this doesn't quite work. :(
     # intended for use by #find_many_file_metadata_by_use
-    def _find_many_inverse_references_with_model_query
+    def find_file_metadata_by_file_set_id
       <<-SQL
-          SELECT file_metadata.* FROM orm_resources a,
-          jsonb_array_elements(a.metadata->'file_ids') AS b(file_id)
-          JOIN orm_resources file_metadata ON b.file_id->>'id' = file_metadata.metadata#>{file_identifier}->>'id' WHERE a.id = ?
-          AND file_metadata.metadata @> ?
-          AND file_metadata.internal_resource = ?
+          SELECT fm.* FROM orm_resources fs,
+          jsonb_array_elements(fs.metadata->'file_ids') AS a(file_id)
+          JOIN orm_resources fm ON (fm.metadata #>> '{file_identifier,0,id}')::TEXT = (a.file_id->>'id')::TEXT
+          WHERE fs.id = ?
       SQL
     end
   end
