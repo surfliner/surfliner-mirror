@@ -32,6 +32,7 @@ PATH
   specs:
     surfliner_schema (0.1.0.pre)
       activesupport
+      reform-rails (~> 0.2, < 0.2.4)
       valkyrie (>= 2.2, < 4)
 
 GEM
