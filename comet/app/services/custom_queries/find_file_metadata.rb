@@ -63,8 +63,18 @@ module CustomQueries
     # @return [Array<Hyrax::FileMetadata>] or empty array if there are no ids or none of the ids map to Hyrax::FileMetadata
     # NOTE: Ignores non-existent ids and ids for non-file metadata resources.
     def find_many_file_metadata_by_ids(ids:)
-      results = query_service.find_many_by_ids(ids: ids)
-      results.select { |resource| resource.is_a? Hyrax::FileMetadata }
+      ids.map! do |id|
+        raise ArgumentError, "id must be a Valkyrie::ID" unless
+          id.is_a?(Valkyrie::ID) || id.is_a?(String)
+        id.to_s
+      end
+
+      query_service
+        .resources
+        .where(Sequel.lit("(id::varchar) IN ?", ids))
+        .where(internal_resource: "Hyrax::FileMetadata").map do |attributes|
+        resource_factory.to_resource(object: attributes)
+      end
     end
 
     def find_many_file_metadata_by_use(resource:, use:)
