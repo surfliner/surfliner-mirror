@@ -8,11 +8,13 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory, :with_admin_set do
       source_identifier_value: source_identifier,
       work_identifier: work_identifier,
       user: user,
-      klass: ::GenericObject)
+      klass: ::GenericObject,
+      update_files: update_files)
   end
 
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
   let(:work_identifier) { "" }
+  let(:update_files) { false }
 
   describe "#create" do
     context "with a visibility" do
@@ -107,6 +109,55 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory, :with_admin_set do
         .to have_attributes(title: contain_exactly(title_updated),
           title_alternative: contain_exactly(alternative_title_updated),
           rights_statement:  contain_exactly(rights_statement))
+    end
+  end
+
+  context "update_file" do
+    let(:object) do
+      FactoryBot.valkyrie_create(:generic_object,
+        :with_index,
+        title: ["Test Object"],
+        title_alternative: ["Test Alternative Title"],
+        alternate_ids: [source_identifier])
+    end
+
+    let(:update_files) { true }
+    let(:source_identifier) { "object_3" }
+    let(:title_updated) { "Test Bulkrax Import Update and replace Files" }
+    let(:work_identifier) { object.id }
+
+    let(:attributes) do
+      {
+        title: title_updated,
+        id: work_identifier,
+        alternate_ids: [source_identifier],
+        remote_files: [{url: "demo_files/demo.jpg"}]
+      }
+    end
+
+    let(:fog_connection) { mock_fog_connection }
+    let(:s3_bucket) { ENV.fetch("STAGING_AREA_S3_BUCKET", "comet-staging-area-#{Rails.env}") }
+    let(:file) { Tempfile.new("image.jpg").tap { |f| f.write("A fade image!") } }
+    let(:s3_key) { "demo_files/demo.jpg" }
+
+    before do
+      Rails.application.config.staging_area_s3_connection = fog_connection
+
+      staging_area_upload(fog_connection: fog_connection,
+        bucket: s3_bucket, s3_key: s3_key, source_file: file)
+    end
+
+    after do
+      file = fog_connection.directories.new(key: s3_bucket).files.new(key: s3_key)
+      file.destroy
+    end
+
+    it "update object with metadata and files" do
+      object_updated = object_factory.run!
+
+      expect(object_updated)
+        .to have_attributes(title: contain_exactly(title_updated))
+      expect(object_updated.member_ids.size).to eq 1
     end
   end
 
