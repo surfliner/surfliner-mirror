@@ -378,6 +378,10 @@ class CometTransactionContainer
     steps.register "add_file_sets" do
       Hyrax::Transactions::Steps::AddFileSets.new(handler: InlineUploadHandler)
     end
+
+    steps.register "add_bulkrax_files" do
+      Transactions::Steps::AddBulkraxFiles.new
+    end
   end
 end
 

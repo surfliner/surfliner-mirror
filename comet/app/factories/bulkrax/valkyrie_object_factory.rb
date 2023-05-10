@@ -128,7 +128,7 @@ module Bulkrax
 
     def transaction
       steps = Hyrax::Transactions::WorkCreate::DEFAULT_STEPS.dup
-      steps[steps.index("work_resource.add_file_sets")] = "add_bulkrax_files"
+      steps[steps.index("work_resource.add_file_sets")] = "work_resource.add_bulkrax_files"
 
       Hyrax::Transactions::WorkCreate.new(steps: steps)
     end
