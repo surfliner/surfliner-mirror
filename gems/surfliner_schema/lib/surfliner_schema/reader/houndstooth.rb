@@ -28,6 +28,7 @@ module SurflinerSchema
             iri: config["iri"]
           )
         end
+        supported_ranges = @resource_classes.values.filter_map(&:iri)
 
         # Generate the mappings.
         @mappings = mappings_hash.each_with_object({}) do |(name, config), dfns|
@@ -77,14 +78,14 @@ module SurflinerSchema
           next unless availability.size > 0 # ignore unavailable properties
           property_name = config.fetch("name", name).to_sym
           range = config["range"]
-          if range && range != RDF::RDFS.Literal && !supported_ranges.key?(range)
+          if range && range != RDF::RDFS.Literal && !supported_ranges.include?(range)
             # Skip this property if it is an object property and the range is
             # not recognized.
             #
             # This allows a delayed rollout of object property types by getting
             # them in the schema, then building the necessary components for
-            # displaying/mapping them, and finally adding them to the hash of
-            # supported ranges here to turn them on.
+            # displaying/mapping them, and finally adding the appropriate IRI to
+            # the class and so on.
             next
           end
           cardinality_maximum = config.dig("cardinality", "maximum")
