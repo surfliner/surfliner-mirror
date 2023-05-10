@@ -208,12 +208,12 @@ module SurflinerSchema
     # Coerces the provided class name to the name of an M3 conceptual “class”
     # defined on the schemas for this loader.
     #
-    # @param class_name {String | Symbol}
+    # @param class_name {#to_s}
     # @return {Symbol?}
     def availability_from_name(class_name)
       class_division = class_divisions.values.find { |resource_class|
-        resource_class.name == class_name.to_sym ||
-          resource_class.iri && resource_class.iri == class_name.to_s
+        resource_class.name.to_s == class_name.to_s ||
+          resource_class.iri && resource_class.iri.to_s == class_name.to_s
       }
       if class_division
         class_division.name
