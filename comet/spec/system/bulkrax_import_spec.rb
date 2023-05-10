@@ -21,7 +21,7 @@ RSpec.describe "Bulkrax Import", type: :system, js: true do
       fill_in("Name", with: "importer_validate")
 
       find(:css, "#importer_admin_set_id").find(:xpath, "option[2]").select_option
-      find(:css, "#importer_parser_klass").find("option[value='Bulkrax::CsvParser']").select_option
+      find(:css, "#importer_parser_klass").find("option[value='Bulkrax::CometCsvParser']").select_option
       choose("importer_parser_fields_file_style_upload_a_file")
       attach_file "File", source_file
 
@@ -53,7 +53,7 @@ RSpec.describe "Bulkrax Import", type: :system, js: true do
         fill_in("Name", with: "importer_no_source_id")
 
         find(:css, "#importer_admin_set_id").find(:xpath, "option[2]").select_option
-        find(:css, "#importer_parser_klass").find("option[value='Bulkrax::CsvParser']").select_option
+        find(:css, "#importer_parser_klass").find("option[value='Bulkrax::CometCsvParser']").select_option
         choose("importer_parser_fields_file_style_upload_a_file")
         attach_file "File", source_file
 
@@ -77,7 +77,7 @@ RSpec.describe "Bulkrax Import", type: :system, js: true do
         fill_in("Name", with: "importer_multivalue_columns")
 
         find(:css, "#importer_admin_set_id").find(:xpath, "option[2]").select_option
-        find(:css, "#importer_parser_klass").find("option[value='Bulkrax::CsvParser']").select_option
+        find(:css, "#importer_parser_klass").find("option[value='Bulkrax::CometCsvParser']").select_option
         choose("importer_parser_fields_file_style_upload_a_file")
         attach_file "File", source_file
 
@@ -127,7 +127,7 @@ RSpec.describe "Bulkrax Import", type: :system, js: true do
         fill_in("Name", with: "importer_multivalue_columns")
 
         find(:css, "#importer_admin_set_id").find(:xpath, "option[2]").select_option
-        find(:css, "#importer_parser_klass").find("option[value='Bulkrax::CsvParser']").select_option
+        find(:css, "#importer_parser_klass").find("option[value='Bulkrax::CometCsvParser']").select_option
         choose("importer_parser_fields_file_style_upload_a_file")
         attach_file "File", source_file
 

@@ -24,7 +24,7 @@ RSpec.describe Bulkrax::CsvEntry do
           export_type: "metadata",
           export_from: "importer",
           export_source: "importer_1",
-          parser_klass: "Bulkrax::CsvParser",
+          parser_klass: "Bulkrax::CometCsvParser",
           limit: 0,
           field_mapping: {},
           generated_metadata: false)
