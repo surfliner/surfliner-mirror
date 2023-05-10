@@ -77,7 +77,7 @@ module Bulkrax
 
       result = update_transaction
         .with_step_args(
-          "add_bulkrax_files" => {files: get_s3_files(remote_files: attributes["remote_files"]), user: @user}
+          "work_resource.add_bulkrax_files" => {files: get_s3_files(remote_files: attributes["remote_files"]), user: @user}
 
           # TODO: uncomment when we upgrade Hyrax 4.x
           # 'work_resource.save_acl' => { permissions_params: [attrs.try('visibility') || 'open'].compact }
@@ -162,12 +162,9 @@ module Bulkrax
       Hyrax::Transactions::Container["work_resource.create_with_bulk_behavior"]
     end
 
-    # Customize Hyrax::Transactions::WorkUpdate transaction step add_file_sets to ingest files
+    # Customize Hyrax::Transactions::WorkUpdate transaction with bulkrax
     def update_transaction
-      steps = Hyrax::Transactions::WorkUpdate::DEFAULT_STEPS.dup
-      steps[steps.index("work_resource.add_file_sets")] = "add_bulkrax_files"
-
-      Hyrax::Transactions::WorkUpdate.new(steps: steps)
+      Hyrax::Transactions::Container["work_resource.update_with_bulk_behavior"]
     end
 
     # Query child FileSet in the resource/object

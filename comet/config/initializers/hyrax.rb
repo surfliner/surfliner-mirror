@@ -382,6 +382,13 @@ class CometTransactionContainer
       Hyrax::Transactions::WorkCreate.new(steps: steps)
     end
 
+    ops.register "update_with_bulk_behavior" do
+      steps = Hyrax::Transactions::WorkUpdate::DEFAULT_STEPS.dup
+      steps[steps.index("work_resource.add_file_sets")] = "work_resource.add_bulkrax_files"
+
+      Hyrax::Transactions::WorkUpdate.new(steps: steps)
+    end
+
     ops.register "add_file_sets" do
       Hyrax::Transactions::Steps::AddFileSets.new(handler: InlineUploadHandler)
     end
