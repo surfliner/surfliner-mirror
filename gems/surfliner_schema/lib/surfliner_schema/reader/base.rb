@@ -121,7 +121,9 @@ module SurflinerSchema
       # This just calls out to +Valkyrie.config.resource_class_resolver+ to
       # attempt to resolve the range into a nested Valkyrie resource.
       def self.dry_range(range)
-        Valkyrie.config.resource_class_resolver.call(range)
+        Valkyrie::Types::Set.of(
+          Valkyrie.config.resource_class_resolver.call(range)
+        )
       end
 
       ##
