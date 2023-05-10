@@ -4,6 +4,11 @@ module Bulkrax
   ##
   # A custom CsvParser for Bulkrax
   class CometCsvParser < CsvParser
+    def entry_class
+      CometCsvEntry
+    end
+    alias_method :work_entry_class, :entry_class
+
     ##
     # Note: use 'perform_now' to facilitate development for now
     # @return [String]

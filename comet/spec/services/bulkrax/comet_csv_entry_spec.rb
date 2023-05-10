@@ -1,13 +1,11 @@
-# frozen_string_literal: true
-
 require "rails_helper"
 
-RSpec.describe Bulkrax::CsvEntry do
-  describe "Export metadata" do
-    subject(:csv_entry) do
-      described_class.new(importerexporter: exporter, identifier: work.id)
-    end
+RSpec.describe Bulkrax::CometCsvEntry do
+  subject(:csv_entry) do
+    described_class.new(importerexporter: exporter, identifier: work.id)
+  end
 
+  describe "Export metadata" do
     let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
 
     context "with object fields and no prefix" do
