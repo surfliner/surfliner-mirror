@@ -54,7 +54,7 @@ module Bulkrax
       result = transaction
         .with_step_args(
           # "work_resource.add_to_parent" => {parent_id: @related_parents_parsed_mapping, user: @user},
-          "add_bulkrax_files" => {files: get_s3_files(remote_files: attributes["remote_files"]), user: @user},
+          "work_resource.add_bulkrax_files" => {files: get_s3_files(remote_files: attributes["remote_files"]), user: @user},
           "change_set.set_user_as_depositor" => {user: @user},
           "work_resource.change_depositor" => {user: @user}
           # TODO: uncomment when we upgrade Hyrax 4.x
@@ -127,10 +127,7 @@ module Bulkrax
     private
 
     def transaction
-      steps = Hyrax::Transactions::WorkCreate::DEFAULT_STEPS.dup
-      steps[steps.index("work_resource.add_file_sets")] = "work_resource.add_bulkrax_files"
-
-      Hyrax::Transactions::WorkCreate.new(steps: steps)
+      Hyrax::Transactions::Container["work_resource.create_with_bulk_behavior"]
     end
   end
 
