@@ -6,6 +6,25 @@ module Bulkrax
       parser.related_parents_parsed_mapping
     end
 
+    # @Override Read the CSV file from S3/Minio
+    # there's a risk that this reads the whole file into memory and could cause a memory leak
+    def self.read_data(path)
+      raise StandardError, "CSV path empty" if path.blank?
+      options = {
+        headers: true,
+        header_converters: ->(h) { h.to_sym },
+        encoding: "utf-8"
+      }.merge(csv_read_data_options)
+
+      csv_file = Rails.application.config.staging_area_s3_connection
+        .directories.get(ENV.fetch("STAGING_AREA_S3_BUCKET", "comet-staging-area-#{Rails.env}"))
+        .files
+        .get(path)
+
+      results = CSV.parse(csv_file.body, **options)
+      csv_wrapper_class.new(results)
+    end
+
     def hyrax_record
       @hyrax_record ||= Hyrax.query_service.find_by(id: identifier)
     end

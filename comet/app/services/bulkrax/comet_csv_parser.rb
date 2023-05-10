@@ -9,11 +9,16 @@ module Bulkrax
     end
     alias_method :work_entry_class, :entry_class
 
-    ##
-    # Note: use 'perform_now' to facilitate development for now
-    # @return [String]
-    def perform_method
-      "perform_now"
+    # @Override Write CSV file to S3/Minio
+    # @param file [#path, #original_filename] the file object that with the relevant data for the
+    #        import.
+    def write_import_file(file)
+      path = File.join(path_for_import, file.original_filename)
+
+      Rails.application.config.staging_area_s3_connection
+        .directories.get(ENV.fetch("STAGING_AREA_S3_BUCKET", "comet-staging-area-#{Rails.env}")).files
+        .create(key: path, body: File.open(file.path))
+      path
     end
 
     # Set the following instance variables: @work_ids, @collection_ids, @file_set_ids
