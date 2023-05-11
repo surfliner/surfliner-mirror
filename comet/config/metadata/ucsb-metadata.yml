@@ -13,9 +13,9 @@ m3_version: "1.0.beta1"
 profile:
   responsibility: https://library.ucsb.edu/
   responsibility_statement: UC Santa Barbara Library
-  date_modified: "2023-03-20"
+  date_modified: "2023-05-11"
   type: UCSB Comet
-  version: 0.4
+  version: 0.5
 
 #---------------------------------------------------------
 # Mapping Definitions
@@ -151,6 +151,7 @@ properties:
 
   - &title_alternative_geospatial
     <<: *title_alternative
+    name: "title_alternative_geo"
     usage_guidelines: "Enter an alternative title (i.e. English translation of non-latin character title; map sheet code)."
     requirement: optional
     available_on:
@@ -225,6 +226,7 @@ properties:
 
   - &creator_geospatial
     <<: *creator
+    name: "creator_geo"
     definition: "This field represents the originator that will be uploaded to GeoData."
     usage_guidelines: "The originator should be a Library of Congress Name Authority File (LCNAF) entry. Use the 'originatorName' and 'originatorOrg' fields and any other information available to determine the creator of the resource.  Then use the UCSB/UCSD - Controlled Vocabulary spreadsheet to determine the authorized name and enter that in the 'originator' field. If the originator does not have an LCNAF entry, format the originator name as if it were an LCNAF entry."
     requirement: recommended
@@ -301,6 +303,7 @@ properties:
 
   - &publisher_geospatial
     <<: *publisher
+    name: "publisher_geo"
     definition: "This field represents the publisher that will be uploaded to GeoData."
     usage_guidelines: "The publisher should be a Library of Congress Name Authority File (LCNAF) entry. Use the 'publisherName' and 'publisherOrg' fields and any other information available to determine the publisher of the resource.  Then use the UCSB/UCSD - Controlled Vocabulary spreadsheet to determine the authorized name and enter that in the 'publisher' field.  If the publisher does not have an LCNAF entry, format the publisher name as if it were an LCNAF entry."
     requirement: recommended
@@ -887,6 +890,7 @@ properties:
 
   - &date_geospatial
     <<: *date
+    name: "date_index_geo"
     display_label: "Index Year"
     definition: "This field represents the publication date that will be uploaded to GeoData."
     usage_guidelines: "Enter the publication date (or year that the resource was made available) as a four-digit year (YYYY).  This should not be the situational date, as it is being entered into GeoData as the publication date. If the date is unknown, leave it blank.  If it is a date range (i.e. 2006-2007) enter only the first year here, and enter the date range in the subject temporal field below."
@@ -964,6 +968,7 @@ properties:
 
   - &date_issued_geospatial
     <<: *date_issued
+    name: "date_issued_geo"
     usage_guidelines: "Enter the publication date (or date the resource was made available) for the resource.  Use ISO 8601 to enter the date. (YYYY-MM-DD).  Only enter months and days if they are known and relevant.  A typical entry will be YYYY."
     requirement: optional
     available_on:
@@ -1042,9 +1047,14 @@ properties:
 
   - &type_of_resource_geospatial
     <<: *type_of_resource
+    name: "type_of_resource_geo"
     display_label: "Resource class"
     definition: "This field is intended to help users sort between significantly different types of resources."
     requirement: required
+#    controlled_values:
+#      format: null
+#      sources:
+#        - "http://id.loc.gov/vocabulary/resourceTypes"
     sample_value:
        - Dataset
     available_on:
