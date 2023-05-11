@@ -13,9 +13,9 @@ m3_version: "1.0.beta1"
 profile:
   responsibility: https://library.ucsd.edu
   responsibility_statement: UC San Diego Library
-  date_modified: "2023-02-23"
+  date_modified: "2023-05-11"
   type: UCSD Comet Test
-  version: 0.3.2
+  version: 0.5
 
 #---------------------------------------------------------
 # Mapping Definitions
@@ -147,9 +147,10 @@ properties:
       - generic_object
 
   - &title_alternative_geospatial
-    <<: *title_alternative
+    <<: *title_alternative_geo
     name: "title_alternative_geospatial"
     usage_guidelines: "Use for translated and alternate titles."
+    requirement: optional
     mapping:
       aardvark: http://purl.org/dc/terms/alternative
     available_on:
@@ -176,6 +177,16 @@ properties:
       - collection
       - generic_object
       - rdcp_object
+
+  - &creator_geospatial
+    <<: *agent_creator
+    name: "creator_geo"
+    requirement: "recommended"
+    definition: "add"
+    usage_guidelines: "add"
+    sample_value:
+      - San Diego County (Calif.)
+    available_on:
       - geospatial_object
 
   - &agent_pi
@@ -262,7 +273,19 @@ properties:
     available_on:
       - collection
       - generic_object
+
+  - &publisher_geospatial
+    <<: *agent_publisher #check that this is the right property name
+    name: "publisher_geo"
+    requirement: "recommended"
+    definition: "add"
+    usage_guidelines: "add"
+    sample_value:
+      - San Diego County (Calif.)
+    available_on:
       - geospatial_object
+    mapping: 
+      aardvark: http://purl.org/dc/terms/publisher
 
   - &date_collection
     name: "date_collection"  
@@ -286,6 +309,19 @@ properties:
       - rdcp_object
       - geospatial_object
 
+  - &date_index_geospatial
+    name: "date_index_geo"
+    display_label: "Index Year"
+    requirement: "recommended"
+    definition: "add"
+    usage_guidelines: "add"
+    sample_value:
+      - 2002
+    available_on:
+      - geospatial_object
+    mapping: 
+      aardvark: http://purl.org/dc/terms/publisher #update to correct uri
+  
   - &creation_date
     name: "creation_date"  
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
@@ -327,6 +363,17 @@ properties:
     available_on:
       - collection
       - generic_object
+
+  - &date_issued_geo
+    <<: *date_issued
+    name: "date_issued_geo"
+    usage_guidelines: "Use the year (YYYY) the object was made available in the DAMS.  For continuing collections (i.e., ongoing collections with no set end date), use the year in which the collection was first published" #update
+    section: dates
+    cardinality: 
+      minimum: 0
+      maximum: 1
+    mapping: #add
+    available_on:
       - geospatial_object
 
   - &date_issued_rdcp
@@ -676,7 +723,27 @@ properties:
       - collection
       - generic_object
       - rdcp_object
+
+  - &type_of_resource_geospatial
+    name: "type_of_resource_geo"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Resource class"
+    definition: "A secondary level of categories for classifying the spatial type or structure of a dataset."
+    usage_guidelines: "Use value from the Aardvark type list https://opengeometadata.org/docs/ogm-aardvark/resource-type"
+    requirement: required
+    sample_value: "Dataset"
+    # controlled_values:
+      # sources: https://opengeometadata.org/docs/ogm-aardvark/resource-type 
+    cardinality: 
+      minimum: 0
+      maximum: null
+    mapping:
+      aardvark: https://opengeometadata.org/docs/ogm-aardvark/resource-class
+     # d4-templates: n/a
+    available_on:
       - geospatial_object
+
 
   - &geo_data_type
     name: "geo_data_type"  
