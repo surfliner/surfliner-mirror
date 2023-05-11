@@ -15,13 +15,13 @@ data:
   CONSUMER_KEYS_FILE: {{ .Values.consumers.keysFileMountPath }}/consumer_keys.yaml
   {{- end }}
   DB_HOST: {{ template "superskunk.postgresql.fullname" . }}
-  DB_NAME: {{ .Values.postgresql.postgresqlDatabase }}
-  DB_PORT: {{ .Values.postgresql.servicePort | quote }}
+  DB_NAME: {{ .Values.postgresql.auth.database }}
+  DB_PORT: {{ .Values.postgresql.primary.service.ports.postgresql | quote }}
   METADATA_DATABASE_NAME: {{ .Values.superskunk.db.metadata_database_name }}
   METADATA_MODELS: {{ join "," .Values.superskunk.metadata_models }}
-  POSTGRES_DB: {{ .Values.postgresql.postgresqlDatabase }}
+  POSTGRES_DB: {{ .Values.postgresql.auth.database }}
   POSTGRES_HOST: {{ template "superskunk.postgresql.fullname" . }}
-  POSTGRES_PORT: {{ .Values.postgresql.servicePort | quote }}
+  POSTGRES_PORT: {{ .Values.postgresql.primary.service.ports.postgresql | quote }}
   RAILS_ENV: {{ .Values.superskunk.rails.environment }}
   RAILS_LOG_TO_STDOUT: {{ .Values.superskunk.rails.log_to_stdout | quote }}
   RAILS_SERVE_STATIC_FILES: {{ .Values.superskunk.rails.serve_static_files | quote }}

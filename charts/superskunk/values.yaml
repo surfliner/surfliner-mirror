@@ -64,15 +64,26 @@ postgresql:
     repository: bitnami/postgresql
     tag: 12.11.0-debian-10-r23
   enabled: true
-  cpu: 1000m
-  memory: 1Gi
-  postgresqlUsername: superskunk
-  postgresqlPassword: superskunk_pass
-  postgresqlDatabase: superskunk_db
-  postgresqlPostgresPassword: superskunk_admin
-  servicePort: 5432
-  persistence:
-    size: 10Gi
+  auth:
+    database: superskunk_db
+    password: superskunk_pass
+    postgresPassword: superskunk_admin
+    username: superskunk
+  primary:
+    service:
+      ports:
+        postgresql: 5432
+    persistence:
+      size: 10Gi
+    resources:
+      cpu: 1000m
+      memory: 1Gi
+  readReplicas:
+    persistence:
+      size: 10Gi
+    resources:
+      cpu: 1000m
+      memory: 1Gi
 
 serviceAccount:
   # Specifies whether a service account should be created
