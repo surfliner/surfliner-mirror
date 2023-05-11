@@ -4,3 +4,9 @@ def validate_object_wait(alternate_id:)
   sleep 1.seconds and puts "Waiting on creating object" until Time.now > (begin_time + 10) ||
       Hyrax.query_service.find_all_of_model(model: GenericObject).find { |o| o.alternate_ids.map { |id| id.to_s }.include?(alternate_id) }
 end
+
+def validate_object_no_source_id_wait
+  begin_time = Time.now
+  sleep 1.seconds and puts "Waiting on creating object" until Time.now > (begin_time + 10) ||
+      Hyrax.query_service.find_all_of_model(model: GenericObject).find { |o| o.alternate_ids.map { |id| id.to_s }.any? { |id| id.match?(/^b-[\d+]-[\d+]/) } }
+end

@@ -61,7 +61,8 @@ RSpec.describe "Bulkrax Import", type: :system, js: true do
 
         expect(page).to have_content("Importer was successfully created and import has been queued.")
 
-        sleep(2.seconds)
+        validate_object_no_source_id_wait
+
         click_on "Importers"
         expect(page).to have_content("Complete")
       end
@@ -84,6 +85,9 @@ RSpec.describe "Bulkrax Import", type: :system, js: true do
         click_button "Create and Import"
 
         expect(page).to have_content("Importer was successfully created and import has been queued.")
+
+        validate_object_wait(alternate_id: "w2")
+        click_on "Importers"
 
         click_on "importer_multivalue_columns"
 
@@ -134,6 +138,9 @@ RSpec.describe "Bulkrax Import", type: :system, js: true do
         click_button "Create and Import"
 
         expect(page).to have_content("Importer was successfully created and import has been queued.")
+
+        validate_object_wait(alternate_id: "w2")
+        click_on "Importers"
 
         click_on "importer_multivalue_columns"
 
