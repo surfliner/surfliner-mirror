@@ -152,6 +152,7 @@ properties:
   - &title_alternative_geospatial
     <<: *title_alternative
     name: "title_alternative_geo"
+    display_label: "Alternative Title"
     usage_guidelines: "Enter an alternative title (i.e. English translation of non-latin character title; map sheet code)."
     requirement: optional
     available_on:
@@ -304,6 +305,7 @@ properties:
   - &publisher_geospatial
     <<: *publisher
     name: "publisher_geo"
+    display_label: "Publisher"
     definition: "This field represents the publisher that will be uploaded to GeoData."
     usage_guidelines: "The publisher should be a Library of Congress Name Authority File (LCNAF) entry. Use the 'publisherName' and 'publisherOrg' fields and any other information available to determine the publisher of the resource.  Then use the UCSB/UCSD - Controlled Vocabulary spreadsheet to determine the authorized name and enter that in the 'publisher' field.  If the publisher does not have an LCNAF entry, format the publisher name as if it were an LCNAF entry."
     requirement: recommended
@@ -937,7 +939,7 @@ properties:
 
   - &date_issued
     name: "date_issued"
-    display_label: "Date issued"
+    display_label: "Date Issued"
     definition: "The date that the resource was published, released, or issued."
     usage_guidelines: null
     requirement: required, if applicable
@@ -1045,10 +1047,10 @@ properties:
       dc-oai: http://purl.org/dc/elements/1.1/type
       dpla: null
 
-  - &type_of_resource_geospatial
+  - &resource_class_geospatial
     <<: *type_of_resource
-    name: "type_of_resource_geo"
-    display_label: "Resource class"
+    name: "resource_class_geo"
+    display_label: "Resource Class"
     definition: "This field is intended to help users sort between significantly different types of resources."
     requirement: required
 #    controlled_values:
@@ -1066,6 +1068,27 @@ properties:
     mapping:
       gbl-1: http://purl.org/dc/elements/1.1/type
       aardvark: https://opengeometadata.org/docs/ogm-aardvark/resource-class
+      
+  - &resource_type_geospatial
+    name: "resource_type_geo" 
+    display_label: "Resource Type" 
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Resource Type"
+    definition: "A secondary level of categories for classifying the spatial type or structure of a dataset."
+    usage_guidelines: "Use value from the Aardvark type list https://opengeometadata.org/docs/ogm-aardvark/resource-type"
+    requirement: Optional
+    sample_value: "Bathymetric maps"
+    # controlled_values:
+      # sources: https://opengeometadata.org/docs/ogm-aardvark/resource-type
+    cardinality: 
+      minimum: 0
+      maximum: null
+    mapping:
+      aardvark: https://opengeometadata.org/docs/ogm-aardvark/resource-type
+     # d4-templates: n/a
+    available_on:
+      - geospatial_object
 
   - &genre_form
     name: "genre_form"
@@ -1221,8 +1244,9 @@ properties:
 
   - &note_description_geospatial
     <<: *note_description
-    definition: "This field represents the originator that will be uploaded to GeoData."
-    usage_guidelines: "The originator should be a Library of Congress Name Authority File (LCNAF) entry. Use the 'originatorName' and 'originatorOrg' fields and any other information available to determine the creator of the resource.  Then use the UCSB/UCSD - Controlled Vocabulary spreadsheet to determine the authorized name and enter that in the 'originator' field. If the originator does not have an LCNAF entry, format the originator name as if it were an LCNAF entry."
+    name: "description_geo"
+#    definition: "This field represents the originator that will be uploaded to GeoData."
+#    usage_guidelines: "The originator should be a Library of Congress Name Authority File (LCNAF) entry. Use the 'originatorName' and 'originatorOrg' fields and any other information available to determine the creator of the resource.  Then use the UCSB/UCSD - Controlled Vocabulary spreadsheet to determine the authorized name and enter that in the 'originator' field. If the originator does not have an LCNAF entry, format the originator name as if it were an LCNAF entry."
     requirement: recommended
     sample_value:
       - This polygon shapefile represents 100-year flood hazard data in Santa Barbara County.
@@ -1379,6 +1403,7 @@ properties:
 
   - &subject_spatial_geospatial
     <<: *subject_spatial
+    name: "subject_spatial_geo"
     display_label: "Spatial Coverage"
     definition: "This field represents the place keywords that will be uploaded to GeoData."
     usage_guidelines: "Use the 'spatialSubject1' field and any other information available to determine the geographic location of the resource.  Then use the UCSB/UCSD - Controlled Vocabulary spreadsheet to determine the authorized geonames place term and enter that in the 'spatialSubject' field."
@@ -1426,9 +1451,10 @@ properties:
 
   - &subject_temporal_geospatial
     <<: *subject_temporal
+    name: "subject_temporal_geo"
     display_label: "Temporal Coverage"
     usage_guidelines: "Enter a text string that describes the ground condition (situational date) of the resource.  This could be a range of dates or a string (i.e. Paleozoic). For dates, use ISO 8601 (YYYY-MM-DD).  Only enter months and days if they are known and relevant. A typical entry will be YYYY."
-    requirement: optional
+    requirement: recommended
     available_on:
       class:
         - geospatial_object
@@ -1469,7 +1495,8 @@ properties:
 
   - &subject_keyword_geospatial
     <<: *subject_keyword
-    usage_guidelines: "Enter any theme keywords that don't conform to a standard such as LCSH. Use this when the authorized term doesn't accurately represent what users would search for."
+    name: "subject_keyword_geo"
+    usage_guidelines: "Enter any theme keywords that don't conform to a standard such as LCSH. Use this when the authorized term doesn't accurately represent what users would search for.  Keywords will be in the metadata and indexed, but will be hidden to the user by default."
     requirement: optional
     available_on:
       class:
@@ -1572,6 +1599,7 @@ properties:
 
   - &bounding_box_west_geospatial
     <<: *bounding_box_west
+    name: "bounding_box_west_geo"
     usage_guidelines: "This value displays the westernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
     requirement: recommended
     available_on:
@@ -1613,6 +1641,7 @@ properties:
 
   - &bounding_box_east_geospatial
     <<: *bounding_box_east
+    name: "bounding_box_east_geo"
     usage_guidelines: "This value displays the easternmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
     requirement: recommended
     available_on:
@@ -1654,6 +1683,7 @@ properties:
 
   - &bounding_box_north_geospatial
     <<: *bounding_box_north
+    name: "bounding_box_north_geo"
     usage_guidelines: "This value displays the northernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
     requirement: recommended
     available_on:
@@ -1695,6 +1725,7 @@ properties:
 
   - &bounding_box_south_geospatial
     <<: *bounding_box_south
+    name: "bounding_box_south_geo"
     usage_guidelines: "This value displays the southernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
     requirement: recommended
     available_on:
@@ -2140,6 +2171,7 @@ properties:
 
   - &source_geospatial
     <<: *source
+    name: "source_geo"
     usage_guidelines: "Enter the slug of the original resource from which this resource is derived.  This is used when the resource stands apart as a new object rather than is a part of the original resource."
     available_on:
       class:
@@ -2149,7 +2181,7 @@ properties:
       aardvark: http://purl.org/dc/terms/source
 
   - &replaces
-    name: replaces
+    name: "replaces"
     display_label: "Replaces"
     definition: "A related resource that is supplanted, displaced, or superseded by the described resource."
     usage_guidelines: null
@@ -2178,6 +2210,7 @@ properties:
 
   - &replaces_geospatial
     <<: *replaces
+    name: "replaces_geo"
     usage_guidelines: "Enter the slug of the resource that this resource replaces.  Also add the slug of this resource in the 'isReplacedBy' field of the previous resource's metadata.  This is used when this resource deprecates another resource."
     available_on:
       class:
@@ -2216,6 +2249,7 @@ properties:
 
   - &is_replaced_by_geospatial
     <<: *is_replaced_by
+    name: "is_replaced_by_geo"
     usage_guidelines: "Enter the slug of the resource that replaces this resource.  Also add the slug of this resource in the 'replaces' field of the new resource's metadata.  This is used when this resource has been deprecated by another resource."
     available_on:
       class:
@@ -2254,6 +2288,7 @@ properties:
 
   - &is_version_of_geospatial
     <<: *is_version_of
+    name: "is_version_of_geo"
     usage_guidelines: "Enter the slug of the most recent related record.  This is used when the resource is an update of the related record, but where this resource is not considered a derivative and the original resource has not been deprecated."
     available_on:
       class:
@@ -2292,6 +2327,7 @@ properties:
 
   - &relation_geospatial
     <<: *relation
+    name: "relation_geo"
     usage_guidelines: "Enter any other relation type or entry that is not covered by the other relationship fields. This field could be used to display DOIs to related publications."
     available_on:
       class:
@@ -2334,6 +2370,7 @@ properties:
 
   - &rights_holder_geospatial
     <<: *rights_holder
+    name: "rights_holder_geo"
     usage_guidelines: "Enter the rights holder for this resource."
     requirement: optional
     available_on:
@@ -2432,6 +2469,14 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/rights
       dpla: null
+
+# redo this  - &rights_statement_geospatial
+    <<: *rights_statement
+    name: "rights_statement_geo"
+    available_on:
+      class:
+        - geospatial_object
+    mapping:
       gbl-1: null
       aardvark: http://purl.org/dc/terms/rights
 
@@ -2468,6 +2513,7 @@ properties:
 
   - &rights_license_geospatial
     <<: *rights_license
+    name: "license_geo"
     usage_guidelines: "Enter a URI for an appropriate license for this resource such as Creative Commons."
     requirement: optional
     available_on:
@@ -2510,7 +2556,9 @@ properties:
 
   - &rights_note_geospatial
     <<: *rights_note
-    usage_guidelines: "Using the 'useLimitation1', 'useLimitation2', 'accessConst', 'useConst', and 'otherConst' fields in the original ArcGIS metadata XML, enter a brief use limitation statement that will appear in GeoBlacklight when this feature is enabled."
+    name: "rights_note_geo"
+    display_label: "Rights"
+    usage_guidelines: "Enter a brief use limitation statement that will appear in GeoBlacklight when this feature is enabled."
     requirement: recommended
     available_on:
       class:
@@ -2627,9 +2675,14 @@ properties:
       dc-oai: null
       dpla: null
 
-  - &provider_geospatial
+# should this be hardcoded into Superskunk?  - &provider_geospatial
     <<: *provider
+    name: "provider_geo"
     requirement: recommended
+        controlled_values:
+      format: null
+      sources:
+        - # Aardvark is source "http://id.loc.gov/vocabulary/organizations"
     available_on:
       class:
         - geospatial_object
