@@ -1,2 +1,2 @@
-FROM dtzar/helm-kubectl:3.12.0
+FROM dtzar/helm-kubectl:3.11.3
 WORKDIR /home/ansible
