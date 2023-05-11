@@ -92,20 +92,6 @@ sections:
 
 # Property Definitions
 
-## The properties below are roughly organized as follows:
-#     1. title-related
-#     2. agents and associated roles (controlled)
-#     3. information about the origin of the resource (including dates)
-#     4. physical description, etc.
-#     5. note fields
-#     6. subject
-#     7. cartographics
-#     8. identifiers
-#     9. relationships
-#    10. rights related
-#    11. location of resource
-#    12. record management related
-
 properties:
 
   - &title_subtitle
@@ -132,7 +118,7 @@ properties:
     name: "title_alternative"  
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
-    display_label: "Title Variant"
+    display_label: "Alternative Title"
     definition: "An alternative title for the resource."
     # sample_value: "Rambird, 1986"
     cardinality: 
@@ -182,10 +168,10 @@ properties:
     <<: *agent_creator
     name: "creator_geo"
     requirement: "recommended"
-    definition: "add"
+    definition: "This field represents the originator that will be uploaded to the ISO XML."
     usage_guidelines: "add"
     sample_value:
-      - San Diego County (Calif.)
+      - Consejo Nacional de Áreas Protegidas (Guatemala)
     available_on:
       - geospatial_object
 
@@ -323,11 +309,11 @@ properties:
       aardvark: http://purl.org/dc/terms/publisher #update to correct uri
   
   - &creation_date
-    name: "creation_date"  
+    name: "creation_date"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://id.loc.gov/datatypes/edtf/EDTF
     display_label: "Creation Date"
-    definition: "A date associated with the creation of the resource. "
+    definition: "A date associated with the creation of the resource."
     usage_guidelines: "The date the resource was created"
     cardinality: 
       minimum: 0
@@ -344,7 +330,7 @@ properties:
       - geospatial_object
 
   - &date_issued
-    name: "date_issued"  
+    name: "date_issued"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://id.loc.gov/datatypes/edtf/EDTF
     display_label: "Date Issued"
@@ -388,7 +374,7 @@ properties:
       - rdcp_object
 
   - &date_event
-    name: "date_event"  
+    name: "date_event"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://id.loc.gov/datatypes/edtf/EDTF
     display_label: "Event Date"
@@ -409,12 +395,12 @@ properties:
       - geospatial_object
 
   - &note_description
-    name: "note_description"  
+    name: "note_description"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Description"
     definition: "A description or summary of a resource"
-    usage_guidelines: "Used for descriptions which provide 'a summary of the content of a resource'. This includes: abstracts, descriptions, summaries or scope and contents information.  When the content provider distinguishes between scope and contents information and abstract/description/summary information, keep them separate using a Note type 'scope and content' attribute."
+    usage_guidelines: "Used for descriptions which provide 'a summary of the content of a resource'. This includes - abstracts, descriptions, summaries or scope and contents information.  When the content provider distinguishes between scope and contents information and abstract/description/summary information, keep them separate using a Note type 'scope and content' attribute."
     # sample_value: "A alteration by unnamed student(s) intended as a parody of De Saint Phalle's Sun God."
     cardinality: 
       minimum: 0
@@ -428,7 +414,15 @@ properties:
       - collection
       - generic_object
       - rdcp_object
-      - geospatial_object
+
+  - &note_description_geospatial
+    <<: *note_description
+    name: "description_geo"
+    requirement: recommended
+    available_on:
+    - geospatial_object
+    mapping:
+      aardvark: http://purl.org/dc/terms/description
 
   - &language_geospatial
     <<: *language
@@ -440,7 +434,7 @@ properties:
       aardvark: http://purl.org/dc/elements/1.1/language
 
   - &language
-    name: "language"  
+    name: "language"
     # range: http://www.w3.org/2001/XMLSchema#anyURI
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Language"
@@ -464,7 +458,7 @@ properties:
       - rdcp_object
 
   - &note_inscription
-    name: "note_inscription"  
+    name: "note_inscription"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Inscription"
@@ -505,7 +499,7 @@ properties:
     name: "note_preferred_citation"  
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
-    display_label: "Cite This Work"
+    display_label: "Cite this Work"
     definition: "Citation to use for referencing the resource."
     usage_guidelines: "Record a citation for the user in order for them to cite the resource at hand. Although there is no required format, it should adhere to general citation guidelines for internet resources, and use full/valid URLs when possible"
     # sample_value: "Keen, Eric M; Wray, Janie; Meuter, Hermann; Thompson, Kim-Ly; Barlow, Jay P; Picard, Chris R (2017): Data from: 'Whale Wave': shifting strategies structure the complex use of critical fjord habitat by humpbacks. UC San Diego Library Digital Collections. http://doi.org/10.6075/J0GT5K3B"
@@ -733,10 +727,10 @@ properties:
       - rdcp_object
 
   - &type_of_resource_geospatial
-    name: "type_of_resource_geo"  
+    name: "resouce_class_geo"  
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
-    display_label: "Resource class"
+    display_label: "Resource Class"
     definition: "A secondary level of categories for classifying the spatial type or structure of a dataset."
     usage_guidelines: "Use value from the Aardvark type list https://opengeometadata.org/docs/ogm-aardvark/resource-type"
     requirement: required
@@ -756,7 +750,7 @@ properties:
     name: "resource_type_geo"  
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
-    display_label: "Resource type"
+    display_label: "Resource Type"
     definition: "A secondary level of categories for classifying the spatial type or structure of a dataset."
     usage_guidelines: "Use value from the Aardvark type list https://opengeometadata.org/docs/ogm-aardvark/resource-type"
     requirement: Optional
@@ -869,25 +863,46 @@ properties:
 
   - &subject_spatial_geospatial
     <<: *subject_spatial
-    name: "subject_spatial_geospatial"
+    name: "subject_spatial_geo"
     usage_guidelines: "Place name taken from Geonames"
     mapping:
       aardvark: http://purl.org/dc/terms/spatial
     available_on:
       - geospatial_object
 
-  - &keyword
-    name: "keyword"  
+# including subject_temporal as a base element for &subject_temporal_geospatial - unless policy changes not planning on using subject_temporal for non geospatial objects
+  - &subject_temporal
+    name: "subject_temporal"
+    # available_on:
+    display_label: "Temporal Coverage"
+
+  - &subject_temporal_geospatial
+    <<: *subject_temporal
+    name: "subject_temporal_geo"
+    requirement: Recommended # aardvark says "suggested"
+    available_on:
+      - geospatial_object
+    mapping:
+      #aardvark: http://puttheurihere
+
+# including subject_keyword as a base element for &subject_keyword_geospatial - should be evaluated for application to non geospatial objects
+  - &subject_keyword
+    name: "subject_keyword"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    definition: "Uncontrolled keywords or topics."
+    usage_guidelines: "Enter tags that will be useful for enhancing searches and interpretation. Keywords will be in the metadata and indexed, but will be hidden to the user by default."
     data_type: http://www.w3.org/2001/XMLSchema#string
-    display_label: "Keyword(s)"
-    definition: "Uncontrolled keywords or topics.  "
-    usage_guidelines: "Enter tags that will be useful for enhancing searches and interpretation. Keywords will be in the metadata, but will be hidden to the user by default."
-    # requirement: Optional
+    section: subjects
+    # available_on:
+    display_label: "Keyword"
+
+  - &subject_keyword_geospatial
+    <<: *subject_keyword
+    name: "subject_keyword_geo"
+    requirement: optional
     cardinality: 
       minimum: 0
       maximum: null
-    section: subjects
     mapping:
       aardvark: https://www.w3.org/ns/dcat#keyword
      # d4-templates: n/a
@@ -974,6 +989,8 @@ properties:
     available_on:
       - rdcp_object
 
+
+## Geographic and geospatial related ##
   - &georeferenced
     name: "georeferenced"  
     # range: boolean
@@ -1006,8 +1023,16 @@ properties:
       maximum: null
     section: geographics
     mapping:
-      aardvark: https://www.w3.org/ns/dcat#bbox|http://www.w3.org/ns/locn#Geometry
+      aardvark: https://www.w3.org/ns/dcat#bbox|http://www.w3.org/ns/locn#Geometry # maps two places - not sure if we can include both or only one (and if one, which)
      # d4-templates: n/a
+    available_on:
+      - generic_object
+      - rdcp_object
+  
+  - &bounding_box_east_geospatial
+    <<: *bounding_box_east
+    name: "bounding_box_east_geo"
+    requirement: recommended
     available_on:
       - geospatial_object
 
@@ -1025,8 +1050,16 @@ properties:
       maximum: null
     section: geographics
     mapping:
-      aardvark: https://www.w3.org/ns/dcat#bbox|http://www.w3.org/ns/locn#Geometry
+      aardvark: https://www.w3.org/ns/dcat#bbox|http://www.w3.org/ns/locn#Geometry # maps two places - not sure if we can include both or only one (and if one, which)
      # d4-templates: n/a
+    available_on:
+      - generic_object
+      - rdcp_object
+
+  - &bounding_box_north_geospatial
+    <<: *bounding_box_north
+    name: "bounding_box_north_geo"
+    requirement: recommended
     available_on:
       - geospatial_object
 
@@ -1044,8 +1077,16 @@ properties:
       maximum: null
     section: geographics
     mapping:
-      aardvark: https://www.w3.org/ns/dcat#bbox|http://www.w3.org/ns/locn#Geometry
+      aardvark: https://www.w3.org/ns/dcat#bbox|http://www.w3.org/ns/locn#Geometry # maps two places - not sure if we can include both or only one (and if one, which)
      # d4-templates: n/a
+    available_on:
+      - generic_object
+      - rdcp_object
+
+  - &bounding_box_south_geospatial
+    <<: *bounding_box_south
+    name: "bounding_box_south_geo"
+    requirement: recommended
     available_on:
       - geospatial_object
 
@@ -1063,8 +1104,17 @@ properties:
       maximum: null
     section: geographics
     mapping:
-      aardvark: https://www.w3.org/ns/dcat#bbox|http://www.w3.org/ns/locn#Geometry
-     # d4-templates: n/a
+      aardvark: http://geoblacklight.org/schema/aardvark/dcat_bbox
+      #aardvark-documentation: https://opengeometadata.org/ogm-aardvark/#bounding-box 
+      #d4-templates: n/a
+    available_on:
+      - generic_object
+      - rdcp_object
+
+  - &bounding_box_west_geospatial
+    <<: *bounding_box_west
+    name: "bounding_box_west_geo"
+    requirement: recommended
     available_on:
       - geospatial_object
 
@@ -1089,6 +1139,7 @@ properties:
       - rdcp_object
       - geospatial_object
 
+# for legacy dams polygon's map to bounding box when appropriate
   - &polygon
     name: "polygon"  
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
@@ -1109,8 +1160,8 @@ properties:
       - collection
       - generic_object
       - rdcp_object
-      - geospatial_object
 
+## Related Resources ##
   - &online_finding_aid
     name: "online_finding_aid"  
     # range: 
@@ -1184,7 +1235,19 @@ properties:
       - rdcp_object
       - geospatial_object
 
+  - &isDerivedFrom
+    display_label: "Source"
+
+  - &isDerivedFrom_geospatial
+    <<: *isDerivedFrom
+    name: "source_geo"
+    available_on:
+      - geospatial_object
+    mapping:
+      aardvark: http://purl.org/dc/terms/source
+
   - &isDerivedFrom_dataset
+    <<: *isDerivedFrom
     name: "isDerivedFrom_dataset"  
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
@@ -1201,6 +1264,7 @@ properties:
       - rdcp_object
 
   - &isDerivedFrom_software
+    <<: *isDerivedFrom
     name: "isDerivedFrom_software"  
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
@@ -1232,13 +1296,18 @@ properties:
       - generic_object
       - rdcp_object
 
-  - &rights_note_geospatial
-    name: "rights_note_geospatial"  
+## rights and licensing ##
+# adding base property for geospatial derived property, usage should be evaluated
+  - &rights_note
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
-    display_label: "Rights note"
+    display_label: "Rights"
     definition: "This field is intended to be flexible to accommodate different types of rights and disclaimers. Users are encouraged to adopt one of the rightsstatements.org statements."
     usage_guidelines: "Enter free text of generic, catch-all access and usage rights. It can include clickable links; all access and usage rights."
+
+  - &rights_note_geospatial
+    <<: *rights_note
+    name: "rights_note_geo"  
     # requirement: Optional
     cardinality: 
       minimum: 0
@@ -1273,13 +1342,19 @@ properties:
     available_on:
       - generic_object
       - rdcp_object
-      - geospatial_object
 
+  - &license_geospatial
+    <<: *license
+    name: "license_geo"
+    requirement: optional
+    available_on:
+      - geospatial_object
+  
   - &rights_holder
     name: "rights_holder"  
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
-    display_label: "Rights Holder"
+    display_label: "Rights holder"
     definition: "A person or organization owning or managing rights over the resource."
     usage_guidelines: "Use a controlled name for the entity. New entities will be created as agent authorities"
     # sample_value: "UC Regents"
@@ -1295,4 +1370,15 @@ properties:
       - generic_object
       - rdcp_object
       - geospatial_object
+  
+  - &rights_holder_geospatial
+    <<: *rights_holder
+    name: "rights_holder_geo"
+    available_on:
+      -geospatial_object
+
+## records management ##
+
+##  - &provider_geospatial ## ideally this would be hardcoded in Superskunk as part of export to shoreline
+#     name: "provider_geo"
 
