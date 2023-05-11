@@ -49,10 +49,17 @@ redis:
   master:
     persistence:
       enabled: false
+  replica:
+    persistence:
+      enabled: false
 
 postgresql:
-  persistence:
-    enabled: false
+  primary:
+    persistence:
+      enabled: false
+  readReplicas:
+    persistence:
+      enabled: false
 
 resources:
   limits:
