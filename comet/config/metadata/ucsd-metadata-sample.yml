@@ -745,8 +745,8 @@ properties:
       - geospatial_object
 
 
-  - &geo_data_type
-    name: "geo_data_type"  
+  - &data_type_geospatial
+    name: "data_type_geo"  
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Data type"
