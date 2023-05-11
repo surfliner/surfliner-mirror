@@ -430,6 +430,15 @@ properties:
       - rdcp_object
       - geospatial_object
 
+  - &language_geospatial
+    <<: *language
+    name: "language_geo"
+    requirement: optional
+    available_on:
+     - geospatial_object
+    mapping:
+      aardvark: http://purl.org/dc/elements/1.1/language
+
   - &language
     name: "language"  
     # range: http://www.w3.org/2001/XMLSchema#anyURI
@@ -437,7 +446,7 @@ properties:
     display_label: "Language"
     definition: "Language(s) of described resource. Strongly recommended for text materials."
     usage_guidelines: "Resources can have multiple languages represented. It is not necessary to record the language of non-texual or non-audiovisual content."
-    # sample_value: "eng"
+    sample_value: "eng"
     # controlled_values:
       # sources: https://id.loc.gov/vocabulary/iso639-2.html
     cardinality: 
@@ -447,13 +456,12 @@ properties:
       dc-oai: http://purl.org/dc/elements/1.1/language
       datacite: https://schema.datacite.org/meta/kernel-4.4/language
       gbl-1: http://purl.org/dc/elements/1.1/language
-      aardvark: http://purl.org/dc/elements/1.1/language
+      # aardvark: http://purl.org/dc/elements/1.1/language
      # d4-templates: Language
     available_on:
       - collection
       - generic_object
       - rdcp_object
-      - geospatial_object
 
   - &note_inscription
     name: "note_inscription"  
@@ -744,16 +752,15 @@ properties:
     available_on:
       - geospatial_object
 
-
-  - &data_type_geospatial
-    name: "data_type_geo"  
+  - &resource_type_geospatial
+    name: "resource_type_geo"  
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
-    display_label: "Data type"
+    display_label: "Resource type"
     definition: "A secondary level of categories for classifying the spatial type or structure of a dataset."
     usage_guidelines: "Use value from the Aardvark type list https://opengeometadata.org/docs/ogm-aardvark/resource-type"
-    # requirement: Optional
-    # sample_value: "Bathymetric maps"
+    requirement: Optional
+    sample_value: "Bathymetric maps"
     # controlled_values:
       # sources: https://opengeometadata.org/docs/ogm-aardvark/resource-type
     cardinality: 
@@ -761,6 +768,24 @@ properties:
       maximum: null
     mapping:
       aardvark: https://opengeometadata.org/docs/ogm-aardvark/resource-type
+     # d4-templates: n/a
+    available_on:
+      - geospatial_object
+
+  - &format_geospatial
+    name: "format_geo"
+    display_label: "Format"
+    definition: "?" #add
+    usage_guidelines: "?" #add
+    requirement: Required if applicable
+    # controlled_values:
+     # sources: https://opengeometadata.org/docs/ogm-aardvark/ 
+    sample_value: "Shapefile, KMZ, DVD, CD-ROM, etc."
+    #cardinality: 
+      #minimum: 0
+      #maximum: 1
+    mapping:
+      aardvark: https://opengeometadata.org/docs/ogm-aardvark/#format #fix
      # d4-templates: n/a
     available_on:
       - geospatial_object
@@ -784,6 +809,23 @@ properties:
       - collection
       - generic_object
       - rdcp_object
+
+  - &subject_topic_geospatial
+    <<: *subject_topic
+    name: "subject_topic_geo"  
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Subject"
+    definition: "A topic or subject of the resource."
+    # sample_value: "American poetry"
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: subjects
+    mapping:
+      aardvark: http://purl.org/dc/terms/subject
+     # d4-templates: Subject:topic; Subject:common name
+    available_on:
       - geospatial_object
 
   - &subject_name
