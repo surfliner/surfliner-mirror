@@ -1128,9 +1128,10 @@ properties:
 
   - &format_geospatial
     <<: *format
+    name: "format_geo"
     definition: "This value represents the format of the data."
-    usage_guidelines: "This value is always Shapefile."
-    requirement: conditional
+    usage_guidelines: #"This value is always Shapefile."
+    requirement: required if applicable
     available_on:
       class:
         - geospatial_object
@@ -1174,6 +1175,7 @@ properties:
 
   - &language_geospatial
     <<: *language
+    name: "language_geo"
     definition: "This field represents the language code that will be uploaded to GeoData."
     usage_guidelines: "The language code follows ISO 639-2 (used by Library of Congress as well). The value represents the language of the data, not of the metadata. Edit this code as necessary."
     requirement: optional
@@ -1299,6 +1301,7 @@ properties:
 
   - &subject_topic_geospatial
     <<: *subject_topic
+    name: "subject_topic_geo"
     display_label: "Subject"
     definition: "This field represents the theme keywords that will be uploaded to GeoData."
     usage_guidelines: "The subject terms should be Library of Congress Subject Headings (LCSH). Use the 'subject1' field and any other information available to determine the subject of the resource. Then use the UCSB/UCSD - Controlled Vocabulary spreadsheet to determine the authorized subject term and enter that in the 'subject' field."
