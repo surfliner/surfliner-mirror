@@ -12,20 +12,29 @@ RSpec.describe Bulkrax::CometCsvEntry do
       let(:work) do
         w = GenericObject.new(title: "Test Object Title",
           title_alternative: "An Alternative Title",
-          creator: "Tester")
+          creator: "Tester",
+          alternate_ids: ["w_1"])
         Hyrax.persister.save(resource: w)
       end
 
       let(:exporter) do
-        Bulkrax::Exporter.new(name: "Export from Importer",
+        Bulkrax::Exporter.new(name: "Export from Worktype",
           user: user,
           export_type: "metadata",
-          export_from: "importer",
-          export_source: "importer_1",
+          export_from: "worktype",
+          export_source: "GenericObject",
           parser_klass: "Bulkrax::CometCsvParser",
           limit: 0,
-          field_mapping: {},
           generated_metadata: false)
+      end
+
+      before do
+        allow_any_instance_of(Bulkrax::ValkyrieObjectFactory).to receive(:run!)
+        allow(subject).to receive(:hyrax_record).and_return(work)
+        allow(work).to receive(:id).and_return("w_1")
+        allow(work).to receive(:member_of_work_ids).and_return([])
+        allow(work).to receive(:in_work_ids).and_return([])
+        allow(work).to receive(:member_work_ids).and_return([])
       end
 
       describe "#build_export_metadata" do
