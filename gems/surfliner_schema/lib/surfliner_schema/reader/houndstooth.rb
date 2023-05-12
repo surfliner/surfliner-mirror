@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 module SurflinerSchema
-  module Reader
+  class Reader
     ##
     # A reader for a Houndstooth/M3 YAML schema.
-    class Houndstooth < Base
+    class Houndstooth < SurflinerSchema::Reader
       ##
       # Creates a new simple schema reader given a Houndstooth Hash.
       #

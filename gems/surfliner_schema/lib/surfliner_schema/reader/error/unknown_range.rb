@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module SurflinerSchema
-  module Reader
+  class Reader
     module Error
       ##
       # The range of a property was not recognized.

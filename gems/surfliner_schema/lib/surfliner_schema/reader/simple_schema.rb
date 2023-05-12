@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 module SurflinerSchema
-  module Reader
+  class Reader
     ##
     # A reader for a Hyrax “simple” YAML schema.
-    class SimpleSchema < Base
+    class SimpleSchema < SurflinerSchema::Reader
       ##
       # Creates a new simple schema reader given an attributes configuration
       # hash.

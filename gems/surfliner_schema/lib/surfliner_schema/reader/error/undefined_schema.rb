@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module SurflinerSchema
-  module Reader
+  class Reader
     module Error
       ##
       # No configuration file exists for a requested schema.

@@ -12,7 +12,7 @@ RSpec.describe SurflinerSchema do
     let(:resource) { model_class.new(test_field: "etaoin") }
 
     let(:reader_class) do
-      Class.new(SurflinerSchema::Reader::Base) do
+      Class.new(SurflinerSchema::Reader) do
         def properties(availability:)
           return unless availability == :my_availability
           {

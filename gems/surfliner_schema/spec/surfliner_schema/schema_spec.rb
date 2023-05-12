@@ -9,7 +9,7 @@ RSpec.describe SurflinerSchema do
     end
 
     let(:reader_class) do
-      Class.new(SurflinerSchema::Reader::Base) do
+      Class.new(SurflinerSchema::Reader) do
         def properties(availability:)
           return unless availability == :my_availability
           {

@@ -12,7 +12,7 @@ RSpec.describe SurflinerSchema do
     }
 
     let(:reader) do
-      reader = instance_double("SurflinerSchema::Reader::Base")
+      reader = instance_double("SurflinerSchema::Reader")
       allow(reader).to receive(:resource_classes).and_return({
         my_availability: SurflinerSchema::ResourceClass.new(
           name: :my_availability,

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module SurflinerSchema
-  module Reader
+  class Reader
     module Error
       ##
       # A schema defined the same property with the same availability twice.

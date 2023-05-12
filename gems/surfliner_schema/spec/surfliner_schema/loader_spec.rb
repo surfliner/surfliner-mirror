@@ -34,7 +34,7 @@ describe SurflinerSchema::Loader do
 
   describe "instance" do
     let(:reader_class) do
-      Class.new(SurflinerSchema::Reader::Base) do
+      Class.new(SurflinerSchema::Reader) do
         def properties(availability:)
           {
             title: SurflinerSchema::Property.new(

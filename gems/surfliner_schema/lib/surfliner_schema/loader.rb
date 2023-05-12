@@ -28,7 +28,7 @@ module SurflinerSchema
     # @param additional_readers [Array<SurflinerSchema::Reader::Base>]
     def initialize(schema_names = nil, additional_readers: [])
       @readers = (schema_names || self.class.default_schemas).map { |schema|
-        SurflinerSchema::Reader.read(config_for(schema), schema_name: schema)
+        SurflinerSchema::Reader.for(config_for(schema), schema_name: schema)
       }.concat(additional_readers.to_a)
     end
 
