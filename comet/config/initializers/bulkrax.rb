@@ -16,6 +16,8 @@ Bulkrax.setup do |config|
   config.multi_value_element_join_on = " | "
 end
 
+Bulkrax.export_path = ENV.fetch("BULKRAX_EXPORT_PATH", "tmp/exports")
+
 Bulkrax.parsers = [
   # {name: "OAI - Dublin Core", class_name: "Bulkrax::OaiDcParser", partial: "oai_fields"},
   # {name: "OAI - Qualified Dublin Core", class_name: "Bulkrax::OaiQualifiedDcParser", partial: "oai_fields"},

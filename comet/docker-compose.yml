@@ -16,6 +16,7 @@ services:
       - rabbitmq
     volumes:
       - hyrax-derivatives:/home/comet/app/derivatives
+      - hyrax-exports:/home/comet/app/exports
       - hyrax-uploads:/home/comet/app/uploads
       - rails-public:/home/comet/app/public
       - hyrax-scripts:/home/comet/app/scripts
@@ -38,6 +39,7 @@ services:
       - rabbitmq
     volumes:
       - hyrax-derivatives:/home/comet/app/derivatives
+      - hyrax-exports:/home/comet/app/exports
       - hyrax-uploads:/home/comet/app/uploads
       - sidekiq-public:/home/comet/app/public
       - sidekiq-tmp:/home/comet/app/tmp
@@ -139,6 +141,7 @@ services:
 volumes:
   db:
   hyrax-derivatives:
+  hyrax-exports:
   hyrax-uploads:
   hyrax-scripts:
   rails-public:
