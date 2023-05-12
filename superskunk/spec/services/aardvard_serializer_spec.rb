@@ -33,4 +33,24 @@ RSpec.describe AardvarkSerializer do
       expect(serialized_aardvark[:locn_geometry]).to be_nil
     end
   end
+
+  context "with object being part of a collection" do
+    let(:title) { "A geospatial object with a parent collection" }
+    let(:resource) {
+      persister.save(resource: GeospatialObject.new(title: [title], member_of_collection_ids: ["2"]))
+    }
+    it "populates the pcdm_memberOf_sm property with collection id(s)" do
+      expect(serialized_aardvark[:pcdm_memberOf_sm]).to eq(["2"])
+    end
+  end
+
+  context "with object not being part of any collection" do
+    let(:title) { "A geospatial object without a parent collection" }
+    let(:resource) {
+      persister.save(resource: GeospatialObject.new(title: [title]))
+    }
+    it "does not populate the pcdm_memberOf_sm property" do
+      expect(serialized_aardvark[:pcdm_memberOf_sm]).to be_nil
+    end
+  end
 end

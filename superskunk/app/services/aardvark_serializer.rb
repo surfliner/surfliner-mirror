@@ -170,6 +170,10 @@ class AardvarkSerializer < ResourceSerializer
       when :dct_accessRights_s
         # For now we only support "Public" access.
         mapping = ["Public"] unless mapping.present?
+      when :dct_isPartOf_sm
+        mapping = Superskunk.comet_query_service.custom_queries.find_parent_work_id(resource: resource) || []
+      when :pcdm_memberOf_sm
+        mapping = resource.member_of_collection_ids
       when :dcat_bbox, :locn_geometry
         # Both use concatenated bounding_box_ values
         mapping = concatenated_bounding_box
