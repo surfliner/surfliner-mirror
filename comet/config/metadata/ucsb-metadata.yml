@@ -320,7 +320,7 @@ properties:
 
   - &adapter
     name: "adapter"
-    display_label: "adapter"
+    display_label: "Adapter"
     definition: "A person or organization who 1) reworks a musical composition, usually for a different medium, or 2) rewrites novels or stories for motion pictures or other audiovisual medium"
     usage_guidelines: null
     requirement: recommended, if applicable
@@ -351,7 +351,7 @@ properties:
 
   - &architect
     name: "architect"
-    display_label: "architect"
+    display_label: "Architect"
     definition: "A person, family, or organization responsible for creating an architectural design, including a pictorial representation intended to show how a building, etc., will look when completed. It also oversees the construction of structures"
     usage_guidelines: null
     requirement: recommended, if applicable
@@ -382,7 +382,7 @@ properties:
 
   - &artist
     name: "artist"
-    display_label: "artist"
+    display_label: "Artist"
     definition: "A person, family, or organization responsible for creating a work by conceiving, and implementing, an original graphic design, drawing, painting, etc. For book illustrators, prefer Illustrator [ill]"
     usage_guidelines: null
     requirement: recommended, if applicable
@@ -413,7 +413,7 @@ properties:
 
   - &author
     name: "author"
-    display_label: "author"
+    display_label: "Author"
     definition: "A person, family, or organization responsible for creating a work that is primarily textual in content, regardless of media type (e.g., printed text, spoken word, electronic text, tactile text) or genre (e.g., poems, novels, screenplays, blogs). Use also for persons, etc., creating a new work by paraphrasing, rewriting, or adapting works by another creator such that the modification has substantially changed the nature and content of the original or changed the medium of expression"
     usage_guidelines: null
     requirement: recommended, if applicable
@@ -444,7 +444,7 @@ properties:
 
   - &client
     name: "client"
-    display_label: "client"
+    display_label: "Client"
     definition: "A person or organization for whom another person or organization is acting"
     usage_guidelines: null
     requirement: recommended, if applicable
@@ -475,7 +475,7 @@ properties:
 
   - &collector
     name: "collector"
-    display_label: "collector"
+    display_label: "Collector"
     definition: "A curator who brings together items from various sources that are then arranged, described, and cataloged as a collection. A collector is neither the creator of the material nor a person to whom manuscripts in the collection may have been addressed"
     usage_guidelines: null
     requirement: recommended, if applicable
@@ -506,7 +506,7 @@ properties:
 
   - &compiler
     name: "compiler"
-    display_label: "compiler"
+    display_label: "Compiler"
     definition: "A person, family, or organization responsible for creating a new work (e.g., a bibliography, a directory) through the act of compilation, e.g., selecting, arranging, aggregating, and editing data, information, etc."
     usage_guidelines: null
     requirement: recommended, if applicable
@@ -537,7 +537,7 @@ properties:
 
   - &composer
     name: "composer"
-    display_label: "composer"
+    display_label: "Composer"
     definition: "A person, family, or organization responsible for creating or contributing to a musical resource by adding music to a work that originally lacked it or supplements it"
     usage_guidelines: null
     requirement: recommended, if applicable
@@ -568,7 +568,7 @@ properties:
 
   - &editor
     name: "editor"
-    display_label: "editor"
+    display_label: "Editor"
     definition: "A person, family, or organization contributing to a resource by revising or elucidating the content, e.g., adding an introduction, notes, or other critical matter. An editor may also prepare a resource for production, publication, or distribution. For major revisions, adaptations, etc., that substantially change the nature and content of the original work, resulting in a new work, see author"
     usage_guidelines: null
     requirement: recommended, if applicable
@@ -599,7 +599,7 @@ properties:
 
   - &illustrator
     name: "illustrator"
-    display_label: "illustrator"
+    display_label: "Illustrator"
     definition: "A person, family, or organization contributing to a resource by supplementing the primary content with drawings, diagrams, photographs, etc. If the work is primarily the artistic content created by this entity, use artist or photographer"
     usage_guidelines: null
     requirement: recommended, if applicable
@@ -630,7 +630,7 @@ properties:
 
   - &issuing_body
     name: "issuing_body"
-    display_label: "issuing_body"
+    display_label: "Issuing body"
     definition: "A person, family or organization issuing a work, such as an official organ of the body"
     usage_guidelines: null
     requirement: recommended, if applicable
@@ -661,7 +661,7 @@ properties:
 
   - &performer
     name: "performer"
-    display_label: "performer"
+    display_label: "Performer"
     definition: "A person contributing to a resource by performing music, acting, dancing, speaking, etc., often in a musical or dramatic presentation, etc. If specific codes are used, [prf] is used for a person whose principal skill is not known or specified"
     usage_guidelines: null
     requirement: recommended, if applicable
@@ -692,7 +692,7 @@ properties:
 
   - &photographer
     name: "photographer"
-    display_label: "photographer"
+    display_label: "Photographer"
     definition: "A person, family, or organization responsible for creating a photographic work"
     usage_guidelines: null
     requirement: recommended, if applicable
@@ -723,7 +723,7 @@ properties:
 
   - &singer
     name: "singer"
-    display_label: "singer"
+    display_label: "Singer"
     definition: "A performer contributing to a resource by using his/her/their voice, with or without instrumental accompaniment, to produce music. A singer's performance may or may not include actual words"
     usage_guidelines: null
     requirement: recommended, if applicable
@@ -754,7 +754,7 @@ properties:
 
   - &translator
     name: "translator"
-    display_label: "translator"
+    display_label: "Translator"
     definition: "A person or organization who renders a text from one language into another, or from an older form of a language into the modern form"
     usage_guidelines: null
     requirement: recommended, if applicable
@@ -939,7 +939,7 @@ properties:
 
   - &date_issued
     name: "date_issued"
-    display_label: "Date Issued"
+    display_label: "Date issued"
     definition: "The date that the resource was published, released, or issued."
     usage_guidelines: null
     requirement: required, if applicable
@@ -971,6 +971,7 @@ properties:
   - &date_issued_geospatial
     <<: *date_issued
     name: "date_issued_geo"
+    display_label: "Date Issued"
     usage_guidelines: "Enter the publication date (or date the resource was made available) for the resource.  Use ISO 8601 to enter the date. (YYYY-MM-DD).  Only enter months and days if they are known and relevant.  A typical entry will be YYYY."
     requirement: optional
     available_on:
@@ -1569,7 +1570,7 @@ properties:
 
   - &bounding_box_west
     name: "bounding_box_west"
-    display_label: "Bounding Box Westernmost"
+    display_label: "Bounding box westernmost"
     definition: null
     usage_guidelines: null
     requirement: null
@@ -1600,6 +1601,7 @@ properties:
   - &bounding_box_west_geospatial
     <<: *bounding_box_west
     name: "bounding_box_west_geo"
+    display_label: "Bounding Box Westernmost"
     usage_guidelines: "This value displays the westernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
     requirement: recommended
     available_on:
@@ -1611,7 +1613,7 @@ properties:
 
   - &bounding_box_east
     name: "bounding_box_east"
-    display_label: "Bounding Box Easternmost"
+    display_label: "Bounding box easternmost"
     definition: null
     usage_guidelines: null
     requirement: null
@@ -1642,6 +1644,7 @@ properties:
   - &bounding_box_east_geospatial
     <<: *bounding_box_east
     name: "bounding_box_east_geo"
+    display_label: "Bounding Box Easternmost"
     usage_guidelines: "This value displays the easternmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
     requirement: recommended
     available_on:
@@ -1653,7 +1656,7 @@ properties:
 
   - &bounding_box_north
     name: "bounding_box_north"
-    display_label: "Bounding Box Northernmost"
+    display_label: "Bounding box northernmost"
     definition: null
     usage_guidelines: null
     requirement: null
@@ -1684,6 +1687,7 @@ properties:
   - &bounding_box_north_geospatial
     <<: *bounding_box_north
     name: "bounding_box_north_geo"
+    display_label: "Bounding Box Northernmost"
     usage_guidelines: "This value displays the northernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
     requirement: recommended
     available_on:
@@ -1695,7 +1699,7 @@ properties:
 
   - &bounding_box_south
     name: "bounding_box_south"
-    display_label: "Bounding Box Southernmost"
+    display_label: "Bounding box southernmost"
     definition: null
     usage_guidelines: null
     requirement: null
@@ -1726,6 +1730,7 @@ properties:
   - &bounding_box_south_geospatial
     <<: *bounding_box_south
     name: "bounding_box_south_geo"
+    display_label: "Bounding Box Southernmost"
     usage_guidelines: "This value displays the southernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
     requirement: recommended
     available_on:
@@ -2112,7 +2117,7 @@ properties:
 
   - &finding_aid
     name: "finding_aid"
-    display_label: "Finding aid "
+    display_label: "Finding aid"
     definition: "Link to finding aid for the collection in OAC"
     usage_guidelines: null
     requirement: recommended, if applicable
@@ -2223,7 +2228,7 @@ properties:
 
   - &is_replaced_by
     name: is_replaced_by
-    display_label: "Is Replaced By"
+    display_label: "Is replaced by"
     definition: "A related resource that supplants, displaces, or supersedes the described resource."
     usage_guidelines: null
     requirement: optional
@@ -2252,6 +2257,7 @@ properties:
   - &is_replaced_by_geospatial
     <<: *is_replaced_by
     name: "is_replaced_by_geo"
+    display_label: "Is Replaced By"
     usage_guidelines: "Enter the slug of the resource that replaces this resource.  Also add the slug of this resource in the 'replaces' field of the new resource's metadata.  This is used when this resource has been deprecated by another resource."
     requirement: optional
     available_on:
@@ -2263,7 +2269,7 @@ properties:
 
   - &is_version_of
     name: is_version_of
-    display_label: "Is Version Of"
+    display_label: "Is version of"
     definition: "A related resource of which the described resource is a version, edition, or adaptation."
     usage_guidelines: null
     requirement: optional
@@ -2292,6 +2298,7 @@ properties:
   - &is_version_of_geospatial
     <<: *is_version_of
     name: "is_version_of_geo"
+    display_label: "Is Version Of"
     usage_guidelines: "Enter the slug of the most recent related record.  This is used when the resource is an update of the related record, but where this resource is not considered a derivative and the original resource has not been deprecated."
     requirement: optional
     available_on:
@@ -2345,7 +2352,7 @@ properties:
 
   - &rights_holder
     name: "rights_holder"
-    display_label: "Rights Holder"
+    display_label: "Rights holder"
     definition: "A person or organization owning or managing the rights of the resource."
     usage_guidelines: null
     requirement: recommended, if applicable
@@ -2376,6 +2383,7 @@ properties:
   - &rights_holder_geospatial
     <<: *rights_holder
     name: "rights_holder_geo"
+    display_label: "Rights Holder"
     usage_guidelines: "Enter the rights holder for this resource."
     requirement: optional
     available_on:
