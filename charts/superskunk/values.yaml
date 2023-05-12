@@ -21,7 +21,7 @@ superskunk:
   port: 3000
   db:
     standalone: false # whether to deploy with its own DB instead of connecting to Comet
-    metadata_database_name: comet_metadata_development
+    metadata_database_name: comet_metadata
   rails:
     environment: production
     log_to_stdout: true
@@ -65,7 +65,7 @@ postgresql:
     tag: 12.11.0-debian-10-r23
   enabled: true
   auth:
-    database: superskunk_db
+    database: comet_metadata # must match metadata_database_name above
     password: superskunk_pass
     postgresPassword: superskunk_admin
     username: superskunk

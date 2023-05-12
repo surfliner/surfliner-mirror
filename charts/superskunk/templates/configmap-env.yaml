@@ -15,7 +15,6 @@ data:
   CONSUMER_KEYS_FILE: {{ .Values.consumers.keysFileMountPath }}/consumer_keys.yaml
   {{- end }}
   DB_HOST: {{ template "superskunk.postgresql.fullname" . }}
-  DB_NAME: {{ .Values.postgresql.auth.database }}
   DB_PORT: {{ .Values.postgresql.primary.service.ports.postgresql | quote }}
   METADATA_DATABASE_NAME: {{ .Values.superskunk.db.metadata_database_name }}
   METADATA_MODELS: {{ join "," .Values.superskunk.metadata_models }}

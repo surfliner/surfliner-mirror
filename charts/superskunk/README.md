@@ -53,6 +53,8 @@ The following tables lists the configurable parameters of the Superskunk chart a
 | `fullnameOverride` | String to fully override email.fullname template | `""` | N/A |
 | `existingSecret.name` | External Secret name in Deployment namespace | `superskunk` | N/A |
 | `existingSecret.enabled` | Whether to use an external Secret for a Deployment | `false` | N/A |
+| `superskunk.db.standalone` | Whether to create a dedicated DB instead of connecting to the Comet metadata DB | `false` | N/A |
+| `superskunk.db.metadata_database_name` | The database name to use to query for metadata | `comet_metadata` | N/A |
 
 ### Superskunk Consumers
 
@@ -70,15 +72,17 @@ The following tables list a few key configurable parameters for Superskunk chart
 
 #### PostgreSQL
 
+**Only used if running a standalone DB (i.e., not connecting to a Comet instance).**
+
 See: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md
 
 | Parameter | Description | Default | Environment Variable |
 | --------- | ----------- | ------- | -------------------- |
-| `postgresql.postgresqlUsername` | Database user for application | `superskunk` | `POSTGRES_USER` |
-| `postgresql.postgresqlPassword` | Database user password for application | `superskunk_pass` | `POSTGRES_PASSWORD` |
-| `postgresql.postgresqlHostname` | External database hostname, when `postgresql.enabled` is `false` | `nil` | `POSTGRES_HOST` |
-| `postgresql.postgresqlDatabase` | Database name for application | `superskunk_db` | `POSTGRES_DB` |
-| `postgresql.postgresqlPostgresPassword` | Admin `postgres` user's password | `superskunk_admin` | `POSTGRES_ADMIN_PASSWORD` |
+| `postgresql.auth.database` | Database name for application | `comet_metadata` | `METADATA_DATABASE_NAME` |
+| `postgresql.auth.hostname` | External database hostname, when `postgresql.enabled` is `false` | `nil` | `POSTGRES_HOST` |
+| `postgresql.auth.password` | Database user password for application | `superskunk_pass` | `POSTGRES_PASSWORD` |
+| `postgresql.auth.postgresPassword` | Admin `postgres` user's password | `superskunk_admin` | `POSTGRES_ADMIN_PASSWORD` |
+| `postgresql.auth.username` | Database user for application | `superskunk` | `POSTGRES_USER` |
 | `postgresql.persistence.size` | Database PVC size | `10Gi` | N/A |
 ```
 
