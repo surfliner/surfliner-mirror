@@ -1190,8 +1190,8 @@ properties:
     available_on:
       - generic_object
 
-  - &isSupplementTo_publication
-    name: "isSupplementTo_publication"  
+  - &is_supplement_to_publication
+    name: "is_supplement_to_publication"  
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Primary associated publication"
@@ -1204,8 +1204,8 @@ properties:
     available_on:
       - rdcp_object
 
-  - &isSupplementTo_dataset
-    name: "isSupplementTo_dataset"  
+  - &is_supplement_to_dataset
+    name: "is_supplement_to_dataset"  
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Related data"
@@ -1218,8 +1218,8 @@ properties:
     available_on:
       - rdcp_object
 
-  - &isReferencedBy
-    name: "isReferencedBy"  
+  - &is_referenced_by
+    name: "is_referenced_by"  
     # range: 
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Referenced by"
@@ -1236,7 +1236,7 @@ properties:
     name: "references"  
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
-    display_label: "Reference"
+    display_label: "References"
     cardinality: 
       minimum: 0
       maximum: null
@@ -1249,23 +1249,23 @@ properties:
       - rdcp_object
       - geospatial_object
 
-  - &isDerivedFrom
+  - &is_derived_from
     display_label: "Source"
 
-  - &isDerivedFrom_geospatial
-    <<: *isDerivedFrom
+  - &is_derived_from_geospatial
+    <<: *is_derived_from
     name: "source_geo"
     available_on:
       - geospatial_object
     mapping:
       aardvark: http://purl.org/dc/terms/source
 
-  - &isDerivedFrom_dataset
-    <<: *isDerivedFrom
-    name: "isDerivedFrom_dataset"  
+  - &is_derived_from_dataset
+    <<: *is_derived_from
+    name: "is_derived_from_dataset"  
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
-    display_label: "Source data"
+    display_label: "Source Data"
     cardinality: 
       minimum: 0
       maximum: null
@@ -1277,12 +1277,12 @@ properties:
     available_on:
       - rdcp_object
 
-  - &isDerivedFrom_software
-    <<: *isDerivedFrom
-    name: "isDerivedFrom_software"  
+  - &is_derived_from_software
+    <<: *is_derived_from
+    name: "is_derived_from_software" 
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
-    display_label: "Software"
+    display_label: "Source Software"
     cardinality: 
       minimum: 0
       maximum: null
@@ -1293,11 +1293,11 @@ properties:
     available_on:
       - rdcp_object
 
-  - &relatedResource
-    name: "relatedResource"  
+  - &related_resource
+    name: "related_resource"  
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
-    display_label: "Related resource"
+    display_label: "Related Resource"
     cardinality: 
       minimum: 0
       maximum: null
