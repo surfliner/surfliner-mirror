@@ -267,7 +267,8 @@ properties:
     cardinality:
       minimum: 0
       maximum: null
-    indexing: null
+    indexing:
+      - symbol
     # index_documentation: null
     section: titling
     # grouping: null
@@ -333,6 +334,38 @@ properties:
     #   - Santa Barbara County (Calif.)
     available_on:
       - geospatial_object
+
+  - &contributor
+    name: "contributor"
+    display_label: "Contributor"
+    definition: "A person, family or organization responsible for making contributions to the resource. If a more specific role is available, prefer that."
+    usage_guidelines: "Use as the broadest possible role, i.e. when lacking specific information on an agent's role, or the role is unclear or unknown. If a more specific role is available, prefer that, e.g. editor, compiler, illustrator."
+    requirement: recommended, if applicable
+    controlled_values:
+      format: null
+      sources:
+        - null
+    sample_value:
+      - null
+    property_uri: http://purl.org/dc/elements/1.1/contributor
+    available_on:
+      class:
+        - generic_object
+        - collection
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+    index_documentation: null
+    indexing:
+      - symbol
+    validations:
+      match_regex: null
+    mapping:
+      dc-oai: http://purl.org/dc/elements/1.1/contributor
+      dpla: null
 
 # ### Date properties:
 
@@ -461,7 +494,8 @@ properties:
     cardinality:
       minimum: 0
       maximum: null
-    indexing: null
+    indexing:
+      - symbol
     # index_documentation: null
     section: notes
     # grouping: null

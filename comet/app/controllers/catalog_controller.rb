@@ -95,11 +95,12 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
     config.add_show_field "title_tesim"
+    config.add_show_field "title_alternative_tsim"
     config.add_show_field "description_tesim"
     config.add_show_field "keyword_tesim"
     config.add_show_field "subject_tesim"
-    config.add_show_field "creator_tesim"
-    config.add_show_field "contributor_tesim"
+    config.add_show_field "creator_tsim"
+    config.add_show_field "contributor_tsim"
     config.add_show_field "publisher_tesim"
     config.add_show_field "based_near_label_tesim"
     config.add_show_field "language_tesim"
@@ -111,6 +112,7 @@ class CatalogController < ApplicationController
     config.add_show_field "resource_type_tesim", label: "Resource Type"
     config.add_show_field "format_tesim"
     config.add_show_field "identifier_tesim"
+    config.add_show_field "note_description_tsim"
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
