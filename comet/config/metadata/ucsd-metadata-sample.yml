@@ -135,12 +135,13 @@ properties:
       - generic_object
 
   - &title_alternative_geospatial
-    <<: *title_alternative_geo
-    name: "title_alternative_geospatial"
+    <<: *title_alternative
+    name: "title_alternative_geo"
     usage_guidelines: "Use for translated and alternate titles."
     requirement: optional
     mapping:
       aardvark: http://purl.org/dc/terms/alternative
+      #aardvark predicate: dct_alternative_sm
     available_on:
       - geospatial_object
 
@@ -162,6 +163,7 @@ properties:
       dc-oai: http://purl.org/dc/elements/1.1/creator
       datacite: https://schema.datacite.org/meta/kernel-4.4/creatorName
       aardvark: http://purl.org/dc/elements/1.1/creator
+      #aardvark predicate: dct_creator_sm
      # d4-templates: Person:Creator; Corporate:Creator
     available_on:
       - collection
@@ -276,6 +278,7 @@ properties:
       - geospatial_object
     mapping: 
       aardvark: http://purl.org/dc/terms/publisher
+      #aardvark predicate: dct_publisher_sm
 
 # ### Date properties:
 
@@ -299,7 +302,6 @@ properties:
       - collection
       - generic_object
       - rdcp_object
-      - geospatial_object
 
   - &date_index_geospatial
     name: "date_index_geo"
@@ -313,6 +315,7 @@ properties:
       - geospatial_object
     mapping: 
       aardvark: http://purl.org/dc/terms/publisher #update to correct uri
+      #aardvark predicate: gbl_indexYear_im
   
   - &creation_date
     name: "creation_date"
@@ -333,7 +336,6 @@ properties:
       - collection
       - generic_object
       - rdcp_object
-      - geospatial_object
 
   - &date_issued
     name: "date_issued"
@@ -356,15 +358,17 @@ properties:
       - collection
       - generic_object
 
-  - &date_issued_geo
+  - &date_issued_geospatial
     <<: *date_issued
     name: "date_issued_geo"
     usage_guidelines: "Use the year (YYYY) the object was made available in the DAMS.  For continuing collections (i.e., ongoing collections with no set end date), use the year in which the collection was first published" #update
+    requirement: optional
     section: dates
     cardinality: 
       minimum: 0
       maximum: 1
-    mapping: #add
+    mapping: 
+      #aardvark predicate: dct_issued_s
     available_on:
       - geospatial_object
 
@@ -398,7 +402,6 @@ properties:
       - collection
       - generic_object
       - rdcp_object
-      - geospatial_object
 
 # ### Note properties:
 
@@ -431,6 +434,7 @@ properties:
     - geospatial_object
     mapping:
       aardvark: http://purl.org/dc/terms/description
+      #aardvark predicate: dct_description_sm
 
   - &note_inscription
     name: "note_inscription"
@@ -704,7 +708,7 @@ properties:
       - rdcp_object
 
   - &type_of_resource_geospatial
-    name: "resouce_class_geo"  
+    name: "resouce_class_geo"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Resource Class"
@@ -719,6 +723,7 @@ properties:
       maximum: null
     mapping:
       aardvark: https://opengeometadata.org/docs/ogm-aardvark/resource-class
+     #aardvark predicate: gibl_resourceClass_sm
      # d4-templates: n/a
     available_on:
       - geospatial_object
@@ -730,7 +735,7 @@ properties:
     display_label: "Resource Type"
     definition: "A secondary level of categories for classifying the spatial type or structure of a dataset."
     usage_guidelines: "Use value from the Aardvark type list https://opengeometadata.org/docs/ogm-aardvark/resource-type"
-    requirement: Optional
+    requirement: recommended
     sample_value: "Bathymetric maps"
     # controlled_values:
       # sources: https://opengeometadata.org/docs/ogm-aardvark/resource-type
@@ -740,6 +745,7 @@ properties:
     mapping:
       aardvark: https://opengeometadata.org/docs/ogm-aardvark/resource-type
      # d4-templates: n/a
+     #aardvark predicate: gbl_resourceType_sm
     available_on:
       - geospatial_object
 
@@ -748,7 +754,7 @@ properties:
     display_label: "Format"
     definition: "?" #add
     usage_guidelines: "?" #add
-    requirement: Required if applicable
+    requirement: required if applicable
     # controlled_values:
      # sources: https://opengeometadata.org/docs/ogm-aardvark/ 
     sample_value: "Shapefile, KMZ, DVD, CD-ROM, etc."
@@ -758,6 +764,7 @@ properties:
     mapping:
       aardvark: https://opengeometadata.org/docs/ogm-aardvark/#format #fix
      # d4-templates: n/a
+     #aardvark predicate: dct_format_s
     available_on:
       - geospatial_object
 
@@ -793,6 +800,7 @@ properties:
      - geospatial_object
     mapping:
       aardvark: http://purl.org/dc/elements/1.1/language
+      #aardvark predicate: dct_language_sm
 
 # ### Subject properties:
 
@@ -823,7 +831,8 @@ properties:
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Subject"
     definition: "A topic or subject of the resource."
-    # sample_value: "American poetry"
+    requirement: optional
+    # sample_value: "Transportation"
     cardinality: 
       minimum: 0
       maximum: null
@@ -831,6 +840,7 @@ properties:
     mapping:
       aardvark: http://purl.org/dc/terms/subject
      # d4-templates: Subject:topic; Subject:common name
+     #aardvark predicate: dct_subject_sm
     available_on:
       - geospatial_object
 
@@ -877,8 +887,11 @@ properties:
     <<: *subject_spatial
     name: "subject_spatial_geo"
     usage_guidelines: "Place name taken from Geonames"
+    requirement: recommended
+    display_label: "Spatial Coverage"
     mapping:
       aardvark: http://purl.org/dc/terms/spatial
+      #aardvark predicate: dct_spatial_sm
     available_on:
       - geospatial_object
 
@@ -891,11 +904,12 @@ properties:
   - &subject_temporal_geospatial
     <<: *subject_temporal
     name: "subject_temporal_geo"
-    requirement: Recommended # aardvark says "suggested"
+    requirement: recommended # aardvark says "suggested"
     available_on:
       - geospatial_object
     mapping:
       #aardvark: http://puttheurihere
+      #aardvark predicate: dct_temporal_sm
 
 # including subject_keyword as a base element for &subject_keyword_geospatial - should be evaluated for application to non geospatial objects
   - &subject_keyword
@@ -918,6 +932,7 @@ properties:
     mapping:
       aardvark: https://www.w3.org/ns/dcat#keyword
      # d4-templates: n/a
+     #aardvark predicate: dcat_keyword_sm
     available_on:
       - geospatial_object
 
@@ -987,7 +1002,6 @@ properties:
     available_on:
       - collection
       - generic_object
-      - geospatial_object
 
   - &identifier_orcid
     name: "identifier_orcid"  
@@ -1005,13 +1019,13 @@ properties:
 
 # ### Geospatial and coordinate properties:
 
-  - &georeferenced #from aardvark but not currently used in geo objects
-    name: "georeferenced"  
+  - &georeferenced_geospatial #from aardvark but not currently used in geo objects
+    name: "georeferenced_geo"
     # range: boolean
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Georeferenced"
     definition: "An indication of whether or not a scanned map or other imagery has a georeferenced version."
-    # requirement: Optional?
+    requirement: optional
     # sample_value: "false"
     cardinality: 
       minimum: 0
@@ -1020,6 +1034,7 @@ properties:
     mapping:
       aardvark: https://opengeometadata.org/docs/ogm-aardvark/georeferenced
      # d4-templates: n/a
+     #aardvark predicate: gbl_georeferenced_b 
     available_on:
       - geospatial_object
 
@@ -1027,7 +1042,7 @@ properties:
     name: "bounding_box_west"  
     # range: http://www.w3.org/2001/XMLSchema#float
     data_type: http://www.w3.org/2001/XMLSchema#string
-    display_label: "Bounding box westernmost"
+    display_label: "Bounding Box Westernmost"
     definition: "This value displays the westernmost extent in decimal degrees"
     usage_guidelines: "This value displays the westernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
     # requirement: Optional
@@ -1037,8 +1052,9 @@ properties:
       maximum: null
     section: geographics
     mapping:
-      aardvark: http://geoblacklight.org/schema/aardvark/dcat_bbox
+      aardvark: https://www.w3.org/ns/dcat#bbox|http://www.w3.org/ns/locn#Geometry # field maps to two aardvark porperties - not sure if we can include both or only one (and if one, which)
       #aardvark-documentation: https://opengeometadata.org/ogm-aardvark/#bounding-box 
+      #aardvark predicate: dcat_bbox; locn_geometry
       #d4-templates: n/a
     available_on:
       - generic_object
@@ -1055,7 +1071,7 @@ properties:
     name: "bounding_box_east"  
     # range: http://www.w3.org/2001/XMLSchema#float
     data_type: http://www.w3.org/2001/XMLSchema#string
-    display_label: "Bounding box easternmost"
+    display_label: "Bounding Box Easternmost"
     definition: "This value displays the easternmost extent in decimal degrees"
     usage_guidelines: "This value displays the easternmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
     # requirement: Optional
@@ -1065,8 +1081,9 @@ properties:
       maximum: null
     section: geographics
     mapping:
-      aardvark: https://www.w3.org/ns/dcat#bbox|http://www.w3.org/ns/locn#Geometry # maps two places - not sure if we can include both or only one (and if one, which)
-     # d4-templates: n/a
+      aardvark: https://www.w3.org/ns/dcat#bbox|http://www.w3.org/ns/locn#Geometry # field maps to two aardvark porperties - not sure if we can include both or only one (and if one, which)
+      #aardvark-documentation: https://opengeometadata.org/ogm-aardvark/#bounding-box 
+      #aardvark predicate: dcat_bbox; locn_geometry
     available_on:
       - generic_object
       - rdcp_object
@@ -1082,7 +1099,7 @@ properties:
     name: "bounding_box_north"  
     # range: http://www.w3.org/2001/XMLSchema#float
     data_type: http://www.w3.org/2001/XMLSchema#string
-    display_label: "Bounding box northernmost"
+    display_label: "Bounding Box Northernmost"
     definition: "This value displays the northernmost extent in decimal degrees"
     usage_guidelines: "This value displays the northernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
     # requirement: Optional
@@ -1092,8 +1109,9 @@ properties:
       maximum: null
     section: geographics
     mapping:
-      aardvark: https://www.w3.org/ns/dcat#bbox|http://www.w3.org/ns/locn#Geometry # maps two places - not sure if we can include both or only one (and if one, which)
-     # d4-templates: n/a
+      aardvark: https://www.w3.org/ns/dcat#bbox|http://www.w3.org/ns/locn#Geometry # field maps to two aardvark porperties - not sure if we can include both or only one (and if one, which)
+      #aardvark-documentation: https://opengeometadata.org/ogm-aardvark/#bounding-box 
+      #aardvark predicate: dcat_bbox; locn_geometry
     available_on:
       - generic_object
       - rdcp_object
@@ -1109,7 +1127,7 @@ properties:
     name: "bounding_box_south"  
     # range: http://www.w3.org/2001/XMLSchema#float
     data_type: http://www.w3.org/2001/XMLSchema#string
-    display_label: "Bounding box southernmost"
+    display_label: "Bounding Box Southernmost"
     definition: "This value displays the southernmost extent in decimal degrees"
     usage_guidelines: "This value displays the southernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
     # requirement: Optional
@@ -1119,8 +1137,9 @@ properties:
       maximum: null
     section: geographics
     mapping:
-      aardvark: https://www.w3.org/ns/dcat#bbox|http://www.w3.org/ns/locn#Geometry # maps two places - not sure if we can include both or only one (and if one, which)
-     # d4-templates: n/a
+      aardvark: https://www.w3.org/ns/dcat#bbox|http://www.w3.org/ns/locn#Geometry # field maps to two aardvark porperties - not sure if we can include both or only one (and if one, which)
+      #aardvark-documentation: https://opengeometadata.org/ogm-aardvark/#bounding-box 
+      #aardvark predicate: dcat_bbox; locn_geometry
     available_on:
       - generic_object
       - rdcp_object
@@ -1133,7 +1152,7 @@ properties:
       - geospatial_object
 
   - &point
-    name: "point"  
+    name: "point"  ##? evalute separating into seperate properties for latitude and longitude
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Point"
@@ -1151,9 +1170,8 @@ properties:
     available_on:
       - generic_object
       - rdcp_object
-      - geospatial_object
 
-  - &polygon # for legacy dams polygon data, map to bounding box when appropriate
+  - &polygon ##m for legacy dams polygon data, map to bounding box when appropriate
     name: "polygon"  
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
@@ -1247,18 +1265,19 @@ properties:
      # d4-templates: Related resource:references
     available_on:
       - rdcp_object
-      - geospatial_object
 
-  - &is_derived_from
+  - &is_derived_from ## base element included for derived properties
     display_label: "Source"
 
   - &is_derived_from_geospatial
     <<: *is_derived_from
     name: "source_geo"
-    available_on:
-      - geospatial_object
+    requirement: optional
     mapping:
       aardvark: http://purl.org/dc/terms/source
+      #aardvark predicate: dct_source_sm
+    available_on:
+      - geospatial_object
 
   - &is_derived_from_dataset
     <<: *is_derived_from
@@ -1312,7 +1331,7 @@ properties:
 
 # ### rights and license properties
   
-  - &rights_note # adding base property for geospatial derived property, usage should be evaluated
+  - &rights_note ##? adding base property for geospatial derived property, usage should be evaluated
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Rights"
@@ -1321,17 +1340,17 @@ properties:
 
   - &rights_note_geospatial
     <<: *rights_note
-    name: "rights_note_geo"  
-    # requirement: Optional
+    name: "rights_note_geo"
+    requirement: recommended
     cardinality: 
       minimum: 0
       maximum: null
     section: rights
     mapping:
       aardvark: http://purl.org/dc/terms/rights
+      #aardvark predicate: dct_rights_sm
      # d4-templates: n/a?
     available_on:
-      - rdcp_object
       - geospatial_object
 
   - &license
@@ -1341,7 +1360,7 @@ properties:
     display_label: "License"
     definition: "An associated license for the object (i.e. Creative Commons license, software licenses, etc.)"
     usage_guidelines: "It is most often used for RDCP collections, and can be used by the owner to license their software. Licenses must be granted by the owner of the resource"
-    # requirement: Required when applicable
+    # requirement: required when applicable
     # sample_value: "CC-BY"
     # controlled_values:
       # sources: DAMS licenses controlled vocabulary
@@ -1352,6 +1371,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/terms/license
       aardvark: http://purl.org/dc/terms/license
+      #aardvark predicate: dct_license_sm
      # d4-templates: license:licenseURI, license:licenseNote
     available_on:
       - generic_object
@@ -1361,6 +1381,7 @@ properties:
     <<: *license
     name: "license_geo"
     requirement: optional
+    # controlled_values: #if base element requires value from a controlled list then may need to override cv in derived property
     available_on:
       - geospatial_object
   
@@ -1368,7 +1389,7 @@ properties:
     name: "rights_holder"  
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
-    display_label: "Rights holder"
+    display_label: "Rights Holder"
     definition: "A person or organization owning or managing rights over the resource."
     usage_guidelines: "Use a controlled name for the entity. New entities will be created as agent authorities"
     # sample_value: "UC Regents"
@@ -1379,11 +1400,11 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/terms/rightsHolder
       aardvark: http://purl.org/dc/terms/rightsHolder
+      #aardvark property: dct_rightsHolder_sm
      # d4-templates: rightsHOlderPersonal, rightsHolderCorporate, rightsHolderName
     available_on:
       - generic_object
       - rdcp_object
-      - geospatial_object
   
   - &rights_holder_geospatial
     <<: *rights_holder
