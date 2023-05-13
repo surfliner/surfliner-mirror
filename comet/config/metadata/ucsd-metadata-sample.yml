@@ -1240,7 +1240,7 @@ properties:
     name: "is_referenced_by"  
     # range: 
     data_type: http://www.w3.org/2001/XMLSchema#string
-    display_label: "Referenced by"
+    display_label: "Referenced By"
     cardinality: 
       minimum: 0
       maximum: null
@@ -1267,7 +1267,10 @@ properties:
       - rdcp_object
 
   - &is_derived_from ## base element included for derived properties
+    name: "is_derived_from"
     display_label: "Source"
+    mapping:
+      # d4-templates: Related:is derived from
 
   - &is_derived_from_geospatial
     <<: *is_derived_from
@@ -1317,17 +1320,101 @@ properties:
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Related Resource"
+    requirement: optional
     cardinality: 
       minimum: 0
       maximum: null
     section: related
     mapping:
       aardvark: http://purl.org/dc/elements/1.1/relation
+      #aardvark predicate: dct_relation_sm
      # d4-templates: Related resource:related
     available_on:
       - collection
       - generic_object
       - rdcp_object
+
+  - &related_resource_geospatial
+    <<: *related_resource
+    name: "relation_geo"
+    display_label: "Relation"
+    available_on:
+      - geospatial_object
+
+  - &related_resource_replaces
+    name: "replaces"
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Previous Version"
+    requirement: optional
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: related
+    mapping:
+      #aardvark predicate: dct_replaces_sm
+      # d4-templates: Related:is new version of
+    available_on:
+      - collection
+      - generic_object
+      - rdcp_object
+
+  - &related_resource_replaces_geospatial
+    <<: *related_resource_replaces
+    name: "replaces_geo"
+    display_label: "Replaces"
+    available_on:
+      - geospatial_object
+
+  - &related_resource_is_replaced_by
+    name: "is_replaced_by"
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Newer Version"
+    requirement: optional
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: related
+    mapping:
+      #aardvark predicate: dct_isReplacedBy_sm
+      # d4-templates: Related:is previous version of
+    available_on:
+      - collection
+      - generic_object
+      - rdcp_object
+
+  - &related_resource_is_replaced_by_geospatial
+    <<: *related_resource_is_replaced_by
+    name: "is_replaced_by_geo"
+    display_label: "Is Replaced By"
+    available_on:
+      - geospatial_object
+
+  - &related_resource_is_version_of
+    name: "is_version_of"
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Other Version"
+    requirement: optional
+    cardinality: 
+      minimum: 0
+      maximum: null
+    section: related
+    mapping:
+      #aardvark predicate: dct_isVersionOf_sm
+      # d4-templates: Related:is version of
+    available_on:
+      - collection
+      - generic_object
+      - rdcp_object
+
+  - &related_resource_is_version_of_geospatial
+    <<: *related_resource_is_version_of
+    name: "is_version_of_geo"
+    display_label: "Is Version Of"
+    available_on:
+      - geospatial_object
 
 # ### rights and license properties
   
