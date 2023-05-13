@@ -52,7 +52,7 @@ RSpec.describe "Search", type: :system, js: true do
       obj = GenericObject.new(title: "Test Search Object 1",
         title_alternative: ["moomin"],
         visibility: "open",
-        edit_users: [user])
+        edit_users: user)
       obj = Hyrax.persister.save(resource: obj)
       Hyrax.index_adapter.save(resource: obj)
       obj
@@ -60,9 +60,9 @@ RSpec.describe "Search", type: :system, js: true do
 
     let(:object2) do
       obj = GenericObject.new(title: "Test Search Object 2",
-        contributor: ["moomin"],
+        contributor: "moomin",
         visibility: "open",
-        edit_users: [user])
+        edit_users: user)
       obj = Hyrax.persister.save(resource: obj)
       Hyrax.index_adapter.save(resource: obj)
       obj
@@ -73,7 +73,7 @@ RSpec.describe "Search", type: :system, js: true do
     end
 
     it "performing a search" do
-      id = object1.id
+      id = object1.id.to_s
       obj = Hyrax.query_service.find_by(id: id)
       obj.ark = "ark:/99999/fk5test"
       Hyrax.persister.save(resource: obj)
@@ -85,7 +85,7 @@ RSpec.describe "Search", type: :system, js: true do
       choose("Approve")
       click_on("Submit")
 
-      id = object2.id
+      id = object2.id.to_s
       obj = Hyrax.query_service.find_by(id: id)
       obj.ark = "ark:/99999/fk6test"
       Hyrax.persister.save(resource: obj)
