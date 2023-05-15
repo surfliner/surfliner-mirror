@@ -45,54 +45,44 @@ RSpec.describe "Search", type: :system, js: true do
       expect(page).to have_content("Search Results")
       expect(page).to have_content("Test Object")
     end
-  end
 
-  context "search objects across configured M3 fields" do
-    let(:object1) do
-      obj = GenericObject.new(title: "Test Search Object 1",
-        title_alternative: ["moomin"],
-        visibility: "open",
-        edit_users: user)
-      obj = Hyrax.persister.save(resource: obj)
-      Hyrax.index_adapter.save(resource: obj)
-      obj
-    end
+    it "performing a search across configured M3 fields" do
+      visit "/concern/generic_objects/new"
+      fill_in("Title", with: "Test Search Object 1")
+      click_on "Additional fields"
+      fill_in("Alternative title", with: "moomin")
 
-    let(:object2) do
-      obj = GenericObject.new(title: "Test Search Object 2",
-        contributor: "moomin",
-        visibility: "open",
-        edit_users: user)
-      obj = Hyrax.persister.save(resource: obj)
-      Hyrax.index_adapter.save(resource: obj)
-      obj
-    end
+      choose("generic_object_visibility_open")
 
-    before do
-      setup_workflow_for(user)
-    end
+      click_on("Save")
 
-    it "performing a search" do
-      id = object1.id.to_s
+      id = page.current_path.split("/").last
       obj = Hyrax.query_service.find_by(id: id)
       obj.ark = "ark:/99999/fk5test"
       Hyrax.persister.save(resource: obj)
       Hyrax.index_adapter.save(resource: obj)
 
-      visit "/concern/generic_objects/#{id}?locale=en"
-
+      visit "/concern/generic_objects/#{obj.id}?locale=en"
       click_on "Review and Approval"
       choose("Approve")
       click_on("Submit")
 
-      id = object2.id.to_s
+      visit "/concern/generic_objects/new"
+      fill_in("Title", with: "Test Search Object 2")
+      click_on "Additional fields"
+      fill_in("Description", with: "moomin")
+
+      choose("generic_object_visibility_open")
+
+      click_on("Save")
+
+      id = page.current_path.split("/").last
       obj = Hyrax.query_service.find_by(id: id)
       obj.ark = "ark:/99999/fk6test"
       Hyrax.persister.save(resource: obj)
       Hyrax.index_adapter.save(resource: obj)
 
-      visit "/concern/generic_objects/#{id}?locale=en"
-
+      visit "/concern/generic_objects/#{obj.id}?locale=en"
       click_on "Review and Approval"
       choose("Approve")
       click_on("Submit")
@@ -108,6 +98,72 @@ RSpec.describe "Search", type: :system, js: true do
       expect(page).to have_content("Test Search Object 2")
     end
   end
+
+  #   context "search objects across configured M3 fields" do
+  #     let(:object1) do
+  #       obj = GenericObject.new(title: "Test Search Object 1",
+  #         title_alternative: "moomin",
+  #         visibility: "open",
+  #         edit_users: [user])
+  #       obj = Hyrax.persister.save(resource: obj)
+  #       Hyrax.index_adapter.save(resource: obj)
+  #       obj
+  #     end
+  #
+  #     let(:object2) do
+  #       obj = GenericObject.new(title: "Test Search Object 2",
+  #         contributor: "moomin",
+  #         visibility: "open",
+  #         edit_users: [user])
+  #       obj = Hyrax.persister.save(resource: obj)
+  #       Hyrax.index_adapter.save(resource: obj)
+  #       obj
+  #     end
+  #
+  #     before do
+  #       setup_workflow_for(user)
+  #     end
+  #
+  #     it "performing a search" do
+  #       id = object1.id.to_s
+  #       obj = Hyrax.query_service.find_by(id: id)
+  #       obj.ark = "ark:/99999/fk5test"
+  #       Hyrax.persister.save(resource: obj)
+  #       Hyrax.index_adapter.save(resource: obj)
+  #       #visit main_app.hyrax_generic_object_path(id: obj.id)
+  #
+  #       # click_on "Edit"
+  #
+  #       # expect(page).to have_content(obj.title.first)
+  #       visit "/concern/generic_objects/#{obj.id}?locale=en"
+  #       puts page.body
+  #       click_on "Review and Approval"
+  #       choose("Approve")
+  #       click_on("Submit")
+  #
+  #       id = object2.id.to_s
+  #       obj = Hyrax.query_service.find_by(id: id)
+  #       obj.ark = "ark:/99999/fk6test"
+  #       Hyrax.persister.save(resource: obj)
+  #       Hyrax.index_adapter.save(resource: obj)
+  #
+  #       visit "/concern/generic_objects/#{id}?locale=en"
+  #
+  #       click_on "Review and Approval"
+  #       choose("Approve")
+  #       click_on("Submit")
+  #
+  #       visit "/"
+  #       within("#search-form-header") do
+  #         fill_in("search-field-header", with: "moomin")
+  #         click_button("Go")
+  #       end
+  #
+  #       expect(page).to have_content("Search Results")
+  #       expect(page).to have_content("Test Search Object 1")
+  #       expect(page).to have_content("Test Search Object 2")
+  #     end
+  #   end
 
   context "with collections" do
     let(:collection_type) { Hyrax::CollectionType.create(title: "Test Type") }
