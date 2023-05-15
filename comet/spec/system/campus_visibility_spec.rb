@@ -31,7 +31,7 @@ RSpec.describe "Campus Visibility", type: :system, js: true do
 
       within("div.title-with-badges") do
         expect(page).to have_content("Test CAMPUS Visibility Object")
-        expect(page).to have_css("span.label.label-info", text: "Campus")
+        expect(page).to have_css("span.badge.badge-info", text: "Campus")
       end
 
       # FileSet visibility
@@ -40,7 +40,7 @@ RSpec.describe "Campus Visibility", type: :system, js: true do
       visit "/concern/generic_objects/#{id}?locale=en"
 
       expect(page).to have_content("test.txt")
-      expect(page).to have_css(".file_set.attributes span.label.label-info", text: "Campus")
+      expect(page).to have_css(".file_set.attributes span.badge.badge-info", text: "Campus")
     end
   end
 

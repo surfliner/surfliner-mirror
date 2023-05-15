@@ -31,7 +31,7 @@ RSpec.describe "Comet Visibility", type: :system, js: true do
 
       within("div.title-with-badges") do
         expect(page).to have_content("Test COMET Visibility Object")
-        expect(page).to have_css("span.label.label-primary", text: "Comet")
+        expect(page).to have_css("span.badge.badge-primary", text: "Comet")
       end
 
       # FileSet visibility

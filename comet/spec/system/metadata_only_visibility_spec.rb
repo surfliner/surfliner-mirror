@@ -31,7 +31,7 @@ RSpec.describe "Metadata-only Visibility", type: :system, js: true do
 
       within("div.title-with-badges") do
         expect(page).to have_content("Test METADATA-ONLY Visibility Object")
-        expect(page).to have_css("span.label.label-warning", text: "Metadata-only")
+        expect(page).to have_css("span.badge.badge-warning", text: "Metadata-only")
       end
 
       # FileSet with Private visibility
@@ -40,7 +40,7 @@ RSpec.describe "Metadata-only Visibility", type: :system, js: true do
       visit "/concern/generic_objects/#{id}?locale=en"
 
       expect(page).to have_content("test.txt")
-      expect(page).to have_css(".file_set.attributes span.label.label-primary", text: "Comet")
+      expect(page).to have_css(".file_set.attributes span.badge.badge-primary", text: "Comet")
     end
   end
 
@@ -82,7 +82,7 @@ RSpec.describe "Metadata-only Visibility", type: :system, js: true do
 
       within("div.title-with-badges") do
         expect(page).to have_content("Test METADATA-ONLY Visibility Object")
-        expect(page).to have_css("span.label.label-warning", text: "Metadata-only")
+        expect(page).to have_css("span.badge.badge-warning", text: "Metadata-only")
       end
 
       # FileSet with Comet visibility
@@ -90,7 +90,7 @@ RSpec.describe "Metadata-only Visibility", type: :system, js: true do
       visit "/concern/generic_objects/#{id}?locale=en"
 
       expect(page).to have_content("upload.txt")
-      expect(page).to have_css(".file_set.attributes span.label.label-primary", text: "Comet")
+      expect(page).to have_css(".file_set.attributes span.badge.badge-primary", text: "Comet")
 
       click_on "Edit"
 
@@ -108,7 +108,7 @@ RSpec.describe "Metadata-only Visibility", type: :system, js: true do
       # Visibility is changed to Comet
       within("div.title-with-badges") do
         expect(page).to have_content("Test METADATA-ONLY Visibility Object - Updated to Comet Visibility")
-        expect(page).to have_css("span.label.label-primary", text: "Comet")
+        expect(page).to have_css("span.badge.badge-primary", text: "Comet")
       end
     end
 
@@ -124,7 +124,7 @@ RSpec.describe "Metadata-only Visibility", type: :system, js: true do
 
       within("div.title-with-badges") do
         expect(page).to have_content("Test Object - METADATA-ONLY Visibility")
-        expect(page).to have_css("span.label.label-warning", text: "Metadata-only")
+        expect(page).to have_css("span.badge.badge-warning", text: "Metadata-only")
       end
 
       click_on "Edit"
@@ -141,7 +141,7 @@ RSpec.describe "Metadata-only Visibility", type: :system, js: true do
       # Visibility is changed to Comet
       within("div.title-with-badges") do
         expect(page).to have_content("Test Object - METADATA-ONLY to PUBLIC Visibility")
-        expect(page).to have_css("span.label.label-success", text: "Public")
+        expect(page).to have_css("span.badge.badge-success", text: "Public")
       end
     end
   end
