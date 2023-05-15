@@ -107,6 +107,19 @@ RSpec.configure do |config|
     Valkyrie.config.storage_adapter = :memory
   end
 
+  config.around(:example, :perform_enqueued) do |example|
+    ActiveJob::Base.queue_adapter.filter =
+      example.metadata[:perform_enqueued].try(:to_a)
+    ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
+    ActiveJob::Base.queue_adapter.perform_enqueued_at_jobs = true
+
+    example.run
+
+    ActiveJob::Base.queue_adapter.filter = nil
+    ActiveJob::Base.queue_adapter.perform_enqueued_jobs = false
+    ActiveJob::Base.queue_adapter.perform_enqueued_at_jobs = false
+  end
+
   config.include Capybara::RSpecMatchers, type: :input
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::IntegrationHelpers, type: :system
@@ -135,5 +148,8 @@ RSpec.configure do |config|
 
   config.after do
     DatabaseCleaner.clean
+    # Ensuring we have a clear queue between each spec.
+    ActiveJob::Base.queue_adapter.enqueued_jobs = []
+    ActiveJob::Base.queue_adapter.performed_jobs = []
   end
 end

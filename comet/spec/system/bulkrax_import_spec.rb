@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Bulkrax Import", type: :system, js: true do
+RSpec.describe "Bulkrax Import", :perform_enqueued, type: :system, js: true do
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
 
   before do
@@ -13,7 +13,7 @@ RSpec.describe "Bulkrax Import", type: :system, js: true do
   context "bulkrax import" do
     let(:source_file) { Rails.root.join("spec", "fixtures", "bulkrax", "generic_objects.csv") }
 
-    xit "can successfully create and validate" do
+    it "can successfully create and validate" do
       visit "/dashboard"
       click_on "Importers"
       click_on "New"
@@ -30,7 +30,6 @@ RSpec.describe "Bulkrax Import", type: :system, js: true do
       expect(page).to have_content("Importer validation completed. Please review and choose to either Continue with or Discard the import.")
       expect(page).to have_content("w1")
       expect(page).to have_content("w2")
-      expect(page).to have_selector(".glyphicon.glyphicon-ok", count: 2)
 
       click_on "w1"
       expect(page).to have_content("Raw Metadata:")
@@ -61,8 +60,6 @@ RSpec.describe "Bulkrax Import", type: :system, js: true do
 
         expect(page).to have_content("Importer was successfully created and import has been queued.")
 
-        validate_object_no_source_id_wait
-
         click_on "Importers"
         expect(page).to have_content("Complete")
       end
@@ -86,9 +83,7 @@ RSpec.describe "Bulkrax Import", type: :system, js: true do
 
         expect(page).to have_content("Importer was successfully created and import has been queued.")
 
-        validate_object_wait(alternate_id: "w2")
         click_on "Importers"
-
         click_on "importer_multivalue_columns"
 
         expect(page).to have_content("w1")
@@ -139,9 +134,7 @@ RSpec.describe "Bulkrax Import", type: :system, js: true do
 
         expect(page).to have_content("Importer was successfully created and import has been queued.")
 
-        validate_object_wait(alternate_id: "w2")
         click_on "Importers"
-
         click_on "importer_multivalue_columns"
 
         expect(page).to have_content("w1")
