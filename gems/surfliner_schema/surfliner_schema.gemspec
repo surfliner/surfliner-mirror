@@ -19,7 +19,6 @@ Gem::Specification.new do |spec|
   spec.files = Dir["lib/**/*.rb"] + Dir["bin/*"] + Dir["[A-Z]*"]
 
   spec.add_dependency "activesupport"
-  spec.add_dependency "reform-rails", "~> 0.2", "< 0.2.4" # reform-rails#99
   spec.add_dependency "valkyrie", ">= 2.2", "< 4"
 
   spec.add_development_dependency "debug", "~> 1.4.0"
