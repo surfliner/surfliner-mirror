@@ -24,6 +24,7 @@ services:
       - zk
     volumes:
       - comet-derivatives:/home/comet/app/derivatives
+      - comet-exports:/home/comet/app/exports
       - comet-public:/home/comet/app/public
       - comet-scripts:/home/comet/app/scripts
       - comet-uploads:/home/comet/app/uploads
@@ -48,6 +49,7 @@ services:
       - zk
     volumes:
       - comet-derivatives:/home/comet/app/derivatives
+      - comet-exports:/home/comet/app/exports
       - comet-public:/home/comet/app/public
       - comet-scripts:/home/comet/app/scripts
       - comet-uploads:/home/comet/app/uploads
@@ -415,6 +417,7 @@ services:
 volumes:
   cluster_geoserver_data:
   comet-derivatives:
+  comet-exports:
   comet-public:
   comet_redis:
   comet-scripts:
