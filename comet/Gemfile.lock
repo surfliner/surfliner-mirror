@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
-  revision: 48ea5b559b828d5d6805118fc2387c1b9b4dc260
+  revision: ace278e44b81ed1a56e62be693265d0736e3dc1e
   branch: hyrax-4-rails-6
   specs:
     bulkrax (5.2.0)
