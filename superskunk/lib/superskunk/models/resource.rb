@@ -17,5 +17,11 @@ module Superskunk
 
     # § Defined by Comet:
     attribute :ark, Valkyrie::Types::ID
+
+    ##
+    # @return [Boolean] true
+    def work?
+      true
+    end
   end
 end

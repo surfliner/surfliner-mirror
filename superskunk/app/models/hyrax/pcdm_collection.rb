@@ -1,5 +1,5 @@
 module Hyrax
-  class FileMetadata < Valkyrie::Resource
+  class PcdmCollection < Valkyrie::Resource
     ##
     # @return [Boolean] true
     def work?

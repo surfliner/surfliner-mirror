@@ -1,5 +1,5 @@
 module Hyrax
-  class FileMetadata < Valkyrie::Resource
+  class FileSet < Valkyrie::Resource
     ##
     # @return [Boolean] true
     def work?
