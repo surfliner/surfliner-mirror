@@ -4,12 +4,14 @@ superskunk:test:
   needs: [ "superskunk:build" ]
   variables:
     DB_HOST: postgres
+    DB_NAME: comet_metadata_development
     DB_PASSWORD: postgres
     DB_PORT: 5432
     DB_USERNAME: postgres
     METADATA_DATABASE_NAME: comet_metadata_development
     METADATA_MODELS: test-metadata
     POSTGRES_ADMIN_PASSWORD: password
+    POSTGRES_DB: comet_metadata_development
     POSTGRES_HOST: postgres
     POSTGRES_PASSWORD: "postgres"
     POSTGRES_PORT: 5432
