@@ -15,6 +15,21 @@ class CatalogController < ApplicationController
     "system_modified_dtsi"
   end
 
+  def self.m3_fields
+    m3_metadata_config = YAML.safe_load(File.open(File.join(
+      Rails.root,
+      Rails.application.config.metadata_config_location,
+      Rails.application.config.metadata_config_schemas.first.to_s + ".yaml"
+    )), [], [], true)
+    indexing_fields = []
+    m3_metadata_config["properties"].each do |property|
+      if !property["name"].nil? && !property["indexing"].nil? && !indexing_fields.include?(property["name"])
+        indexing_fields << property["name"]
+      end
+    end
+    indexing_fields
+  end
+
   configure_blacklight do |config|
     config.view.gallery.partials = [:index_header, :index]
     config.view.masonry.partials = [:index]
@@ -95,24 +110,20 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
     config.add_show_field "title_tesim"
-    config.add_show_field "title_alternative_tsim"
     config.add_show_field "description_tesim"
     config.add_show_field "keyword_tesim"
     config.add_show_field "subject_tesim"
-    config.add_show_field "creator_tsim"
     config.add_show_field "contributor_tsim"
     config.add_show_field "publisher_tesim"
     config.add_show_field "based_near_label_tesim"
-    config.add_show_field "language_tesim"
     config.add_show_field "date_uploaded_tesim"
     config.add_show_field "date_modified_tesim"
-    config.add_show_field "date_created_tesim"
     config.add_show_field "rights_statement_tesim"
     config.add_show_field "license_tesim"
     config.add_show_field "resource_type_tesim", label: "Resource Type"
     config.add_show_field "format_tesim"
     config.add_show_field "identifier_tesim"
-    config.add_show_field "note_description_tsim"
+    m3_fields.each { |field| config.add_show_field "#{field}_tsim" }
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
