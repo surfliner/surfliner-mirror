@@ -988,7 +988,7 @@ properties:
 
   - &physical_description
     name: "physical_description"
-    display_label: "Physical descriptiopn"
+    display_label: "Physical description"
     definition: "Description or statement indicating the extent, size, or duration of the resource."
     usage_guidelines: null
     requirement: recommended, if applicable
