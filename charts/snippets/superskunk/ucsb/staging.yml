@@ -9,9 +9,9 @@ ingress:
 
 postgresql:
   enabled: false
-  postgresqlDatabase: comet-staging
+  auth:
+    username: comet
   postgresqlHostname: comet-staging-postgresql.postgresql-staging
-  postgresqlUsername: comet
 
 existingSecret:
   enabled: true

@@ -9,9 +9,9 @@ ingress:
 
 postgresql:
   enabled: false
-  postgresqlDatabase: comet
+  auth:
+    username: comet
   postgresqlHostname: lib-psql-prod.ucsd.edu
-  postgresqlUsername: comet
 
 existingSecret:
   enabled: true

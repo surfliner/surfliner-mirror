@@ -9,9 +9,9 @@ ingress:
 
 postgresql:
   enabled: false
-  postgresqlDatabase: comet-prod
+  auth:
+    username: comet
   postgresqlHostname: comet-prod-postgresql.postgresql-prod
-  postgresqlUsername: comet
 
 existingSecret:
   enabled: true

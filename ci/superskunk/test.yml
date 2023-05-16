@@ -8,10 +8,9 @@ superskunk:test:
     DB_PASSWORD: postgres
     DB_PORT: 5432
     DB_USERNAME: postgres
-    METADATA_DATABASE_NAME: comet_metadata_development
     METADATA_MODELS: test-metadata
     POSTGRES_ADMIN_PASSWORD: password
-    POSTGRES_DB: comet_metadata_development
+    POSTGRESQL_DATABASE: comet_metadata_development
     POSTGRES_HOST: postgres
     POSTGRES_PASSWORD: "postgres"
     POSTGRES_PORT: 5432
@@ -29,7 +28,7 @@ superskunk:test:
     - cd ..
     - bundle exec rspec
   rules:
-    - !reference [.superskunk-mr-rules, rules]
-    - !reference [.superskunk-default-branch-rules, rules]
+    - !reference [ .superskunk-mr-rules, rules ]
+    - !reference [ .superskunk-default-branch-rules, rules ]
   tags:
     - kubernetes

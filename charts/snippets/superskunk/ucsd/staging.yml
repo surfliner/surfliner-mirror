@@ -9,9 +9,9 @@ ingress:
 
 postgresql:
   enabled: false
-  postgresqlDatabase: comet
+  auth:
+    username: comet
   postgresqlHostname: lib-psql-stage.ucsd.edu
-  postgresqlUsername: comet
 
 serviceAccount:
   name: superskunk

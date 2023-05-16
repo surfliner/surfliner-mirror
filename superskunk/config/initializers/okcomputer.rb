@@ -6,7 +6,7 @@ OkComputer.mount_at = "healthz"
 
 OkComputer::Registry.deregister "database"
 
-DATABASE_URL = "postgresql://#{ENV["POSTGRES_USER"]}:#{ENV["POSTGRES_PASSWORD"]}@#{ENV["POSTGRES_HOST"]}:#{ENV["POSTGRES_PORT"]}/#{ENV["METADATA_DATABASE_NAME"]}"
+DATABASE_URL = "postgresql://#{ENV["POSTGRES_USER"]}:#{ENV["POSTGRES_PASSWORD"]}@#{ENV["POSTGRES_HOST"]}:#{ENV["POSTGRES_PORT"]}/#{ENV["POSTGRESQL_DATABASE"]}"
 OkComputer::Registry.register "sequel", OkComputer::SequelCheck.new(
   database: Sequel.connect(DATABASE_URL),
   migration_directory: "../db/sequel"

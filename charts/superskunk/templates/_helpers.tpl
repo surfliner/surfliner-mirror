@@ -60,3 +60,14 @@ Alternatively, if postgresqlHostname is set, we use that which allows for an ext
 {{- define "superskunk.postgresql.fullname" -}}
 {{ include "common.postgresql.fullname" . }}
 {{- end -}}
+
+{{/*
+Set the appropriate database name based on using standalone or external Comet database
+*/}}
+{{- define "superskunk.postgresql.database" -}}
+{{- if .Values.superskunk.db.standalone -}}
+{{- .Values.postgresql.auth.database -}}
+{{- else -}}
+{{- .Values.db.metadata_database_name -}}
+{{- end -}}
+{{- end -}}

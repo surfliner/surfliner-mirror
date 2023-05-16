@@ -25,7 +25,7 @@ if ENV["DB_ADAPTER"] == "nulldb"
     :comet_metadata_store
   )
 else
-  database = ENV.fetch("METADATA_DATABASE_NAME", "comet_metadata")
+  database = ENV.fetch("POSTGRESQL_DATABASE", "comet_metadata")
   Rails.logger.info "Establishing connection to postgresql on: " \
                     "#{ENV["DB_HOST"]}:#{ENV["DB_PORT"]}.\n" \
                     "Using database: #{database}."

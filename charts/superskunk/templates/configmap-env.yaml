@@ -16,9 +16,8 @@ data:
   {{- end }}
   DB_HOST: {{ template "superskunk.postgresql.fullname" . }}
   DB_PORT: {{ .Values.postgresql.primary.service.ports.postgresql | quote }}
-  METADATA_DATABASE_NAME: {{ .Values.superskunk.db.metadata_database_name }}
   METADATA_MODELS: {{ join "," .Values.superskunk.metadata_models }}
-  POSTGRES_DB: {{ .Values.postgresql.auth.database }}
+  POSTGRESQL_DATABASE: {{ template "superskunk.postgresql.database" . }}
   POSTGRES_HOST: {{ template "superskunk.postgresql.fullname" . }}
   POSTGRES_PORT: {{ .Values.postgresql.primary.service.ports.postgresql | quote }}
   RAILS_ENV: {{ .Values.superskunk.rails.environment }}

@@ -54,7 +54,8 @@ The following tables lists the configurable parameters of the Superskunk chart a
 | `existingSecret.name` | External Secret name in Deployment namespace | `superskunk` | N/A |
 | `existingSecret.enabled` | Whether to use an external Secret for a Deployment | `false` | N/A |
 | `superskunk.db.standalone` | Whether to create a dedicated DB instead of connecting to the Comet metadata DB | `false` | N/A |
-| `superskunk.db.metadata_database_name` | The database name to use to query for metadata | `comet_metadata` | N/A |
+| `superskunk.db.metadata_database_name` | The database name to use to query for metadata if `standalone` is set to
+`true` | `comet_metadata` | N/A |
 
 ### Superskunk Consumers
 
@@ -78,7 +79,7 @@ See: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.m
 
 | Parameter | Description | Default | Environment Variable |
 | --------- | ----------- | ------- | -------------------- |
-| `postgresql.auth.database` | Database name for application | `comet_metadata` | `METADATA_DATABASE_NAME` |
+| `postgresql.auth.database` | Database name for application. Used if `superskunk.db.standalone` is `false` | `comet_metadata` | `POSTGRESQL_DATABASE` |
 | `postgresql.auth.hostname` | External database hostname, when `postgresql.enabled` is `false` | `nil` | `POSTGRES_HOST` |
 | `postgresql.auth.password` | Database user password for application | `superskunk_pass` | `POSTGRES_PASSWORD` |
 | `postgresql.auth.postgresPassword` | Admin `postgres` user's password | `superskunk_admin` | `POSTGRES_ADMIN_PASSWORD` |

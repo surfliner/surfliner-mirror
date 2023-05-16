@@ -21,7 +21,7 @@ superskunk:
   port: 3000
   db:
     standalone: false # whether to deploy with its own DB instead of connecting to Comet
-    metadata_database_name: comet_metadata
+    metadata_database_name: comet_metadata # default db name if standalone == true
   rails:
     environment: production
     log_to_stdout: true
@@ -40,7 +40,7 @@ consumers:
   #   - name: shoreline
   #     secretName: shoreline-keypair
 
-# Set to true if a Secret already exists in the namespace for the Deployment
+  # Set to true if a Secret already exists in the namespace for the Deployment
 existingSecret:
   name: superskunk
   enabled: false
@@ -65,7 +65,7 @@ postgresql:
     tag: 12.11.0-debian-10-r23
   enabled: true
   auth:
-    database: comet_metadata # must match metadata_database_name above
+    database: comet_metadata
     password: superskunk_pass
     postgresPassword: superskunk_admin
     username: superskunk
@@ -97,15 +97,8 @@ serviceAccount:
 podAnnotations: {}
 
 podSecurityContext: {}
-  # fsGroup: 2000
 
 securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
 
 service:
   type: ClusterIP
@@ -128,16 +121,6 @@ ingress:
   #      - chart-example.local
 
 resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
 
 autoscaling:
   enabled: false
