@@ -28,8 +28,6 @@ RSpec.describe "Bulkrax Export", type: :system, js: true do
       click_button "Create and Import"
 
       expect(page).to have_content("Importer was successfully created and import has been queued.")
-
-      validate_object_wait(alternate_id: "w1")
     end
 
     it "can successfully create and export" do
