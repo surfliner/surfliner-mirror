@@ -88,10 +88,7 @@ properties:
 #        definition: "Formal or supplied title for the resource."
 #        usage_guidelines: null
 #        requirement: required
-#        controlled_values:
-#          format: null
-#          sources:
-#            - null
+#        controlled_values: null
 #        sample_value:
 #          - "Pride and prejudice"
 #        property_uri: http://purl.org/dc/terms/title
@@ -127,10 +124,7 @@ properties:
     definition: "Alternative or other additional title for the resource."
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - "First impressions"
     property_uri: http://purl.org/dc/terms/alternative
@@ -171,10 +165,7 @@ properties:
     definition: "A modified form of the formal collection title which controls the sort order when browsing collection lists."
     usage_guidelines: "Use to record the filing title (see OAC Best Practices) for the collection."
     requirement: required
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - "Lehmann (Lotte) collection"
     property_uri: http://purl.org/dc/terms/alternative
@@ -204,10 +195,7 @@ properties:
     definition: "A person or organization responsible for the intellectual or artistic content of a resource. If a more specific role is available, prefer that."
     usage_guidelines: "Can be used when lacking specific information on an agent's exact role in creating the resource."
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://purl.org/dc/elements/1.1/creator
@@ -252,10 +240,7 @@ properties:
     definition: "A person, family or organization responsible for making contributions to the resource. If a more specific role is available, prefer that."
     usage_guidelines: "Use as the broadest possible role, i.e. when lacking specific information on an agent's role, or the role is unclear or unknown. If a more specific role is available, prefer that, e.g. editor, compiler, illustrator."
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://purl.org/dc/elements/1.1/contributor
@@ -285,10 +270,7 @@ properties:
     definition: "A person or organization responsible for publishing the resource."
     usage_guidelines: "Use to record a publisher as a controlled name."
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://purl.org/dc/elements/1.1/publisher
@@ -334,10 +316,7 @@ properties:
     definition: "A person or organization who 1) reworks a musical composition, usually for a different medium, or 2) rewrites novels or stories for motion pictures or other audiovisual medium"
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://id.loc.gov/vocabulary/relators/adp
@@ -365,10 +344,7 @@ properties:
     definition: "A person, family, or organization responsible for creating an architectural design, including a pictorial representation intended to show how a building, etc., will look when completed. It also oversees the construction of structures"
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://id.loc.gov/vocabulary/relators/arc
@@ -396,10 +372,7 @@ properties:
     definition: "A person, family, or organization responsible for creating a work by conceiving, and implementing, an original graphic design, drawing, painting, etc. For book illustrators, prefer Illustrator [ill]"
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://id.loc.gov/vocabulary/relators/art
@@ -427,10 +400,7 @@ properties:
     definition: "A person, family, or organization responsible for creating a work that is primarily textual in content, regardless of media type (e.g., printed text, spoken word, electronic text, tactile text) or genre (e.g., poems, novels, screenplays, blogs). Use also for persons, etc., creating a new work by paraphrasing, rewriting, or adapting works by another creator such that the modification has substantially changed the nature and content of the original or changed the medium of expression"
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://id.loc.gov/vocabulary/relators/aut
@@ -458,10 +428,7 @@ properties:
     definition: "A person or organization for whom another person or organization is acting"
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://id.loc.gov/vocabulary/relators/cli
@@ -489,10 +456,7 @@ properties:
     definition: "A curator who brings together items from various sources that are then arranged, described, and cataloged as a collection. A collector is neither the creator of the material nor a person to whom manuscripts in the collection may have been addressed"
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://id.loc.gov/vocabulary/relators/col
@@ -520,10 +484,7 @@ properties:
     definition: "A person, family, or organization responsible for creating a new work (e.g., a bibliography, a directory) through the act of compilation, e.g., selecting, arranging, aggregating, and editing data, information, etc."
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://id.loc.gov/vocabulary/relators/com
@@ -551,10 +512,7 @@ properties:
     definition: "A person, family, or organization responsible for creating or contributing to a musical resource by adding music to a work that originally lacked it or supplements it"
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://id.loc.gov/vocabulary/relators/cmp
@@ -582,10 +540,7 @@ properties:
     definition: "A person, family, or organization contributing to a resource by revising or elucidating the content, e.g., adding an introduction, notes, or other critical matter. An editor may also prepare a resource for production, publication, or distribution. For major revisions, adaptations, etc., that substantially change the nature and content of the original work, resulting in a new work, see author"
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://id.loc.gov/vocabulary/relators/edt
@@ -613,10 +568,7 @@ properties:
     definition: "A person, family, or organization contributing to a resource by supplementing the primary content with drawings, diagrams, photographs, etc. If the work is primarily the artistic content created by this entity, use artist or photographer"
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://id.loc.gov/vocabulary/relators/ill
@@ -644,10 +596,7 @@ properties:
     definition: "A person, family or organization issuing a work, such as an official organ of the body"
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://id.loc.gov/vocabulary/relators/isb
@@ -675,10 +624,7 @@ properties:
     definition: "A person contributing to a resource by performing music, acting, dancing, speaking, etc., often in a musical or dramatic presentation, etc. If specific codes are used, [prf] is used for a person whose principal skill is not known or specified"
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://id.loc.gov/vocabulary/relators/prf
@@ -706,10 +652,7 @@ properties:
     definition: "A person, family, or organization responsible for creating a photographic work"
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://id.loc.gov/vocabulary/relators/pht
@@ -737,10 +680,7 @@ properties:
     definition: "A performer contributing to a resource by using his/her/their voice, with or without instrumental accompaniment, to produce music. A singer's performance may or may not include actual words"
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://id.loc.gov/vocabulary/relators/sng
@@ -768,10 +708,7 @@ properties:
     definition: "A person or organization who renders a text from one language into another, or from an older form of a language into the modern form"
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://id.loc.gov/vocabulary/relators/trl
@@ -801,10 +738,7 @@ properties:
   #   definition: "[see MARC relator list for specific role definitions]"
   #   usage_guidelines: null
   #   requirement: recommended, if applicable
-  #   controlled_values:
-  #     format: null
-  #     sources:
-  #       - null
+  #   controlled_values: null
   #   sample_value:
   #     - null
   #   property_uri: http://id.loc.gov/vocabulary/relators/[role code]
@@ -842,10 +776,7 @@ properties:
     definition: "Transcribed information on the location and/or entity responsible for the issuing, publication, release, distribution, manufacture, production, or origin of a resource."
     usage_guidelines: "This is a place for transcribing an uncontrolled publication statement. To enter a controlled name for a publisher, use the publisher field. "
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - "Santa Barbara, California : Santa Barbara News Press"
     property_uri: http://id.loc.gov/ontologies/bibframe/Publication
@@ -873,10 +804,7 @@ properties:
     definition: "A point or period of time associated with an event in the lifecycle of the resource."
     usage_guidelines: "If you have a more specific date, use the more specific types, e.g. date created, date issued."
     requirement: required, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://purl.org/dc/elements/1.1/date
@@ -922,10 +850,7 @@ properties:
     definition: "The date of creation of the resource."
     usage_guidelines: null
     requirement: required, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://purl.org/dc/terms/created
@@ -953,10 +878,7 @@ properties:
     definition: "The date that the resource was published, released, or issued."
     usage_guidelines: null
     requirement: required, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://purl.org/dc/terms/issued
@@ -1002,10 +924,7 @@ properties:
     definition: "Description or statement indicating the extent, size, or duration of the resource."
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - "1 photograph : print ; sheet 22 x 28 cm"
     property_uri: http://purl.org/dc/terms/extent
@@ -1034,7 +953,6 @@ properties:
     usage_guidelines: null
     requirement: required
     controlled_values:
-      format: null
       sources:
         - "http://id.loc.gov/vocabulary/resourceTypes"
     sample_value:
@@ -1110,7 +1028,6 @@ properties:
     usage_guidelines: null
     requirement: recommended, if applicable
     controlled_values:
-      format: null
       sources:
         - "http://vocab.getty.edu/aat"
     sample_value:
@@ -1141,10 +1058,7 @@ properties:
     definition: null
     usage_guidelines: null
     requirement: null
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://purl.org/dc/elements/1.1/format
@@ -1187,7 +1101,6 @@ properties:
     usage_guidelines: null
     requirement: recommended
     controlled_values:
-      format: http://www.w3.org/2001/XMLSchema#anyURI
       sources:
         - http://id.loc.gov/vocabulary/iso639-2
     sample_value:
@@ -1232,10 +1145,7 @@ properties:
     definition: "Summary, abstract, or description of the resource."
     usage_guidelines: null
     requirement: recommended
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - "Contact sheet with multiple views of State Street."
     property_uri: http://purl.org/dc/terms/description
@@ -1279,10 +1189,7 @@ properties:
     definition: "General textual information relating to a resource"
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://id.loc.gov/ontologies/bibframe/Note
@@ -1314,10 +1221,7 @@ properties:
     definition: "A topic or subject of the resource."
     usage_guidelines: null
     requirement: recommended
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://purl.org/dc/terms/subject
@@ -1363,10 +1267,7 @@ properties:
     definition: "The name of a person or corporate entity that the resource is about."
     usage_guidelines: null
     requirement: recommended
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://purl.org/dc/terms/subject
@@ -1394,10 +1295,7 @@ properties:
     definition: "The name of a geographic location that the resource is about."
     usage_guidelines: null
     requirement: recommended
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://purl.org/dc/terms/spatial
@@ -1442,10 +1340,7 @@ properties:
     definition: "Temporal characteristics of the described resource. Captures aboutness."
     usage_guidelines: null
     requirement: recommended
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://purl.org/dc/terms/temporal
@@ -1486,10 +1381,7 @@ properties:
     definition: "Uncontrolled terms, often supplied by the creator, describing the subject of the resource."
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://schema.org/keywords
@@ -1531,10 +1423,7 @@ properties:
     definition: null
     usage_guidelines: null
     requirement: null
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://www.w3.org/2003/12/exif/ns#gpsLatitude
@@ -1561,10 +1450,7 @@ properties:
     definition: null
     usage_guidelines: null
     requirement: null
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://www.w3.org/2003/12/exif/ns#gpsLongitude
@@ -1591,10 +1477,7 @@ properties:
     definition: null
     usage_guidelines: null
     requirement: null
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://purl.org/dc/terms/Boxwestlimit
@@ -1634,10 +1517,7 @@ properties:
     definition: null
     usage_guidelines: null
     requirement: null
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://purl.org/dc/terms/Boxeastlimit
@@ -1677,10 +1557,7 @@ properties:
     definition: null
     usage_guidelines: null
     requirement: null
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://purl.org/dc/terms/Boxnorthlimit
@@ -1720,10 +1597,7 @@ properties:
     definition: null
     usage_guidelines: null
     requirement: null
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://purl.org/dc/terms/Boxsouthlimit
@@ -1763,10 +1637,7 @@ properties:
     definition: null
     usage_guidelines: null
     requirement: null
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://id.loc.gov/ontologies/bibframe/Scale
@@ -1796,10 +1667,7 @@ properties:
     definition: "An archival accession number for the object."
     usage_guidelines: null
     requirement: required, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://id.loc.gov/ontologies/bibframe/AccessionNumber
@@ -1828,10 +1696,7 @@ properties:
     definition: "Barcode number assigned to the physical object."
     usage_guidelines: null
     requirement: required, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://id.loc.gov/ontologies/bibframe/Barcode
@@ -1860,10 +1725,7 @@ properties:
     definition: "The call number assigned to the local resource."
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://id.loc.gov/ontologies/bibframe/ShelfMark
@@ -1893,10 +1755,7 @@ properties:
     definition: "Digital object identifier"
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://id.loc.gov/vocabulary/identifiers/doi
@@ -1925,10 +1784,7 @@ properties:
     definition: "International standard book number"
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - "9781267294944"
     property_uri: http://id.loc.gov/vocabulary/identifiers/isbn
@@ -1956,10 +1812,7 @@ properties:
     definition: "International standard serial number"
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://id.loc.gov/vocabulary/identifiers/issn
@@ -1988,10 +1841,7 @@ properties:
     definition: "Sound recording issue number"
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - "Vogue: R 736"
     property_uri: http://id.loc.gov/vocabulary/identifiers/issue-number
@@ -2020,10 +1870,7 @@ properties:
     definition: "Unique local identifier assigned to the physical object."
     usage_guidelines: null
     requirement: required, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - "uarch112-g00237"
     property_uri: http://id.loc.gov/vocabulary/identifiers/local
@@ -2052,10 +1899,7 @@ properties:
     definition: "Sound recording matrix number"
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - "Vogue: P-48"
     property_uri: http://id.loc.gov/vocabulary/identifiers/matrix-number
@@ -2086,10 +1930,7 @@ properties:
     definition: "Name of the series in archival location information."
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://opaquenamespace.org/ns/seriesName
@@ -2116,10 +1957,7 @@ properties:
     definition: "Name of the file unit (intellectual folder) in archival location information. File unit refers to the intellectual grouping of the archival materials and may be comprised of one or more physical folders."
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://opaquenamespace.org/ns/folderName
@@ -2146,10 +1984,7 @@ properties:
     definition: "Link to finding aid for the collection in OAC"
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - "http://www.oac.cdlib.org/findaid/ark:/13030/kt296nf09q/"
     property_uri: http://id.loc.gov/ontologies/bibframe/findingAid
@@ -2177,10 +2012,7 @@ properties:
     definition: "A related resource from which the described resource is derived."
     usage_guidelines: null
     requirement: optional
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://purl.org/dc/elements/1.1/source
@@ -2217,10 +2049,7 @@ properties:
     definition: "A related resource that is supplanted, displaced, or superseded by the described resource."
     usage_guidelines: null
     requirement: optional
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://purl.org/dc/terms/replaces
@@ -2257,10 +2086,7 @@ properties:
     definition: "A related resource that supplants, displaces, or supersedes the described resource."
     usage_guidelines: null
     requirement: optional
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://purl.org/dc/terms/isReplacedBy
@@ -2298,10 +2124,7 @@ properties:
     definition: "A related resource of which the described resource is a version, edition, or adaptation."
     usage_guidelines: null
     requirement: optional
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://purl.org/dc/terms/isVersionOf
@@ -2339,10 +2162,7 @@ properties:
     definition: "A related resource."
     usage_guidelines: null
     requirement: optional
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://purl.org/dc/terms/relation
@@ -2381,10 +2201,7 @@ properties:
     definition: "A person or organization owning or managing the rights of the resource."
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://purl.org/dc/terms/rightsHolder
@@ -2424,10 +2241,7 @@ properties:
     definition: "The date that the resource was copyrighted."
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - null
     property_uri: http://purl.org/dc/terms/dateCopyrighted
@@ -2455,7 +2269,6 @@ properties:
     usage_guidelines: null
     requirement: required
     controlled_values:
-      format: null
       sources:
         - "http://id.loc.gov/vocabulary/preservation/copyrightStatus"
     sample_value:
@@ -2485,7 +2298,6 @@ properties:
     usage_guidelines: null
     requirement: required, if applicable
     controlled_values:
-      format: null
       sources:
         - "http://rightsstatements.org"
     sample_value:
@@ -2516,7 +2328,6 @@ properties:
     usage_guidelines: null
     requirement: required, if applicable
     controlled_values:
-      format: null
       sources:
         - "http://creativecommons.org"
         - "https://opendatacommons.org"
@@ -2558,10 +2369,7 @@ properties:
     definition: "Free text description of rights, such as administrative contact information, a description of the specific license terms, or other rights-related restrictions."
     usage_guidelines: null
     requirement: required, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - "Transmission or reproduction of materials protected by copyright beyond that allowed by fair use requires the written permission of the copyright owners. In addition, the reproduction of some materials may be restricted by terms of gift or purchase agreements, donor restrictions, privacy and publicity rights, licensing and trademarks (contact the department of Special Research Collections at the UC Santa Barbara Library for more information). Works not in the public domain cannot be commercially exploited without permission of the copyright owner. Responsibility for any use rests exclusively with the user."
     property_uri: http://purl.org/dc/elements/1.1/rights
@@ -2605,20 +2413,31 @@ properties:
     usage_guidelines: null
     requirement: required, if applicable
     controlled_values:
-      format: null
-      sources:
-        - Art & Architecture
-        - SRC, American Religions Collection
-        - SRC, Bernath Memorial Collection
-        - SRC, California Ethnic and Multicultural Archives
-        - SRC, Humanistic Psychology Archives
-        - SRC, General Manuscripts Collection
-        - SRC, Oral Histories
-        - SRC, Performing Arts
-        - SRC, Printers Collection
-        - SRC, Santa Barbara History Collection
-        - SRC, University Archives
-        - SRC, William Wyles Collection
+      values:
+        - name: Art_Architecture
+          display_label: Art & Architecture
+        - name: SRC_ARC
+          display_label: SRC, American Religions Collection
+        - name: SRC_BMC
+          display_label: SRC, Bernath Memorial Collection
+        - name: SRC_CEMA
+          display_label: SRC, California Ethnic and Multicultural Archives
+        - name: SRC_HPA
+          display_label: SRC, Humanistic Psychology Archives
+        - name: SRC_GMC
+          display_label: SRC, General Manuscripts Collection
+        - name: SRC_OH
+          display_label: SRC, Oral Histories
+        - name: SRC_PA
+          display_label: SRC, Performing Arts
+        - name: SRC_PC
+          display_label: SRC, Printers Collection
+        - name: SRC_SBHC
+          display_label: SRC, Santa Barbara History Collection
+        - name: SRC_UA
+          display_label: SRC, University Archives
+        - name: SRC_WWC
+          display_label: SRC, William Wyles Collection
     sample_value:
       - "SRC, California Ethnic and Multicultural Archives"
     property_uri: http://www.loc.gov/mods/rdf/v1#locationCopySublocation
@@ -2646,10 +2465,7 @@ properties:
     definition: "Citation to the resource preferred by its custodian of the resource (i.e. UCSB)."
     usage_guidelines: null
     requirement: recommended, if applicable
-    controlled_values:
-      format: null
-      sources:
-        - null
+    controlled_values: null
     sample_value:
       - "[Item description]. Community Development and Conservation Collection. SBHC Mss 1. Department of Special Research Collections, UC Santa Barbara Library, University of California, Santa Barbara."
     property_uri: http://id.loc.gov/ontologies/bibframe/preferredCitation
@@ -2680,7 +2496,6 @@ properties:
     usage_guidelines: null
     requirement: required
     controlled_values:
-      format: null
       sources:
         - "http://id.loc.gov/vocabulary/organizations"
     sample_value:
@@ -2711,7 +2526,6 @@ properties:
     usage_guidelines: null
     requirement: recommended
     controlled_values:
-      format: null
       sources:
         - "http://id.loc.gov/vocabulary/descriptionConventions"
     sample_value:
@@ -2741,12 +2555,15 @@ properties:
     usage_guidelines: null
     requirement: recommended
     controlled_values:
-      format: null
-      sources:
-        - born digital
-        - reformatted digital
-        - digitized microfilm
-        - digitized other analog
+      values:
+        - name: born_digital
+          display_label: born digital
+        - name: reformatted_digital
+          display_label: reformatted digital
+        - name: digitized_microfilm
+          display_label: digitized microfilm
+        - name: digitized_other_analog
+          display_label: digitized other analog
     sample_value:
       - null
     property_uri: http://www.loc.gov/mods/rdf/v1#digitalOrigin
