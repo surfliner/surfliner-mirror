@@ -30,14 +30,8 @@ RSpec.describe Qa::Authorities::Schema do
       end
 
       it "lists controlled properties as subauthorities" do
-        expect(subauthority.subauthorities).to include(
+        expect(subauthority.subauthorities).to contain_exactly(
           "rights_statement"
-        )
-      end
-
-      it "does not list non‐controlled properties as subauthorities" do
-        expect(subauthority.subauthorities).not_to include(
-          "title_alternative"
         )
       end
     end
@@ -73,9 +67,8 @@ RSpec.describe Qa::Authorities::Schema do
           availability: "generic_object"
         )
       }
-      let(:local_values) {
-        {my_statement: {id: "my_statement", label: "My Rights Statement", active: true, uri: "about:surfliner_schema/controlled_values/rights_statement/my_statement"},
-         my_other_statement: {id: "my_other_statement", label: "My Other Rights Statement", active: true, uri: "about:surfliner_schema/controlled_values/rights_statement/my_other_statement"}}
+      let(:expected_local_value) {
+        {id: "my_statement", label: "My Rights Statement", active: true, uri: "about:surfliner_schema/controlled_values/rights_statement/my_statement"}
       }
 
       it "returns a Qa::Authorities::Schema::BasePropertyAuthority subclass instance" do
@@ -88,20 +81,18 @@ RSpec.describe Qa::Authorities::Schema do
         it "lists the controlled values" do
           expect(property_authority.all).to contain_exactly(
             # todo: remote properties
-            *local_values.values
+            expected_local_value
           )
         end
       end
 
       describe "#find" do
-        let(:local_value) { local_values[:my_statement] }
-
         it "finds values by id" do
-          expect(property_authority.find(local_value[:id])).to eq local_value
+          expect(property_authority.find(expected_local_value[:id])).to eq expected_local_value
         end
 
         it "finds values by uri" do
-          expect(property_authority.find(local_value[:uri])).to eq local_value
+          expect(property_authority.find(expected_local_value[:uri])).to eq expected_local_value
         end
 
         it "returns an empty object if nothing is found" do
@@ -110,14 +101,16 @@ RSpec.describe Qa::Authorities::Schema do
       end
 
       describe "#search" do
-        let(:local_value) { local_values[:my_statement] }
-
         it "searches by display label" do
-          expect(property_authority.search("My Right")).to include(local_value)
+          expect(property_authority.search("My Right")).to contain_exactly(
+            expected_local_value
+          )
         end
 
         it "casefolds the query" do
-          expect(property_authority.search("ﬆAtE")).to include(local_value)
+          expect(property_authority.search("ﬆAtE")).to contain_exactly(
+            expected_local_value
+          )
         end
 
         it "returns an empty array if nothing is found" do
