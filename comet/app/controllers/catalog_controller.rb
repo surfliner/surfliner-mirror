@@ -16,18 +16,17 @@ class CatalogController < ApplicationController
   end
 
   def self.m3_fields
-    m3_metadata_config = YAML.safe_load(File.open(File.join(
-      Rails.root,
-      Rails.application.config.metadata_config_location,
-      Rails.application.config.metadata_config_schemas.first.to_s + ".yaml"
-    )), [], [], true)
-    indexing_fields = []
-    m3_metadata_config["properties"].each do |property|
-      if !property["name"].nil? && !property["indexing"].nil? && !indexing_fields.include?(property["name"])
-        indexing_fields << property["name"]
+    property_indexing = {}
+    loader = ::SchemaLoader.new
+    loader.availabilities.each do |availability|
+      loader.properties_for(availability).values.each do |property|
+        if !property.indices.empty? && !property.indexing.empty?
+          property_indexing[property.indices.first] ||= Set.new
+          property_indexing[property.indices.first].merge(property.indexing)
+        end
       end
     end
-    indexing_fields
+    property_indexing
   end
 
   configure_blacklight do |config|
@@ -123,7 +122,7 @@ class CatalogController < ApplicationController
     config.add_show_field "resource_type_tesim", label: "Resource Type"
     config.add_show_field "format_tesim"
     config.add_show_field "identifier_tesim"
-    m3_fields.each { |field| config.add_show_field "#{field}_tsim" }
+    m3_fields.each { |name, values| config.add_show_field name }
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
