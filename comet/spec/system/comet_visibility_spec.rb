@@ -40,7 +40,7 @@ RSpec.describe "Comet Visibility", type: :system, js: true do
       visit "/concern/generic_objects/#{id}?locale=en"
 
       expect(page).to have_content("test.txt")
-      expect(page).to have_css(".file_set.attributes span.label.label-primary", text: "Comet")
+      expect(page).to have_css(".file_set.attributes span.badge.badge-primary", text: "Comet")
     end
   end
 
