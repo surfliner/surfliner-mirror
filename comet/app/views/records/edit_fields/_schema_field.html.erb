@@ -1,1 +1,7 @@
-<%= f.input definition.name, as: :schema_field, availability: f.object.model_class.availability, definition: definition %>
+<%= f.input definition.name,
+            as: :schema_field,
+            label: definition.display_label,
+            hint: definition.definition,
+            usage_guidelines: definition.usage_guidelines,
+            required: definition.required?
+%>

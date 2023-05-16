@@ -526,8 +526,6 @@ properties:
       values:
         - name: my_statement
           display_label: My Rights Statement
-        - name: my_other_statement
-          display_label: My Other Rights Statement
     # syntax: null
     # validations: null
     cardinality:
