@@ -3,18 +3,13 @@ superskunk:test:
   image: $CI_REGISTRY_IMAGE/superskunk:$CI_COMMIT_SHA
   needs: [ "superskunk:build" ]
   variables:
-    DB_HOST: postgres
-    DB_NAME: comet_metadata_development
-    DB_PASSWORD: postgres
-    DB_PORT: 5432
-    DB_USERNAME: postgres
     METADATA_MODELS: test-metadata
-    POSTGRES_ADMIN_PASSWORD: password
     POSTGRESQL_DATABASE: comet_metadata_development
-    POSTGRES_HOST: postgres
-    POSTGRES_PASSWORD: "postgres"
-    POSTGRES_PORT: 5432
-    POSTGRES_USER: "postgres"
+    POSTGRESQL_HOST: postgres
+    POSTGRESQL_PASSWORD: "postgres"
+    POSTGRESQL_PORT: 5432
+    POSTGRESQL_POSTGRES_PASSWORD: password
+    POSTGRESQL_USERNAME: "postgres"
     RAILS_ENV: test
   services:
     - name: bitnami/postgresql:12.14.0

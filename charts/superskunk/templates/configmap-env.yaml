@@ -14,12 +14,10 @@ data:
   {{- if .Values.consumers.keys }}
   CONSUMER_KEYS_FILE: {{ .Values.consumers.keysFileMountPath }}/consumer_keys.yaml
   {{- end }}
-  DB_HOST: {{ template "superskunk.postgresql.fullname" . }}
-  DB_PORT: {{ .Values.postgresql.primary.service.ports.postgresql | quote }}
   METADATA_MODELS: {{ join "," .Values.superskunk.metadata_models }}
   POSTGRESQL_DATABASE: {{ template "superskunk.postgresql.database" . }}
-  POSTGRES_HOST: {{ template "superskunk.postgresql.fullname" . }}
-  POSTGRES_PORT: {{ .Values.postgresql.primary.service.ports.postgresql | quote }}
+  POSTGRESQL_HOST: {{ template "superskunk.postgresql.fullname" . }}
+  POSTGRESQL_PORT: {{ .Values.postgresql.primary.service.ports.postgresql | quote }}
   RAILS_ENV: {{ .Values.superskunk.rails.environment }}
   RAILS_LOG_TO_STDOUT: {{ .Values.superskunk.rails.log_to_stdout | quote }}
   RAILS_SERVE_STATIC_FILES: {{ .Values.superskunk.rails.serve_static_files | quote }}

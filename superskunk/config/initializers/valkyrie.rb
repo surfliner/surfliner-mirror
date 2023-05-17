@@ -27,13 +27,13 @@ if ENV["DB_ADAPTER"] == "nulldb"
 else
   database = ENV.fetch("POSTGRESQL_DATABASE", "comet_metadata")
   Rails.logger.info "Establishing connection to postgresql on: " \
-                    "#{ENV["DB_HOST"]}:#{ENV["DB_PORT"]}.\n" \
+                    "#{ENV["POSTGRESQL_HOST"]}:#{ENV["POSTGRESQL_PORT"]}.\n" \
                     "Using database: #{database}."
   connection = Sequel.connect(
-    user: ENV["DB_USERNAME"],
-    password: ENV["DB_PASSWORD"],
-    host: ENV["DB_HOST"],
-    port: ENV["DB_PORT"],
+    user: ENV["POSTGRESQL_USERNAME"],
+    password: ENV["POSTGRESQL_PASSWORD"],
+    host: ENV["POSTGRESQL_HOST"],
+    port: ENV["POSTGRESQL_PORT"],
     database: database,
     max_connections: ENV.fetch("METADATA_DATABASE_POOL", 5),
     pool_timeout: ENV.fetch("METADATA_DATABASE_TIMEOUT", 5),
