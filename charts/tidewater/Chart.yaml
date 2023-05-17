@@ -5,8 +5,8 @@ name: tidewater
 version: 0.8.0
 dependencies:
   - name: postgresql
-    version: 9.8.12
-    repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
+    version: 12.5.2
+    repository: oci://registry-1.docker.io/bitnamicharts
     condition: postgresql.enabled
   - name: common
     version: 0.1.0

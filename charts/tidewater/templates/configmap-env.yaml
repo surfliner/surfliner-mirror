@@ -15,9 +15,9 @@ data:
   OAI_REPOSITORY_NAME: {{ .Values.oai.repositoryName }}
   OAI_REPOSITORY_ORIGIN: http{{ if .Values.ingress.tls }}s{{ end }}://{{ index .Values.ingress.hosts 0 }}
   OAI_SAMPLE_ID: {{ .Values.oai.sampleId | quote }}
-  POSTGRES_DB: {{ .Values.postgresql.postgresqlDatabase }}
+  POSTGRES_DB: {{ .Values.postgresql.auth.database }}
   POSTGRES_HOST: {{ template "tidewater.postgresql.fullname" . }}
-  POSTGRES_PORT: {{ .Values.postgresql.servicePort | quote }}
+  POSTGRES_PORT: {{ .Values.postgresql.primary.service.ports.postgresql | quote }}
   RAILS_ENV: {{ .Values.rails.environment }}
   RAILS_LOG_TO_STDOUT: {{ .Values.rails.log_to_stdout | quote }}
   RAILS_MAX_THREADS: {{ .Values.rails.max_threads | quote }}
