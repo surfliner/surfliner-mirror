@@ -9,7 +9,7 @@ dependencies:
     repository: oci://registry-1.docker.io/bitnamicharts
     condition: solr.enabled
   - name: postgresql
-    version: 12.4.1
+    version: 12.5.2
     repository: oci://registry-1.docker.io/bitnamicharts
     condition: postgresql.enabled
   - name: common

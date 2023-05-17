@@ -1,7 +1,7 @@
 dependencies:
 - name: postgresql
   repository: oci://registry-1.docker.io/bitnamicharts
-  version: 12.4.1
+  version: 12.5.2
 - name: geoserver
   repository: file://../geoserver
   version: 1.5.0
@@ -14,5 +14,5 @@ dependencies:
 - name: minio
   repository: oci://registry-1.docker.io/bitnamicharts
   version: 12.4.1
-digest: sha256:7041d26803f2694b5d5970a358d1730091372fd0d426b0c4aa990773fb01b08c
-generated: "2023-04-28T22:09:41.966004766Z"
+digest: sha256:667d1685fdaf3b4e57999bea7cefdb6193837926cd48f09107af1473fb1fcfb1
+generated: "2023-05-17T21:10:12.781129747Z"
