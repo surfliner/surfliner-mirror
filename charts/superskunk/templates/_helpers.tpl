@@ -68,6 +68,6 @@ Set the appropriate database name based on using standalone or external Comet da
 {{- if .Values.superskunk.db.standalone -}}
 {{- .Values.postgresql.auth.database -}}
 {{- else -}}
-{{- .Values.db.metadata_database_name -}}
+{{- .Values.superskunk.db.metadata_database_name -}}
 {{- end -}}
 {{- end -}}
