@@ -137,16 +137,15 @@ module SurflinerSchema
 
       camelized = availability.to_s.camelize
       struct_attributes = to_struct_attributes(availability: availability)
-      loader = SurflinerSchema::Loader.for_readers([self]) # TODO: get rid of this
+      reader = self
       @resolved_classes[availability] = Class.new(valkyrie_resource_class) do |klass|
         @availability = availability
         @class_name = camelized
+        @reader = reader
 
         klass.attributes(struct_attributes)
 
-        # TODO: Maybe refactor this out into a service as it is not needed in
-        # every situation.
-        include SurflinerSchema::Mappings(availability, loader: loader)
+        include SurflinerSchema::Mappings
 
         def initialize(*args, **kwargs)
           super(*args, **kwargs)
@@ -159,6 +158,12 @@ module SurflinerSchema
           #
           # @return [Symbol]
           attr_reader :availability
+
+          ##
+          # The +SurflinerSchema::Reader+ which defined this model.
+          #
+          # @return [Symbol]
+          attr_reader :reader
 
           ##
           # The Ruby class name corresponding to this model.

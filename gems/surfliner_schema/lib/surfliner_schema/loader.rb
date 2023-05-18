@@ -43,20 +43,6 @@ module SurflinerSchema
     end
 
     ##
-    # A hash mapping mapping names to their definitions.
-    #
-    # @return [{Symbol => SurflinerSchema::Mapping}]
-    def mappings
-      @mappings ||= @readers.each_with_object({}) do |reader, mappings|
-        reader.mappings.each do |name, mapping|
-          # If multiple readers define a mapping, only the first definition is
-          # used.
-          mappings[name] ||= mapping
-        end
-      end
-    end
-
-    ##
     # A SurflinerSchema::Division listing the sections, groupings, and
     # properties with the provided availability.
     #
@@ -117,21 +103,6 @@ module SurflinerSchema
     def properties_for(availability)
       {}.merge(*@readers.map { |reader|
         reader.properties(availability: availability)
-      })
-    end
-
-    ##
-    # A hash mapping property names with the provided availability to a set of
-    # mappings for the provided mapping IRI.
-    #
-    # @param availability [Symbol]
-    # @param mapping [#to_s]
-    # @return [{Symbol => Set<String>}]
-    def property_mappings_for(availability, mapping:)
-      {}.merge(*@readers.map { |reader|
-        reader.properties(availability: availability).transform_values { |property|
-          property.mappings_for(mapping)
-        }
       })
     end
 
