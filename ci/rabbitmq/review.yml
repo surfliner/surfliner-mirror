@@ -26,6 +26,22 @@ rabbitmq:deploy:ucsd-review:
       --set clusterOperator.extraEnvVarsSecret=rabbitmq-credentials
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
 
+rabbitmq:deploy:ucsb-review:
+  extends:
+    - .rabbitmq:deploy:review
+    - .rabbitmq-chart-deploy
+  environment:
+    name: ucsb.rabbitmq.review/$CI_MERGE_REQUEST_ID
+    url: http://rabbitmq-$CI_MERGE_REQUEST_ID.$UCSB_REVIEW_DOMAIN
+    on_stop: rabbitmq:cleanup:ucsb-review
+    auto_stop_in: 2 days
+  tags:
+    - ucsd
+  variables:
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --set clusterOperator.image.tag=1.14.0-scratch-r8
+      --set clusterOperator.extraEnvVarsSecret=rabbitmq-credentials
+
 rabbitmq:cleanup:ucsd-review:
   extends:
     - .rabbitmq:deploy:review
@@ -40,6 +56,23 @@ rabbitmq:cleanup:ucsd-review:
   variables:
     GIT_STRATEGY: none
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
+  script:
+    - delete
+    - delete_stateful_set_pvcs
+
+rabbitmq:cleanup:ucsb-review:
+  extends:
+    - .rabbitmq:deploy:review
+  environment:
+    name: ucsb.rabbitmq.review/$CI_MERGE_REQUEST_ID
+    url: http://rabbitmq-$CI_MERGE_REQUEST_ID.$UCSB_REVIEW_DOMAIN
+    action: stop
+  tags:
+    - ucsb
+  when: manual
+  allow_failure: true
+  variables:
+    GIT_STRATEGY: none
   script:
     - delete
     - delete_stateful_set_pvcs
