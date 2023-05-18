@@ -76,14 +76,16 @@ postgresql:
     persistence:
       size: 10Gi
     resources:
-      cpu: 1000m
-      memory: 1Gi
+      requests:
+        cpu: 1000m
+        memory: 1Gi
   readReplicas:
     persistence:
       size: 10Gi
     resources:
-      cpu: 1000m
-      memory: 1Gi
+      requests:
+        cpu: 1000m
+        memory: 1Gi
 
 serviceAccount:
   # Specifies whether a service account should be created
