@@ -53,7 +53,7 @@ rabbitmq:cleanup:staging:ucsd:
     action: stop
   when: manual
 
-  rabbitmq:cleanup:staging:ucsb:
+rabbitmq:cleanup:staging:ucsb:
   extends:
     - .rabbitmq:deploy:stage
   variables:
