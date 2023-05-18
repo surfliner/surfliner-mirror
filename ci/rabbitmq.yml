@@ -23,4 +23,4 @@ include:
 .rabbitmq-chart-deploy:
   script:
     - helm repo add bitnami https://charts.bitnami.com/bitnami
-    - deploy bitnami/rabbitmq-cluster-operator
+    - deploy bitnami/rabbitmq

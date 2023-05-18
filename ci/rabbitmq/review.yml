@@ -4,8 +4,8 @@
   extends:
     - .helm3-deploy
   variables:
-    HELM_RELEASE_NAME: rabbitmq-cluster-operator
-    KUBE_NAMESPACE: rabbitmq-system
+    HELM_RELEASE_NAME: rabbitmq-cluster
+    KUBE_NAMESPACE: rabbitmq-review
   rules:
     - !reference [.rabbitmq-mr-rules, rules]
 
@@ -22,8 +22,8 @@ rabbitmq:deploy:ucsd-review:
     - ucsd
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
-      --set clusterOperator.image.tag=1.14.0-scratch-r8
-      --set clusterOperator.extraEnvVarsSecret=rabbitmq-credentials
+      --set auth.username=surfliner
+      --set auth.password=surfliner
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
 
 rabbitmq:deploy:ucsb-review:
@@ -39,8 +39,8 @@ rabbitmq:deploy:ucsb-review:
     - ucsb
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
-      --set clusterOperator.image.tag=1.14.0-scratch-r8
-      --set clusterOperator.extraEnvVarsSecret=rabbitmq-credentials
+      --set auth.username=surfliner
+      --set auth.password=surfliner
 
 rabbitmq:cleanup:ucsd-review:
   extends:
