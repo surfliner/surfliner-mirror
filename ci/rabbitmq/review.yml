@@ -36,7 +36,7 @@ rabbitmq:deploy:ucsb-review:
     on_stop: rabbitmq:cleanup:ucsb-review
     auto_stop_in: 2 days
   tags:
-    - ucsd
+    - ucsb
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
       --set clusterOperator.image.tag=1.14.0-scratch-r8
