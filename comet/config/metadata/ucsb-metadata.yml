@@ -13,8 +13,10 @@ m3_version: "1.0.beta1"
 profile:
   responsibility: https://library.ucsb.edu/
   responsibility_statement: UC Santa Barbara Library
-  date_modified: "2023-05-11"
+  date_modified: "2023-05-18"
   type: UCSB Comet
+  additional_metadata:
+    ogm_provider_name: UC Santa Barbara
   version: 0.5
 
 #---------------------------------------------------------
