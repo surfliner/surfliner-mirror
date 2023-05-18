@@ -21,8 +21,22 @@ rabbitmq:deploy:staging:ucsd:
   variables:
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
     HELM_UPGRADE_EXTRA_ARGS: >
-      --set clusterOperator.image.tag=1.14.0-scratch-r8
-      --set clusterOperator.extraEnvVarsSecret=rabbitmq.credentials
+      --set auth.username=surfliner
+      --set auth.password=surfliner
+
+rabbitmq:deploy:staging:ucsb:
+  extends:
+    - .rabbitmq:deploy:stage
+    - .rabbitmq-chart-deploy
+  environment:
+    name: ucsb.staging.rabbitmq
+    url: https://lib-rabbitmq-staging.ucsb.edu
+  tags:
+    - ucsb
+  variables:
+    HELM_UPGRADE_EXTRA_ARGS: >
+      --set auth.username=surfliner
+      --set auth.password=surfliner
 
 rabbitmq:cleanup:staging:ucsd:
   extends:
@@ -36,5 +50,19 @@ rabbitmq:cleanup:staging:ucsd:
     - delete
   environment:
     name: ucsd.staging.rabbitmq
+    action: stop
+  when: manual
+
+  rabbitmq:cleanup:staging:ucsb:
+  extends:
+    - .rabbitmq:deploy:stage
+  variables:
+    GIT_STRATEGY: none
+  tags:
+    - ucsb
+  script:
+    - delete
+  environment:
+    name: ucsb.staging.rabbitmq
     action: stop
   when: manual
