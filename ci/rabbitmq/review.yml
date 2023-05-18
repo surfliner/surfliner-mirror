@@ -4,7 +4,7 @@
   extends:
     - .helm3-deploy
   variables:
-    HELM_RELEASE_NAME: rabbitmq-review
+    HELM_RELEASE_NAME: surfliner-rabbitmq-review
     KUBE_NAMESPACE: rabbitmq-review
   rules:
     - !reference [.rabbitmq-mr-rules, rules]
