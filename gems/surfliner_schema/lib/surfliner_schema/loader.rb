@@ -28,7 +28,8 @@ module SurflinerSchema
     # @param additional_readers [Array<SurflinerSchema::Reader::Base>]
     def initialize(schema_names = nil, additional_readers: [])
       @readers = (schema_names || self.class.default_schemas).map { |schema|
-        SurflinerSchema::Reader.for(config_for(schema), schema_name: schema)
+        SurflinerSchema::Reader.for(config_for(schema), schema_name: schema,
+          valkyrie_resource_class: self.class.valkyrie_resource_class_for(schema))
       }.concat(additional_readers.to_a)
     end
 
@@ -141,51 +142,26 @@ module SurflinerSchema
     # To use, modify +Valkyrie.config.resource_class_resolver+ to point to this
     # resolver (or that of a subclass).
     #
+    # See also +Reader::Base#resolve+.
+    #
     # @param base_class [Class?]
     # @return [Proc]
-    def resource_class_resolver(base_class: nil)
+    def resource_class_resolver
       lambda do |class_name|
-        availability = availability_from_name(class_name)
-        return default_resource_class_resolver(class_name) if availability.nil?
-
-        camelized = availability.to_s.camelize
-        klass = camelized.safe_constantize
-        return klass unless klass.nil?
-
-        loader = self
-        klass = Class.new(base_class || self.class.resource_base_class) do
-          @availability = availability
-          @class_name = camelized
-          @loader = loader
-
-          include SurflinerSchema::Schema(availability, loader: loader)
-
-          # TODO: Maybe refactor this out into a service as it is not needed in
-          # every situation.
-          include SurflinerSchema::Mappings(availability, loader: loader)
-
-          def initialize(*args, **kwargs)
-            super(*args, **kwargs)
-            self.internal_resource = self.class.to_s # update internal_resource
-          end
-
-          class << self
-            ##
-            # The “availability” symbol corresponding to this model.
-            #
-            # @return [Symbol]
-            attr_reader :availability
-
-            ##
-            # The Ruby class name corresponding to this model.
-            #
-            # @return [String]
-            def to_s
-              @class_name
-            end
-          end
+        klass = @readers.reduce(nil) do |_, reader|
+          result = reader.resolve(class_name)
+          break result if result
         end
+        return default_resource_class_resolver(class_name) unless klass
 
+        # Use the defined const with the same name as the resolved class if one
+        # exists; this allows manual overriding.
+        camelized = klass.to_s
+        defined_const = camelized.safe_constantize
+        return defined_const if defined_const
+
+        # Otherwise, define the const so that it can be more easily accessed
+        # later.
         Object.const_set(camelized, klass)
       end
     end
@@ -203,25 +179,6 @@ module SurflinerSchema
     end
 
     private
-
-    ##
-    # Coerces the provided class name to the name of an M3 conceptual “class”
-    # defined on the schemas for this loader.
-    #
-    # @param class_name {#to_s}
-    # @return {Symbol?}
-    def availability_from_name(class_name)
-      class_division = class_divisions.values.find { |resource_class|
-        resource_class.name.to_s == class_name.to_s ||
-          resource_class.iri && resource_class.iri.to_s == class_name.to_s
-      }
-      if class_division
-        class_division.name
-      else
-        underscored = class_name.to_s.underscore.to_sym
-        underscored if availabilities.include?(underscored)
-      end
-    end
 
     ##
     # A hash mapping M3 conceptual “class” names to SurflinerSchema::Divisions
@@ -322,7 +279,9 @@ module SurflinerSchema
     ##
     # The base class to use for resource class generation (see
     # +.resource_class_resolver+).
-    def self.resource_base_class
+    #
+    # @return [Class]
+    def self.valkyrie_resource_class_for(_schema_name)
       Valkyrie::Resource
     end
 

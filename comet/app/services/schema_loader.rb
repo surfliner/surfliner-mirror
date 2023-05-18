@@ -11,7 +11,7 @@ class SchemaLoader < SurflinerSchema::Loader
     Rails.application.config.metadata_config_schemas
   end
 
-  def self.resource_base_class
+  def self.valkyrie_resource_class_for(_schema_name)
     ::Resource
   end
 end

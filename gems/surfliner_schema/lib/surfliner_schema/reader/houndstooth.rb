@@ -9,7 +9,10 @@ module SurflinerSchema
       # Creates a new simple schema reader given a Houndstooth Hash.
       #
       # @param houndstooth [Hash]
-      def initialize(houndstooth)
+      # @param valkyrie_resource_class [Class]
+      def initialize(houndstooth, valkyrie_resource_class: Valkyrie::Resource)
+        super(valkyrie_resource_class: valkyrie_resource_class)
+
         properties_hash = self.class.property_hash(houndstooth, :properties)
         classes_hash = self.class.property_hash(houndstooth, :classes)
         sections_hash = self.class.property_hash(houndstooth, :sections)

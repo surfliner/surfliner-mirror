@@ -12,6 +12,13 @@ module SurflinerSchema
     autoload :Houndstooth, "surfliner_schema/reader/houndstooth"
     autoload :SimpleSchema, "surfliner_schema/reader/simple_schema"
 
+    attr_reader :valkyrie_resource_class
+
+    def initialize(valkyrie_resource_class: Valkyrie::Resource)
+      super()
+      @valkyrie_resource_class = valkyrie_resource_class
+    end
+
     ##
     # An array of property names.
     #
@@ -78,18 +85,7 @@ module SurflinerSchema
     # @return [{Symbol => Object}]
     def to_struct_attributes(availability:)
       properties(availability: availability).transform_values { |property|
-        if property.range != RDF::RDFS.Literal
-          begin
-            self.class.dry_range(property.range)
-          rescue
-            raise(
-              Error::UnknownRange,
-              "The range #{property.range} on #{property.name} is not recognized."
-            )
-          end
-        else
-          self.class.dry_data_type(property.data_type)
-        end
+        dry_type_for(property)
       }
     end
 
@@ -121,13 +117,110 @@ module SurflinerSchema
     end
 
     ##
+    # A resolver for class names which dynamically creates and defines new
+    # classes as needed when accessing Valkyrie objects.
+    #
+    # If provided, +base_class+ will be used as the base class.
+    #
+    # Availabilities will always resolve to the same classes, so +base_class+
+    # is ignored on subsequent calls for a given availability.
+    #
+    # See +SurflinerSchema::Loader#resource_class_resolver+.
+    #
+    # @param class_name [#to_s]
+    # @return [Class]
+    def resolve(class_name)
+      @resolved_classes ||= {}
+      availability = availability_from_name(class_name)
+      return nil unless availability
+      return @resolved_classes[availability] if @resolved_classes[availability]
+
+      camelized = availability.to_s.camelize
+      struct_attributes = to_struct_attributes(availability: availability)
+      loader = SurflinerSchema::Loader.for_readers([self]) # TODO: get rid of this
+      @resolved_classes[availability] = Class.new(valkyrie_resource_class) do |klass|
+        @availability = availability
+        @class_name = camelized
+
+        klass.attributes(struct_attributes)
+
+        # TODO: Maybe refactor this out into a service as it is not needed in
+        # every situation.
+        include SurflinerSchema::Mappings(availability, loader: loader)
+
+        def initialize(*args, **kwargs)
+          super(*args, **kwargs)
+          self.internal_resource = self.class.to_s # update internal_resource
+        end
+
+        class << self
+          ##
+          # The “availability” symbol corresponding to this model.
+          #
+          # @return [Symbol]
+          attr_reader :availability
+
+          ##
+          # The Ruby class name corresponding to this model.
+          #
+          # @return [String]
+          def to_s
+            @class_name
+          end
+        end
+      end
+    end
+
+    private
+
+    ##
+    # Coerces the provided class name to the name of an M3 conceptual “class”
+    # defined on the schemas for this reader.
+    #
+    # @param class_name {#to_s}
+    # @return {Symbol?}
+    def availability_from_name(class_name)
+      resource_class = resource_classes.values.find { |resource_class|
+        resource_class.name.to_s == class_name.to_s ||
+          resource_class.iri && resource_class.iri.to_s == class_name.to_s
+      }
+      if resource_class
+        resource_class.name
+      else
+        underscored = class_name.to_s.underscore.to_sym
+        underscored if resource_classes.include?(underscored)
+      end
+    end
+
+    ##
+    # Returns the +Dry::Type+ for the provided property.
+    def dry_type_for(property)
+      if property.range != RDF::RDFS.Literal
+        begin
+          self.class.dry_range(property.range)
+        rescue
+          raise(
+            Error::UnknownRange,
+            "The range #{property.range} on #{property.name} is not recognized."
+          )
+        end
+      else
+        self.class.dry_data_type(property.data_type)
+      end
+    end
+
+    public
+
+    ##
     # Returns a +Dry::Type+ for the provided range.
     #
-    # This just calls out to +Valkyrie.config.resource_class_resolver+ to
-    # attempt to resolve the range into a nested Valkyrie resource.
+    # This just calls out to +#resolve+ in an attempt to resolve the range
+    # into a nested Valkyrie resource.
     def self.dry_range(range)
+      resolved_class = resolve(availability: range)
+      raise ArgumentError unless resolved_class
       Valkyrie::Types::Set.of(
-        Valkyrie.config.resource_class_resolver.call(range)
+        resolved_class
       )
     end
 
@@ -191,11 +284,13 @@ module SurflinerSchema
     ##
     # Returns a new +SurflinerSchema::Reader+ resulting from reading the
     # provided config.
-    def self.for(config, schema_name: "<unknown>")
+    def self.for(config, schema_name: "<unknown>", valkyrie_resource_class: Valkyrie::Resource)
       if config.include? "attributes"
-        ::SurflinerSchema::Reader::SimpleSchema.new(config["attributes"].transform_keys(&:to_sym))
+        ::SurflinerSchema::Reader::SimpleSchema.new(config["attributes"].transform_keys(&:to_sym),
+          valkyrie_resource_class: valkyrie_resource_class)
       elsif config.fetch("m3_version", "").start_with?("1.0")
-        ::SurflinerSchema::Reader::Houndstooth.new(config)
+        ::SurflinerSchema::Reader::Houndstooth.new(config,
+          valkyrie_resource_class: valkyrie_resource_class)
       else
         raise(
           Error::NotRecognized,

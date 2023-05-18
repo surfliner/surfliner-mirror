@@ -14,7 +14,7 @@ module Superskunk
       ]
     end
 
-    def self.resource_base_class
+    def self.valkyrie_resource_class_for(_schema_name)
       ::Superskunk::Resource
     end
   end
