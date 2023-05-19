@@ -21,8 +21,7 @@ rabbitmq:deploy:staging:ucsd:
   variables:
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD
     HELM_UPGRADE_EXTRA_ARGS: >
-      --set auth.username=surfliner
-      --set auth.password=surfliner
+      --values charts/snippets/rabbitmq/staging.yml
 
 rabbitmq:deploy:staging:ucsb:
   extends:
@@ -35,8 +34,7 @@ rabbitmq:deploy:staging:ucsb:
     - ucsb
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
-      --set auth.username=surfliner
-      --set auth.password=surfliner
+      --values charts/snippets/rabbitmq/staging.yml
 
 rabbitmq:cleanup:staging:ucsd:
   extends:
