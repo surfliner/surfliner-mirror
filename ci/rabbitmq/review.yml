@@ -22,7 +22,7 @@ rabbitmq:deploy:ucsd-review:
     - ucsd
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
-      --values charts/snippets/rabbitmq/review.yaml
+      --values charts/snippets/rabbitmq/review.yml
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
 
 rabbitmq:deploy:ucsb-review:
@@ -38,7 +38,7 @@ rabbitmq:deploy:ucsb-review:
     - ucsb
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
-      --values charts/snippets/rabbitmq/review.yaml
+      --values charts/snippets/rabbitmq/review.yml
 
 rabbitmq:cleanup:ucsd-review:
   extends:
