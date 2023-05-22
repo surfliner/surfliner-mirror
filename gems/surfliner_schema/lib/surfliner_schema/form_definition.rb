@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "delegate"
-
 module SurflinerSchema
   ##
   # A wrapper for +SurflinerSchema::Property+ which provides additional form

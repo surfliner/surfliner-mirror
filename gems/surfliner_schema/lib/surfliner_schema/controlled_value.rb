@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "valkyrie"
-
 module SurflinerSchema
   ##
   # A single, schema‐defined value for use in a property’s “controlled values”.

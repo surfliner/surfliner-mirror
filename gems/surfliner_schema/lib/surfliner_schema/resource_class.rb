@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "valkyrie"
-
 module SurflinerSchema
   ##
   # A conceptual “class” of resource, as defined by M3.

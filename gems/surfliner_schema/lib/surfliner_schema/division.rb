@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "delegate"
-
 module SurflinerSchema
   ##
   # A class, section, grouping, etc enumerable which delegates back to the

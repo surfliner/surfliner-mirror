@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require "active_support"
-require "valkyrie"
-require "yaml"
-
 module SurflinerSchema
   ##
   # The schema loader.

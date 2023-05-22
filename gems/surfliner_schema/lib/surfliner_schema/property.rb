@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "valkyrie"
-
 module SurflinerSchema
   ##
   # A metadata property definition.
