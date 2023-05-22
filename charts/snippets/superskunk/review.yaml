@@ -3,3 +3,11 @@ consumers:
   keys:
     - name: tidewater
       secretName: superskunk-default-tidewater-keypair
+
+postgresql:
+  primary:
+    persistence:
+      enabled: false
+  readReplicas:
+    persistence:
+      enabled: false

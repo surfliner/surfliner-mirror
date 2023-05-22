@@ -6,6 +6,7 @@ consumer:
   enabled: false
   rabbitmq:
     host: surfliner-rabbitmq-review.rabbitmq-review.svc
+
 geoserver:
   admin:
     username: admin
@@ -20,9 +21,14 @@ geoserver:
      memory: 512M
   persistence:
     enabled: false
+
 postgresql:
   primary:
     persistence:
       enabled: false
+  readReplicas:
+    persistence:
+      enabled: false
+
 minio:
   enabled: true
