@@ -16,6 +16,15 @@ describe SurflinerSchema::Reader::SimpleSchema do
     let(:loader) { loader_class.new([:simple_schema]) }
     let(:reader) { loader.readers[0] }
 
+    it "has an empty profile" do
+      expect(reader.profile.responsibility).to be_nil
+      expect(reader.profile.responsibility_statement).to be_nil
+      expect(reader.profile.date_modified).to be_nil
+      expect(reader.profile.type).to be_nil
+      expect(reader.profile.version).to be_nil
+      expect(reader.profile.additional_metadata).to eq({})
+    end
+
     it "derives display labels" do
       properties = reader.properties(availability: :generic_object)
       expect(properties[:date_uploaded].display_label).to eq "Date Uploaded"

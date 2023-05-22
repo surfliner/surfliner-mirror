@@ -20,6 +20,14 @@ module SurflinerSchema
     end
 
     ##
+    # The +SurflinerSchema::Profile+ associated with this reader.
+    #
+    # @return [SurflinerSchema::Profile?]
+    def profile
+      @profile ||= SurflinerSchema::Profile.new
+    end
+
+    ##
     # An array of property names.
     #
     # @param availability [Symbol]

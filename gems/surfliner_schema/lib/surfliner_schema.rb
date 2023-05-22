@@ -16,6 +16,7 @@ module SurflinerSchema
   require "surfliner_schema/mapping"
   require "surfliner_schema/mappings"
   require "surfliner_schema/property"
+  require "surfliner_schema/profile"
   require "surfliner_schema/reader"
   require "surfliner_schema/resource_class"
   require "surfliner_schema/schema"

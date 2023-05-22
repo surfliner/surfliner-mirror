@@ -1,5 +1,14 @@
 m3_version: "1.0.beta1"
 
+profile:
+  responsibility: https://gitlab.com/surfliner
+  responsibility_statement: the Project Surfliner team
+  date_modified: "2023-05-22"
+  type: testdata
+  version: testing
+  additional_metadata:
+    my_custom_field: My completely arbitrary custom value
+
 classes:
   - name: Collection
   - name: GenericWork

@@ -15,6 +15,15 @@ describe SurflinerSchema::Reader::Houndstooth do
   let(:loader) { loader_class.new([:houndstooth]) }
   let(:reader) { loader.readers[0] }
 
+  it "has the correct profile" do
+    expect(reader.profile.responsibility).to eq "https://gitlab.com/surfliner"
+    expect(reader.profile.responsibility_statement).to eq "the Project Surfliner team"
+    expect(reader.profile.date_modified).to eq Date.new(2023, 5, 22)
+    expect(reader.profile.type).to eq :testdata
+    expect(reader.profile.version).to eq "testing"
+    expect(reader.profile.additional_metadata).to include my_custom_field: "My completely arbitrary custom value"
+  end
+
   it "correctly determines availability" do
     expect(reader.names(availability: :GenericWork)).to contain_exactly(
       :title,

@@ -5,6 +5,8 @@ module SurflinerSchema
     ##
     # A reader for a Houndstooth/M3 YAML schema.
     class Houndstooth < SurflinerSchema::Reader
+      attr_reader :profile
+
       ##
       # Creates a new simple schema reader given a Houndstooth Hash.
       #
@@ -18,6 +20,13 @@ module SurflinerSchema
         sections_hash = self.class.property_hash(houndstooth, :sections)
         groupings_hash = self.class.property_hash(houndstooth, :groupings)
         mappings_hash = self.class.property_hash(houndstooth, :mappings)
+
+        # Generate the profile metadata.
+        profile_hash = houndstooth.fetch("profile", {}).deep_symbolize_keys
+        if profile_hash.include?(:date_modified)
+          profile_hash[:date_modified] = Date.parse(profile_hash[:date_modified])
+        end
+        @profile = Profile.new(**profile_hash)
 
         # Generate the classes.
         @resource_classes = classes_hash.each_with_object({}) do |(name, config), dfns|
