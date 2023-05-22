@@ -16,16 +16,6 @@
     kubectl --kubeconfig $KUBECONFIG -n $KUBE_NAMESPACE apply -f -
   }
 
-  create_bitnami_rabbitmq_cluster() {
-    if kubectl --kubeconfig $KUBECONFIG get rabbitmqclusters.rabbitmq.com/$RABBITMQ_RELEASE_NAME -n $KUBE_NAMESPACE; then
-      echo "RABBITMQ CLUSTER EXISTS $RABBITMQ_RELEASE_NAME"
-      return 0
-    fi
-    echo "CREATING RABBITMQ CLUSTER $RABBITMQ_RELEASE_NAME"
-    sed "s/NAME/$RABBITMQ_RELEASE_NAME/" util/bitnami-rabbitmq-instance.yml |\
-    kubectl --kubeconfig $KUBECONFIG -n $KUBE_NAMESPACE apply -f -
-  }
-
 .rabbitmq-cluster:
   stage: maintanence
   extends:
@@ -34,15 +24,6 @@
     - *rabbitmq_helpers
     - create_rabbitmq_namespace
     - create_rabbitmq_cluster
-
-.bitnami-rabbitmq-cluster:
-  stage: maintanence
-  extends:
-    - .helm3-deploy
-  script:
-    - *rabbitmq_helpers
-    - create_rabbitmq_namespace
-    - create_bitnami_rabbitmq_cluster
 
 .rabbitmq-review:
   variables:
