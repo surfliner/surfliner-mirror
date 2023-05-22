@@ -176,9 +176,9 @@ properties:
   - &creator_geospatial
     <<: *agent_creator
     name: "creator_geo"
-    requirement: "recommended"
     definition: "This field represents the originator that will be uploaded to the ISO XML."
-    usage_guidelines: "add"
+    #usage_guidelines: "add"
+    requirement: "recommended"
     sample_value:
       - Consejo Nacional de Áreas Protegidas (Guatemala)
     available_on:
@@ -270,18 +270,18 @@ properties:
       - generic_object
 
   - &publisher_geospatial
-    <<: *agent_publisher #check that this is the right property name
+    <<: *agent_publisher
     name: "publisher_geo"
-    requirement: "recommended"
     definition: "add"
-    usage_guidelines: "add"
+    #usage_guidelines: "add"
+    requirement: "recommended"    
     sample_value:
       - San Diego County (Calif.)
-    available_on:
-      - geospatial_object
     mapping: 
       aardvark: http://purl.org/dc/terms/publisher
       #aardvark predicate: dct_publisher_sm
+    available_on:
+      - geospatial_object
 
 # ### Date properties:
 
@@ -309,16 +309,16 @@ properties:
   - &date_index_geospatial
     name: "date_index_geo"
     display_label: "Index Year"
+    #definition: "add"
+    #usage_guidelines: "add"
     requirement: "recommended"
-    definition: "add"
-    usage_guidelines: "add"
     sample_value:
       - 2002
-    available_on:
-      - geospatial_object
     mapping: 
       aardvark: http://purl.org/dc/terms/publisher #update to correct uri
       #aardvark predicate: gbl_indexYear_im
+    available_on:
+      - geospatial_object
   
   - &creation_date
     name: "creation_date"
@@ -366,7 +366,6 @@ properties:
     name: "date_issued_geo"
     usage_guidelines: "Use the year (YYYY) the object was made available in the DAMS.  For continuing collections (i.e., ongoing collections with no set end date), use the year in which the collection was first published" #update
     requirement: optional
-    section: dates
     cardinality: 
       minimum: 0
       maximum: 1
@@ -379,10 +378,6 @@ properties:
     <<: *date_issued
     name: "date_issued_rdcp"
     usage_guidelines: "Use the year (YYYY) the object was made available in the DAMS.  For continuing collections (i.e., ongoing collections with no set end date), use the year in which the collection was first published"
-    cardinality: 
-      minimum: 0
-      maximum: null
-    mapping:
     available_on:
       - rdcp_object
 
@@ -433,11 +428,11 @@ properties:
     <<: *note_description
     name: "description_geo"
     requirement: recommended
-    available_on:
-    - geospatial_object
     mapping:
       aardvark: http://purl.org/dc/terms/description
       #aardvark predicate: dct_description_sm
+    available_on:
+    - geospatial_object
 
   - &note_inscription
     name: "note_inscription"
@@ -501,7 +496,6 @@ properties:
     name: "note_preferred_citation_rdcp"
     usage_guidelines: "Follow format: Creators/authors names. Year issued. DAMS Collection or object that is desired to be cited. Full hyperlink to DOI or resolvable ARK link  "
     # sample_value: "Russell, Lynn M; Betha, Raghu; Sanchez, Kevin J; Liu, Jun; Price, Derek J; Chen, Chia-Li; Lee, Alex (2017): Aerosol Composition and Size Measurements at Fresno and Fontana. UC San Diego Library Digital Collections. https://doi.org/10.6075/J0VX0DF9"
-    mapping:
     available_on:
       - rdcp_object
 
@@ -586,7 +580,6 @@ properties:
     <<: *note_technical_details
     name: "note_technical_details_rdcp"
     usage_guidelines: "For scripts and software, provide all information about hardware and software requirements to run it. This includes code language version (e.g. python 3.6), as well as any necessary softare libraries and their versions (e.g. matplotlib 2.1). Usually this information is contained in a readme, but can also be asked from the data provider"
-    mapping:
     available_on:
       - rdcp_object
 
@@ -755,12 +748,12 @@ properties:
   - &format_geospatial
     name: "format_geo"
     display_label: "Format"
-    definition: "?" #add
-    usage_guidelines: "?" #add
+    #definition: "add"
+    #usage_guidelines: "add"
     requirement: required if applicable
+    sample_value: "Shapefile, KMZ, DVD, CD-ROM, etc."
     # controlled_values:
      # sources: https://opengeometadata.org/docs/ogm-aardvark/ 
-    sample_value: "Shapefile, KMZ, DVD, CD-ROM, etc."
     #cardinality: 
       #minimum: 0
       #maximum: 1
@@ -799,11 +792,11 @@ properties:
     <<: *language
     name: "language_geo"
     requirement: optional
-    available_on:
-     - geospatial_object
     mapping:
       aardvark: http://purl.org/dc/elements/1.1/language
       #aardvark predicate: dct_language_sm
+    available_on:
+     - geospatial_object
 
 # ### Subject properties:
 
@@ -829,17 +822,10 @@ properties:
 
   - &subject_topic_geospatial
     <<: *subject_topic
-    name: "subject_topic_geo"  
-    # range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: http://www.w3.org/2001/XMLSchema#string
+    name: "subject_topic_geo"
     display_label: "Subject"
-    definition: "A topic or subject of the resource."
     requirement: optional
     # sample_value: "Transportation"
-    cardinality: 
-      minimum: 0
-      maximum: null
-    section: subjects
     mapping:
       aardvark: http://purl.org/dc/terms/subject
      # d4-templates: Subject:topic; Subject:common name
@@ -908,11 +894,11 @@ properties:
     <<: *subject_temporal
     name: "subject_temporal_geo"
     requirement: recommended # aardvark says "suggested"
-    available_on:
-      - geospatial_object
     mapping:
       #aardvark: http://puttheurihere
       #aardvark predicate: dct_temporal_sm
+    available_on:
+      - geospatial_object
 
 # including subject_keyword as a base element for &subject_keyword_geospatial - should be evaluated for application to non geospatial objects
   - &subject_keyword
@@ -1427,6 +1413,7 @@ properties:
     display_label: "Rights"
     definition: "This field is intended to be flexible to accommodate different types of rights and disclaimers. Users are encouraged to adopt one of the rightsstatements.org statements."
     usage_guidelines: "Enter free text of generic, catch-all access and usage rights. It can include clickable links; all access and usage rights."
+    section: rights
 
   - &rights_note_geospatial
     <<: *rights_note
@@ -1435,7 +1422,6 @@ properties:
     cardinality: 
       minimum: 0
       maximum: null
-    section: rights
     mapping:
       aardvark: http://purl.org/dc/terms/rights
       #aardvark predicate: dct_rights_sm
