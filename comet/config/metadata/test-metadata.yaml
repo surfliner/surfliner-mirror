@@ -24,12 +24,14 @@ m3_version: 1.0.beta1
 # regarding the schema, but Comet does not currently recognize or use this
 # information.
 #
-# profile:
-#   responsibility: "https://surfliner.ucsd.edu"
-#   responsibility_statement: "Project Surfliner"
-#   date_modified: 2023-01-11
-#   type: "Surfliner Demo"
-#   version: 0.0
+profile:
+  responsibility: https://gitlab.com/surfliner
+  responsibility_statement: the Project Surfliner team
+  date_modified: "2023-05-22"
+  type: testdata
+  version: testing
+  additional_metadata:
+    ogm_provider_name: Surfliner Team
 
 # SCHEMA DEFINITION
 # ==============================================================================
