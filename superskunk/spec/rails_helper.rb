@@ -28,7 +28,7 @@ Valkyrie::MetadataAdapter
 
 ##
 # Finds FileMetadata objects by #file_identifier for the memory adapter
-class MemoryFindFileMetadata < CustomQueries::FindFileMetadata
+class MemoryFindFileMetadata < Superskunk::CustomQueries::FindFileMetadata
   def find_file_metadata(file_id)
     query_service.cache.find do |_key, resource|
       Array(resource.try(:file_identifier)).include?(file_id)
