@@ -193,6 +193,8 @@ class AardvarkSerializer < ResourceSerializer
       when :dct_title_s
         # At present, +:dct_title_s+ is provided by Hyrax, not the schema.
         mapping += resource.title.to_a
+      when :schema_provider_s
+        mapping = Array(resource.class.reader.profile.to_h.dig(:additional_metadata, :ogm_provider_name))
       end
 
       # Cast mappings to the appropriate types.

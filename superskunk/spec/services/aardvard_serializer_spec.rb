@@ -53,4 +53,14 @@ RSpec.describe AardvarkSerializer do
       expect(serialized_aardvark[:pcdm_memberOf_sm]).to be_nil
     end
   end
+
+  context "with an m3 schema that specifies ogm_provider_name" do
+    let(:title) { "A geospatial object with an ogm_provider_name specified" }
+    let(:resource) {
+      persister.save(resource: GeospatialObject.new(title: [title]))
+    }
+    it "populates the schema_provider_s property" do
+      expect(serialized_aardvark[:schema_provider_s]).to eq("Surfliner Team")
+    end
+  end
 end
