@@ -29,9 +29,11 @@ module CustomQueries
     # @return [Array<Valkyrie::Resource>]
     def find_parent_work(resource:)
       results = Superskunk.comet_query_service.find_inverse_references_by(resource: resource,
-        property: :member_ids).select(&:work?)
+        property: :member_ids).select do | r |
+        r.respond_to(:work?) && r.work?
+      end
       if results.count > 1
-        Rails.logger.warn("#{resource.work? ? "Work" : "File set"} " \
+        Rails.logger.warn("#{resource.class.name"} " \
                           "#{resource.id} is in #{results.count} works when it " \
                           "should be in no more than one.")
       end
