@@ -77,7 +77,7 @@ sections:
   - name: title
     display_label: Title information
   - name: contributors
-    display_label: Creators and contributors      
+    display_label: Creators and contributors
   - name: dates
     display_label: Dates
   - name: notes
@@ -100,7 +100,7 @@ properties:
 # ### Titling properties:
 
   - &title_subtitle
-    name: "title_subtitle"  
+    name: "title_subtitle"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Subtitle"
@@ -108,7 +108,7 @@ properties:
     usage_guidelines: "Use a string that captures the subtitle"
     # requirement: Required
     # sample_value: "front view"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: title
@@ -120,13 +120,13 @@ properties:
       - rdcp_object
 
   - &title_alternative
-    name: "title_alternative"  
+    name: "title_alternative"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Alternative Title"
     definition: "An alternative title for the resource."
     # sample_value: "Rambird, 1986"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: title
@@ -151,14 +151,14 @@ properties:
 # ### Agent properties:
 
   - &agent_creator
-    name: "agent_creator"  
+    name: "agent_creator"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Creator"
     definition: "A person or organization responsible for creating the resource."
     usage_guidelines: "Can be used when lacking specific information on an agent's exact role in creating the resource."
     # sample_value: "Alphabet, Inc."
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: contributors
@@ -185,11 +185,11 @@ properties:
       - geospatial_object
 
   - &agent_pi
-    name: "agent_pi"  
+    name: "agent_pi"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Primary Investigator"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: contributors
@@ -200,11 +200,11 @@ properties:
       - rdcp_object
 
   - &agent_author
-    name: "agent_author"  
+    name: "agent_author"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Author"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: contributors
@@ -216,11 +216,11 @@ properties:
       - rdcp_object
 
   - &agent_photographer
-    name: "agent_photographer"  
+    name: "agent_photographer"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Photographer"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: contributors
@@ -231,14 +231,14 @@ properties:
       - generic_object
 
   - &agent_contributor
-    name: "agent_contributor"  
+    name: "agent_contributor"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Contributor"
     definition: "A person or organization responsible for making contributions to the resource."
     usage_guidelines: "Use as the broadest possible role, i.e. when lacking specific information on an agent's role, or the role is unclear or unknown. If a more specific role is available, prefer that, e.g. editor, compiler, illustrator."
     # sample_value: "Smith, Joe S."
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: contributors
@@ -252,12 +252,12 @@ properties:
       - rdcp_object
 
   - &agent_publisher
-    name: "agent_publisher"  
+    name: "agent_publisher"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Publisher"
     definition: "A person or organization responsible for publishing the resource."
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: contributors
@@ -274,10 +274,10 @@ properties:
     name: "publisher_geo"
     definition: "add"
     #usage_guidelines: "add"
-    requirement: "recommended"    
+    requirement: "recommended"
     sample_value:
       - San Diego County (Calif.)
-    mapping: 
+    mapping:
       aardvark: http://purl.org/dc/terms/publisher
       #aardvark predicate: dct_publisher_sm
     available_on:
@@ -286,14 +286,14 @@ properties:
 # ### Date properties:
 
   - &date_collection
-    name: "date_collection"  
+    name: "date_collection"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://id.loc.gov/datatypes/edtf/EDTF
     display_label: "Date Collected"
     definition: "The date that the physical or digital materials represented by the object were collected."
     usage_guidelines: "Can be used to record when materials were collected, or when a researcher or when data was observed/collected/analyzed."
     # sample_value: "June 1, 2013 to July, 18 2013"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: dates
@@ -314,12 +314,12 @@ properties:
     requirement: "recommended"
     sample_value:
       - 2002
-    mapping: 
+    mapping:
       aardvark: http://purl.org/dc/terms/publisher #update to correct uri
       #aardvark predicate: gbl_indexYear_im
     available_on:
       - geospatial_object
-  
+
   - &creation_date
     name: "creation_date"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
@@ -327,7 +327,7 @@ properties:
     display_label: "Creation Date"
     definition: "A date associated with the creation of the resource."
     usage_guidelines: "The date the resource was created"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: dates
@@ -348,7 +348,7 @@ properties:
     definition: "The year in which the resource was issued (e.g., the year a digital collection was first viewable by the public)."
     usage_guidelines: "Date representing when the material was published or issued by the original creator"
     # sample_value: "2017.0"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: dates
@@ -366,10 +366,10 @@ properties:
     name: "date_issued_geo"
     usage_guidelines: "Use the year (YYYY) the object was made available in the DAMS.  For continuing collections (i.e., ongoing collections with no set end date), use the year in which the collection was first published" #update
     requirement: optional
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: 1
-    mapping: 
+    mapping:
       #aardvark predicate: dct_issued_s
     available_on:
       - geospatial_object
@@ -389,7 +389,7 @@ properties:
     definition: "The date of the event depicted in the resource."
     usage_guidelines: "Typically these dates are for objects representing a performance or other event"
     # sample_value: "1908-04-08T00:00-08:00"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: dates
@@ -411,7 +411,7 @@ properties:
     definition: "A description or summary of a resource"
     usage_guidelines: "Used for descriptions which provide 'a summary of the content of a resource'. This includes - abstracts, descriptions, summaries or scope and contents information.  When the content provider distinguishes between scope and contents information and abstract/description/summary information, keep them separate using a Note type 'scope and content' attribute."
     # sample_value: "A alteration by unnamed student(s) intended as a parody of De Saint Phalle's Sun God."
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: notes
@@ -442,7 +442,7 @@ properties:
     definition: "Words, numbers, symbols, stamps, and marks applied to the object during or after creation, whether by the artist or architect, his agent, or an owner or other later hand."
     usage_guidelines: "Transcribe from item.  If needed and available contextual information about the type/source of inscription (signature, inscribed by author, annotations, etc.) can be added to the note text."
     # sample_value: "Mrs. D.J. Chase 613 Belden St. Peekskill New York"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: notes
@@ -454,14 +454,14 @@ properties:
       - generic_object
 
   - &note_location_of_originals
-    name: "note_location_of_originals"  
+    name: "note_location_of_originals"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Location of Originals"
     definition: "Information on the physical arrangement of the source materials used to create the object. Can also contain location and contact information for the user to request access to the materials."
     usage_guidelines: "Physical location and arrangement of the original/archival resources "
     # sample_value: "This digital image is a surrogate of an item from the Leo Szilard Papers (MSS 32, Box 18, Folder 30)."
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: notes
@@ -473,14 +473,14 @@ properties:
       - generic_object
 
   - &note_preferred_citation
-    name: "note_preferred_citation"  
+    name: "note_preferred_citation"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Cite this Work"
     definition: "Citation to use for referencing the resource."
     usage_guidelines: "Record a citation for the user in order for them to cite the resource at hand. Although there is no required format, it should adhere to general citation guidelines for internet resources, and use full/valid URLs when possible"
     # sample_value: "Keen, Eric M; Wray, Janie; Meuter, Hermann; Thompson, Kim-Ly; Barlow, Jay P; Picard, Chris R (2017): Data from: 'Whale Wave': shifting strategies structure the complex use of critical fjord habitat by humpbacks. UC San Diego Library Digital Collections. http://doi.org/10.6075/J0GT5K3B"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: notes
@@ -500,14 +500,14 @@ properties:
       - rdcp_object
 
   - &note_scope_and_content
-    name: "note_scope_and_content"  
+    name: "note_scope_and_content"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Scope and Content"
     definition: "Describes the primary content of a collection or resource"
     usage_guidelines: "Typically this is broader coverage than an arrangement note, and contains information about scope and content in a general sense. To describe how a file or directory is strucured, for instance, an arrangement note is more appropriate"
     # sample_value: "The dataMares Collection contains a selection of datasets associated with scientific research, some of which is featured at http://datamares.ucsd.edu. "
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: notes
@@ -520,14 +520,14 @@ properties:
       - rdcp_object
 
   - &note_methods
-    name: "note_methods"  
+    name: "note_methods"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Methods"
     definition: "Information on the methods in which the researcher carried out their research, in relation to the resource."
     usage_guidelines: "Information on the methods in which the researcher carried out their research, in relation to the resource."
     # sample_value: "Acoustic backscattering data were collected between stations using a hull-mounted Simrad EK60 split-beam echo sounder"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: notes
@@ -539,14 +539,14 @@ properties:
       - generic_object
 
   - &note_physical_description
-    name: "note_physical_description"  
+    name: "note_physical_description"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Physical Description"
     definition: "Physical description of the described item, including its extent, dimensions, and such other physical details as a description of any accompanying materials and unit type and size."
     usage_guidelines: "Record physical characteristics of the object represented, may include, extent, material type (negative, reel to reel, etc.,) and other details."
     # sample_value: "1 sound tape reel : analog, 7 1/2 ips 5 in., 1/2 in. tape"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: notes
@@ -558,14 +558,14 @@ properties:
       - generic_object
 
   - &note_technical_details
-    name: "note_technical_details"  
+    name: "note_technical_details"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Technical Details"
     definition: "Information that can reflect technical requirements needed to use the resource (both software and hardware). Can also provide information about anomalies, bugs, and other issues that are known about the files in the digital object."
     usage_guidelines: "Use to record technical aspects or requirements for the resource. This note can be used to express details about the digital file itself, such as anomalies the user should be warned about (e.g. image corruption/artifacts, audio corruption.)"
     # sample_value: "R routines were run in R 3.1.2 "
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: notes
@@ -584,14 +584,14 @@ properties:
       - rdcp_object
 
   - &note_funding
-    name: "note_funding"  
+    name: "note_funding"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Funding"
     definition: "Information identifying organizations that have funded the creation of a resource."
     usage_guidelines: "Information identifying organizations that have funded (grants, etc.) the creation of a resource."
     # sample_value: "California Air Resources Board (Agreement No: 13-330)"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: notes
@@ -604,14 +604,14 @@ properties:
       - rdcp_object
 
   - &note_arrangement
-    name: "note_arrangement"  
+    name: "note_arrangement"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Arrangement"
     definition: "Information about the intellectual organization and arrangement of the object in a collection. "
     usage_guidelines: "The resources place in the intellectual arrangement or the original/archival resources"
     # sample_value: "Located in Series 10) Audiovisual Materials, subseries A) Audiotapes."
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: notes
@@ -623,14 +623,14 @@ properties:
       - generic_object
 
   - &note_note
-    name: "note_note"  
+    name: "note_note"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Note"
     definition: "General textual information relating to a resource"
     usage_guidelines: "General textual information relating to a resource.  Multiple notes will be displayed, unordered, under a single 'Note' header in the UI. "
     # sample_value: "Title derived from original collection inventory."
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: notes
@@ -642,13 +642,13 @@ properties:
       - generic_object
 
   - &note_table_of_contents
-    name: "note_table_of_contents"  
+    name: "note_table_of_contents"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Table of Contents"
     definition: "A list of subunits of the resource."
     # sample_value: "1. Beginnings 2. The Academic Plan 3. The 1966 Revision 4. Conclusion"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: notes
@@ -660,14 +660,14 @@ properties:
       - generic_object
 
   - &note_credits
-    name: "note_credits"  
+    name: "note_credits"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Credits"
     definition: "Information in note form of credits for persons or organizations who have participated in the creation and/or production of the resource."
     usage_guidelines: "Credits for persons or organizations who have participated in the creation and/or production of the resource.  Not needed if entities are linked individually as creators, contributors, or other roles.  For performances, use 'Performer note.'"
     # sample_value: "Roger Reynolds, Bryan Reynolds, Joshua Tonies, Nick Drashner, Andy Muehlhausen, Trevor Henthorn, Hunjoo Jung, Tracy Cornish"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: notes
@@ -681,7 +681,7 @@ properties:
 # ### Type, format, language properties:
 
   - &type_of_resource
-    name: "type_of_resource"  
+    name: "type_of_resource"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Formats"
@@ -690,7 +690,7 @@ properties:
     # sample_value: "Still Image"
     # controlled_values:
       # sources: https://id.loc.gov/vocabulary/resourceTypes.html
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     mapping:
@@ -713,8 +713,8 @@ properties:
     requirement: required
     sample_value: "Dataset"
     # controlled_values:
-      # sources: https://opengeometadata.org/docs/ogm-aardvark/resource-type 
-    cardinality: 
+      # sources: https://opengeometadata.org/docs/ogm-aardvark/resource-type
+    cardinality:
       minimum: 0
       maximum: null
     mapping:
@@ -725,7 +725,7 @@ properties:
       - geospatial_object
 
   - &resource_type_geospatial
-    name: "resource_type_geo"  
+    name: "resource_type_geo"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Resource Type"
@@ -735,7 +735,7 @@ properties:
     sample_value: "Bathymetric maps"
     # controlled_values:
       # sources: https://opengeometadata.org/docs/ogm-aardvark/resource-type
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     mapping:
@@ -753,8 +753,8 @@ properties:
     requirement: required if applicable
     sample_value: "Shapefile, KMZ, DVD, CD-ROM, etc."
     # controlled_values:
-     # sources: https://opengeometadata.org/docs/ogm-aardvark/ 
-    #cardinality: 
+     # sources: https://opengeometadata.org/docs/ogm-aardvark/
+    #cardinality:
       #minimum: 0
       #maximum: 1
     mapping:
@@ -774,7 +774,7 @@ properties:
     sample_value: "eng"
     # controlled_values:
       # sources: https://id.loc.gov/vocabulary/iso639-2.html
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     mapping:
@@ -801,13 +801,13 @@ properties:
 # ### Subject properties:
 
   - &subject_topic
-    name: "subject_topic"  
+    name: "subject_topic"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Topic"
     definition: "A topic or subject of the resource."
     # sample_value: "American poetry"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: subjects
@@ -834,14 +834,14 @@ properties:
       - geospatial_object
 
   - &subject_name
-    name: "subject_name"  
+    name: "subject_name"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Name"
     definition: "The name of a person or corporate entity that the resource is about."
     usage_guidelines: "Ensure that if a name occurs more than once in a collection, it appears in the exact same form to avoid creation of duplicate authority records"
     # sample_value: "Einstein, Albert, 1879-1955"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: subjects
@@ -853,14 +853,14 @@ properties:
       - generic_object
 
   - &subject_spatial
-    name: "subject_spatial"  
+    name: "subject_spatial"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Geographic Subject"
     definition: "Spatial characteristics of described resource, such as a country, city, region, address or other geographical term. Captures aboutness."
     usage_guidelines: "Place followed in parentheses by its next highest division (so a state for a city in the US, a country or region for other cities)."
     # sample_value: "Jalisco (Mexico)"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: subjects
@@ -915,7 +915,7 @@ properties:
     <<: *subject_keyword
     name: "subject_keyword_geo"
     requirement: optional
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     mapping:
@@ -928,14 +928,14 @@ properties:
 # ### Identifier properties:
 
   - &identifier_ark
-    name: "identifier_ark"  
+    name: "identifier_ark"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "ARK"
     definition: "An ARK identifier for an object."
     usage_guidelines: "If pointing to a related DAMS object, use related resource instead"
     # sample_value: "bb1234567x"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: identifiers
@@ -950,14 +950,14 @@ properties:
       - geospatial_object
 
   - &identifier_doi
-    name: "identifier_doi"  
+    name: "identifier_doi"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "DOI"
     definition: "A Digital Object Identifier for the object"
     usage_guidelines: "Do not use this identifier if already specified in a preferred citation"
     # sample_value: "19671209__01"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: identifiers
@@ -973,14 +973,14 @@ properties:
       - geospatial_object
 
   - &identifier_file_name
-    name: "identifier_file_name"  
+    name: "identifier_file_name"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Filename"
     definition: "A source file name for the file of an object"
     usage_guidelines: "Only use when the original filenames are important and have been altered"
     # sample_value: "19600122"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: identifiers
@@ -993,11 +993,11 @@ properties:
       - generic_object
 
   - &identifier_orcid
-    name: "identifier_orcid"  
+    name: "identifier_orcid"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "ORCID"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: identifiers
@@ -1016,19 +1016,19 @@ properties:
     definition: "An indication of whether or not a scanned map or other imagery has a georeferenced version."
     requirement: optional
     # sample_value: "false"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: geographics
     mapping:
       aardvark: https://opengeometadata.org/docs/ogm-aardvark/georeferenced
      # d4-templates: n/a
-     #aardvark predicate: gbl_georeferenced_b 
+     #aardvark predicate: gbl_georeferenced_b
     available_on:
       - geospatial_object
 
   - &bounding_box_west
-    name: "bounding_box_west"  
+    name: "bounding_box_west"
     # range: http://www.w3.org/2001/XMLSchema#float
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Bounding Box Westernmost"
@@ -1036,13 +1036,13 @@ properties:
     usage_guidelines: "This value displays the westernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
     # requirement: Optional
     # sample_value: "-91.252774"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: geographics
     mapping:
       aardvark: https://www.w3.org/ns/dcat#bbox|http://www.w3.org/ns/locn#Geometry # field maps to two aardvark porperties - not sure if we can include both or only one (and if one, which)
-      #aardvark-documentation: https://opengeometadata.org/ogm-aardvark/#bounding-box 
+      #aardvark-documentation: https://opengeometadata.org/ogm-aardvark/#bounding-box
       #aardvark predicate: dcat_bbox; locn_geometry
       #d4-templates: n/a
     available_on:
@@ -1057,7 +1057,7 @@ properties:
       - geospatial_object
 
   - &bounding_box_east
-    name: "bounding_box_east"  
+    name: "bounding_box_east"
     # range: http://www.w3.org/2001/XMLSchema#float
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Bounding Box Easternmost"
@@ -1065,18 +1065,18 @@ properties:
     usage_guidelines: "This value displays the easternmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
     # requirement: Optional
     # sample_value: "-89.137868"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: geographics
     mapping:
       aardvark: https://www.w3.org/ns/dcat#bbox|http://www.w3.org/ns/locn#Geometry # field maps to two aardvark porperties - not sure if we can include both or only one (and if one, which)
-      #aardvark-documentation: https://opengeometadata.org/ogm-aardvark/#bounding-box 
+      #aardvark-documentation: https://opengeometadata.org/ogm-aardvark/#bounding-box
       #aardvark predicate: dcat_bbox; locn_geometry
     available_on:
       - generic_object
       - rdcp_object
-  
+
   - &bounding_box_east_geospatial
     <<: *bounding_box_east
     name: "bounding_box_east_geo"
@@ -1085,7 +1085,7 @@ properties:
       - geospatial_object
 
   - &bounding_box_north
-    name: "bounding_box_north"  
+    name: "bounding_box_north"
     # range: http://www.w3.org/2001/XMLSchema#float
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Bounding Box Northernmost"
@@ -1093,13 +1093,13 @@ properties:
     usage_guidelines: "This value displays the northernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
     # requirement: Optional
     # sample_value: "17.839753"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: geographics
     mapping:
       aardvark: https://www.w3.org/ns/dcat#bbox|http://www.w3.org/ns/locn#Geometry # field maps to two aardvark porperties - not sure if we can include both or only one (and if one, which)
-      #aardvark-documentation: https://opengeometadata.org/ogm-aardvark/#bounding-box 
+      #aardvark-documentation: https://opengeometadata.org/ogm-aardvark/#bounding-box
       #aardvark predicate: dcat_bbox; locn_geometry
     available_on:
       - generic_object
@@ -1113,7 +1113,7 @@ properties:
       - geospatial_object
 
   - &bounding_box_south
-    name: "bounding_box_south"  
+    name: "bounding_box_south"
     # range: http://www.w3.org/2001/XMLSchema#float
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Bounding Box Southernmost"
@@ -1121,13 +1121,13 @@ properties:
     usage_guidelines: "This value displays the southernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
     # requirement: Optional
     # sample_value: "16.65436"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: geographics
     mapping:
       aardvark: https://www.w3.org/ns/dcat#bbox|http://www.w3.org/ns/locn#Geometry # field maps to two aardvark porperties - not sure if we can include both or only one (and if one, which)
-      #aardvark-documentation: https://opengeometadata.org/ogm-aardvark/#bounding-box 
+      #aardvark-documentation: https://opengeometadata.org/ogm-aardvark/#bounding-box
       #aardvark predicate: dcat_bbox; locn_geometry
     available_on:
       - generic_object
@@ -1149,7 +1149,7 @@ properties:
     usage_guidelines: "Separate the lat/long coordinates with a comma"
     # requirement: Optional
     # sample_value: "53.3849, -1.468"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: geographics
@@ -1161,7 +1161,7 @@ properties:
       - rdcp_object
 
   - &polygon ##m for legacy dams polygon data, map to bounding box when appropriate
-    name: "polygon"  
+    name: "polygon"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Polygon"
@@ -1169,7 +1169,7 @@ properties:
     usage_guidelines: "While not required, the point coordinates that make up the polygon should sequence in the desired direction (e.g. clockwise). The final point must be the same as the original point, in order to close the polygon"
     # requirement: Optional
     # sample_value: "42.6,139.908333 42.6,141.008333 40.633333,141.008333 40.633333,139.908333 42.6,139.908333"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: geographics
@@ -1184,11 +1184,11 @@ properties:
 # ### Related Resource properties
 
   - &online_finding_aid
-    name: "online_finding_aid"  
-    # range: 
+    name: "online_finding_aid"
+    # range:
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Online Finding Aid"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: related
@@ -1198,11 +1198,11 @@ properties:
       - generic_object
 
   - &is_supplement_to_publication
-    name: "is_supplement_to_publication"  
+    name: "is_supplement_to_publication"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Primary associated publication"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: related
@@ -1212,11 +1212,11 @@ properties:
       - rdcp_object
 
   - &is_supplement_to_dataset
-    name: "is_supplement_to_dataset"  
+    name: "is_supplement_to_dataset"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Related data"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: related
@@ -1226,11 +1226,11 @@ properties:
       - rdcp_object
 
   - &is_referenced_by
-    name: "is_referenced_by"  
-    # range: 
+    name: "is_referenced_by"
+    # range:
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Referenced By"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: related
@@ -1240,11 +1240,11 @@ properties:
       - rdcp_object
 
   - &references
-    name: "references"  
+    name: "references"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "References"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: related
@@ -1273,11 +1273,11 @@ properties:
 
   - &is_derived_from_dataset
     <<: *is_derived_from
-    name: "is_derived_from_dataset"  
+    name: "is_derived_from_dataset"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Source Data"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: related
@@ -1290,11 +1290,11 @@ properties:
 
   - &is_derived_from_software
     <<: *is_derived_from
-    name: "is_derived_from_software" 
+    name: "is_derived_from_software"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Source Software"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: related
@@ -1305,12 +1305,12 @@ properties:
       - rdcp_object
 
   - &related_resource
-    name: "related_resource"  
+    name: "related_resource"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Related Resource"
     requirement: optional
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: related
@@ -1336,7 +1336,7 @@ properties:
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Previous Version"
     requirement: optional
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: related
@@ -1361,7 +1361,7 @@ properties:
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Newer Version"
     requirement: optional
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: related
@@ -1386,7 +1386,7 @@ properties:
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Other Version"
     requirement: optional
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: related
@@ -1406,7 +1406,7 @@ properties:
       - geospatial_object
 
 # ### rights and license properties
-  
+
   - &rights_note ##? adding base property for geospatial derived property, usage should be evaluated
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
@@ -1419,7 +1419,7 @@ properties:
     <<: *rights_note
     name: "rights_note_geo"
     requirement: recommended
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     mapping:
@@ -1430,7 +1430,7 @@ properties:
       - geospatial_object
 
   - &license
-    name: "license"  
+    name: "license"
     # range: http://www.w3.org/2001/XMLSchema#anyURI
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "License"
@@ -1440,7 +1440,7 @@ properties:
     # sample_value: "CC-BY"
     # controlled_values:
       # sources: DAMS licenses controlled vocabulary
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: rights
@@ -1460,16 +1460,16 @@ properties:
     # controlled_values: #if base element requires value from a controlled list then may need to override cv in derived property
     available_on:
       - geospatial_object
-  
+
   - &rights_holder
-    name: "rights_holder"  
+    name: "rights_holder"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Rights Holder"
     definition: "A person or organization owning or managing rights over the resource."
     usage_guidelines: "Use a controlled name for the entity. New entities will be created as agent authorities"
     # sample_value: "UC Regents"
-    cardinality: 
+    cardinality:
       minimum: 0
       maximum: null
     section: rights
@@ -1481,12 +1481,12 @@ properties:
     available_on:
       - generic_object
       - rdcp_object
-  
+
   - &rights_holder_geospatial
     <<: *rights_holder
     name: "rights_holder_geo"
     available_on:
-      -geospatial_object
+      - geospatial_object
 
 # ### records management
 
