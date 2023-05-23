@@ -186,7 +186,7 @@ GEM
     rake (13.0.6)
     rdf (3.2.10)
       link_header (~> 0.0, >= 0.0.8)
-    rdf-vocab (3.2.5)
+    rdf-vocab (3.2.6)
       rdf (~> 3.2, >= 3.2.4)
     reform (2.6.2)
       disposable (>= 0.5.0, < 1.0.0)
@@ -266,7 +266,7 @@ GEM
       concurrent-ruby (~> 1.0)
     uber (0.1.0)
     unicode-display_width (2.4.2)
-    valkyrie (3.0.2)
+    valkyrie (3.0.3)
       activemodel
       activesupport
       dry-struct
@@ -315,7 +315,7 @@ DEPENDENCIES
   sinatra (~> 3.0.0)
   standard (= 1.28.2)
   timecop
-  valkyrie (= 3.0.2)
+  valkyrie (= 3.0.3)
   valkyrie-sequel (= 3.0.0)
   webrick (~> 1.8)
 

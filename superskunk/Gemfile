@@ -12,7 +12,7 @@ gem "rspec-rails", "6.0.1", group: "test"
 gem "standard", "1.28.2", group: %(development test)
 gem "surfliner_schema", path: "../gems/surfliner_schema"
 gem "tzinfo-data", "2.0.4", platforms: %i[mingw mswin x64_mingw jruby]
-gem "valkyrie", "3.0.2"
+gem "valkyrie", "3.0.3"
 gem "valkyrie-sequel", "3.0.0"
 gem "hyrax-acl",
   git: "https://github.com/samvera-labs/hyrax-acl.git"
