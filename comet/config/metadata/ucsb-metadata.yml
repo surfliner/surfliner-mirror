@@ -144,7 +144,8 @@ properties:
       minimum: 0
       maximum: null
     index_documentation: null
-    indexing: null
+    indexing:
+      - searchable
     validations:
       match_regex: null
     mapping:
@@ -187,7 +188,8 @@ properties:
       minimum: 0
       maximum: null
     index_documentation: null
-    indexing: null
+    indexing:
+      - searchable
     validations:
       match_regex: null
     mapping:
@@ -220,7 +222,9 @@ properties:
       minimum: 0
       maximum: null
     index_documentation: null
-    indexing: null
+    indexing:
+      - searchable
+      - facetable
     validations:
       match_regex: null
     mapping:
@@ -266,7 +270,9 @@ properties:
       minimum: 0
       maximum: null
     index_documentation: null
-    indexing: null
+    indexing:
+      - searchable
+      - facetable
     validations:
       match_regex: null
     mapping:
@@ -297,7 +303,9 @@ properties:
       minimum: 0
       maximum: null
     index_documentation: null
-    indexing: null
+    indexing:
+      - searchable
+      - facetable
     validations:
       match_regex: null
     mapping:
@@ -1043,7 +1051,8 @@ properties:
       minimum: 0
       maximum: null
     index_documentation: null
-    indexing: null
+    indexing:
+      - facetable
     validations:
       match_regex: null
     mapping:
@@ -1118,7 +1127,8 @@ properties:
       minimum: 0
       maximum: null
     index_documentation: null
-    indexing: null
+    indexing:
+      - facetable
     validations:
       match_regex: null
     mapping:
@@ -1146,7 +1156,8 @@ properties:
       minimum: 0
       maximum: null
     index_documentation: null
-    indexing: null
+    indexing:
+      - facetable
     validations:
       match_regex: null
     mapping:
@@ -1239,7 +1250,8 @@ properties:
       minimum: 0
       maximum: null
     index_documentation: null
-    indexing: null
+    indexing:
+      - searchable
     validations:
       match_regex: null
     mapping:
@@ -1320,7 +1332,9 @@ properties:
       minimum: 0
       maximum: null
     index_documentation: null
-    indexing: null
+    indexing:
+      - searchable
+      - facetable
     validations:
       match_regex: null
     mapping:
@@ -1800,7 +1814,8 @@ properties:
       minimum: 0
       maximum: null
     index_documentation: null
-    indexing: null
+    indexing:
+      - symbol
     validations:
       match_regex: null
     mapping:
@@ -1831,7 +1846,8 @@ properties:
       minimum: 0
       maximum: null
     index_documentation: null
-    indexing: null
+    indexing:
+      - symbol
     validations:
       match_regex: null
     mapping:
@@ -1863,7 +1879,8 @@ properties:
       minimum: 0
       maximum: null
     index_documentation: null
-    indexing: null
+    indexing:
+      - symbol
     validations:
       match_regex: null
     mapping:
@@ -1894,7 +1911,8 @@ properties:
       minimum: 0
       maximum: null
     index_documentation: null
-    indexing: null
+    indexing:
+      - symbol
     validations:
       match_regex: null
     mapping:
@@ -1956,7 +1974,8 @@ properties:
       minimum: 0
       maximum: null
     index_documentation: null
-    indexing: null
+    indexing:
+      - symbol
     validations:
       match_regex: null
     mapping:
@@ -1987,7 +2006,8 @@ properties:
       minimum: 0
       maximum: null
     index_documentation: null
-    indexing: null
+    indexing:
+      - symbol
     validations:
       match_regex: null
     mapping:
@@ -2018,7 +2038,8 @@ properties:
       minimum: 0
       maximum: null
     index_documentation: null
-    indexing: null
+    indexing:
+      - symbol
     validations:
       match_regex: null
     mapping:
@@ -2049,7 +2070,8 @@ properties:
       minimum: 0
       maximum: null
     index_documentation: null
-    indexing: null
+    indexing:
+      - symbol
     validations:
       match_regex: null
     mapping:
