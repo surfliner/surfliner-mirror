@@ -10,6 +10,7 @@ PATH
   specs:
     surfliner_schema (0.1.0.pre)
       activesupport
+      iso-639 (>= 0.3.0, < 0.4.0)
       valkyrie (>= 2.2, < 4)
 
 GEM
@@ -130,6 +131,7 @@ GEM
     io-console (0.6.0)
     irb (1.6.4)
       reline (>= 0.3.0)
+    iso-639 (0.3.6)
     json (2.6.3)
     json-canonicalization (0.3.2)
     json-ld (3.2.5)

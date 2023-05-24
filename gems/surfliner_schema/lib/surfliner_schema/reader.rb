@@ -224,6 +224,12 @@ module SurflinerSchema
 
     public
 
+    def self.bcp47(langtag)
+      iso = ISO_639.find_by_code(langtag.downcase)
+      return langtag unless iso
+      iso.alpha2 || iso.alpha3_terminologic || iso.alpha3_bibliographic
+    end
+
     ##
     # Returns a +Dry::Type+ for the provided range.
     #
@@ -255,7 +261,7 @@ module SurflinerSchema
               # The datatype supports language‐tagged strings.
               if value.language?
                 # The provided value is tagged with a language tag.
-                RDF::Literal.new(value.value, language: value.language)
+                RDF::Literal.new(value.value, language: bcp47(value.language))
               elsif data_type == RDF::RDFV.langString
                 # The provided value has no language tag, but one is required.
                 # Use "und" (undetermined).
@@ -264,9 +270,12 @@ module SurflinerSchema
                 # Use a datatype of +xsd:string+.
                 RDF::Literal.new(value.value, datatype: RDF::XSD.string)
               end
+            elsif data_type == RDF::XSD.language
+              # The datatype is +xsd:language+; cast its value to BCP 47.
+              RDF::Literal.new(bcp47(value.value), datatype: data_type)
             else
-              # The datatype is not plain and does not support language‐tagged
-              # strings.
+              # The datatype is not one of the above and does not support
+              # language‐tagged strings.
               RDF::Literal.new(value.value, datatype: data_type)
             end
           elsif data_type == RDF::RDFV.langString
@@ -276,6 +285,9 @@ module SurflinerSchema
             # This is a non–language‐tagged plain literal; use +xsd:string+ as
             # the datatype.
             RDF::Literal.new(value, datatype: RDF::XSD.string)
+          elsif data_type == RDF::XSD.language
+            # The datatype is +xsd:language+; cast its value to BCP 47.
+            RDF::Literal.new(bcp47(value), datatype: data_type)
           else
             # The datatype is not plain and does not support language‐tagged
             # strings.

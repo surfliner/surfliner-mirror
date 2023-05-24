@@ -30,6 +30,12 @@ RSpec.describe SurflinerSchema do
               display_label: "Language‐Tagged Field",
               available_on: [:my_availability],
               data_type: RDF::RDFV.langString
+            ),
+            language_field: SurflinerSchema::Property.new(
+              name: :language_field,
+              display_label: "Language Field",
+              available_on: [:my_availability],
+              data_type: RDF::XSD.language
             )
           }
         end
@@ -58,6 +64,16 @@ RSpec.describe SurflinerSchema do
         ).to contain_exactly RDF::Literal("🆖", datatype: RDF::XSD.dateTime)
       end
 
+      it "correctly casts RDF literals to xsd:language" do
+        dry_type = described_class.Schema(:my_availability, loader: loader).attributes[:language_field]
+        expect(
+          dry_type[RDF::Literal("CYM")]
+        ).to contain_exactly RDF::Literal("cy", datatype: RDF::XSD.language)
+        expect( # does not modify tags outside of ISO
+          dry_type[RDF::Literal("sjn-Teng")]
+        ).to contain_exactly RDF::Literal("sjn-Teng", datatype: RDF::XSD.language)
+      end
+
       it "correctly casts plain RDF literals with no language" do
         dry_type = described_class.Schema(:my_availability, loader: loader).attributes[:plain_field]
         expect(
@@ -74,6 +90,16 @@ RSpec.describe SurflinerSchema do
     end
 
     describe "when casting strings" do
+      it "correctly casts values to xsd:language" do
+        dry_type = described_class.Schema(:my_availability, loader: loader).attributes[:language_field]
+        expect(
+          dry_type["WEL"]
+        ).to contain_exactly RDF::Literal("cy", datatype: RDF::XSD.language)
+        expect( # does not modify tags outside of ISO
+          dry_type[RDF::Literal("en-CA")]
+        ).to contain_exactly RDF::Literal("en-CA", datatype: RDF::XSD.language)
+      end
+
       it "casts to xsd:string for plain literals" do
         dry_type = described_class.Schema(:my_availability, loader: loader).attributes[:plain_field]
         expect(

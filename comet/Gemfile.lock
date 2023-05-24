@@ -32,6 +32,7 @@ PATH
   specs:
     surfliner_schema (0.1.0.pre)
       activesupport
+      iso-639 (>= 0.3.0, < 0.4.0)
       valkyrie (>= 2.2, < 4)
 
 GEM
@@ -502,6 +503,7 @@ GEM
     iiif_manifest (1.3.1)
       activesupport (>= 4)
     interception (0.5)
+    iso-639 (0.3.6)
     iso8601 (0.9.1)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)

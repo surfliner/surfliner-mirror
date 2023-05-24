@@ -2,6 +2,7 @@
 
 require "active_support"
 require "delegate"
+require "iso-639"
 require "valkyrie"
 require "yaml"
 
