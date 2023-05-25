@@ -1007,7 +1007,7 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     ssrf_filter (1.0.8)
-    standard (1.28.2)
+    standard (1.28.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.0)
       rubocop (~> 1.50.2)
@@ -1137,7 +1137,7 @@ DEPENDENCIES
   scss_lint_reporter_checkstyle (= 0.2.0)
   selenium-webdriver (= 4.9.0)
   sidekiq (= 7.1.0)
-  standard (= 1.28.2)
+  standard (= 1.28.3)
   surfliner_schema!
   tinymce-rails (= 5.10.7)
   turbolinks (= 5.2.1)

@@ -227,7 +227,7 @@ GEM
       rubocop-ast (>= 1.28.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.28.0)
+    rubocop-ast (1.28.1)
       parser (>= 3.2.1.0)
     rubocop-performance (1.16.0)
       rubocop (>= 1.7.0, < 2.0)
@@ -247,7 +247,7 @@ GEM
       rack (~> 2.2, >= 2.2.4)
       rack-protection (= 3.0.5)
       tilt (~> 2.0)
-    standard (1.28.2)
+    standard (1.28.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.0)
       rubocop (~> 1.50.2)
@@ -313,7 +313,7 @@ DEPENDENCIES
   rubocop-rspec
   shotgun
   sinatra (~> 3.0.0)
-  standard (= 1.28.2)
+  standard (= 1.28.3)
   timecop
   valkyrie (= 3.0.3)
   valkyrie-sequel (= 3.0.0)

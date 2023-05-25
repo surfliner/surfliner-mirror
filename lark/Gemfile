@@ -23,7 +23,7 @@ gem "rspec", group: "test"
 gem "rubocop-rspec", group: %w[development test]
 gem "shotgun", group: "development"
 gem "sinatra", "~> 3.0.0"
-gem "standard", "1.28.2"
+gem "standard", "1.28.3"
 gem "timecop", group: "test"
 gem "valkyrie", "3.0.3"
 gem "valkyrie-sequel", "3.0.0"
