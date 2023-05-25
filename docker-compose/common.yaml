@@ -1,6 +1,6 @@
 services:
   rabbitmq:
-    image: bitnami/rabbitmq:3.11.13-debian-11-r8
+    image: bitnami/rabbitmq:3.11.16-debian-11-r3
     ports:
       - "15672:15672"
 
