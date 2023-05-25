@@ -23,7 +23,7 @@ tidewater:test:
   services:
     - name: bitnami/postgresql:12.11.0-debian-10-r23
       alias: postgres
-    - name: jordimartin/mmock:v3.1.5
+    - name: jordimartin/mmock:v3.1.6
       alias: mmock
       entrypoint: ["/bin/sh", "-c"]
       command:
