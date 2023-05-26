@@ -1,0 +1,22 @@
+{
+    "workflows": [
+        {
+            "name": "simple_shoreline",
+            "label": "Simple Shoreline workflow",
+            "description": "A single submission step, default workflow for Shoreline. Which publishes to the Shoreline platform, if configured upon deposit",
+            "allows_access_grant": true,
+            "actions": [
+                {
+                    "name": "deposit",
+                    "from_states": [],
+                    "transition_to": "deposited",
+                    "methods": [
+                        "Hyrax::Workflow::GrantEditToDepositor",
+                        "Hyrax::Workflow::ActivateObject",
+                        "Hyrax::Workflow::PublishObjectToShoreline"
+                    ]
+                }
+            ]
+        }
+    ]
+}

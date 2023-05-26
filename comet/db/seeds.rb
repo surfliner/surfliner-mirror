@@ -8,12 +8,34 @@ if projects.none?
   project = Hyrax::AdministrativeSet.new(title: "Default Project")
   project = Hyrax.persister.save(resource: project)
   Hyrax.index_adapter.save(resource: project)
+
+  puts "\n== Creating shoreline Project (AdministrativeSet)"
+  shoreline_project = Hyrax::AdministrativeSet.new(title: "Shoreline Project")
+  shoreline_project = Hyrax.persister.save(resource: shoreline_project)
+  Hyrax.index_adapter.save(resource: shoreline_project)
 else
   project = projects.find { |p| p.title.include?("Default Project") }
+  unless project
+    puts "\n== Creating default Project (AdministrativeSet)"
+    project = Hyrax::AdministrativeSet.new(title: "Default Project")
+    project = Hyrax.persister.save(resource: project)
+    Hyrax.index_adapter.save(resource: project)
+  end
+
+  shoreline_project = projects.find { |p| p.title.include?("Shoreline Project") }
+  unless shoreline_project
+    puts "\n== Creating shoreline Project (AdministrativeSet)"
+    shoreline_project = Hyrax::AdministrativeSet.new(title: "Shoreline Project")
+    shoreline_project = Hyrax.persister.save(resource: shoreline_project)
+    Hyrax.index_adapter.save(resource: shoreline_project)
+  end
 end
 
 puts "\n== Ensuring PermissionTemplate for exists for default AdministrativeSet #{project.id}"
 permission_template = Hyrax::PermissionTemplate.find_or_create_by!(source_id: project.id.to_s)
+
+puts "\n== Ensuring PermissionTemplate for exists for shoreline AdministrativeSet #{shoreline_project.id}"
+shoreline_permission_template = Hyrax::PermissionTemplate.find_or_create_by!(source_id: shoreline_project.id.to_s)
 
 # TODO: feature spec: create a work assigned to workflow, log in as reviewer,
 # approve or take some action
@@ -22,6 +44,10 @@ Rake::Task["hyrax:workflow:load"].execute
 puts "\n== Activating surfliner_default workflow"
 Sipity::Workflow
   .activate!(permission_template: permission_template, workflow_name: "surfliner_default")
+
+puts "\n== Activating simple_shoreline workflow"
+Sipity::Workflow
+  .activate!(permission_template: shoreline_permission_template, workflow_name: "simple_shoreline")
 
 provider = Devise.omniauth_providers.first
 puts "\n== Creating system user"
@@ -46,9 +72,17 @@ admins.each do |user|
     Sipity::WorkflowResponsibility.find_or_create_by!(agent_id: user.to_sipity_agent.id, workflow_role_id: wf_role.id)
   end
 
-  puts "\n== Assigning permissions to #{email}"
+  puts "\n== Assigning permissions to #{email} for default project"
   Hyrax::PermissionTemplateAccess.find_or_create_by!(
     permission_template: permission_template,
+    agent_type: "user",
+    agent_id: email,
+    access: Hyrax::PermissionTemplateAccess::MANAGE
+  )
+
+  puts "\n== Assigning permissions to #{email} for shoreline project"
+  Hyrax::PermissionTemplateAccess.find_or_create_by!(
+    permission_template: shoreline_permission_template,
     agent_type: "user",
     agent_id: email,
     access: Hyrax::PermissionTemplateAccess::MANAGE
