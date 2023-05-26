@@ -7,7 +7,9 @@ ingress:
       secretName: tls-secret
 
 consumer:
-  enabled: false
+  enabled: true
+  rabbitmq:
+    host: surfliner-rabbitmq-stage.rabbitmq-staging.svc
 
 serviceAccount:
   name: shoreline
