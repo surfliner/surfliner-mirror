@@ -6,6 +6,17 @@ RSpec.describe AardvarkSerializer do
   let(:persister) { Valkyrie::MetadataAdapter.find(:comet_metadata_store).persister }
   let(:profile) { "tag:surfliner.gitlab.io,2022:api/aardvark" }
 
+  context "with a date" do
+    let(:title) { "A geospatial object with a date" }
+    let(:resource) {
+      persister.save(resource: GeospatialObject.new(title: [title],
+        date_index_geo: "1969"))
+    }
+    it "knows what an EDTF literal is" do
+      expect(resource.date_index_geo.first.object).to be_a Date
+    end
+  end
+
   context "with all bounding box values supplied" do
     let(:title) { "A geospatial object with all bbox values" }
     let(:resource) {

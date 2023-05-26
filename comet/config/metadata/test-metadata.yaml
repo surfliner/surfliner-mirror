@@ -367,6 +367,33 @@ properties:
     available_on:
       - generic_object
 
+  - &date_index_geospatial
+    name: "date_index_geo"
+    # property_uri: http://purl.org/dc/terms/date
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://id.loc.gov/datatypes/edtf/EDTF
+    display_label: "Index Year"
+    definition: "This field represents the publication date that will be uploaded to GeoData."
+    usage_guidelines: "Enter the publication date (or year that the resource was made available) as a four-digit year (YYYY).  This should not be the situational date, as it is being entered into GeoData as the publication date. If the date is unknown, leave it blank.  If it is a date range (i.e. 2006-2007) enter only the first year here, and enter the date range in the subject temporal field below."
+    # requirement: recommended
+    # sample_value: 2002
+    # controlled_values: null
+    # syntax: null
+    # validations: null
+    cardinality:
+      minimum: 0
+      maximum: null
+    indexing:
+      - symbol
+    index_documentation: null
+    section: dates
+    # grouping: null
+    mapping:
+      oai_dc: http://purl.org/dc/elements/1.1/date
+      aardvark: https://opengeometadata.org/docs/ogm-aardvark/index-year
+    available_on:
+      - geospatial_object
+
 # ### Identifier properties:
 
   # This example shows how you can use an “abstract” base property to define a

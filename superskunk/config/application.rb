@@ -40,6 +40,11 @@ module Superskunk
     config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info").to_sym
     config.log_formatter = ::Logger::Formatter.new
 
+    config.to_prepare do
+      # Autoload EDTF literal support.
+      "RDF::EDTF::Literal".constantize
+    end
+
     if ENV["RAILS_LOG_TO_STDOUT"].present?
       logger = ActiveSupport::Logger.new($stdout)
       logger.formatter = config.log_formatter
