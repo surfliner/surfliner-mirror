@@ -35,16 +35,32 @@ spec:
           args: ["-c", "bin/shoreline_consumer"]
           envFrom:
             - configMapRef:
-                name: {{ include "shoreline.fullname" . }}-consumer
+                name: {{ include "shoreline.fullname" . }}-env
           {{- if not .Values.vaultSecret.enabled }}
             - secretRef:
-                name: {{ template "shoreline.consumer.secretName" . }}
+                name: {{ template "shoreline.secretName" . }}
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.extraContainerConfiguration }}
           {{- toYaml . | nindent 10 }}
           {{- end }}
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - "ps aux | grep shoreline_consumer | grep -v grep"
+            initialDelaySeconds: 15
+            periodSeconds: 15
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - "ps aux | grep shoreline_consumer | grep -v grep"
+            initialDelaySeconds: 15
+            periodSeconds: 15
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

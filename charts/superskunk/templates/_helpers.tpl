@@ -58,7 +58,11 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 Alternatively, if postgresqlHostname is set, we use that which allows for an external database
 */}}
 {{- define "superskunk.postgresql.fullname" -}}
+{{- if .Values.superskunk.db.standalone -}}
+{{- .Values.postgresql.postgresqlHostname -}}
+{{- else -}}
 {{ include "common.postgresql.fullname" . }}
+{{- end -}}
 {{- end -}}
 
 {{/*

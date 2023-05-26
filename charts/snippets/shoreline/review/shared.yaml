@@ -1,9 +1,10 @@
 shoreline:
-  sample_data: true
+  sample_data: false
 serviceAccount:
   name: ""
 consumer:
-  enabled: false
+  enabled: true
+  logLevel: debug
   rabbitmq:
     host: surfliner-rabbitmq-review.rabbitmq-review.svc
 
@@ -15,10 +16,10 @@ geoserver:
     initialMemory: 512M
     maximumMemory: 512M
   resources:
-   limits:
-     memory: 1Gi
-   requests:
-     memory: 512M
+    limits:
+      memory: 1Gi
+    requests:
+      memory: 512M
   persistence:
     enabled: false
 

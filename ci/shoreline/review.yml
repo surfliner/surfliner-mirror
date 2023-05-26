@@ -29,7 +29,9 @@ shoreline:deploy:ucsd-review:
       --set ingress.hosts={shoreline-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN}
       --set shoreline.email.contact_email=geodata@ucsd.edu
       --set shoreline.theme=ucsd
-      --values charts/snippets/shoreline/review.yaml
+      --set consumer.rabbitmq.routing_key=surfliner.metadata.publish.$CI_MERGE_REQUEST_ID.shoreline
+      --set consumer.rabbitmq.topic=surfliner.metadata.publish.$CI_MERGE_REQUEST_ID
+      --values charts/snippets/shoreline/review/shared.yaml
       --values charts/snippets/surfliner/solr-review.yaml
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
   script:
@@ -70,9 +72,14 @@ shoreline:deploy:ucsb-review:
     HELM_UPGRADE_EXTRA_ARGS: >
       --set geoserver.ingress.hosts={shoreline-geoserver-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN}
       --set ingress.hosts={shoreline-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN}
+      --set ingress.tls[0].hosts[0]=shoreline-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
+      --set ingress.tls[0].secretName=shoreline-$CI_MERGE_REQUEST_ID-tls
       --set shoreline.email.contact_email=geospatial@library.ucsb.edu
       --set shoreline.theme=ucsb
-      --values charts/snippets/shoreline/review.yaml
+      --set consumer.rabbitmq.routing_key=surfliner.metadata.publish.$CI_MERGE_REQUEST_ID.shoreline
+      --set consumer.rabbitmq.topic=surfliner.metadata.publish.$CI_MERGE_REQUEST_ID
+      --values charts/snippets/shoreline/review/shared.yaml
+      --values charts/snippets/shoreline/review/ucsb.yaml
       --values charts/snippets/surfliner/solr-review.yaml
 
 shoreline:cleanup:ucsb-review:

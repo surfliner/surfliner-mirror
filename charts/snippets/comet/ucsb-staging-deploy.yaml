@@ -1,8 +1,16 @@
 ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
   hosts:
     - host: manage-staging.digital.library.ucsb.edu
       paths:
         - path: '/'
+  tls:
+    - hosts:
+        - manage-staging.digital.library.ucsb.edu
+      secretName: comet-staging-tls
 
 postgresql:
   enabled: false
@@ -43,7 +51,7 @@ extraEnvVars:
   - name: "IIIF_BASE_URL"
     value: "https://iiif-staging.digital.library.ucsb.edu"
   - name: "METADATA_API_URL_BASE"
-    value: "http://surfliner-superskunk-stage.superskunk-staging/resources"
+    value: "http://surfliner-superskunk-stage.superskunk-staging.svc/resources"
   - name: "METADATA_DATABASE_NAME"
     value: "comet_metadata"
   - name: "METADATA_MODELS"
@@ -64,8 +72,14 @@ worker:
       value: "google"
     - name: "COMET_ENABLE_BULKRAX"
       value: "true"
+    - name: "DATABASE_COMMAND"
+      value: "db:create db:migrate"
+    - name: "DISCOVER_PLATFORM_TIDEWATER_URL_BASE"
+      value: "http://oai-staging.digital.library.ucsb.edu/item?source_iri="
     - name: "IIIF_BASE_URL"
       value: "https://iiif-staging.digital.library.ucsb.edu"
+    - name: "METADATA_API_URL_BASE"
+      value: "http://surfliner-superskunk-stage.superskunk-staging.svc/resources"
     - name: "METADATA_DATABASE_NAME"
       value: "comet_metadata"
     - name: "METADATA_MODELS"

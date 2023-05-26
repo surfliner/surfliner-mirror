@@ -1,13 +1,19 @@
-consumers:
-  defaultKeyEnabled: true
-  keys:
-    - name: tidewater
-      secretName: superskunk-default-tidewater-keypair
-
 postgresql:
+  enabled: false
+  auth:
+    username: hyrax
+    password: hyrax_pass
+    database: comet_metadata
+    postgresPassword: hyrax_pass
   primary:
     persistence:
       enabled: false
   readReplicas:
     persistence:
       enabled: false
+
+consumers:
+  defaultKeyEnabled: true
+  keys:
+    - name: tidewater
+      secretName: superskunk-default-tidewater-keypair

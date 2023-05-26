@@ -14,10 +14,8 @@ rabbitmq:deploy:ucsd-review:
     - .rabbitmq:deploy:review
     - .rabbitmq-chart-deploy
   environment:
-    name: ucsd.rabbitmq.review/$CI_MERGE_REQUEST_ID
-    url: http://rabbitmq-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
-    on_stop: rabbitmq:cleanup:ucsd-review
-    auto_stop_in: 2 days
+    name: ucsd.rabbitmq.review
+    url: http://rabbitmq-review.$UCSD_REVIEW_DOMAIN
   tags:
     - ucsd
   variables:
@@ -30,10 +28,8 @@ rabbitmq:deploy:ucsb-review:
     - .rabbitmq:deploy:review
     - .rabbitmq-chart-deploy
   environment:
-    name: ucsb.rabbitmq.review/$CI_MERGE_REQUEST_ID
-    url: http://rabbitmq-$CI_MERGE_REQUEST_ID.$UCSB_REVIEW_DOMAIN
-    on_stop: rabbitmq:cleanup:ucsb-review
-    auto_stop_in: 2 days
+    name: ucsb.rabbitmq.review
+    url: http://rabbitmq-review.$UCSB_REVIEW_DOMAIN
   tags:
     - ucsb
   variables:
@@ -44,8 +40,8 @@ rabbitmq:cleanup:ucsd-review:
   extends:
     - .rabbitmq:deploy:review
   environment:
-    name: ucsd.rabbitmq.review/$CI_MERGE_REQUEST_ID
-    url: http://rabbitmq-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
+    name: ucsd.rabbitmq.review
+    url: http://rabbitmq-review.$UCSD_REVIEW_DOMAIN
     action: stop
   tags:
     - ucsd
@@ -62,8 +58,8 @@ rabbitmq:cleanup:ucsb-review:
   extends:
     - .rabbitmq:deploy:review
   environment:
-    name: ucsb.rabbitmq.review/$CI_MERGE_REQUEST_ID
-    url: http://rabbitmq-$CI_MERGE_REQUEST_ID.$UCSB_REVIEW_DOMAIN
+    name: ucsb.rabbitmq.review
+    url: http://rabbitmq-review.$UCSB_REVIEW_DOMAIN
     action: stop
   tags:
     - ucsb

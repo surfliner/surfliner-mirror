@@ -64,6 +64,7 @@ postgresql:
     repository: bitnami/postgresql
     tag: 12.11.0-debian-10-r23
   enabled: true
+  postgresqlHostname: "" # provide an external host if enabled=false
   auth:
     database: comet_metadata
     password: superskunk_pass

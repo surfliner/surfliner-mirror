@@ -43,6 +43,22 @@ spec:
           {{- with .Values.extraContainerConfiguration }}
           {{- toYaml . | nindent 10 }}
           {{- end }}
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - "ps aux | grep tidewater_consumer | grep -v grep"
+            initialDelaySeconds: 15
+            periodSeconds: 15
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - "ps aux | grep tidewater_consumer | grep -v grep"
+            initialDelaySeconds: 15
+            periodSeconds: 15
       volumes:
       - name: signature-key
         secret:

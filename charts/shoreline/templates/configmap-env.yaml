@@ -17,6 +17,7 @@ data:
   GEOSERVER_INTERNAL_URL: {{ template "shoreline.geoserver.internal_url" . }}
   GEOSERVER_PORT: {{ (include "shoreline.geoserver.port" .) | quote }}
   GEOSERVER_URL: {{ template "shoreline.geoserver.url" . }}
+  LOG_LEVEL: {{ .Values.consumer.logLevel }}
   {{- if .Values.shoreline.sample_data }}
   MINIO_ENDPOINT: {{ template "shoreline.minio.fullname" . }}
   MINIO_ROOT_USER: {{ .Values.minio.auth.rootUser }}
@@ -26,9 +27,16 @@ data:
   POSTGRES_DB: {{ .Values.postgresql.auth.database }}
   POSTGRES_HOST: {{ template "shoreline.postgresql.fullname" . }}
   POSTGRES_PORT: {{ .Values.postgresql.containerPorts.postgresql | quote }}
+  RABBITMQ_HOST: {{ .Values.consumer.rabbitmq.host }}
+  RABBITMQ_NODE_PORT_NUMBER: {{ .Values.consumer.rabbitmq.port | quote }}
+  RABBITMQ_QUEUE: {{ .Values.consumer.rabbitmq.queue }}
+  RABBITMQ_SHORELINE_ROUTING_KEY: {{ .Values.consumer.rabbitmq.routing_key }}
+  RABBITMQ_TOPIC: {{ .Values.consumer.rabbitmq.topic }}
+  RABBITMQ_USERNAME: {{ .Values.consumer.rabbitmq.username }}
   RAILS_ENV: production
   RAILS_LOG_TO_STDOUT: "true"
   RAILS_SERVE_STATIC_FILES: "true"
+  SHORELINE_METADATA_PROFILE: tag:surfliner.gitlab.io,2022:api/aardvark
   SHORELINE_SUPPRESS_TOOLS: {{ .Values.shoreline.suppressTools | quote }}
   SHORELINE_THEME: {{ .Values.shoreline.theme }}
   {{- if eq "smtp" .Values.shoreline.email.delivery_method }}
@@ -44,6 +52,7 @@ data:
   {{- if .Values.solr.auth.enabled }}
   SOLR_ADMIN_USER: {{ .Values.solr.auth.adminUsername }}
   {{- end }}
+  USER_AGENT_PRODUCT_NAME: surfliner.shoreline
   {{- if eq (include "shoreline.solr.cloudEnabled" .) "true" }}
   ZK_HOST: {{ template "shoreline.zk.fullname" . }}
   ZK_PORT: {{ .Values.solr.zookeeperPort | default "2181" | quote }}

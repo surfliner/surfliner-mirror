@@ -1,5 +1,6 @@
 superskunk:
   db:
+    standalone: false
     metadata_database_name: comet_metadata
   metadata_models:
     - ucsb-metadata

@@ -125,10 +125,3 @@ Create the name of the service account to use
 {{- define "shoreline.zk.fullname" -}}
 {{ include "common.zk.fullname" . }}
 {{- end -}}
-
-{{/*
-Supports using an existing consumer secret instead of one built using the Chart
-*/}}
-{{- define "shoreline.consumer.secretName" -}}
-{{ include "common.consumer.secretName" . }}
-{{- end -}}

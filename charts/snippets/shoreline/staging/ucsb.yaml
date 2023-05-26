@@ -27,7 +27,9 @@ shoreline:
   sample_data: true
 
 consumer:
-  enabled: false
+  enabled: true
+  rabbitmq:
+    host: surfliner-rabbitmq-stage.rabbitmq-staging.svc
 
 solr:
   enabled: false

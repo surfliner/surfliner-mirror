@@ -10,7 +10,7 @@ extraEnvVars:
   - name: "DISCOVER_PLATFORM_TIDEWATER_URL_BASE"
     value: "http://localhost:3000/tidewater/item?source_iri="
   - name: "METADATA_API_URL_BASE"
-    value: "http://localhost:3000/concern/generic_objects"
+    value: "http://localhost:3000/resources"
   - name: "METADATA_DATABASE_NAME"
     value: "comet_metadata"
   - name: "METADATA_MODELS"
