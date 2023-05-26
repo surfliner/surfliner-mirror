@@ -74,4 +74,34 @@ RSpec.describe AardvarkSerializer do
       expect(serialized_aardvark[:schema_provider_s]).to eq("Surfliner Team")
     end
   end
+
+  context "with an iso639-1 language provided" do
+    let(:title) { "A geospatial object with an iso639-1 language specified" }
+    let(:resource) {
+      persister.save(resource: GeospatialObject.new(title: [title], language_geo: ["en"]))
+    }
+    it "populates the dct_language_sm property with mapped iso639-2 values" do
+      expect(serialized_aardvark[:dct_language_sm]).to eq(["eng"])
+    end
+  end
+
+  context "with invalid iso639-1 languages provided" do
+    let(:title) { "A geospatial object with an invalid iso639-1 language specified" }
+    let(:resource) {
+      persister.save(resource: GeospatialObject.new(title: [title], language_geo: ["en", "12"]))
+    }
+    it "populates the dct_language_sm property without invalid iso639-1 values" do
+      expect(serialized_aardvark[:dct_language_sm]).to eq(["eng"])
+    end
+  end
+
+  context "with no iso639-1 language provided" do
+    let(:title) { "A geospatial object without an iso639-1 language specified" }
+    let(:resource) {
+      persister.save(resource: GeospatialObject.new(title: [title]))
+    }
+    it "does not populate the dct_language_sm property" do
+      expect(serialized_aardvark[:dct_language_sm]).to be_nil
+    end
+  end
 end

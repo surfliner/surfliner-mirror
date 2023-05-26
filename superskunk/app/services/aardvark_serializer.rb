@@ -197,6 +197,15 @@ class AardvarkSerializer < ResourceSerializer
         mapping += resource.title.to_a
       when :schema_provider_s
         mapping = Array(resource.class.reader.profile.to_h.dig(:additional_metadata, :ogm_provider_name))
+      when :dct_language_sm
+        mapping.map! do |lang_code|
+          iso639_2_code = ISO_639.find_by_code(lang_code.to_s)
+          unless iso639_2_code
+            Rails.logger.warn("#{lang_code} cannot be converted to an iso639-2 3 character code.")
+            next nil
+          end
+          iso639_2_code.alpha3_bibliographic
+        end.compact!
       end
 
       # Cast mappings to the appropriate types.

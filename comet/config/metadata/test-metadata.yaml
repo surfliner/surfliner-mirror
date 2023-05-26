@@ -250,6 +250,29 @@ properties:
     available_on:
       - generic_object
 
+  - &language_geospatial
+    name: language_geo
+    display_label: Language
+    definition: null
+    usage_guidelines: null
+    requirement: null
+    sample_value: eng
+    available_on:
+      class:
+        - geospatial_object
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#language
+    syntax: null
+    cardinality:
+      minimum: 0
+      maximum: null
+    index_documentation: null
+    indexing: null
+    validations:
+      match_regex: null
+    mapping:
+      aardvark: http://purl.org/dc/terms/language
+
 # ### Titling properties:
 
   - &title_alternative
