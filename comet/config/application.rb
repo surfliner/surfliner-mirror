@@ -66,7 +66,7 @@ module Comet
     config.metadata_config_schemas = ENV["METADATA_MODELS"].to_s.split(",").map(&:to_sym)
 
     config.metadata_api_uri_base =
-      ENV.fetch("METADATA_API_URL_BASE") { "http://localhost:3000/concern/generic_objects" }
+      ENV.fetch("METADATA_API_URL_BASE") { "http://localhost:3000/resources" }
 
     config.feature_bulkrax =
       ActiveModel::Type::Boolean.new.cast(ENV.fetch("COMET_ENABLE_BULKRAX", false))

@@ -63,6 +63,8 @@ module Bulkrax
         .call(cx)
 
       @object = result.value!
+
+      @object
     end
 
     def update

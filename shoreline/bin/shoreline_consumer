@@ -8,6 +8,11 @@ require "net/http"
 
 # don't buffer log output
 $stdout.sync = true
+
+puts 'Loading environment...'
+require File.expand_path('../config/environment', __dir__)
+puts "Running in #{Rails.env} mode..."
+
 logger = Logger.new($stdout)
 logger.level = ENV.fetch("LOG_LEVEL") { Logger::INFO }
 
@@ -36,23 +41,71 @@ exchange = channel.topic(rabbitmq_topic, auto_delete: true)
 queue = channel.queue(rabbitmq_queue, durable: true)
 queue.bind(exchange, routing_key: rabbitmq_routing_key)
 
-logger.info(" [*] Waiting for updates. To exit press CTRL+C")
+logger.info(" [  ] Waiting for updates on #{queue.name}##{rabbitmq_routing_key}. To exit press CTRL+C")
+
+# @param [URI] uri
+def fetch(uri:, logger:)
+  req = Net::HTTP::Get.new(uri)
+  req["Accept"] = "application/ld+json;profile=\"#{ENV.fetch('SHORELINE_METADATA_PROFILE', "tag:surfliner.gitlab.io,2022:api/aardvark")}\""
+  req["User-Agent"] = ENV.fetch("USER_AGENT_PRODUCT_NAME", "surfliner.shoreline")
+  logger.debug "Querying #{uri} ..."
+
+  res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") { |http|
+    http.request(req)
+  }
+
+  case res
+  when Net::HTTPSuccess
+    res.body
+  when Net::HTTPRedirection
+    logger.debug "Got a 30x response: #{res}"
+    fetch(uri: URI(res['location']), logger: logger)
+  else
+    logger.debug "Got a non-success HTTP response:"
+    logger.debug res.inspect
+
+    raise "Failed to fetch data from Superskunk"
+  end
+end
 
 begin
-  queue.subscribe(block: true) do |delivery_info, properties, payload|
-    logger.info(" [x] message received with payload: #{payload}")
+  queue.subscribe(block: true) do |_delivery_info, _properties, payload|
+    logger.info(" [  ] message received with payload: #{payload}")
     payload_data = JSON.parse(payload)
     payload_resource_url = payload_data["resourceUrl"]
     raise "Payload resourceUrl is not defined" unless payload_resource_url
 
-    # use the payload_resource_url to get the data
+    payload_status = payload_data["status"]
+    raise "Payload status is not defined" unless payload_status
+    logger.debug("Payload status for #{payload_resource_url} is #{payload_status}")
+
     uri = URI(payload_resource_url)
-    # TODO: actually query superskunk
-    # req = Net::HTTP::Get.new(uri)
-    # req["Accept"] = "application/ld+json;profile=\"#{ENV.fetch("SHORELINE_METADATA_PROFILE", "tag:surfliner.gitlab.io,2022:api/shoreline/ingest}\""
-    # req["User-Agent"] = ENV.fetch("USER_AGENT_PRODUCT_NAME", "surfliner.shoreline")
+
+    begin
+      case payload_status
+      when "published", "updated"
+        record_data = fetch(uri: uri, logger: logger)
+
+        logger.info("Persisting item #{payload_resource_url}")
+        logger.debug("#{payload_resource_url} responded with #{record_data}")
+
+        # TODO: need file URL from payload
+        # Importer.ingest(metadata: record_data,
+        #                 file_url: file_url)
+        Importer.ingest(metadata: record_data)
+      when "unpublished", "deleted"
+        logger.info("Deleting item #{payload_resource_url}")
+        # TODO: something like this?
+        # Importer.delete(metadata: payload_resource_url,
+        #                 file_url: file_url)
+      else
+        logger.error("Invalid payload status #{payload_status} received for #{payload_resource_url}")
+      end
+    rescue => e
+      logger.error("Error: #{e}")
+    end
   end
-rescue Interrupt => _
+rescue Interrupt => _e
   channel.close
   connection.close
 end

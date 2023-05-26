@@ -11,19 +11,38 @@ module Importer
   # @param [Hash] metadata
   # @param [String] shapefile_url
   def self.ingest(metadata:, shapefile_url: nil)
-    file_id = metadata["id"]
-    merged_metadata = metadata.merge({dct_references_s: geoserver_references(metadata: metadata)})
+    Rails.logger.debug "Received metadata: #{metadata}"
+    parsed = if metadata.is_a? String
+      JSON.parse(metadata).except("@context")
+    else
+      metadata
+    end
+    Rails.logger.debug "Parsed metadata #{parsed}"
 
-    if shapefile_url.present?
+    file_id = metadata["id"]
+    merged_metadata = if parsed["dct_references_s"].nil?
+      parsed
+    else
+      parsed.merge({dct_references_s: geoserver_references(metadata: metadata)})
+    end
+
+    unless shapefile_url.nil?
       publish_to_geoserver(file_url: shapefile_url, file_id: file_id)
       merged_metadata = merged_metadata.merge(hash_from_geoserver(id: file_id))
     end
 
-    raise "--- ERROR: metadata failed validation against Aardvark schema" unless is_metadata_valid?(merged_metadata)
+    unless is_metadata_valid?(merged_metadata)
+      raise "--- ERROR: metadata failed validation against Aardvark schema: #{metadata}"
+    end
 
     # puts "Finalized metadata: #{merged_metadata}"
 
     publish_to_geoblacklight(metadata: merged_metadata)
+  rescue => e
+    puts "ERROR INGESTING INTO SHORELINE"
+    puts "#{e.message}: #{e.inspect}"
+    puts e.backtrace
+    raise e
   end
 
   # @param [String] file_url

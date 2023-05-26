@@ -32,6 +32,8 @@
 en:
   hello: "Hello world"
   discovery_platform:
+    shoreline:
+      label: "Shoreline"
     tidewater:
       label: "Tidewater"
   hyrax:

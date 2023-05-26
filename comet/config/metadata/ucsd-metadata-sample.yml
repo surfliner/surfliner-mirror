@@ -704,7 +704,7 @@ properties:
       - rdcp_object
 
   - &type_of_resource_geospatial
-    name: "resouce_class_geo"
+    name: "resource_class_geo"
     # range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Resource Class"
@@ -1491,4 +1491,3 @@ properties:
 # ### records management
 
 ##  - &provider_geospatial ## ideally this would be hardcoded in Superskunk as part of export to shoreline
-

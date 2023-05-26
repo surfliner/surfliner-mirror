@@ -184,9 +184,11 @@ class AardvarkSerializer < ResourceSerializer
         # The default value for +:gbl_mdVersion_s+ should be +Aardvark+.
         mapping = ["Aardvark"] unless mapping.present?
       when :gbl_mdModified_dt
+        # ensure we're using the correct format
+        mapping = mapping.map { |date| DateTime.parse(date).strftime("%FT%TZ") }
         # +:gbl_mdModified_dt+ falls back to the Hyrax last modified metadata.
-        mapping = resource.date_modified unless mapping.present?
-        mapping = [Time.now.iso8601] unless mapping.present? # extra fallback
+        mapping = resource.date_modified.map { |datetime| datetime.strftime("%FT%TZ") } unless mapping.present?
+        mapping = [DateTime.now.iso8601] unless mapping.present? # extra fallback
       when :gbl_resourceClass_sm
         # +:gbl_resourceClass_sm+ defaults to "Datasets".
         mapping = ["Datasets"] unless mapping.present?
@@ -202,7 +204,7 @@ class AardvarkSerializer < ResourceSerializer
       when :boolean
         mapping.map! { |v| (v == "false") ? false : v.present? }
       when :integer
-        mapping.map!(&:to_i)
+        mapping.map! { |v| v.object.is_a?(Date) ? v.object.year : v.object }
       else
         mapping.map!(&:to_s)
       end

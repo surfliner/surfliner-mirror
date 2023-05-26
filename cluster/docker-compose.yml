@@ -120,6 +120,8 @@ services:
     depends_on:
       - superskunk_migrate
       - postgres
+    ports:
+      - 3003:3000
     networks:
       - cluster
 
@@ -162,15 +164,20 @@ services:
   shoreline_consumer:
     image: shoreline:development
     restart: always
+    stdin_open: true
+    tty: true
     env_file:
       - .env
       - shoreline.env
+    volumes:
+      - shoreline-bin:/home/shoreline/app/bin
+      - ../shoreline:/home/shoreline/app
     command:
       - sh
       - -c
       - >
         while ! nc -z "${RABBITMQ_HOST}" "${RABBITMQ_NODE_PORT_NUMBER}"; do echo "--- Waiting for 🐰 ..."; sleep 5s; done &&
-        bin/shoreline_consumer
+        bundle exec bin/shoreline_consumer
     depends_on:
       - rabbitmq
     networks:
@@ -187,9 +194,9 @@ services:
       - >
         db-setup.sh
         && bundle exec rake "shoreline:staging_area:upload_shapefiles"
-        && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/gford-20140000-010002_lakes.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/gford-20140000-010002_lakes.zip]"
-        && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/SD_City_Recycled_Water_Main_2018_03-d.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/SD_City_Recycled_Water_Main_2018_03-d.zip]"
-        && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/Recycled_Water_Main_2016-d.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/Recycled_Water_Main_2016-d.zip]"
+        # && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/gford-20140000-010002_lakes.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/gford-20140000-010002_lakes.zip]"
+        # && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/SD_City_Recycled_Water_Main_2018_03-d.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/SD_City_Recycled_Water_Main_2018_03-d.zip]"
+        # && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/Recycled_Water_Main_2016-d.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/Recycled_Water_Main_2016-d.zip]"
     depends_on:
       - postgres
       - minio
@@ -424,6 +431,7 @@ volumes:
   comet-uploads:
   db:
   minio_data:
+  shoreline-bin:
   shoreline-derivatives:
   shoreline-public:
   shoreline-scripts:
