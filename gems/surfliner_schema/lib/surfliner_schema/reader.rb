@@ -210,7 +210,7 @@ module SurflinerSchema
     def dry_type_for(property)
       if property.range != RDF::RDFS.Literal
         begin
-          self.class.dry_range(property.range)
+          dry_range(property.range)
         rescue
           raise(
             Error::UnknownRange,
@@ -218,16 +218,8 @@ module SurflinerSchema
           )
         end
       else
-        self.class.dry_data_type(property.data_type)
+        dry_data_type(property.data_type)
       end
-    end
-
-    public
-
-    def self.bcp47(langtag)
-      iso = ISO_639.find_by_code(langtag.downcase)
-      return langtag unless iso
-      iso.alpha2 || iso.alpha3_terminologic || iso.alpha3_bibliographic
     end
 
     ##
@@ -235,8 +227,8 @@ module SurflinerSchema
     #
     # This just calls out to +#resolve+ in an attempt to resolve the range
     # into a nested Valkyrie resource.
-    def self.dry_range(range)
-      resolved_class = resolve(availability: range)
+    def dry_range(range)
+      resolved_class = resolve(range)
       raise ArgumentError unless resolved_class
       Valkyrie::Types::Set.of(
         resolved_class
@@ -245,7 +237,7 @@ module SurflinerSchema
 
     ##
     # Returns a Dry::Type for the provided RDF datatype.
-    def self.dry_data_type(data_type = RDF::RDFV.PlainLiteral)
+    def dry_data_type(data_type = RDF::RDFV.PlainLiteral)
       Valkyrie::Types::Set.of(
         Valkyrie::Types.Constructor(RDF::Literal) { |value|
           if value.is_a?(RDF::Literal)
@@ -261,7 +253,7 @@ module SurflinerSchema
               # The datatype supports language‐tagged strings.
               if value.language?
                 # The provided value is tagged with a language tag.
-                RDF::Literal.new(value.value, language: bcp47(value.language))
+                RDF::Literal.new(value.value, language: self.class.bcp47(value.language))
               elsif data_type == RDF::RDFV.langString
                 # The provided value has no language tag, but one is required.
                 # Use "und" (undetermined).
@@ -272,7 +264,7 @@ module SurflinerSchema
               end
             elsif data_type == RDF::XSD.language
               # The datatype is +xsd:language+; cast its value to BCP 47.
-              RDF::Literal.new(bcp47(value.value), datatype: data_type)
+              RDF::Literal.new(self.class.bcp47(value.value), datatype: data_type)
             else
               # The datatype is not one of the above and does not support
               # language‐tagged strings.
@@ -287,7 +279,7 @@ module SurflinerSchema
             RDF::Literal.new(value, datatype: RDF::XSD.string)
           elsif data_type == RDF::XSD.language
             # The datatype is +xsd:language+; cast its value to BCP 47.
-            RDF::Literal.new(bcp47(value), datatype: data_type)
+            RDF::Literal.new(self.class.bcp47(value), datatype: data_type)
           else
             # The datatype is not plain and does not support language‐tagged
             # strings.
@@ -295,6 +287,14 @@ module SurflinerSchema
           end
         }
       )
+    end
+
+    public
+
+    def self.bcp47(langtag)
+      iso = ISO_639.find_by_code(langtag.downcase)
+      return langtag unless iso
+      iso.alpha2 || iso.alpha3_terminologic || iso.alpha3_bibliographic
     end
 
     ##
