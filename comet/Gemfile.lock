@@ -707,7 +707,7 @@ GEM
       pry (>= 0.12.0)
     psych (3.3.4)
     public_suffix (5.0.1)
-    puma (6.2.2)
+    puma (6.3.0)
       nio4r (~> 2.0)
     qa (5.10.0)
       activerecord-import
@@ -1127,7 +1127,7 @@ DEPENDENCIES
   pry-doc (= 1.4.0)
   pry-rails (= 0.3.9)
   pry-rescue (= 1.5.2)
-  puma (= 6.2.2)
+  puma (= 6.3.0)
   rails (= 6.1.7.3)
   rdf-edtf!
   redis (= 4.8.1)
