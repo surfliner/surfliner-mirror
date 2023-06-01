@@ -1,0 +1,130 @@
+{
+    "workflows": [
+        {
+            "name": "shoreline_mediated",
+            "label": "Shoreline One-step mediated deposit workflow",
+            "description": "A single-step workflow for mediated deposit in which all deposits must be approved by a reviewer. Reviewer may also send deposits back to the depositor. Upon approval, objects are published to Shoreline platform.",
+            "allows_access_grant": false,
+            "actions": [
+                {
+                    "name": "deposit",
+                    "from_states": [],
+                    "transition_to": "in_review",
+                    "notifications": [
+                        {
+                            "notification_type": "email",
+                            "name": "Hyrax::Workflow::PendingReviewNotification",
+                            "to": [
+                                "reviewer"
+                            ]
+                        }
+                    ],
+                    "methods": [
+                        "Hyrax::Workflow::GrantReadToDepositor"
+                    ]
+                },
+                {
+                    "name": "request_changes",
+                    "from_states": [
+                        {
+                            "names": [
+                                "completed",
+                                "in_review"
+                            ],
+                            "roles": [
+                                "reviewer"
+                            ]
+                        }
+                    ],
+                    "transition_to": "changes_required",
+                    "notifications": [
+                        {
+                            "notification_type": "email",
+                            "name": "Hyrax::Workflow::ChangesRequiredNotification",
+                            "to": [
+                                "reviewer"
+                            ]
+                        }
+                    ],
+                    "methods": [
+                        "Hyrax::Workflow::GrantEditToDepositor"
+                    ]
+                },
+                {
+                    "name": "approve",
+                    "from_states": [
+                        {
+                            "names": [
+                                "in_review"
+                            ],
+                            "roles": [
+                                "reviewer"
+                            ]
+                        }
+                    ],
+                    "transition_to": "completed",
+                    "notifications": [
+                        {
+                            "notification_type": "email",
+                            "name": "Hyrax::Workflow::DepositedNotification",
+                            "to": [
+                                "reviewer"
+                            ]
+                        }
+                    ],
+                    "methods": [
+                        "Hyrax::Workflow::GrantReadToDepositor",
+                        "Hyrax::Workflow::RevokeEditFromDepositor",
+                        "Hyrax::Workflow::MintARKForObject",
+                        "Hyrax::Workflow::PublishObjectToShoreline"
+                    ]
+                },
+                {
+                    "name": "request_review",
+                    "from_states": [
+                        {
+                            "names": [
+                                "changes_required"
+                            ],
+                            "roles": [
+                                "depositing"
+                            ]
+                        }
+                    ],
+                    "transition_to": "in_review",
+                    "notifications": [
+                        {
+                            "notification_type": "email",
+                            "name": "Hyrax::Workflow::PendingReviewNotification",
+                            "to": [
+                                "reviewer"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "comment_only",
+                    "from_states": [
+                        {
+                            "names": [
+                                "in_review",
+                                "completed"
+                            ],
+                            "roles": [
+                                "reviewer"
+                            ]
+                        },
+                        {
+                            "names": [
+                                "changes_required"
+                            ],
+                            "roles": [
+                                "depositing"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
