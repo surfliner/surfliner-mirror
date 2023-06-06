@@ -3,7 +3,7 @@
 module Lark
   ##
   # @abstract A parser for input authority records. Implementing classes should
-  #   provide `#parse(inupt)`, giving a data structure representing the input.
+  #   provide `#parse(input)`, giving a data structure representing the input.
   #   This is the inverse of `Lark::RecordSerializer`. A parser/serializer pair
   #   with the same `content_type` should be capable of round-tripping records.
   #
@@ -15,7 +15,7 @@ module Lark
     def self.for(content_type:)
       case content_type
       when "application/json", "text/csv"
-        RecordParsers::JsonParser.new
+        Lark::RecordParsers::JsonParser.new
       else
         raise UnsupportedMediaType, content_type
       end

@@ -1,3 +1,11 @@
+PATH
+  remote: ../gems/surfliner_schema
+  specs:
+    surfliner_schema (0.1.0.pre)
+      activesupport
+      iso-639 (>= 0.3.0, < 0.4.0)
+      valkyrie (>= 2.2, < 4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -121,6 +129,7 @@ GEM
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
+    iso-639 (0.3.6)
     json (2.6.3)
     json-canonicalization (0.3.2)
     json-ld (3.2.5)
@@ -314,6 +323,7 @@ DEPENDENCIES
   shotgun
   sinatra (~> 3.0.0)
   standard (= 1.28.3)
+  surfliner_schema!
   timecop
   valkyrie (= 3.0.3)
   valkyrie-sequel (= 3.0.0)

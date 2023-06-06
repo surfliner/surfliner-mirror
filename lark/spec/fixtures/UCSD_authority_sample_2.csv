@@ -1,4 +1,4 @@
-exact_match,pref_label,identifier,close_match,scope_note,note,editorial_note,history_note,definition,alternate_label,hidden_label,label_source,campus,scheme
-http://id.worldcat.org/fast/1064189,Pinatas,,https://www.wikidata.org/wiki/Q673051,,,,,,Pi̱atas,,,ucsd,http://www.w3.org/2004/02/skos/core#ConceptScheme
-http://id.worldcat.org/fast/1175164,Wilderness areas,,https://www.wikidata.org/wiki/Q544008,,,,,,Protected wildlands,,,ucsd,http://www.w3.org/2004/02/skos/core#ConceptScheme
-,SUBJECT:TOPIC,Identifier value,http://arwenhutt.net/vocab/555,Scope Note value,Note value,Editorial Note value,History Note value,Definition value,SUJET,Concept tracer,,ucsd,http://www.w3.org/2004/02/skos/core#ConceptScheme
+exact_match,pref_label,identifier,close_match,scope_note,note,editorial_note,history_note,definition,alternate_label,hidden_label
+http://id.worldcat.org/fast/1064189,Pinatas,,https://www.wikidata.org/wiki/Q673051,,,,,,Pi̱atas,
+http://id.worldcat.org/fast/1175164,Wilderness areas,,https://www.wikidata.org/wiki/Q544008,,,,,,Protected wildlands,
+,SUBJECT:TOPIC,Identifier value,http://arwenhutt.net/vocab/555,Scope Note value,Note value,Editorial Note value,History Note value,Definition value,SUJET,Concept tracer

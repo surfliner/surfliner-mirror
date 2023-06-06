@@ -24,14 +24,14 @@ RSpec.describe "GET /{id}" do
   end
 
   context "with an existing object" do
-    let(:pref_label) { ["Moomin"] }
+    let(:pref_label) { Label.new("Moomin") }
     let(:resource) do
       FactoryBot.create(:concept,
         id: id,
         pref_label: pref_label)
     end
     let(:response_expected) do
-      {"pref_label" => pref_label,
+      {"pref_label" => ["Moomin"],
        "alternate_label" => [],
        "hidden_label" => [],
        "exact_match" => [],
@@ -41,11 +41,6 @@ RSpec.describe "GET /{id}" do
        "editorial_note" => [],
        "history_note" => [],
        "definition" => [],
-       "scheme" => "http://www.w3.org/2004/02/skos/core#ConceptScheme",
-       "literal_form" => [],
-       "label_source" => [],
-       "campus" => [],
-       "annotation" => [],
        "identifier" => [],
        "id" => id}
     end
@@ -69,18 +64,18 @@ RSpec.describe "GET /{id}" do
   end
 
   context "with basic term search exact match" do
-    let(:pref_label) { "authority 1" }
-    let(:pref_label_alternate) { "alternate authority" }
-    let(:alternate_label) { "alternate label" }
+    let(:pref_label) { Label.new("authority 1") }
+    let(:pref_label_alternate) { Label.new("alternate authority") }
+    let(:alternate_label) { Label.new("alternate label") }
 
     before do
       FactoryBot.create(:concept,
         id: "a_fake_id1",
-        pref_label: ["authority 1"])
+        pref_label: [pref_label])
       FactoryBot.create(:concept,
         id: "a_fake_id2",
-        pref_label: ["alternate authority"],
-        alternate_label: ["alternate label"])
+        pref_label: [pref_label_alternate],
+        alternate_label: [alternate_label])
     end
 
     after { persister.wipe! }
@@ -125,7 +120,7 @@ RSpec.describe "GET /{id}" do
     end
 
     context "with term matched pref_label" do
-      before { get "/search", pref_label: pref_label }
+      before { get "/search", pref_label: pref_label.to_s }
 
       it "gives a 200" do
         expect(last_response.status).to eq 200
@@ -133,7 +128,7 @@ RSpec.describe "GET /{id}" do
 
       it "contains the existing authority with pre_label matched" do
         expect(JSON.parse(last_response.body).first.symbolize_keys)
-          .to include(pref_label: [pref_label], alternate_label: [])
+          .to include(pref_label: [pref_label.to_s], alternate_label: [])
       end
 
       it "has header for CORS request" do
@@ -143,7 +138,7 @@ RSpec.describe "GET /{id}" do
     end
 
     context "with term match alternate_label" do
-      before { get "/search", alternate_label: alternate_label }
+      before { get "/search", alternate_label: alternate_label.to_s }
 
       it "gives a 200" do
         expect(last_response.status).to eq 200
@@ -151,8 +146,8 @@ RSpec.describe "GET /{id}" do
 
       it "contains the existing authority with alternate_label matched" do
         expect(JSON.parse(last_response.body).first.symbolize_keys)
-          .to include(pref_label: [pref_label_alternate],
-            alternate_label: [alternate_label])
+          .to include(pref_label: [pref_label_alternate.to_s],
+            alternate_label: [alternate_label.to_s])
       end
 
       it "has header for CORS request" do

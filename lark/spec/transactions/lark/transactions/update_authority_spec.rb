@@ -29,8 +29,9 @@ RSpec.describe Lark::Transactions::UpdateAuthority do
     end
 
     it "returns an updated authority" do
-      expect(transaction.call(id: id, attributes: attributes).value!)
-        .to have_attributes(id: authority.id, pref_label: ["Label edited"])
+      value = transaction.call(id: id, attributes: attributes).value!
+      expect(value[:id]).to eq authority.id
+      expect(value[:pref_label].map(&:to_h)).to eq [Label.new("Label edited").to_h]
     end
 
     context "with invalid properties" do

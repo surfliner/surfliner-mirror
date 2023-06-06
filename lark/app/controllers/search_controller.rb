@@ -58,7 +58,6 @@ class SearchController < ApplicationController
   # @params [Hash] the request parameters map
   def search(params)
     label = search_term(params)
-
     query_service.custom_queries
       .find_by_string_property(property: label,
         value: params[label])

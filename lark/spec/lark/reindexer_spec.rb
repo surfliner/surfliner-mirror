@@ -37,7 +37,7 @@ RSpec.describe Lark::Reindexer do
       before { index_adapter.persister.save(resource: authority) }
 
       it "reindex record" do
-        expect(attrs).to include(pref_label: ["moomin edited"])
+        expect(attrs[:pref_label].map(&:to_h)).to eq [Label.new("moomin edited").to_h]
       end
     end
 
@@ -51,11 +51,11 @@ RSpec.describe Lark::Reindexer do
       before { index_adapter.persister.save(resource: authority) }
 
       it "contains :pref_label" do
-        expect(attrs).to include(pref_label: ["moomin edited"])
+        expect(attrs[:pref_label].map(&:to_h)).to eq [Label.new("moomin edited").to_h]
       end
 
       it "contains :alternate_label" do
-        expect(attrs).to include(alternate_label: ["Alternate label"])
+        expect(attrs[:alternate_label].map(&:to_h)).to eq [Label.new("Alternate label").to_h]
       end
     end
   end
@@ -103,13 +103,11 @@ RSpec.describe Lark::Reindexer do
     end
 
     it "re-index the record with changes" do
-      expect(query_service.find_by(id: id1).attributes)
-        .to include(pref_label: ["moomin updated 1"])
+      expect(query_service.find_by(id: id1).attributes[:pref_label].map(&:to_h)).to eq [Label.new("moomin updated 1").to_h]
     end
 
     it "re-index other records with changes" do
-      expect(query_service.find_by(id: id2).attributes)
-        .to include(pref_label: ["moomin updated 2"])
+      expect(query_service.find_by(id: id2).attributes[:pref_label].map(&:to_h)).to eq [Label.new("moomin updated 2").to_h]
     end
   end
 end

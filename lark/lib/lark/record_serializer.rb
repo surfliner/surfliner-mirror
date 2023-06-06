@@ -16,7 +16,7 @@ module Lark
     def self.for(content_type:)
       case content_type
       when "application/json"
-        new
+        Lark::RecordSerializers::JsonSerializer.new
       else
         raise UnsupportedMediaType, content_type
       end
@@ -27,11 +27,7 @@ module Lark
     #
     # @return [String] a serialized string representing the record
     def serialize(record:)
-      reserved_attributes = record.class.reserved_attributes
-      record.attributes
-        .except(*reserved_attributes)
-        .merge(id: record.id.to_s)
-        .to_json
+      raise NotImplementedError
     end
   end
 end

@@ -32,6 +32,8 @@ module Lark
 
       private
 
+      # TODO: normalize attributes
+
       def validate_change_properties(id:, attributes:)
         result = Contracts::AuthorityContract[:concept].new.call(attributes)
 

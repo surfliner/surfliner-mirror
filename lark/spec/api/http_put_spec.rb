@@ -33,7 +33,7 @@ RSpec.describe "PUT /{id}" do
     end
 
     context "with PUT to update the concept" do
-      let(:new_label) { ["Label edited"] }
+      let(:new_label) { "Label edited" }
 
       before do
         put "/#{id}", data, "CONTENT_TYPE" => ctype
@@ -46,14 +46,14 @@ RSpec.describe "PUT /{id}" do
 
       it "returns the updated pref_label in the body" do
         expect(JSON.parse(last_response.body).symbolize_keys)
-          .to include(id: id, pref_label: new_label)
+          .to include(id: id, pref_label: [new_label])
       end
 
       it "updates the prefLabel for subsequent GETs" do
         get "/#{id}"
 
         expect(JSON.parse(last_response.body).symbolize_keys)
-          .to include(id: id, pref_label: new_label)
+          .to include(id: id, pref_label: [new_label])
       end
     end
 

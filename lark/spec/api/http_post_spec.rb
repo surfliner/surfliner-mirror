@@ -123,7 +123,6 @@ RSpec.describe "POST /" do
 
       it "update the Label for other_authority" do
         get "/#{other_authority.id}"
-
         expect(JSON.parse(last_response.body).symbolize_keys)
           .to include(id: other_authority.id.to_s, pref_label: ["new_label_2"])
       end
@@ -218,8 +217,14 @@ RSpec.describe "POST /" do
       before { post "/batch_import", data, "CONTENT_TYPE" => ctype }
 
       it "creates a concept with fields in multilingual literal form" do
-        expect(record).to include(pref_label: ['"Chʹoe, Yŏng-su. (최 영수.)"@ko-Latn'],
-          alternate_label: ['"최 영수"@ko-Hang'])
+        expect(
+          record.pref_label.map(&:to_h)
+        ).to contain_exactly Label.new(literal_form:
+          RDF::Literal("Chʹoe, Yŏng-su. (최 영수.)", language: "ko-Latn")).to_h
+        expect(
+          record.alternate_label.map(&:to_h)
+        ).to contain_exactly Label.new(literal_form:
+          RDF::Literal("최 영수", language: "ko-Hang")).to_h
       end
     end
   end

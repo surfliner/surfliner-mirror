@@ -22,18 +22,50 @@ RSpec.describe Lark::Transactions::CreateAuthority do
 
     context "with multiple valid attributes" do
       let(:attributes) do
-        {pref_label: "label",
-         note: ["a note"],
-         annotation: ["administrative note"]}
+        {pref_label: "label", alternate_label: "alt label"}
       end
 
-      # TODO: should this yeild a single valued pref_label?
       it "returns an object with the attributes" do
-        expect(transaction.call(attributes: attributes))
-          .to be_a_transaction_success
-          .with_object(have_attributes(pref_label: ["label"],
-            note: ["a note"],
-            annotation: ["administrative note"]))
+        result = transaction.call(attributes: attributes)
+        expect(result).to be_a_transaction_success
+        expect(result.value!.pref_label.map(&:to_h)).to contain_exactly Label.new("label").to_h
+        expect(result.value!.alternate_label.map(&:to_h)).to contain_exactly Label.new("alt label").to_h
+      end
+    end
+
+    context "with language-tagged labels" do
+      let(:attributes) do
+        {pref_label: {"@value" => "label", "@language" => "en"}}
+      end
+
+      # TODO: we need to support language‐tagging here
+      xit "returns an object with the language‐tagged label" do
+        result = transaction.call(attributes: attributes)
+        expect(result).to be_a_transaction_success
+        expect(result.value!.pref_label.map(&:to_h)).to contain_exactly Label.new(
+          literal_form: RDF::Literal.new("label", language: "en")
+        ).to_h
+      end
+    end
+
+    context "with complex labels" do
+      let(:attributes) do
+        {pref_label: {
+          literal_form: "label",
+          note: [{"@value" => "a note", "@language" => "en"}],
+          annotation: {"@value" => "administrative note"}
+        }}
+      end
+
+      # TODO: we need to support qualified labels here
+      xit "returns an object with the label in all its complexity" do
+        result = transaction.call(attributes: attributes)
+        expect(result).to be_a_transaction_success
+        expect(result.value!.pref_label.map(&:to_h)).to contain_exactly Label.new(
+          literal_form: "label",
+          note: RDF::Literal.new("a note", language: "en"),
+          annotation: "administrative note"
+        ).to_h
       end
     end
 

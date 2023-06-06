@@ -8,13 +8,12 @@ module Contracts
 
     schema do
       optional(:id)
-      optional(:scheme)
     end
 
-    def self.[](schema_name)
+    def self.[](availability)
       Class.new(self) do
         schema do
-          Lark::Schema(schema_name).each_property do |property|
+          Lark::SchemaLoader.new.form_definitions_for(availability).values.each do |property|
             property.required? ? required(property.name) : optional(property.name)
           end
         end

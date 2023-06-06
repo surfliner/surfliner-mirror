@@ -56,7 +56,14 @@ if Lark.config.index_adapter == :solr
     .query_service
     .custom_queries
     .register_query_handler(Queries::FindByStringProperty)
+
+  # Prepend custom Solr mappers needed for indexing to the Solr value mapper.
+  Valkyrie::Persistence::Solr::ModelConverter::SolrMapperValue.value_casters.prepend(
+    Valkyrie::Persistence::Solr::ModelConverter::LabelValue
+  )
 end
+
+Valkyrie.config.resource_class_resolver = Lark::SchemaLoader.new.resource_class_resolver
 
 require_relative "initializers/healthchecks"
 require_relative "initializers/healthchecks_complete"

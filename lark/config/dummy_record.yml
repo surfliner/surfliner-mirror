@@ -1,7 +1,10 @@
 ---
 -
     exact_match: http://id.worldcat.org/fast/1064189
-    pref_label: Pinatas
+    pref_label:
+      literal_form: Pinatas
+      label_source: label_source_1
+      campus: ucsd
     identifier: identifier_1
     close_match: https://www.wikidata.org/wiki/Q673051
     scope_note: scope_note_1
@@ -9,14 +12,20 @@
     editorial_note: editorial_note_1
     history_note: history_note_1
     definition: definition_1
-    alternate_label: Pi̱atas
-    hidden_label: hidden_label_1
-    label_source: label_source_1
-    campus: ucsd
-    scheme: http://www.w3.org/2004/02/skos/core
+    alternate_label:
+      literal_form: Pi̱atas
+      label_source: label_source_1
+      campus: ucsd
+    hidden_label:
+      literal_form: hidden_label_1
+      label_source: label_source_1
+      campus: ucsd
 -
     exact_match: http://id.worldcat.org/fast/1175164
-    pref_label: Wilderness areas
+    pref_label:
+      literal_form: Wilderness areas
+      label_source: label_source_2
+      campus: ucsd
     identifier: identifier_2
     close_match: https://www.wikidata.org/wiki/Q544008
     scope_note: scope_note_2
@@ -24,14 +33,20 @@
     editorial_note: editorial_note_2
     history_note: history_note_2
     definition: definition_2
-    alternate_label: Protected wildlands
-    hidden_label: hidden_label_2
-    label_source: label_source_2
-    campus: ucsd
-    scheme: http://www.w3.org/2004/02/skos/core
+    alternate_label:
+      literal_form: Protected wildlands
+      label_source: label_source_2
+      campus: ucsd
+    hidden_label:
+      literal_form: hidden_label_2
+      label_source: label_source_2
+      campus: ucsd
 -
-    exact_match: 
-    pref_label: SUBJECT:TOPIC
+    exact_match:
+    pref_label:
+      literal_form: SUBJECT:TOPIC
+      label_source: label_source_3
+      campus: ucsd
     identifier: identifier_3
     close_match: http://arwenhutt.net/vocab/555
     scope_note: scope_note_3
@@ -39,14 +54,20 @@
     editorial_note: editorial_note_3
     history_note: history_note_3
     definition: definition_3
-    alternate_label: SUJET
-    hidden_label: Concept tracer
-    label_source: label_source_3
-    campus: ucsd
-    scheme: http://www.w3.org/2004/02/skos/core
+    alternate_label:
+      literal_form: SUJET
+      label_source: label_source_3
+      campus: ucsd
+    hidden_label:
+      literal_form: Concept tracer
+      label_source: label_source_3
+      campus: ucsd
 -
     exact_match: http://id.worldcat.org/fast/1018930
-    pref_label: Mexican American art
+    pref_label:
+      literal_form: Mexican American art
+      label_source: label_source_4
+      campus: ucsd
     identifier: identifier_4
     close_match: https://www.wikidata.org/wiki/Q544008
     scope_note: scope_note_4
@@ -54,14 +75,20 @@
     editorial_note: editorial_note_4
     history_note: history_note_4
     definition: definition_4
-    alternate_label: alternate_label_4
-    hidden_label: hidden_label_4
-    label_source: label_source_4
-    campus: ucsd
-    scheme: http://www.w3.org/2004/02/skos/core
+    alternate_label:
+      literal_form: alternate_label_4
+      label_source: label_source_4
+      campus: ucsd
+    hidden_label:
+      literal_form: hidden_label_4
+      label_source: label_source_4
+      campus: ucsd
 -
     exact_match: http://vocab.getty.edu/aat/300047753
-    pref_label: models (representations)
+    pref_label:
+      literal_form: models (representations)
+      label_source: label_source_5
+      campus: ucsd
     identifier: https://www.wikidata.org/wiki/Q12149837
     close_match: close_match_5
     scope_note: scope_note_5
@@ -69,14 +96,20 @@
     editorial_note: editorial_note_5
     history_note: history_note_5
     definition: definition_5
-    alternate_label: alternate_label_5
-    hidden_label: hidden_label_5
-    label_source: label_source_5
-    campus: ucsd
-    scheme: http://www.w3.org/2004/02/skos/core
+    alternate_label:
+      literal_form: alternate_label_5
+      label_source: label_source_5
+      campus: ucsd
+    hidden_label:
+      literal_form: hidden_label_5
+      label_source: label_source_5
+      campus: ucsd
 -
     exact_match: http://id.worldcat.org/fast/1024387
-    pref_label: Models (Persons)
+    pref_label:
+      literal_form: Models (Persons)
+      label_source: label_source_6
+      campus: ucsd
     identifier:
     close_match: http://vocab.getty.edu/aat/300025848
     scope_note: scope_note_6
@@ -84,14 +117,20 @@
     editorial_note: editorial_note_6
     history_note: history_note_6
     definition: definition_6
-    alternate_label: alternate_label_6
-    hidden_label: hidden_label_6
-    label_source: label_source_6
-    campus: ucsd
-    scheme: http://www.w3.org/2004/02/skos/core
+    alternate_label:
+      literal_form: alternate_label_6
+      label_source: label_source_6
+      campus: ucsd
+    hidden_label:
+      literal_form: hidden_label_6
+      label_source: label_source_6
+      campus: ucsd
 -
     exact_match: http://id.worldcat.org/fast/1155007
-    pref_label: Transportation
+    pref_label:
+      literal_form: Transportation
+      label_source: label_source_7
+      campus: ucsd
     identifier:
     close_match: http://id.loc.gov/authorities/subjects/sh85137027
     scope_note: scope_note_7
@@ -99,14 +138,20 @@
     editorial_note: editorial_note_7
     history_note: history_note_7
     definition: definition_7
-    alternate_label: alternate_label_7
-    hidden_label: hidden_label_7
-    label_source: label_source_7
-    campus: ucsd
-    scheme: http://www.w3.org/2004/02/skos/core
+    alternate_label:
+      literal_form: alternate_label_7
+      label_source: label_source_7
+      campus: ucsd
+    hidden_label:
+      literal_form: hidden_label_7
+      label_source: label_source_7
+      campus: ucsd
 -
     exact_match: http://id.worldcat.org/fast/1089760
-    pref_label: Ranches
+    pref_label:
+      literal_form: Ranches
+      label_source: label_source_7
+      campus: ucsd
     identifier:
     close_match: http://id.loc.gov/authorities/subjects/sh85111326
     scope_note: scope_note_8
@@ -114,14 +159,20 @@
     editorial_note: editorial_note_8
     history_note: history_note_8
     definition: definition_8
-    alternate_label: alternate_label_8
-    hidden_label: hidden_label_8
-    label_source: label_source_8
-    campus: ucsd
-    scheme: http://www.w3.org/2004/02/skos/core
+    alternate_label:
+      literal_form: alternate_label_8
+      label_source: label_source_8
+      campus: ucsd
+    hidden_label:
+      literal_form: hidden_label_8
+      label_source: label_source_8
+      campus: ucsd
 -
     exact_match: http://vocab.getty.edu/aat/300386961
-    pref_label: abandoned structures
+    pref_label:
+      literal_form: abandoned structures
+      label_source: label_source_9
+      campus: ucsd
     identifier:
     close_match:
     scope_note: scope_note_9
@@ -129,23 +180,32 @@
     editorial_note: editorial_note_9
     history_note: history_note_9
     definition: definition_9
-    alternate_label: alternate_label_9
-    hidden_label: hidden_label_9
-    label_source: label_source_9
-    campus: ucsd
-    scheme: http://www.w3.org/2004/02/skos/core
+    alternate_label:
+      literal_form: alternate_label_9
+      label_source: label_source_9
+      campus: ucsd
+    hidden_label:
+      literal_form: hidden_label_9
+      label_source: label_source_9
+      campus: ucsd
 -
     exact_match: http://id.worldcat.org/fast/1735625
-    pref_label: Landscapes
-    identifier: 
+    pref_label:
+      literal_form: Landscapes
+      label_source: label_source_10
+      campus: ucsd
+    identifier:
     close_match: http://id.loc.gov/authorities/subjects/sh85074392
     scope_note: scope_note_10
     note: note_10
     editorial_note: editorial_note_10
     history_note: history_note_10
     definition: definition_10
-    alternate_label: alternate_label_10
-    hidden_label: hidden_label_10
-    label_source: label_source_10
-    campus: ucsd
-    scheme: http://www.w3.org/2004/02/skos/core
+    alternate_label:
+      literal_form: alternate_label_10
+      label_source: label_source_10
+      campus: ucsd
+    hidden_label:
+      literal_form: hidden_label_10
+      label_source: label_source_10
+      campus: ucsd

@@ -32,6 +32,8 @@ module Lark
   class Application < Sinatra::Base
     use Rack::Healthcheck::Middleware, "/healthz"
 
+    set :root, File.expand_path("..", File.dirname(__FILE__))
+
     get "/" do
       ServiceDescriptionController.new(request: request).show
     end
