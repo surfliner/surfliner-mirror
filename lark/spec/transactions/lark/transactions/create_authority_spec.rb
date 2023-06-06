@@ -28,8 +28,8 @@ RSpec.describe Lark::Transactions::CreateAuthority do
       it "returns an object with the attributes" do
         result = transaction.call(attributes: attributes)
         expect(result).to be_a_transaction_success
-        expect(result.value!.pref_label.map(&:to_h)).to contain_exactly Label.new("label").to_h
-        expect(result.value!.alternate_label.map(&:to_h)).to contain_exactly Label.new("alt label").to_h
+        expect(result.value!.pref_label).to contain_exactly Label.new("label")
+        expect(result.value!.alternate_label).to contain_exactly Label.new("alt label")
       end
     end
 
@@ -42,9 +42,9 @@ RSpec.describe Lark::Transactions::CreateAuthority do
       xit "returns an object with the language‐tagged label" do
         result = transaction.call(attributes: attributes)
         expect(result).to be_a_transaction_success
-        expect(result.value!.pref_label.map(&:to_h)).to contain_exactly Label.new(
+        expect(result.value!.pref_label.map).to contain_exactly Label.new(
           literal_form: RDF::Literal.new("label", language: "en")
-        ).to_h
+        )
       end
     end
 
@@ -61,11 +61,11 @@ RSpec.describe Lark::Transactions::CreateAuthority do
       xit "returns an object with the label in all its complexity" do
         result = transaction.call(attributes: attributes)
         expect(result).to be_a_transaction_success
-        expect(result.value!.pref_label.map(&:to_h)).to contain_exactly Label.new(
+        expect(result.value!.pref_label).to contain_exactly Label.new(
           literal_form: "label",
           note: RDF::Literal.new("a note", language: "en"),
           annotation: "administrative note"
-        ).to_h
+        )
       end
     end
 

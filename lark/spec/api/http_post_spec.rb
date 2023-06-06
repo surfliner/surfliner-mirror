@@ -218,13 +218,13 @@ RSpec.describe "POST /" do
 
       it "creates a concept with fields in multilingual literal form" do
         expect(
-          record.pref_label.map(&:to_h)
+          record.pref_label
         ).to contain_exactly Label.new(literal_form:
-          RDF::Literal("Chʹoe, Yŏng-su. (최 영수.)", language: "ko-Latn")).to_h
+          RDF::Literal("Chʹoe, Yŏng-su. (최 영수.)", language: "ko-Latn"))
         expect(
-          record.alternate_label.map(&:to_h)
+          record.alternate_label
         ).to contain_exactly Label.new(literal_form:
-          RDF::Literal("최 영수", language: "ko-Hang")).to_h
+          RDF::Literal("최 영수", language: "ko-Hang"))
       end
     end
   end

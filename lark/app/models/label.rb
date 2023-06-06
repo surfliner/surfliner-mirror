@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 ##
 # A label, intended to be used as a nested resource in agents and concepts.
 #
@@ -9,6 +7,10 @@
 # SurflinerSchema will use when building nested +Label+ objects inside of
 # +Concept+s and +Agent+s.
 Valkyrie.config.resource_class_resolver.call(:Label).class_eval do
+  # compare label equality on all configured label fields, deliberately
+  # excluding +:id+
+  include Dry::Equalizer(*(fields - reserved_attributes))
+
   ##
   # Create a new +Label+ from the provided argument or keywords.
   #
