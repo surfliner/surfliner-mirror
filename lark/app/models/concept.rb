@@ -11,5 +11,7 @@
 #   adapter.query_service.find_by(id: 'my_id') # => <#Concept ...>
 #   adapter.persister.delete(resource: concept)
 #
+# This uses the SurflinerSchema class resolver to initialize the class with its
+# mappings.
 Valkyrie.config.resource_class_resolver.call(:Concept).class_eval do
 end

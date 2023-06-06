@@ -11,5 +11,6 @@
 #   adapter.query_service.find_by(id: 'my_id') # => <#Agent ...>
 #   adapter.persister.delete(resource: agent)
 #
-Valkyrie.config.resource_class_resolver.call(:Agent).class_eval do
-end
+# This uses the SurflinerSchema class resolver to initialize the class with its
+# mappings.
+Valkyrie.config.resource_class_resolver.call(:Agent)

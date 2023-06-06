@@ -32,7 +32,13 @@ module Lark
 
       private
 
-      # TODO: normalize attributes
+      # TODO: In the case that the +attributes+ contain labels, they might be
+      # one of a number of different forms. We should probably add a step to
+      # normalize them to an actual +Label+ instance before we run the
+      # validation steps so that we are logging them consistently.
+      #
+      # It might be worthwhile to do normalization of other attributes to
+      # arrays of +RDF::Literal+s as well.
 
       def validate_change_properties(id:, attributes:)
         result = Contracts::AuthorityContract[:concept].new.call(attributes)

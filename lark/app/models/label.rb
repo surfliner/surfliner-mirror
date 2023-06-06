@@ -2,6 +2,12 @@
 
 ##
 # A label, intended to be used as a nested resource in agents and concepts.
+#
+# This uses the SurflinerSchema class resolver to initialize the class with its
+# mappings, and then reopens it to build out some additional methods. This is
+# necessary to ensure that the class defined here (the const) matches the one
+# SurflinerSchema will use when building nested +Label+ objects inside of
+# +Concept+s and +Agent+s.
 Valkyrie.config.resource_class_resolver.call(:Label).class_eval do
   ##
   # Create a new +Label+ from the provided argument or keywords.
