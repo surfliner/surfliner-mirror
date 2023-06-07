@@ -125,6 +125,8 @@ RSpec.configure do |config|
   config.include Devise::Test::IntegrationHelpers, type: :system
   config.include CometCapybaraHelpers
   config.include_context "with an admin set", type: :system
+  config.include_context "with an admin set", with_admin_set: true
+  config.include_context "with an admin set", with_project: true
 
   config.before(:each, type: :system) do
     Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"

@@ -14,8 +14,3 @@ RSpec.shared_context "with an admin set" do
     end
   end
 end
-
-RSpec.configure do |rspec|
-  rspec.include_context "with an admin set", with_admin_set: true
-  rspec.include_context "with an admin set", with_project: true
-end

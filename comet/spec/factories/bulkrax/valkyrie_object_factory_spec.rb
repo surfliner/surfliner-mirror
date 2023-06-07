@@ -1,3 +1,5 @@
+require "rails_helper"
+
 RSpec.describe Bulkrax::ValkyrieObjectFactory, :with_admin_set do
   subject(:object_factory) do
     described_class.new(attributes: attributes,

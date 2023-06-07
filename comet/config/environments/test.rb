@@ -46,4 +46,6 @@ Rails.application.configure do
 
   ## Comet Feature Flags should be ON for the test environment
   config.feature_collection_publish = true
+
+  config.factory_bot.definition_file_paths = ["support"]
 end
