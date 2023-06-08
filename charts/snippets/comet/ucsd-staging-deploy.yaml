@@ -51,8 +51,6 @@ extraEnvVars:
     value: "surfliner-rabbitmq-stage.rabbitmq-staging.svc"
   - name: "RAILS_LOG_TO_STDOUT"
     value: "true"
-  - name: "STAGING_AREA_S3_BUCKET"
-    value: "assetstorage"
   - name: "RAILS_QUEUE"
     value: "sidekiq"
 worker:
@@ -81,8 +79,6 @@ worker:
       value: "surfliner-rabbitmq-stage.rabbitmq-staging.svc"
     - name: "RAILS_LOG_TO_STDOUT"
       value: "true"
-    - name: "STAGING_AREA_S3_BUCKET"
-      value: "assetstorage"
     - name: "RAILS_QUEUE"
       value: "sidekiq"
 
