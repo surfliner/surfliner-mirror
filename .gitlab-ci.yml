@@ -52,7 +52,6 @@ include:
       context_param="$context_param/$context"
     fi
 
-
     /kaniko/executor --context "$context_param" --cache=true --push-retry 3 $target_param --dockerfile "$CI_PROJECT_DIR"/"$project"/Dockerfile $destination
   }
 

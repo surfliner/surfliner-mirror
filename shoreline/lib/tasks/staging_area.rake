@@ -13,7 +13,7 @@ namespace :shoreline do
       root_dir = Rails.root.join("spec", "fixtures", "geodata")
       puts "--Uploading UCSB example shapefiles from #{root_dir} to S3/Minio staging area ..."
 
-      upload_files(list_files(root_dir), "shapefiles")
+      upload_files(list_files(root_dir), "shoreline")
     end
   end
 end
