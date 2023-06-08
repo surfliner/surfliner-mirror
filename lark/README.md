@@ -511,9 +511,9 @@ For non-trivial development tasks, it's advisable to setup and configure Postgre
 in the development environment. The easiest way to do this is to use the included Docker Compose
 configuration; see [Running with Docker][#running-with-docker].
 
-If you want to run Postgres directly on your local system, you'll need to setup Postgres
-and point Lark to it by setting env variable `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`,
-and `POSTGRES_HOST`.
+If you want to run Postgres directly on your local system, you'll need to setup
+Postgres and point Lark to it by setting env variable `POSTGRESQL_DATABASE`,
+`POSTGRESQL_USERNAME`, `POSTGRESQL_PASSWORD`, and `POSTGRESQL_HOST`.
 
 The specification for this log, including details about event types and their
 semantics, is given in [`EVENT_LOG.md`][event-log]

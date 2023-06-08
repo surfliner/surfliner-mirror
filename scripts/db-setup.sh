@@ -3,8 +3,8 @@ set -e
 
 # Get DB host and port
 if [ -z "${DATABASE_URL}" ]; then
-  db_host=${POSTGRES_HOST}
-  db_port=${POSTGRES_PORT}
+  db_host=${POSTGRESQL_HOST}
+  db_port=${POSTGRESQL_PORT}
 else
   db_host=$(echo "$DATABASE_URL" | cut -d "@" -f2 | cut -d "/" -f1 | cut -d ":" -f1)
   db_port=$(echo "$DATABASE_URL" | cut -d "@" -f2 | cut -d "/" -f1 | cut -d ":" -f2)

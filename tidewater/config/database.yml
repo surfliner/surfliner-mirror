@@ -2,17 +2,16 @@ default: &default
   adapter:  <%= ENV.fetch('DATABASE_ADAPTER') { 'postgresql'} %>
   pool:     <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } %>
   timeout:  <%= ENV.fetch('DATABASE_TIMEOUT') { 5000 }  %>
-  database: <%= ENV['POSTGRES_DB'] %>
-  host:     <%= ENV['POSTGRES_HOST'] || ENV["DATABASE_HOST"] %>
-  username: <%= ENV["POSTGRES_USER"] %>
-  password: <%= ENV["POSTGRES_PASSWORD"] %>
+  database: <%= ENV['POSTGRESQL_DATABASE'] %>
+  host:     <%= ENV['POSTGRESQL_HOST'] || ENV["DATABASE_HOST"] %>
+  username: <%= ENV["POSTGRESQL_USERNAME"] %>
+  password: <%= ENV["POSTGRESQL_PASSWORD"] %>
 
 development:
   <<: *default
 
 test:
   <<: *default
-  database: <%= ENV['POSTGRES_DB_TEST'] %>
 
 production:
   <<: *default

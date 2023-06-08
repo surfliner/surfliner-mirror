@@ -1,5 +1,5 @@
 # It is assumed that for production environments, database credentials will be
-# made available to the application via the POSTGRES_ variables
+# made available to the application via the POSTGRESQL_ variables
 #
 # see: https://edgeguides.rubyonrails.org/configuring.html#configuring-a-database
 # see: https://gitlab.com/surfliner/surfliner/blob/master/starlight/doc/deploy.md#environment-variables
@@ -8,9 +8,9 @@ default: &default
   pool:     <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } %>
   timeout:  <%= ENV.fetch('DATABASE_TIMEOUT') { 5000 }  %>
   database: <%= ENV['POSTGRESQL_DATABASE'] %>
-  host:     <%= ENV['POSTGRES_HOST'] || ENV["DATABASE_HOST"] %>
-  username: <%= ENV["POSTGRES_USER"] %>
-  password: <%= ENV["POSTGRES_PASSWORD"] %>
+  host:     <%= ENV['POSTGRESQL_HOST'] || ENV["DATABASE_HOST"] %>
+  username: <%= ENV["POSTGRESQL_USERNAME"] %>
+  password: <%= ENV["POSTGRESQL_PASSWORD"] %>
 
 development:
   <<: *default

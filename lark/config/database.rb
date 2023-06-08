@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
 DATABASE = {
-  user: ENV.fetch("POSTGRES_USER"),
-  password: ENV.fetch("POSTGRES_PASSWORD"),
-  host: ENV.fetch("POSTGRES_HOST"),
-  port: ENV.fetch("POSTGRES_PORT"),
-  database: ENV.fetch("POSTGRES_DB"),
+  user: ENV.fetch("POSTGRESQL_USERNAME"),
+  password: ENV.fetch("POSTGRESQL_PASSWORD"),
+  host: ENV.fetch("POSTGRESQL_HOST"),
+  port: ENV.fetch("POSTGRESQL_PORT"),
+  database: ENV.fetch("POSTGRESQL_DATABASE"),
   adapter: "postgres"
 }.freeze
 
 DATABASE_AS_ADMIN = {
   user: "postgres",
-  password: ENV.fetch("POSTGRES_ADMIN_PASSWORD"),
-  host: ENV.fetch("POSTGRES_HOST"),
-  port: ENV.fetch("POSTGRES_PORT"),
-  database: ENV.fetch("POSTGRES_DB"),
+  password: ENV.fetch("POSTGRESQL_POSTGRES_PASSWORD"),
+  host: ENV.fetch("POSTGRESQL_HOST"),
+  port: ENV.fetch("POSTGRESQL_PORT"),
+  database: ENV.fetch("POSTGRESQL_DATABASE"),
   adapter: "postgres"
 }.freeze

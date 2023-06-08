@@ -22,12 +22,12 @@ lark:api:test:unit:
   image: $CI_REGISTRY_IMAGE/lark_web:$CI_COMMIT_SHA
   needs: ["lark:test:solrconfig", "lark:ruby-build"]
   variables:
-    POSTGRES_ADMIN_PASSWORD: password
-    POSTGRES_DB: postgres
-    POSTGRES_HOST: postgres
-    POSTGRES_PASSWORD: password
-    POSTGRES_PORT: 5432
-    POSTGRES_USER: postgres
+    POSTGRESQL_DATABASE: postgres
+    POSTGRESQL_HOST: postgres
+    POSTGRESQL_PASSWORD: password
+    POSTGRESQL_PORT: 5432
+    POSTGRESQL_POSTGRES_PASSWORD: password
+    POSTGRESQL_USERNAME: postgres
     PRODUCT: lark
     REPOSITORY_URL: $CI_REPOSITORY_URL
     SOLR_CORES: lark-test
@@ -43,7 +43,7 @@ lark:api:test:unit:
     - cd lark
     - bundle check || bundle
     - solr-core-wait.sh
-    - db-wait.sh "${POSTGRES_HOST}:${POSTGRES_PORT}" bundle exec rake db:migrate
+    - db-wait.sh "${POSTGRESQL_HOST}:${POSTGRESQL_PORT}" bundle exec rake db:migrate
     - bundle exec rspec
   extends:
     - .only-refs-default

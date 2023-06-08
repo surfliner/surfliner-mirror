@@ -90,9 +90,9 @@ See: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.m
 
 | Parameter | Description | Default | Environment Variable |
 | --------- | ----------- | ------- | -------------------- |
-| `postgresql.postgresqlUsername` | Database user for application | `shoreline` | `POSTGRES_USER` |
-| `postgresql.postgresqlPassword` | Database user password for application | `shorelinepass` | `POSTGRES_PASSWORD` |
-| `postgresql.postgresqlDatabase` | Database name for application | `shoreline` | `POSTGRES_DB` |
+| `postgresql.postgresqlUsername` | Database user for application | `shoreline` | `POSTGRESQL_USERNAME` |
+| `postgresql.postgresqlPassword` | Database user password for application | `shorelinepass` | `POSTGRESQL_PASSWORD` |
+| `postgresql.postgresqlDatabase` | Database name for application | `shoreline` | `POSTGRESQL_DATABASE` |
 | `postgresql.persistence.size` | Database PVC size | `10Gi` | N/A |
 
 #### Solr

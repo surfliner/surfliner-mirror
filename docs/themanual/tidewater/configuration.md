@@ -52,4 +52,4 @@ This **should** match the format of the `id` column in the `oai_items`
 ## Database Configuration
 
 Tidewater expects a Postgres database configured according to the
-  `POSTGRES_*` environment variables (see `.env`).
+  `POSTGRESQL_*` environment variables (see `.env`).

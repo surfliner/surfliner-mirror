@@ -10,9 +10,9 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 data:
   LOG_LEVEL: {{ .Values.consumer.logLevel }}
-  POSTGRES_DB: {{ .Values.postgresql.auth.database }}
-  POSTGRES_HOST: {{ template "tidewater.postgresql.fullname" . }}
-  POSTGRES_PORT: {{ .Values.postgresql.primary.service.ports.postgresql | quote }}
+  POSTGRESQL_DATABASE: {{ .Values.postgresql.auth.database }}
+  POSTGRESQL_HOST: {{ template "tidewater.postgresql.fullname" . }}
+  POSTGRESQL_PORT: {{ .Values.postgresql.primary.service.ports.postgresql | quote }}
   RABBITMQ_HOST: {{ .Values.consumer.rabbitmq.host }}
   RABBITMQ_NODE_PORT_NUMBER: {{ .Values.consumer.rabbitmq.port | quote }}
   RABBITMQ_QUEUE: {{ .Values.consumer.rabbitmq.queue }}

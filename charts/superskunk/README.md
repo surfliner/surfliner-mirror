@@ -80,10 +80,10 @@ See: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.m
 | Parameter | Description | Default | Environment Variable |
 | --------- | ----------- | ------- | -------------------- |
 | `postgresql.auth.database` | Database name for application. Used if `superskunk.db.standalone` is `false` | `comet_metadata` | `POSTGRESQL_DATABASE` |
-| `postgresql.auth.hostname` | External database hostname, when `postgresql.enabled` is `false` | `nil` | `POSTGRES_HOST` |
-| `postgresql.auth.password` | Database user password for application | `superskunk_pass` | `POSTGRES_PASSWORD` |
-| `postgresql.auth.postgresPassword` | Admin `postgres` user's password | `superskunk_admin` | `POSTGRES_ADMIN_PASSWORD` |
-| `postgresql.auth.username` | Database user for application | `superskunk` | `POSTGRES_USER` |
+| `postgresql.auth.hostname` | External database hostname, when `postgresql.enabled` is `false` | `nil` | `POSTGRESQL_HOST` |
+| `postgresql.auth.password` | Database user password for application | `superskunk_pass` | `POSTGRESQL_PASSWORD` |
+| `postgresql.auth.postgresPassword` | Admin `postgres` user's password | `superskunk_admin` | `POSTGRESQL_POSTGRES_PASSWORD` |
+| `postgresql.auth.username` | Database user for application | `superskunk` | `POSTGRESQL_USERNAME` |
 | `postgresql.persistence.size` | Database PVC size | `10Gi` | N/A |
 ```
 

@@ -12,7 +12,7 @@ Sequel.migration do
       DateTime :updated_at, index: true
     end
     run "CREATE INDEX orm_resources_metadata_index_pathops ON orm_resources USING gin (metadata jsonb_path_ops)"
-    run "GRANT ALL PRIVILEGES ON orm_resources TO #{ENV.fetch("POSTGRES_USER")}"
+    run "GRANT ALL PRIVILEGES ON orm_resources TO #{ENV.fetch("POSTGRESQL_USERNAME")}"
   end
   down do
     drop_table :orm_resources

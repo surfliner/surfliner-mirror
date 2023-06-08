@@ -156,11 +156,11 @@ See: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.m
 
 | Parameter | Description | Default | Environment Variable |
 | --------- | ----------- | ------- | -------------------- |
-| `postgresql.postgresqlUsername` | Database user for application | `tidewater` | `POSTGRES_USER` |
-| `postgresql.postgresqlPassword` | Database user password for application | `tidewater_pass` | `POSTGRES_PASSWORD` |
-| `postgresql.postgresqlHostname` | External database hostname, when `postgresql.enabled` is `false` | `nil` | `POSTGRES_HOST` |
-| `postgresql.postgresqlDatabase` | Database name for application | `tidewater_db` | `POSTGRES_DB` |
-| `postgresql.postgresqlPostgresPassword` | Admin `postgres` user's password | `tidewater_admin` | `POSTGRES_ADMIN_PASSWORD` |
+| `postgresql.postgresqlUsername` | Database user for application | `tidewater` | `POSTGRESQL_USERNAME` |
+| `postgresql.postgresqlPassword` | Database user password for application | `tidewater_pass` | `POSTGRESQL_PASSWORD` |
+| `postgresql.postgresqlHostname` | External database hostname, when `postgresql.enabled` is `false` | `nil` | `POSTGRESQL_HOST` |
+| `postgresql.postgresqlDatabase` | Database name for application | `tidewater_db` | `POSTGRESQL_DATABASE` |
+| `postgresql.postgresqlPostgresPassword` | Admin `postgres` user's password | `tidewater_admin` | `POSTGRESQL_POSTGRES_PASSWORD` |
 | `postgresql.persistence.size` | Database PVC size | `10Gi` | N/A |
 
 [logger-severity]:https://ruby-doc.org/stdlib-3.0.0/libdoc/logger/rdoc/Logger/Severity.html

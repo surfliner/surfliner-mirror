@@ -24,9 +24,9 @@ data:
   STAGING_AREA_S3_BUCKET: {{ first (splitList ":" .Values.minio.defaultBuckets) }}
   STAGING_AREA_S3_EXAMPLE_FILES: "1"
   {{- end }}
-  POSTGRES_DB: {{ .Values.postgresql.auth.database }}
-  POSTGRES_HOST: {{ template "shoreline.postgresql.fullname" . }}
-  POSTGRES_PORT: {{ .Values.postgresql.containerPorts.postgresql | quote }}
+  POSTGRESQL_DATABASE: {{ .Values.postgresql.auth.database }}
+  POSTGRESQL_HOST: {{ template "shoreline.postgresql.fullname" . }}
+  POSTGRESQL_PORT: {{ .Values.postgresql.containerPorts.postgresql | quote }}
   RABBITMQ_HOST: {{ .Values.consumer.rabbitmq.host }}
   RABBITMQ_NODE_PORT_NUMBER: {{ .Values.consumer.rabbitmq.port | quote }}
   RABBITMQ_QUEUE: {{ .Values.consumer.rabbitmq.queue }}

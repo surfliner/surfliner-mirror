@@ -2,10 +2,10 @@
 set -e
 
 # Map bitnami PG env var names to postgresql-client env var names
-export PGPASSWORD="${POSTGRES_PASSWORD}"
-export PGHOST="${POSTGRES_HOST}"
-export PGUSER="${POSTGRES_USER}"
-export PGDATABASE="${POSTGRES_DB}"
+export PGPASSWORD="${POSTGRESQL_PASSWORD}"
+export PGHOST="${POSTGRESQL_HOST}"
+export PGUSER="${POSTGRESQL_USERNAME}"
+export PGDATABASE="${POSTGRESQL_DATABASE}"
 
 export ENDPOINT_URL="${S3_ENDPOINT}"
 export AWS_DEFAULT_REGION="${AWS_REGION}"

@@ -120,11 +120,11 @@ See: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.m
 
 | Parameter | Description | Default | Environment Variable |
 | --------- | ----------- | ------- | -------------------- |
-| `postgresql.postgresqlUsername` | Database user for application | `starlight` | `POSTGRES_USER` |
-| `postgresql.postgresqlPassword` | Database user password for application | `starlight_pass` | `POSTGRES_PASSWORD` |
-| `postgresql.postgresqlHostname` | External database hostname, when `postgresql.enabled` is `false` | `nil` | `POSTGRES_HOST` |
+| `postgresql.postgresqlUsername` | Database user for application | `starlight` | `POSTGRESQL_USERNAME` |
+| `postgresql.postgresqlPassword` | Database user password for application | `starlight_pass` | `POSTGRESQL_PASSWORD` |
+| `postgresql.postgresqlHostname` | External database hostname, when `postgresql.enabled` is `false` | `nil` | `POSTGRESQL_HOST` |
 | `postgresql.postgresqlDatabase` | Database name for application | `starlight_db` | `POSTGRESQL_DATABASE` |
-| `postgresql.postgresqlPostgresPassword` | Admin `postgres` user's password | `starlight_admin` | `POSTGRES_ADMIN_PASSWORD` |
+| `postgresql.postgresqlPostgresPassword` | Admin `postgres` user's password | `starlight_admin` | `POSTGRESQL_POSTGRES_PASSWORD` |
 | `postgresql.persistence.size` | Database PVC size | `10Gi` | N/A |
 
 #### Solr

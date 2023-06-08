@@ -9,13 +9,12 @@ tidewater:test:
     OAI_REPOSITORY_NAME: tidewater
     OAI_REPOSITORY_ORIGIN: http://localhost:3000
     OAI_SAMPLE_ID: 13900
-    POSTGRES_ADMIN_PASSWORD: password
-    POSTGRES_DB: tidewater-test
-    POSTGRES_DB_TEST: tidewater-test
-    POSTGRES_HOST: localhost
-    POSTGRES_PASSWORD: password
-    POSTGRES_PORT: 5432
-    POSTGRES_USER: postgres
+    POSTGRESQL_DATABASE: tidewater-test
+    POSTGRESQL_HOST: localhost
+    POSTGRESQL_PASSWORD: password
+    POSTGRESQL_PORT: 5432
+    POSTGRESQL_POSTGRES_PASSWORD: password
+    POSTGRESQL_USERNAME: postgres
     RAILS_ENV: test
     SUPERSKUNK_MOCK_SERVER_URL: "http://mmock:8083"
     SUPERSKUNK_CONFIG_FILENAME: "superskunk-metadata.yml"

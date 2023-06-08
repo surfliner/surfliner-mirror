@@ -29,9 +29,9 @@ data:
   OLD_APP_URL: {{ .Values.starlight.backups.import.oldAppUrl }}
   {{- end }}
   PORT: {{ .Values.starlight.port | quote }}
-  POSTGRES_DB: {{ .Values.postgresql.auth.database }}
-  POSTGRES_HOST: {{ template "starlight.postgresql.fullname" . }}
-  POSTGRES_PORT: {{ .Values.postgresql.containerPorts.postgresql | quote }}
+  POSTGRESQL_DATABASE: {{ .Values.postgresql.auth.database }}
+  POSTGRESQL_HOST: {{ template "starlight.postgresql.fullname" . }}
+  POSTGRESQL_PORT: {{ .Values.postgresql.containerPorts.postgresql | quote }}
   POSTGRESQL_DATABASE: {{ .Values.postgresql.auth.database }}
   RAILS_ENV: {{ .Values.starlight.rails.environment }}
   RAILS_LOG_LEVEL: {{ .Values.starlight.rails.log_level | quote }}

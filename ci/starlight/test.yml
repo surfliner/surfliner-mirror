@@ -46,9 +46,9 @@ starlight:test:solrconfig:
     MINIO_ROOT_PASSWORD: "minio-secret-key"
     MINIO_ROOT_USER: "minio-access-key"
     POSTGRESQL_DATABASE: "starlight-test"
-    POSTGRES_HOST: "postgres"
-    POSTGRES_PASSWORD: "postgres"
-    POSTGRES_USER: "postgres"
+    POSTGRESQL_HOST: "postgres"
+    POSTGRESQL_PASSWORD: "postgres"
+    POSTGRESQL_USERNAME: "postgres"
     PRODUCT: starlight
     RAILS_ENV: test
     RAILS_QUEUE: inline
@@ -69,7 +69,7 @@ starlight:test:solrconfig:
   before_script:
     - cd /home/starlight/app
     - solr-core-wait.sh
-    - SKIP_TRANSLATION=yes db-wait.sh "${POSTGRES_HOST}:5432" bundle exec rake db:migrate
+    - SKIP_TRANSLATION=yes db-wait.sh "${POSTGRESQL_HOST}:5432" bundle exec rake db:migrate
   tags:
     - kubernetes
 

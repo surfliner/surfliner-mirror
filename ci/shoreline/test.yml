@@ -24,11 +24,11 @@ shoreline:test:solrconfig:
   variables:
     DATABASE_COMMAND: "db:schema:load"
     DELIVERY_METHOD: "test"
-    POSTGRES_DB: "shoreline-discovery"
-    POSTGRES_HOST: "postgres"
-    POSTGRES_PASSWORD: "postgres"
-    POSTGRES_PORT: 5432
-    POSTGRES_USER: "postgres"
+    POSTGRESQL_DATABASE: "shoreline-discovery"
+    POSTGRESQL_HOST: "postgres"
+    POSTGRESQL_PASSWORD: "postgres"
+    POSTGRESQL_PORT: 5432
+    POSTGRESQL_USERNAME: "postgres"
     PRODUCT: shoreline
     RAILS_ENV: "test"
     SOLR_CORES: shoreline-discovery

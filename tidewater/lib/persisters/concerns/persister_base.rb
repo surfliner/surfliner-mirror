@@ -25,11 +25,11 @@ module Persisters
       # Construct a Sequel connection instance targeting PostgreSQL database
       # @return Sequel Postgres databse connection instance
       def db_connection
-        @db_connection ||= Sequel.postgres(host: ENV["POSTGRES_HOST"],
-          port: ENV["POSTGRES_PORT"],
-          database: ENV["POSTGRES_DB"],
-          user: ENV["POSTGRES_USER"],
-          password: ENV["POSTGRES_PASSWORD"])
+        @db_connection ||= Sequel.postgres(host: ENV["POSTGRESQL_HOST"],
+          port: ENV["POSTGRESQL_PORT"],
+          database: ENV["POSTGRESQL_DATABASE"],
+          user: ENV["POSTGRESQL_USERNAME"],
+          password: ENV["POSTGRESQL_PASSWORD"])
       end
     end
   end
