@@ -33,6 +33,7 @@ describe SurflinerSchema::Loader do
   end
 
   describe "instance" do
+    let(:loader_class) { SurflinerSchema::Loader }
     let(:reader_class) do
       Class.new(SurflinerSchema::Reader) do
         def properties(availability:)
@@ -113,7 +114,7 @@ describe SurflinerSchema::Loader do
         end
       end
     end
-    let(:loader) { SurflinerSchema::Loader.for_readers([reader_class.new]) }
+    let(:loader) { loader_class.for_readers([reader_class.new(valkyrie_resource_class: loader_class.valkyrie_resource_class_for(:""))]) }
 
     describe "#struct_attributes_for" do
       let(:attributes) do
@@ -227,6 +228,61 @@ describe SurflinerSchema::Loader do
       it "defines the attributes" do
         klass = loader.resource_class_resolver.call(:GenericObject)
         expect { klass.new.title = "Etaoin" }.not_to raise_error
+      end
+
+      describe "returning a class from valkyrie_resource_class_for" do
+        let(:base_class) { Class.new(Valkyrie::Resource) }
+        let(:loader_class) {
+          result = Class.new(SurflinerSchema::Loader) do
+            def self.valkyrie_resource_class_for(_)
+              @base_class
+            end
+          end
+          result.instance_variable_set(:@base_class, base_class)
+          result
+        }
+
+        it "subclasses the class" do
+          klass = loader.resource_class_resolver.call(:GenericObject)
+          expect(klass.superclass).to eq base_class
+        end
+      end
+
+      describe "returning a proc from valkyrie_resource_class_for" do
+        let(:class_cache) do
+          # Just to make the classes retrievable in tests…
+          {}
+        end
+        let(:base_class_proc) {
+          ->(a) do
+            class_cache[a.name] ||= Class.new(Valkyrie::Resource) do
+              # Some simple behaviours for testing…
+              @__test_was_created_by = a.name
+              class << self
+                attr_reader :__test_was_created_by
+              end
+            end
+          end
+        }
+        let(:loader_class) {
+          result = Class.new(SurflinerSchema::Loader) do
+            def self.valkyrie_resource_class_for(_)
+              @base_class_proc
+            end
+          end
+          result.instance_variable_set(:@base_class_proc, base_class_proc)
+          result
+        }
+
+        it "subclasses the class returned by the proc" do
+          klass = loader.resource_class_resolver.call(:GenericObject)
+          expect(klass.superclass).to eq class_cache[:generic_object]
+        end
+
+        it "provides the proc with the class description" do
+          klass = loader.resource_class_resolver.call(:GenericObject)
+          expect(klass.superclass.__test_was_created_by).to eq :generic_object
+        end
       end
     end
   end

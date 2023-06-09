@@ -139,14 +139,24 @@ module SurflinerSchema
     # @return [Class]
     def resolve(class_name)
       @resolved_classes ||= {}
-      availability = availability_from_name(class_name)
-      return nil unless availability
+      resource_class = resource_class_from_name(class_name)
+      return nil unless resource_class
+      availability = resource_class.name
       return @resolved_classes[availability] if @resolved_classes[availability]
 
       camelized = availability.to_s.camelize
       struct_attributes = to_struct_attributes(availability: availability)
       reader = self
-      @resolved_classes[availability] = Class.new(valkyrie_resource_class) do |klass|
+      base_class = if valkyrie_resource_class.is_a?(Proc)
+        # If a +Proc+, +valkyrie_resource_class+ must be called to get the
+        # class.
+        valkyrie_resource_class.call(resource_class)
+      else
+        # If +valkyrie_resource_class+ is not a +Proc+, it is the class to be
+        # used.
+        valkyrie_resource_class
+      end
+      @resolved_classes[availability] = Class.new(base_class) do |klass|
         @availability = availability
         @class_name = camelized
         @reader = reader
@@ -191,18 +201,15 @@ module SurflinerSchema
     # defined on the schemas for this reader.
     #
     # @param class_name {#to_s}
-    # @return {Symbol?}
-    def availability_from_name(class_name)
+    # @return {SurflinerSchema::ResourceClass?}
+    def resource_class_from_name(class_name)
       resource_class = resource_classes.values.find { |resource_class|
         resource_class.name.to_s == class_name.to_s ||
           resource_class.iri && resource_class.iri.to_s == class_name.to_s
       }
-      if resource_class
-        resource_class.name
-      else
-        underscored = class_name.to_s.underscore.to_sym
-        underscored if resource_classes.include?(underscored)
-      end
+      return resource_class if resource_class
+      underscored = class_name.to_s.underscore.to_sym
+      resource_classes[underscored]
     end
 
     ##
@@ -291,6 +298,9 @@ module SurflinerSchema
 
     public
 
+    ##
+    # Converts the provided ISO639 tag into a BCP47 tag, or returns the tag
+    # unmodified.
     def self.bcp47(langtag)
       iso = ISO_639.find_by_code(langtag.downcase)
       return langtag unless iso

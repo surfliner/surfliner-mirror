@@ -245,9 +245,13 @@ module SurflinerSchema
 
     ##
     # The base class to use for resource class generation (see
-    # +.resource_class_resolver+).
+    # +.resource_class_resolver+) for the provided schema.
     #
-    # @return [Class]
+    # This can be either a +Class+ (ideally inheriting from
+    # +Valkyrie::Resource+) or a +Proc+ (which will be called with the
+    # +ResourceClass+ being resolved).
+    #
+    # @return [Class, Proc]
     def self.valkyrie_resource_class_for(_schema_name)
       Valkyrie::Resource
     end
