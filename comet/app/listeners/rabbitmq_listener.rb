@@ -60,7 +60,7 @@ class RabbitmqListener
         publisher.publish(resource: obj)
       rescue DiscoveryPlatformPublisher::UnpublishableObject => err
         # log and continue publishing the remainder of the collection
-        Hyrax.logger.error { "Failed to publish Object with id #{obj.id} from collection #{collection.id} to platform: #{platform_name}." }
+        Hyrax.logger.error { "Failed to publish #{obj.class} with id #{obj.id} from collection #{collection.id} to platform: #{platform_name}." }
         Hyrax.logger.error(err.message)
       end
     end
@@ -71,7 +71,7 @@ class RabbitmqListener
   ##
   # Updates the object in the platform when metadata is updated.
   def on_object_metadata_updated(event)
-    Hyrax.logger.debug { "Received object.metadata.updated event for object with id #{event[:object].id} targeting platform: #{platform_name}" }
+    Hyrax.logger.debug { "Received object.metadata.updated event for #{event[:object].class} with id #{event[:object].id} targeting platform: #{platform_name}" }
 
     publisher_class.open_on(platform_name) do |publisher|
       publisher.update(resource: event[:object])
@@ -85,7 +85,7 @@ class RabbitmqListener
   #
   # @param event [{:object => GenericObject}]
   def on_object_deleted(event)
-    Hyrax.logger.debug("Received object.deleted event for object with id #{event[:object].id} targeting platform: #{platform_name}")
+    Hyrax.logger.debug("Received object.deleted event for #{event[:object].class} with id #{event[:object].id} targeting platform: #{platform_name}")
 
     Hyrax.publisher.publish("object.unpublish", object: event[:object], user: event[:user])
   rescue => err
@@ -99,7 +99,7 @@ class RabbitmqListener
   #
   # @param event [{:object => GenericObject}]
   def on_object_unpublish(event)
-    Hyrax.logger.debug("Received object.unpublish event for object with id #{event[:object].id} targeting platform: #{platform_name}")
+    Hyrax.logger.debug("Received object.unpublish event for #{event[:object].class} with id #{event[:object].id} targeting platform: #{platform_name}")
 
     publisher_class.open_on(platform_name) do |publisher|
       publisher.unpublish(resource: event[:object])
