@@ -11,7 +11,16 @@ class ResourcesController < ApplicationController
     @model = Superskunk.comet_query_service.find_by(id: params["id"])
     @profile = accept_reader.best_jsonld_profile(ResourceSerializer.supported_profiles.keys)
 
-    if @platform.has_access?(resource: @model)
+    if @model.instance_of?(Hyrax::FileSet)
+      puts "Resource with ID #{@model.id} is a FileSet, querying its parent"
+      parent = Superskunk.comet_query_service.find_parents(resource: @model).first
+
+      if parent.nil?
+        not_found
+      else
+        redirect_to "/resources/#{parent.id}", status: :see_other
+      end
+    elsif @platform.has_access?(resource: @model)
       @profile ? profile_render : default_render
     else
       not_found
