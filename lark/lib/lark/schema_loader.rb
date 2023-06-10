@@ -15,5 +15,11 @@ module Lark
     def self.config_location
       "model"
     end
+
+    def self.valkyrie_resource_class_for(_schema_name)
+      ->(resource_class) do
+        (resource_class.name == :label) ? Lark::BaseLabel : Valkyrie::Resource
+      end
+    end
   end
 end
