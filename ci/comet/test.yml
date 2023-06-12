@@ -54,6 +54,7 @@ comet:test:solrconfig:
     SOLR_CORES: comet-test
     SOLR_HOST: solr
     SOLR_PORT: 8983
+    SOLR_URL: http://solr:8983/solr/comet-test
 
   before_script:
     - cd /home/comet/app
