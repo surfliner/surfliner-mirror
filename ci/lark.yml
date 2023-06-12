@@ -25,6 +25,7 @@ include:
       - lark/**/*
       - lark-client/**/*
       - lark-ui/**/*
+      - gems/surfliner_schema/**/*
 
 .only-lark-api-changes:
   only:
