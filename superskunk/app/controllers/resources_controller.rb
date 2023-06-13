@@ -23,6 +23,12 @@ class ResourcesController < ApplicationController
           text: "Cannot query FileSet metadata, see parent object",
           status: 406
       end
+    elsif @model.instance_of?(Superskunk::Resource)
+      puts "Resource with ID #{@model.id} is a Superskunk::Resource"
+      render_error exception: nil,
+        text: "Cannot query Superskunk::Resource metadata",
+        status: 406
+
     elsif @platform.has_access?(resource: @model)
       @profile ? profile_render : default_render
     else
