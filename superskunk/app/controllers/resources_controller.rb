@@ -11,26 +11,27 @@ class ResourcesController < ApplicationController
     @model = Superskunk.comet_query_service.find_by(id: params["id"])
     @profile = accept_reader.best_jsonld_profile(ResourceSerializer.supported_profiles.keys)
 
-    if @model.instance_of?(Hyrax::FileSet)
-      puts "Resource with ID #{@model.id} is a FileSet, querying its parent"
-      parent = Superskunk.comet_query_service.find_parents(resource: @model).first
+    if @platform.has_access?(resource: @model)
+      if @model.instance_of?(Hyrax::FileSet)
+        puts "Resource with ID #{@model.id} is a FileSet, querying its parent"
+        parent = Superskunk.comet_query_service.find_parents(resource: @model).first
 
-      if parent.nil?
-        not_found
-      else
-        response.headers["Link"] = "</resources/#{parent.id}>; rel='http://pcdm.org/models#memberOf'"
+        if parent.nil?
+          not_found
+        else
+          response.headers["Link"] = "</resources/#{parent.id}>; rel='http://pcdm.org/models#memberOf'"
+          render_error exception: nil,
+            text: "Cannot query FileSet metadata, see parent object",
+            status: 406
+        end
+      elsif @model.instance_of?(Superskunk::Resource)
+        puts "Resource with ID #{@model.id} is a Superskunk::Resource"
         render_error exception: nil,
-          text: "Cannot query FileSet metadata, see parent object",
+          text: "Cannot query Superskunk::Resource metadata",
           status: 406
+      else
+        @profile ? profile_render : default_render
       end
-    elsif @model.instance_of?(Superskunk::Resource)
-      puts "Resource with ID #{@model.id} is a Superskunk::Resource"
-      render_error exception: nil,
-        text: "Cannot query Superskunk::Resource metadata",
-        status: 406
-
-    elsif @platform.has_access?(resource: @model)
-      @profile ? profile_render : default_render
     else
       not_found
     end
