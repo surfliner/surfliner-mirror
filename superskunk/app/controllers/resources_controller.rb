@@ -18,7 +18,10 @@ class ResourcesController < ApplicationController
       if parent.nil?
         not_found
       else
-        redirect_to "/resources/#{parent.id}", status: :see_other
+        response.headers["Link"] = "</resources/#{parent.id}>; rel='http://pcdm.org/models#memberOf'"
+        render_error exception: nil,
+          text: "Cannot query FileSet metadata, see parent object",
+          status: 406
       end
     elsif @platform.has_access?(resource: @model)
       @profile ? profile_render : default_render
