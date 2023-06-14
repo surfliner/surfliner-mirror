@@ -8,9 +8,9 @@ bundle exec sequel -m db/sequel postgres://"$DB_USERNAME":"$DB_PASSWORD"@"$DB_HO
 
 db-wait.sh "$SOLR_HOST:$SOLR_PORT"
 
-while ! curl --silent "$SOLR_URL/admin/ping" | grep -q 'OK'
+while ! curl --silent "http://$SOLR_ADMIN_USER:$SOLR_ADMIN_PASSWORD@$SOLR_HOST:$SOLR_PORT/solr/$SOLR_COLLECTION_NAME/admin/ping" | grep -q 'OK'
 do
-  echo "Waiting for Solr core/collection to be pingable on $SOLR_HOST:$SOLR_PORT"
+  echo "Waiting for Solr core/collection to be pingable on http://$SOLR_ADMIN_USER:REDACTED@$SOLR_HOST:$SOLR_PORT/solr/$SOLR_COLLECTION_NAME/admin/ping"
   sleep 10
 done
 
