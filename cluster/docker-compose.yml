@@ -23,6 +23,7 @@ services:
       - solr
       - zk
     volumes:
+      - ../comet:/home/comet/app
       - comet-derivatives:/home/comet/app/derivatives
       - comet-exports:/home/comet/app/exports
       - comet-public:/home/comet/app/public
@@ -48,6 +49,7 @@ services:
       - solr
       - zk
     volumes:
+      - ../comet:/home/comet/app
       - comet-derivatives:/home/comet/app/derivatives
       - comet-exports:/home/comet/app/exports
       - comet-public:/home/comet/app/public
@@ -83,6 +85,7 @@ services:
         psql -tc "SELECT 1 FROM pg_database WHERE datname = '$COMET_DB_NAME'" | grep -q 1 || createdb -e -w $COMET_DB_NAME &&
         /home/comet/app/scripts/db-migrate-seed.sh
     volumes:
+      - ../comet:/home/comet/app
       - comet-derivatives:/home/comet/app/derivatives
       - comet-public:/home/comet/app/public
       - comet-scripts:/home/comet/app/scripts
@@ -101,6 +104,7 @@ services:
       - solr
       - zk
     volumes:
+      - ../comet:/home/comet/app
       - comet-derivatives:/home/comet/app/derivatives
       - comet-public:/home/comet/app/public
       - comet-scripts:/home/comet/app/scripts
@@ -116,6 +120,7 @@ services:
       - .env
       - superskunk.env
     volumes:
+      - ../superskunk:/home/superskunk/app
       - superskunk_tmp:/home/superskunk/app/tmp
     depends_on:
       - superskunk_migrate
@@ -132,6 +137,8 @@ services:
     env_file:
       - .env
       - superskunk.env
+    volumes:
+      - ../superskunk:/home/superskunk/app
     networks:
       - cluster
 
@@ -144,10 +151,12 @@ services:
     env_file:
       - .env
       - shoreline.env
-    # volumes:
-    #   - shoreline-derivatives:/home/shoreline/app/derivatives
-    #   - shoreline-public:/home/shoreline/app/public
-    #   - shoreline-uploads:/home/shoreline/app/uploads
+    volumes:
+      - ../shoreline:/home/shoreline/app
+      - shoreline-scripts:/home/shoreline/app/scripts
+      - shoreline-derivatives:/home/shoreline/app/derivatives
+      - shoreline-public:/home/shoreline/app/public
+      - shoreline-uploads:/home/shoreline/app/uploads
     depends_on:
       - geoserver
       - postgres
@@ -170,8 +179,8 @@ services:
       - .env
       - shoreline.env
     volumes:
-      - shoreline-bin:/home/shoreline/app/bin
       - ../shoreline:/home/shoreline/app
+      - shoreline-scripts:/home/shoreline/app/scripts
     command:
       - sh
       - -c
@@ -197,6 +206,9 @@ services:
         # && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/gford-20140000-010002_lakes.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/gford-20140000-010002_lakes.zip]"
         # && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/SD_City_Recycled_Water_Main_2018_03-d.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/SD_City_Recycled_Water_Main_2018_03-d.zip]"
         # && bundle exec rake "shoreline:ingest_aardvark[spec/fixtures/aardvark-metadata/Recycled_Water_Main_2016-d.json,http://minio:9000/shoreline-staging-area-dev/shapefiles/Recycled_Water_Main_2016-d.zip]"
+    volumes:
+      - ../shoreline:/home/shoreline/app
+      - shoreline-scripts:/home/shoreline/app/scripts
     depends_on:
       - postgres
       - minio
@@ -213,6 +225,9 @@ services:
     depends_on:
       - solr
       - zk
+    volumes:
+      - ../shoreline:/home/shoreline/app
+      - shoreline-scripts:/home/shoreline/app/scripts
     command:
       - sh
       - -c
@@ -236,6 +251,7 @@ services:
       - .env
       - starlight.env
     volumes:
+      - ../starlight:/home/starlight/app
       - starlight_assets:/home/starlight/app/public/assets
       - starlight_tmp:/home/starlight/app/tmp
     ports:
@@ -258,6 +274,7 @@ services:
       - .env
       - starlight.env
     volumes:
+      - ../starlight:/home/starlight/app
       - starlight_assets:/home/starlight/app/public/assets
       - starlight_tmp:/home/starlight/app/tmp
     command:
@@ -279,6 +296,8 @@ services:
       - starlight.env
     environment:
       SKIP_TRANSLATION: "yes"
+    volumes:
+      - ../starlight:/home/starlight/app
     command:
       - sh
       - -c
@@ -302,6 +321,8 @@ services:
     depends_on:
       - solr
       - zk
+    volumes:
+      - ../starlight:/home/starlight/app
     command:
       - sh
       - -c
@@ -431,7 +452,6 @@ volumes:
   comet-uploads:
   db:
   minio_data:
-  shoreline-bin:
   shoreline-derivatives:
   shoreline-public:
   shoreline-scripts:
