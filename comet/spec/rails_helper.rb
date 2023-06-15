@@ -4,6 +4,7 @@ Rails.application.load_tasks
 
 require "equivalent-xml"
 require "equivalent-xml/rspec_matchers"
+require "factory_bot_rails"
 require "spec_helper"
 
 ENV["RAILS_ENV"] = "test"
