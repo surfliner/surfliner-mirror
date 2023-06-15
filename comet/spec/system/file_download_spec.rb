@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "FileDownload", type: :system, storage_adapter: :memory, js: true do
+RSpec.describe "downloading a file", :integration, type: :system, js: true do
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsd.edu") }
   let(:workflow_name) { "surfliner_default" }
 
@@ -66,7 +66,7 @@ RSpec.describe "FileDownload", type: :system, storage_adapter: :memory, js: true
       expect(page).to have_content("File Details")
 
       file_set_id = page.current_path.split("/").last
-      visit "/downloads/#{file_set_id}?locale=en&inline=true"
+      visit "/downloads/#{file_set_id}?locale=en"
 
       expect(page).to have_content("A dummy text file!")
     end
