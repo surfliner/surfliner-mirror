@@ -27,7 +27,7 @@ module Hyrax
       when "inline"
         "inline"
       else
-        "attachment"
+        ActiveModel::Type::Boolean.new.cast(params["inline"]) ? "inline" : "attachment"
       end
     end
 

@@ -66,7 +66,7 @@ RSpec.describe "downloading a file", :integration, type: :system, js: true do
       expect(page).to have_content("File Details")
 
       file_set_id = page.current_path.split("/").last
-      visit "/downloads/#{file_set_id}?locale=en"
+      visit "/downloads/#{file_set_id}?locale=en&inline=true"
 
       expect(page).to have_content("A dummy text file!")
     end
