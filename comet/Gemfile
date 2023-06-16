@@ -7,7 +7,7 @@ gem "bootstrap", "4.6.2"
 gem "bulkrax",
   git: "https://github.com/samvera-labs/bulkrax.git",
   branch: "hyrax-4-rails-6"
-gem "bunny", "2.20.3"
+gem "bunny", "2.22.0"
 gem "coffee-rails", "5.0.0"
 gem "declarative-option", "0.1.0"
 gem "devise", "4.9.2"
