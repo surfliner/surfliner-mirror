@@ -3,7 +3,7 @@
 require "fog/aws"
 
 # If a dedicated s3 configuration is defined for the staging area, use that. Otherwise use the default s3 configuration
-staging_s3_config = S3Configurations::StagingArea.minio? ? S3Configurations::StagingArea : S3Configurations::Default
+staging_s3_config = S3Configurations::StagingArea.present? ? S3Configurations::StagingArea : S3Configurations::Default
 
 # skip this setup if just building the app image or no aws configuration
 unless ENV["DB_ADAPTER"] == "nulldb" ||

@@ -27,5 +27,9 @@ module S3Configurations
     def self.minio?
       ENV["STAGING_AREA_MINIO_ENDPOINT"].present?
     end
+
+    def self.present?
+      access_key.present? && secret_key.present?
+    end
   end
 end
