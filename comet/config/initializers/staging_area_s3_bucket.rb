@@ -2,37 +2,32 @@
 
 require "fog/aws"
 
-# These values can come from a variety of ENV vars
-aws_access_key_id = ENV.slice("REPOSITORY_S3_ACCESS_KEY",
-  "MINIO_ACCESS_KEY",
-  "MINIO_ROOT_USER").values.first
-aws_secret_access_key = ENV.slice("REPOSITORY_S3_SECRET_KEY",
-  "MINIO_SECRET_KEY",
-  "MINIO_ROOT_PASSWORD").values.first
+# If a dedicated s3 configuration is defined for the staging area, use that. Otherwise use the default s3 configuration
+staging_s3_config = S3Configurations::StagingArea.minio? ? S3Configurations::StagingArea : S3Configurations::Default
 
 # skip this setup if just building the app image or no aws configuration
 unless ENV["DB_ADAPTER"] == "nulldb" ||
-    aws_access_key_id.nil? ||
-    aws_secret_access_key.nil?
+    staging_s3_config.access_key.nil? ||
+    staging_s3_config.secret_key.nil?
   Rails.logger.debug { "Connecting to S3 batch file staging area" }
 
   fog_connection_options = {
-    aws_access_key_id: aws_access_key_id,
-    aws_secret_access_key: aws_secret_access_key,
-    region: ENV.fetch("REPOSITORY_S3_REGION", "us-east-1")
+    aws_access_key_id: staging_s3_config.access_key,
+    aws_secret_access_key: staging_s3_config.secret_key,
+    region: staging_s3_config.region
   }
 
-  if ENV["MINIO_ENDPOINT"].present?
-    endpoint = "#{ENV.fetch("MINIO_PROTOCOL", "http")}://#{ENV["MINIO_ENDPOINT"]}:#{ENV.fetch("MINIO_PORT", 9000)}"
-    fog_connection_options[:endpoint] = endpoint
-    Rails.logger.debug { "Accessing minio on #{endpoint}" }
+  if staging_s3_config.minio?
+    fog_connection_options[:endpoint] = staging_s3_config.endpoint
+    Rails.logger.debug { "Accessing minio on #{staging_s3_config.endpoint}" }
     fog_connection_options[:path_style] = true
   end
 
   fog_connection = Fog::Storage.new(provider: "AWS", **fog_connection_options)
   Rails.application.config.staging_area_s3_connection = fog_connection
 
-  s3_bucket = ENV.fetch("STAGING_AREA_S3_BUCKET", "comet-staging-area-#{Rails.env}")
+  # we always have a dedicated staging area bucket distinct from default storage
+  s3_bucket = S3Configurations::StagingArea.bucket
 
   Rails.logger.debug { "Using bucket #{s3_bucket} as the file staging area" }
 
@@ -44,11 +39,11 @@ unless ENV["DB_ADAPTER"] == "nulldb" ||
         prefix: "")
   rescue => e
     if (retries -= 1) > 0
-      Rails.logger.debug "Retrying to connect to S3 bucket #{ENV["STAGING_AREA_S3_BUCKET"]}."
+      Rails.logger.debug "Retrying to connect to S3 bucket #{s3_bucket}."
       sleep(2.seconds)
       retry
     else
-      Rails.logger.error { "Error connect to S3 bucket #{ENV["STAGING_AREA_S3_BUCKET"]}: #{e}" }
+      Rails.logger.error { "Error connect to S3 bucket #{s3_bucket}: #{e}" }
     end
   end
 end

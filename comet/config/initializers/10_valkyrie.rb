@@ -34,21 +34,15 @@ end
 
 unless building
   # These values can come from a variety of ENV vars
-  aws_access_key_id = ENV.slice("REPOSITORY_S3_ACCESS_KEY",
-    "MINIO_ACCESS_KEY",
-    "MINIO_ROOT_USER").values.first
-  aws_secret_access_key = ENV.slice("REPOSITORY_S3_SECRET_KEY",
-    "MINIO_SECRET_KEY",
-    "MINIO_ROOT_PASSWORD").values.first
   shrine_s3_options = {
-    bucket: ENV.fetch("REPOSITORY_S3_BUCKET") { "comet#{Rails.env}" },
-    region: ENV.fetch("REPOSITORY_S3_REGION", "us-east-1"),
-    access_key_id: aws_access_key_id,
-    secret_access_key: aws_secret_access_key
+    bucket: S3Configurations::Default.bucket,
+    region: S3Configurations::Default.region,
+    access_key_id: S3Configurations::Default.access_key,
+    secret_access_key: S3Configurations::Default.secret_key
   }
 
-  if ENV["MINIO_ENDPOINT"].present?
-    shrine_s3_options[:endpoint] = "#{ENV.fetch("MINIO_PROTOCOL", "http")}://#{ENV["MINIO_ENDPOINT"]}:#{ENV.fetch("MINIO_PORT", 9000)}"
+  if S3Configurations::Default.minio?
+    shrine_s3_options[:endpoint] = S3Configurations::Default.endpoint
     shrine_s3_options[:force_path_style] = true
   end
 
