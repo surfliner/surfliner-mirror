@@ -13,7 +13,7 @@ module S3Configurations
     end
 
     def self.bucket
-      ENV.fetch("STAGING_AREA_REPOSITORY_S3_BUCKET") { "comet#{Rails.env}" }
+      ENV.fetch("STAGING_AREA_S3_BUCKET") { "comet#{Rails.env}" }
     end
 
     def self.region
