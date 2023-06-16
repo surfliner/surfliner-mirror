@@ -24,6 +24,7 @@ comet:deploy:ucsd-review:
     - ucsd
   variables:
     HELM_UPGRADE_EXTRA_ARGS: >
+      --set minio.apiIngress.hostname=minio-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
       --set ingress.hosts[0].host=comet-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
       --set ingress.hosts[0].paths[0].path='/'
       --set worker.image.repository=$CI_REGISTRY_IMAGE/comet_worker_web
@@ -77,6 +78,7 @@ comet:deploy:ucsb-review:
   variables:
     HELM_ENCODED_VALUES: $UCSB_REVIEW_SOLR_VALUES
     HELM_UPGRADE_EXTRA_ARGS: >
+      --set minio.apiIngress.hostname=minio-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
       --set ingress.hosts[0].host=comet-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
       --set ingress.hosts[0].paths[0].path='/'
       --set ingress.tls[0].hosts[0]=comet-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN

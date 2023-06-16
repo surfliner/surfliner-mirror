@@ -21,6 +21,8 @@ extraEnvFrom:
   - secretRef:
       name: ezid-test
 minio:
+  apiIngress:
+    enabled: true
   enabled: true
   persistence:
     enabled: false
