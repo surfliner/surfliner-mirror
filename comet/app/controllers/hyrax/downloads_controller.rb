@@ -41,10 +41,11 @@ module Hyrax
 
     def redirect_to_presigned(file_set)
       file_metadata = find_file_metadata(file_set: file_set, use: use)
-      id = Hyrax.storage_adapter.send(:shrine_id_for, file_metadata.file_identifier)
-      url = Hyrax.storage_adapter.shrine.url(
-        id,
+
+      url = PresignedUrl.url(
+        id: file_metadata.file_identifier,
         expires_in: EXPIRES_IN,
+        host: s3_endpoint_override,
         response_content_type: file_metadata.mime_type,
         response_content_disposition: ContentDisposition.format(disposition: disposition, filename: file_metadata.original_filename)
       )
@@ -52,10 +53,44 @@ module Hyrax
       redirect_to(url)
     end
 
+    def s3_endpoint_override
+      return nil if use_internal_endpoint?
+
+      ENV["MINIO_EXTERNAL_ENDPOINT"].presence
+    end
+
+    def use_internal_endpoint?
+      ActiveModel::Type::Boolean.new.cast(params["use_internal_endpoint"])
+    end
+
     ##
     # @return [Symbol]
     def use
       params.fetch(:use, :original_file).to_sym
+    end
+
+    private
+
+    class PresignedUrl
+      def self.url(id:, adapter: Hyrax.storage_adapter, **opts)
+        new(id: id, adapter: adapter).url(**opts)
+      end
+
+      def initialize(id:, adapter: Hyrax.storage_adapter)
+        @adapter = adapter
+        @id = id
+      end
+
+      def shrine_id
+        @adapter.send(:shrine_id_for, @id)
+      end
+
+      def url(**opts)
+        host = opts.delete(:host)
+        url = @adapter.shrine.url(shrine_id, **opts)
+        url.host = host if host.present?
+        url
+      end
     end
   end
 end
