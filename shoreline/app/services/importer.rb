@@ -13,10 +13,11 @@ module Importer
   def self.ingest(metadata:, shapefile_url: nil)
     Rails.logger.debug "Received metadata: #{metadata}"
     parsed = if metadata.is_a? String
-      JSON.parse(metadata).except("@context")
+      JSON.parse(metadata)
     else
       metadata
-    end
+    end.except("@context")
+
     Rails.logger.debug "Parsed metadata #{parsed}"
 
     file_id = metadata["id"]
@@ -27,6 +28,8 @@ module Importer
     end
 
     unless shapefile_url.nil?
+      Rails.logger.debug "Importing shapefile #{shapefile_url}"
+
       publish_to_geoserver(file_url: shapefile_url, file_id: file_id)
       merged_metadata = merged_metadata.merge(hash_from_geoserver(id: file_id))
     end

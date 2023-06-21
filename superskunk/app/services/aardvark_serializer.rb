@@ -226,10 +226,29 @@ class AardvarkSerializer < ResourceSerializer
         json[term] = mapping
         json["@context"][term] = dfn[:iri]
       end
+
+      json["_file_urls"] = file_sets_for(resource: resource).
+                             map { |id| signed_url_for(id: id) }
     end
   end
 
   private
+
+  # @param [Valkyrie::Resource] resource
+  # @return [Array<Valkyrie::ID>]
+  def file_sets_for(resource:)
+    qs = Superskunk::CustomQueries::ChildFileSetsNavigator.new(
+      query_service: Superskunk.comet_query_service
+    )
+
+    qs.find_child_file_set_ids(resource: resource)
+  end
+
+  # @param [Valkyrie::ID] id
+  # @return [String]
+  def signed_url_for(id:)
+    "#{ENV["COMET_BASE"]}/downloads/#{id}"
+  end
 
   ##
   # Concats four values (bounding_box_west, bounding_box_east, bounding_box_north, bounding_box_south)

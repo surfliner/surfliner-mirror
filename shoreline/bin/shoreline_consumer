@@ -84,15 +84,15 @@ begin
     begin
       case payload_status
       when "published", "updated"
-        record_data = fetch(uri: uri, logger: logger)
+        record_data = JSON.parse(fetch(uri: uri, logger: logger))
+
+        # TODO: teach the importer how to handle multiple shapefiles per record?
+        shapefile_url = record_data["_file_urls"]&.first
 
         logger.info("Persisting item #{payload_resource_url}")
         logger.debug("#{payload_resource_url} responded with #{record_data}")
 
-        # TODO: need file URL from payload
-        # Importer.ingest(metadata: record_data,
-        #                 file_url: file_url)
-        Importer.ingest(metadata: record_data)
+        Importer.ingest(metadata: record_data.except("_file_urls"), shapefile_url: shapefile_url)
       when "unpublished", "deleted"
         logger.info("Deleting item #{payload_resource_url}")
         # TODO: something like this?
