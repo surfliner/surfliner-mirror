@@ -1,5 +1,5 @@
 postgresql:
-  enabled: false
+  enabled: true
   auth:
     username: hyrax
     password: hyrax_pass
