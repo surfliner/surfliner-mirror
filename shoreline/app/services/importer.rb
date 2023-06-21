@@ -28,7 +28,7 @@ module Importer
     end
 
     unless shapefile_url.nil?
-      Rails.logger.debug "Importing shapefile #{shapefile_url}"
+      Rails.logger.info "Importing shapefile #{shapefile_url}"
 
       publish_to_geoserver(file_url: shapefile_url, file_id: file_id)
       merged_metadata = merged_metadata.merge(hash_from_geoserver(id: file_id))
@@ -42,9 +42,9 @@ module Importer
 
     publish_to_geoblacklight(metadata: merged_metadata)
   rescue => e
-    puts "ERROR INGESTING INTO SHORELINE"
-    puts "#{e.message}: #{e.inspect}"
-    puts e.backtrace
+    Rails.logger.error "Error ingesting into Shoreline"
+    Rails.logger.error "#{e.message}: #{e.inspect}"
+    Rails.logger.error e.backtrace
     raise e
   end
 
@@ -74,6 +74,10 @@ module Importer
       file: file,
       method: "file"
     )
+  rescue => e
+    Rails.logger.error "Error ingesting into GeoServer"
+    Rails.logger.error "#{e.message}: #{e.inspect}"
+    Rails.logger.error e.backtrace
   end
 
   def self.publish_to_geoblacklight(metadata:)
