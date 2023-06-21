@@ -227,8 +227,8 @@ class AardvarkSerializer < ResourceSerializer
         json["@context"][term] = dfn[:iri]
       end
 
-      json["_file_urls"] = file_sets_for(resource: resource).
-                             map { |id| signed_url_for(id: id) }
+      json["_file_urls"] = file_sets_for(resource: resource)
+        .map { |id| signed_url_for(id: id) }
     end
   end
 
