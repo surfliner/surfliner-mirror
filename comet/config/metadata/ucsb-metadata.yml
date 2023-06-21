@@ -13,11 +13,11 @@ m3_version: "1.0.beta1"
 profile:
   responsibility: https://library.ucsb.edu/
   responsibility_statement: UC Santa Barbara Library
-  date_modified: "2023-05-18"
+  date_modified: "2023-06-21"
   type: UCSB Comet
   additional_metadata:
     ogm_provider_name: UC Santa Barbara
-  version: 0.5
+  version: 0.6
 
 #---------------------------------------------------------
 # Mapping Definitions
@@ -270,7 +270,8 @@ properties:
     definition: "A person or organization responsible for publishing the resource."
     usage_guidelines: "Use to record a publisher as a controlled name."
     requirement: recommended, if applicable
-    controlled_values: null
+    controlled_values:
+      sources: [] # tbd
     sample_value:
       - null
     property_uri: http://purl.org/dc/elements/1.1/publisher
@@ -279,7 +280,7 @@ properties:
         - generic_object
         - collection
     range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: http://www.w3.org/2001/XMLSchema#string
+    data_type: http://www.w3.org/2001/XMLSchema#anyURI
     syntax:  null
     cardinality:
       minimum: 0
@@ -1100,9 +1101,6 @@ properties:
     definition: "Language(s) of described resource."
     usage_guidelines: null
     requirement: recommended
-    controlled_values:
-      sources:
-        - http://id.loc.gov/vocabulary/iso639-2
     sample_value:
       - null
     property_uri: http://purl.org/dc/elements/1.1/language
@@ -1111,7 +1109,7 @@ properties:
         - generic_object
         - collection
     range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: http://www.w3.org/2001/XMLSchema#string
+    data_type: http://www.w3.org/2001/XMLSchema#language
     syntax:  null
     cardinality:
       minimum: 0
@@ -1211,8 +1209,6 @@ properties:
       dc-oai: http://purl.org/dc/elements/1.1/description
       dpla: null
 
-#  GeoBlacklight wants the three digit code, not the full uri.
-
 ### subjects
 
   - &subject_topic
@@ -1221,7 +1217,8 @@ properties:
     definition: "A topic or subject of the resource."
     usage_guidelines: null
     requirement: recommended
-    controlled_values: null
+    controlled_values:
+      sources: []
     sample_value:
       - null
     property_uri: http://purl.org/dc/terms/subject
@@ -1230,7 +1227,7 @@ properties:
         - generic_object
         - collection
     range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: http://www.w3.org/2001/XMLSchema#string
+    data_type: http://www.w3.org/2001/XMLSchema#anyURI
     syntax:  null
     cardinality:
       minimum: 0
@@ -1276,7 +1273,7 @@ properties:
         - generic_object
         - collection
     range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: http://www.w3.org/2001/XMLSchema#string
+    data_type: http://www.w3.org/2001/XMLSchema#anyURI
     syntax:  null
     cardinality:
       minimum: 0
@@ -1295,7 +1292,8 @@ properties:
     definition: "The name of a geographic location that the resource is about."
     usage_guidelines: null
     requirement: recommended
-    controlled_values: null
+    controlled_values:
+      sources: []
     sample_value:
       - null
     property_uri: http://purl.org/dc/terms/spatial
@@ -1304,7 +1302,7 @@ properties:
         - generic_object
         - collection
     range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: http://www.w3.org/2001/XMLSchema#string
+    data_type: http://www.w3.org/2001/XMLSchema#anyURI
     syntax:  null
     cardinality:
       minimum: 0
@@ -2249,7 +2247,7 @@ properties:
       class:
         - generic_object
     range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: http://www.w3.org/2001/XMLSchema#string
+    data_type: http://id.loc.gov/datatypes/edtf/EDTF
     syntax:  null
     cardinality:
       minimum: 0
