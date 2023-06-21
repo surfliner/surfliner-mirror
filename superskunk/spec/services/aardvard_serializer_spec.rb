@@ -65,6 +65,22 @@ RSpec.describe AardvarkSerializer do
     end
   end
 
+  context "with an object that has FileSets" do
+    let(:query_service) { Superskunk.comet_query_service }
+    let(:title) { "A geospatial object without a parent collection" }
+    let(:fileset) {
+      persister.save(resource: Hyrax::FileSet.new(title: ["A FileSet"]))
+    }
+    let(:resource) {
+      persister.save(resource: GeospatialObject.new(title: [title], member_ids: [fileset.id]))
+    }
+    it "can get the FileSet ids for the object" do
+      require 'debug'
+      binding.break
+      expect(query_service.find_child_file_set_ids(resource: resource)).to eq([fileset.id])
+    end
+  end
+
   context "with an m3 schema that specifies ogm_provider_name" do
     let(:title) { "A geospatial object with an ogm_provider_name specified" }
     let(:resource) {

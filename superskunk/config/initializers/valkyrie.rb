@@ -29,6 +29,7 @@ else
   Valkyrie.config.resource_class_resolver = Superskunk::SchemaLoader.new.resource_class_resolver
 
   [Superskunk::CustomQueries::FindFileMetadata,
+    Superskunk::CustomQueries::ChildFileSetsNavigator,
     Superskunk::CustomQueries::ParentWorkNavigator].each do |handler|
     Superskunk.comet_query_service.custom_queries.register_query_handler(handler)
   end
