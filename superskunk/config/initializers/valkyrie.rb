@@ -33,4 +33,6 @@ else
     Superskunk::CustomQueries::ParentWorkNavigator].each do |handler|
     Superskunk.comet_query_service.custom_queries.register_query_handler(handler)
   end
+
+  Superskunk.comet_query_service.instance_variable_set(:@id_type, :bigint)
 end
