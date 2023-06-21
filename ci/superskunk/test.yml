@@ -3,6 +3,7 @@ superskunk:test:
   image: $CI_REGISTRY_IMAGE/superskunk:$CI_COMMIT_SHA
   needs: [ "superskunk:build" ]
   variables:
+    COMET_BASE: http://comet:3000
     METADATA_MODELS: test-metadata
     POSTGRESQL_DATABASE: comet_metadata_development
     POSTGRESQL_HOST: postgres

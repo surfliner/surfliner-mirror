@@ -74,8 +74,9 @@ RSpec.describe AardvarkSerializer do
     let(:resource) {
       persister.save(resource: GeospatialObject.new(title: [title], member_ids: [fileset.id]))
     }
-    it "can get the FileSet ids for the object" do
-      expect(query_service.find_child_file_set_ids(resource: resource)).to eq([fileset.id])
+    it "provides a serialized set of _file_urls" do
+      expected_fileset_url = "#{ENV.fetch("COMET_BASE", "http://comet:3000")}/downloads/#{fileset.id}"
+      expect(serialized_aardvark["_file_urls"]).to eq([expected_fileset_url])
     end
   end
 
