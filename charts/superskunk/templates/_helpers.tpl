@@ -59,9 +59,9 @@ Alternatively, if postgresqlHostname is set, we use that which allows for an ext
 */}}
 {{- define "superskunk.postgresql.fullname" -}}
 {{- if .Values.superskunk.db.standalone -}}
-{{- .Values.postgresql.postgresqlHostname -}}
-{{- else -}}
 {{ include "common.postgresql.fullname" . }}
+{{- else -}}
+{{- .Values.postgresql.postgresqlHostname -}}
 {{- end -}}
 {{- end -}}
 
