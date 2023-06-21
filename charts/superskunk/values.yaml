@@ -26,6 +26,7 @@ superskunk:
     environment: production
     log_to_stdout: true
     serve_static_files: true
+  comet_base: http://comet:3000 # base URL for building queries
 
 # Details about consumer public keys that are available to superskunk
 # This might include keys from tidewater, shoreline, etc.

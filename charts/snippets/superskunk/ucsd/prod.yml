@@ -3,6 +3,7 @@ superskunk:
     metadata_database_name: comet_metadata
   metadata_models:
     - ucsd-metadata-sample
+  comet_base: surfliner-comet-prod-hyrax.comet-prod.svc
 
 ingress:
   enabled: false

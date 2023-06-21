@@ -28,6 +28,7 @@ superskunk:deploy:ucsd-review:
       --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
       --set consumers.keys[0].secretName=$HELM_RELEASE_NAME-tidewater-keypair
       --set postgresql.postgresqlHostname=surfliner-comet-$CI_MERGE_REQUEST_ID-postgresql.comet-review.svc.cluster.local
+      --set superskunk.comet_base=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax.comet-review.svc
       --values charts/snippets/superskunk/review.yaml
       --values charts/snippets/superskunk/ucsd/review.yml
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
@@ -74,6 +75,7 @@ superskunk:deploy:ucsb-review:
       --set ingress.tls[0].secretName=skunk-review-$CI_MERGE_REQUEST_ID
       --set consumers.keys[0].secretName=$HELM_RELEASE_NAME-tidewater-keypair
       --set postgresql.postgresqlHostname=surfliner-comet-$CI_MERGE_REQUEST_ID-postgresql.comet-review.svc.cluster.local
+      --set superskunk.comet_base=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax.comet-review.svc
       --values charts/snippets/superskunk/review.yaml
       --values charts/snippets/superskunk/ucsb/review.yml
 
