@@ -304,7 +304,7 @@ module SurflinerSchema
     def self.bcp47(langtag)
       iso = ISO_639.find_by_code(langtag.downcase)
       return langtag unless iso
-      iso.alpha2 || iso.alpha3_terminologic || iso.alpha3_bibliographic
+      [iso.alpha2, iso.alpha3_terminologic, iso.alpha3_bibliographic].find { |code| !code.empty? }
     end
 
     ##

@@ -69,6 +69,9 @@ RSpec.describe SurflinerSchema do
         expect(
           dry_type[RDF::Literal("CYM")]
         ).to contain_exactly RDF::Literal("cy", datatype: RDF::XSD.language)
+        expect(
+          dry_type[RDF::Literal("zXx")]
+        ).to contain_exactly RDF::Literal("zxx", datatype: RDF::XSD.language)
         expect( # does not modify tags outside of ISO
           dry_type[RDF::Literal("sjn-Teng")]
         ).to contain_exactly RDF::Literal("sjn-Teng", datatype: RDF::XSD.language)
