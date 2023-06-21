@@ -75,8 +75,6 @@ RSpec.describe AardvarkSerializer do
       persister.save(resource: GeospatialObject.new(title: [title], member_ids: [fileset.id]))
     }
     it "can get the FileSet ids for the object" do
-      require 'debug'
-      binding.break
       expect(query_service.find_child_file_set_ids(resource: resource)).to eq([fileset.id])
     end
   end
