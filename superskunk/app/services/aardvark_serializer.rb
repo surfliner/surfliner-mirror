@@ -150,6 +150,9 @@ class AardvarkSerializer < ResourceSerializer
     gbl_wxsIdentifier_s: { # WxS Identifier
       iri: "https://opengeometadata.org/docs/ogm-aardvark/wxs-identifier",
       singular: true
+    },
+    _file_urls: { # fake field for storing S3 URLs to shapefiles
+      iri: "http://pcdm.org/models#hasMember"
     }
   }
 
@@ -206,6 +209,8 @@ class AardvarkSerializer < ResourceSerializer
           end
           iso639_2_code.alpha3_bibliographic
         end.compact!
+      when :_file_urls
+        mapping = file_sets_for(resource: resource).map { |id| signed_url_for(id: id) }
       end
 
       # Cast mappings to the appropriate types.
@@ -226,9 +231,6 @@ class AardvarkSerializer < ResourceSerializer
         json[term] = mapping
         json["@context"][term] = dfn[:iri]
       end
-
-      json["_file_urls"] = file_sets_for(resource: resource)
-        .map { |id| signed_url_for(id: id) }
     end
   end
 
