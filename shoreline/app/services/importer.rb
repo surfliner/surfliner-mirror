@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'cgi'
+require "cgi"
 
 ##
 # @see doc/deploy.md
@@ -121,7 +121,7 @@ module Importer
       # URL
       #
       # i hate it too :)
-      filename = /\'\'(.+)\.zip$/.match(CGI::parse(uri.query)['response-content-disposition'].first)[1]
+      filename = /''(.+)\.zip$/.match(CGI.parse(uri.query)["response-content-disposition"].first)[1]
 
       {
         body: res.body,
@@ -129,7 +129,7 @@ module Importer
       }
     when Net::HTTPRedirection
       logger.debug "Got a 30x response: #{res}"
-      fetch_s3_shapefile(uri: URI(res['location']), logger: logger)
+      fetch_s3_shapefile(uri: URI(res["location"]), logger: logger)
     else
       logger.debug "Got a non-success HTTP response:"
       logger.debug res.inspect
