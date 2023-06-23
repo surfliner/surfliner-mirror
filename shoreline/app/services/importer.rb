@@ -98,7 +98,8 @@ module Importer
 
   def self.hash_from_geoserver(id:)
     {
-      gbl_resourceType_sm: get_layer_type("public:#{id}")
+      gbl_resourceType_sm: get_layer_type("public:#{id}"),
+      gbl_wxsIdentifier_s: "public:#{id}"
     }
   end
 
