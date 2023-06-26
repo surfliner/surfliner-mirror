@@ -24,7 +24,7 @@ module Superskunk
       #
       # @return [Array<Valkyrie::Resource>]
       def find_child_file_sets(resource:)
-        query_service.find_members(resource: resource).select(&:file_set?)
+        query_service.find_members(resource: resource).select { |r| r.is_a?(Hyrax::FileSet) }
       end
 
       ##
