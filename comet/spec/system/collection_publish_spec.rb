@@ -66,6 +66,28 @@ RSpec.describe "Publish Collection", type: :system, js: true do
       expect(page).to have_link("Tidewater", href: "#{url_base}#{ERB::Util.url_encode(object_url)}")
     end
 
+    it "delete a published object" do
+      visit "/dashboard/collections/#{collection.id}?locale=en"
+
+      click_on "Publish collection"
+
+      alert = page.driver.browser.switch_to.alert
+      alert.accept
+
+      publish_wait(queue_message, 0) {}
+
+      visit "/concern/generic_objects/#{object.id}?locale=en"
+
+      expect(page).to have_link("Tidewater", href: "#{url_base}#{ERB::Util.url_encode(object_url)}")
+
+      click_on "Delete"
+
+      alert = page.driver.browser.switch_to.alert
+      alert.accept
+
+      expect(page).to have_content("Deleted Test Object")
+    end
+
     context "with feature collection publish enabled" do
       before do
         allow(Rails.application.config)

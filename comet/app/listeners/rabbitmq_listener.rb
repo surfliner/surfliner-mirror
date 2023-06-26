@@ -87,7 +87,9 @@ class RabbitmqListener
   def on_object_deleted(event)
     Hyrax.logger.debug("Received object.deleted event for #{event[:object].class} with id #{event[:object].id} targeting platform: #{platform_name}")
 
-    Hyrax.publisher.publish("object.unpublish", object: event[:object], user: event[:user])
+    object = event[:object]
+    object.state = Vocab::FedoraResourceStatus.deleted
+    Hyrax.publisher.publish("object.unpublish", object: object, user: event[:user])
   rescue => err
     Hyrax.logger.error(err)
   end
@@ -117,7 +119,6 @@ class RabbitmqListener
   # @return [Array<GenericObject>]
   def query_member_objects(collection:)
     Hyrax.query_service.find_inverse_references_by(resource: collection,
-      property: "member_of_collection_ids",
-      model: ::GenericObject)
+      property: "member_of_collection_ids")
   end
 end

@@ -137,6 +137,8 @@ class DiscoveryPlatformPublisher
 
     return false if new_permissions.size == acl.permissions.size
 
+    return true if Hyrax::ResourceStatus.new(resource: resource).deleted?
+
     acl.permissions = new_permissions
     acl.save
   end
