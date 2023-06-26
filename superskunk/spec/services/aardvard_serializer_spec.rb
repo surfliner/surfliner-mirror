@@ -76,7 +76,7 @@ RSpec.describe AardvarkSerializer do
     }
     it "provides a serialized set of _file_urls" do
       expected_fileset_url = "#{ENV.fetch("COMET_BASE", "http://comet:3000")}/downloads/#{fileset.id}"
-      expect(serialized_aardvark["_file_urls"]).to eq([expected_fileset_url])
+      expect(serialized_aardvark[:_file_urls]).to eq([expected_fileset_url])
     end
   end
 
