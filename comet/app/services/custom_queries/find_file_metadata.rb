@@ -7,6 +7,7 @@ module CustomQueries
   class FindFileMetadata
     def self.queries
       [:find_files,
+        :find_file_metadata_by,
         :find_original_file,
         :find_extracted_text,
         :find_thumbnail,
@@ -26,6 +27,19 @@ module CustomQueries
       return enum_for(:find_files, file_set: file_set).to_a unless block_given?
 
       files_for_file_set(file_set) { |fm| yield fm }
+    end
+
+    # Find a file metadata using a Valkyrie ID, and map it to a Hyrax::FileMetadata
+    # @param id [Valkyrie::ID, String]
+    # @return [Hyrax::FileMetadata]
+    # @raise [Hyrax::ObjectNotFoundError]
+    def find_file_metadata_by(id:)
+      result = query_service.find_by(id: id)
+      unless result.is_a? Hyrax::FileMetadata
+        raise ::Valkyrie::Persistence::ObjectNotFoundError,
+          "Result type #{result.internal_resource} for id #{id} is not a `Hyrax::FileMetadata`"
+      end
+      result
     end
 
     # Find original file id of a given file set resource, and map to file metadata resource

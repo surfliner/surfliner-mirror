@@ -15,7 +15,7 @@ module Transactions
 
       ##
       # @param [Hyrax::Work] obj
-      # @param [Hash<String, Fog::AWS::Storage::File>] files
+      # @param [Hash<Symbol, Fog::AWS::Storage::File>] files
       # @param [User] user
       #
       # @return [Dry::Monads::Result]
