@@ -89,7 +89,10 @@ class RabbitmqListener
 
     object = event[:object]
     object.state = Vocab::FedoraResourceStatus.deleted
-    Hyrax.publisher.publish("object.unpublish", object: object, user: event[:user])
+
+    publisher_class.open_on(platform_name) do |publisher|
+      publisher.unpublish(resource: object)
+    end
   rescue => err
     Hyrax.logger.error(err)
   end
