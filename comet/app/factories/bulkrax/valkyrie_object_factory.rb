@@ -54,7 +54,7 @@ module Bulkrax
       result = transaction
         .with_step_args(
           # "work_resource.add_to_parent" => {parent_id: @related_parents_parsed_mapping, user: @user},
-          "work_resource.add_bulkrax_files" => {files: get_s3_files(remote_files: attributes["remote_files"]), user: @user},
+          "work_resource.add_bulkrax_files" => {files: get_s3_files, user: @user},
           "change_set.set_user_as_depositor" => {user: @user},
           "work_resource.change_depositor" => {user: @user}
           # TODO: uncomment when we upgrade Hyrax 4.x
@@ -79,7 +79,7 @@ module Bulkrax
 
       result = update_transaction
         .with_step_args(
-          "work_resource.add_bulkrax_files" => {files: get_s3_files(remote_files: attributes["remote_files"]), user: @user}
+          "work_resource.add_bulkrax_files" => {files: get_s3_files, user: @user}
 
           # TODO: uncomment when we upgrade Hyrax 4.x
           # 'work_resource.save_acl' => { permissions_params: [attrs.try('visibility') || 'open'].compact }
@@ -89,19 +89,27 @@ module Bulkrax
       @object = result.value!
     end
 
-    def get_s3_files(remote_files: {})
-      if remote_files.blank?
-        Hyrax.logger.info "No remote files listed for #{attributes["source_identifier"]}"
-        return []
-      end
+    def get_s3_files
+      return {} unless permitted_file_attributes.any? { |k| attributes.key?(k) }
 
       s3_bucket_name = ENV.fetch("STAGING_AREA_S3_BUCKET", "comet-staging-area-#{Rails.env}")
       s3_bucket = Rails.application.config.staging_area_s3_connection
         .directories.get(s3_bucket_name)
 
-      remote_files.map { |r| r["url"] }.map do |key|
-        s3_bucket.files.get(key)
+      results = {}
+
+      permitted_file_attributes.each do |attr|
+        attr_files = attributes[attr]
+        if attr_files.blank?
+          Hyrax.logger.info "No #{attr} files listed for #{attributes["source_identifier"]}"
+          next
+        end
+        attr_files.map { |r| r["url"] }.map do |key|
+          results[use_for_file(attr)] = s3_bucket.files.get(key)
+        end
       end.compact
+
+      results
     end
 
     ##
@@ -159,6 +167,21 @@ module Bulkrax
     end
 
     private
+
+    # @return [Array<String> attributes which are permitted for referencing files to ingest
+    def permitted_file_attributes
+      ["remote_files"] + attributes.keys.keep_if { |a| a.start_with?("use:") }
+    end
+
+    # @param String header value which typicall will contain the use:<PCDMUse> as a value
+    # example: use:PreservationFile
+    # @return Symbol use symbol for generating RDF::URI
+    def use_for_file(header)
+      return :original_file if header.eql? "remote_files"
+      return :original_file unless header.start_with?("use:")
+
+      header.gsub("use:", "").underscore.to_sym
+    end
 
     def transaction
       Hyrax::Transactions::Container["work_resource.create_with_bulk_behavior"]

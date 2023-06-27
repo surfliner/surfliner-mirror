@@ -15,14 +15,14 @@ module Transactions
 
       ##
       # @param [Hyrax::Work] obj
-      # @param [Array<Fog::AWS::Storage::File>] file
+      # @param [Hash<String, Fog::AWS::Storage::File>] files
       # @param [User] user
       #
       # @return [Dry::Monads::Result]
       def call(obj, files:, user:)
         if files && user
           begin
-            files.each do |file|
+            files.each do |use, file|
               FileIngest.upload(
                 content_type: file.content_type,
                 file_body: StringIO.new(file.body),
@@ -31,7 +31,8 @@ module Transactions
                 permissions: Hyrax::AccessControlList.new(resource: obj),
                 size: file.content_length,
                 user: user,
-                work: obj
+                work: obj,
+                use: use
               )
             end
           rescue => e

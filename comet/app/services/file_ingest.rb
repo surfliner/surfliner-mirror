@@ -42,6 +42,7 @@ module FileIngest
   # @param [Int] size]
   # @param [User] user
   # @param [Valkyrie::Resource] work
+  # @param [Symbol] use
   def self.upload(
     content_type:,
     file_body:,
@@ -50,7 +51,8 @@ module FileIngest
     permissions:,
     size:,
     user:,
-    work:
+    work:,
+    use: :original_file
   )
 
     file_set = FileIngest.make_fileset_for(
@@ -67,6 +69,7 @@ module FileIngest
         label: filename,
         mime_type: content_type,
         original_filename: filename,
+        type: Hyrax::FileMetadata::Use.uri_for(use: use),
         size: size
       )
     saved_metadata = Hyrax.persister.save(resource: file_metadata)
