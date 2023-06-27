@@ -4,14 +4,18 @@ require "rails_helper"
 
 RSpec.describe Hyrax::FileMetadata do
   describe "uri_for" do
-    let(:file_use_geoshape_file) { ::Valkyrie::Vocab::PCDMUseExtesion.GeoShapeFile }
-    let(:file_use_origin_file) { ::Valkyrie::Vocab::PCDMUse.OriginalFile }
     let(:file_use_extracted_file) { ::Valkyrie::Vocab::PCDMUse.ExtractedText }
+    let(:file_use_origin_file) { ::Valkyrie::Vocab::PCDMUse.OriginalFile }
+    let(:file_use_preservation_file) { ::Valkyrie::Vocab::PCDMUseExtesion.PreservationFile }
+    let(:file_use_service_file) { ::Valkyrie::Vocab::PCDMUseExtesion.ServiceFile }
     let(:file_use_thumbnail_file) { ::Valkyrie::Vocab::PCDMUse.ThumbnailImage }
-    let(:file_use_uri) { RDF::URI.new("http://pcdm.org/use#GeoShapeFile") }
 
-    it "give the : geoshape_file use" do
-      expect(Hyrax::FileMetadata::Use.uri_for(use: :geoshape_file)).to eq(file_use_geoshape_file)
+    it "give the :preservation_file use" do
+      expect(Hyrax::FileMetadata::Use.uri_for(use: :preservation_file)).to eq(file_use_preservation_file)
+    end
+
+    it "give the :service_file use" do
+      expect(Hyrax::FileMetadata::Use.uri_for(use: :service_file)).to eq(file_use_service_file)
     end
 
     it "give the :original_file use" do
@@ -25,10 +29,6 @@ RSpec.describe Hyrax::FileMetadata do
     it "give the :thumbnail_file use" do
       expect(Hyrax::FileMetadata::Use.uri_for(use: :thumbnail_file)).to eq(file_use_thumbnail_file)
     end
-
-    it "give the correct file use URI" do
-      expect(Hyrax::FileMetadata::Use.uri_for(use: file_use_uri)).to eq(file_use_uri)
-    end
   end
 
   describe "#type" do
@@ -38,11 +38,18 @@ RSpec.describe Hyrax::FileMetadata do
       Hyrax.persister.save(resource: file_metadata)
     end
 
-    context ":geoshape_file" do
-      let(:use) { :geoshape_file }
+    context ":service_file" do
+      let(:use) { :service_file }
 
-      it "has file use uri for:geoshape_file" do
-        expect(subject.type.first.to_s).to eq("http://pcdm.org/use#GeoShapeFile")
+      it "has file use uri for :service_file" do
+        expect(subject.type.first.to_s).to eq("http://pcdm.org/use#ServiceFile")
+      end
+    end
+    context ":preservation_file" do
+      let(:use) { :preservation_file }
+
+      it "has file use uri for :preservation_file" do
+        expect(subject.type.first.to_s).to eq("http://pcdm.org/use#PreservationFile")
       end
     end
   end

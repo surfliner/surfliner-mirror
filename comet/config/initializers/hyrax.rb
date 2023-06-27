@@ -400,7 +400,8 @@ class CometTransactionContainer
 end
 
 module PcdmUseExtension
-  GEOSHAPE_FILE = ::Valkyrie::Vocab::PCDMUseExtesion.GeoShapeFile
+  SERVICE_FILE = ::Valkyrie::Vocab::PCDMUse.ServiceFile
+  PRESERVATION_FILE = ::Valkyrie::Vocab::PCDMUse.PreservationFile
 
   ##
   # @param use [RDF::URI, Symbol]
@@ -417,8 +418,10 @@ module PcdmUseExtension
       Hyrax::FileMetadata::Use::EXTRACTED_TEXT
     when :thumbnail_file
       Hyrax::FileMetadata::Use::THUMBNAIL
-    when :geoshape_file
-      GEOSHAPE_FILE
+    when :preservation_file
+      Hyrax::FileMetadata::Use::PRESERVATION_FILE
+    when :service_file
+      Hyrax::FileMetadata::Use::SERVICE_FILE
     else
       raise ArgumentError, "No PCDM use is recognized for #{use}"
     end
