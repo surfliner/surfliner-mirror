@@ -153,9 +153,36 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory, :with_admin_set do
     it "update object with metadata and files" do
       object_updated = object_factory.run!
 
+      fs = Hyrax.custom_queries.find_child_file_sets(resource: object_updated).first
+      use = Hyrax.custom_queries.find_files(file_set: fs).first.type.first
+
       expect(object_updated)
         .to have_attributes(title: contain_exactly(title_updated))
       expect(object_updated.member_ids.size).to eq 1
+      expect(use).to eq Hyrax::FileMetadata::Use::ORIGINAL_FILE
+    end
+
+    context "with pcdm:use values" do
+      let(:attributes) do
+        {
+          :title => title_updated,
+          :id => work_identifier,
+          :alternate_ids => [source_identifier],
+          "use:PreservationFile" => [{url: "demo_files/demo.jpg"}]
+        }
+      end
+
+      it "updates object with metadata and files with pcdm:use values" do
+        object_updated = object_factory.run!
+
+        fs = Hyrax.custom_queries.find_child_file_sets(resource: object_updated).first
+        use = Hyrax.custom_queries.find_files(file_set: fs).first.type.first
+
+        expect(object_updated)
+          .to have_attributes(title: contain_exactly(title_updated))
+        expect(object_updated.member_ids.size).to eq 1
+        expect(use).to eq Hyrax::FileMetadata::Use::PRESERVATION_FILE
+      end
     end
   end
 
