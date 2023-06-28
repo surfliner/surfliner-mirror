@@ -15,7 +15,7 @@ module Transactions
 
       ##
       # @param [Hyrax::Work] obj
-      # @param [Hash<Symbol, Fog::AWS::Storage::File>] files
+      # @param [Hash<Symbol, Array<Fog::AWS::Storage::File>>] files
       # @param [User] user
       #
       # @return [Dry::Monads::Result]
@@ -23,17 +23,19 @@ module Transactions
         if files && user
           begin
             files.each do |use, file|
-              FileIngest.upload(
-                content_type: file.content_type,
-                file_body: StringIO.new(file.body),
-                filename: Pathname.new(file.key).basename,
-                last_modified: file.last_modified,
-                permissions: Hyrax::AccessControlList.new(resource: obj),
-                size: file.content_length,
-                user: user,
-                work: obj,
-                use: use
-              )
+              file.each do |f|
+                FileIngest.upload(
+                  content_type: f.content_type,
+                  file_body: StringIO.new(f.body),
+                  filename: Pathname.new(f.key).basename,
+                  last_modified: f.last_modified,
+                  permissions: Hyrax::AccessControlList.new(resource: obj),
+                  size: f.content_length,
+                  user: user,
+                  work: obj,
+                  use: use
+                )
+              end
             end
           rescue => e
             Hyrax.logger.error(e)

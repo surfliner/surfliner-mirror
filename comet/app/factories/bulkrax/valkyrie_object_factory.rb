@@ -89,6 +89,8 @@ module Bulkrax
       @object = result.value!
     end
 
+    # @return [Hash<Symbol>, Array<Fog::AWS::Storage::File>>]
+    #   example { service_file: [s3file1, s3file2], preservation_file: [s3preservationfile] }
     def get_s3_files
       return {} unless permitted_file_attributes.any? { |k| attributes.key?(k) }
 
@@ -99,14 +101,16 @@ module Bulkrax
       results = {}
 
       permitted_file_attributes.each do |attr|
+        urls = []
         attr_files = attributes[attr]
         if attr_files.blank?
           Hyrax.logger.info "No #{attr} files listed for #{attributes["source_identifier"]}"
           next
         end
         attr_files.map { |r| r["url"] }.map do |key|
-          results[use_for_file(attr)] = s3_bucket.files.get(key)
+          urls << s3_bucket.files.get(key)
         end
+        results[use_for_file(attr)] = urls
       end.compact
 
       results
