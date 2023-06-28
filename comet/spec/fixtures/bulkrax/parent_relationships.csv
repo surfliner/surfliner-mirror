@@ -1,0 +1,3 @@
+source_identifier,model,remote_files,parents,title
+obj_1,GenericObject,demo_files/image.jpg,3,Test Object
+obj_2,GenericObject,demo_files/demo.jpg,obj_1,Test Component
