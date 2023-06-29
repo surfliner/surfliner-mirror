@@ -42,6 +42,23 @@ module HasMappingExt
     factory_class.method_defined?(field) && (Bulkrax::ValkyrieObjectFactory.schema_properties(factory_class).include?(field) || property_defined)
   end
 
+  # @Override support pcdm use attributes
+  def supported_bulkrax_fields
+    @supported_bulkrax_fields ||=
+      %W[
+        id
+        file
+        remote_files
+        model
+        visibility
+        delete
+        use:PreservationFile
+        use:ServiceFile
+        #{related_parents_parsed_mapping}
+        #{related_children_parsed_mapping}
+      ]
+  end
+
   ##
   # Determine a multiple properties field
   def multiple?(field)
@@ -49,6 +66,8 @@ module HasMappingExt
       %W[
         file
         remote_files
+        use:PreservationFile
+        use:ServiceFile
         rights_statement
         #{related_parents_parsed_mapping}
         #{related_children_parsed_mapping}

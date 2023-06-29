@@ -103,11 +103,13 @@ module Bulkrax
       permitted_file_attributes.each do |attr|
         urls = []
         attr_files = attributes[attr]
+        Hyrax.logger.info "Will try to assign #{attr_files} with from attribute #{attr}"
         if attr_files.blank?
           Hyrax.logger.info "No #{attr} files listed for #{attributes["source_identifier"]}"
           next
         end
         attr_files.map { |r| r["url"] }.map do |key|
+          Hyrax.logger.info "Loading file #{key} from s3 bucket #{s3_bucket_name}"
           urls << s3_bucket.files.get(key)
         end
         results[use_for_file(attr)] = urls
@@ -135,10 +137,44 @@ module Bulkrax
       object
     end
 
+    # @Override - support multiple fields for remote file ingest
+    def file_attributes(update_files = false)
+      @update_files = update_files
+      hash = {}
+      return hash if klass == Collection
+      hash[:uploaded_files] = upload_ids if attributes[:file].present?
+      permitted_file_attributes.each do |a|
+        hash[a] = new_remote_files(a) if attributes[a].present?
+      end
+      hash
+    end
+
+    # @Override - Addition of file_attribute parameter
+    # @file_attribute [String] Valid attribute for remote file upload
+    # Its possible to get just an array of strings here, so we need to make sure they are all hashes
+    def parsed_remote_files(file_attribute)
+      Hyrax.logger.info "parsed_remote_files for #{file_attribute} with values #{attributes[file_attribute]} which is a #{attributes[file_attribute].class}"
+      remote_files = attributes[file_attribute] || []
+      remote_files = remote_files.map do |file_value|
+        if file_value.is_a?(Hash)
+          file_value
+        elsif file_value.is_a?(String)
+          name = Bulkrax::Importer.safe_uri_filename(file_value)
+          {url: file_value, file_name: name}
+        else
+          Rails.logger.error("skipped remote file #{file_value} because we do not recognize the type")
+          nil
+        end
+      end
+      remote_files.delete(nil)
+      remote_files
+    end
+
     # @Override remove branch for FileSets replace validation with errors
-    def new_remote_files
-      @new_remote_files ||= if @object.is_a? FileSet
-        parsed_remote_files.select do |file|
+    # @file_attribute [String] Valid attribute for remote file upload
+    def new_remote_files(file_attribute)
+      if @object.is_a? FileSet
+        parsed_remote_files(file_attribute).select do |file|
           # is the url valid?
           is_valid = file[:url]&.match(URI::ABS_URI)
           # does the file already exist
@@ -146,9 +182,11 @@ module Bulkrax
           is_valid && !is_existing
         end
       else
-        parsed_remote_files.select do |file|
-          file[:url]&.match(URI::ABS_URI)
-        end
+        parsed_remote_files(file_attribute)
+        # TODO: at this point they aren't absolute uri's they're relative.. how did this work for remote_files?
+        # parsed_remote_files(file_attribute).select do |file|
+        #   file[:url]&.match(URI::ABS_URI) #
+        # end
       end
     end
 
