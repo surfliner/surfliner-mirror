@@ -1,4 +1,6 @@
-OpenTelemetry::SDK.configure do |c|
-  c.service_name = "surfliner-comet"
-  c.use_all # enables all instrumentation!
+unless ENV["OTEL_SDK_DISABLED"] == "true"
+  OpenTelemetry::SDK.configure do |c|
+    c.service_name = "surfliner-comet"
+    c.use_all # enables all instrumentation!
+  end
 end
