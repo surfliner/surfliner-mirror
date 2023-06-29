@@ -75,5 +75,6 @@ module Comet
     building = (ENV["DB_ADAPTER"] == "nulldb")
     config.use_rabbitmq =
       ActiveModel::Type::Boolean.new.cast(ENV.fetch("RABBITMQ_ENABLED", !building))
+    config.tracer = OpenTelemetry.tracer_provider.tracer("CometTracer", "0.1.0")
   end
 end

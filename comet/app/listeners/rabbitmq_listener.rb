@@ -71,6 +71,7 @@ class RabbitmqListener
   ##
   # Updates the object in the platform when metadata is updated.
   def on_object_metadata_updated(event)
+    OpenTelemetry::Trace.current_span.set_attribute("surfliner.resource_id", event[:object].id)
     Hyrax.logger.debug { "Received object.metadata.updated event for #{event[:object].class} with id #{event[:object].id} targeting platform: #{platform_name}" }
 
     publisher_class.open_on(platform_name) do |publisher|
@@ -85,6 +86,7 @@ class RabbitmqListener
   #
   # @param event [{:object => GenericObject}]
   def on_object_deleted(event)
+    OpenTelemetry::Trace.current_span.set_attribute("surfliner.resource_id", event[:object].id)
     Hyrax.logger.debug("Received object.deleted event for #{event[:object].class} with id #{event[:object].id} targeting platform: #{platform_name}")
 
     object = event[:object]
@@ -104,6 +106,8 @@ class RabbitmqListener
   #
   # @param event [{:object => GenericObject}]
   def on_object_unpublish(event)
+    OpenTelemetry::Trace.current_span.set_attribute("surfliner.resource_id", event[:object].id)
+
     Hyrax.logger.debug("Received object.unpublish event for #{event[:object].class} with id #{event[:object].id} targeting platform: #{platform_name}")
 
     publisher_class.open_on(platform_name) do |publisher|

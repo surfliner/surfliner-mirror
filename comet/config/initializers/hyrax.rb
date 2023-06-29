@@ -439,3 +439,6 @@ Hyrax::Engine.routes.prepend do
 end
 
 Qa::Authorities::FindWorks.search_builder_class = CometFindWorksSearchBuilder
+
+Hyrax::Publisher.include(Comet::PublisherOtelBehavior)
+Dry::Events::Bus.prepend(Comet::PublisherBusOtelBehavior)

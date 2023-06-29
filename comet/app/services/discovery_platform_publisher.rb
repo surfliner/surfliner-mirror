@@ -31,12 +31,19 @@ class DiscoveryPlatformPublisher
   #
   # The broker is closed following the execution of the block.
   def self.open_on(name, &block)
-    platform = DiscoveryPlatform.new(name)
-    broker = MessageBroker.for(topic: platform.message_route.metadata_topic)
+    Comet.tracer.in_span("publisher connection") do |span|
+      platform = DiscoveryPlatform.new(name)
+      broker = MessageBroker.for(topic: platform.message_route.metadata_topic)
 
-    yield new(platform: platform, broker: broker)
+      span.add_attributes({"surfliner.platform_name" => name.to_s,
+        "surfliner.topic" => platform.message_route.metadata_topic.to_s,
+        OpenTelemetry::SemanticConventions::Trace::CODE_FUNCTION => __method__.to_s,
+        OpenTelemetry::SemanticConventions::Trace::CODE_NAMESPACE => self.class.name})
 
-    broker.close
+      yield new(platform: platform, broker: broker)
+
+      broker.close
+    end
   end
 
   ##
@@ -61,8 +68,14 @@ class DiscoveryPlatformPublisher
     raise(UnpublishableObject) unless resource.persisted?
     Hyrax.logger.debug { "Emitting RabbitMQ event to publish #{resource.class} with id #{resource.id} to routing key #{platform.message_route.metadata_routing_key}" }
 
-    append_access_control_to(resource: resource) &&
-      broker.publish(payload: payload_for(resource, "published"), routing_key: platform.message_route.metadata_routing_key)
+    Comet.tracer.in_span("surfliner.object.publish") do |span|
+      span.add_attributes({"surfliner.resource_id" => resource.id.to_s,
+        OpenTelemetry::SemanticConventions::Trace::CODE_FUNCTION => __method__.to_s,
+        OpenTelemetry::SemanticConventions::Trace::CODE_NAMESPACE => self.class.name})
+
+      append_access_control_to(resource: resource) &&
+        broker.publish(payload: payload_for(resource, "published"), routing_key: platform.message_route.metadata_routing_key)
+    end
   end
 
   ##
@@ -79,8 +92,14 @@ class DiscoveryPlatformPublisher
     raise(UnpublishableObject) unless resource.persisted?
     Hyrax.logger.debug { "Emitting RabbitMQ event to unpublish #{resource.class} with id #{resource.id} to routing key #{platform.message_route.metadata_routing_key}" }
 
-    revoke_access_control_for(resource: resource) &&
-      broker.publish(payload: payload_for(resource, "unpublished"), routing_key: platform.message_route.metadata_routing_key)
+    Comet.tracer.in_span("surfliner.object.unpublish") do |span|
+      span.add_attributes({"surfliner.resource_id" => resource.id.to_s,
+        OpenTelemetry::SemanticConventions::Trace::CODE_FUNCTION => __method__.to_s,
+        OpenTelemetry::SemanticConventions::Trace::CODE_NAMESPACE => self.class.name})
+
+      revoke_access_control_for(resource: resource) &&
+        broker.publish(payload: payload_for(resource, "unpublished"), routing_key: platform.message_route.metadata_routing_key)
+    end
   end
 
   ##
@@ -94,8 +113,14 @@ class DiscoveryPlatformPublisher
     raise(UnpublishableObject) unless resource.persisted?
     Hyrax.logger.debug { "Emitting RabbitMQ event to update #{resource.class} with id #{resource.id} to routing key #{platform.message_route.metadata_routing_key}" }
 
-    platform.active_for?(resource: resource) &&
-      broker.publish(payload: payload_for(resource, "updated"), routing_key: platform.message_route.metadata_routing_key)
+    Comet.tracer.in_span("surfliner.object.update") do |span|
+      span.add_attributes({"surfliner.resource_id" => resource.id.to_s,
+        OpenTelemetry::SemanticConventions::Trace::CODE_FUNCTION => __method__.to_s,
+        OpenTelemetry::SemanticConventions::Trace::CODE_NAMESPACE => self.class.name})
+
+      platform.active_for?(resource: resource) &&
+        broker.publish(payload: payload_for(resource, "updated"), routing_key: platform.message_route.metadata_routing_key)
+    end
   end
 
   ##
