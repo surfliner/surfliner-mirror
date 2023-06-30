@@ -93,8 +93,9 @@ module FileIngest
 
     file_set.file_ids << uploaded.id
 
-    Hyrax.persister.save(resource: file_set)
-    Hyrax.publisher.publish("object.metadata.updated", object: file_set, user: user)
-    Hyrax.publisher.publish("file.set.attached", file_set: file_set, user: user)
+    saved_fs = Hyrax.persister.save(resource: file_set)
+
+    Hyrax.publisher.publish("object.metadata.updated", object: saved_fs, user: user)
+    Hyrax.publisher.publish("file.set.attached", file_set: saved_fs, user: user)
   end
 end
