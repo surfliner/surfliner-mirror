@@ -249,7 +249,7 @@ class AardvarkSerializer < ResourceSerializer
   # @param [Valkyrie::ID] id
   # @return [String]
   def signed_url_for(id:)
-    "#{ENV["COMET_BASE"]}/downloads/#{id}"
+    "#{ENV["COMET_BASE"]}/downloads/#{id}?use=service_file"
   end
 
   ##

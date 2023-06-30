@@ -10,7 +10,7 @@ module Hyrax
 
     def show
       file_set = Hyrax.query_service.find_by(id: params.require(:id))
-      redirect_to_presigned(file_set)
+      redirect_to_presigned(file_set: file_set, use: use)
     end
 
     private
@@ -39,7 +39,7 @@ module Hyrax
       results.first || raise(Hyrax::ObjectNotFoundError)
     end
 
-    def redirect_to_presigned(file_set)
+    def redirect_to_presigned(file_set:, use: :original_file)
       file_metadata = find_file_metadata(file_set: file_set, use: use)
 
       url = PresignedUrl.url(
