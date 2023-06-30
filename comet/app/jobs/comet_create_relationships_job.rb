@@ -6,6 +6,8 @@
 # - Work to Collection
 # - Work to Work
 class CometCreateRelationshipsJob < Bulkrax::CreateRelationshipsJob
+  include Hyrax::Lockable
+
   # @param parent_identifier [String] Work/Collection ID or Bulkrax::Entry source_identifiers
   # @param importer_run [Bulkrax::ImporterRun] current importer run (needed to properly update counters)
   #
@@ -88,16 +90,23 @@ class CometCreateRelationshipsJob < Bulkrax::CreateRelationshipsJob
     # We could do this outside of the loop, but that could lead to odd counter failures.
     ability.authorize!(:edit, parent_record)
 
-    parent_record.is_a?(Hyrax::PcdmCollection) ? add_to_collection(child_record, parent_record, ability) : add_to_work(child_record, parent_record, ability)
+    # lock record that need relationship update to avoid concurrent changes
+    lock_record_id = parent_record.collection? ? child_record.id.to_s : parent_record.id.to_s
+    acquire_lock_for(lock_record_id) do
+      parent_record.collection? ? add_to_collection(child_record, parent_record, ability) : add_to_work(child_record, parent_record, ability)
 
-    child_record.file_sets.each(&:update_index) if update_child_records_works_file_sets? && child_record.respond_to?(:file_sets)
-    relationship.destroy
+      child_record.file_sets.each(&:update_index) if update_child_records_works_file_sets? && child_record.respond_to?(:file_sets)
+      relationship.destroy
+    end
   end
 
   def add_to_collection(child_record, parent_record, ability)
     return child_record if child_record.member_of_collection_ids.any? { |id| id.to_s == parent_record.id.to_s }
 
+    # refresh child record for relationship change
+    child_record = Hyrax.query_service.find_by(id: child_record.id.to_s)
     child_record.member_of_collection_ids << parent_record.id
+
     saved_record = Hyrax.persister.save(resource: child_record)
 
     Hyrax.publisher.publish("object.metadata.updated", object: saved_record, user: ability.current_user)
@@ -109,6 +118,8 @@ class CometCreateRelationshipsJob < Bulkrax::CreateRelationshipsJob
   def add_to_work(child_record, parent_record, ability)
     return true if parent_record.member_ids.any? { |id| id.to_s == child_record.id.to_s }
 
+    # refresh parent record for relationship change
+    parent_record = Hyrax.query_service.find_by(id: parent_record.id.to_s)
     parent_record.member_ids << child_record.id
 
     # TODO: Do we need to save the child record?
