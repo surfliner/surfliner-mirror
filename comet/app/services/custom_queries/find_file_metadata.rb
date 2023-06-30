@@ -49,7 +49,7 @@ module CustomQueries
       find_many_file_metadata_by_use(
         resource: file_set,
         use: Hyrax::FileMetadata::Use::ORIGINAL_FILE
-      ).first || raise(Valkyrie::Persistence::ObjectNotFoundError)
+      ).first
     end
 
     # Find extracted text id of a given file set resource, and map to file metadata resource
