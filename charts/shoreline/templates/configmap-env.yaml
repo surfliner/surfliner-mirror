@@ -24,6 +24,11 @@ data:
   STAGING_AREA_S3_BUCKET: {{ first (splitList ":" .Values.minio.defaultBuckets) }}
   STAGING_AREA_S3_EXAMPLE_FILES: "1"
   {{- end }}
+  {{- if .Values.telemetry.enabled }}
+  OTEL_EXPORTER_OTLP_ENDPOINT: {{ .Values.telemetry.otlp_endpoint }}
+  {{- else }}
+  OTEL_SDK_DISABLED: "true"
+  {{- end }}
   POSTGRESQL_DATABASE: {{ .Values.postgresql.auth.database }}
   POSTGRESQL_HOST: {{ template "shoreline.postgresql.fullname" . }}
   POSTGRESQL_PORT: {{ .Values.postgresql.containerPorts.postgresql | quote }}

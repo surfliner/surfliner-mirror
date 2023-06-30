@@ -3,3 +3,7 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt-prod
+
+telemetry:
+  enabled: true
+  otlp_endpoint: "http://otel-review-collector.otel-review:4318"

@@ -43,6 +43,10 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
+telemetry:
+  enabled: false
+  # otel_endpoint: "http://otel-collector.local:4318"
+
 ingress:
   enabled: true
   annotations: {}
