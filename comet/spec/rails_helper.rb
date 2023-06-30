@@ -74,7 +74,7 @@ RSpec.configure do |config|
 
   config.before do
     Hyrax.persister.wipe!
-    Hyrax.index_adapter.wipe!
+    Hyrax.index_adapter.wipe! rescue RSolr::Error::Http # rubocop:disable Style/RescueModifier
   end
 
   config.before(:suite) do
