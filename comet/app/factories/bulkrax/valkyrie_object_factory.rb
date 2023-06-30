@@ -92,7 +92,7 @@ module Bulkrax
     # @return [Hash<Symbol>, Array<Fog::AWS::Storage::File>>]
     #   example { service_file: [s3file1, s3file2], preservation_file: [s3preservationfile] }
     def get_s3_files
-      return {} unless permitted_file_attributes.any? { |k| attributes.key?(k) }
+      return {} unless permitted_file_attributes.any? { |k| file_attributes.key?(k) }
 
       s3_bucket_name = ENV.fetch("STAGING_AREA_S3_BUCKET", "comet-staging-area-#{Rails.env}")
       s3_bucket = Rails.application.config.staging_area_s3_connection
@@ -102,13 +102,13 @@ module Bulkrax
 
       permitted_file_attributes.each do |attr|
         urls = []
-        attr_files = attributes[attr]
+        attr_files = file_attributes[attr]
         Hyrax.logger.info "Will try to assign #{attr_files} with from attribute #{attr}"
         if attr_files.blank?
           Hyrax.logger.info "No #{attr} files listed for #{attributes["source_identifier"]}"
           next
         end
-        attr_files.map { |r| r["url"] }.map do |key|
+        attr_files.map { |r| r[:url] }.map do |key|
           Hyrax.logger.info "Loading file #{key} from s3 bucket #{s3_bucket_name}"
           urls << s3_bucket.files.get(key)
         end
