@@ -23,12 +23,12 @@ module Comet
 
           if listener.is_a?(Method)
             span.add_attributes(
-              OpenTelemetry::SemanticConventions::Trace::CODE_NAMESPACE => listener.owner,
+              OpenTelemetry::SemanticConventions::Trace::CODE_NAMESPACE => listener.owner.name,
               OpenTelemetry::SemanticConventions::Trace::CODE_FUNCTION => listener.name.to_s
             )
           end
 
-          listener.(event)
+          listener.call(event)
         end
       end
     end

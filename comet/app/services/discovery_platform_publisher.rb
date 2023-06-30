@@ -31,19 +31,12 @@ class DiscoveryPlatformPublisher
   #
   # The broker is closed following the execution of the block.
   def self.open_on(name, &block)
-    Comet.tracer.in_span("publisher connection") do |span|
-      platform = DiscoveryPlatform.new(name)
-      broker = MessageBroker.for(topic: platform.message_route.metadata_topic)
+    platform = DiscoveryPlatform.new(name)
+    broker = MessageBroker.for(topic: platform.message_route.metadata_topic)
 
-      span.add_attributes({"surfliner.platform_name" => name.to_s,
-        "surfliner.topic" => platform.message_route.metadata_topic.to_s,
-        OpenTelemetry::SemanticConventions::Trace::CODE_FUNCTION => __method__.to_s,
-        OpenTelemetry::SemanticConventions::Trace::CODE_NAMESPACE => self.class.name})
+    yield new(platform: platform, broker: broker)
 
-      yield new(platform: platform, broker: broker)
-
-      broker.close
-    end
+    broker.close
   end
 
   ##
