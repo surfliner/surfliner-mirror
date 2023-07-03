@@ -14,6 +14,8 @@ classes:
   - name: GenericWork
     display_label: Generic Work
   - name: Image
+  - name: Nested
+    iri: example:Nested
 
 sections:
  - name: my_metadata
@@ -47,6 +49,7 @@ properties:
       - GenericWork
       - Collection
       - Image
+      - Nested
     range: http://www.w3.org/2000/01/rdf-schema#Literal
     data_type: http://www.w3.org/2001/XMLSchema#string
     cardinality:
@@ -121,3 +124,11 @@ properties:
         - name: named
         - display_label: "Unnamed with IRI"
           iri: "example:unnamed"
+
+  range:
+    name: range
+    display_label: "Field with range"
+    definition: "A field with values that form a nested object"
+    available_on:
+      - GenericWork
+    range: example:Nested

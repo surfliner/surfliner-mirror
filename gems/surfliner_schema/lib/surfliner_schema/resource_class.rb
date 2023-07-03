@@ -15,5 +15,9 @@ module SurflinerSchema
     ##
     # The IRI which identifies the class.
     attribute :iri, Valkyrie::Types::Coercible::String.optional.default(nil)
+
+    ##
+    # Whether the class is used as the range of another class in the schema.
+    attribute :nested, Valkyrie::Types::Strict::Bool.default(false)
   end
 end

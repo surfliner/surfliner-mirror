@@ -29,7 +29,8 @@ describe SurflinerSchema::Reader::Houndstooth do
       :title,
       :date_uploaded,
       :date_modified,
-      :controlled
+      :controlled,
+      :range
     )
     expect(reader.names(availability: :Collection)).not_to include(:date_uploaded)
     expect(reader.names(availability: :Collection)).not_to include(:date_modified)
@@ -89,19 +90,28 @@ describe SurflinerSchema::Reader::Houndstooth do
   describe "#resource_classes" do
     it "contains the expected classes" do
       resource_classes = reader.resource_classes
-      expect(resource_classes.keys).to eq [:Collection, :GenericWork, :Image]
+      expect(resource_classes.keys).to eq [:Collection, :GenericWork, :Image, :Nested]
     end
 
     it "generates classes with the correct name" do
       expect(reader.resource_classes[:Collection].name).to eq :Collection
       expect(reader.resource_classes[:GenericWork].name).to eq :GenericWork
       expect(reader.resource_classes[:Image].name).to eq :Image
+      expect(reader.resource_classes[:Nested].name).to eq :Nested
     end
 
     it "generates classes with the correct display label" do
       expect(reader.resource_classes[:Collection].display_label).to eq "Collection"
       expect(reader.resource_classes[:GenericWork].display_label).to eq "Generic Work"
       expect(reader.resource_classes[:Image].display_label).to eq "Image"
+      expect(reader.resource_classes[:Nested].display_label).to eq "Nested"
+    end
+
+    it "identifies whether classes are nested" do
+      expect(reader.resource_classes[:Collection].nested).to be false
+      expect(reader.resource_classes[:GenericWork].nested).to be false
+      expect(reader.resource_classes[:Image].nested).to be false
+      expect(reader.resource_classes[:Nested].nested).to be true
     end
   end
 
