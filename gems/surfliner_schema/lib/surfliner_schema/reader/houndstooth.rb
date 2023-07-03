@@ -103,6 +103,7 @@ module SurflinerSchema
           cardinality_maximum = config.dig("cardinality", "maximum")
           property = Property.new(
             name: property_name,
+            property_uri: config["property_uri"],
             display_label: config.fetch(
               "display_label",
               self.class.format_name(property_name)

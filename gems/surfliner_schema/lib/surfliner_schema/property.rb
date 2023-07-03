@@ -13,6 +13,10 @@ module SurflinerSchema
     # § DEFINED BY HOUNDSTOOTH #################################################
 
     ##
+    # The URI which canonically identifies the property.
+    attribute :property_uri, Valkyrie::Types.Constructor(RDF::URI).optional.default(nil)
+
+    ##
     # The human‐readable display label for the property.
     attribute :display_label, Valkyrie::Types::Coercible::String
 

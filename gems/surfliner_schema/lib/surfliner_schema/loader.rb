@@ -253,7 +253,7 @@ module SurflinerSchema
     #
     # @return [Class, Proc]
     def self.valkyrie_resource_class_for(_schema_name)
-      Valkyrie::Resource
+      SurflinerSchema::Resource
     end
 
     ##
