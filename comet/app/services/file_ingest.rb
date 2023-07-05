@@ -52,10 +52,11 @@ module FileIngest
     size:,
     user:,
     work:,
-    use: :original_file
+    use: :original_file,
+    file_set: nil
   )
 
-    file_set = FileIngest.make_fileset_for(
+    file_set ||= FileIngest.make_fileset_for(
       filename: filename,
       last_modified: last_modified,
       permissions: permissions,

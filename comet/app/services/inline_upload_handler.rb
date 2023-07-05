@@ -36,7 +36,9 @@ class InlineUploadHandler < Hyrax::WorkUploadsHandler
         permissions: target_permissions,
         size: uploader.file.size,
         user: file.user,
-        work: work
+        work: work,
+        use: :original_file,
+        file_set: nil
       )
     end
   end
