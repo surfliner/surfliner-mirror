@@ -40,7 +40,7 @@ RSpec.describe "GET /acls?file={id}&mode={mode}&group={name}" do
       it "is truthy" do
         get "acls?file=file_1&mode=read&group=public", {}, {}
 
-        expect(last_response).to have_attributes(status: 200, body: "1")
+        expect(last_response).to have_attributes(status: 200, body: group.name)
       end
     end
   end
@@ -51,6 +51,7 @@ RSpec.describe "GET /acls?resource={id}&mode={mode}&group={name}" do
 
   let(:app) { Rails.application }
   let(:group) { Hyrax::Acl::Group.new("public") }
+  let(:other_group) { Hyrax::Acl::Group.new("moomin") }
   let(:persister) { Valkyrie::MetadataAdapter.find(:comet_metadata_store).persister }
   let(:query_service) { Superskunk.comet_query_service }
   let(:resource) { persister.save(resource: GenericObject.new(title: [title])) }
@@ -92,11 +93,31 @@ RSpec.describe "GET /acls?resource={id}&mode={mode}&group={name}" do
       it "is truthy" do
         get "acls?resource=#{resource.id}&mode=read&group=public", {}, {}
 
-        expect(last_response).to have_attributes(status: 200, body: "1")
+        expect(last_response).to have_attributes(status: 200, body: group.name)
       end
 
       it "and group is not 'public', is falsey" do
         get "acls?resource=#{resource.id}&mode=read&group=moomin", {}, {}
+
+        expect(last_response).to have_attributes(status: 200, body: "0")
+      end
+    end
+
+    context "with access to different group" do
+      before do
+        acl = Hyrax::Acl::AccessControlList.new(resource: resource, persister: persister, query_service: query_service)
+        acl.grant(:read).to(other_group)
+        acl.save
+      end
+
+      it "is truthy with matching group" do
+        get "acls?resource=#{resource.id}&mode=read&group=moomin", {}, {}
+
+        expect(last_response).to have_attributes(status: 200, body: other_group.name)
+      end
+
+      it "and group is not matching, is falsey" do
+        get "acls?resource=#{resource.id}&mode=read&group=moomin2", {}, {}
 
         expect(last_response).to have_attributes(status: 200, body: "0")
       end

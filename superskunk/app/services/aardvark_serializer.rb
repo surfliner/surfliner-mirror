@@ -163,11 +163,13 @@ class AardvarkSerializer < ResourceSerializer
   # Returns a hash representing the JSON-LD which represents the resource as
   # Open GeoMetadata Aardvark.
   def to_jsonld
+    access_group = "Public"
     AARDVARK_TERMS.each_with_object({
       "@context" => {"@base": "#{ENV["SUPERSKUNK_API_BASE"]}/resources/"}
     }) do |(term, dfn), json|
       mapping = mappings[dfn[:iri]].to_a
-
+      acl = AccessControlList.new(resource: resource)
+      access_group = acl.permissions.first.agent.sub!("group/", "") if !acl.permissions.nil? && !acl.permissions.first.nil?
       # Special handling for specific terms.
       #
       # In particular, we want to make sure there are fallbacks for all
@@ -175,7 +177,7 @@ class AardvarkSerializer < ResourceSerializer
       case term
       when :dct_accessRights_s
         # For now we only support "Public" access.
-        mapping = ["Public"] unless mapping.present?
+        mapping = [access_group] unless mapping.present?
       when :dct_isPartOf_sm
         mapping = Superskunk.comet_query_service.custom_queries.find_parent_work_id(resource: resource) || []
       when :pcdm_memberOf_sm

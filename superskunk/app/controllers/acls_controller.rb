@@ -12,9 +12,9 @@ class AclsController < ApplicationController
     # For now, we assume all platforms and callers can find out about
     # access from the public group, so we are limiting functionality to just
     # that group.
-    unless group.name == "public"
-      render(plain: "0") && return
-    end
+    # unless group.name == "public"
+    # render(plain: "0") && return
+    # end
 
     resource = begin
       resource_for(params.permit(:file, :resource))
@@ -29,7 +29,8 @@ class AclsController < ApplicationController
       if acl.has_grant?(mode: mode.to_sym, agent: group)
         Rails.logger.info { "Granting access on #{resource.id} to #{group.agent_key}" }
         Rails.logger.debug { "Granted after finding permissions: #{acl.permissions}" }
-        render plain: "1"
+        # render plain: "1"
+        render plain: group.name
       else
         Rails.logger.info { "Denying access on #{resource.id} to #{group.agent_key}" }
         Rails.logger.debug { "Denied after finding permissions: #{acl.permissions}" }
