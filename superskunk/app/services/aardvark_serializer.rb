@@ -209,6 +209,15 @@ class AardvarkSerializer < ResourceSerializer
           end
           iso639_2_code.alpha3_bibliographic
         end.compact!
+      when :dct_references_s
+        mapping = [{
+          "http://schema.org/downloadUrl": file_sets_for(resource: resource).map do |id|
+                                             {
+                                               label: resource.format_geo.first&.value || "Shapefile",
+                                               url: signed_url_for(id: id, use: :preservation_file)
+                                             }
+                                           end
+        }.to_json]
       when :_file_urls
         mapping = file_sets_for(resource: resource).map { |id| signed_url_for(id: id) }
       end
@@ -248,8 +257,8 @@ class AardvarkSerializer < ResourceSerializer
 
   # @param [Valkyrie::ID] id
   # @return [String]
-  def signed_url_for(id:)
-    "#{ENV["COMET_BASE"]}/downloads/#{id}?use=service_file"
+  def signed_url_for(id:, use: :service_file)
+    "#{ENV["COMET_BASE"]}/downloads/#{id}?use=#{use}"
   end
 
   ##
