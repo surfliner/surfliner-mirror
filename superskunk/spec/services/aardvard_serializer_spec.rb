@@ -156,7 +156,7 @@ RSpec.describe AardvarkSerializer do
       expect(serialized_aardvark[:dct_language_sm]).to be_nil
     end
   end
-  
+
   context "with no accessRight group provided" do
     let(:title) { "A geospatial object with no accessRight group provided" }
     let(:resource) {
@@ -166,16 +166,16 @@ RSpec.describe AardvarkSerializer do
       expect(serialized_aardvark[:dct_accessRights_s]).to eq("Public")
     end
   end
-  
+
   context "with accessRight group provided" do
     let(:title) { "A geospatial object with accessRight group provided" }
     let(:group) { Hyrax::Acl::Group.new(agent) }
     let(:resource) {
       persister.save(resource: GeospatialObject.new(title: [title]))
-    }   
+    }
     let(:permission) do
       Hyrax::Acl::Permission.new(access_to: resource.id, mode: :discover, agent: group.agent_key)
-    end      
+    end
     let(:acl) do
       persister.save(
         resource: Hyrax::Acl::AccessControl.new(access_to: resource.id, permissions: [permission])
@@ -185,7 +185,7 @@ RSpec.describe AardvarkSerializer do
     before { acl }
 
     it "populates the dct_accessRights_s property" do
-      expect(serialized_aardvark[:dct_accessRights_s]).to eq(agent)
+      expect(serialized_aardvark[:dct_accessRights_s]).to eq("Restricted")
     end
   end
 end

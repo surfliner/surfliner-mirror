@@ -169,7 +169,7 @@ class AardvarkSerializer < ResourceSerializer
     }) do |(term, dfn), json|
       mapping = mappings[dfn[:iri]].to_a
       acl = AccessControlList.new(resource: resource)
-      access_group = acl.permissions.first.agent.sub!("group/", "") if !acl.permissions.nil? && !acl.permissions.first.nil?
+      access_group = "Restricted" if !acl.permissions.nil? && !acl.permissions.first.nil? && !acl.permissions.first.agent.include?("public")
       # Special handling for specific terms.
       #
       # In particular, we want to make sure there are fallbacks for all
