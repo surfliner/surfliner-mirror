@@ -95,9 +95,8 @@ begin
         Importer.ingest(metadata: record_data.except("_file_urls"), shapefile_url: shapefile_url)
       when "unpublished", "deleted"
         logger.info("Deleting item #{payload_resource_url}")
-        # TODO: something like this?
-        # Importer.delete(metadata: payload_resource_url,
-        #                 file_url: file_url)
+        resource_id = payload_resource_url.split("/").last
+        Importer.delete(id: resource_id)
       else
         logger.error("Invalid payload status #{payload_status} received for #{payload_resource_url}")
       end
