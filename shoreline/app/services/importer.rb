@@ -13,28 +13,34 @@ module Importer
   # @param [String] id Of the resource to delete
   def self.delete(id:)
     Rails.logger.debug "Deleting resource document from Solr index with id: #{id}"
+
+    client = RSolr.connect(url: ENV["SOLR_URL"])
+    solrdoc = client.get "select", params: {q: "id:#{id}"}
+    file_id = solrdoc["response"]["docs"].first["gbl_wxsIdentifier_s"]&.sub(/^public:/, "")
+
     begin
-      client = RSolr.connect(url: ENV["SOLR_URL"])
       client.delete_by_id(id)
       client.commit
     rescue => e
       Rails.logger.error("Error deleting document with id #{id} from Solr: #{e}")
     end
 
-    Rails.logger.debug "Deleting resource files from GeoServer with id: #{id}"
-    begin
-      conn = Geoserver::Publish::Connection.new(
-        "url" => "#{ENV["GEOSERVER_INTERNAL_URL"]}/geoserver/rest",
-        "user" => ENV["GEOSERVER_ADMIN_USER"],
-        "password" => ENV["GEOSERVER_ADMIN_PASSWORD"]
-      )
-      workspace = ENV.fetch("GEOSERVER_WORKSPACE", "public")
-      Geoserver::Publish::DataStore.new(conn).delete(
-        workspace_name: workspace,
-        data_store_name: file_id
-      )
-    rescue => e
-      Rails.logger.error("Error deleting id #{id} from GeoServer: #{e}")
+    unless file_id.nil?
+      begin
+        Rails.logger.debug "Deleting resource files from GeoServer: #{file_id}"
+        conn = Geoserver::Publish::Connection.new(
+          "url" => "#{ENV["GEOSERVER_INTERNAL_URL"]}/geoserver/rest",
+          "user" => ENV["GEOSERVER_ADMIN_USER"],
+          "password" => ENV["GEOSERVER_ADMIN_PASSWORD"]
+        )
+        workspace = ENV.fetch("GEOSERVER_WORKSPACE", "public")
+        Geoserver::Publish::DataStore.new(conn).delete(
+          workspace_name: workspace,
+          data_store_name: file_id
+        )
+      rescue => e
+        Rails.logger.error("Error deleting #{file_id} from GeoServer: #{e}")
+      end
     end
   end
 
