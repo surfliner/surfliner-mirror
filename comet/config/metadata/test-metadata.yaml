@@ -340,12 +340,13 @@ properties:
     # grouping: null
     mapping:
       oai_dc: http://purl.org/dc/elements/1.1/creator
-      aardvark: http://purl.org/dc/terms/contributor
+      aardvark: http://purl.org/dc/terms/creator
     available_on:
       - generic_object
 
   - &creator_geospatial
     <<: *creator
+    name: "creator_geo"
     usage_guidelines: |-
       The originator should be a Library of Congress Name Authority File (LCNAF)
       entry. Use the 'originatorName' and 'originatorOrg' fields and any other
@@ -359,6 +360,9 @@ properties:
     #   - Santa Barbara County (Calif.)
     available_on:
       - geospatial_object
+    mapping:
+      gbl-1: http://purl.org/dc/elements/1.1/creator
+      aardvark: http://purl.org/dc/terms/creator
 
 # ### Date properties:
 
@@ -601,6 +605,28 @@ properties:
       aardvark: null
     available_on:
       - generic_object
+
+  - &resource_type_geospatial
+    name: "resource_type_geo"
+    display_label: "Resource Type"
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Resource Type"
+    definition: "A secondary level of categories for classifying the spatial type or structure of a dataset."
+    usage_guidelines: "Use value from the Aardvark type list https://opengeometadata.org/docs/ogm-aardvark/resource-type"
+    requirement: recommended
+    sample_value: "Bathymetric maps"
+    controlled_values:
+     sources:
+       - https://opengeometadata.org/ogm-aardvark/#resource-type
+    cardinality:
+      minimum: 0
+      maximum: null
+    mapping:
+      aardvark: https://opengeometadata.org/ogm-aardvark/#resource-type
+     # d4-templates: n/a
+    available_on:
+      - geospatial_object
 
 # ### Rights‐related:
 

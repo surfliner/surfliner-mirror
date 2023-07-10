@@ -165,7 +165,7 @@ properties:
     mapping:
       dc-oai: http://purl.org/dc/elements/1.1/creator
       datacite: https://schema.datacite.org/meta/kernel-4.4/creatorName
-      aardvark: http://purl.org/dc/elements/1.1/creator
+      aardvark: http://purl.org/dc/terms/creator
       #aardvark predicate: dct_creator_sm
      # d4-templates: Person:Creator; Corporate:Creator
     available_on:
