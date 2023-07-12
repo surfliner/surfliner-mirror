@@ -54,6 +54,15 @@ RSpec.describe CometIiifManifestPresenter do
             {"label" => "Creator", "value" => ["Tove Jansson"]})
       end
     end
+
+    context "with a configured object type" do
+      let(:work) { FactoryBot.valkyrie_create(:geo_object) }
+
+      it "includes configured metadata" do
+        expect(presenter.manifest_metadata)
+          .to contain_exactly({"label" => "Title", "value" => work.title})
+      end
+    end
   end
 
   describe "#manifest_url" do

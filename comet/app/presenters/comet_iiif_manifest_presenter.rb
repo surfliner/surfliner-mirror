@@ -49,4 +49,10 @@ class CometIiifManifestPresenter < Hyrax::IiifManifestPresenter
       v["label"].blank? || v["value"].blank?
     end
   end
+
+  private
+
+  def metadata_fields
+    super.intersection(model.class.fields)
+  end
 end
