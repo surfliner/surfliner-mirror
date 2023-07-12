@@ -52,6 +52,7 @@ shoreline:cleanup:ucsd-review:
   variables:
     GIT_STRATEGY: none
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
+    --values charts/snippets/shoreline/review/ucsd.yaml
   script:
     - delete
     - delete_stateful_set_pvcs
