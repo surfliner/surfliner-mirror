@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 require "bundler/setup"
-require "bunny"
+require "shoreline/consumer"
 require "date"
 require "json"
 require "logger"
@@ -17,14 +17,6 @@ puts "Running in #{Rails.env} mode..."
 logger = Logger.new($stdout)
 logger.level = ENV.fetch("LOG_LEVEL") { Logger::INFO }
 
-rabbitmq_host = ENV.fetch("RABBITMQ_HOST")
-rabbitmq_password = ENV.fetch("RABBITMQ_PASSWORD")
-rabbitmq_port = ENV.fetch("RABBITMQ_NODE_PORT_NUMBER")
-rabbitmq_queue = ENV.fetch("RABBITMQ_QUEUE")
-rabbitmq_routing_key = ENV.fetch("RABBITMQ_SHORELINE_ROUTING_KEY")
-rabbitmq_topic = ENV.fetch("RABBITMQ_TOPIC")
-rabbitmq_user = ENV.fetch("RABBITMQ_USERNAME")
-
 unless ENV["OTEL_SDK_DISABLED"] == "true"
   OpenTelemetry::SDK.configure do |c|
     c.service_name = "surfliner-shoreline-consumer"
@@ -33,25 +25,6 @@ unless ENV["OTEL_SDK_DISABLED"] == "true"
 end
 
 Tracer = OpenTelemetry.tracer_provider.tracer("ShorelineConsumerTracer")
-
-connection_url = "amqp://#{rabbitmq_user}:#{rabbitmq_password}@#{rabbitmq_host}:#{rabbitmq_port}".freeze
-logger.info("Rabbitmq message broker connection url: #{connection_url.sub(rabbitmq_password, "REDACTED")}")
-
-begin
-  connection = Bunny.new(connection_url)
-  connection.start
-rescue Bunny::TCPConnectionFailed
-  logger.error("Connection to #{rabbitmq_host} failed")
-rescue Bunny::PossibleAuthenticationFailureError
-  logger.error("Failed to authenticate to #{rabbitmq_host}")
-end
-
-channel = connection.create_channel
-exchange = channel.topic(rabbitmq_topic, auto_delete: true)
-queue = channel.queue(rabbitmq_queue, durable: true)
-queue.bind(exchange, routing_key: rabbitmq_routing_key)
-
-logger.info(" [  ] Waiting for updates on #{queue.name}##{rabbitmq_routing_key}. To exit press CTRL+C")
 
 # @param [URI] uri
 def fetch(uri:, logger:)
@@ -78,7 +51,9 @@ def fetch(uri:, logger:)
   end
 end
 
-begin
+connection = Shoreline::Consumer::Connection.new(logger: logger)
+
+connection.open do |queue|
   queue.subscribe(block: true) do |_delivery_info, _properties, payload|
     trace_span = Tracer.start_span("shoreline consumer message")
     logger.info(" [  ] message received with payload: #{payload}")
@@ -128,7 +103,4 @@ begin
   ensure
     trace_span&.finish
   end
-rescue Interrupt => _e
-  channel.close
-  connection.close
 end
