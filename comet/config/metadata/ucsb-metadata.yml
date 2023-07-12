@@ -157,7 +157,7 @@ properties:
         - geospatial_object
     mapping:
       gbl-1: null
-      aardvark: http://purl.org/dc/terms/alternative
+      aardvark: https://opengeometadata.org/ogm-aardvark/#alternative-title
 
   - &title_filing
     name: "title_filing"
@@ -232,7 +232,7 @@ properties:
         - geospatial_object
     mapping:
       gbl-1: http://purl.org/dc/elements/1.1/creator
-      aardvark: http://purl.org/dc/terms/creator
+      aardvark: https://opengeometadata.org/ogm-aardvark/#creator
 
   - &contributor
     name: "contributor"
@@ -309,7 +309,7 @@ properties:
         - geospatial_object
     mapping:
       gbl-1: http://purl.org/dc/elements/1.1/publisher
-      aardvark: http://purl.org/dc/terms/publisher
+      aardvark: https://opengeometadata.org/ogm-aardvark/#publisher
 
   - &adapter
     name: "adapter"
@@ -843,7 +843,7 @@ properties:
         - geospatial_object
     mapping:
       gbl-1: http://geoblacklight.org/v1.0/schema/solr_year
-      aardvark: https://opengeometadata.org/docs/ogm-aardvark/index-year
+      aardvark: https://opengeometadata.org/ogm-aardvark/#index-year
 
   - &date_created
     name: "date_created"
@@ -915,7 +915,7 @@ properties:
       maximum: 1
     mapping:
       gbl-1: http://purl.org/dc/terms/issued
-      aardvark: http://purl.org/dc/terms/issued
+      aardvark: https://opengeometadata.org/ogm-aardvark/#date-issued
 
 ### physical description, etc.
 
@@ -997,8 +997,7 @@ properties:
       minimum: 0
       maximum: null
     mapping:
-      gbl-1: http://purl.org/dc/elements/1.1/type
-      aardvark: https://opengeometadata.org/docs/ogm-aardvark/resource-class
+      aardvark: https://opengeometadata.org/ogm-aardvark/#resource-class
 
   - &resource_type_geospatial
     name: "resource_type_geo"
@@ -1018,7 +1017,6 @@ properties:
       maximum: null
     mapping:
       aardvark: https://opengeometadata.org/ogm-aardvark/#resource-type
-     # d4-templates: n/a
     available_on:
       - geospatial_object
 
@@ -1093,7 +1091,7 @@ properties:
       maximum: 1
     mapping:
       gbl-1: http://purl.org/dc/elements/1.1/format
-      aardvark: http://purl.org/dc/terms/format
+      aardvark: https://opengeometadata.org/ogm-aardvark/#format
 
   - &language
     name: "language"
@@ -1133,7 +1131,7 @@ properties:
         - geospatial_object
     mapping:
       gbl-1: http://purl.org/dc/elements/1.1/language
-      aardvark: http://purl.org/dc/terms/language
+      aardvark: https://opengeometadata.org/ogm-aardvark/#language
 
 ### note fields:
 
@@ -1178,8 +1176,24 @@ properties:
       class:
         - geospatial_object
     mapping:
-      gbl-1: http://purl.org/dc/elements/1.1/description
-      aardvark: http://purl.org/dc/terms/description
+      aardvark: https://opengeometadata.org/ogm-aardvark/#description
+
+  - &display_note_geospatial
+    name: "display_note_geo"
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Display Note"
+    definition: "To highlight additional information about a resource, such as warnings or tips for using the data."
+    usage_guidelines: "Prefix the string with 'Danger:', 'Info:', 'Tip:', or 'Warning:' to specify the type of note."
+    sample_value: "['Danger: This text will be displayed in a red box','Info: This text will be displayed in a blue box','Tip: This text will be displayed in a green box','Warning: This text will be displayed in a yellow box','This is text without a tag and it will be assigned the default 'note' style']"
+    cardinality:
+      minimum: 0
+      maximum: null
+    available_on:
+      class:
+        - geospatial_object
+    mapping:
+      aardvark: https://opengeometadata.org/ogm-aardvark/#display-note
 
   - &note_general
     name: "note_general"
@@ -1256,7 +1270,7 @@ properties:
         - geospatial_object
     mapping:
       gbl-1: http://purl.org/dc/elements/1.1/subject
-      aardvark: http://purl.org/dc/terms/subject
+      aardvark: https://opengeometadata.org/ogm-aardvark/#subject
 
   - &subject_name
     name: "subject_name"
@@ -1330,7 +1344,7 @@ properties:
         - geospatial_object
     mapping:
       gbl-1: http://purl.org/dc/terms/spatial
-      aardvark: http://purl.org/dc/terms/spatial
+      aardvark: https://opengeometadata.org/ogm-aardvark/#spatial-coverage
 
   - &subject_temporal
     name: "subject_temporal"
@@ -1371,7 +1385,7 @@ properties:
         - geospatial_object
     mapping:
       gbl-1: http://purl.org/dc/terms/temporal
-      aardvark: http://purl.org/dc/terms/temporal
+      aardvark: https://opengeometadata.org/ogm-aardvark/#temporal-coverage
 
   - &subject_keyword
     name: "subject_keyword"
@@ -1410,8 +1424,7 @@ properties:
       class:
         - geospatial_object
     mapping:
-      gbl-1: null
-      aardvark: https://www.w3.org/ns/dcat#keyword
+      aardvark: https://opengeometadata.org/ogm-aardvark/#keyword
 
 ### cartographics
 
@@ -1506,8 +1519,7 @@ properties:
       class:
         - geospatial_object
     mapping:
-      gbl-1: null
-      aardvark: https://www.w3.org/ns/dcat#bbox
+      aardvark: https://opengeometadata.org/ogm-aardvark/#bounding-box
 
   - &bounding_box_east
     name: "bounding_box_east"
@@ -1547,7 +1559,7 @@ properties:
         - geospatial_object
     mapping:
       gbl-1: null
-      aardvark: https://www.w3.org/ns/dcat#bbox
+      aardvark: https://opengeometadata.org/ogm-aardvark/#bounding-box
 
   - &bounding_box_north
     name: "bounding_box_north"
@@ -1587,7 +1599,7 @@ properties:
         - geospatial_object
     mapping:
       gbl-1: null
-      aardvark: https://www.w3.org/ns/dcat#bbox
+      aardvark: https://opengeometadata.org/ogm-aardvark/#bounding-box
 
   - &bounding_box_south
     name: "bounding_box_south"
@@ -1627,7 +1639,7 @@ properties:
         - geospatial_object
     mapping:
       gbl-1: null
-      aardvark: https://www.w3.org/ns/dcat#bbox
+      aardvark: https://opengeometadata.org/ogm-aardvark/#bounding-box
 
   - &scale
     name: "scale"
@@ -2039,7 +2051,7 @@ properties:
         - geospatial_object
     mapping:
       gbl-1: http://purl.org/dc/elements/1.1/source
-      aardvark: http://purl.org/dc/terms/source
+      aardvark: https://opengeometadata.org/ogm-aardvark/#source
 
   - &replaces
     name: "replaces"
@@ -2075,8 +2087,7 @@ properties:
       class:
         - geospatial_object
     mapping:
-      gbl-1: null
-      aardvark: http://purl.org/dc/terms/replaces
+      aardvark: https://opengeometadata.org/ogm-aardvark/#replaces
 
   - &is_replaced_by
     name: is_replaced_by
@@ -2113,8 +2124,7 @@ properties:
       class:
         - geospatial_object
     mapping:
-      gbl-1: null
-      aardvark: http://purl.org/dc/terms/isReplacedBy
+      aardvark: https://opengeometadata.org/ogm-aardvark/#is-replaced-by
 
   - &is_version_of
     name: is_version_of
@@ -2151,8 +2161,7 @@ properties:
       class:
         - geospatial_object
     mapping:
-      gbl-1: null
-      aardvark: http://purl.org/dc/terms/isVersionOf
+      aardvark: https://opengeometadata.org/ogm-aardvark/#is-version-of
 
   - &relation
     name: relation
@@ -2188,8 +2197,7 @@ properties:
       class:
         - geospatial_object
     mapping:
-      gbl-1: null
-      aardvark: http://purl.org/dc/terms/relation
+      aardvark: https://opengeometadata.org/ogm-aardvark/#relation
 
 ### rights related
 
@@ -2231,7 +2239,7 @@ properties:
         - geospatial_object
     mapping:
       gbl-1: null
-      aardvark: http://purl.org/dc/terms/rightsHolder
+      aardvark: https://opengeometadata.org/ogm-aardvark/#rights-holder
 
   - &copyright_date
     name: "copyright_date"
@@ -2359,7 +2367,7 @@ properties:
         - geospatial_object
     mapping:
       gbl-1: null
-      aardvark: http://purl.org/dc/terms/license
+      aardvark: https://opengeometadata.org/ogm-aardvark/#license
 
   - &rights_note
     name: "rights_note"
@@ -2400,7 +2408,7 @@ properties:
         - geospatial_object
     mapping:
       gbl-1: null
-      aardvark: http://purl.org/dc/terms/rights
+      aardvark: https://opengeometadata.org/ogm-aardvark/#rights_1
 
  ### location of resource
 

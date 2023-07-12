@@ -581,6 +581,23 @@ properties:
     available_on:
       - geospatial_object
 
+  - &display_note_geospatial
+    name: "display_note_geo"
+    # range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    display_label: "Display Note"
+    definition: "To highlight additional information about a resource, such as warnings or tips for using the data."
+    usage_guidelines: "Prefix the string with 'Danger:', 'Info:', 'Tip:', or 'Warning:' to specify the type of note."
+    sample_value: "['Danger: This text will be displayed in a red box','Info: This text will be displayed in a blue box','Tip: This text will be displayed in a green box','Warning: This text will be displayed in a yellow box','This is text without a tag and it will be assigned the default 'note' style']"
+    cardinality:
+      minimum: 0
+      maximum: null
+    section: notes
+    mapping:
+      aardvark: https://opengeometadata.org/ogm-aardvark/#display-note
+    available_on:
+      - geospatial_object
+
   - &note_general
     name: note_general
     # property_uri: http://id.loc.gov/ontologies/bibframe/Note

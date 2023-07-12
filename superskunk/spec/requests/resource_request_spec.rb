@@ -92,7 +92,7 @@ RSpec.describe "GET /resources/{id}" do
 
       expect(last_response.ok?).to be true
       expect(result_json["@context"]).to include(
-        "dct_title_s" => "http://purl.org/dc/terms/title"
+        "dct_title_s" => "https://opengeometadata.org/ogm-aardvark/#title"
       )
       expect(result_json["dct_title_s"]).to eq title
     end
