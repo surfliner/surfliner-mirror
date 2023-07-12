@@ -10,47 +10,50 @@ class AardvarkSerializer < ResourceSerializer
   # need to change them later).
   AARDVARK_TERMS = {
     dct_accessRights_s: { # Access Rights (REQUIRED)
-      iri: "http://purl.org/dc/terms/accessRights",
+      iri: "https://opengeometadata.org/ogm-aardvark/#access-rights",
       singular: true
     },
     dct_alternative_sm: { # Alternative Title
-      iri: "http://purl.org/dc/terms/alternative"
+      iri: "https://opengeometadata.org/ogm-aardvark/#alternative-title"
     },
     dcat_bbox: { # Bounding Box
-      iri: "https://www.w3.org/ns/dcat#bbox",
+      iri: "https://opengeometadata.org/ogm-aardvark/#bounding-box",
       singular: true
     },
     dcat_centroid: { # Centroid
-      iri: "https://www.w3.org/ns/dcat#centroid",
+      iri: "https://opengeometadata.org/ogm-aardvark/#centroid",
       singular: true
     },
     dct_creator_sm: { # Creator
-      iri: "http://purl.org/dc/terms/creator"
+      iri: "https://opengeometadata.org/ogm-aardvark/#creator"
     },
     dct_issued_s: { # Date Issued
-      iri: "http://purl.org/dc/terms/issued",
+      iri: "https://opengeometadata.org/ogm-aardvark/#date-issued",
       singular: true
     },
     gbl_dateRange_drsim: { # Date Range
-      iri: "https://opengeometadata.org/docs/ogm-aardvark/date-range"
+      iri: "https://opengeometadata.org/ogm-aardvark/#date-range"
     },
     dct_description_sm: { # Description
-      iri: "http://purl.org/dc/terms/description"
+      iri: "https://opengeometadata.org/ogm-aardvark/#description"
+    },
+    gbl_displayNote_sm: { # Display Note
+      iri: "https://opengeometadata.org/ogm-aardvark/#display-note"
     },
     gbl_fileSize_s: { # File Size
-      iri: "https://opengeometadata.org/docs/ogm-aardvark/file-size",
+      iri: "https://opengeometadata.org/ogm-aardvark/#file-size",
       singular: true
     },
     dct_format_s: { # Format
-      iri: "http://purl.org/dc/terms/format",
+      iri: "https://opengeometadata.org/ogm-aardvark/#format",
       singular: true
     },
     locn_geometry: { # Geometry
-      iri: "http://www.w3.org/ns/locn#geometry",
+      iri: "https://opengeometadata.org/ogm-aardvark/#geometry",
       singular: true
     },
     gbl_georeferenced_b: { # Georeferenced
-      iri: "https://opengeometadata.org/docs/ogm-aardvark/georeferenced",
+      iri: "https://opengeometadata.org/ogm-aardvark/#georeferenced",
       singular: true,
       type: :boolean
     },
@@ -59,96 +62,96 @@ class AardvarkSerializer < ResourceSerializer
       singular: true
     },
     dct_identifier_sm: { # Identifier
-      iri: "http://purl.org/dc/terms/identifier"
+      iri: "https://opengeometadata.org/ogm-aardvark/#identifier"
     },
     gbl_indexYear_im: { # Index Year
-      iri: "https://opengeometadata.org/docs/ogm-aardvark/index-year",
+      iri: "https://opengeometadata.org/ogm-aardvark/#index-year",
       type: :integer
     },
     dct_isPartOf_sm: { # Is Part Of
-      iri: "http://purl.org/dc/terms/isPartOf"
+      iri: "https://opengeometadata.org/ogm-aardvark/#is-part-of"
     },
     dct_isReplacedBy_sm: { # Is Replaced By
-      iri: "http://purl.org/dc/terms/isReplacedBy"
+      iri: "https://opengeometadata.org/ogm-aardvark/#is-replaced-by"
     },
     dct_isVersionOf_sm: { # Is Version Of
-      iri: "http://purl.org/dc/terms/isVersionOf"
+      iri: "https://opengeometadata.org/ogm-aardvark/#is-version-of"
     },
     dcat_keyword_sm: { # Keyword
-      iri: "http://purl.org/dc/terms/keyword"
+      iri: "https://opengeometadata.org/ogm-aardvark/#keyword"
     },
     dct_language_sm: { # Language
-      iri: "http://purl.org/dc/terms/language"
+      iri: "https://opengeometadata.org/ogm-aardvark/#language"
     },
     dct_license_sm: { # License
-      iri: "http://purl.org/dc/terms/license"
+      iri: "https://opengeometadata.org/ogm-aardvark/#license"
     },
     pcdm_memberOf_sm: { # Member Of
-      iri: "http://pcdm.org/models#memberOf"
+      iri: "https://opengeometadata.org/ogm-aardvark/#member-of"
     },
     gbl_mdVersion_s: { # Metadata Version (REQUIRED)
-      iri: "https://opengeometadata.org/docs/ogm-aardvark/metadata-version",
+      iri: "https://opengeometadata.org/ogm-aardvark/#metadata-version",
       singular: true
     },
     gbl_mdModified_dt: { # Modified (REQUIRED)
-      iri: "https://opengeometadata.org/docs/ogm-aardvark/modified",
+      iri: "https://opengeometadata.org/ogm-aardvark/#modified",
       singular: true
     },
     schema_provider_s: { # Provider
-      iri: "https://schema.org/provider",
+      iri: "https://opengeometadata.org/ogm-aardvark/#provider",
       singular: true
     },
     dct_publisher_sm: { # Publisher
-      iri: "http://purl.org/dc/terms/publisher"
+      iri: "https://opengeometadata.org/ogm-aardvark/#publisher"
     },
     dct_references_s: { # References
-      iri: "http://purl.org/dc/terms/references",
+      iri: "https://opengeometadata.org/ogm-aardvark/#references",
       singular: true
     },
     dct_relation_sm: { # Relation
-      iri: "http://purl.org/dc/terms/relation"
+      iri: "https://opengeometadata.org/ogm-aardvark/#relation"
     },
     dct_replaces_sm: { # Replaces
-      iri: "http://purl.org/dc/terms/replaces"
+      iri: "https://opengeometadata.org/ogm-aardvark/#replaces"
     },
     gbl_resourceClass_sm: { # Resource Class (REQUIRED)
-      iri: "https://opengeometadata.org/docs/ogm-aardvark/resource-class"
+      iri: "https://opengeometadata.org/ogm-aardvark/#resource-class"
     },
     gbl_resourceType_sm: { # Resource Type
-      iri: "https://opengeometadata.org/docs/ogm-aardvark/resource-type"
+      iri: "https://opengeometadata.org/ogm-aardvark/#resource-type"
     },
     dct_rightsHolder_sm: { # Rights Holder
-      iri: "http://purl.org/dc/terms/rightsHolder"
+      iri: "https://opengeometadata.org/ogm-aardvark/#rights-holder"
     },
     dct_rights_sm: { # Rights
-      iri: "http://purl.org/dc/terms/rights"
+      iri: "https://opengeometadata.org/ogm-aardvark/#rights_1"
     },
     dct_source_sm: { # Source
-      iri: "http://purl.org/dc/terms/source"
+      iri: "https://opengeometadata.org/ogm-aardvark/#source"
     },
     dct_spatial_sm: { # Spatial Coverage
-      iri: "http://purl.org/dc/terms/spatial"
+      iri: "https://opengeometadata.org/ogm-aardvark/#spatial-coverage"
     },
     dct_subject_sm: { # Subject
-      iri: "http://purl.org/dc/terms/subject"
+      iri: "https://opengeometadata.org/ogm-aardvark/#subject"
     },
     gbl_suppressed_b: { # Suppressed
-      iri: "https://opengeometadata.org/docs/ogm-aardvark/suppressed",
+      iri: "https://opengeometadata.org/ogm-aardvark/#suppressed",
       singular: true,
       type: :boolean
     },
     dct_temporal_sm: { # Temporal Coverage
-      iri: "http://purl.org/dc/terms/temporal"
+      iri: "https://opengeometadata.org/ogm-aardvark/#temporal-coverage"
     },
     dcat_theme_sm: { # Theme
-      iri: "http://www.w3.org/ns/dcat#theme"
+      iri: "https://opengeometadata.org/ogm-aardvark/#theme"
     },
     dct_title_s: { # Title (REQUIRED)
-      iri: "http://purl.org/dc/terms/title",
+      iri: "https://opengeometadata.org/ogm-aardvark/#title",
       singular: true
     },
     gbl_wxsIdentifier_s: { # WxS Identifier
-      iri: "https://opengeometadata.org/docs/ogm-aardvark/wxs-identifier",
+      iri: "https://opengeometadata.org/ogm-aardvark/#wxs-identifier",
       singular: true
     },
     _file_urls: { # fake field for storing S3 URLs to shapefiles

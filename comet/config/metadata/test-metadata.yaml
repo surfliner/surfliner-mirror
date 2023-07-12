@@ -271,7 +271,7 @@ properties:
     validations:
       match_regex: null
     mapping:
-      aardvark: http://purl.org/dc/terms/language
+      aardvark: https://opengeometadata.org/ogm-aardvark/#language
 
 # ### Titling properties:
 
@@ -340,7 +340,7 @@ properties:
     # grouping: null
     mapping:
       oai_dc: http://purl.org/dc/elements/1.1/creator
-      aardvark: http://purl.org/dc/terms/creator
+      aardvark: https://opengeometadata.org/ogm-aardvark/#creator
     available_on:
       - generic_object
 
@@ -362,7 +362,7 @@ properties:
       - geospatial_object
     mapping:
       gbl-1: http://purl.org/dc/elements/1.1/creator
-      aardvark: http://purl.org/dc/terms/creator
+      aardvark: https://opengeometadata.org/ogm-aardvark/#creator
 
 # ### Date properties:
 
@@ -417,7 +417,7 @@ properties:
     # grouping: null
     mapping:
       oai_dc: http://purl.org/dc/elements/1.1/date
-      aardvark: https://opengeometadata.org/docs/ogm-aardvark/index-year
+      aardvark: https://opengeometadata.org/ogm-aardvark/#date-issued
     available_on:
       - geospatial_object
 
@@ -461,7 +461,7 @@ properties:
       maximum: 1
     mapping:
       gbl-1: http://purl.org/dc/elements/1.1/format
-      aardvark: http://purl.org/dc/terms/format
+      aardvark: https://opengeometadata.org/ogm-aardvark/#format
 
 # ### Identifier properties:
 
@@ -567,7 +567,8 @@ properties:
     # grouping: null
     mapping:
       oai_dc: http://purl.org/dc/elements/1.1/description
-      aardvark: http://purl.org/dc/terms/description
+      aardvark: https://opengeometadata.org/ogm-aardvark/#description
+
     available_on:
       - generic_object
 
@@ -659,7 +660,7 @@ properties:
     # grouping: null
     mapping:
       oai_dc: http://purl.org/dc/elements/1.1/rights
-      aardvark: http://purl.org/dc/terms/rights
+      aardvark: https://opengeometadata.org/ogm-aardvark/#rights_1
     available_on:
       - generic_object
 
@@ -699,7 +700,7 @@ properties:
         - geospatial_object
     mapping:
       gbl-1: null
-      aardvark: https://www.w3.org/ns/dcat#bbox
+      aardvark: https://opengeometadata.org/ogm-aardvark/#bounding-box
 
   - &bounding_box_east
     name: "bounding_box_east"
@@ -736,7 +737,7 @@ properties:
         - geospatial_object
     mapping:
       gbl-1: null
-      aardvark: https://www.w3.org/ns/dcat#bbox
+      aardvark: https://opengeometadata.org/ogm-aardvark/#bounding-box
 
   - &bounding_box_north
     name: "bounding_box_north"
@@ -773,7 +774,7 @@ properties:
         - geospatial_object
     mapping:
       gbl-1: null
-      aardvark: https://www.w3.org/ns/dcat#bbox
+      aardvark: https://opengeometadata.org/ogm-aardvark/#bounding-box
 
   - &bounding_box_south
     name: "bounding_box_south"
@@ -810,4 +811,4 @@ properties:
         - geospatial_object
     mapping:
       gbl-1: null
-      aardvark: https://www.w3.org/ns/dcat#bbox
+      aardvark: https://opengeometadata.org/ogm-aardvark/#bounding-box
