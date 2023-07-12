@@ -33,6 +33,7 @@ shoreline:deploy:ucsd-review:
       --set consumer.rabbitmq.topic=surfliner.metadata.publish.$CI_MERGE_REQUEST_ID
       --values charts/snippets/shoreline/review/shared.yaml
       --values charts/snippets/surfliner/solr-review.yaml
+      --values charts/snippets/shoreline/review/ucsd.yaml
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
   script:
     - deploy ./charts/shoreline
@@ -52,7 +53,6 @@ shoreline:cleanup:ucsd-review:
   variables:
     GIT_STRATEGY: none
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
-    --values charts/snippets/shoreline/review/ucsd.yaml
   script:
     - delete
     - delete_stateful_set_pvcs
