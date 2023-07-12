@@ -36,10 +36,10 @@ comet:deploy:ucsd-review:
       --set solrPreSetupInitContainer[0].envFrom[1].secretRef.name=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax
       --set extraEnvVars[3].value=http://tidewater-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN/tidewater/item?source_iri=
       --set extraEnvVars[4].value=http://superskunk-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN/resources
-      --set extraEnvVars[11].value=surfliner.metadata.publish.$CI_MERGE_REQUEST_ID
+      --set extraEnvVars[12].value=surfliner.metadata.publish.$CI_MERGE_REQUEST_ID
       --set worker.extraEnvVars[2].value=http://tidewater-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN/tidewater/item?source_iri=
       --set worker.extraEnvVars[3].value=http://superskunk-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN/resources
-      --set worker.extraEnvVars[10].value=surfliner.metadata.publish.$CI_MERGE_REQUEST_ID
+      --set worker.extraEnvVars[11].value=surfliner.metadata.publish.$CI_MERGE_REQUEST_ID
       --values charts/snippets/comet/solr-setup.yaml
       --values charts/snippets/comet/init-containers.yaml
       --values charts/snippets/comet/review-deploy.yaml
