@@ -11,6 +11,61 @@ module Shoreline
       @logger = logger
     end
 
+    class Record
+      DEFAULT_JSONLD_PROFILE = "tag:surfliner.gitlab.io,2022:api/aardvark"
+
+      def self.load(uri, logger: Logger.new($stdout))
+        new(data: JSON.parse(get(uri, logger: logger)))
+      end
+
+      def self.get(uri, logger: Logger.new($stdout))
+        uri = URI(uri)
+        jsonld_profile = ENV.fetch("SHORELINE_METADATA_PROFILE") { DEFAULT_JSONLD_PROFILE }
+
+        req = Net::HTTP::Get.new(uri)
+        req["Accept"] = "application/ld+json;profile=\"#{jsonld_profile}\""
+        req["User-Agent"] = ENV.fetch("USER_AGENT_PRODUCT_NAME") { "surfliner.shoreline" }
+        logger.debug "Querying #{uri} ..."
+
+        res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") { |http|
+          http.request(req)
+        }
+
+        case res
+        when Net::HTTPSuccess
+          res.body
+        when Net::HTTPRedirection
+          logger.debug "Got a 30x response: #{res}"
+          fetch(uri: URI(res["location"]), logger: logger)
+        else
+          logger.debug "Got a non-success HTTP response:"
+          logger.debug res.inspect
+
+          raise "Failed to fetch data from Superskunk"
+        end
+      end
+
+      attr_reader :data
+
+      def initialize(data:)
+        @data = data
+      end
+
+      def id
+        metadata["id"]
+      end
+
+      def metadata
+        data.except("_file_urls")
+      end
+
+      ##
+      # @return [Array<String>]
+      def file_urls
+        Array(data["_file_urls"])
+      end
+    end
+
     class Connection
       attr_reader :channel, :connection, :connection_url, :exchange, :logger, :queue
 

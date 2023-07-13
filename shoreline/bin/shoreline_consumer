@@ -26,31 +26,6 @@ end
 
 Tracer = OpenTelemetry.tracer_provider.tracer("ShorelineConsumerTracer")
 
-# @param [URI] uri
-def fetch(uri:, logger:)
-  req = Net::HTTP::Get.new(uri)
-  req["Accept"] = "application/ld+json;profile=\"#{ENV.fetch('SHORELINE_METADATA_PROFILE', "tag:surfliner.gitlab.io,2022:api/aardvark")}\""
-  req["User-Agent"] = ENV.fetch("USER_AGENT_PRODUCT_NAME", "surfliner.shoreline")
-  logger.debug "Querying #{uri} ..."
-
-  res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") { |http|
-    http.request(req)
-  }
-
-  case res
-  when Net::HTTPSuccess
-    res.body
-  when Net::HTTPRedirection
-    logger.debug "Got a 30x response: #{res}"
-    fetch(uri: URI(res['location']), logger: logger)
-  else
-    logger.debug "Got a non-success HTTP response:"
-    logger.debug res.inspect
-
-    raise "Failed to fetch data from Superskunk"
-  end
-end
-
 connection = Shoreline::Consumer::Connection.new(logger: logger)
 
 connection.open do |queue|
@@ -75,15 +50,13 @@ connection.open do |queue|
     begin
       case payload_status
       when "published", "updated"
-        record_data = JSON.parse(fetch(uri: uri, logger: logger))
-
-        # TODO: teach the importer how to handle multiple shapefiles per record?
-        shapefile_url = record_data["_file_urls"]&.first
+        record = Shoreline::Consumer::Record.load(uri, logger: logger)
 
         logger.info("Persisting item #{payload_resource_url}")
-        logger.debug("#{payload_resource_url} responded with #{record_data}")
+        logger.debug("#{payload_resource_url} responded with #{record.data}")
 
-        Importer.ingest(metadata: record_data.except("_file_urls"), shapefile_url: shapefile_url)
+        # TODO: teach the importer how to handle multiple shapefiles per record?
+        Importer.ingest(metadata: record.metadata, shapefile_url: record.file_urls.first)
       when "unpublished", "deleted"
         logger.info("Deleting item #{payload_resource_url}")
         resource_id = payload_resource_url.split("/").last
