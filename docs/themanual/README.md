@@ -15,6 +15,7 @@
     database](./comet/external-db.md)
   * [Metadata in Comet](./comet/metadata.md)
   * [Storage in Comet](./comet/storage.md)
+  * [Ingesting with Bulkrax](./comet/bulkrax.md)
 
 * Starlight
   * [Migrating a Starlight instance](./starlight/migration.md)
