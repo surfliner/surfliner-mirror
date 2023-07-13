@@ -1,4 +1,4 @@
 telemetry:
   enabled: true
-  otlp_endpoint: "http://otel-collector-review.opentelemetry-review:4318"
+  otlp_endpoint: "http://otel-collector-review-opentelemetry-collector.opentelemetry-review:4318"
   
