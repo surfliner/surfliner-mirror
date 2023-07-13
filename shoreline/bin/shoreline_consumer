@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require "bundler/setup"
+require_relative "../lib/shoreline/consumer"
 require "date"
 require "json"
 require "logger"
