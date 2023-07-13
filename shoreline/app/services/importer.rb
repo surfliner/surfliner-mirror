@@ -74,6 +74,7 @@ module Importer
 
       begin # go ahead and keep ingesting metadata if the file ingest fails
         publish_to_geoserver(file: binary, file_id: shapefile_name)
+        merged_metadata = merged_metadata.merge(resource_type(id: shapefile_name, metadata: merged_metadata))
         merged_metadata = merged_metadata.merge(hash_from_geoserver(id: shapefile_name))
       rescue => e
         Rails.logger.error e.message
@@ -130,9 +131,16 @@ module Importer
     Blacklight.default_index.connection.commit
   end
 
+  # retrieve resource type from geoserver if not present in m3 mapping
+  def self.resource_type(id:, metadata:)
+    unless metadata[:gbl_resourceType_sm].present?
+      metadata = metadata.merge({gbl_resourceType_sm: get_layer_type("public:#{id}")})
+    end
+    metadata
+  end
+
   def self.hash_from_geoserver(id:)
     {
-      gbl_resourceType_sm: get_layer_type("public:#{id}"),
       gbl_wxsIdentifier_s: "public:#{id}"
     }
   end

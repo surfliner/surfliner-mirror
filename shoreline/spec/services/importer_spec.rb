@@ -72,4 +72,21 @@ RSpec.describe Importer do
       end
     end
   end
+
+  describe ".resource_type" do
+    context "with a resource-type provided in m3 mapping" do
+      it "uses the provided resource type instead of requesting from geoserver" do
+        metadata = {gbl_resourceType_sm: "Point data"}
+        expect(described_class.resource_type(id: "id", metadata: metadata)).to be(metadata)
+      end
+    end
+
+    context "without a resource-type provided in m3 mapping" do
+      it "pulls the resource type from geoserver" do
+        metadata = {}
+        allow(described_class).to receive(:get_layer_type).and_return("from-geoserver")
+        expect(described_class.resource_type(id: "id", metadata: metadata)).to eq({gbl_resourceType_sm: "from-geoserver"})
+      end
+    end
+  end
 end
