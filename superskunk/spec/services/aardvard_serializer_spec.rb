@@ -17,6 +17,17 @@ RSpec.describe AardvarkSerializer do
     end
   end
 
+  context "with a provided resource type" do
+    let(:title) { "A geospatial object with a provided resource type" }
+    let(:resource) {
+      persister.save(resource: GeospatialObject.new(title: [title],
+        resource_type_geo: "Point Data"))
+    }
+    it "populates the dcat_bbox and locn_geometry properties" do
+      expect(serialized_aardvark[:gbl_resourceType_sm]).to eq(["Point Data"])
+    end
+  end
+
   context "with all bounding box values supplied" do
     let(:title) { "A geospatial object with all bbox values" }
     let(:resource) {
