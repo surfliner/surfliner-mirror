@@ -14,6 +14,21 @@
 superskunk:deploy:ucsd-review:
   extends:
     - .superskunk:deploy:review
+  rules:
+    - if: $CI_MERGE_REQUEST_LABELS =~ /comet/
+      variables:
+        HELM_UPGRADE_EXTRA_ARGS: >
+          --set ingress.hosts[0].host=superskunk-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
+          --set ingress.hosts[0].paths[0].path=/
+          --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
+          --set consumers.keys[0].secretName=$HELM_RELEASE_NAME-tidewater-keypair
+          --set superskunk.db.standalone=false
+          --set postgresql.enabled=false
+          --set postgresql.postgresqlHostname=surfliner-comet-$CI_MERGE_REQUEST_ID-postgresql.comet-review.svc.cluster.local
+          --set superskunk.comet_base=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax.comet-review.svc
+          --values charts/snippets/superskunk/review.yaml
+          --values charts/snippets/superskunk/ucsd/review.yml
+    - !reference [.superskunk-mr-rules, rules]
   environment:
     name: ucsd.superskunk.review/$CI_MERGE_REQUEST_ID
     url: http://superskunk-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
@@ -27,8 +42,7 @@ superskunk:deploy:ucsd-review:
       --set ingress.hosts[0].paths[0].path=/
       --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
       --set consumers.keys[0].secretName=$HELM_RELEASE_NAME-tidewater-keypair
-      --set postgresql.postgresqlHostname=surfliner-comet-$CI_MERGE_REQUEST_ID-postgresql.comet-review.svc.cluster.local
-      --set superskunk.comet_base=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax.comet-review.svc
+      --set superskunk.comet_base=http://comet:3000
       --values charts/snippets/superskunk/review.yaml
       --values charts/snippets/superskunk/ucsd/review.yml
     KUBE_ROLE_CONFIG: $KUBE_ROLE_CONFIG_UCSD_REVIEW
@@ -56,8 +70,24 @@ superskunk:cleanup:ucsd-review:
 
 superskunk:deploy:ucsb-review:
   extends:
-    - .helm3-deploy
     - .superskunk:deploy:review
+  rules:
+    - if: $CI_MERGE_REQUEST_LABELS =~ /comet/
+      variables:
+        HELM_UPGRADE_EXTRA_ARGS: >
+          --set ingress.hosts[0].host=superskunk-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
+          --set ingress.hosts[0].paths[0].path=/
+          --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
+          --set ingress.tls[0].hosts[0]=superskunk-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
+          --set ingress.tls[0].secretName=skunk-review-$CI_MERGE_REQUEST_ID
+          --set consumers.keys[0].secretName=$HELM_RELEASE_NAME-tidewater-keypair
+          --set superskunk.db.standalone=false
+          --set postgresql.enabled=false
+          --set postgresql.postgresqlHostname=surfliner-comet-$CI_MERGE_REQUEST_ID-postgresql.comet-review.svc.cluster.local
+          --set superskunk.comet_base=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax.comet-review.svc
+          --values charts/snippets/superskunk/review.yaml
+          --values charts/snippets/superskunk/ucsb/review.yml
+    - !reference [.superskunk-mr-rules, rules]
   script:
     - deploy ./charts/superskunk
     - run_chart_tests
@@ -74,8 +104,7 @@ superskunk:deploy:ucsb-review:
       --set ingress.tls[0].hosts[0]=superskunk-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
       --set ingress.tls[0].secretName=skunk-review-$CI_MERGE_REQUEST_ID
       --set consumers.keys[0].secretName=$HELM_RELEASE_NAME-tidewater-keypair
-      --set postgresql.postgresqlHostname=surfliner-comet-$CI_MERGE_REQUEST_ID-postgresql.comet-review.svc.cluster.local
-      --set superskunk.comet_base=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax.comet-review.svc
+      --set superskunk.comet_base=http://comet:3000
       --values charts/snippets/superskunk/review.yaml
       --values charts/snippets/superskunk/ucsb/review.yml
 

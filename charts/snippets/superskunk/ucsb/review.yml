@@ -1,6 +1,4 @@
 superskunk:
-  db:
-    standalone: false
   metadata_models:
     - ucsb-metadata
 
