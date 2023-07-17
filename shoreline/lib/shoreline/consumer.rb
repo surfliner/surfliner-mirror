@@ -1,4 +1,6 @@
 require "bunny"
+require "date"
+require "json"
 require "net/http"
 require "logger"
 
@@ -55,10 +57,12 @@ module Shoreline
 
         # TODO: teach the importer how to handle multiple shapefiles per record?
         importer.ingest(metadata: record.metadata, shapefile_url: record.file_urls.first)
+        span.add_event("Ingested resource")
       when "unpublished", "deleted"
         logger.info("Deleting item #{uri}")
         resource_id = uri.split("/").last
         importer.delete(id: resource_id)
+        span.add_event("Deleted resource")
       else
         msg = "Invalid payload status '#{status}' received for #{uri}"
         logger.error(msg)
