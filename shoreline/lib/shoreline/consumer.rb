@@ -40,7 +40,7 @@ module Shoreline
 
             uri = URI(payload_resource_url)
 
-            process_resource_payload(uri, payload)
+            process_resource(uri, payload_status)
           end
         end
       end
