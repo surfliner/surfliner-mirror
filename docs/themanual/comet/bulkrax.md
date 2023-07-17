@@ -3,7 +3,7 @@
 ### Ingesting Geospatial Data
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[CSV \n metadata] --> B(Comet/Bulkrax ingest)
     B --> C[(Metadata in \n PostgreSQL)]
     B --> D{{Shapefiles in S3}}
@@ -11,15 +11,17 @@ flowchart LR
     E -->|subscribed| F(Shoreline consumer \n receives payload)
     F -->|query resourceUrl| G(Superskunk)
     G -.- C
-    subgraph before ingest
+    subgraph b4 [before ingest]
     G -->|returns serialized \n Aardvark metadata| F
     end
-    F -->|Aardvark + \n shapefile URL| H(Shoreline ingest)
+    b4 -->|Aardvark + \n shapefile URL| H(Shoreline ingest)
+    subgraph m1 [prepare Solr JSON]
     H <-->|fetch shapefile| J(Comet download \n controller)
-    J -.- D
     H -->|upload shapefile| I(GeoServer)
     I -->|return parsed \n layer information| H
-    H -->|merge Aardvark with \n metadata from GeoServer| K(GeoBlacklight/Solr)
+    end
+    J -.- D
+    m1 -->|merge Aardvark with \n metadata from GeoServer| K(GeoBlacklight/Solr)
 ```
 
 1. Batched objects are ingested into Comet via Bulkrax ([example
