@@ -4,11 +4,70 @@ require "logger"
 
 module Shoreline
   class Consumer
-    attr_reader :connection, :logger
+    attr_reader :connection, :importer, :logger, :tracer
 
-    def initialize(logger: Logger.new($stdout))
+    def initialize(tracer:, importer: Importer, logger: Logger.new($stdout))
       @connection = Connection.new(logger: logger)
+      @importer = importer
       @logger = logger
+      @tracer = tracer
+    end
+
+    def self.run(tracer:, importer: Importer, logger: Logger.new($stdout))
+      new(tracer: tracer, importer: importer, logger: logger).run
+    end
+
+    def run
+      connection.open do |queue|
+        queue.subscribe(block: true) do |_delivery_info, _properties, payload|
+          tracer.in_span("shoreline consumer message") do |span|
+            logger.info(" [  ] message received with payload: #{payload}")
+
+            payload_data = JSON.parse(payload)
+            payload_resource_url = payload_data["resourceUrl"]
+            raise "Payload resourceUrl is not defined" unless payload_resource_url
+
+            payload_status = payload_data["status"]
+            raise "Payload status is not defined" unless payload_status
+            logger.debug("Payload status for #{payload_resource_url} is #{payload_status}")
+
+            span.add_attributes(
+              "surfliner.message.status" => payload_status.to_s,
+              "surfliner.resource_uri" => payload_resource_url.to_s
+            )
+
+            uri = URI(payload_resource_url)
+
+            process_resource_payload(uri, payload)
+          end
+        end
+      end
+    end
+
+    def process_resource(uri, status)
+      span = OpenTelemetry::Trace.current_span
+
+      case status.to_s
+      when "published", "updated"
+        record = Record.load(uri, logger: logger)
+        logger.info("Persisting item #{uri}")
+        logger.debug("#{uri} responded with #{record.data}")
+
+        # TODO: teach the importer how to handle multiple shapefiles per record?
+        importer.ingest(metadata: record.metadata, shapefile_url: record.file_urls.first)
+      when "unpublished", "deleted"
+        logger.info("Deleting item #{uri}")
+        resource_id = uri.split("/").last
+        importer.delete(id: resource_id)
+      else
+        msg = "Invalid payload status '#{status}' received for #{uri}"
+        logger.error(msg)
+        span.status = OpenTelemetry::Trace::Status.error(msg)
+      end
+    rescue => e
+      logger.error("Error: #{e}")
+      span.record_exception(e)
+      span.status = OpenTelemetry::Trace::Status.error("Unhandled exception of type: #{e.class}")
     end
 
     class Record
