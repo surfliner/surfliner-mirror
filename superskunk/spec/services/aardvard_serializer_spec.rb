@@ -28,6 +28,28 @@ RSpec.describe AardvarkSerializer do
     end
   end
 
+  context "with a provided ark" do
+    let(:title) { "A geospatial object with an ARK" }
+    let(:resource) {
+      persister.save(resource: GeospatialObject.new(title: [title],
+        ark: "14697/b12345x"))
+    }
+    it "populates the id property" do
+      expect(serialized_aardvark[:id]).to eq("14697/b12345x")
+    end
+  end
+
+  context "without a provided ark" do
+    let(:title) { "A geospatial object without an ARK" }
+    let(:resource) {
+      persister.save(resource: GeospatialObject.new(title: [title],
+        id: "12345"))
+    }
+    it "populates the id property with the resource id" do
+      expect(serialized_aardvark[:id]).to eq("12345")
+    end
+  end
+
   context "with all bounding box values supplied" do
     let(:title) { "A geospatial object with all bbox values" }
     let(:resource) {

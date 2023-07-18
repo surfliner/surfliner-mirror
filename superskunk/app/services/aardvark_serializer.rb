@@ -58,7 +58,7 @@ class AardvarkSerializer < ResourceSerializer
       type: :boolean
     },
     id: { # ID (REQUIRED)
-      iri: "@id",
+      iri: "https://opengeometadata.org/ogm-aardvark/#id",
       singular: true
     },
     dct_identifier_sm: { # Identifier
@@ -185,7 +185,7 @@ class AardvarkSerializer < ResourceSerializer
         mapping = concatenated_bounding_box
       when :id
         # Add the +:id+.
-        mapping << resource.id
+        mapping << (resource.ark || resource.id)
       when :gbl_mdVersion_s
         # The default value for +:gbl_mdVersion_s+ should be +Aardvark+.
         mapping = ["Aardvark"] unless mapping.present?
