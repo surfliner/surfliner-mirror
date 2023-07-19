@@ -55,3 +55,7 @@ postgresql:
   auth:
     username: geodata_stage
     database: geodata_stage
+
+telemetry:
+  enabled: true
+  otlp_endpoint: "http://otel-collector-staging-opentelemetry-collector.opentelemetry-staging:4318"
