@@ -4,10 +4,10 @@
 
 ```mermaid
 flowchart TD
-    A[CSV \n metadata] --> B(Comet/Bulkrax ingest)
+    A[CSV \n metadata] --> |librarian begins ingest| B(Comet/Bulkrax ingest)
     B --> C[(Metadata in \n PostgreSQL)]
     B --> D{{Shapefiles in S3}}
-    B -->|publish| E[/RabbitMQ/]
+    B -->|librarian approves and \n publishes object| E[/RabbitMQ/]
     E -->|subscribed| F(Shoreline consumer \n receives payload)
     F -->|query resourceUrl| G(Superskunk)
     G -.- C
@@ -26,7 +26,9 @@ flowchart TD
 
 1. Batched objects are ingested into Comet via Bulkrax ([example
    CSV](https://gitlab.com/surfliner/surfliner/-/blob/trunk/comet/spec/fixtures/geodata/csv/recycledwatermains_metadata_m3.csv)).
-1. Upon successful ingest, Comet publishes events to RabbitMQ
+1. When using the Shoreline mediated ingest workflow, objects ingested must be
+   approved and published manually.  Once this is done, Comet publishes events
+   to RabbitMQ
    ([`FileIngest#upload`](https://gitlab.com/surfliner/surfliner/-/blob/c2e65daa98b9f56c3232e8b9a95c748cccbe2c61/comet/app/services/file_ingest.rb#L99)
    =>
    [`RabbitMQListener`](https://gitlab.com/surfliner/surfliner/-/blob/c2e65daa98b9f56c3232e8b9a95c748cccbe2c61/comet/app/listeners/rabbitmq_listener.rb#L73-82)
