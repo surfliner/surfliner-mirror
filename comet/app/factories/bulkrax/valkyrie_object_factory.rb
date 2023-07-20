@@ -59,17 +59,7 @@ module Bulkrax
       cx = Hyrax::Forms::ResourceForm.for(klass.new).prepopulate!
       cx.validate(attrs)
 
-      result = transaction
-        .with_step_args(
-          # "work_resource.add_to_parent" => {parent_id: @related_parents_parsed_mapping, user: @user},
-          "work_resource.add_bulkrax_files" => {files: get_s3_files, user: @user},
-          "change_set.set_user_as_depositor" => {user: @user},
-          "work_resource.change_depositor" => {user: @user}
-          # TODO: uncomment when we upgrade Hyrax 4.x
-          # 'work_resource.save_acl' => { permissions_params: [attrs.try('visibility') || 'open'].compact }
-        )
-        .call(cx)
-
+      result = create_transaction_for(klass).call(cx)
       @object = result.value!
 
       @object
@@ -85,16 +75,10 @@ module Bulkrax
       cx = Hyrax::Forms::ResourceForm.for(@object)
       cx.validate(attrs)
 
-      result = update_transaction
-        .with_step_args(
-          "work_resource.add_bulkrax_files" => {files: get_s3_files, user: @user}
-
-          # TODO: uncomment when we upgrade Hyrax 4.x
-          # 'work_resource.save_acl' => { permissions_params: [attrs.try('visibility') || 'open'].compact }
-        )
-        .call(cx)
-
+      result = update_transaction_for(klass).call(cx)
       @object = result.value!
+
+      @object
     end
 
     # @return [Hash<Symbol>, Array<Fog::AWS::Storage::File>>]
@@ -240,20 +224,34 @@ module Bulkrax
       header.gsub("use:", "").underscore.to_sym
     end
 
-    def transaction
-      if klass == Collection
-        Hyrax::Transactions::Container["change_set.create_collection"]
+    def create_transaction_for(klass)
+      case klass.name
+      when "Collection"
+        Hyrax::Transactions::Container["change_set.create_collection"].with_step_args(
+          "change_set.set_user_as_depositor" => {user: @user}
+        )
       else
-        Hyrax::Transactions::Container["work_resource.create_with_bulk_behavior"]
+        Hyrax::Transactions::Container["work_resource.create_with_bulk_behavior"].with_step_args(
+          # "work_resource.add_to_parent" => {parent_id: @related_parents_parsed_mapping, user: @user},
+          "work_resource.add_bulkrax_files" => {files: get_s3_files, user: @user},
+          "change_set.set_user_as_depositor" => {user: @user},
+          "work_resource.change_depositor" => {user: @user}
+          # TODO: uncomment when we upgrade Hyrax 4.x
+          # 'work_resource.save_acl' => { permissions_params: [attrs.try('visibility') || 'open'].compact }
+        )
       end
     end
 
-    # Customize Hyrax::Transactions::WorkUpdate transaction with bulkrax
-    def update_transaction
-      if klass == Collection
+    def update_transaction_for(klass)
+      case klass.name
+      when "Collection"
         Hyrax::Transactions::Container["change_set.update_collection"]
       else
-        Hyrax::Transactions::Container["work_resource.update_with_bulk_behavior"]
+        Hyrax::Transactions::Container["work_resource.update_with_bulk_behavior"].with_step_args(
+          "work_resource.add_bulkrax_files" => {files: get_s3_files, user: @user}
+          # TODO: uncomment when we upgrade Hyrax 4.x
+          # 'work_resource.save_acl' => { permissions_params: [attrs.try('visibility') || 'open'].compact }
+        )
       end
     end
 
