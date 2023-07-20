@@ -32,6 +32,27 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory, :with_admin_set do
           .to have_attributes(visibility: "open")
       end
     end
+
+    context "when creating a collection" do
+      let(:attributes) do
+        {
+          # admin_set_id: "",
+          model: "Collection",
+          source_identifier_value: "spec_collection",
+          title: "A Test Collection"
+        }
+      end
+
+      let(:source_identifier) { "spec_collection" }
+
+      it "makes a collection" do
+        object_factory.run!
+
+        imported = Hyrax.query_service.find_all_of_model(model: Collection).first
+        expect(imported)
+          .to have_attributes(title: "A Test Collection")
+      end
+    end
   end
 
   context "when work_identifier is empty" do
