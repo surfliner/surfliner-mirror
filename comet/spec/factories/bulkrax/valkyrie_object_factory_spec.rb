@@ -6,13 +6,14 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory, :with_admin_set do
       source_identifier_value: source_identifier,
       work_identifier: work_identifier,
       user: user,
-      klass: ::GenericObject,
+      klass: klass,
       update_files: update_files)
   end
 
+  let(:klass) { ::GenericObject }
+  let(:update_files) { false }
   let(:user) { User.find_or_create_by(email: "comet-admin@library.ucsb.edu") }
   let(:work_identifier) { "" }
-  let(:update_files) { false }
 
   describe "#create" do
     context "with a visibility" do
@@ -34,6 +35,8 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory, :with_admin_set do
     end
 
     context "when creating a collection" do
+      let(:klass) { ::Collection }
+
       let(:attributes) do
         {
           # admin_set_id: "",
