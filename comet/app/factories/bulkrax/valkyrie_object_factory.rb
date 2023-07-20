@@ -241,12 +241,20 @@ module Bulkrax
     end
 
     def transaction
-      Hyrax::Transactions::Container["work_resource.create_with_bulk_behavior"]
+      if klass == Collection
+        Hyrax::Transactions::Container["change_set.create_collection"]
+      else
+        Hyrax::Transactions::Container["work_resource.create_with_bulk_behavior"]
+      end
     end
 
     # Customize Hyrax::Transactions::WorkUpdate transaction with bulkrax
     def update_transaction
-      Hyrax::Transactions::Container["work_resource.update_with_bulk_behavior"]
+      if klass == Collection
+        Hyrax::Transactions::Container["change_set.update_collection"]
+      else
+        Hyrax::Transactions::Container["work_resource.update_with_bulk_behavior"]
+      end
     end
 
     # Query child FileSet in the resource/object
