@@ -135,12 +135,14 @@ module Bulkrax
     # TODO: What else fields are necessary: %i[id edit_users edit_groups read_groups work_members_attributes]?
     # Regardless of what the Parser gives us, these are the properties we are prepared to accept.
     def permitted_attributes
-      Bulkrax::ValkyrieObjectFactory.schema_properties(klass) +
+      allowed = Bulkrax::ValkyrieObjectFactory.schema_properties(klass) +
         %i[
-          admin_set_id
           title
           visibility
         ]
+
+      allowed << :admin_set_id unless klass == Collection
+      allowed
     end
 
     def apply_depositor_metadata(object, user)
