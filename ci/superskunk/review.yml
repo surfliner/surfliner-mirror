@@ -15,6 +15,7 @@ superskunk:deploy:ucsd-review:
   extends:
     - .superskunk:deploy:review
   rules:
+    - !reference [.superskunk-mr-rules, rules]
     - if: $CI_MERGE_REQUEST_LABELS =~ /comet/
       variables:
         HELM_UPGRADE_EXTRA_ARGS: >
@@ -28,7 +29,6 @@ superskunk:deploy:ucsd-review:
           --set superskunk.comet_base=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax.comet-review.svc
           --values charts/snippets/superskunk/review.yaml
           --values charts/snippets/superskunk/ucsd/review.yml
-    - !reference [.superskunk-mr-rules, rules]
   environment:
     name: ucsd.superskunk.review/$CI_MERGE_REQUEST_ID
     url: http://superskunk-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
@@ -72,6 +72,7 @@ superskunk:deploy:ucsb-review:
   extends:
     - .superskunk:deploy:review
   rules:
+    - !reference [.superskunk-mr-rules, rules]
     - if: $CI_MERGE_REQUEST_LABELS =~ /comet/
       variables:
         HELM_UPGRADE_EXTRA_ARGS: >
@@ -87,7 +88,6 @@ superskunk:deploy:ucsb-review:
           --set superskunk.comet_base=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax.comet-review.svc
           --values charts/snippets/superskunk/review.yaml
           --values charts/snippets/superskunk/ucsb/review.yml
-    - !reference [.superskunk-mr-rules, rules]
   script:
     - deploy ./charts/superskunk
     - run_chart_tests
