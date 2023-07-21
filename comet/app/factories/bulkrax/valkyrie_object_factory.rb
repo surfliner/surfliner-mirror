@@ -226,7 +226,9 @@ module Bulkrax
 
     def create_transaction_for(klass)
       case klass.name
-      when "Collection"
+      when "Hyrax::PcdmCollection"
+        Rails.logger.info "Creating a collection for #{@user}"
+
         Hyrax::Transactions::Container["change_set.create_collection"].with_step_args(
           "change_set.set_user_as_depositor" => {user: @user}
         )
@@ -244,7 +246,7 @@ module Bulkrax
 
     def update_transaction_for(klass)
       case klass.name
-      when "Collection"
+      when "Hyrax::PcdmCollection"
         Hyrax::Transactions::Container["change_set.update_collection"]
       else
         Hyrax::Transactions::Container["work_resource.update_with_bulk_behavior"].with_step_args(
