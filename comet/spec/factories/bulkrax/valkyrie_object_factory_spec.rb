@@ -35,12 +35,12 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory, :with_admin_set do
     end
 
     context "when creating a collection" do
-      let(:klass) { ::Collection }
+      let(:klass) { Hyrax::PcdmCollection }
 
       let(:attributes) do
         {
           # admin_set_id: "",
-          model: "Collection",
+          model: "Hyrax::PcdmCollection",
           source_identifier_value: "spec_collection",
           title: "A Test Collection"
         }
@@ -51,9 +51,9 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory, :with_admin_set do
       it "makes a collection" do
         object_factory.run!
 
-        imported = Hyrax.query_service.find_all_of_model(model: Collection).first
+        imported = Hyrax.query_service.find_all_of_model(model: Hyrax::PcdmCollection).first
         expect(imported)
-          .to have_attributes(title: "A Test Collection")
+          .to have_attributes(title: ["A Test Collection"])
       end
     end
   end

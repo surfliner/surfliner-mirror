@@ -68,7 +68,7 @@ module Bulkrax
     def update
       raise "Object doesn't exist" unless @object
 
-      destroy_existing_files if @replace_files && ![Collection, FileSet].include?(klass)
+      destroy_existing_files if @replace_files && ![Hyrax::PcdmCollection, FileSet].include?(klass)
 
       attrs = transform_attributes(update: true)
 
@@ -125,7 +125,7 @@ module Bulkrax
           visibility
         ]
 
-      allowed << :admin_set_id unless klass == Collection
+      allowed << :admin_set_id unless klass == Hyrax::PcdmCollection
       allowed
     end
 
@@ -140,7 +140,7 @@ module Bulkrax
     def file_attributes(update_files = false)
       @update_files = update_files
       hash = {}
-      return hash if klass == Collection
+      return hash if klass == Hyrax::PcdmCollection
       hash[:uploaded_files] = upload_ids if attributes[:file].present?
       permitted_file_attributes.each do |a|
         hash[a] = new_remote_files(a) if attributes[a].present?
