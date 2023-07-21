@@ -15,7 +15,7 @@ superskunk:deploy:ucsd-review:
   extends:
     - .superskunk:deploy:review
   rules:
-    - if: $CI_MERGE_REQUEST_LABELS =~ /comet/
+    - if: ($CI_MERGE_REQUEST_LABELS =~ /comet/) && ($CI_MERGE_REQUEST_LABELS =~ /superskunk/)
       variables:
         HELM_UPGRADE_EXTRA_ARGS: >
           --set ingress.hosts[0].host=superskunk-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
@@ -72,7 +72,7 @@ superskunk:deploy:ucsb-review:
   extends:
     - .superskunk:deploy:review
   rules:
-    - if: $CI_MERGE_REQUEST_LABELS =~ /comet/
+    - if: ($CI_MERGE_REQUEST_LABELS =~ /comet/) && ($CI_MERGE_REQUEST_LABELS =~ /superskunk/)
       variables:
         HELM_UPGRADE_EXTRA_ARGS: >
           --set ingress.hosts[0].host=superskunk-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
