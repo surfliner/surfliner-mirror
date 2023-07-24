@@ -25,7 +25,7 @@ superskunk:deploy:ucsd-review:
           --set superskunk.db.standalone=false
           --set postgresql.enabled=false
           --set postgresql.postgresqlHostname=surfliner-comet-$CI_MERGE_REQUEST_ID-postgresql.comet-review.svc.cluster.local
-          --set superskunk.comet_base=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax.comet-review.svc
+          --set superskunk.comet_base=http://surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax.comet-review.svc
           --values charts/snippets/superskunk/review.yaml
           --values charts/snippets/superskunk/ucsd/review.yml
     - !reference [.superskunk-mr-rules, rules]
@@ -84,7 +84,7 @@ superskunk:deploy:ucsb-review:
           --set superskunk.db.standalone=false
           --set postgresql.enabled=false
           --set postgresql.postgresqlHostname=surfliner-comet-$CI_MERGE_REQUEST_ID-postgresql.comet-review.svc.cluster.local
-          --set superskunk.comet_base=surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax.comet-review.svc
+          --set superskunk.comet_base=http://surfliner-comet-$CI_MERGE_REQUEST_ID-hyrax.comet-review.svc
           --values charts/snippets/superskunk/review.yaml
           --values charts/snippets/superskunk/ucsb/review.yml
     - !reference [.superskunk-mr-rules, rules]
