@@ -99,7 +99,7 @@ module Shoreline
           res.body
         when Net::HTTPRedirection
           logger.debug "Got a 30x response: #{res}"
-          fetch(uri: URI(res["location"]), logger: logger)
+          get(URI(res["location"]), logger: logger)
         else
           logger.debug "Got a non-success HTTP response:"
           logger.debug res.inspect
