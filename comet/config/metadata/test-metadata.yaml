@@ -710,6 +710,7 @@ properties:
 
   - &bounding_box_west_geospatial
     <<: *bounding_box_west
+    name: "bounding_box_west_geo"
     usage_guidelines: "This value displays the westernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
     requirement: recommended
     available_on:
@@ -747,6 +748,7 @@ properties:
 
   - &bounding_box_east_geospatial
     <<: *bounding_box_east
+    name: "bounding_box_east_geo"
     usage_guidelines: "This value displays the easternmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
     requirement: recommended
     available_on:
@@ -784,6 +786,7 @@ properties:
 
   - &bounding_box_north_geospatial
     <<: *bounding_box_north
+    name: "bounding_box_north_geo"
     usage_guidelines: "This value displays the northernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
     requirement: recommended
     available_on:
@@ -821,6 +824,7 @@ properties:
 
   - &bounding_box_south_geospatial
     <<: *bounding_box_south
+    name: "bounding_box_south_geo"
     usage_guidelines: "This value displays the southernmost extent in decimal degrees as shown in the original ArcGIS metadata XML."
     requirement: recommended
     available_on:

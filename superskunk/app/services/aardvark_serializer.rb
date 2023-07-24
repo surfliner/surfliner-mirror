@@ -269,7 +269,7 @@ class AardvarkSerializer < ResourceSerializer
   # to a single bounding box value for aardvark
   # Aardvark expects value to be in this format ENVELOPE(-93.947768,-86.764686,21.567248,13.156171)
   def concatenated_bounding_box
-    bbox_keys = [:bounding_box_west, :bounding_box_east, :bounding_box_north, :bounding_box_south]
+    bbox_keys = [:bounding_box_west_geo, :bounding_box_east_geo, :bounding_box_north_geo, :bounding_box_south_geo]
     all_keys_present = true
     bbox_keys.each do |k|
       unless resource[k].present?

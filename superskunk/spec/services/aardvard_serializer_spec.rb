@@ -58,10 +58,10 @@ RSpec.describe AardvarkSerializer do
     let(:title) { "A geospatial object with all bbox values" }
     let(:resource) {
       persister.save(resource: GeospatialObject.new(title: [title],
-        bounding_box_west: "-93",
-        bounding_box_east: "-86",
-        bounding_box_north: "21",
-        bounding_box_south: "13"))
+        bounding_box_west_geo: "-93",
+        bounding_box_east_geo: "-86",
+        bounding_box_north_geo: "21",
+        bounding_box_south_geo: "13"))
     }
     it "populates the dcat_bbox and locn_geometry properties" do
       expect(serialized_aardvark[:dcat_bbox]).to eq("ENVELOPE(-93,-86,21,13)")
@@ -73,8 +73,8 @@ RSpec.describe AardvarkSerializer do
     let(:title) { "A geospatial object without all bbox values" }
     let(:resource) {
       persister.save(resource: GeospatialObject.new(title: [title],
-        bounding_box_west: "-93",
-        bounding_box_south: "13"))
+        bounding_box_west_geo: "-93",
+        bounding_box_south_geo: "13"))
     }
     it "does not populate the dcat_bbox and locn_geometry properties" do
       expect(serialized_aardvark[:dcat_bbox]).to be_nil
