@@ -49,6 +49,8 @@ extraEnvVars:
     value: "comet-staging-area-review"
   - name: "STAGING_AREA_S3_EXAMPLE_FILES"
     value: "1"
+  - name: "MINIO_EXTERNAL_ENDPOINT"
+    value: "replace-me"
 
 worker:
   extraEnvVars:

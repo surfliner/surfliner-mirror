@@ -37,6 +37,7 @@ comet:deploy:ucsd-review:
       --set extraEnvVars[3].value=http://tidewater-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN/tidewater/item?source_iri=
       --set extraEnvVars[4].value=http://superskunk-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN/resources
       --set extraEnvVars[12].value=surfliner.metadata.publish.$CI_MERGE_REQUEST_ID
+      --set extraEnvVars[19].value=http://surfliner-comet-$CI_MERGE_REQUEST_ID-minio.comet-review.svc.cluster.local
       --set worker.extraEnvVars[2].value=http://tidewater-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN/tidewater/item?source_iri=
       --set worker.extraEnvVars[3].value=http://superskunk-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN/resources
       --set worker.extraEnvVars[11].value=surfliner.metadata.publish.$CI_MERGE_REQUEST_ID
@@ -93,6 +94,7 @@ comet:deploy:ucsb-review:
       --set extraEnvVars[3].value=http://tidewater-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN/tidewater/item?source_iri=
       --set extraEnvVars[4].value=http://superskunk-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN/resources
       --set extraEnvVars[12].value=surfliner.metadata.publish.$CI_MERGE_REQUEST_ID
+      --set extraEnvVars[19].value=http://surfliner-comet-$CI_MERGE_REQUEST_ID-minio.comet-review.svc.cluster.local
       --set worker.extraEnvVars[2].value=http://tidewater-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN/tidewater/item?source_iri=
       --set worker.extraEnvVars[3].value=http://superskunk-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN/resources
       --set worker.extraEnvVars[11].value=surfliner.metadata.publish.$CI_MERGE_REQUEST_ID
