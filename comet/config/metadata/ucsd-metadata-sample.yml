@@ -307,6 +307,8 @@ properties:
 
   - &date_index_geospatial
     name: "date_index_geo"
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://id.loc.gov/datatypes/edtf/EDTF
     display_label: "Index Year"
     #definition: "add"
     #usage_guidelines: "add"
