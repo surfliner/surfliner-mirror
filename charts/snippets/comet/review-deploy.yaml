@@ -117,6 +117,8 @@ worker:
       value: "comet-review"
     - name: "STAGING_AREA_S3_BUCKET"
       value: "comet-staging-area-review"
+    - name: "OTEL_SDK_DISABLED"
+      value: "true"
   extraEnvFrom:
     - secretRef:
         name: ezid-test
