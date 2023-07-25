@@ -168,7 +168,7 @@ Last day of each sprint<br/>
 *Optional*: Subject Matter Experts<br/>
 
 ### Meeting Schedules for the Current Work Cycle
-The current workcycle runs from Wednesday, March 15 to Tuesday, May 16, 2023.  The meetings below are for this time period only.
+The current workcycle runs from Wednesday, September 6, 2023 to Tuesday, November 11, 2023.  The meetings below are for this time period only.
 
 #### Project-wide
 **Project Surfliner Daily Standup**<br/>
