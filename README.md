@@ -88,6 +88,7 @@ Product Owner: TBD | Tech Lead: TBD
 *  **Starlight (Production):** [https://spotlight.library.ucsb.edu/](https://spotlight.library.ucsb.edu/)
 
 ### UCSD
+*  **Comet (Staging):** [https://lib-comet-staging.ucsd.edu/](https://lib-comet-staging.ucsd.edu/)
 *  **Shoreline (Staging):** [http://geodata-staging.ucsd.edu](http://geodata-staging.ucsd.edu)
 *  **Shoreline (Production):** [http://geodata.ucsd.edu](http://geodata.ucsd.edu)
 *  **Starlight (Staging):** [https://exhibits-staging.ucsd.edu/](https://exhibits-staging.ucsd.edu/)
