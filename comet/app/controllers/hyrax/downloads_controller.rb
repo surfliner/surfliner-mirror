@@ -93,10 +93,7 @@ module Hyrax
       end
 
       def url(**opts)
-        host = opts.delete(:host)
-        url = @adapter.shrine.url(shrine_id, **opts)
-        url.host = host if host.present?
-        url
+        @adapter.shrine.url(shrine_id, **opts)
       end
     end
   end
