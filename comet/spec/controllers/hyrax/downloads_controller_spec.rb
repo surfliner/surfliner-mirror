@@ -89,6 +89,35 @@ RSpec.describe Hyrax::DownloadsController, :integration do
           expect(response.location).to include("application%2Foctet-stream")
         end
       end
+
+      context "and GeospatialObject FileSet with multiple files" do
+        let(:preservation_file) { Tempfile.new("moomin.txt").tap { |f| f.write("GeospatialObject file") } }
+        let(:preservation_file_upload) { Hyrax.storage_adapter.upload(resource: file_set, file: preservation_file, original_filename: "moomin.txt") }
+
+        let(:preservation_file_metadata) do
+          Hyrax::FileMetadata
+            .new(file_identifier: preservation_file_upload.id,
+              alternate_ids: preservation_file_upload.id,
+              original_filename: "moomin.txt",
+              type: Hyrax::FileMetadata::Use.uri_for(use: :preservation_file))
+        end
+
+        let(:geospatial_object) { GeospatialObject.new(title: "Geospatial Object", creator: "Tove Jansson") }
+
+        before do
+          file_set.file_ids << preservation_file_upload.id
+          saved_file_set = Hyrax.persister.save(resource: file_set)
+          Hyrax.persister.save(resource: preservation_file_metadata)
+
+          geospatial_object.member_ids = [saved_file_set.id]
+          Hyrax.persister.save(resource: geospatial_object)
+        end
+
+        it "downloads the preservation_file by default" do
+          get :show, params: {id: file_set.id}
+          expect(Net::HTTP.get(URI(response.location))).to eq "GeospatialObject file"
+        end
+      end
     end
   end
 end

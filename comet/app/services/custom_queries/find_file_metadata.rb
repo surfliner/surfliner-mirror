@@ -26,7 +26,7 @@ module CustomQueries
       return [] unless file_set.try(:file_ids)
       return enum_for(:find_files, file_set: file_set).to_a unless block_given?
 
-      files_for_file_set(file_set) { |fm| yield fm }
+      files_for_file_set(file_set).each { |fm| yield fm }
     end
 
     # Find a file metadata using a Valkyrie ID, and map it to a Hyrax::FileMetadata

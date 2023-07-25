@@ -31,16 +31,23 @@ module Hyrax
       end
     end
 
-    def find_file_metadata(file_set:, use: :original_file)
-      use = Hyrax::FileMetadata::Use.uri_for(use: use)
+    def find_file_metadata(file_set:, use:)
+      return nil unless file_set.try(:file_ids)
 
-      results = Hyrax.custom_queries.find_many_file_metadata_by_use(resource: file_set, use: use)
+      results = Hyrax.custom_queries.find_files(file_set: file_set)
 
-      results.first || raise(Hyrax::ObjectNotFoundError)
+      return results.find { |fm| fm.type.include? Hyrax::FileMetadata::Use.uri_for(use: use) } unless use.nil?
+
+      parent = Hyrax.query_service.find_parents(resource: file_set).first
+      use = parent.is_a?(GeospatialObject) ? :preservation_file : :original_file
+
+      results.find { |fm| fm.type.include?(Hyrax::FileMetadata::Use.uri_for(use: use)) } || results.first
     end
 
-    def redirect_to_presigned(file_set:, use: :original_file)
+    def redirect_to_presigned(file_set:, use:)
       file_metadata = find_file_metadata(file_set: file_set, use: use)
+
+      raise(Hyrax::ObjectNotFoundError) if file_metadata.nil?
 
       url = PresignedUrl.url(
         id: file_metadata.file_identifier,
@@ -66,7 +73,7 @@ module Hyrax
     ##
     # @return [Symbol]
     def use
-      params.fetch(:use, :original_file).to_sym
+      params.fetch(:use, nil)&.to_sym
     end
 
     private
