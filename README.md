@@ -41,7 +41,7 @@ Lark is a shared authority control platform and API. See the [Lark README](https
 
 _Lark was named after the Southern Pacific Lark Train that operated overnight between Los Angeles and San Francisco via San Luis Obispo from 1941 to April 1968._
 
-Product Owner: Kelly Revak (UCSD) | Tech Lead: tamsin johnson (UCSB)
+Product Owner: Arwen Hutt (UCSD) | Tech Lead: tamsin johnson (UCSB)
 
 ### Orange Empire
 Orange Empire is shared IIIF services; it uses the Cantaloupe Image Server.
