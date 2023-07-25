@@ -10,10 +10,14 @@ RSpec.describe AardvarkSerializer do
     let(:title) { "A geospatial object with a date" }
     let(:resource) {
       persister.save(resource: GeospatialObject.new(title: [title],
-        date_index_geo: "1969"))
+        date_index_geo: ["1969"]))
     }
     it "knows what an EDTF literal is" do
       expect(resource.date_index_geo.first.object).to be_a Date
+    end
+
+    it "serializes indexYear to an integer" do
+      expect(serialized_aardvark[:gbl_indexYear_im]).to eq([1969])
     end
   end
 

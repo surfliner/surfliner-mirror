@@ -417,7 +417,7 @@ properties:
     # grouping: null
     mapping:
       oai_dc: http://purl.org/dc/elements/1.1/date
-      aardvark: https://opengeometadata.org/ogm-aardvark/#date-issued
+      aardvark: https://opengeometadata.org/ogm-aardvark/#index-year
     available_on:
       - geospatial_object
 
