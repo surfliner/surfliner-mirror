@@ -110,9 +110,14 @@ module Bulkrax
         end
         attr_files.map { |r| r[:url] }.map do |key|
           Hyrax.logger.info "Loading file #{key} from s3 bucket #{s3_bucket_name}"
-          urls << s3_bucket.files.get(key)
+          url = s3_bucket.files.get(key)
+          unless url
+            Hyrax.logger.warn("Failed to load file #{key} from s3 bucket #{s3_bucket_name}")
+            next
+          end
+          urls << url
         end
-        results[use_for_file(attr)] = urls
+        results[use_for_file(attr)] = urls unless urls.empty?
       end.compact
 
       results

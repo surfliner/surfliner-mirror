@@ -110,6 +110,48 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory, :with_admin_set do
     end
   end
 
+  context "attaching files" do
+    let(:s3_bucket) { ENV.fetch("STAGING_AREA_S3_BUCKET", "comet-staging-area-#{Rails.env}") }
+    let(:file) { Tempfile.new("image.jpg").tap { |f| f.write("An image!") } }
+    let(:s3_key) { "demo_files/demo.jpg" }
+    let(:missing_s3_key) { "not/inbucket.jpg" }
+    let(:fog_connection) { mock_fog_connection }
+    let(:source_identifier) { "object_1" }
+    let(:title) { "Test Bulkrax Import with missing file" }
+    let(:attributes) do
+      {
+        title: title,
+        "use:PreservationFile": [{url: s3_key}],
+        "use:ServiceFile": [{url: missing_s3_key}]
+      }
+    end
+
+    before do
+      Rails.application.config.staging_area_s3_connection = fog_connection
+      staging_area_upload(fog_connection: fog_connection,
+        bucket: s3_bucket, s3_key: s3_key, source_file: file)
+    end
+
+    after do
+      file = fog_connection.directories.new(key: s3_bucket).files.new(key: s3_key)
+      file.destroy
+    end
+
+    it "does not attach files that don't exist in staging area s3 bucket" do
+      expect(Hyrax.logger).to receive(:warn).with("Failed to load file #{missing_s3_key} from s3 bucket #{s3_bucket}")
+
+      created_object = object_factory.run!
+
+      fs = Hyrax.custom_queries.find_child_file_sets(resource: created_object).first
+      attached_files = Hyrax.custom_queries.find_files(file_set: fs)
+
+      expect(created_object.member_ids.size).to eq 1
+      expect(attached_files.size).to eq 1
+      expect(attached_files.first.title.first.to_s).to eq "demo.jpg"
+      expect(attached_files.first.type.first).to eq Hyrax::FileMetadata::Use::PRESERVATION_FILE
+    end
+  end
+
   context "update_file" do
     let(:object) do
       FactoryBot.valkyrie_create(:generic_object,
