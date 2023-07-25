@@ -78,10 +78,10 @@ module Shoreline
       DEFAULT_JSONLD_PROFILE = "tag:surfliner.gitlab.io,2022:api/aardvark"
 
       def self.load(uri, logger: Logger.new($stdout))
-        new(data: JSON.parse(get(uri, logger: logger)))
+        new(data: JSON.parse(fetch_superskunk(uri, logger: logger)))
       end
 
-      def self.get(uri, logger: Logger.new($stdout))
+      def self.fetch_superskunk(uri, logger: Logger.new($stdout))
         uri = URI(uri)
         jsonld_profile = ENV.fetch("SHORELINE_METADATA_PROFILE") { DEFAULT_JSONLD_PROFILE }
 
@@ -99,7 +99,7 @@ module Shoreline
           res.body
         when Net::HTTPRedirection
           logger.debug "Got a 30x response: #{res}"
-          get(URI(res["location"]), logger: logger)
+          fetch_superskunk(URI(res["location"]), logger: logger)
         else
           logger.debug "Got a non-success HTTP response:"
           logger.debug res.inspect
