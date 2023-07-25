@@ -82,7 +82,7 @@ Product Owner: TBD | Tech Lead: TBD
 
 ### UCSB
 *  **Comet (Staging):** [http://manage-staging.digital.library.ucsb.edu/](http://manage-staging.digital.library.ucsb.edu/)
-*  **Comet (Productions):** [https://manage.digital.library.ucsb.edu/](https://manage.digital.library.ucsb.edu/)
+*  **Comet (Production):** [https://manage.digital.library.ucsb.edu/](https://manage.digital.library.ucsb.edu/)
 *  **Shoreline (Staging):** [http://shoreline-staging.eks.dld.library.ucsb.edu/](http://shoreline-staging.eks.dld.library.ucsb.edu/)
 *  **Shoreline (Production):** [http://geodata.library.ucsb.edu/](http://geodata.library.ucsb.edu/)
 *  **Starlight (Staging):** [https://spotlight-stage.library.ucsb.edu/](https://spotlight-stage.library.ucsb.edu/)
