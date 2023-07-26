@@ -31,7 +31,7 @@ gem "optimist"
 gem "pg", "~> 1.5.0"
 gem "pry-rails", "~> 0.3", group: %i[development test]
 gem "puma", "6.3.0"
-gem "rails", "7.0.5"
+gem "rails", "7.0.6"
 gem "rsolr", ">= 1.0", "< 3"
 gem "rspec-its", group: [:test]
 gem "rspec-rails", "~> 6.0", group: [:test]
