@@ -34,6 +34,7 @@ comet:test:solrconfig:
     IIIF_BASE_URL: "http://fake"
     METADATA_API_URL_BASE: "http://localhost:3000/resources"
     METADATA_DATABASE_NAME: "comet-metadata-test"
+    OTEL_SDK_DISABLED: "true"
     POSTGRESQL_DATABASE: "comet-metadata-test"
     POSTGRESQL_PASSWORD: "postgres"
     POSTGRESQL_USERNAME: "postgres"
