@@ -169,14 +169,14 @@ class AardvarkSerializer < ResourceSerializer
     }) do |(term, dfn), json|
       mapping = mappings[dfn[:iri]].to_a
       acl = AccessControlList.new(resource: resource)
-      access_group = "Restricted" if !acl.permissions.nil? && !acl.permissions.first.nil? && !acl.permissions.first.agent.include?("public")
+      group = Hyrax::Acl::Group.new("public")
+      access_group = "Restricted" unless acl.permissions.empty? || acl.has_read?(agent: group)
       # Special handling for specific terms.
       #
       # In particular, we want to make sure there are fallbacks for all
       # REQUIRED terms.
       case term
       when :dct_accessRights_s
-        # For now we only support "Public" access.
         mapping = [access_group] unless mapping.present?
       when :dct_isPartOf_sm
         mapping = Superskunk.comet_query_service.custom_queries.find_parent_work_id(resource: resource) || []

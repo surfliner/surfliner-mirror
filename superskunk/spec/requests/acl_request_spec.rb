@@ -9,6 +9,7 @@ RSpec.describe "GET /acls?file={id}&mode={mode}&group={name}" do
   let(:persister) { Valkyrie::MetadataAdapter.find(:comet_metadata_store).persister }
   let(:query_service) { Superskunk.comet_query_service }
   let(:resource) { persister.save(resource: FileMetadata.new(file_identifier: Valkyrie::ID.new("file_1"))) }
+  let(:user_agent) { "surfliner.superskunk.test_suite" }
 
   before do
     class FileMetadata < Valkyrie::Resource # rubocop:disable Lint/ConstantDefinitionInBlock
@@ -25,7 +26,9 @@ RSpec.describe "GET /acls?file={id}&mode={mode}&group={name}" do
     before { resource } # ensure it is saved
 
     it "is falsey" do
-      get "acls?file=file_1&mode=read&group=public", {}, {}
+      get "acls?file=file_1&mode=read&group=public", {}, {
+        "HTTP_USER_AGENT" => user_agent
+      }
 
       expect(last_response).to have_attributes(status: 200, body: "0")
     end
@@ -38,9 +41,11 @@ RSpec.describe "GET /acls?file={id}&mode={mode}&group={name}" do
       end
 
       it "is truthy" do
-        get "acls?file=file_1&mode=read&group=public", {}, {}
+        get "acls?file=file_1&mode=read&group=public", {}, {
+          "HTTP_USER_AGENT" => user_agent
+        }
 
-        expect(last_response).to have_attributes(status: 200, body: group.name)
+        expect(last_response).to have_attributes(status: 200, body: "1")
       end
     end
   end
@@ -56,10 +61,13 @@ RSpec.describe "GET /acls?resource={id}&mode={mode}&group={name}" do
   let(:query_service) { Superskunk.comet_query_service }
   let(:resource) { persister.save(resource: GenericObject.new(title: [title])) }
   let(:title) { "Webster’s New World Dictionary of the American Language" }
+  let(:user_agent) { "surfliner.superskunk.test_suite" }
 
   context "without access" do
     it "is falsey" do
-      get "acls?resource=#{resource.id}&mode=read&group=public", {}, {}
+      get "acls?resource=#{resource.id}&mode=read&group=public", {}, {
+        "HTTP_USER_AGENT" => user_agent
+      }
 
       expect(last_response).to have_attributes(status: 200, body: "0")
     end
@@ -68,8 +76,9 @@ RSpec.describe "GET /acls?resource={id}&mode={mode}&group={name}" do
   context "when resource is missing" do
     it "is falsey" do
       get "acls?resource=oops&mode=read&group=public", {}, {
-        "HTTP_ACCEPT" => "*/*"
+        "HTTP_USER_AGENT" => user_agent
       }
+
       expect(last_response).to have_attributes(status: 200, body: "0")
     end
   end
@@ -78,7 +87,9 @@ RSpec.describe "GET /acls?resource={id}&mode={mode}&group={name}" do
     before { persister.save(resource: resource) }
 
     it "is falsey" do
-      get "acls?resource=#{resource.id}&mode=read&group=public", {}, {}
+      get "acls?resource=#{resource.id}&mode=read&group=public", {}, {
+        "HTTP_USER_AGENT" => user_agent
+      }
 
       expect(last_response).to have_attributes(status: 200, body: "0")
     end
@@ -91,13 +102,17 @@ RSpec.describe "GET /acls?resource={id}&mode={mode}&group={name}" do
       end
 
       it "is truthy" do
-        get "acls?resource=#{resource.id}&mode=read&group=public", {}, {}
+        get "acls?resource=#{resource.id}&mode=read&group=public", {}, {
+          "HTTP_USER_AGENT" => user_agent
+        }
 
-        expect(last_response).to have_attributes(status: 200, body: group.name)
+        expect(last_response).to have_attributes(status: 200, body: "1")
       end
 
       it "and group is not 'public', is falsey" do
-        get "acls?resource=#{resource.id}&mode=read&group=moomin", {}, {}
+        get "acls?resource=#{resource.id}&mode=read&group=moomin", {}, {
+          "HTTP_USER_AGENT" => user_agent
+        }
 
         expect(last_response).to have_attributes(status: 200, body: "0")
       end
@@ -111,13 +126,17 @@ RSpec.describe "GET /acls?resource={id}&mode={mode}&group={name}" do
       end
 
       it "is truthy with matching group" do
-        get "acls?resource=#{resource.id}&mode=read&group=moomin", {}, {}
+        get "acls?resource=#{resource.id}&mode=read&group=moomin", {}, {
+          "HTTP_USER_AGENT" => other_group.name
+        }
 
-        expect(last_response).to have_attributes(status: 200, body: other_group.name)
+        expect(last_response).to have_attributes(status: 200, body: "1")
       end
 
       it "and group is not matching, is falsey" do
-        get "acls?resource=#{resource.id}&mode=read&group=moomin2", {}, {}
+        get "acls?resource=#{resource.id}&mode=read&group=moomin2", {}, {
+          "HTTP_USER_AGENT" => other_group.name
+        }
 
         expect(last_response).to have_attributes(status: 200, body: "0")
       end
