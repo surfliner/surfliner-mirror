@@ -55,7 +55,7 @@ services:
       - shoreline
 
   geoserver:
-    image: kartoza/geoserver:2.23.0
+    image: kartoza/geoserver:2.23.1
     volumes:
       - shoreline_geoserver_data:/data
     env_file:
