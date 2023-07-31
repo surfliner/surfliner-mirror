@@ -170,7 +170,7 @@ class AardvarkSerializer < ResourceSerializer
       mapping = mappings[dfn[:iri]].to_a
       acl = AccessControlList.new(resource: resource)
       group = Hyrax::Acl::Group.new("public")
-      access_group = "Restricted" unless acl.permissions.empty? || acl.has_read?(agent: group)
+      access_group = "Restricted" unless acl.has_read?(agent: group)
       # Special handling for specific terms.
       #
       # In particular, we want to make sure there are fallbacks for all
