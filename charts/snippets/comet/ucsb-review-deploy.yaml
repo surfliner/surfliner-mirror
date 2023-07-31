@@ -51,6 +51,8 @@ extraEnvVars:
     value: "1"
   - name: "MINIO_EXTERNAL_ENDPOINT"
     value: "replace-me"
+  - name: "OTEL_SDK_DISABLED"
+    value: "true"
 
 worker:
   extraEnvVars:
@@ -88,6 +90,8 @@ worker:
       value: "comet-review"
     - name: "STAGING_AREA_S3_BUCKET"
       value: "comet-staging-area-review"
+    - name: "OTEL_SDK_DISABLED"
+      value: "true"
   extraEnvFrom:
     - secretRef:
         name: ezid-test
