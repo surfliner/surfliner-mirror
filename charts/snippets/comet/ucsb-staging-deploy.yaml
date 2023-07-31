@@ -68,6 +68,8 @@ extraEnvVars:
     value: "sidekiq"
   - name: "STAGING_AREA_S3_BUCKET"
     value: "comet-staging-batch-source"
+  - name: "OTEL_SDK_DISABLED"
+    value: "true"
 worker:
   extraEnvVars:
     - name: "AUTH_METHOD"
@@ -98,3 +100,5 @@ worker:
       value: "sidekiq"
     - name: "STAGING_AREA_S3_BUCKET"
       value: "comet-staging-batch-source"
+    - name: "OTEL_SDK_DISABLED"
+      value: "true"
