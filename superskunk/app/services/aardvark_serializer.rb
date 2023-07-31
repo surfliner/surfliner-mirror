@@ -217,12 +217,14 @@ class AardvarkSerializer < ResourceSerializer
           "http://schema.org/downloadUrl": file_sets_for(resource: resource).map do |id|
                                              {
                                                label: resource.format_geo.first&.value || "Shapefile",
-                                               url: signed_url_for(id: id, use: :preservation_file)
+                                               url: signed_url_for(id: id, use: :preservation_file, internal: false)
                                              }
                                            end
         }.to_json]
       when :_file_urls
-        mapping = file_sets_for(resource: resource).map { |id| signed_url_for(id: id) }
+        mapping = file_sets_for(resource: resource).map do |id|
+          signed_url_for(id: id, use: :service_file, internal: true)
+        end
       end
 
       # Cast mappings to the appropriate types.
@@ -260,8 +262,10 @@ class AardvarkSerializer < ResourceSerializer
 
   # @param [Valkyrie::ID] id
   # @return [String]
-  def signed_url_for(id:, use: :service_file)
-    "#{ENV["COMET_BASE"]}/downloads/#{id}?use=#{use}"
+  def signed_url_for(id:, use: :service_file, internal: false)
+    base_url = internal ? ENV["COMET_BASE"] : ENV["COMET_EXTERNAL_BASE"]
+
+    "#{base_url}/downloads/#{id}?use=#{use}&use_internal_endpoint=#{internal}"
   end
 
   ##

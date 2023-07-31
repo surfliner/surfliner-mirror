@@ -44,7 +44,7 @@ module Hyrax
       results.find { |fm| fm.type.include?(Hyrax::FileMetadata::Use.uri_for(use: use)) } || results.first
     end
 
-    def redirect_to_presigned(file_set:, use:)
+    def redirect_to_presigned(file_set:, use:, internal: false)
       file_metadata = find_file_metadata(file_set: file_set, use: use)
 
       raise(Hyrax::ObjectNotFoundError) if file_metadata.nil?

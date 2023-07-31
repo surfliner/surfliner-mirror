@@ -12,6 +12,7 @@ data:
   ALLOW_ROBOTS: "true"
   {{- end }}
   COMET_BASE: {{ .Values.superskunk.comet_base }}
+  COMET_EXTERNAL_BASE: {{ if .Values.superskunk.comet_external_base }}{{ .Values.superskunk.comet_external_base }}{{ else }}{{ .Values.superskunk.comet_base }}{{ end }}
   {{- if .Values.consumers.keys }}
   CONSUMER_KEYS_FILE: {{ .Values.consumers.keysFileMountPath }}/consumer_keys.yaml
   {{- end }}

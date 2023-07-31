@@ -4,6 +4,7 @@ superskunk:test:
   needs: [ "superskunk:build" ]
   variables:
     COMET_BASE: http://comet:3000
+    COMET_EXTERNAL_BASE: http://comet:3000
     METADATA_MODELS: test-metadata
     POSTGRESQL_DATABASE: comet_metadata_development
     POSTGRESQL_HOST: postgres
