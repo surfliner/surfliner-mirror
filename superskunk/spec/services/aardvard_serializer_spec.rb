@@ -188,4 +188,23 @@ RSpec.describe AardvarkSerializer do
       expect(serialized_aardvark[:dct_accessRights_s]).to eq("Restricted")
     end
   end
+
+  context "with Public accessRight group provided" do
+    let(:title) { "A geospatial object with public accessRight group provided" }
+    let(:group) { Hyrax::Acl::Group.new("public") }
+    let(:query_service) { Superskunk.comet_query_service }
+    let(:resource) {
+      persister.save(resource: GeospatialObject.new(title: [title]))
+    }
+
+    before do
+      acl = Hyrax::Acl::AccessControlList.new(resource: resource, persister: persister, query_service: query_service)
+      acl.grant(:read).to(group)
+      acl.save
+    end
+
+    it "populates the dct_accessRights_s property" do
+      expect(serialized_aardvark[:dct_accessRights_s]).to eq("Public")
+    end
+  end
 end
