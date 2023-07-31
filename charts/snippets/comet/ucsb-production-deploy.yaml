@@ -100,6 +100,8 @@ worker:
       value: "sidekiq"
     - name: "STAGING_AREA_S3_BUCKET"
       value: "comet-production-batch-source"
+    - name: "OTEL_SDK_DISABLED"
+      value: "true"
   extraEnvFrom:
     - configMapRef:
         name: comet-production-s3-bucket
