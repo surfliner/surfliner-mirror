@@ -45,9 +45,9 @@ puts "\n== Activating surfliner_default workflow"
 Sipity::Workflow
   .activate!(permission_template: permission_template, workflow_name: "surfliner_default")
 
-puts "\n== Activating simple_shoreline workflow"
+puts "\n== Activating shoreline_mediated workflow"
 Sipity::Workflow
-  .activate!(permission_template: shoreline_permission_template, workflow_name: "simple_shoreline")
+  .activate!(permission_template: shoreline_permission_template, workflow_name: "shoreline_mediated")
 
 provider = Devise.omniauth_providers.first
 puts "\n== Creating system user"
