@@ -13,6 +13,20 @@ module Starlight
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
+    # https://guides.rubyonrails.org/engines.html#overriding-models-and-controllers
+    overrides = "#{Rails.root}/app/overrides"
+    # for zeitwerk:
+    # Rails.autoloaders.main.ignore(overrides)
+    config.to_prepare do
+      # for zeitwerk:
+      # Dir.glob("#{overrides}/**/*_override.rb").sort.each do |override|
+      #   load override
+      # end
+      Dir.glob("#{overrides}/**/*_override.rb").sort.each do |override|
+        require_dependency(override)
+      end
+    end
+
     # Temporarily use_yaml_unsafe_load
     # see: https://discuss.rubyonrails.org/t/cve-2022-32224-possible-rce-escalation-bug-with-serialized-columns-in-active-record/81017/1
     config.active_record.use_yaml_unsafe_load = true
