@@ -41,6 +41,10 @@ services:
     image: bitnami/solr:8.11.2-debian-11-r106
     ports:
       - 8983:8983
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 524288
 
   zk:
     image: bitnami/zookeeper:3.8.1-debian-11-r27
