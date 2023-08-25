@@ -157,6 +157,7 @@ include:
   function download_chart_dependencies(){
     echo "Downloading Helm chart dependencies.."
     helm repo add bitnami https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
+    helm repo add fits-charts https://samvera-labs.github.io/fits-charts
 
     helm dependency build .
   }
