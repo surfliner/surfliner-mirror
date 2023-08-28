@@ -6,4 +6,5 @@ solr:
 
 solrExistingSecret: solr-admin-password
 externalSolrHost: dld-search-staging-solr.solr-staging.svc.cluster.local
+externalSolrPort: "8983"
 externalSolrUser: admin
