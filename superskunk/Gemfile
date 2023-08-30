@@ -6,7 +6,7 @@ gem "hyrax-acl",
   git: "https://github.com/samvera-labs/hyrax-acl.git"
 gem "okcomputer", "1.18.4"
 gem "pg", "1.5.3"
-gem "puma", "6.3.0"
+gem "puma", "6.3.1"
 gem "rack-test", group: "test"
 gem "rails", "7.0.6"
 gem "rdf-edtf",
