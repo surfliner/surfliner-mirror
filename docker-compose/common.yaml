@@ -24,7 +24,7 @@ services:
       - "5432:5432"
 
   memcached:
-    image: bitnami/memcached:1.6.20-debian-11-r4
+    image: bitnami/memcached:1.6.21-debian-11-r70
     ports:
       - '11211:11211'
 
