@@ -21,6 +21,7 @@
     ]
   },
   "prHourlyLimit": 5,
+  "prConcurrentLimit": 20,
   "rebaseWhen": "never",
   "labels": [
     "dependencies"
