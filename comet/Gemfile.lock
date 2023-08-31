@@ -912,7 +912,7 @@ GEM
       rails (>= 5.0, < 7.1)
       rdf
     racc (1.7.1)
-    rack (2.2.7)
+    rack (2.2.8)
     rack-linkeddata (3.2.1)
       linkeddata (~> 3.2)
       rack (~> 2.1)
@@ -1222,7 +1222,7 @@ GEM
     thor (1.2.2)
     tilt (2.1.0)
     timeout (0.3.2)
-    tinymce-rails (5.10.7)
+    tinymce-rails (5.10.7.1)
       railties (>= 3.1.1)
     trailblazer-option (0.1.2)
     turbolinks (5.2.1)
@@ -1285,7 +1285,7 @@ GEM
       rdf (~> 3.2, >= 3.2.9)
       rdf-xsd (~> 3.2)
     yard (0.9.34)
-    zeitwerk (2.6.9)
+    zeitwerk (2.6.11)
 
 PLATFORMS
   x86_64-linux
@@ -1337,7 +1337,7 @@ DEPENDENCIES
   sidekiq (= 7.1.1)
   standard (= 1.28.3)
   surfliner_schema!
-  tinymce-rails (= 5.10.7)
+  tinymce-rails (= 5.10.7.1)
   turbolinks (= 5.2.1)
   twitter-typeahead-rails
   uglifier (= 4.2.0)
