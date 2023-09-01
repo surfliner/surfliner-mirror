@@ -56,10 +56,10 @@ GEM
     dry-auto_inject (1.0.1)
       dry-core (~> 1.0)
       zeitwerk (~> 2.6)
-    dry-configurable (1.0.1)
+    dry-configurable (1.1.0)
       dry-core (~> 1.0, < 2)
       zeitwerk (~> 2.6)
-    dry-core (1.0.0)
+    dry-core (1.0.1)
       concurrent-ruby (~> 1.0)
       zeitwerk (~> 2.6)
     dry-events (1.0.1)
@@ -297,7 +297,7 @@ GEM
     webrick (1.8.1)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.8)
+    zeitwerk (2.6.11)
 
 PLATFORMS
   ruby
@@ -305,7 +305,7 @@ PLATFORMS
 DEPENDENCIES
   capybara_discoball (~> 0.1.0)
   dotenv
-  dry-configurable (= 1.0.1)
+  dry-configurable (= 1.1.0)
   dry-events (= 1.0.1)
   dry-system (= 1.0.1)
   dry-transaction (= 0.15.0)
