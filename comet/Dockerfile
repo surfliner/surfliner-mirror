@@ -42,6 +42,9 @@ ARG LOCAL_PROJECT=comet
 ARG RUN_TIME_APKS='curl libpq nodejs tini tzdata zip'
 FROM $PROD_IMAGE:latest as comet-web-prod
 
+ARG DOCKER_ROOT=/home/${LOCAL_PROJECT}
+ENV DOCKER_PROJECT=${DOCKER_ROOT}/app
+
 COPY --from=ruby-build-prod --chown=$UID:$GID ${DOCKER_PROJECT}/public/assets ${DOCKER_PROJECT}/public/assets
 COPY --from=ruby-build-prod --chown=$UID:$GID ${DOCKER_PROJECT}/public/uv ${DOCKER_PROJECT}/public/uv
 COPY --from=ruby-build-prod --chown=$UID:$GID ${DOCKER_PROJECT}/vendor ${DOCKER_PROJECT}/vendor
