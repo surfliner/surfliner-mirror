@@ -23,6 +23,11 @@ module Bulkrax
       # controlled values validation
       validate_cv_values
 
+      remote_files = records.map { |record| record[:remote_files] }.compact.uniq
+      files_missing = missing_files(remote_files)
+      error_alert = "File(s) missing: #{files_missing.join(", ")}"
+      raise StandardError, error_alert if files_missing.present?
+
       file_paths.is_a?(Array)
     rescue => e
       set_status_info(e)
@@ -117,6 +122,13 @@ module Bulkrax
       end
     end
 
+    # Retrive the s3_bucket from configuration
+    def self.staging_area_s3_bucket
+      s3_bucket_name = ENV.fetch("STAGING_AREA_S3_BUCKET", "comet-staging-area-#{Rails.env}")
+      Rails.application.config.staging_area_s3_connection
+        .directories.get(s3_bucket_name)
+    end
+
     private
 
     # Validate whether cardinality meets or not
@@ -165,6 +177,18 @@ module Bulkrax
 
       source_identifier = record[:source_identifier]
       "Row #{row_num} #{source_identifier.present? ? "(" + source_identifier + ")" : ""}: #{pairs.join(" | ")}"
+    end
+
+    # Detect files that are not exists on staging area
+    # @param remote_files [Array]
+    # @result remote_files [Array]
+    def missing_files(remote_files)
+      s3_bucket = self.class.staging_area_s3_bucket
+      [].tap do |pro|
+        remote_files.each do |file|
+          pro << file if s3_bucket.files.get(file).nil?
+        end
+      end
     end
   end
 end
