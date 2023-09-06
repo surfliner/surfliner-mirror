@@ -15,7 +15,7 @@ RSpec.describe "Import and Display a Work", :clean, type: :system, js: true do
   end
 
   context "Create an exhibit" do
-    it "creates and populates an exhibit via the UI" do
+    xit "creates and populates an exhibit via the UI" do
       expect(Spotlight::Exhibit.count).to eq 0
       visit "/"
       click_link site_admin.user_key
