@@ -31,6 +31,7 @@ RSpec.describe Qa::Authorities::Schema do
 
       it "lists controlled properties as subauthorities" do
         expect(subauthority.subauthorities).to contain_exactly(
+          "controlled_test",
           "rights_statement"
         )
       end

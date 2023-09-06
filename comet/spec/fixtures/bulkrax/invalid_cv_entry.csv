@@ -1,0 +1,4 @@
+model,source_identifier,title,controlled_test
+GenericObject,w1,Lovely Title,value1,
+GenericObject,w2,Another Title,invalid value,
+GenericObject,w3,Yet Another Title,another invalid value,

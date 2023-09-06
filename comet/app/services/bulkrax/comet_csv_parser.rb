@@ -15,9 +15,13 @@ module Bulkrax
       error_alert = "Missing at least one required element, missing element(s) are: #{missing_elements(compressed_record).join(", ")}"
       raise StandardError, error_alert unless required_elements?(compressed_record)
 
+      # cardinality validation
       cardinality_errors = validate_cardinality
       error_alert = "Cardinality isn't met: #{cardinality_errors.join(", ")}"
       raise StandardError, error_alert if cardinality_errors.present?
+
+      # controlled values validation
+      validate_cv_values
 
       file_paths.is_a?(Array)
     rescue => e
@@ -35,6 +39,26 @@ module Bulkrax
         .directories.get(ENV.fetch("STAGING_AREA_S3_BUCKET", "comet-staging-area-#{Rails.env}")).files
         .create(key: path, body: File.open(file.path))
       path
+    end
+
+    # Confirm that csv entries with controlled value properties validate against the m3 controlled_values.values list
+    def validate_cv_values
+      errors = []
+      records.each_with_index do |record, i|
+        model_klass = record[:model].safe_constantize
+
+        record.compact.keys.each do |k|
+          begin
+            property = Qa::Authorities::Schema.property_authority_for(name: k, availability: model_klass.availability)
+            next if property.find(record[k]).present?
+          rescue Qa::InvalidSubAuthority => _exception
+            next
+          end
+
+          errors << "Row #{i}: Invalid controlled value for: #{k} Given: #{record[k]}"
+        end
+      end
+      raise StandardError, errors.join(", ") if errors.present?
     end
 
     # Set the following instance variables: @work_ids, @collection_ids, @file_set_ids

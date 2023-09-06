@@ -861,3 +861,36 @@ properties:
       dpla: null
     available_on:
       - generic_object
+
+  - name: "controlled_test"
+    display_label: "Controlled Vocabulary Test"
+    controlled_values:
+      values:
+        - name: value1
+          display_label: Value 1
+        - name: value2
+          display_label: Value 2
+        - name: value3
+          display_label: Value 3
+    available_on:
+      - generic_object
+    definition: null
+    usage_guidelines: null
+    requirement: null
+    sample_value:
+      - null
+    # property_uri: http://purl.org/dc/elements/1.1/format
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: null
+    index_documentation: null
+    indexing:
+      - facetable
+    validations:
+      match_regex: null
+    mapping:
+      dc-oai: null
+      dpla: null

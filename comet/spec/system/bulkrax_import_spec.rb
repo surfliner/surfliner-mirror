@@ -151,6 +151,7 @@ RSpec.describe "Bulkrax Import", :perform_enqueued, type: :system, js: true do
 
     context "import records with delimited column values" do
       let(:source_file) { Rails.root.join("spec", "fixtures", "bulkrax", "multivalue_columns.csv") }
+
       it "can successfully split a delimited column value into multiple values" do
         visit "/dashboard"
         click_on "Importers"
@@ -257,6 +258,34 @@ RSpec.describe "Bulkrax Import", :perform_enqueued, type: :system, js: true do
 
         click_link("Lovely Title", match: :first)
         expect(page).to have_content("https://www.sangis.org/legal_notice.htm")
+      end
+    end
+
+    context "with controlled vocabulary values in csv" do
+      let(:source_file) { Rails.root.join("spec", "fixtures", "bulkrax", "invalid_cv_entry.csv") }
+      it "fails to validate with values not present in m3 property controlled_values list" do
+        visit "/dashboard"
+        click_on "Importers"
+        click_on "New"
+
+        fill_in("Name", with: "importer_validate")
+
+        find(:css, "#importer_admin_set_id").find(:xpath, "option[2]").select_option
+        find(:css, "#importer_parser_klass").find("option[value='Bulkrax::CometCsvParser']").select_option
+        choose("importer_parser_fields_file_style_upload_a_file")
+        attach_file "File", source_file
+
+        click_button "Create and Validate"
+
+        expect(page).to have_content("Importer validation completed. Please review and choose to either Continue with or Discard the import.")
+
+        expect(page).to have_content("Errors:")
+
+        within("#error-trace-heading") do
+          find(".accordion-title").click
+        end
+
+        expect(page).to have_content("Error: StandardError - Row 1: Invalid controlled value for: controlled_test Given: invalid value, Row 2: Invalid controlled value for: controlled_test Given: another invalid value")
       end
     end
   end
