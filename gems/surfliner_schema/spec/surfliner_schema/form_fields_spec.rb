@@ -11,59 +11,61 @@ RSpec.describe SurflinerSchema do
       form_class
     }
 
-    let(:reader) do
-      reader = instance_double("SurflinerSchema::Reader")
-      allow(reader).to receive(:resource_classes).and_return({
-        my_availability: SurflinerSchema::ResourceClass.new(
-          name: :my_availability,
-          display_label: "My Availability"
-        )
-      })
-      allow(reader).to receive(:properties).with(availability: :my_availability).and_return({
-        primary_field: SurflinerSchema::Property.new(
-          name: :primary_field,
-          display_label: "Primary Field",
-          available_on: :my_availability,
-          cardinality_class: :exactly_one
-        ),
-        secondary_field: SurflinerSchema::Property.new(
-          name: :secondary_field,
-          display_label: "Secondary Field",
-          available_on: :my_availability,
-          cardinality_class: :zero_or_more
-        )
-      })
-      reader
-    end
+    let(:reader_class) do
+      Class.new(SurflinerSchema::Reader) do
+        def resource_classes
+          {
+            my_availability: SurflinerSchema::ResourceClass.new(
+              name: :my_availability,
+              display_label: "My Availability"
+            )
+          }
+        end
 
-    let(:loader) do
-      loader = SurflinerSchema::Loader.new([])
-      loader.instance_variable_set(:@readers, [reader])
-      allow(loader).to receive(:form_definitions_for) do |class_name|
-        reader.properties(availability: class_name).transform_values do |prop|
-          SurflinerSchema::FormDefinition.new(
-            property: prop,
-            primary: prop.name == :primary_field
-          )
+        def properties(availability:)
+          {
+            primary_field: SurflinerSchema::Property.new(
+              name: :primary_field,
+              display_label: "Primary Field",
+              available_on: :my_availability,
+              cardinality_class: :exactly_one
+            ),
+            secondary_field: SurflinerSchema::Property.new(
+              name: :secondary_field,
+              display_label: "Secondary Field",
+              available_on: :my_availability,
+              cardinality_class: :zero_or_more
+            )
+          }
+        end
+
+        def form_definitions(availability:)
+          properties(availability: availability).transform_values do |prop|
+            SurflinerSchema::FormDefinition.new(
+              property: prop,
+              primary: prop.name == :primary_field
+            )
+          end
         end
       end
-      loader
     end
+    let(:reader) { reader_class.new }
+    let(:model_class) { reader.resolve(:my_availability) }
 
     it "builds a form fields module" do
-      expect(described_class.FormFields(:my_availability, loader: loader))
+      expect(described_class.FormFields(model_class))
         .to be_a described_class::FormFields
     end
 
     it "adds a :form_definition method when included" do
-      expect { form_class.include(described_class.FormFields(:my_availability, loader: loader)) }
+      expect { form_class.include(described_class.FormFields(model_class)) }
         .to change { form_class.public_methods }
         .to include :form_definition
     end
 
     describe "when included" do
       before do
-        form_class.include(described_class.FormFields(:my_availability, loader: loader))
+        form_class.include(described_class.FormFields(model_class))
       end
 
       it "defines properties" do
@@ -115,9 +117,12 @@ end
 
 RSpec.describe SurflinerSchema::FormFields do
   subject(:fields_module) {
-    loader = double
-    allow(loader).to receive(:form_definitions_for).with(any_args) { {} }
-    SurflinerSchema::FormFields.new(:my_availability, loader: loader)
+    model_class = double
+    reader = double
+    allow(model_class).to receive(:availability).and_return(:my_availability)
+    allow(model_class).to receive(:reader).and_return reader
+    allow(reader).to receive(:form_definitions).with(any_args) { {} }
+    SurflinerSchema::FormFields.new(model_class)
   }
 
   describe "#inspect" do

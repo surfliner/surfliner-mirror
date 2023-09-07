@@ -33,8 +33,8 @@ module SurflinerSchema
   #   class MonographForm < Reform::Form
   #     include SurflinerSchema::FormFields(:book, loader: MySchemaLoader.new)
   #   end
-  def self.FormFields(availability, **options)
-    SurflinerSchema::FormFields.new(availability, **options)
+  def self.FormFields(model_class)
+    SurflinerSchema::FormFields.new(model_class)
   end
 
   ##
@@ -48,15 +48,16 @@ module SurflinerSchema
   #
   # @see .FormFields
   class FormFields < Module
-    attr_reader :availability, :definitions, :loader
+    attr_reader :model_class, :availability, :reader, :definitions
 
     ##
     # @param availability [Symbol]
     # @param loader [#properties_for]
-    def initialize(availability, loader:)
-      @availability = availability
-      @definitions = loader.form_definitions_for(availability)
-      @loader = loader
+    def initialize(model_class)
+      @model_class = model_class
+      @availability = model_class.availability
+      @reader = model_class.reader
+      @definitions = @reader.form_definitions(availability: @availability)
     end
 
     ##
@@ -71,7 +72,8 @@ module SurflinerSchema
       super
       descendant.instance_variable_set(:@form_definitions, definitions)
       descendant.instance_variable_set(:@schema_availability, availability)
-      descendant.instance_variable_set(:@schema_loader, loader)
+      descendant.instance_variable_set(:@schema_reader, reader)
+      descendant.instance_variable_set(:@schema_model, model_class)
 
       class << descendant
         ##
@@ -90,7 +92,7 @@ module SurflinerSchema
         #
         # @return [SurflinerSchema::Division]
         def primary_division
-          @primary_division ||= @schema_loader.class_division_for(@schema_availability) do |property|
+          @primary_division ||= @schema_reader.class_division(availability: @schema_availability) do |property|
             @form_definitions[property.name].primary?
           end
         end
@@ -101,14 +103,20 @@ module SurflinerSchema
         #
         # @return [SurflinerSchema::Division]
         def secondary_division
-          @secondary_division ||= @schema_loader.class_division_for(@schema_availability) do |property|
+          @secondary_division ||= @schema_reader.class_division(availability: @schema_availability) do |property|
             !@form_definitions[property.name].primary?
           end
         end
       end
 
       definitions.each do |property_name, definition|
-        descendant.property property_name, **definition.form_options
+        if definition.range != RDF::RDFS.Literal
+          # The definition points to a nested Valkyrie object.
+          # TODO
+        else
+          # The definition points to a literal.
+          descendant.property property_name, **definition.form_options
+        end
         descendant.validates(property_name, presence: true) if definition.required?
       end
     end

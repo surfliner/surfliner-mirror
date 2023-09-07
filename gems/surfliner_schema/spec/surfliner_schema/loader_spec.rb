@@ -164,38 +164,6 @@ describe SurflinerSchema::Loader do
         :collection, :unsupported_range_model, :Image
     end
 
-    describe "#class_division_for" do
-      it "contains only the properties for the class" do
-        div = loader.class_division_for(:generic_object)
-        expect(div.properties).to eq loader.properties_for(:generic_object).values
-      end
-
-      it "correctly generates subdivisions" do
-        div = loader.class_division_for(:generic_object)
-        expect(div.to_a.map(&:name)).to eq [:my_metadata]
-        section = div.first
-        expect(section).to be_a SurflinerSchema::Division
-        expect(section.kind).to eq :section
-        expect(section.to_a.map(&:name)).to eq [:title, :date]
-        grouping = section.drop(1).first
-        expect(grouping).to be_a SurflinerSchema::Division
-        expect(grouping.kind).to eq :grouping
-        expect(grouping.to_a.map(&:name)).to eq [:date_uploaded, :date_modified]
-      end
-
-      it "filters properties when provided with a block" do
-        div = loader.class_division_for(:generic_object) do |property|
-          property.name == :title
-        end
-        expect(div.to_a.map(&:name)).to eq [:my_metadata]
-        section = div.first
-        expect(section).to be_a SurflinerSchema::Division
-        expect(section.kind).to eq :section
-        expect(section.to_a.size).to eq 1
-        expect(section.to_a.map(&:name)).to eq [:title]
-      end
-    end
-
     describe "#resource_class_resolver" do
       after do
         if Object.const_defined?(:GenericObject)

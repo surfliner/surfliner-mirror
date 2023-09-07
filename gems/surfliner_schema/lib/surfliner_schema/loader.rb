@@ -35,24 +35,7 @@ module SurflinerSchema
     #
     # @return [Array<Symbol>]
     def availabilities
-      class_divisions.keys
-    end
-
-    ##
-    # A SurflinerSchema::Division listing the sections, groupings, and
-    # properties with the provided availability.
-    #
-    # If a block is provided, it is used to filter the resultant properties.
-    # Otherwise, every property will be included.
-    #
-    # @param availability [Symbol]
-    # @return [SurflinerSchema::Division]
-    def class_division_for(availability, &block)
-      if block
-        filtered_class_division(availability, &block)
-      else
-        class_divisions[availability]
-      end
+      @readers.flat_map(&:availabilities)
     end
 
     ##
@@ -146,42 +129,6 @@ module SurflinerSchema
     end
 
     private
-
-    ##
-    # A hash mapping M3 conceptual “class” names to SurflinerSchema::Divisions
-    # which wrap the corresponding definition and contain the associated
-    # properties.
-    #
-    # @return [{Symbol => SurflinerSchema::Division}]
-    def class_divisions
-      @class_divisions ||= @readers.each_with_object({}) do |reader, divs|
-        reader.resource_classes.keys.each do |name|
-          # If multiple readers define a class, only the first definition is
-          # used to generate divisions.
-          divs[name] ||= filtered_class_division(name)
-        end
-      end
-    end
-
-    ##
-    # A +SurflinerSchema::Division+ which contains all the properties which
-    # match the provided block for the given availability.
-    #
-    # If no block is given, every property is matched.
-    #
-    # @param availability [Symbol]
-    # @return [SurflinerSchema::Division]
-    def filtered_class_division(availability)
-      reader = @readers.find { |reader|
-        # Divisions can only support one schema per class; take the first.
-        reader.resource_classes.key?(availability)
-      }
-      div = Division.new(name: availability, kind: :class, reader: reader)
-      reader.properties(availability: availability).values.each do |property|
-        div << property if !block_given? || yield(property)
-      end
-      div
-    end
 
     ##
     # The configuration for the requested schema.

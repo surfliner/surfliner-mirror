@@ -46,6 +46,14 @@ module SurflinerSchema
     end
 
     ##
+    # An array of availabilities present on this reader.
+    #
+    # @return [Array<Symbol>]
+    def availabilities
+      resource_classes.keys
+    end
+
+    ##
     # A hash mapping conceptual resource “class” names to their definitions.
     #
     # @return [{Symbol => SurflinerSchema::ResourceClass}]
@@ -121,6 +129,23 @@ module SurflinerSchema
         availability: availability
       ).each_with_object({}) do |(_name, prop), hash|
         prop.indices.each { |key| hash[key] = prop }
+      end
+    end
+
+    ##
+    # A SurflinerSchema::Division listing the sections, groupings, and
+    # properties with the provided availability.
+    #
+    # If a block is provided, it is used to filter the resultant properties.
+    # Otherwise, every property will be included.
+    #
+    # @param availability [Symbol]
+    # @return [SurflinerSchema::Division]
+    def class_division(availability:, &block)
+      if block
+        filtered_class_division(availability, &block)
+      else
+        class_divisions[availability]
       end
     end
 
@@ -294,6 +319,34 @@ module SurflinerSchema
           end
         }
       )
+    end
+
+    ##
+    # A hash mapping M3 conceptual “class” names to SurflinerSchema::Divisions
+    # which wrap the corresponding definition and contain the associated
+    # properties.
+    #
+    # @return [{Symbol => SurflinerSchema::Division}]
+    def class_divisions
+      @class_divisions ||= resource_classes.keys.each_with_object({}) do |name, divs|
+        divs[name] ||= filtered_class_division(name)
+      end
+    end
+
+    ##
+    # A +SurflinerSchema::Division+ which contains all the properties which
+    # match the provided block for the given availability.
+    #
+    # If no block is given, every property is matched.
+    #
+    # @param availability [Symbol]
+    # @return [SurflinerSchema::Division]
+    def filtered_class_division(availability)
+      div = Division.new(name: availability, kind: :class, reader: self)
+      properties(availability: availability).values.each do |property|
+        div << property if !block_given? || yield(property)
+      end
+      div
     end
 
     public
