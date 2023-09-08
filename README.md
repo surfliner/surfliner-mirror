@@ -203,12 +203,12 @@ Every other Monday, 1:00-2:00pm<br/>
 
 #### Shoreline Sprint Team
 **Backlog Refinement**<br/>
-Every other Friday, 11:00am-12:00pm<br/>
-[https://ucsd.zoom.us/j/98011540957](https://ucsd.zoom.us/j/98011540957)<br/>
+TBD<br/>
+[https://ucsd.zoom.us/j/91223719189](https://ucsd.zoom.us/j/91223719189)<br/>
 
 **Sprint Planning**<br/>
-Every other Monday, 1:00-2:00pm<br/>
-[https://ucsd.zoom.us/j/98011540957](https://ucsd.zoom.us/j/98011540957)<br/>
+TBD<br/>
+[https://ucsd.zoom.us/j/91223719189](https://ucsd.zoom.us/j/91223719189)<br/>
 
 # Communication Channels
 - **Blog**: [https://surfliner.ucsd.edu](https://surfliner.ucsd.edu)
