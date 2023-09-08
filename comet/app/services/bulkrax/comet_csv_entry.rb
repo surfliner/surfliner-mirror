@@ -29,6 +29,18 @@ module Bulkrax
       @hyrax_record ||= Hyrax.query_service.find_by(id: identifier)
     end
 
+    # parse raw metadata for cardinality validation
+    # @param datum [Hash]
+    # @return [Hash]
+    def parse_raw_metadata(datum)
+      self.parsed_metadata = {}
+
+      datum.each do |key, value|
+        add_parsed_metadata(key_without_numbers(key.to_s), value) unless key.nil?
+      end
+      parsed_metadata
+    end
+
     # Metadata required by Bulkrax for round-tripping
     def build_system_metadata
       parsed_metadata["id"] = hyrax_record.id.to_s
@@ -116,6 +128,15 @@ module Bulkrax
 
     def map_file_sets(file_sets)
       file_sets.map { |fs| Hyrax::FileSetFileService.new(file_set: fs)&.original_file&.original_filename }.compact
+    end
+
+    def add_parsed_metadata(node_name, node_content)
+      field_to(node_name).each do |name|
+        value = multiple_metadata(node_content)
+
+        parsed_metadata[name] ||= []
+        parsed_metadata[name] += Array.wrap(value).flatten
+      end
     end
   end
 end

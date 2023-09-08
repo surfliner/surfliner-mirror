@@ -9,6 +9,22 @@ module Bulkrax
     end
     alias_method :work_entry_class, :entry_class
 
+    # @Override with additional validations
+    def valid_import?
+      compressed_record = records.flat_map(&:to_a).partition { |_, v| !v }.flatten(1).to_h
+      error_alert = "Missing at least one required element, missing element(s) are: #{missing_elements(compressed_record).join(", ")}"
+      raise StandardError, error_alert unless required_elements?(compressed_record)
+
+      cardinality_errors = validate_cardinality
+      error_alert = "Cardinality isn't met: #{cardinality_errors.join(", ")}"
+      raise StandardError, error_alert if cardinality_errors.present?
+
+      file_paths.is_a?(Array)
+    rescue => e
+      set_status_info(e)
+      false
+    end
+
     # @Override Write CSV file to S3/Minio
     # @param file [#path, #original_filename] the file object that with the relevant data for the
     #        import.
@@ -75,6 +91,56 @@ module Bulkrax
           f.close
         end
       end
+    end
+
+    private
+
+    # Validate whether cardinality meets or not
+    # @return Array[Hash]
+    def validate_cardinality
+      csv_entry = entry_class.new(importerexporter_id: importerexporter.id,
+        importerexporter_type: "Bulkrax::Importer")
+
+      works.map do |record|
+        model_class = record[:model]&.constantize
+        definitions = Bulkrax::ValkyrieObjectFactory.schema_definitions(model_class)
+
+        csv_entry
+          .parse_raw_metadata(record.to_h)
+          .each_with_object({}) do |(key, value), h|
+          cardinality_class = definitions[key&.to_sym]&.cardinality_class
+          next unless [:one_or_more, :exactly_one, :zero_or_one].include?(cardinality_class)
+
+          case cardinality_class
+          when :one_or_more
+            h[key] = ":one_or_more (got #{value})" unless value.present?
+          when :exactly_one
+            h[key] = ":exactly_one (got #{value})" if value.blank? || Array.wrap(value).length > 1
+          when :zero_or_one
+            h[key] = ":zero_or_one (got #{value})" if Array.wrap(value).length > 1
+          end
+        end
+      end
+        .each_with_index
+        .map { |m, i| cardinality_error(m, records[i], i + 2) }
+        .compact
+    end
+
+    # Build error report for cardinality validation
+    # @param violations [Hash]
+    # @param record [Hash]
+    # @param row_num [Integer]
+    # @return [String]
+    def cardinality_error(violations, record, row_num)
+      return unless violations.present?
+
+      pairs = []
+      violations.each do |key, value|
+        pairs << "#{key} => #{value}"
+      end
+
+      source_identifier = record[:source_identifier]
+      "Row #{row_num} #{source_identifier.present? ? "(" + source_identifier + ")" : ""}: #{pairs.join(" | ")}"
     end
   end
 end

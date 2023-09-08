@@ -7,14 +7,22 @@ module Bulkrax
     # @param klass the model
     # return Array<string>
     def self.schema_properties(klass)
-      @schema_properties_map ||= {}
+      schema_definitions(klass).values.map { |pro| pro.name.to_s }
+    end
+
+    ##
+    # Retrieve schema definitions for M3 model
+    # @param klass the model
+    # return Hash
+    def self.schema_definitions(klass)
+      @schema_definitions_map ||= {}
 
       klass_key = klass.name
-      unless @schema_properties_map.has_key?(klass_key)
-        @schema_properties_map[klass_key] = ::SchemaLoader.new.properties_for(klass.name.underscore.to_sym).values.map { |pro| pro.name.to_s }
+      unless @schema_definitions_map.has_key?(klass_key)
+        @schema_definitions_map[klass_key] = ::SchemaLoader.new.properties_for(klass.name.underscore.to_sym)
       end
 
-      @schema_properties_map[klass_key]
+      @schema_definitions_map[klass_key]
     end
 
     def run!
