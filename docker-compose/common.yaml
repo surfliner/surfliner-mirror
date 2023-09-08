@@ -29,7 +29,7 @@ services:
       - '11211:11211'
 
   minio:
-    image: bitnami/minio:2023.7.18-debian-11-r2
+    image: bitnami/minio:2023.9.4-debian-11-r1
     ports:
       - '9001:9001'
       - '9000:9000'
