@@ -23,8 +23,7 @@ module Bulkrax
       # controlled values validation
       validate_cv_values
 
-      remote_files = records.map { |record| record[:remote_files] }.compact.uniq
-      files_missing = missing_files(remote_files)
+      files_missing = missing_files
       error_alert = "File(s) missing: #{files_missing.join(", ")}"
       raise StandardError, error_alert if files_missing.present?
 
@@ -180,9 +179,17 @@ module Bulkrax
     end
 
     # Detect files that are not exists on staging area
-    # @param remote_files [Array]
     # @result remote_files [Array]
-    def missing_files(remote_files)
+    def missing_files
+      remote_files = []
+      records.map do |record|
+        ["remote_files", "use:PreservationFile", "use:ServiceFile"].each do |key|
+          remote_files << record[key.to_sym] unless record[key.to_sym].blank?
+        end
+      end
+
+      return [] unless remote_files.present?
+
       s3_bucket = self.class.staging_area_s3_bucket
       [].tap do |pro|
         remote_files.each do |file|
