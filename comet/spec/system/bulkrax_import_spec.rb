@@ -231,6 +231,45 @@ RSpec.describe "Bulkrax Import", :perform_enqueued, type: :system, js: true do
       end
     end
 
+    context "with missing files" do
+      let(:fog_connection) { mock_fog_connection }
+      let(:s3_bucket) { ENV.fetch("STAGING_AREA_S3_BUCKET", "comet-staging-area-#{Rails.env}") }
+      let(:file) { Tempfile.new("image.jpg").tap { |f| f.write("An image!") } }
+      let(:s3_key) { "demo_files/image.jpg" }
+      let(:source_file) { Rails.root.join("spec", "fixtures", "bulkrax", "missing-files.csv") }
+
+      let(:error_message) { "StandardError - File(s) missing: Row 3 (w2) => demo_files/missing-image.jpg" }
+
+      before do
+        Rails.application.config.staging_area_s3_connection = fog_connection
+        staging_area_upload(fog_connection: fog_connection,
+          bucket: s3_bucket, s3_key: s3_key, source_file: file)
+      end
+
+      it "failed with validation" do
+        visit "/dashboard"
+        click_on "Importers"
+        click_on "New"
+
+        fill_in("Name", with: "importer_multivalue_columns")
+
+        find(:css, "#importer_admin_set_id").find(:xpath, "option[2]").select_option
+        find(:css, "#importer_parser_klass").find("option[value='Bulkrax::CometCsvParser']").select_option
+        choose("importer_parser_fields_file_style_upload_a_file")
+        attach_file "File", source_file
+
+        click_button "Create and Validate"
+
+        expect(page).to have_content("Importer validation completed. Please review and choose to either Continue with or Discard the import.")
+
+        within("#error-trace-heading") do
+          find(:css, ".accordion-title").click
+        end
+
+        expect(page).to have_content(error_message)
+      end
+    end
+
     context "import records with url value in Note field" do
       let(:source_file) { Rails.root.join("spec", "fixtures", "bulkrax", "generic_objects.csv") }
 

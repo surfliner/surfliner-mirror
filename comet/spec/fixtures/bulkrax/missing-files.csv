@@ -1,0 +1,3 @@
+model,source_identifier,title,parents_column,remote_files
+GenericObject,w1,Lovely Title,,demo_files/demo.jpg
+GenericObject,w2,Another Title,,demo_files/missing-image.jpg
