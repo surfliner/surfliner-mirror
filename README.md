@@ -10,6 +10,7 @@
   * [Starlight](#starlight)
   * [Superskunk](#superskunk)
   * [Tidewater](#tidewater)
+* [Architecture](#architectue)
 * [Product Deployments](#product-deployments)
   * [UCSB](#ucsb)
   * [UCSD](#ucsd)
@@ -77,6 +78,10 @@ Tidewater is an OAI-PMH endpoint that uses configurable metadata.
 _Tidewater was named after the Tidewater Southern Railway which was a short line railroad in Central California that ran from 1910 to 1987._
 
 Product Owner: TBD | Tech Lead: TBD
+
+## Architecture
+
+![Surfliner Architecture](https://lucid.app/publicSegments/view/61e9e42f-58f6-44ca-8c4d-d03504dbbbe8/image.png) 
 
 ## Product Deployments
 
