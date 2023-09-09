@@ -5,7 +5,7 @@ gem "debug", "1.8.0", platforms: %i[mri mingw x64_mingw], group: %(development t
 gem "hyrax-acl",
   git: "https://github.com/samvera-labs/hyrax-acl.git"
 gem "okcomputer", "1.18.4"
-gem "pg", "1.5.3"
+gem "pg", "1.5.4"
 gem "puma", "6.3.1"
 gem "rack-test", group: "test"
 gem "rails", "7.0.6"
