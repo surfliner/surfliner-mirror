@@ -470,7 +470,7 @@ GEM
     responders (3.1.0)
       actionpack (>= 5.2)
       railties (>= 5.2)
-    rexml (3.2.5)
+    rexml (3.2.6)
     roar (1.2.0)
       representable (~> 3.1)
     roar-rails (1.2.0)
@@ -608,7 +608,7 @@ GEM
       method_source (~> 1.0)
     warden (1.2.9)
       rack (>= 2.0.9)
-    webmock (3.18.1)
+    webmock (3.19.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
@@ -673,7 +673,7 @@ DEPENDENCIES
   standard (= 1.28.3)
   uglifier (= 4.2.0)
   view_component (< 2.82.1)
-  webmock (= 3.18.1)
+  webmock (= 3.19.1)
 
 BUNDLED WITH
    2.4.10
