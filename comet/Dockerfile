@@ -69,7 +69,6 @@ RUN apk --no-cache add \
   mediainfo \
   openjdk11-jre \
   perl
-USER 1001
 
 # renovate: datasource=github-releases depName=harvard-lts/fits
 ARG FITS_VERSION=1.6.0
@@ -81,6 +80,8 @@ RUN mkdir -p /app/fits && \
     chmod a+x /app/fits/fits.sh
 ENV PATH="${PATH}:/app/fits"
 ENV MALLOC_ARENA_MAX=2
+
+USER 1001
 
 CMD ["bundle", "exec", "sidekiq"]
 
