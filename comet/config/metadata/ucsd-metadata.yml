@@ -13,7 +13,7 @@ m3_version: "1.0.beta1"
 profile:
   responsibility: https://library.ucsd.edu
   responsibility_statement: UC San Diego Library
-  date_modified: "2023-05-22"
+  date_modified: "2023-09-11"
   type: UCSD Comet Test
   version: 0.5
   additional_metadata:
