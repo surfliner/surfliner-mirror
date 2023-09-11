@@ -19,7 +19,7 @@ comet:deploy:ucsd-review:
     name: ucsd.comet.review/$CI_MERGE_REQUEST_ID
     url: http://comet-$CI_MERGE_REQUEST_ID.$UCSD_REVIEW_DOMAIN
     on_stop: comet:cleanup:ucsd-review
-    auto_stop_in: 1 week
+    auto_stop_in: 1 day
   tags:
     - ucsd
   variables:
