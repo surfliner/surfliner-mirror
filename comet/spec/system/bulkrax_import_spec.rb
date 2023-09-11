@@ -166,5 +166,35 @@ RSpec.describe "Bulkrax Import", :perform_enqueued, type: :system, js: true do
         expect(page).to have_content("[\"Creator 2\", \"Creator 3\"]")
       end
     end
+
+    context "cardinality validation" do
+      let(:source_file) { Rails.root.join("spec", "fixtures", "bulkrax", "cardinality-test.csv") }
+      let(:error_message) do
+        "StandardError - Cardinality isn't met: Row 2 (w1): cardinality_test => :zero_or_one (got [\"Cardinality-1\", \"Cardinality-2\"])"
+      end
+
+      it "failed with validation" do
+        visit "/dashboard"
+        click_on "Importers"
+        click_on "New"
+
+        fill_in("Name", with: "importer_multivalue_columns")
+
+        find(:css, "#importer_admin_set_id").find(:xpath, "option[2]").select_option
+        find(:css, "#importer_parser_klass").find("option[value='Bulkrax::CometCsvParser']").select_option
+        choose("importer_parser_fields_file_style_upload_a_file")
+        attach_file "File", source_file
+
+        click_button "Create and Validate"
+
+        expect(page).to have_content("Importer validation completed. Please review and choose to either Continue with or Discard the import.")
+
+        within("#error-trace-heading") do
+          find(:css, ".accordion-title").click
+        end
+
+        expect(page).to have_content(error_message)
+      end
+    end
   end
 end

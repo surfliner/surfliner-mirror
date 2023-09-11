@@ -1,0 +1,3 @@
+model,source_identifier,title,parents_column,cardinality_test
+GenericObject,w1,Lovely Title,,Cardinality-1 | Cardinality-2
+GenericObject,w2,Another Title,,Cardinality-1

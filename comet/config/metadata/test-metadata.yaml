@@ -833,3 +833,31 @@ properties:
     mapping:
       gbl-1: null
       aardvark: https://opengeometadata.org/ogm-aardvark/#bounding-box
+
+  - &cardinality_test
+    name: "cardinality_test"
+    display_label: "Cardinality Test"
+    definition: null
+    usage_guidelines: null
+    requirement: null
+    controlled_values: null
+    sample_value:
+      - null
+    # property_uri: http://purl.org/dc/elements/1.1/format
+    available_on: null
+    range: http://www.w3.org/2000/01/rdf-schema#Literal
+    data_type: http://www.w3.org/2001/XMLSchema#string
+    syntax:  null
+    cardinality:
+      minimum: 0
+      maximum: 1
+    index_documentation: null
+    indexing:
+      - facetable
+    validations:
+      match_regex: null
+    mapping:
+      dc-oai: null
+      dpla: null
+    available_on:
+      - generic_object
