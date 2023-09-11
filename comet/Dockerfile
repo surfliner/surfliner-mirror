@@ -91,6 +91,8 @@ ARG LOCAL_PROJECT=comet
 ARG DOCKER_ROOT=/home/${LOCAL_PROJECT}
 ARG DOCKER_PROJECT=${DOCKER_ROOT}/app
 
+USER 1001
+
 RUN bundle install --jobs "$(nproc)"
 
 COPY scripts/docker/*.sh ${DOCKER_PROJECT}/
