@@ -128,7 +128,7 @@ properties:
     data_type: http://www.w3.org/2001/XMLSchema#string
     display_label: "Alternative Title"
     definition: "An alternative title for the resource."
-    # sample_value: "Rambird, 1986"
+    sample_value: "Rambird, 1986"
     cardinality:
       minimum: 0
       maximum: null
