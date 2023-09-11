@@ -69,7 +69,7 @@ RUN apk --no-cache add \
   mediainfo \
   openjdk11-jre \
   perl
-USER app
+USER 1001
 
 # renovate: datasource=github-releases depName=harvard-lts/fits
 ARG FITS_VERSION=1.6.0
