@@ -30,6 +30,7 @@ starlight:test:solrconfig:
       - starlight-solr-config.tar.gz
   tags:
     - kubernetes
+    - test
 
 .starlight:test:
   image: $CI_REGISTRY_IMAGE/starlight_test:$CI_COMMIT_SHA
@@ -72,6 +73,7 @@ starlight:test:solrconfig:
     - SKIP_TRANSLATION=yes db-wait.sh "${POSTGRESQL_HOST}:5432" bundle exec rake db:migrate
   tags:
     - kubernetes
+    - test
 
 starlight:test:system:
   extends: .starlight:test

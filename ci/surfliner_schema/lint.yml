@@ -8,3 +8,5 @@ surfliner_schema:lint:
     - bundle exec standardrb
   rules:
     - !reference [.surfliner-schema-templates, rules]
+  tags:
+    - lint

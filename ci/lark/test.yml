@@ -16,6 +16,7 @@ lark:test:solrconfig:
       - lark-solr-config.tar.gz
   tags:
     - kubernetes
+    - test
 
 lark:api:test:unit:
   stage: test
@@ -50,6 +51,7 @@ lark:api:test:unit:
     - .only-lark-api-changes
   tags:
     - kubernetes
+    - test
 
 lark:client:test:unit:
   stage: test
@@ -67,6 +69,8 @@ lark:client:test:unit:
       - .gitlab-ci.yml
       - ci/lark/**/*
       - lark-client/**/*
+  tags:
+    - test
 
 lark:ui:test:unit:
   stage: test
@@ -85,6 +89,8 @@ lark:ui:test:unit:
       - .gitlab-ci.yml
       - ci/lark/**/*
       - lark-ui/**/*
+  tags:
+    - test
 
 lark:client:test:integration:
   stage: integration
@@ -97,3 +103,5 @@ lark:client:test:integration:
   extends:
     - .only-refs-default
     - .only-lark-changes
+  tags:
+    - test

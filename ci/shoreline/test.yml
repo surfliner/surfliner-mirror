@@ -16,6 +16,7 @@ shoreline:test:solrconfig:
       - shoreline-solr-config.tar.gz
   tags:
     - kubernetes
+    - test
 
 .shoreline:test:
   stage: test
@@ -63,6 +64,7 @@ shoreline:test:solrconfig:
     - .only-shoreline-changes
   tags:
     - kubernetes
+    - test
 
 shoreline:test:unit:
   extends: .shoreline:test

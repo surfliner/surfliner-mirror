@@ -12,3 +12,5 @@ superskunk:lint:
         - .styles/**/*
         - superskunk/**/*
         - ci/superskunk/**/*
+  tags:
+    - lint

@@ -8,3 +8,5 @@ surfliner_schema:test:
     - bundle exec rspec
   rules:
     - !reference [.surfliner-schema-templates, rules]
+  tags:
+    - test

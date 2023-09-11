@@ -11,3 +11,5 @@ lint-renovate:
   only:
     changes:
       - renovate.json
+  tags:
+    - lint

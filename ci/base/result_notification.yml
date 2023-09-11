@@ -8,6 +8,8 @@ notify-slack-failure:
   when: on_failure
   only:
     - trunk
+  tags:
+    - notify
 
 notify-slack-success:
   image: alpine:3.16
@@ -19,3 +21,5 @@ notify-slack-success:
   when: on_success
   only:
     - trunk
+  tags:
+    - notify

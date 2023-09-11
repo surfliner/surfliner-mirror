@@ -11,6 +11,8 @@ comet-shellcheck:
         - .gitlab-ci.yml
         - .styles/**/*
         - comet/**/*
+  tags:
+    - lint
 
 comet-lint:
   stage: lint
@@ -26,3 +28,5 @@ comet-lint:
         - .styles/**/*
         - comet/**/*
         - ci/comet/**/*
+  tags:
+    - lint

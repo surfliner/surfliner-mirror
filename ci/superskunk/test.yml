@@ -29,3 +29,4 @@ superskunk:test:
     - !reference [ .superskunk-default-branch-rules, rules ]
   tags:
     - kubernetes
+    - test

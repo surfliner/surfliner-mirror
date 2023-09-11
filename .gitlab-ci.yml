@@ -64,6 +64,8 @@ include:
     entrypoint: [""]
   before_script:
     - *build_helpers
+  tags:
+    - build
 
 # Default only -> refs settings for all jobs
 # see: https://docs.gitlab.com/ee/ci/yaml/#onlyrefsexceptrefs
@@ -230,3 +232,5 @@ include:
     - *helm3_deploy_helpers
     - setup_kube_config
     - setup_helm_values_file
+  tags:
+    - deploy

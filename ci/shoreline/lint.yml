@@ -11,6 +11,8 @@ shoreline:shellcheck:
       - ci/shoreline.yml
       - ci/shoreline/**/*
       - shoreline/**/*
+  tags:
+    - lint
 
 shoreline:lint:
   stage: lint
@@ -25,3 +27,5 @@ shoreline:lint:
       - .gitlab-ci.yml
       - .styles/**/*
       - shoreline/**/*
+  tags:
+    - lint

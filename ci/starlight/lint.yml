@@ -11,6 +11,8 @@ starlight-shellcheck:
         - .gitlab-ci.yml
         - .styles/**/*
         - starlight/**/*
+  tags:
+    - lint
 
 starlight-lint:
   stage: lint
@@ -26,3 +28,5 @@ starlight-lint:
         - .styles/**/*
         - starlight/**/*
         - ci/starlight/**/*
+  tags:
+    - lint

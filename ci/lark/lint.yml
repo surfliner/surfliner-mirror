@@ -8,6 +8,8 @@ lark-shellcheck:
     - .only-refs-default
     - .only-lark-changes
   needs: []
+  tags:
+    - lint
 
 lark-lint:
   stage: lint
@@ -29,6 +31,8 @@ lark-lint:
       - charts/lark/**/*
       - lark/**/*
       - .styles/**/*
+  tags:
+    - lint
 
 lark-client-lint:
   stage: lint
@@ -43,7 +47,6 @@ lark-client-lint:
     - .only-refs-default
     - .only-lark-cli-changes
   needs: []
-
   only:
     changes:
       - .gitlab-ci.yml
@@ -52,3 +55,5 @@ lark-client-lint:
       - charts/lark/**/*
       - lark-client/**/*
       - .styles/**/*
+  tags:
+    - lint
