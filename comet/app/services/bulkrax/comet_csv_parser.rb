@@ -181,21 +181,23 @@ module Bulkrax
     # Detect files that are not exists on staging area
     # @result remote_files [Array]
     def missing_files
-      remote_files = []
-      records.map do |record|
-        ["remote_files", "use:PreservationFile", "use:ServiceFile"].each do |key|
-          remote_files << record[key.to_sym] unless record[key.to_sym].blank?
-        end
-      end
-
-      return [] unless remote_files.present?
-
       s3_bucket = self.class.staging_area_s3_bucket
-      [].tap do |pro|
-        remote_files.each do |file|
-          pro << file if s3_bucket.files.get(file).nil?
+
+      records.each_with_index.map do |record, index|
+        remote_files = []
+        ["remote_files", "use:PreservationFile", "use:ServiceFile"].each do |key|
+          file = record[key.to_sym]
+          next if file.blank?
+
+          remote_files << file if s3_bucket.files.head(file).nil?
         end
+
+        next unless remote_files.compact.present?
+
+        source_identifier = record[:source_identifier]
+        "Row #{index + 2}#{source_identifier.present? ? " (" + source_identifier + ")" : ""} => #{remote_files.join(" | ")}"
       end
+        .compact
     end
   end
 end
