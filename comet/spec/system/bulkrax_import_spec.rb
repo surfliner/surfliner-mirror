@@ -41,6 +41,40 @@ RSpec.describe "Bulkrax Import", :perform_enqueued, type: :system, js: true do
       expect(page).to have_content("Lovely Title")
     end
 
+    context "sort by last run" do
+      let(:source_file) { Rails.root.join("spec", "fixtures", "bulkrax", "generic_objects.csv") }
+
+      before do
+        ["Importer-1", "Importer-2", "Importer-3"].each do |importer|
+          visit "/dashboard"
+          click_on "Importers"
+          click_on "New"
+
+          fill_in("Name", with: importer)
+
+          find(:css, "#importer_admin_set_id").find(:xpath, "option[2]").select_option
+          find(:css, "#importer_parser_klass").find("option[value='Bulkrax::CometCsvParser']").select_option
+          choose("importer_parser_fields_file_style_upload_a_file")
+          attach_file "File", source_file
+
+          click_button "Create and Validate"
+
+          expect(page).to have_content("Importer validation completed.")
+        end
+      end
+
+      it "listed importers in order while sorting" do
+        visit "/dashboard"
+        click_on "Importers"
+
+        find(:xpath, "//th[@aria-label='Last Run: activate to sort column ascending']").click
+        expect(page.body).to match(/Importer-1.*Importer-2.*Importer-3/m)
+
+        find(:xpath, "//th[@aria-label='Last Run: activate to sort column descending']").click
+        expect(page.body).to match(/Importer-3.*Importer-2.*Importer-1/m)
+      end
+    end
+
     context "import records with no source identifier" do
       let(:source_file) { Rails.root.join("spec", "fixtures", "bulkrax", "missing_source_id.csv") }
 
