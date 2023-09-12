@@ -2,7 +2,7 @@ superskunk:
   db:
     metadata_database_name: comet_metadata
   metadata_models:
-    - ucsd-metadata-sample
+    - ucsd-metadata
   comet_base: https://lib-comet.ucsd.edu
 
 ingress:

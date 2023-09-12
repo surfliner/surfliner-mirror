@@ -103,7 +103,7 @@ worker:
     - name: "METADATA_DATABASE_NAME"
       value: "comet_metadata"
     - name: "METADATA_MODELS"
-      value: "ucsb-metadata,ucsd-metadata-sample"
+      value: "test-metadata"
     - name: "RABBITMQ_ENABLED"
       value: "true"
     - name: "RABBITMQ_HOST"
