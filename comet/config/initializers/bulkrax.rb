@@ -9,6 +9,7 @@ Bulkrax.setup do |config|
   config.object_factory = Bulkrax::ValkyrieObjectFactory
   config.default_work_type = "GenericObject"
   config.relationship_job_class = "CometCreateRelationshipsJob"
+  config.required_elements = ["title", "model"]
   config.fill_in_blank_source_identifiers = ->(parser, index) { "b-#{parser.importer.id}-#{index}" }
 
   # Specify the delimiter regular expression for splitting an attribute's values into a multi-value array.
