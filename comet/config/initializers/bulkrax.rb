@@ -18,6 +18,7 @@ Bulkrax.setup do |config|
   config.multi_value_element_join_on = " | "
 end
 
+Bulkrax.const_set(:DEFAULT_MULTI_VALUE_ELEMENT_SPLIT_ON, /\s*\|\s*/)
 Bulkrax.export_path = ENV.fetch("BULKRAX_EXPORT_PATH", "tmp/exports")
 
 Bulkrax.parsers = [

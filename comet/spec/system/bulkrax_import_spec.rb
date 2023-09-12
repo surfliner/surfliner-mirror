@@ -229,5 +229,35 @@ RSpec.describe "Bulkrax Import", :perform_enqueued, type: :system, js: true do
         expect(page).to have_content(error_message)
       end
     end
+
+    context "import records with url value in Note field" do
+      let(:source_file) { Rails.root.join("spec", "fixtures", "bulkrax", "generic_objects.csv") }
+
+      it "can successfully support full url value" do
+        visit "/dashboard"
+        click_on "Importers"
+        click_on "New"
+
+        fill_in("Name", with: "importer_urls_in_note")
+
+        find(:css, "#importer_admin_set_id").find(:xpath, "option[2]").select_option
+
+        choose("importer_parser_fields_file_style_upload_a_file")
+        attach_file "File", source_file
+
+        click_button "Create and Import"
+
+        expect(page).to have_content("Importer was successfully created and import has been queued.")
+
+        click_on "Importers"
+        click_on "importer_urls_in_note"
+        expect(page).to have_content("Total Objects: 2")
+
+        visit "/dashboard/my/works?locale=en"
+
+        click_link("Lovely Title", match: :first)
+        expect(page).to have_content("https://www.sangis.org/legal_notice.htm")
+      end
+    end
   end
 end
