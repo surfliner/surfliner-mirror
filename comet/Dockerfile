@@ -23,13 +23,11 @@ ARG DOCKER_ROOT=/home/${LOCAL_PROJECT}
 # used in ruby-bundle-cleanup.sh
 ENV DOCKER_PROJECT=${DOCKER_ROOT}/app
 
-COPY --chown=1001:1001 scripts/docker/*.sh ${DOCKER_PROJECT}/
+COPY scripts/docker/*.sh ${DOCKER_PROJECT}/
 RUN ${DOCKER_PROJECT}/ruby-bundle-prod.sh
 RUN ${DOCKER_PROJECT}/ruby-bundle-cleanup.sh
 
-COPY --chown=1001:1001 $LOCAL_PROJECT $DOCKER_PROJECT
-
-USER 1001
+COPY $LOCAL_PROJECT $DOCKER_PROJECT
 
 RUN \
   DATABASE_URL='postgresql://fake' \
@@ -47,9 +45,9 @@ FROM $PROD_IMAGE:latest as comet-web-prod
 ARG DOCKER_ROOT=/home/${LOCAL_PROJECT}
 ENV DOCKER_PROJECT=${DOCKER_ROOT}/app
 
-COPY --from=ruby-build-prod --chown=1001:1001 ${DOCKER_PROJECT}/public/assets ${DOCKER_PROJECT}/public/assets
-COPY --from=ruby-build-prod --chown=1001:1001 ${DOCKER_PROJECT}/public/uv ${DOCKER_PROJECT}/public/uv
-COPY --from=ruby-build-prod --chown=1001:1001 ${DOCKER_PROJECT}/vendor ${DOCKER_PROJECT}/vendor
+COPY --from=ruby-build-prod --chown=$UID:$GID ${DOCKER_PROJECT}/public/assets ${DOCKER_PROJECT}/public/assets
+COPY --from=ruby-build-prod --chown=$UID:$GID ${DOCKER_PROJECT}/public/uv ${DOCKER_PROJECT}/public/uv
+COPY --from=ruby-build-prod --chown=$UID:$GID ${DOCKER_PROJECT}/vendor ${DOCKER_PROJECT}/vendor
 
 RUN bundle config set deployment 'true'
 RUN bundle config set without 'test development'
@@ -93,15 +91,15 @@ ARG LOCAL_PROJECT=comet
 ARG DOCKER_ROOT=/home/${LOCAL_PROJECT}
 ARG DOCKER_PROJECT=${DOCKER_ROOT}/app
 
-RUN bundle install --jobs "$(nproc)"
-
 USER 1001
 
-COPY --chown=1001:1001 scripts/docker/*.sh ${DOCKER_PROJECT}/
+RUN bundle install --jobs "$(nproc)"
+
+COPY scripts/docker/*.sh ${DOCKER_PROJECT}/
 RUN ${DOCKER_PROJECT}/ruby-bundle-cleanup.sh
 
-COPY --chown=1001:1001 $LOCAL_PROJECT $DOCKER_PROJECT
-COPY --chown=1001:1001 scripts/* $DOCKER_PROJECT/scripts/
+COPY $LOCAL_PROJECT $DOCKER_PROJECT
+COPY scripts/* $DOCKER_PROJECT/scripts/
 ENV PATH="${DOCKER_PROJECT}/scripts:${PATH}"
 
 RUN RAILS_ENV=production SECRET_KEY_BASE=fakedevsecret DB_ADAPTER=nulldb RABBITMQ_ENABLED=false DATABASE_URL='postgresql://fake' bundle exec rake assets:precompile
@@ -115,7 +113,6 @@ ARG LOCAL_PROJECT=comet
 ARG DOCKER_ROOT=/home/${LOCAL_PROJECT}
 ARG DOCKER_PROJECT=${DOCKER_ROOT}/app
 
-USER root
 # renovate: datasource=github-releases depName=harvard-lts/fits
 ARG FITS_VERSION=1.6.0
 RUN mkdir -p /app/fits && \
@@ -138,11 +135,9 @@ RUN apk --no-cache add \
 RUN gem update bundler
 RUN bundle install --jobs "$(nproc)"
 
-USER 1001
+COPY $LOCAL_PROJECT $DOCKER_PROJECT
 
-COPY --chown=1001:1001 $LOCAL_PROJECT $DOCKER_PROJECT
-COPY --chown=1001:1001 scripts/* $DOCKER_PROJECT/scripts/
-
+COPY scripts/* $DOCKER_PROJECT/scripts/
 ENV PATH="${DOCKER_PROJECT}/scripts:${PATH}:/app/fits"
 
 RUN RAILS_ENV=production SECRET_KEY_BASE=fakedevsecret DB_ADAPTER=nulldb RABBITMQ_ENABLED=false DATABASE_URL='postgresql://fake' bundle exec rake assets:precompile
