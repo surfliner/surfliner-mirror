@@ -17,7 +17,7 @@
 
   <%= form.hidden_field :user_id, value: current_user.id %>
 
-  <%= form.input :frequency, collection: form.object.class.frequency_enums, input_html: { class: 'form-control' } %>
+  <%= form.hidden_field :frequency, collection: form.object.class.frequency_enums, input_html: { class: 'form-control' } %>
 
   <%= form.input :limit, as: :integer, hint: 'leave blank or 0 for all records', input_html: { class: 'form-control'} %>
 
