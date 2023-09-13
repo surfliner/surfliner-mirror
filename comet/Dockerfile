@@ -81,8 +81,6 @@ RUN mkdir -p /app/fits && \
 ENV PATH="${PATH}:/app/fits"
 ENV MALLOC_ARENA_MAX=2
 
-USER 1001
-
 CMD ["bundle", "exec", "sidekiq"]
 
 FROM comet-base as comet-test
