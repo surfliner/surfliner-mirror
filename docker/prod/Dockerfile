@@ -20,7 +20,7 @@ ONBUILD RUN apk --no-cache add $RUN_TIME_APKS
 
 ONBUILD RUN addgroup -S --gid $GID app && \
   adduser -S -G app -u $UID -s /bin/sh -h /app app
-ONBUILD USER app
+ONBUILD USER $UID
 
 ONBUILD COPY --chown=$UID:$GID gems ${DOCKER_ROOT}/gems/
 ONBUILD COPY --chown=$UID:$GID $LOCAL_PROJECT $DOCKER_PROJECT
