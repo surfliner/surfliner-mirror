@@ -132,7 +132,7 @@ module Bulkrax
 
     # Validate whether cardinality meets or not
     # @return Array[Hash]
-    def validate_cardinality
+    def validate_cardinality(errors = {})
       csv_entry = entry_class.new(importerexporter_id: importerexporter.id,
         importerexporter_type: "Bulkrax::Importer")
 

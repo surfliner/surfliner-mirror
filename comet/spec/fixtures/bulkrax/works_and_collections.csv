@@ -1,0 +1,3 @@
+model,source_identifier,title,parents_column
+GenericObject,test-work-in-collection-1,Work in Collection 1,test-collection-1
+Collection,test-collection-1,Collection 1,
