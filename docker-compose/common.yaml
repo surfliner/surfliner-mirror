@@ -47,4 +47,4 @@ services:
         hard: 524288
 
   zk:
-    image: bitnami/zookeeper:3.9.0-debian-11-r16
+    image: bitnami/zookeeper:3.9.0-debian-11-r21
