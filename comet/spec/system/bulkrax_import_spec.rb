@@ -67,11 +67,10 @@ RSpec.describe "Bulkrax Import", :perform_enqueued, type: :system, js: true do
         visit "/dashboard"
         click_on "Importers"
 
+        expect(page.body).to match(/Importer-3.*Importer-2.*Importer-1/m)
+
         find(:xpath, "//th[@aria-label='Last Run: activate to sort column ascending']").click
         expect(page.body).to match(/Importer-1.*Importer-2.*Importer-3/m)
-
-        find(:xpath, "//th[@aria-label='Last Run: activate to sort column descending']").click
-        expect(page.body).to match(/Importer-3.*Importer-2.*Importer-1/m)
       end
     end
 
