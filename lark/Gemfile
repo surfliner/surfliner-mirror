@@ -23,7 +23,7 @@ gem "rspec", group: "test"
 gem "rubocop-rspec", group: %w[development test]
 gem "shotgun", group: "development"
 gem "sinatra", "~> 3.1.0"
-gem "standard", "1.28.3"
+gem "standard", "1.31.1"
 gem "surfliner_schema", path: "../gems/surfliner_schema"
 gem "timecop", group: "test"
 gem "valkyrie", "3.0.3"
