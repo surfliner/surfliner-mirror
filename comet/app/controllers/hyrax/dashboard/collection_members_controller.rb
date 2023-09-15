@@ -66,7 +66,7 @@ module Hyrax
 
       def validate
         return t("hyrax.dashboard.my.action.members_no_access") if batch_ids.blank?
-        return t("hyrax.dashboard.my.action.collection_deny_add_members") unless current_ability.can?(:deposit, collection)
+        t("hyrax.dashboard.my.action.collection_deny_add_members") unless current_ability.can?(:deposit, collection)
       end
 
       def success_return_path

@@ -44,7 +44,7 @@ module Bulkrax
       complete_statuses = Bulkrax::Status.latest_by_statusable
         .includes(:statusable)
         .where("bulkrax_statuses.statusable_id IN (?) AND bulkrax_statuses.statusable_type = ? AND status_message = ?", entry_ids, "Bulkrax::Entry", "Complete")
-      complete_entry_identifiers = complete_statuses.map { |s| s.statusable&.identifier&.gsub(":", ":") }
+      complete_entry_identifiers = complete_statuses.map { |s| s.statusable&.identifier&.tr(":", ":") }
 
       all_results = Hyrax.custom_queries.find_many_by_alternate_ids(alternate_ids: complete_entry_identifiers)
       {:@work_ids => ::Hyrax.config.curation_concerns, :@collection_ids => [::Collection], :@file_set_ids => [::FileSet]}.each do |instance_var, models_to_search|
