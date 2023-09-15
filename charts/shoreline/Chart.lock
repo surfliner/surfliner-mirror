@@ -7,12 +7,12 @@ dependencies:
   version: 1.5.0
 - name: solr
   repository: oci://registry-1.docker.io/bitnamicharts
-  version: 7.4.0
+  version: 7.5.10
 - name: common
   repository: file://../common
   version: 0.1.0
 - name: minio
   repository: oci://registry-1.docker.io/bitnamicharts
   version: 12.4.1
-digest: sha256:667d1685fdaf3b4e57999bea7cefdb6193837926cd48f09107af1473fb1fcfb1
-generated: "2023-05-17T21:10:12.781129747Z"
+digest: sha256:b487be9cd389fdf139d7b0d9db1ef646a37b881b409a7401ce58a74e174e91b8
+generated: "2023-09-15T01:17:11.910852721Z"
