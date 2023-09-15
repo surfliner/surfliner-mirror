@@ -335,6 +335,7 @@ properties:
       maximum: null
     indexing:
       - symbol
+      - searchable
     index_documentation: null
     section: agents
     # grouping: null

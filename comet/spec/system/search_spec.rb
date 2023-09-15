@@ -97,6 +97,38 @@ RSpec.describe "Search", type: :system, js: true do
       expect(page).to have_content("Test Search Object 1")
       expect(page).to have_content("Test Search Object 2")
     end
+
+    it "performing a search for creator LastName, Firstname without using double quotes around them" do
+      visit "/concern/generic_objects/new"
+      fill_in("Title", with: "Test Search Creator")
+      click_on "Additional fields"
+      fill_in("Creator", with: "LastName, FirstName")
+
+      choose("generic_object_visibility_open")
+
+      click_on("Save")
+
+      id = page.current_path.split("/").last
+      obj = Hyrax.query_service.find_by(id: id)
+      obj.ark = "ark:/99999/fk7test"
+      Hyrax.persister.save(resource: obj)
+      Hyrax.index_adapter.save(resource: obj)
+
+      visit "/concern/generic_objects/#{obj.id}?locale=en"
+      click_on "Review and Approval"
+      choose("Approve")
+      click_on("Submit")
+
+      visit "/"
+      within("#search-form-header") do
+        fill_in("search-field-header", with: "LastName, Firstname")
+        click_button("Go")
+      end
+
+      expect(page).to have_content("Search Results")
+      expect(page).to have_content("Test Search Creator")
+      expect(page).to have_content("LastName, Firstname")
+    end
   end
 
   context "with collections" do

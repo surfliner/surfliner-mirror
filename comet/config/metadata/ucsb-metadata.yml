@@ -139,6 +139,7 @@ properties:
       maximum: null
     index_documentation: null
     indexing:
+      - symbol
       - searchable
     validations:
       match_regex: null
@@ -180,6 +181,7 @@ properties:
       maximum: null
     index_documentation: null
     indexing:
+      - symbol
       - searchable
     validations:
       match_regex: null
@@ -211,6 +213,7 @@ properties:
       maximum: null
     index_documentation: null
     indexing:
+      - symbol
       - searchable
       - facetable
     validations:
@@ -256,6 +259,7 @@ properties:
       maximum: null
     index_documentation: null
     indexing:
+      - symbol
       - searchable
       - facetable
     validations:
@@ -287,6 +291,7 @@ properties:
       maximum: null
     index_documentation: null
     indexing:
+      - symbol
       - searchable
       - facetable
     validations:
@@ -1157,6 +1162,7 @@ properties:
       maximum: null
     index_documentation: null
     indexing:
+      - symbol
       - searchable
     validations:
       match_regex: null
@@ -1248,6 +1254,7 @@ properties:
       maximum: null
     index_documentation: null
     indexing:
+      - symbol
       - searchable
       - facetable
     validations:
