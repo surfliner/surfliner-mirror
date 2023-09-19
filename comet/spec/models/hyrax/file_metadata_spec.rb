@@ -6,8 +6,8 @@ RSpec.describe Hyrax::FileMetadata do
   describe "uri_for" do
     let(:file_use_extracted_file) { ::Valkyrie::Vocab::PCDMUse.ExtractedText }
     let(:file_use_origin_file) { ::Valkyrie::Vocab::PCDMUse.OriginalFile }
-    let(:file_use_preservation_file) { ::Valkyrie::Vocab::PCDMUseExtesion.PreservationFile }
-    let(:file_use_service_file) { ::Valkyrie::Vocab::PCDMUseExtesion.ServiceFile }
+    let(:file_use_preservation_file) { ::Valkyrie::Vocab::PCDMUse.PreservationFile }
+    let(:file_use_service_file) { ::Valkyrie::Vocab::PCDMUse.ServiceFile }
     let(:file_use_thumbnail_file) { ::Valkyrie::Vocab::PCDMUse.ThumbnailImage }
 
     it "give the :preservation_file use" do
