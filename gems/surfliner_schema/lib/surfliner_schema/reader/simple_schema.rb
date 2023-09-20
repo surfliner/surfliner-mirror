@@ -17,8 +17,10 @@ module SurflinerSchema
       # @param availability [Symbol]
       # @param valkyrie_resource_class [Class]
       def initialize(attr_config, availability: :generic_object,
-        valkyrie_resource_class: Valkyrie::Resource)
-        super(valkyrie_resource_class: valkyrie_resource_class)
+        valkyrie_resource_class: Valkyrie::Resource,
+        property_transform: nil)
+        super(valkyrie_resource_class: valkyrie_resource_class,
+              property_transform: property_transform)
         @availability = availability
         @properties = attr_config.each_with_object({}) do |(name, config), dfns|
           form_options = config.fetch("form", {}).transform_keys(&:to_sym)

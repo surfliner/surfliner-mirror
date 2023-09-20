@@ -33,12 +33,6 @@ module SurflinerSchema
     end
 
     ##
-    # The +Reform::Form+ options for this property.
-    def form_options
-      {default: []}
-    end
-
-    ##
     # Whether the property can take multiple values.
     #
     # @return [Boolean]
@@ -61,6 +55,18 @@ module SurflinerSchema
     # cardinality class of the property.
     def required?
       [:exactly_one, :one_or_more].include?(cardinality_class)
+    end
+
+    ##
+    # +Dry::Schema+ constraints for this property.
+    #
+    # This does not include datatype information which must be supplied by the
+    # reader.
+    def schema_constraints
+      result = {}
+      result[:min_size?] = 1 if [:exactly_one, :one_or_more].include?(cardinality_class)
+      result[:max_size?] = 1 if [:zero_or_one, :exactly_one].include?(cardinality_class)
+      result
     end
   end
 end

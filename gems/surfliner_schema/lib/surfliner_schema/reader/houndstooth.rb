@@ -12,8 +12,10 @@ module SurflinerSchema
       #
       # @param houndstooth [Hash]
       # @param valkyrie_resource_class [Class]
-      def initialize(houndstooth, valkyrie_resource_class: Valkyrie::Resource)
-        super(valkyrie_resource_class: valkyrie_resource_class)
+      def initialize(houndstooth, valkyrie_resource_class: Valkyrie::Resource,
+        property_transform: nil)
+        super(valkyrie_resource_class: valkyrie_resource_class,
+              property_transform: property_transform)
 
         properties_hash = self.class.property_hash(houndstooth, :properties)
         classes_hash = self.class.property_hash(houndstooth, :classes)

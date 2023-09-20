@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir["lib/**/*.rb"] + Dir["bin/*"] + Dir["[A-Z]*"]
 
   spec.add_dependency "activesupport"
+  spec.add_dependency "dry-validation", ">= 1.3"
   spec.add_dependency "iso-639", ">= 0.3.0", "< 0.4.0"
   spec.add_dependency "valkyrie", ">= 2.2", "< 4"
 

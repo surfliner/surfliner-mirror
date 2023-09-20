@@ -25,7 +25,8 @@ module SurflinerSchema
     def initialize(schema_names = nil, additional_readers: [])
       @readers = (schema_names || self.class.default_schemas).map { |schema|
         SurflinerSchema::Reader.for(config_for(schema), schema_name: schema,
-          valkyrie_resource_class: self.class.valkyrie_resource_class_for(schema))
+          valkyrie_resource_class: self.class.valkyrie_resource_class_for(schema),
+          property_transform: self.class.property_transform_for(schema))
       }.concat(additional_readers.to_a)
     end
 
@@ -201,6 +202,23 @@ module SurflinerSchema
     # @return [Class, Proc]
     def self.valkyrie_resource_class_for(_schema_name)
       SurflinerSchema::Resource
+    end
+
+    ##
+    # A transformation function to be applied to property values when casting
+    # them to their appropriate Dry types. By default, this is +nil+ (no
+    # transformation function), but it may be overridden in a subclass.
+    #
+    # The intent of this method is to provide a hook for application‐specific
+    # value casting, for example with controlled values.
+    #
+    # The returned value, if non‐nil, must be a +Proc+ with a signature
+    # +->(value, property:, availability:)+ and returns the mapped value which
+    # should be used for validation.
+    #
+    # @return [Proc?]
+    def self.property_transform_for(_schema_name)
+      nil
     end
 
     ##

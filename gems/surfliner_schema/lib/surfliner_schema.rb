@@ -2,11 +2,13 @@
 
 require "active_support"
 require "delegate"
+require "dry-validation"
 require "iso-639"
 require "valkyrie"
 require "yaml"
 
 module SurflinerSchema
+  require "surfliner_schema/contract"
   require "surfliner_schema/controlled_value"
   require "surfliner_schema/controlled_values"
   require "surfliner_schema/division"

@@ -13,10 +13,12 @@ module SurflinerSchema
     autoload :SimpleSchema, "surfliner_schema/reader/simple_schema"
 
     attr_reader :valkyrie_resource_class
+    attr_reader :property_transform
 
-    def initialize(valkyrie_resource_class: Valkyrie::Resource)
-      super()
+    def initialize(valkyrie_resource_class: Valkyrie::Resource,
+      property_transform: nil)
       @valkyrie_resource_class = valkyrie_resource_class
+      @property_transform = property_transform
     end
 
     ##
@@ -101,7 +103,7 @@ module SurflinerSchema
     # @return [{Symbol => Object}]
     def to_struct_attributes(availability:)
       properties(availability: availability).transform_values { |property|
-        dry_type_for(property)
+        dry_type_for(property, availability: availability)
       }
     end
 
@@ -116,6 +118,38 @@ module SurflinerSchema
     def form_definitions(availability:)
       properties(availability: availability).transform_values do |property|
         FormDefinition.new(property: property)
+      end
+    end
+
+    ##
+    # A +Dry::Schema+ for the given availability.
+    #
+    # @param availability [Symbol]
+    # @return [Dry::Schema]
+    def dry_schema(availability:)
+      @schemas ||= {}
+      return @schemas[availability] if @schemas.include?(availability)
+      schema_types = to_struct_attributes(availability: availability)
+      definitions = form_definitions(availability: availability)
+      @schemas[availability] = Dry::Schema.Params do
+        definitions.each do |property_name, definition|
+          # Iterate over each property’s form definitions and add a schema
+          # definition for each one.
+          if definition.range != RDF::RDFS.Literal
+            # The definition points to a nested Valkyrie object; we must define
+            # a nested schema for it.
+            nested_model = resolve(definition.range)
+            required(property_name).value(schema_types[property_name],
+              **definition.schema_constraints).each do
+              hash(dry_schema(availability: nested_model.availability))
+            end
+          else
+            # The definition points to a RDF literal; the datatype provides
+            # any remaining validation.
+            required(property_name).value(schema_types[property_name],
+              **definition.schema_constraints)
+          end
+        end
       end
     end
 
@@ -239,19 +273,32 @@ module SurflinerSchema
 
     ##
     # Returns the +Dry::Type+ for the provided property.
-    def dry_type_for(property)
-      if property.range != RDF::RDFS.Literal
-        begin
-          dry_range(property.range)
-        rescue
-          raise(
-            Error::UnknownRange,
-            "The range #{property.range} on #{property.name} is not recognized."
-          )
+    #
+    # @param property {SurflinerSchema::Property}
+    # @return {Dry::Type}
+    def dry_type_for(property, availability:)
+      base_type =
+        if property.range != RDF::RDFS.Literal
+          begin
+            dry_range(property.range)
+          rescue
+            raise(
+              Error::UnknownRange,
+              "The range #{property.range} on #{property.name} is not recognized."
+            )
+          end
+        else
+          dry_data_type(property.data_type)
         end
-      else
-        dry_data_type(property.data_type)
-      end
+      Valkyrie::Types::Set.of(
+        Valkyrie::Types.Constructor(base_type) { |value|
+          if property_transform.nil?
+            base_type[value]
+          else
+            base_type[property_transform.call(value, property: property, availability: availability)]
+          end
+        }
+      )
     end
 
     ##
@@ -259,66 +306,68 @@ module SurflinerSchema
     #
     # This just calls out to +#resolve+ in an attempt to resolve the range
     # into a nested Valkyrie resource.
+    #
+    # @param range {RDF::URI}
+    # @return {Valkyrie::Resource}
     def dry_range(range)
       resolved_class = resolve(range)
       raise ArgumentError unless resolved_class
-      Valkyrie::Types::Set.of(
-        resolved_class
-      )
+      resolved_class
     end
 
     ##
-    # Returns a Dry::Type for the provided RDF datatype.
+    # Returns a +Dry::Type+ for the provided RDF datatype.
+    #
+    # @param data_type {RDF::URI}
+    # @return {Dry::Type}
     def dry_data_type(data_type = RDF::RDFV.PlainLiteral)
-      Valkyrie::Types::Set.of(
-        Valkyrie::Types.Constructor(RDF::Literal) { |value|
-          if value.is_a?(RDF::Literal)
-            # If the provided value is already an RDF::Literal, preserve
-            # the lexical value but change the datatype.
-            #
-            # This differs from both the default behaviour of
-            # +RDF::Literal+ (which simply returns its argument) and
-            # +RDF::Literal.new+ (which may cast the literal to another
-            # kind of value, erasing the original lexical value).
-            if data_type == RDF::RDFV.PlainLiteral ||
+      Valkyrie::Types.Constructor(RDF::Literal) { |value|
+        if value.is_a?(RDF::Literal)
+          # If the provided value is already an RDF::Literal, preserve
+          # the lexical value but change the datatype.
+          #
+          # This differs from both the default behaviour of
+          # +RDF::Literal+ (which simply returns its argument) and
+          # +RDF::Literal.new+ (which may cast the literal to another
+          # kind of value, erasing the original lexical value).
+          if data_type == RDF::RDFV.PlainLiteral ||
               data_type == RDF::RDFV.langString
-              # The datatype supports language‐tagged strings.
-              if value.language?
-                # The provided value is tagged with a language tag.
-                RDF::Literal.new(value.value, language: self.class.bcp47(value.language))
-              elsif data_type == RDF::RDFV.langString
-                # The provided value has no language tag, but one is required.
-                # Use "und" (undetermined).
-                RDF::Literal.new(value.value, language: "und")
-              else
-                # Use a datatype of +xsd:string+.
-                RDF::Literal.new(value.value, datatype: RDF::XSD.string)
-              end
-            elsif data_type == RDF::XSD.language
-              # The datatype is +xsd:language+; cast its value to BCP 47.
-              RDF::Literal.new(self.class.bcp47(value.value), datatype: data_type)
+            # The datatype supports language‐tagged strings.
+            if value.language?
+              # The provided value is tagged with a language tag.
+              RDF::Literal.new(value.value, language: self.class.bcp47(value.language))
+            elsif data_type == RDF::RDFV.langString
+              # The provided value has no language tag, but one is required.
+              # Use "und" (undetermined).
+              RDF::Literal.new(value.value, language: "und")
             else
-              # The datatype is not one of the above and does not support
-              # language‐tagged strings.
-              RDF::Literal.new(value.value, datatype: data_type)
+              # Use a datatype of +xsd:string+.
+              RDF::Literal.new(value.value, datatype: RDF::XSD.string)
             end
-          elsif data_type == RDF::RDFV.langString
-            # The datatype mandates a language tag; use "und" (undetermined).
-            RDF::Literal.new(value, language: "und")
-          elsif data_type == RDF::RDFV.PlainLiteral
-            # This is a non–language‐tagged plain literal; use +xsd:string+ as
-            # the datatype.
-            RDF::Literal.new(value, datatype: RDF::XSD.string)
           elsif data_type == RDF::XSD.language
             # The datatype is +xsd:language+; cast its value to BCP 47.
-            RDF::Literal.new(self.class.bcp47(value), datatype: data_type)
+            RDF::Literal.new(self.class.bcp47(value.value), datatype: data_type)
           else
-            # The datatype is not plain and does not support language‐tagged
-            # strings.
-            RDF::Literal.new(value, datatype: data_type)
+            # The datatype is not one of the above and does not support
+            # language‐tagged strings.
+            RDF::Literal.new(value.value, datatype: data_type)
           end
-        }
-      )
+        elsif data_type == RDF::RDFV.langString
+          # The datatype mandates a language tag; use "und" (undetermined).
+          RDF::Literal.new(value, language: "und")
+        elsif data_type == RDF::RDFV.PlainLiteral
+          # This is a non–language‐tagged plain literal; use +xsd:string+ as
+          # the datatype.
+          RDF::Literal.new(value, datatype: RDF::XSD.string)
+        elsif data_type == RDF::XSD.language
+          # The datatype is +xsd:language+; cast its value to BCP 47.
+          RDF::Literal.new(self.class.bcp47(value), datatype: data_type)
+        else
+          # The datatype is not plain and does not support language‐tagged
+          # strings.
+          RDF::Literal.new(value, datatype: data_type)
+        end
+      }
     end
 
     ##
@@ -372,13 +421,17 @@ module SurflinerSchema
     ##
     # Returns a new +SurflinerSchema::Reader+ resulting from reading the
     # provided config.
-    def self.for(config, schema_name: "<unknown>", valkyrie_resource_class: Valkyrie::Resource)
+    def self.for(config, schema_name: "<unknown>",
+      valkyrie_resource_class: Valkyrie::Resource,
+      property_transform: nil)
       if config.include? "attributes"
         ::SurflinerSchema::Reader::SimpleSchema.new(config["attributes"].transform_keys(&:to_sym),
-          valkyrie_resource_class: valkyrie_resource_class)
+          valkyrie_resource_class: valkyrie_resource_class,
+          property_transform: property_transform)
       elsif config.fetch("m3_version", "").start_with?("1.0")
         ::SurflinerSchema::Reader::Houndstooth.new(config,
-          valkyrie_resource_class: valkyrie_resource_class)
+          valkyrie_resource_class: valkyrie_resource_class,
+          property_transform: property_transform)
       else
         raise(
           Error::NotRecognized,

@@ -5,9 +5,8 @@ require "spec_helper"
 RSpec.describe SurflinerSchema do
   describe "::FormFields()" do
     let(:form_class) {
-      form_class = Class.new
-      allow(form_class).to receive(:property)
-      allow(form_class).to receive(:validates)
+      form_class = Class.new(Valkyrie::ChangeSet)
+      allow(form_class).to receive(:property).and_call_original
       form_class
     }
 
@@ -76,12 +75,6 @@ RSpec.describe SurflinerSchema do
           .with(:secondary_field, hash_including(:default))
       end
 
-      it "defines validations for required fields" do
-        expect(form_class).to have_received(:validates).once
-        expect(form_class).to have_received(:validates)
-          .with(:primary_field, presence: true)
-      end
-
       describe "the added :form_definition class method" do
         it "maps properties to form definitions" do
           expect(form_class.form_definition(:primary_field)).to be_a SurflinerSchema::FormDefinition
@@ -109,6 +102,56 @@ RSpec.describe SurflinerSchema do
 
         it "includes only nonprimary properties" do
           expect(form_class.secondary_division.to_a.map(&:name)).to eq [:secondary_field]
+        end
+      end
+
+      describe "the added :schema_contract class method" do
+        it "returns a SurflinerSchema::Contract" do
+          expect(form_class.schema_contract.superclass).to be SurflinerSchema::Contract
+        end
+
+        it "returns the same SurflinerSchema::Contract every time" do
+          c1 = form_class.schema_contract
+          c2 = form_class.schema_contract
+          expect(c1).to be c2
+        end
+      end
+
+      # These aren’t great tests but I’m not sure we can do much better—we’re
+      # essentially testing against Reform internal behaviour here.
+      describe "the deserialize! override" do
+        it "does not set @result when coercion succeeds" do
+          form = form_class.new(model_class.new)
+          form.send(:deserialize!, {primary_field: "foo", secondary_field: "bar"})
+          expect(form.instance_variable_get(:@result).to_results).to be_empty
+        end
+
+        it "sets @result when validation fails" do
+          form = form_class.new(model_class.new)
+          form.send(:deserialize!, {primary_field: [], secondary_field: []})
+          results = form.instance_variable_get(:@result).to_results
+          expect(results).not_to be_empty
+          expect(results.first.failure?).to be true
+        end
+
+        it "casts schema values" do
+          form = form_class.new(model_class.new)
+          params = form.send(:deserialize!, {primary_field: "my field"})
+          expect(params[:primary_field]).to contain_exactly RDF::Literal.new("my field")
+          expect(params[:secondary_field]).to eq []
+        end
+
+        it "preserves non‐schema values" do
+          form = form_class.new(model_class.new)
+          params = form.send(:deserialize!, {title: "Etaoin Shrdlu", primary_field: "my field"})
+          expect(params[:title]).to eq "Etaoin Shrdlu"
+        end
+
+        it "re·uses existing values when new ones are not provided" do
+          form = form_class.new(model_class.new({primary_field: ["my field"]}))
+          params = form.send(:deserialize!, {})
+          expect(form.instance_variable_get(:@result).to_results).to be_empty
+          expect(params[:primary_field]).to contain_exactly RDF::Literal.new("my field")
         end
       end
     end

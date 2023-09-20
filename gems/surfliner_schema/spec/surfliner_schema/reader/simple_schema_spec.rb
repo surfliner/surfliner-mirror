@@ -36,7 +36,6 @@ describe SurflinerSchema::Reader::SimpleSchema do
       title_definition = form_definitions[:title]
       expect(title_definition.required?).to be true
       expect(title_definition.multiple?).to be false
-      expect(title_definition.form_options).to include(default: [])
     end
 
     it "#indices" do
