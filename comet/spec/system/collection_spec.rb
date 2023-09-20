@@ -137,4 +137,24 @@ RSpec.describe "Collections", type: :system, js: true do
       expect(page).to have_content("Test Member Object B")
     end
   end
+
+  context "collections created by other users" do
+    let(:other_user) { User.find_or_create_by(email: "comet-user@library.ucsb.edu") }
+
+    before do
+      FactoryBot.valkyrie_create(:collection,
+        :with_index,
+        :with_permission_template,
+        title: ["Other User's Collection"],
+        edit_users: [other_user, user],
+        member_of_collection_ids: [],
+        user: other_user)
+    end
+
+    it "shows other user's collections" do
+      visit "/dashboard/collections"
+
+      expect(page).to have_link("Other User's Collection")
+    end
+  end
 end

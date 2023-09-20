@@ -3,6 +3,10 @@
 module Hyrax
   module Dashboard
     class CollectionsController < Hyrax::My::CollectionsController
+      configure_blacklight do |config|
+        config.search_builder_class = Hyrax::Dashboard::CollectionsSearchBuilder
+      end
+
       with_themed_layout "dashboard"
       before_action :authenticate_user!
 
