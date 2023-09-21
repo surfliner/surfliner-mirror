@@ -19,7 +19,7 @@ cantaloupe:
       endpoint: https://lib-minio.ucsd.edu:9006
     source:
       bucketMap: "comet:production,starlight:starlight-production"
-      endpoint: https://lib-minio.ucsd.edu:9006
+      endpoint: https://grogu.ucsd.edu:9006
 
 minio:
   enabled: false
