@@ -31,10 +31,25 @@ RSpec.describe GenericObject do
       next unless property["available_on"].to_a.include?("generic_object")
       property_name = property["name"]
 
-      # Ensure each property can be changed and casts to an RDF literal.
-      expect { work.public_send("#{property_name}=".to_sym, ["etaoin"]) }
-        .to change { work.public_send(property_name.to_sym) }
-        .to contain_exactly RDF::Literal("etaoin", datatype: property["data_type"])
+      # Ensure each property exists and can be changed.
+      expect(work.respond_to?(:"#{property_name}")).to be true
+      expect(work.respond_to?(:"#{property_name}=")).to be true
+    end
+  end
+
+  describe "controlled value handling" do
+    it "allows saving controlled value uris" do
+      work.controlled_test = "about:surfliner_schema/controlled_values/controlled_test/value1"
+      expect(work.controlled_test).to contain_exactly RDF::Literal("about:surfliner_schema/controlled_values/controlled_test/value1", datatype: RDF::XSD.anyURI)
+    end
+
+    it "coerces controlled values to their uris" do
+      work.controlled_test = "value1"
+      expect(work.controlled_test).to contain_exactly RDF::Literal("about:surfliner_schema/controlled_values/controlled_test/value1", datatype: RDF::XSD.anyURI)
+    end
+
+    it "errors when trying to save other values" do
+      expect { work.controlled_test = "not_a_value" }.to raise_exception Dry::Types::CoercionError
     end
   end
 

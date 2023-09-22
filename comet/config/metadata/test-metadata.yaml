@@ -882,7 +882,7 @@ properties:
       - null
     # property_uri: http://purl.org/dc/elements/1.1/format
     range: http://www.w3.org/2000/01/rdf-schema#Literal
-    data_type: http://www.w3.org/2001/XMLSchema#string
+    data_type: http://www.w3.org/2001/XMLSchema#anyURI
     syntax:  null
     cardinality:
       minimum: 0

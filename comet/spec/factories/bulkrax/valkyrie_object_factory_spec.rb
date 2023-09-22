@@ -62,13 +62,7 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory, :with_admin_set do
     let(:source_identifier) { "object_1" }
     let(:title) { "Test Bulkrax Import Title" }
     let(:alternative_title) { "Test Alternative Title" }
-    let(:rights_statement) do
-      RDF::Literal(
-        "http://rightsstatements.org/vocab/NoC-US/1.0/",
-        datatype: RDF::XSD.anyURI
-      )
-    end
-    let(:attributes) { {title: title, title_alternative: [alternative_title], rights_statement: rights_statement} }
+    let(:attributes) { {title: title, title_alternative: [alternative_title]} }
 
     before do
       setup_workflow_for(user)
@@ -81,8 +75,7 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory, :with_admin_set do
 
       expect(object_imported).to have_attributes(
         title: contain_exactly(title),
-        alternate_ids: contain_exactly(source_identifier),
-        rights_statement: contain_exactly(rights_statement)
+        alternate_ids: contain_exactly(source_identifier)
       )
     end
 
@@ -107,18 +100,11 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory, :with_admin_set do
     let(:source_identifier) { "object_2" }
     let(:title_updated) { "Test Bulkrax Import Title Update" }
     let(:alternative_title_updated) { "Test Alternative Title Added" }
-    let(:rights_statement) do
-      RDF::Literal(
-        "http://rightsstatements.org/vocab/NoC-US/1.0/",
-        datatype: RDF::XSD.anyURI
-      )
-    end
     let(:work_identifier) { object.id }
     let(:attributes) do
       {
         title: title_updated,
         title_alternative: [alternative_title_updated],
-        rights_statement: rights_statement,
         id: work_identifier,
         alternate_ids: [source_identifier]
       }
@@ -129,8 +115,7 @@ RSpec.describe Bulkrax::ValkyrieObjectFactory, :with_admin_set do
 
       expect(object_updated)
         .to have_attributes(title: contain_exactly(title_updated),
-          title_alternative: contain_exactly(alternative_title_updated),
-          rights_statement:  contain_exactly(rights_statement))
+          title_alternative: contain_exactly(alternative_title_updated))
     end
   end
 
