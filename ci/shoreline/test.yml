@@ -48,7 +48,7 @@ shoreline:test:solrconfig:
     - !reference [.solr-service, services]
     - name: bitnami/postgresql:12.16.0-debian-11-r41
       alias: postgres
-    - name: bitnami/rabbitmq:3.12.4-debian-11-r22
+    - name: bitnami/rabbitmq:3.12.6-debian-11-r0
       alias: rabbitmq
   before_script:
     - cd /home/shoreline/app
