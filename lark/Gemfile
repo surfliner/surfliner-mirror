@@ -14,7 +14,7 @@ gem "dry-validation", "1.10.0"
 gem "ezid-client", "1.9.4"
 gem "factory_bot", group: "test"
 gem "pry", group: %w[development test]
-gem "puma", "6.3.1"
+gem "puma", "6.4.0"
 gem "rack-healthcheck", "~> 0.2.0"
 gem "racksh"
 gem "rack-test", group: "test"
