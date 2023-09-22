@@ -217,7 +217,7 @@ memcached:
     size: 8Gi
   image:
     repository: bitnami/memcached
-    tag: 1.6.21-debian-11-r89
+    tag: 1.6.21-debian-11-r92
 
 # Configuration for minio chart
 # This is currently only used for Review applications in CI/CD pipelines
