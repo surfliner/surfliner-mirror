@@ -46,7 +46,7 @@ shoreline:test:solrconfig:
     SOLR_URL: "http://solr:8983/solr/shoreline-discovery"
   services:
     - !reference [.solr-service, services]
-    - name: bitnami/postgresql:12.16.0-debian-11-r38
+    - name: bitnami/postgresql:12.16.0-debian-11-r41
       alias: postgres
     - name: bitnami/rabbitmq:3.12.4-debian-11-r22
       alias: rabbitmq
