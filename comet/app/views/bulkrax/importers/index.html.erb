@@ -48,9 +48,9 @@
                 <td><%= importer.last_run&.total_collection_entries %></td>
                 <td><%= importer.last_run&.total_work_entries %></td>
                 <td><%= importer.last_run&.total_file_set_entries %></td>
-                <td><%= link_to raw('<span class="glyphicon glyphicon-info-sign"></span>'), importer_path(importer) %></td>
-                <td><%= link_to raw('<span class="glyphicon glyphicon-pencil"></span>'), edit_importer_path(importer) %></td>
-                <td><%= link_to raw('<span class="glyphicon glyphicon-remove"></span>'), importer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                <td><%= link_to raw('<span class="fa fa-info-circle"></span>'), importer_path(importer) %></td>
+                <td><%= link_to raw('<span class="fa fa-pencil"></span>'), edit_importer_path(importer) %></td>
+                <td><%= link_to raw('<span class="fa fa-remove"></span>'), importer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
               </tr>
             <% end %>
           </tbody>
