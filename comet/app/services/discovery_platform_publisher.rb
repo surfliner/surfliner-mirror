@@ -168,8 +168,14 @@ class DiscoveryPlatformPublisher
   ##
   # @return [String] a JSON payload
   def payload_for(resource, status)
+    ark = if resource.ark.present?
+      {ark: resource.ark.to_s}
+    else
+      {}
+    end
     {resourceUrl: self.class.api_uri_for(resource),
      status: status,
-     time_stamp: resource.date_modified || resource.updated_at}.to_json
+     time_stamp: resource.date_modified || resource.updated_at,
+     **ark}.to_json
   end
 end

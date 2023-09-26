@@ -60,6 +60,35 @@ RSpec.describe DiscoveryPlatformPublisher do
       expect(broker).to have_received(:publish).once
     end
 
+    context "when an ark is minted for a resource" do
+      let(:ark) { "ark:/99999/fk4tq65d6k" }
+      let(:resource) do
+        Hyrax.persister.save(resource: GenericObject.new(title: "Comet in Moominland", ark: ark))
+      end
+      it "includes the ark in the payload" do
+        publisher.publish(resource: resource)
+
+        expect(broker)
+          .to have_received(:publish)
+          .with(payload: include("\"ark\":\"#{ark}\""),
+            routing_key: platform.message_route.metadata_routing_key)
+      end
+    end
+
+    context "when an ark is not minted for a resource" do
+      let(:resource) do
+        Hyrax.persister.save(resource: GenericObject.new(title: "Comet in Moominland"))
+      end
+      it "is not included in the payload" do
+        publisher.publish(resource: resource)
+
+        expect(broker)
+          .not_to have_received(:publish)
+          .with(payload: include("\"ark\""),
+            routing_key: platform.message_route.metadata_routing_key)
+      end
+    end
+
     context "when the resource is unsaved" do
       let(:resource) { GenericObject.new }
 
