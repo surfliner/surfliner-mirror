@@ -36,10 +36,10 @@ RSpec.describe AardvarkSerializer do
     let(:title) { "A geospatial object with an ARK" }
     let(:resource) {
       persister.save(resource: GeospatialObject.new(title: [title],
-        ark: "14697/b12345x"))
+        ark: "ark:/14697/b12345x"))
     }
-    it "populates the id property" do
-      expect(serialized_aardvark[:id]).to eq("14697/b12345x")
+    it "populates the id property with a formatted ark of NAAN-ID" do
+      expect(serialized_aardvark[:id]).to eq("14697-b12345x")
     end
   end
 

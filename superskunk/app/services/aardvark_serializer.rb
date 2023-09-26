@@ -187,7 +187,7 @@ class AardvarkSerializer < ResourceSerializer
         mapping = concatenated_bounding_box
       when :id
         # Add the +:id+.
-        mapping << (resource.ark || resource.id)
+        mapping << (formatted_ark(resource: resource) || resource.id)
       when :gbl_mdVersion_s
         # The default value for +:gbl_mdVersion_s+ should be +Aardvark+.
         mapping = ["Aardvark"] unless mapping.present?
@@ -251,6 +251,14 @@ class AardvarkSerializer < ResourceSerializer
   end
 
   private
+
+  # @param [Valkyrie::Resource] resource
+  # @return [String]
+  # example: ark:/99999/fk4tq65d6k -> 99999-fk4tq65d6k
+  def formatted_ark(resource:)
+    return nil unless resource.ark
+    resource.ark.to_s.split("/").drop(1).join("-")
+  end
 
   # @param [Valkyrie::Resource] resource
   # @return [Array<Valkyrie::ID>]
