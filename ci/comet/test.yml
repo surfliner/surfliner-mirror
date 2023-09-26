@@ -110,7 +110,7 @@ comet:test:system:
       alias: redis
     - name: bitnami/minio:2023.9.23-debian-11-r0
       alias: minio
-    - name: bitnami/rabbitmq:3.12.6-debian-11-r0
+    - name: bitnami/rabbitmq:3.12.6-debian-11-r4
       alias: rabbitmq
     - name: seleniarm/standalone-chromium:116.0
       alias: chrome
