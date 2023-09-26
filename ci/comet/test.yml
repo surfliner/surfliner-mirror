@@ -74,7 +74,7 @@ comet:test:unit:
   extends: .comet:test
   services:
     - !reference [.solr-service, services]
-    - name: bitnami/postgresql:12.16.0-debian-11-r41
+    - name: bitnami/postgresql:12.16.0-debian-11-r45
       alias: postgres
     - name: bitnami/redis:7.2.1-debian-11-r16
       alias: redis

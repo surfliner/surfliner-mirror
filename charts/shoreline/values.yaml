@@ -142,7 +142,7 @@ solr:
 postgresql:
   image:
     repository: bitnami/postgresql
-    tag: 12.16.0-debian-11-r41
+    tag: 12.16.0-debian-11-r45
   architecture: standalone
   enabled: true
   # If postgresql.enabled is false, then
