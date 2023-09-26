@@ -33,20 +33,24 @@ module Shoreline
             raise "Payload status is not defined" unless payload_status
             logger.debug("Payload status for #{payload_resource_url} is #{payload_status}")
 
+            payload_resource_id = process_identifier(payload_data)
+            logger.debug("Payload identifier for #{payload_resource_url} is #{payload_resource_id}")
+
             span.add_attributes(
               "surfliner.message.status" => payload_status.to_s,
-              "surfliner.resource_uri" => payload_resource_url.to_s
+              "surfliner.resource_uri" => payload_resource_url.to_s,
+              "surfliner.resource_id" => payload_resource_id.to_s
             )
 
             uri = URI(payload_resource_url)
 
-            process_resource(uri, payload_status)
+            process_resource(uri, payload_resource_id, payload_status)
           end
         end
       end
     end
 
-    def process_resource(uri, status)
+    def process_resource(uri, id, status)
       span = OpenTelemetry::Trace.current_span
 
       case status.to_s
@@ -59,9 +63,8 @@ module Shoreline
         importer.ingest(metadata: record.metadata, shapefile_url: record.file_urls.first)
         span.add_event("Ingested resource")
       when "unpublished", "deleted"
-        logger.info("Deleting item #{uri}")
-        resource_id = uri.split("/").last
-        importer.delete(id: resource_id)
+        logger.info("Deleting item #{uri} using identifier #{id}")
+        importer.delete(id: id)
         span.add_event("Deleted resource")
       else
         msg = "Invalid payload status '#{status}' received for #{uri}"
@@ -72,6 +75,16 @@ module Shoreline
       logger.error("Error: #{e}")
       span.record_exception(e)
       span.status = OpenTelemetry::Trace::Status.error("Unhandled exception of type: #{e.class}")
+    end
+
+    # Determine which identifier to pass along to process_resource. This is primarily useful for determining how to
+    # respond to an unpublish message from comet.
+    def process_identifier(payload)
+      if payload["ark"]
+        payload["ark"].to_s.split("/").drop(1).join("-")
+      else
+        payload["resourceUrl"].to_s.split("resources/").last
+      end
     end
 
     class Record

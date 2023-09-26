@@ -78,14 +78,44 @@ RSpec.describe Shoreline::Consumer, :webmock do
 
   describe "#process_resource" do
     let(:resource_uri) { "http://superskunk/resources/555555" }
+    let(:resource_id) { "555555" }
 
     context "when published" do
       let(:status) { :published }
 
       it "ingests the object metadata" do
-        expect { consumer.process_resource(resource_uri, status) }
+        expect { consumer.process_resource(resource_uri, resource_id, status) }
           .to change { spy_importer.ingested&.first }
           .to include(metadata: include("id" => "555555"))
+      end
+    end
+
+    context "when unpublished" do
+      let(:status) { :unpublished }
+      it "deletes the object metadata using resource_uri id as identifier" do
+        expect { consumer.process_resource(resource_uri, resource_id, status) }
+          .to change { spy_importer.deleted&.first }
+          .to include(id: "555555")
+      end
+    end
+  end
+
+  describe "#process_identifier" do
+    context "when an ark is provided in payload" do
+      let(:payload) do
+        {"resourceUrl" => "http://superskunk/resources/555555",
+         "ark" => "ark:/99999/fk4tq65d6k"}
+      end
+      it "uses a formatted ark as the identifier" do
+        expect(consumer.process_identifier(payload)).to eq("99999-fk4tq65d6k")
+      end
+    end
+    context "when an ark is not provided in payload" do
+      let(:payload) do
+        {"resourceUrl" => "http://superskunk/resources/555555"}
+      end
+      it "uses the resource_uri id as the identifier" do
+        expect(consumer.process_identifier(payload)).to eq("555555")
       end
     end
   end
