@@ -83,7 +83,7 @@ cols_to_keep = [
 
 # To always put the columns in an expected order.  And how we want them.
 order_columns = [
-                'source_identifier','model','remote_files','use:PreservationFile','use:ServiceFile','format_geo',
+                'source_identifier','model','use:PreservationFile','use:ServiceFile','format_geo',
                 'visibility','title','title_alternative_geo','date_index_geo','creator_geo','description_geo',
                 'description','language_geo','publisher_geo','subject_topic_geo','subject_keyword_geo','collectionTitle',
                 'subject_spatial_geo','rights_note_geo','license_geo','rights_holder_geo','resource_class_geo',
@@ -152,10 +152,9 @@ df = (pl.read_csv(input_csv, columns=cols_to_keep)
           [
             (pl.lit('')).alias('source_identifier'),
             (pl.lit('GeospatialObject')).alias('model'),
-            (pl.lit('')).alias('remote_files'),
             (pl.lit('')).alias('resource_type_geo'),
-            ((pl.col('use:PreservationFile').str.split('.').list.first() + '-a.zip').prefix('the_url_')),
-            (pl.col('use:PreservationFile').str.split('.').list.first() + '-d.zip').alias('use:ServiceFile'),
+            ('geodata/' + pl.col('use:PreservationFile').str.split('.').list.first() + '-d.zip').alias('use:ServiceFile'),
+            ('geodata/' + pl.col('use:PreservationFile').str.split('.').list.first() + '-a.zip').alias('use:PreservationFile'),
             (pl.lit('open')).alias('visibility'),
             (pl.lit('Datasets')).alias('resource_class_geo'),
           ]
@@ -167,10 +166,10 @@ if not set(bound_box).issubset([x.lower() for x in df.columns]):
     print('Adding bounding box columns...')
     df = df.with_columns(
             [
-                pl.lit('').alias('bounding_box_west'),
-                pl.lit('').alias('bounding_box_east'),
-                pl.lit('').alias('bounding_box_north'),
-                pl.lit('').alias('bounding_box_south'),
+                pl.lit('').alias('bounding_box_west_geo'),
+                pl.lit('').alias('bounding_box_east_geo'),
+                pl.lit('').alias('bounding_box_north_geo'),
+                pl.lit('').alias('bounding_box_south_geo'), # add _geo to bounding boxes AW
             ]
         )
 
