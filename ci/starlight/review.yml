@@ -50,6 +50,7 @@ starlight:cleanup:ucsd-review:
   script:
     - delete
     - delete_stateful_set_pvcs
+    - delete_test "test-sample-data"
 
 starlight:deploy:ucsb-review:
   extends:
@@ -86,3 +87,4 @@ starlight:cleanup:ucsb-review:
   script:
     - delete
     - delete_stateful_set_pvcs
+    - delete_test "test-sample-data"

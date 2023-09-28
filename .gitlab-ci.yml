@@ -178,6 +178,12 @@ include:
     kubectl delete pvc -l "app.kubernetes.io/instance=$HELM_RELEASE_NAME" --namespace="$KUBE_NAMESPACE"
   }
 
+  function delete_test() {
+    test_name="${1}"
+
+    kubectl delete -n "$KUBE_NAMESPACE" "pod/${HELM_RELEASE_NAME}-${test_name}" || echo "${HELM_RELEASE_NAME}-${test_name} does not exist, assuming it was successful"
+  }
+
   delete_rabbitmq_queue() {
     echo "Deleting rabbitmq queue: $RABBITMQ_RELEASE_NAME..."
     kubectl --kubeconfig $KUBECONFIG delete rabbitmqclusters.rabbitmq.com $RABBITMQ_RELEASE_NAME -n $KUBE_NAMESPACE
