@@ -83,7 +83,7 @@ cols_to_keep = [
 
 # To always put the columns in an expected order.  And how we want them.
 order_columns = [
-                'source_identifier','model','use:PreservationFile','use:ServiceFile','format_geo',
+                'source_identifier','model', 'parents', 'use:PreservationFile','use:ServiceFile','format_geo',
                 'visibility','title','title_alternative_geo','date_index_geo','creator_geo','description_geo',
                 'description','language_geo','publisher_geo','subject_topic_geo','subject_keyword_geo','collectionTitle',
                 'subject_spatial_geo','rights_note_geo','license_geo','rights_holder_geo','resource_class_geo',
@@ -145,18 +145,20 @@ if all([col in headers_in_source for col in bound_box]):
 else:
     print('\nNo bounding box data in source.  Countinuing without...')
 
-
+text_to_remove = 'The following metadata was provided by the data creators:  '
 df = (pl.read_csv(input_csv, columns=cols_to_keep)
        .rename(col_rename_map)
        .with_columns(
           [
             (pl.lit('')).alias('source_identifier'),
+            (pl.lit('')).alias('parents'),
             (pl.lit('GeospatialObject')).alias('model'),
             (pl.lit('')).alias('resource_type_geo'),
             ('geodata/' + pl.col('use:PreservationFile').str.split('.').list.first() + '-d.zip').alias('use:ServiceFile'),
             ('geodata/' + pl.col('use:PreservationFile').str.split('.').list.first() + '-a.zip').alias('use:PreservationFile'),
             (pl.lit('open')).alias('visibility'),
             (pl.lit('Datasets')).alias('resource_class_geo'),
+            (pl.col('description_geo').str.strip_chars_start(text_to_remove)),
           ]
       ).select(order_columns)
 )
